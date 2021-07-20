@@ -139,7 +139,7 @@ const _abi = [
       },
     ],
     outputs: [],
-    gas: 36245,
+    gas: "36245",
   },
   {
     stateMutability: "nonpayable",
@@ -147,7 +147,7 @@ const _abi = [
     name: "acceptGovernance",
     inputs: [],
     outputs: [],
-    gas: 37517,
+    gas: "37517",
   },
   {
     stateMutability: "view",
@@ -160,7 +160,7 @@ const _abi = [
         type: "string",
       },
     ],
-    gas: 6831,
+    gas: "6831",
   },
   {
     stateMutability: "view",
@@ -178,7 +178,7 @@ const _abi = [
         type: "address",
       },
     ],
-    gas: 2587,
+    gas: "2587",
   },
   {
     stateMutability: "nonpayable",
@@ -191,7 +191,7 @@ const _abi = [
       },
     ],
     outputs: [],
-    gas: 82588,
+    gas: "82588",
   },
   {
     stateMutability: "nonpayable",
@@ -412,7 +412,7 @@ const _abi = [
       },
     ],
     outputs: [],
-    gas: 186064,
+    gas: "186064",
   },
   {
     stateMutability: "view",
@@ -425,7 +425,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    gas: 1388,
+    gas: "1388",
   },
   {
     stateMutability: "view",
@@ -443,7 +443,7 @@ const _abi = [
         type: "address",
       },
     ],
-    gas: 1533,
+    gas: "1533",
   },
   {
     stateMutability: "view",
@@ -461,7 +461,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    gas: 1663,
+    gas: "1663",
   },
   {
     stateMutability: "view",
@@ -483,7 +483,7 @@ const _abi = [
         type: "address",
       },
     ],
-    gas: 1808,
+    gas: "1808",
   },
   {
     stateMutability: "view",
@@ -501,7 +501,7 @@ const _abi = [
         type: "address",
       },
     ],
-    gas: 1623,
+    gas: "1623",
   },
   {
     stateMutability: "view",
@@ -514,7 +514,7 @@ const _abi = [
         type: "uint256",
       },
     ],
-    gas: 1538,
+    gas: "1538",
   },
   {
     stateMutability: "view",
@@ -532,7 +532,7 @@ const _abi = [
         type: "bool",
       },
     ],
-    gas: 1783,
+    gas: "1783",
   },
   {
     stateMutability: "view",
@@ -545,7 +545,7 @@ const _abi = [
         type: "address",
       },
     ],
-    gas: 1598,
+    gas: "1598",
   },
   {
     stateMutability: "view",
@@ -558,7 +558,7 @@ const _abi = [
         type: "address",
       },
     ],
-    gas: 1628,
+    gas: "1628",
   },
   {
     stateMutability: "view",
@@ -576,7 +576,7 @@ const _abi = [
         type: "string",
       },
     ],
-    gas: 10229,
+    gas: "10229",
   },
   {
     stateMutability: "view",
@@ -594,6 +594,6 @@ const _abi = [
         type: "bool",
       },
     ],
-    gas: 1903,
+    gas: "1903",
   },
 ];

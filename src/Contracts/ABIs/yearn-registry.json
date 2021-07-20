@@ -58,7 +58,7 @@
     "name": "setGovernance",
     "inputs": [{ "name": "governance", "type": "address" }],
     "outputs": [],
-    "gas": 36245
+    "gas": "36245"
   },
   {
     "stateMutability": "nonpayable",
@@ -66,7 +66,7 @@
     "name": "acceptGovernance",
     "inputs": [],
     "outputs": [],
-    "gas": 37517
+    "gas": "37517"
   },
   {
     "stateMutability": "view",
@@ -74,7 +74,7 @@
     "name": "latestRelease",
     "inputs": [],
     "outputs": [{ "name": "", "type": "string" }],
-    "gas": 6831
+    "gas": "6831"
   },
   {
     "stateMutability": "view",
@@ -82,7 +82,7 @@
     "name": "latestVault",
     "inputs": [{ "name": "token", "type": "address" }],
     "outputs": [{ "name": "", "type": "address" }],
-    "gas": 2587
+    "gas": "2587"
   },
   {
     "stateMutability": "nonpayable",
@@ -90,7 +90,7 @@
     "name": "newRelease",
     "inputs": [{ "name": "vault", "type": "address" }],
     "outputs": [],
-    "gas": 82588
+    "gas": "82588"
   },
   {
     "stateMutability": "nonpayable",
@@ -191,7 +191,7 @@
       { "name": "tag", "type": "string" }
     ],
     "outputs": [],
-    "gas": 186064
+    "gas": "186064"
   },
   {
     "stateMutability": "view",
@@ -199,7 +199,7 @@
     "name": "numReleases",
     "inputs": [],
     "outputs": [{ "name": "", "type": "uint256" }],
-    "gas": 1388
+    "gas": "1388"
   },
   {
     "stateMutability": "view",
@@ -207,7 +207,7 @@
     "name": "releases",
     "inputs": [{ "name": "arg0", "type": "uint256" }],
     "outputs": [{ "name": "", "type": "address" }],
-    "gas": 1533
+    "gas": "1533"
   },
   {
     "stateMutability": "view",
@@ -215,7 +215,7 @@
     "name": "numVaults",
     "inputs": [{ "name": "arg0", "type": "address" }],
     "outputs": [{ "name": "", "type": "uint256" }],
-    "gas": 1663
+    "gas": "1663"
   },
   {
     "stateMutability": "view",
@@ -226,7 +226,7 @@
       { "name": "arg1", "type": "uint256" }
     ],
     "outputs": [{ "name": "", "type": "address" }],
-    "gas": 1808
+    "gas": "1808"
   },
   {
     "stateMutability": "view",
@@ -234,7 +234,7 @@
     "name": "tokens",
     "inputs": [{ "name": "arg0", "type": "uint256" }],
     "outputs": [{ "name": "", "type": "address" }],
-    "gas": 1623
+    "gas": "1623"
   },
   {
     "stateMutability": "view",
@@ -242,7 +242,7 @@
     "name": "numTokens",
     "inputs": [],
     "outputs": [{ "name": "", "type": "uint256" }],
-    "gas": 1538
+    "gas": "1538"
   },
   {
     "stateMutability": "view",
@@ -250,7 +250,7 @@
     "name": "isRegistered",
     "inputs": [{ "name": "arg0", "type": "address" }],
     "outputs": [{ "name": "", "type": "bool" }],
-    "gas": 1783
+    "gas": "1783"
   },
   {
     "stateMutability": "view",
@@ -258,7 +258,7 @@
     "name": "governance",
     "inputs": [],
     "outputs": [{ "name": "", "type": "address" }],
-    "gas": 1598
+    "gas": "1598"
   },
   {
     "stateMutability": "view",
@@ -266,7 +266,7 @@
     "name": "pendingGovernance",
     "inputs": [],
     "outputs": [{ "name": "", "type": "address" }],
-    "gas": 1628
+    "gas": "1628"
   },
   {
     "stateMutability": "view",
@@ -274,7 +274,7 @@
     "name": "tags",
     "inputs": [{ "name": "arg0", "type": "address" }],
     "outputs": [{ "name": "", "type": "string" }],
-    "gas": 10229
+    "gas": "10229"
   },
   {
     "stateMutability": "view",
@@ -282,6 +282,6 @@
     "name": "banksy",
     "inputs": [{ "name": "arg0", "type": "address" }],
     "outputs": [{ "name": "", "type": "bool" }],
-    "gas": 1903
+    "gas": "1903"
   }
 ]
