@@ -5,21 +5,8 @@
     "engines": {
         "node": ">= 14.16 <15"
     },
-    "devDependencies": {
-        "@types/jest": "~26.0.23",
-        "@types/node": "~14.14.45",
-        "@typescript-eslint/eslint-plugin": "~4.28.2",
-        "@typescript-eslint/parser": "~4.28.2",
-        "eslint": "~7.30.0",
-        "eslint-config-prettier": "~8.3.0",
-        "eslint-plugin-jest": "~24.3.6",
-        "jest": "~27.0.6",
-        "prettier": "~2.3.2",
-        "rimraf": "~3.0.2",
-        "ts-jest": "~27.0.3",
-        "tsutils": "~3.21.0",
-        "typescript": "~4.3.5"
-    },
+    "author": "Bwar",
+    "license": "Apache-2.0",
     "scripts": {
         "start": "node build/src/main.js",
         "clean": "rimraf coverage build tmp",
@@ -28,13 +15,33 @@
         "build:watch": "tsc -w -p tsconfig.release.json",
         "lint": "eslint . --ext .ts,.tsx",
         "test": "jest --coverage",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "typechain": "typechain --target ethers-v5 --outDir ./src/Contracts/ContractsImpl ./src/Contracts/ABIs/**/*.json"
     },
-    "author": "Bwar",
-    "license": "Apache-2.0",
+    "devDependencies": {
+        "@typechain/ethers-v5": "^6.0.0",
+        "@types/jest": "~26.0.23",
+        "@types/node": "~14.14.45",
+        "@typescript-eslint/eslint-plugin": "^4.1.1",
+        "@typescript-eslint/parser": "^4.1.1",
+        "eslint": "^7.9.0",
+        "eslint-config-prettier": "~8.3.0",
+        "eslint-plugin-jest": "~24.3.6",
+        "jest": "~27.0.6",
+        "prettier": "~2.3.2",
+        "rimraf": "~3.0.2",
+        "ts-jest": "~27.0.3",
+        "tsutils": "~3.21.0",
+        "typechain": "^4.0.0",
+        "typescript": "^4.0.3"
+    },
     "dependencies": {
+        "@ethersproject/abstract-provider": "^5.0.4",
+        "@ethersproject/providers": "^5.1.0",
         "@types/coingecko-api": "^1.0.0",
         "@types/node-fetch": "^2.5.11",
+        "ethers": "^5.0.14",
+        "ethers-multicall": "^0.2.1",
         "coingecko-api": "^1.0.10",
         "node-fetch": "^2.6.1",
         "tslib": "~2.3.0",
