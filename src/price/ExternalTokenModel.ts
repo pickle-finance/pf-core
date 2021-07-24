@@ -77,7 +77,7 @@ export class ExternalTokenModel {
         // Make the reverse map to fascilitate contract lookups
         const allTokenList : ExternalToken[] = Array.from(this.polyTokens.values()).concat(Array.from(this.etherTokens.values()));
         for( const oneToken of allTokenList ) {
-            this.contractToToken.set(oneToken.contractAddr,oneToken);
+            this.contractToToken.set(oneToken.contractAddr.toLowerCase(),oneToken);
         }
     }
     
@@ -103,7 +103,7 @@ export class ExternalTokenModel {
         return matched.length === 0 ? undefined : matched;
     }
     findTokenFromContract(id: string) : ExternalToken | undefined {
-        return this.contractToToken.get(id);
+        return this.contractToToken.get(id.toLowerCase());
     }
 
     getToken(id: string, chain: Chain) : ExternalToken {

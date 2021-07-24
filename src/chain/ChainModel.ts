@@ -2,7 +2,7 @@ import Web3 from "web3";
 
 export enum Chain {
     Ethereum = 1,
-    Polygon,
+    Polygon = 137,
     //Binance
 }
 
