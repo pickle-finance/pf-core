@@ -43,12 +43,29 @@ export interface FarmDetails {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface StandaloneFarmDefinition extends AssetDefinition {}
+export interface StandaloneFarmDefinition extends AssetDefinition {
+    farmNickname: string
+}
 
 
 /**
  * Now the actual implementations
  */
+export const standaloneFarms: StandaloneFarmDefinition[] = []
+export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
+    id: 'Sushi Pickle/Eth',
+    farmNickname: 'SushiSwap MasterChefv2',
+    contract: 'idk fuck', // wtf?!
+    depositToken: '0x269db91fc3c7fcc275c2e6f22e5552504512811c',
+    depositTokenName: 'PICKLE/ETH SLP',
+    depositTokenLink: 'https://app.sushi.com/swap#/swap?inputCurrency=0x429881672b9ae42b8eba0e26cd9c73711b891ca5&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc',
+    enablement: AssetEnablement.ENABLED,
+    chain: Chain.Ethereum,
+    protocol: 'sushiswap',
+
+}
+standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
+
  export const jars : JarDefinition[] = []
  export const JAR_sCRV: JarDefinition =
  {
