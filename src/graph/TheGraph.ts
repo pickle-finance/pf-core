@@ -1,14 +1,9 @@
 import fetch from 'node-fetch';
+import { PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON } from '../model/PickleModel';
 
 // TODO: Larry re-did the graph stuff to be more decentralized. 
 // Might be some work
 
-// TODO move these out i guess?
-export const PROTOCOL_TYPE_UNISWAP = "uniswap";
-export const PROTOCOL_TYPE_SUSHISWAP = "sushiswap";
-export const PROTOCOL_TYPE_SUSHISWAP_POLYGON = "sushiswap_polygon";
-export const PROTOCOL_TYPE_COMETHSWAP = "comethswap";
-export const PROTOCOL_TYPE_QUICKSWAP_POLYGON = "quickswap_polygon";
 
 /*
 const SUBGRAPH_URL_PICKLE: string = "https://api.thegraph.com/subgraphs/name/pickle-finance/pickle"

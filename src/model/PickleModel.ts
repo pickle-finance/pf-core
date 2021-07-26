@@ -1,5 +1,18 @@
 import { Chain } from "../chain/ChainModel";
 
+// TODO move these out i guess?
+export const PROTOCOL_TYPE_UNISWAP = "uniswap";
+export const PROTOCOL_TYPE_SUSHISWAP = "sushiswap";
+export const PROTOCOL_TYPE_SUSHISWAP_POLYGON = "sushiswap_polygon";
+export const PROTOCOL_TYPE_COMETHSWAP = "comethswap";
+export const PROTOCOL_TYPE_QUICKSWAP_POLYGON = "quickswap_polygon";
+export const PROTOCOL_TYPE_AAVE_POLYGON = "aave_polygon";
+export const PROTOCOL_TYPE_YEARN = "yearn";
+export const PROTOCOL_TYPE_SADDLE = "saddle";
+export const PROTOCOL_TYPE_CURVE = "curve";
+export const PROTOCOL_TYPE_TOKENPRICE = "tokenprice"
+
+
 export enum AssetEnablement {
     DISABLED = 1,
     ENABLED,
@@ -55,7 +68,7 @@ export const standaloneFarms: StandaloneFarmDefinition[] = []
 export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
     id: 'Sushi Pickle/Eth',
     farmNickname: 'SushiSwap MasterChefv2',
-    contract: 'idk fuck', // wtf?!
+    contract: '0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d', // sushi masterchef v2
     depositToken: '0x269db91fc3c7fcc275c2e6f22e5552504512811c',
     depositTokenName: 'PICKLE/ETH SLP',
     depositTokenLink: 'https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH',
@@ -74,9 +87,9 @@ export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
     depositTokenLink: 'https://app.uniswap.org/#/add/v2/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH',
     enablement: AssetEnablement.ENABLED,
     chain: Chain.Ethereum,
-    protocol: 'sushiswap',
+    protocol: 'uniswap',
 }
-standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
+standaloneFarms.push(FARM_UNI_PICKLE_ETH);
 
  export const jars : JarDefinition[] = []
  export const JAR_sCRV: JarDefinition =
@@ -306,13 +319,13 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
  
  export const JAR_ALETH: JarDefinition =
  {
-   id: 'pJar 0.98s (inactive)',
+   id: 'pJar 0.98s',
    contract: '0xCbA1FE4Fdbd90531EFD929F1A1831F38e91cff1e',
    depositToken: '0xc9da65931ABf0Ed1b74Ce5ad8c041C4220940368',
    depositTokenName: 'SADDLE-ETH-alETH',
-   depositTokenLink: undefined,
-   enablement: AssetEnablement.DISABLED,
-   chain: Chain.Polygon,
+   depositTokenLink: 'https://saddle.exchange/#/pools/aleth/deposit',
+   enablement: AssetEnablement.ENABLED,
+   chain: Chain.Ethereum,
    protocol: 'saddle',
    jarDetails: {
      apiKey: 'ALETH',
@@ -338,7 +351,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    depositTokenLink: 'https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
-   protocol: 'uniswap',
+   protocol: 'tokenprice',
    jarDetails: {
      apiKey: 'LQTY',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -943,7 +956,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    depositTokenLink: 'https://app.sushi.com/add/0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
-   protocol: 'uniswap',
+   protocol: 'sushiswap',
    jarDetails: {
      apiKey: 'CVX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1026,7 +1039,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
      strategyAddr: '0x516438F14801131D51D534790e95CF5888261B2B'
    },
    farmDetails: {
-     farmAddress: undefined,
+     farmAddress: '0xCAbdCB680fC0E477bbB0aC77b2a278cA54D0E6Ff',
      farmNickname: 'Pickled Yearn FRAX',
      farmDepositTokenName: 'pYearnFraxCRV'
    }
@@ -1218,7 +1231,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    depositTokenLink: 'https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Polygon,
-   protocol: undefined,
+   protocol: 'quickswap_polygon',
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1259,4 +1272,4 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
  jars.push(JAR_QUICK_MIMATIC_USDC);
  
 
- 
+export const allAssets : AssetDefinition[] = [].concat(standaloneFarms).concat(jars);

@@ -52,7 +52,7 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
     }
 
     protected findAliases(needles: string[]) : NeedleAliases[] {
-        let ret : NeedleAliases[] = [];
+        const ret : NeedleAliases[] = [];
         for( let i = 0; i < needles.length; i++ ) {
             const oneStruct = this.getAliases(needles[i]);
             if( oneStruct !== undefined )

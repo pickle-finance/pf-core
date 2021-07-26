@@ -1,10 +1,19 @@
-import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, readQueryFromGraph, protocolToSubgraphUrl } from "../graph/TheGraph";
+import { readQueryFromGraph, protocolToSubgraphUrl} from "../graph/TheGraph";
+import { AssetDefinition, JAR_ALETH, JAR_AM3CRV, JAR_fraxCRV, JAR_lusdCRV, JAR_SADDLE_D4, JAR_steCRV, JAR_USDC,
+    PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, 
+    PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_TOKENPRICE, 
+    PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE  } from "../model/PickleModel";
 import { CoinGeckpPriceResolver } from "./CoinGeckoPriceResolver";
 import { ExternalTokenModelSingleton } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
-import { PriceCache, PRICE_CACHE_SINGLETON } from "./PriceCache";
+import { PriceCache } from "./PriceCache";
 
 export class SwapTokenPriceResolver implements IPriceResolver {
+    myAssets : AssetDefinition[];
+    constructor(assets: AssetDefinition[]) {
+        this.myAssets = assets;
+    }
+
     getFromCache(ids: string[], cache: PriceCache): Map<string, number> {
         const fromCache = cache.getCache();
         for( let i = 0; i < ids.length; i++ ) {
@@ -20,27 +29,36 @@ export class SwapTokenPriceResolver implements IPriceResolver {
         for( let i = 0; i < ids.length; i++ ) {
             if( fromCache.get(ids[i]) !== undefined ) {
                 ret.set(ids[i], fromCache.get(ids[i]));
-            } else if( ret.get(ids[i]) !== undefined ) { 
+            } else if( ret.get(ids[i]) === undefined ) { 
                 // TODO make this more efficient? Maybe group all together if possible?
                 // Sushi might require many token lookups. 
                 const protocol : string = this.getProtocolFromDepositToken(ids[i]);
                 if( protocol === undefined ) {
                     return null;
                 }
-                ret.set(ids[i], await this.getTokenPriceFromGraph(protocol, ids[i]));
+                ret.set(ids[i], await this.getTokenPriceFromGraph(protocol, ids[i], cache));
             }
         }
         return ret;
     }
 
     getProtocolFromDepositToken(token: string) : string {
-        return token ? undefined : undefined; // TODO for when we have a jar model
+        const matching : Set<string> = new Set<string>();
+        for( let i = 0; i < this.myAssets.length; i++) {
+            if( this.myAssets[i].depositToken.toLowerCase() === token.toLowerCase()) {
+                matching.add(this.myAssets[i].protocol);
+            }
+        }
+        if( matching.size === 1 ) {
+            return matching.values().next().value;
+        }
+        return undefined;
     }
 
 
-    async getTokenPriceFromGraph(protocol: string, token: string, block?: number): Promise<number> {
+    async getTokenPriceFromGraph(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
         if (protocol === PROTOCOL_TYPE_SUSHISWAP) {
-            return await this.getPriceFromSushiPair(await this.getSushiSwapPair(protocol, token.toLowerCase(), block));
+            return await this.getPriceFromSushiPair(await this.getSushiSwapPair(protocol, token.toLowerCase(), block), cache);
         } else if (protocol === PROTOCOL_TYPE_UNISWAP) {
             return this.getPriceFromStandardPair(await this.getUniswapPair(protocol, token.toLowerCase(), block));
         } else if (protocol === PROTOCOL_TYPE_SUSHISWAP_POLYGON) {
@@ -49,14 +67,37 @@ export class SwapTokenPriceResolver implements IPriceResolver {
             return this.getPriceFromStandardPair(await this.getComethPair(protocol, token.toLowerCase(), block));
         } else if (protocol === PROTOCOL_TYPE_QUICKSWAP_POLYGON) {
             return this.getPriceFromStandardPair(await this.getQuickswapPair(protocol, token.toLowerCase(), block));
+        } else if( protocol === PROTOCOL_TYPE_YEARN ) {
+            if( token === JAR_USDC.depositToken) {
+                return this.getContractPrice(token, cache)
+            } else if( token === JAR_lusdCRV.depositToken || token === JAR_fraxCRV.depositToken ) {
+                return 1;
+            }
+        } else if( protocol === PROTOCOL_TYPE_SADDLE ) {
+            if( token === JAR_SADDLE_D4.depositToken) {
+                return 1;
+            } else if( token === JAR_ALETH.depositToken ) {
+                return this.getContractPrice("eth", cache);
+            }
+        } else if( protocol === PROTOCOL_TYPE_CURVE ) {
+            if( token === JAR_steCRV.depositToken) {
+                return this.getContractPrice("eth", cache);
+            } else if( token === JAR_AM3CRV.depositToken) {
+                return 1;
+            }
+            return this.getContractPrice(token, cache);
+        } else if( protocol === "aave_polygon" ) {
+            return 1;
+        } else if( protocol === PROTOCOL_TYPE_TOKENPRICE ) {
+            return this.getContractPrice(token, cache);
         }
         return undefined;
     }
 
-    async getPriceFromSushiPair(pair: any): Promise<number> {
+    async getPriceFromSushiPair(pair: any, cache: PriceCache): Promise<number> {
         const innerPair = pair.data.pair;
-        let token0Price = await this.getContractPrice(innerPair.token0.id);
-        let token1Price = await this.getContractPrice(innerPair.token1.id);
+        let token0Price = await this.getContractPrice(innerPair.token0.id, cache);
+        let token1Price = await this.getContractPrice(innerPair.token1.id, cache);
 
         if (token0Price === 0 && token1Price === 0) {
             return undefined;
@@ -76,6 +117,9 @@ export class SwapTokenPriceResolver implements IPriceResolver {
     }
 
     protected getPriceFromStandardPair(pair: any): number {
+        if( pair.data.pair === undefined || pair.data.pair === null) {
+            return undefined;
+        }
         const reserveUSD = pair.data.pair.reserveUSD;
         const liquidityPrice = 1 / pair.data.pair.totalSupply;
         return reserveUSD * liquidityPrice;
@@ -150,10 +194,10 @@ export class SwapTokenPriceResolver implements IPriceResolver {
         return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
     };
 
-    protected async getContractPrice(id: string): Promise<number> {
+    protected async getContractPrice(id: string, cache: PriceCache): Promise<number> {
         try {
             const resolver: CoinGeckpPriceResolver = new CoinGeckpPriceResolver(ExternalTokenModelSingleton);
-            return (await PRICE_CACHE_SINGLETON.getPrices([id], resolver)).get(id);
+            return (await cache.getPrices([id], resolver)).get(id);
         } catch (e) {
             return undefined;
         }
