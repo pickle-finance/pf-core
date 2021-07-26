@@ -56,7 +56,7 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
         for( let i = 0; i < needles.length; i++ ) {
             const oneStruct = this.getAliases(needles[i]);
             if( oneStruct !== undefined )
-                ret = ret.concat(oneStruct);
+                ret.push(oneStruct);
         }
         return ret;
     }

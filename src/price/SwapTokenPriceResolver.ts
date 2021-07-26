@@ -20,7 +20,7 @@ export class SwapTokenPriceResolver implements IPriceResolver {
         for( let i = 0; i < ids.length; i++ ) {
             if( fromCache.get(ids[i]) !== undefined ) {
                 ret.set(ids[i], fromCache.get(ids[i]));
-            } else {
+            } else if( ret.get(ids[i]) !== undefined ) { 
                 // TODO make this more efficient? Maybe group all together if possible?
                 // Sushi might require many token lookups. 
                 const protocol : string = this.getProtocolFromDepositToken(ids[i]);

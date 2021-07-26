@@ -58,11 +58,23 @@ export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
     contract: 'idk fuck', // wtf?!
     depositToken: '0x269db91fc3c7fcc275c2e6f22e5552504512811c',
     depositTokenName: 'PICKLE/ETH SLP',
-    depositTokenLink: 'https://app.sushi.com/swap#/swap?inputCurrency=0x429881672b9ae42b8eba0e26cd9c73711b891ca5&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc',
+    depositTokenLink: 'https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH',
     enablement: AssetEnablement.ENABLED,
     chain: Chain.Ethereum,
     protocol: 'sushiswap',
+}
+standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
 
+export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
+    id: 'Uniswap Pickle/Eth',
+    farmNickname: 'Pickle Power',
+    contract: '0xfAA267C3Bb25a82CFDB604136a29895D30fd3fd8',
+    depositToken: '0xdc98556ce24f007a5ef6dc1ce96322d65832a819',
+    depositTokenName: 'UNI PICKLE/ETH',
+    depositTokenLink: 'https://app.uniswap.org/#/add/v2/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH',
+    enablement: AssetEnablement.ENABLED,
+    chain: Chain.Ethereum,
+    protocol: 'sushiswap',
 }
 standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
 
@@ -348,7 +360,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0x55282dA27a3a02ffe599f6D11314D239dAC89135',
    depositToken: '0xC3D03e4F041Fd4cD388c549Ee2A29a9E5075882f',
    depositTokenName: 'SLP DAI/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0x6b175474e89094c44da98b954eedeac495271d0f/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0x6b175474e89094c44da98b954eedeac495271d0f/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -373,7 +385,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0x8c2D16B7F6D3F989eb4878EcF13D695A7d504E43',
    depositToken: '0x397FF1542f962076d0BFE58eA045FfA2d347ACa0',
    depositTokenName: 'SLP USDC/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -398,7 +410,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0xa7a37aE5Cb163a3147DE83F15e15D8E5f94D6bCE',
    depositToken: '0x06da0fd433C1A5d7a4faa01111c044910A184553',
    depositTokenName: 'SLP USDT/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/ETH/0xdac17f958d2ee523a2206206994597c13d831ec7',
+   depositTokenLink: 'https://app.sushi.com/add/ETH/0xdac17f958d2ee523a2206206994597c13d831ec7',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -423,7 +435,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0xde74b6c547bd574c3527316a2eE30cd8F6041525',
    depositToken: '0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58',
    depositTokenName: 'SLP WBTC/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -448,7 +460,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0x3261D9408604CC8607b687980D40135aFA26FfED',
    depositToken: '0x088ee5007C98a9677165D78dD2109AE4a3D04d0C',
    depositTokenName: 'SLP YFI/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -551,7 +563,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0x5Eff6d166D66BacBC1BF52E2C54dD391AE6b1f48',
    depositToken: '0x10B47177E92Ef9D5C6059055d92DdF6290848991',
    depositTokenName: 'SLP YVECRV/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0xc5bddf9843308380375a611c18b50fb9341f502a/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0xc5bddf9843308380375a611c18b50fb9341f502a/ETH',
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -751,7 +763,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0xECb520217DccC712448338B0BB9b08Ce75AD61AE',
    depositToken: '0x795065dCc9f64b5614C407a6EFDC400DA6221FB0',
    depositTokenName: 'SLP SUSHI/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0x6b3595068778dd592e39a122f4f5a5cf09c90fe2/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0x6b3595068778dd592e39a122f4f5a5cf09c90fe2/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -903,7 +915,7 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
    contract: '0xCeD67a187b923F0E5ebcc77C7f2F7da20099e378',
    depositToken: '0x9461173740D27311b176476FA27e94C681b1Ea6b',
    depositTokenName: 'SLP YVBOOST/ETH',
-   depositTokenLink: 'https://exchange.sushiswapclassic.org/#/add/0x9d409a0A012CFbA9B15F6D4B36Ac57A46966Ab9a/ETH',
+   depositTokenLink: 'https://app.sushi.com/add/0x9d409a0A012CFbA9B15F6D4B36Ac57A46966Ab9a/ETH',
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
@@ -1246,4 +1258,5 @@ standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
  }
  jars.push(JAR_QUICK_MIMATIC_USDC);
  
+
  
