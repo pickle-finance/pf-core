@@ -5,9 +5,9 @@ import erc20Abi from '../Contracts/ABIs/erc20.json';
 import { formatEther } from "ethers/lib/utils";
 
 export class CompoundDaiHarvestResolver extends AbstractJarHarvestResolver {
-  async getJarHarvestStats(_jar: Contract, _depositToken: string, strategy: 
-    Contract, balance: ethers.BigNumber, available: ethers.BigNumber, pricesUSD: 
-    PriceCache): Promise<JarHarvestStats|ActiveJarHarvestStats> {
+  async getJarHarvestStats(_jar: Contract, _depositToken: string, 
+    strategy: Contract, balance: ethers.BigNumber, available: ethers.BigNumber, 
+    pricesUSD: PriceCache): Promise<JarHarvestStats|ActiveJarHarvestStats> {
     const underlyingUSDPerToken = 1;
 
     const balanceUSD =

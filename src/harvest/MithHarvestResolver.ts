@@ -12,7 +12,7 @@ export class MithHarvestResolver extends AbstractJarHarvestResolver {
   // Uniswap
   const uniPair = depositToken;
   // Calculate value in terms of ETH
-  const UniPair = new ethers.Contract(uniPair, uniswapV2PairAbi);
+  const UniPair = new ethers.Contract(uniPair, uniswapV2PairAbi, strategy.provider);
   const [totalUNI, token0, token1] = await Promise.all([
     UniPair.totalSupply(),
     UniPair.token0(),
@@ -20,11 +20,11 @@ export class MithHarvestResolver extends AbstractJarHarvestResolver {
   ]);
 
   // Its always a pair of DAI <> OtherToken
-  const Usdt = new ethers.Contract(this.getTokenContract("usdt"), uniswapV2PairAbi);
+  const Usdt = new ethers.Contract(this.getTokenContract("usdt"), uniswapV2PairAbi, strategy.provider);
 
   const otherToken =
     token0.toLowerCase() === this.getTokenContract("weth").toLowerCase() ? token1 : token0;
-  const OtherToken = new ethers.Contract(otherToken, uniswapV2PairAbi);
+  const OtherToken = new ethers.Contract(otherToken, uniswapV2PairAbi, strategy.provider);
 
   const [
     usdtInPool,
@@ -68,7 +68,7 @@ export class MithHarvestResolver extends AbstractJarHarvestResolver {
   );
   const earnableUSD = otherTokenAvai * otherTokenPrice + usdtAvai;
 
-  const StakingRewards = new ethers.Contract(rewards, stakingRewardsAbi );
+  const StakingRewards = new ethers.Contract(rewards, stakingRewardsAbi, strategy.provider );
 
   // In MIS
   const harvestable = await StakingRewards.earned(strategy.address);

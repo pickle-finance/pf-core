@@ -11,7 +11,7 @@ export class AlchemixHarvestResolver extends AbstractJarHarvestResolver {
             // Uniswap
   const uniPair = depositToken;
   // Calculate value in terms of ETH
-  const UniPair = new ethers.Contract(uniPair, uniswapV2PairAbi);
+  const UniPair = new ethers.Contract(uniPair, uniswapV2PairAbi, strategy.provider);
   const [totalUNI, token0, token1] = await Promise.all([
     UniPair.totalSupply(),
     UniPair.token0(),
@@ -19,13 +19,13 @@ export class AlchemixHarvestResolver extends AbstractJarHarvestResolver {
   ]);
 
   // Its always a pair of ETH <> OtherToken
-  const WEth = new ethers.Contract(this.getTokenContract("weth"), uniswapV2PairAbi);
+  const WEth = new ethers.Contract(this.getTokenContract("weth"), uniswapV2PairAbi, strategy.provider);
 
   const otherToken =
     token0.toLowerCase() === this.getTokenContract("weth").toLowerCase() ? token1 : token0;
-  const OtherToken = new ethers.Contract(otherToken, uniswapV2PairAbi);
-  const SushiToken = new ethers.Contract(this.getTokenContract("sushi"), uniswapV2PairAbi);
-  const AlcxToken = new ethers.Contract(this.getTokenContract("alcx"), uniswapV2PairAbi);
+  const OtherToken = new ethers.Contract(otherToken, uniswapV2PairAbi, strategy.provider);
+  const SushiToken = new ethers.Contract(this.getTokenContract("sushi"), uniswapV2PairAbi, strategy.provider);
+  const AlcxToken = new ethers.Contract(this.getTokenContract("alcx"), uniswapV2PairAbi, strategy.provider);
 
   const [
     wethInPool,

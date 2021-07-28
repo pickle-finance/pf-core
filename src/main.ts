@@ -1,3 +1,4 @@
+import { getDefaultProvider } from "@ethersproject/providers";
 import { Chain } from "./chain/ChainModel";
 import { JarHarvestData } from "./harvest/JarHarvestResolver";
 import { SaddleD4HarvestResolver } from "./harvest/SaddleD4HarvestResolver";
@@ -12,7 +13,7 @@ async function doStuff() {
   const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
   await prices.getPrices(arr, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
   console.log("Got Prices");
-  const result : JarHarvestData = await d4Resolver.getJarHarvestData(JAR_SADDLE_D4, prices);
+  const result : JarHarvestData = await d4Resolver.getJarHarvestData(JAR_SADDLE_D4, prices, getDefaultProvider("homestead"));
   console.log(result);
 }
 

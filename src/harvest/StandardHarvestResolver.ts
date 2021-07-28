@@ -15,7 +15,7 @@ export class StandardHarvestResolver extends AbstractJarHarvestResolver {
   // Uniswap
   const uniPair = depositToken;
   // Calculate value in terms of ETH
-  const UniPair = new ethers.Contract(uniPair, uniswapV2PairAbi);
+  const UniPair = new ethers.Contract(uniPair, uniswapV2PairAbi, strategy.provider);
   const [totalUNI, token0, token1] = await Promise.all([
     UniPair.totalSupply(),
     UniPair.token0(),
@@ -23,10 +23,10 @@ export class StandardHarvestResolver extends AbstractJarHarvestResolver {
   ]);
 
   // Its always a pair of ETH <> OtherToken
-  const WEth = new ethers.Contract(this.getTokenContract("weth"), uniswapV2PairAbi);
+  const WEth = new ethers.Contract(this.getTokenContract("weth"), uniswapV2PairAbi, strategy.provider);
 
   const priceToken = this.getTokenPrice( pricesUSD, token0) ? token0 : token1;
-  const priceTokenContract = new ethers.Contract(priceToken, uniswapV2PairAbi);
+  const priceTokenContract = new ethers.Contract(priceToken, uniswapV2PairAbi, strategy.provider);
 
   const [
     _wethInPool,

@@ -39,7 +39,7 @@ export class CurveHarvestResolver extends AbstractJarHarvestResolver {
   
     // Get gauge
     const gauge = await strategy.gauge();
-    const Gauge = new ethers.Contract(gauge, curveFiGaugeAbi as any);
+    const Gauge = new ethers.Contract(gauge, curveFiGaugeAbi as any, strategy.provider);
   
     const harvestableRewardsCrv = await Gauge.callStatic.claimable_tokens(
       strategy.address

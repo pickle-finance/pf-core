@@ -861,7 +861,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      apiKey: 'saddled4',
      harvestStyle: HarvestStyle.PASSIVE,
      strategyName: 'StrategySaddleD4Lp',
-     strategyAddr: '0x4A974495E20A8E0f5ce1De59eB15CfffD19Bcf8d'
+     strategyAddr: '0x4f1f43b54a1d88024d26ad88914e6fcfe0024cb6'
    },
    farmDetails: {
      farmAddress: '0x08cb0a0ba8e4f143e4e6f7bed65e02b6dfb9a16c',
