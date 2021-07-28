@@ -324,7 +324,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    depositToken: '0xc9da65931ABf0Ed1b74Ce5ad8c041C4220940368',
    depositTokenName: 'SADDLE-ETH-alETH',
    depositTokenLink: 'https://saddle.exchange/#/pools/aleth/deposit',
-   enablement: AssetEnablement.ENABLED,
+   enablement: AssetEnablement.DEV,
    chain: Chain.Ethereum,
    protocol: 'saddle',
    jarDetails: {

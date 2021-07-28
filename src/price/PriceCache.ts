@@ -15,6 +15,10 @@ export class PriceCache {
     return new Map<string,number>(this.cache);
   }
 
+  get(id: string) : number  {
+    return this.cache.get(id);
+  }
+  
   /**
    * Return the requested prices, or a superset of the requested prices, or undefined 
    * if the prices you sought could not be found. 

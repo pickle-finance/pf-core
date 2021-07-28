@@ -8,7 +8,7 @@ import { ExternalTokenModelSingleton } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache } from "./PriceCache";
 
-export class SwapTokenPriceResolver implements IPriceResolver {
+export class DepositTokenPriceResolver implements IPriceResolver {
     myAssets : AssetDefinition[];
     constructor(assets: AssetDefinition[]) {
         this.myAssets = assets;

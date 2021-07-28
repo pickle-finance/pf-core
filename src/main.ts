@@ -1,17 +1,19 @@
-//import { Chain } from "./chain/ChainModel";
 import { Chain } from "./chain/ChainModel";
-import { allAssets } from "./model/PickleModel";
+import { JarHarvestData } from "./harvest/JarHarvestResolver";
+import { SaddleD4HarvestResolver } from "./harvest/SaddleD4HarvestResolver";
+import { JAR_SADDLE_D4 } from "./model/PickleModel";
+import { CoinGeckpPriceResolver } from "./price/CoinGeckoPriceResolver";
+import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "./price/ExternalTokenModel";
 import { PriceCache } from "./price/PriceCache";
-import { SwapTokenPriceResolver } from "./price/SwapTokenPriceResolver";
 
-const resolver : SwapTokenPriceResolver = new SwapTokenPriceResolver(allAssets);
-const ethAssets = allAssets.filter(asset => asset.chain === Chain.Ethereum);
-const cache : PriceCache = new PriceCache();
-for( let i = 0; i < ethAssets.length; i++ ) {
-  resolver.getOrResolve([ethAssets[i].depositToken], cache).then(res => {
-      if( res.get(ethAssets[i].depositToken) === undefined ) {
-        console.log(ethAssets[i].id + ": " + ethAssets[i].protocol);
-        console.log(res);
-        }
-  });
+async function doStuff() {
+  const d4Resolver : SaddleD4HarvestResolver = new SaddleD4HarvestResolver();
+  const prices : PriceCache = new PriceCache();
+  const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
+  await prices.getPrices(arr, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
+  console.log("Got Prices");
+  const result : JarHarvestData = await d4Resolver.getJarHarvestData(JAR_SADDLE_D4, prices);
+  console.log(result);
 }
+
+doStuff();

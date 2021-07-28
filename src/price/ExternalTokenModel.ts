@@ -32,6 +32,7 @@ export class ExternalTokenModel {
     contractToToken: Map<string,ExternalToken> = new Map();
     constructor() {
         this.etherTokens.set("pickle", new ExternalToken(Chain.Ethereum, "pickle", "pickle-finance", "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5".toLowerCase()));
+        this.etherTokens.set("comp", new ExternalToken(Chain.Ethereum, "comp", "compound-governance-token", "0xc00e94cb662c3520282e6f5717214004a7f26888".toLowerCase()));
         this.etherTokens.set("dai", new ExternalToken(Chain.Ethereum, "dai", "dai", "0x6b175474e89094c44da98b954eedeac495271d0f".toLowerCase()));
         this.etherTokens.set("usdc", new ExternalToken(Chain.Ethereum, "usdc", "usd-coin", "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48".toLowerCase(), 6));
         this.etherTokens.set("usdt", new ExternalToken(Chain.Ethereum, "usdt", "tether", "0xdac17f958d2ee523a2206206994597c13d831ec7".toLowerCase()));
