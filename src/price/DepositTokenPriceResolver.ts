@@ -1,8 +1,6 @@
 import { readQueryFromGraph, protocolToSubgraphUrl} from "../graph/TheGraph";
-import { AssetDefinition, JAR_ALETH, JAR_AM3CRV, JAR_fraxCRV, JAR_lusdCRV, JAR_SADDLE_D4, JAR_steCRV, JAR_USDC,
-    PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, 
-    PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_TOKENPRICE, 
-    PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE  } from "../model/PickleModel";
+import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV } from "../model/JarsAndFarms";
+import { AssetDefinition, PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE } from "../model/PickleModelJson";
 import { CoinGeckpPriceResolver } from "./CoinGeckoPriceResolver";
 import { ExternalTokenModelSingleton } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";

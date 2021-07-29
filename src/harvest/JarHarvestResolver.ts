@@ -1,4 +1,3 @@
-import { JarDefinition, jars} from '../model/PickleModel';
 import { PriceCache } from '../price/PriceCache';
 import { ExternalTokenModelSingleton } from '../price/ExternalTokenModel';
 import { Chain } from '../chain/ChainModel';
@@ -7,6 +6,8 @@ import jarsAbi from "../Contracts/ABIs/jar.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import { DepositTokenPriceResolver } from '../price/DepositTokenPriceResolver';
 import { Provider } from '@ethersproject/providers';
+import { jars } from '../model/JarsAndFarms';
+import { JarDefinition } from '../model/PickleModelJson';
 
 export interface JarHarvestStats {
     balanceUSD: number;

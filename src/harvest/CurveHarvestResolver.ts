@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import { JAR_renCRV, JAR_steCRV, JAR_USDC } from '../model/PickleModel';
+import { JAR_renCRV, JAR_steCRV, JAR_USDC } from '../model/JarsAndFarms';
 import { PriceCache } from '../price/PriceCache';
 import {AbstractJarHarvestResolver, JarHarvestStats } from './JarHarvestResolver';
 import curveFiGaugeAbi from "../Contracts/ABIs/curve-fi-gauge.json";

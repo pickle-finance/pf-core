@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import { JAR_USDC } from '../model/PickleModel';
+import { JAR_USDC } from '../model/JarsAndFarms';
 import { PriceCache } from '../price/PriceCache';
 import {AbstractJarHarvestResolver, JarHarvestStats } from './JarHarvestResolver';
 

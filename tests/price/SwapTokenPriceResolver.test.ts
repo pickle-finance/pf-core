@@ -1,8 +1,9 @@
 import { Chain } from "../../src/chain/ChainModel";
 
-import { allAssets, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_UNISWAP } from "../../src/model/PickleModel";
 import { PriceCache } from "../../src/price/PriceCache";
 import { DepositTokenPriceResolver } from "../../src/price/DepositTokenPriceResolver";
+import { allAssets } from "../../src/model/JarsAndFarms";
+import { PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON } from "../../src/model/PickleModelJson";
 
 describe('Swap Token Price Resolver', () => {
 

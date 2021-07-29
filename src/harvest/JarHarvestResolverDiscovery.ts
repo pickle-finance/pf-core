@@ -1,4 +1,3 @@
-import { JarDefinition, JAR_LQTY, JAR_SUSHI_CVX_ETH, JAR_SUSHI_ETH_ALCX, JAR_UNIV2_LUSD_ETH, JAR_UNIV2_FEI_TRIBE, JAR_SUSHI_MIC_USDT, JAR_SUSHI_MIS_USDT, JAR_UNIV2_ETH_DAI, JAR_UNIV2_ETH_WBTC, JAR_SUSHI_ETH_DAI, JAR_SUSHI_ETH, JAR_SUSHI_ETH_USDC, JAR_SUSHI_ETH_WBTC, JAR_SUSHI_ETH_YVECRV, JAR_SUSHI_ETH_YFI, JAR_SUSHI_ETH_YVBOOST, JAR_SUSHI_ETH_USDT, JAR_UNIV2_ETH_USDT, JAR_UNIV2_ETH_USDC, JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MQQQ_UST, JAR_UNIV2_MTSLA_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_MSLV_UST, JAR_SADDLE_D4 } from "../model/PickleModel";
 import { AlchemixHarvestResolver } from "./AlchemixHarvestResolver";
 import { CurveHarvestResolver } from "./CurveHarvestResolver";
 import { CvxHarvestResolver } from "./CvxHarvestResolver";
@@ -10,6 +9,8 @@ import { StandardHarvestResolver } from "./StandardHarvestResolver";
 import { SushiHarvestResolver } from "./SushiHarvestResolver";
 import { YearnHarvestResolver } from "./YearnHarvestResolver";
 import { UniHarvestResolver } from "./UniHarvestResolver";
+import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_MQQQ_UST, JAR_UNIV2_MSLV_UST, JAR_UNIV2_MTSLA_UST, JAR_UNIV2_ETH_DAI, JAR_UNIV2_ETH_USDC, JAR_UNIV2_ETH_USDT, JAR_UNIV2_ETH_WBTC, JAR_SUSHI_ETH_DAI, JAR_SUSHI_ETH, JAR_SUSHI_ETH_USDC, JAR_SUSHI_ETH_USDT, JAR_SUSHI_ETH_WBTC, JAR_SUSHI_ETH_YVECRV, JAR_SUSHI_ETH_YFI, JAR_SUSHI_ETH_YVBOOST, JAR_SUSHI_MIC_USDT, JAR_SUSHI_MIS_USDT, JAR_UNIV2_FEI_TRIBE, JAR_UNIV2_LUSD_ETH, JAR_SUSHI_ETH_ALCX, JAR_SUSHI_CVX_ETH, JAR_LQTY, JAR_SADDLE_D4 } from "../model/JarsAndFarms";
+import { JarDefinition } from "../model/PickleModelJson";
 
 export class JarHarvestResolverDiscovery {
     findHarvestResolver(definition: JarDefinition) : JarHarvestResolver {

@@ -1,7 +1,8 @@
 import { Chain } from "../../src/chain/ChainModel";
 import { JarHarvestResolver } from "../../src/harvest/JarHarvestResolver";
 import { JarHarvestResolverDiscovery } from "../../src/harvest/JarHarvestResolverDiscovery";
-import { AssetEnablement, jars } from "../../src/model/PickleModel";
+import { jars } from "../../src/model/JarsAndFarms";
+import { AssetEnablement } from "../../src/model/PickleModelJson";
 
 describe('Discovery for jar harvest data', () => {
 
