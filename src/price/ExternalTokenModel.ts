@@ -63,7 +63,6 @@ export class ExternalTokenModel {
         this.etherTokens.set("luna", new ExternalToken(Chain.Ethereum, "luna", "terra-luna", "0x92bf969865c80eda082fd5d8b4e28da4d58e1c3a".toLowerCase()));
         this.etherTokens.set("yvboost", new ExternalToken(Chain.Ethereum, "yvboost", "yvboost", "0x9d409a0a012cfba9b15f6d4b36ac57a46966ab9a".toLowerCase()));
         this.etherTokens.set("cvx", new ExternalToken(Chain.Ethereum, "cvx", "convex-finance", "0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b".toLowerCase()));
-        this.etherTokens.set("frax", new ExternalToken(Chain.Ethereum, "frax", "frax", "0x853d955acef822db058eb8505911ed77f175b99e".toLowerCase()));
         this.etherTokens.set("fxs", new ExternalToken(Chain.Ethereum, "fxs", "frax-share", "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0".toLowerCase()));
         this.etherTokens.set("lqty", new ExternalToken(Chain.Ethereum, "lqty", "liquity", "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase()));
         this.polyTokens.set("usdc", new ExternalToken(Chain.Polygon, "usdc", "usd-coin", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 6));
