@@ -10,6 +10,7 @@ export const PROTOCOL_TYPE_AAVE_POLYGON = "aave_polygon";
 export const PROTOCOL_TYPE_YEARN = "yearn";
 export const PROTOCOL_TYPE_SADDLE = "saddle";
 export const PROTOCOL_TYPE_CURVE = "curve";
+export const PROTOCOL_TYPE_COMPOUND = "compound";
 export const PROTOCOL_TYPE_TOKENPRICE = "tokenprice"
 
 

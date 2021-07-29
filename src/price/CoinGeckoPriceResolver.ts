@@ -31,6 +31,8 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
             if( token !== undefined ) {
                 return {needle: needle, cgId: token.coingeckoId, aliases: [
                         needle, token.id, token.coingeckoId, token.contractAddr]};
+            } else {
+                return {needle: needle.toLowerCase(), cgId: needle.toLowerCase(), aliases: [needle, needle.toLowerCase()]};
             }
         } else {
             let tmp: ExternalToken[] = this.tokenModel.getTokensById(needle);
@@ -68,7 +70,7 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
 
     private getFromCache2(withAliases: NeedleAliases[], cache: PriceCache): Map<string, number> {
         // We didn't find any token definitions that we can process
-        if( withAliases === undefined )
+        if( withAliases === undefined || withAliases === null || withAliases.length === 0)
             return null;
 
         const collector = cache.getCache();
@@ -94,10 +96,8 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
     async getOrResolve(ids: string[], cache: PriceCache): Promise<Map<string, number>> {
         const withAliases: NeedleAliases[] = this.findAliases(ids);
         const fromCache : Map<string,number> = this.getFromCache2(withAliases, cache);
-        if( fromCache !== undefined )
+        if( fromCache !== undefined || fromCache === null )
             return fromCache;
-        if( fromCache === null )
-            return null;
 
         let contractNames : string[] = [];
         withAliases.map((value)=>{

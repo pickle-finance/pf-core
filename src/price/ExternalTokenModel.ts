@@ -65,6 +65,8 @@ export class ExternalTokenModel {
         this.etherTokens.set("cvx", new ExternalToken(Chain.Ethereum, "cvx", "convex-finance", "0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b".toLowerCase()));
         this.etherTokens.set("fxs", new ExternalToken(Chain.Ethereum, "fxs", "frax-share", "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0".toLowerCase()));
         this.etherTokens.set("lqty", new ExternalToken(Chain.Ethereum, "lqty", "liquity", "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase()));
+        this.etherTokens.set("3crv", new ExternalToken(Chain.Ethereum, "3crv", "lp-3pool-curve", "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490".toLowerCase()));
+
         this.polyTokens.set("usdc", new ExternalToken(Chain.Polygon, "usdc", "usd-coin", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 6));
         this.polyTokens.set("eth", new ExternalToken(Chain.Polygon, "eth", "ethereum", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase()));
         this.polyTokens.set("dai", new ExternalToken(Chain.Polygon, "dai", "dai", "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase()));

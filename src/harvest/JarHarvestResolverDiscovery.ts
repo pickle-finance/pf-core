@@ -8,12 +8,17 @@ import { MithHarvestResolver } from "./MithHarvestResolver";
 import { SaddleD4HarvestResolver } from "./SaddleD4HarvestResolver";
 import { StandardHarvestResolver } from "./StandardHarvestResolver";
 import { SushiHarvestResolver } from "./SushiHarvestResolver";
+import { YearnHarvestResolver } from "./YearnHarvestResolver";
 import { UniHarvestResolver } from "./UniHarvestResolver";
 
 export class JarHarvestResolverDiscovery {
     findHarvestResolver(definition: JarDefinition) : JarHarvestResolver {
-        if( definition.protocol === 'yearn' || definition.protocol === 'curve') {
+        if( definition.protocol === 'curve') {
             return new CurveHarvestResolver();
+        }
+
+        if( definition.protocol === 'yearn' ) {
+            return new YearnHarvestResolver();
         }
 
         if (isUniswapJar(definition.contract)) {
@@ -140,5 +145,3 @@ const isLqtyJar = (jarAddress) => {
 const isSaddleD4Jar = (jarAddress) => {
     return jarAddress.toLowerCase() === JAR_SADDLE_D4.contract.toLowerCase();
   };
-  
-export const HARVEST_DATA_DISCOVERY_SINGLETON : JarHarvestResolverDiscovery = new JarHarvestResolverDiscovery();

@@ -23,6 +23,11 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         }
         return fromCache;
     }
+    
+    async getOrResolveSingle(id: string, cache: PriceCache): Promise<number> {
+        return (await this.getOrResolve([id],cache)).get(id);
+    }
+
     async getOrResolve(ids: string[], cache: PriceCache): Promise<Map<string, number>> {
         const fromCache = cache.getCache();
         const ret : Map<string,number> = new Map<string,number>();
@@ -94,7 +99,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         return undefined;
     }
 
-    async getPriceFromSushiPair(pair: any, cache: PriceCache): Promise<number> {
+    protected async getPriceFromSushiPair(pair: any, cache: PriceCache): Promise<number> {
         const innerPair = pair.data.pair;
         let token0Price = await this.getContractPrice(innerPair.token0.id, cache);
         let token1Price = await this.getContractPrice(innerPair.token1.id, cache);

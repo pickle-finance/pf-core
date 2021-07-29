@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import { JAR_lusdCRV, JAR_renCRV, JAR_steCRV, JAR_USDC } from '../model/PickleModel';
+import { JAR_renCRV, JAR_steCRV, JAR_USDC } from '../model/PickleModel';
 import { PriceCache } from '../price/PriceCache';
 import {AbstractJarHarvestResolver, JarHarvestStats } from './JarHarvestResolver';
 import curveFiGaugeAbi from "../Contracts/ABIs/curve-fi-gauge.json";
@@ -21,21 +21,8 @@ export class CurveHarvestResolver extends AbstractJarHarvestResolver {
       jar.address.toLowerCase() ===
       JAR_USDC.contract.toLowerCase();
   
-    const balanceUSD =
-      parseFloat(ethers.utils.formatUnits(balance, isUSDCJar ? 6 : 18)) *
-      underlyingUSDPerToken;
-    const earnableUSD =
-      parseFloat(ethers.utils.formatUnits(available, isUSDCJar ? 6 : 18)) *
-      underlyingUSDPerToken;
-  
-    if (
-      jar.address.toLowerCase() === JAR_lusdCRV.contract.toLowerCase() || isUSDCJar
-    )
-      return {
-        balanceUSD,
-        earnableUSD,
-        harvestableUSD: 0
-      };
+    const balanceUSD = parseFloat(ethers.utils.formatUnits(balance, isUSDCJar ? 6 : 18)) * underlyingUSDPerToken;
+    const earnableUSD = parseFloat(ethers.utils.formatUnits(available, isUSDCJar ? 6 : 18)) * underlyingUSDPerToken;
   
     // Get gauge
     const gauge = await strategy.gauge();
