@@ -202,7 +202,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     protected async getContractPrice(id: string, cache: PriceCache): Promise<number> {
         try {
             const resolver: CoinGeckpPriceResolver = new CoinGeckpPriceResolver(ExternalTokenModelSingleton);
-            return (await cache.getPrices([id], resolver)).get(id);
+            return (await cache.getPrices([id.toLowerCase()], resolver)).get(id.toLowerCase());
         } catch (e) {
             return undefined;
         }
