@@ -4,9 +4,7 @@ import { Chain } from '../chain/ChainModel';
 import { ethers, Signer } from 'ethers';
 import jarsAbi from "../Contracts/ABIs/jar.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
-import { DepositTokenPriceResolver } from '../price/DepositTokenPriceResolver';
 import { Provider } from '@ethersproject/providers';
-import { jars } from '../model/JarsAndFarms';
 import { JarDefinition } from '../model/PickleModelJson';
 
 export interface JarHarvestStats {
@@ -35,19 +33,26 @@ export interface JarHarvestStats {
     async getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider) : Promise<JarHarvestData> {
         const strategy = new ethers.Contract(definition.jarDetails.strategyAddr, this.getStrategyAbi(), resolver);
         const jar = new ethers.Contract(definition.contract, jarsAbi, resolver);
-        console.log("Before");
-        const b = await strategy.balanceOf();
-        console.log("part2");
-        const a = await jar.available();
-        console.log("After " + a + " " + b);
         const [available, balance1 ] = await Promise.all([
             jar.available(),
-            strategy.balanceOf(),
-            new DepositTokenPriceResolver(jars).getOrResolve([definition.depositToken], priceCache) // Really? Shouldn't be necessary
+            strategy.balanceOf()
           ]);
-        const balance = balance1.add(available);
-        const stats : JarHarvestStats = await this.getJarHarvestStats(jar, definition.depositToken, strategy, balance, available, priceCache, resolver);
-        return {
+          const balance = balance1.add(available);
+          let stats : JarHarvestStats;
+          try {
+              stats = await this.getJarHarvestStats(jar, definition.depositToken, strategy, balance, available, priceCache, resolver);
+              return {
+                name: definition.id,
+                jarAddr: definition.contract,
+                strategyName: definition.jarDetails.strategyName,
+                strategyAddr: definition.jarDetails.strategyAddr,
+                stats: stats
+                };
+              } catch( e ) {
+              console.log("Error for part 6: " + definition.id + " " + e);
+          }
+          console.log("Part6");
+          return {
             name: definition.id,
             jarAddr: definition.contract,
             strategyName: definition.jarDetails.strategyName,
@@ -81,6 +86,6 @@ export interface JarHarvestStats {
         resolver: Signer | Provider): Promise<JarHarvestStats>;
   }
   export interface JarHarvestResolver {
-      getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider, rewardToken?: string) : Promise<JarHarvestData>;
+      getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider) : Promise<JarHarvestData>;
   }
 

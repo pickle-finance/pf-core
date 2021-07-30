@@ -6,7 +6,7 @@ import { AbstractJarHarvestResolver, JarHarvestStats } from "./JarHarvestResolve
 import uniswapV2PairAbi from '../Contracts/ABIs/uniswapv2-pair.json';
 
 export class AlchemixHarvestResolver extends AbstractJarHarvestResolver {
-    async getJarHarvestStats(_jar: Contract, depositToken: string, strategy: Contract, balance: BigNumber, 
+  async getJarHarvestStats(_jar: Contract, depositToken: string, strategy: Contract, balance: BigNumber, 
         available: BigNumber, pricesUSD: PriceCache): Promise<JarHarvestStats> {
             // Uniswap
   const uniPair = depositToken;

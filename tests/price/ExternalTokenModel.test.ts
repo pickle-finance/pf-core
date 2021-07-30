@@ -7,7 +7,6 @@ describe('Coingecko and external token integration', () => {
 
   test('Ether token test', async () => {
     const pm : PriceCache = new PriceCache();
-
     const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
     const ret : Map<string,number> = await pm.getPrices(arr, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
     expect(ret).toBeDefined();

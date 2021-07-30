@@ -1,4 +1,5 @@
 import { Chain } from "../chain/ChainModel";
+import { ActiveJarHarvestStats, JarHarvestStats } from "../harvest/JarHarvestResolver";
 
 // TODO move these out i guess?
 export const PROTOCOL_TYPE_UNISWAP = "uniswap";
@@ -46,8 +47,9 @@ export interface JarDefinition extends AssetDefinition {
 export interface JarDetails {
     apiKey: string,
     harvestStyle: HarvestStyle
-    strategyName: string,
-    strategyAddr: string,
+    strategyName?: string,
+    strategyAddr?: string,
+    harvestStats?: JarHarvestStats | ActiveJarHarvestStats
 }
 
 export interface FarmDetails {

@@ -38,7 +38,7 @@ export class ExternalTokenModel {
         this.etherTokens.set("usdt", new ExternalToken(Chain.Ethereum, "usdt", "tether", "0xdac17f958d2ee523a2206206994597c13d831ec7".toLowerCase()));
         this.etherTokens.set("susd", new ExternalToken(Chain.Ethereum, "susd", "nusd", "0x57ab1ec28d129707052df4df418d58a2d46d5f51".toLowerCase()));
         this.etherTokens.set("crv", new ExternalToken(Chain.Ethereum, "crv", "curve-dao-token", "0xD533a949740bb3306d119CC777fa900bA034cd52".toLowerCase()));
-        this.etherTokens.set("eth", new ExternalToken(Chain.Ethereum, "eth", "ethereum", "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2".toLowerCase()));
+        this.etherTokens.set("weth", new ExternalToken(Chain.Ethereum, "weth", "weth", "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2".toLowerCase()));
         this.etherTokens.set("wbtc", new ExternalToken(Chain.Ethereum, "wbtc", "wrapped-bitcoin", "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599".toLowerCase()));
         this.etherTokens.set("yfi", new ExternalToken(Chain.Ethereum, "yfi", "yearn-finance", "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase()));
         this.etherTokens.set("bac", new ExternalToken(Chain.Ethereum, "bac", "basis-cash", "0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a".toLowerCase()));
@@ -68,7 +68,7 @@ export class ExternalTokenModel {
         this.etherTokens.set("3crv", new ExternalToken(Chain.Ethereum, "3crv", "lp-3pool-curve", "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490".toLowerCase()));
 
         this.polyTokens.set("usdc", new ExternalToken(Chain.Polygon, "usdc", "usd-coin", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 6));
-        this.polyTokens.set("eth", new ExternalToken(Chain.Polygon, "eth", "ethereum", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase()));
+        this.polyTokens.set("weth", new ExternalToken(Chain.Polygon, "weth", "weth", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase()));
         this.polyTokens.set("dai", new ExternalToken(Chain.Polygon, "dai", "dai", "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase()));
         this.polyTokens.set("must", new ExternalToken(Chain.Polygon, "must", "must", "0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f".toLowerCase(), ExternalTokenFetchStyle.ID));
         this.polyTokens.set("pickle", new ExternalToken(Chain.Polygon, "pickle", "pickle-finance", "0x2b88ad57897a8b496595925f43048301c37615da".toLowerCase(), ExternalTokenFetchStyle.ID));

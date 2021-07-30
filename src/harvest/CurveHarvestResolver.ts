@@ -14,7 +14,7 @@ export class CurveHarvestResolver extends AbstractJarHarvestResolver {
     }
   
     if ( jar.address.toLowerCase() === JAR_steCRV.contract.toLowerCase()) {
-      underlyingUSDPerToken = this.getTokenPrice(pricesUSD, "eth");
+      underlyingUSDPerToken = this.getTokenPrice(pricesUSD, "weth");
     }
   
     const isUSDCJar =

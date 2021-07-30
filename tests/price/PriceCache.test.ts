@@ -5,11 +5,11 @@ import { PriceCache }  from '../../src/price/PriceCache';
 describe('PriceCache', () => {
   test('Call get prices for several coins, short name', async () => {
     const pm : PriceCache = new PriceCache();
-    const keys : string[] = ["wbtc", "eth"];
+    const keys : string[] = ["wbtc", "weth"];
     const ret1 : Map<string,number> = await pm.getPrices(keys, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
     expect(ret1.size).toBeGreaterThanOrEqual(2);
 
-    const keys2 : string[] = ["eth", "crv"];
+    const keys2 : string[] = ["weth", "crv"];
     const ret2 : Map<string,number> = await pm.getPrices(keys2, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
     expect(ret2.size).toBeGreaterThanOrEqual(3);
 
@@ -24,11 +24,11 @@ describe('PriceCache', () => {
 
   test('Second request, all are cached already', async () => {
     const pm : PriceCache = new PriceCache();
-    const keys : string[] = ["wbtc", "eth"];
+    const keys : string[] = ["wbtc", "weth"];
     const ret1 : Map<string,number> = await pm.getPrices(keys, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
     expect(ret1.size).toBeGreaterThanOrEqual(2);
 
-    const keys2 : string[] = ["eth"];
+    const keys2 : string[] = ["weth"];
     const ret2 : Map<string,number> = await pm.getPrices(keys2, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
     expect(ret2.size).toBeGreaterThanOrEqual(2);
   });
@@ -36,7 +36,7 @@ describe('PriceCache', () => {
   test('Return cached id data when asking for contracts', async() => {
     const pm : PriceCache = new PriceCache();
     pm.put("dai", 4.52);
-    pm.put("eth", 100);
+    pm.put("weth", 100);
     // sushi pair 0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f has the following two contracts
     const contract1 = "0x6b175474e89094c44da98b954eedeac495271d0f";
     const contract2 = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
