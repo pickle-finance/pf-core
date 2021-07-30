@@ -45,8 +45,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'sCRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyCurveSCRVv3_2',
-     strategyAddr: '0x8E1ed86C27e1861d044c27b66574d6a0249A3c1C'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -70,8 +68,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'renBTCCRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyCurveRenCRVv2',
-     strategyAddr: '0xB606602C2AC912B52437817add9362B87776a6A6'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -95,8 +91,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: '3poolCRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyCurve3CRVv2',
-     strategyAddr: '0x8f01bb820BcD0b0B7d873862c531A88822747042'
    },
    farmDetails: {
      farmAddress: '0xf5bD1A4894a6ac1D786c7820bC1f36b1535147F6',
@@ -120,8 +114,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'steCRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyCurveSteCRV',
-     strategyAddr: '0x350c4f7a669dc263ec1838fa105172e1d96e8259'
    },
    farmDetails: {
      farmAddress: '0x4731CD18fFfF2C2A43f72eAe1B598dC3c0C16912',
@@ -145,8 +137,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyUniEthDaiLp4',
-     strategyAddr: '0x0697D05738b456BCC8F06023219dA351Ae252912'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -170,8 +160,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyUniEthUsdcLpV4',
-     strategyAddr: '0xb48B92F8962F880D2F072F4e5fdfC748ceDa7727'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -195,8 +183,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyUniEthUsdtLpV4',
-     strategyAddr: '0x3577797668c6Fe415B21bf85Ba44DF34318dD80D'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -220,8 +206,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyUniEthWBtcLpV4',
-     strategyAddr: '0xD8dE542D2140eeCc49FfDf056e51aa9261f974d6'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -245,8 +229,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.ACTIVE,
-     strategyName: 'StrategyCmpdDaiV2',
-     strategyAddr: '0xCd892a97951d46615484359355e3Ed88131f829D'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -270,8 +252,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'ALETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySaddleEthAleth',
-     strategyAddr: '0x0185ee1A1101F9c43c6a33a48Faa7Edb102f1e30'
    },
    farmDetails: {
      farmAddress: '0x042650a573f3d62d91C36E08045d7d0fd9E63759',
@@ -295,8 +275,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'LQTY',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyLqty',
-     strategyAddr: '0x14c0253142cb64D673f7E194C7A97d10261bC442'
    },
    farmDetails: {
      farmAddress: '0xA7BC844a76e727Ec5250f3849148c21F4b43CeEA',
@@ -320,8 +298,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'SLP-DAI',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthDaiLp',
-     strategyAddr: '0x8E4e4cfCa2fF1DB24708dfAE8c97385CC63149e1'
    },
    farmDetails: {
      farmAddress: '0x6092c7084821057060ce2030F9CC11B22605955F',
@@ -345,8 +321,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'SLP-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthUsdcLp',
-     strategyAddr: '0xAA430e7886B60A925ac77e79e91924ce544B0690'
    },
    farmDetails: {
      farmAddress: '0x8F720715d34Ff1FDa1342963EF6372d1557dB3A7',
@@ -370,8 +344,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'SLP-USDT',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthUsdtLp',
-     strategyAddr: '0x10d2740FFb6c38f14221dF8346d07253cEf8902d'
    },
    farmDetails: {
      farmAddress: '0x421476a3c0338E929cf9B77f7D087533bc9d2a2d',
@@ -395,8 +367,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'SLP-WBTC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthWBtcLp',
-     strategyAddr: '0xceD8EEd93677bCF0100F05A38d5B0b2761b09F26'
    },
    farmDetails: {
      farmAddress: '0xD55331E7bCE14709d825557E5Bca75C73ad89bFb',
@@ -420,8 +390,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'SLP-YFI',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthYfiLp',
-     strategyAddr: '0x8785A589237A8699aFAaF5dEb407010DB0950043'
    },
    farmDetails: {
      farmAddress: '0x2E32b1c2D7086DB1620F4586E09BaC7147640838',
@@ -445,8 +413,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyBasisBacDaiLpV2',
-     strategyAddr: '0xA84B6756d53EcBC4092373D93C86b81f41e8fCaa'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -471,8 +437,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMithMicUsdtLp',
-     strategyAddr: '0x905B8FE1ED69aae663C6af45492360289dF27aF1'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -497,8 +461,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMithMisUsdtLp',
-     strategyAddr: '0xC931C4E90E07A1a9ec6f5Ee3D24dDdA29c8da369'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -523,8 +485,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'yveCRV-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthYVeCrvLp',
-     strategyAddr: '0x5807424c47ea796d4c6be03b840ccc8c8a642711'
    },
    farmDetails: {
      farmAddress: '0xd3F6732D758008E59e740B2bc2C1b5E420b752c2',
@@ -548,8 +508,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyBasisBasDaiLpV2',
-     strategyAddr: '0xDB76cDB8025B11A0e256Fc2800A82cc869A788AA'
    },
    farmDetails: {
      farmAddress: undefined,
@@ -573,8 +531,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'MIR-UST',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMirrorMirUstLp',
-     strategyAddr: '0x66006cdA4c7aa92A5ca586d799829916DcB6e595'
    },
    farmDetails: {
      farmAddress: '0x02c9420467a22ad6067ef0CB4459752F45266C07',
@@ -598,8 +554,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'MTSLA-UST',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMirrorMtslaUstLp',
-     strategyAddr: '0xF78F8F92cc2f8cD104C279D7ed99CBB5F9058514'
    },
    farmDetails: {
      farmAddress: '0xd7513F24B4D3672ADD9AF6C739Eb6EeBB85D8dD5',
@@ -623,8 +577,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'MAAPL-UST',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMirrorMaaplUstLp',
-     strategyAddr: '0x58635ce31677f99437d84E39724D2bc47eC57aA6'
    },
    farmDetails: {
      farmAddress: '0x2Df015B117343e24AEC9AC99909A4c097a2828Ab',
@@ -648,8 +600,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'MQQQ-UST',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMirrorMqqqUstLp',
-     strategyAddr: '0x0e5a5b89e2529c52d7cdea1a6db9dc7933d8d32a'
    },
    farmDetails: {
      farmAddress: '0x3D24b7693A0a5Bf13977b19C81460aEd3f60C150',
@@ -673,8 +623,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'MSLV-UST',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMirrorMslvUstLp',
-     strategyAddr: '0xCE0248D6a290a1a455646F9aFe43b145eabDA767'
    },
    farmDetails: {
      farmAddress: '0x1456846B5A7d3c7F9Ea643a4847376fB19fC1aB1',
@@ -698,8 +646,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'MBABA-UST',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyMirrorMbabaUstLp',
-     strategyAddr: '0xa28217D2242AA23bcD8211a520a96515815D201d'
    },
    farmDetails: {
      farmAddress: '0x6Ea17c249f6cFD434A01c54701A8694766b76594',
@@ -723,8 +669,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'SUSHI-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthLp',
-     strategyAddr: '0x88289469Ff2B299A2a7585e19a563C02A84172eB'
    },
    farmDetails: {
      farmAddress: '0xdaf08622Ce348fdEA09709F279B6F5673B1e0dad',
@@ -748,8 +692,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'FEI-TRIBE',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyFeiTribeLp',
-     strategyAddr: '0xCD678491CC646856Ce19AB692f9070861332E300'
    },
    farmDetails: {
      farmAddress: '0xeA5b46877E2d131405DB7e5155CC15B8e55fbD27',
@@ -774,8 +716,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyYvboostEthLp',
-     strategyAddr: '0x9e7f57f3c3b147d234d38f9071b7d53b08c7fd85'
    },
    farmDetails: {
      farmAddress: '0xeA5b46877E2d131405DB7e5155CC15B8e55fbD27',
@@ -800,8 +740,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'saddled4',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySaddleD4Lp',
-     strategyAddr: '0x4f1f43b54a1d88024d26ad88914e6fcfe0024cb6'
    },
    farmDetails: {
      farmAddress: '0x08cb0a0ba8e4f143e4e6f7bed65e02b6dfb9a16c',
@@ -825,8 +763,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'LUSD-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyLusdEthLp',
-     strategyAddr: '0x6716836647074B1a6b4A7e0566af3e6A4e9e891F'
    },
    farmDetails: {
      farmAddress: '0xbc9d68f38881a9c161da18881e21b2ac9df87b55',
@@ -850,8 +786,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'ALCX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyAlcxEthLp',
-     strategyAddr: '0x474E86F136b05c069c59f094bCa3aa46252eB86A'
    },
    farmDetails: {
      farmAddress: '0xE9bEAd1d3e3A25E8AF7a6B40e48de469a9613EDe',
@@ -875,8 +809,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'yvBOOST-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthYvBoostLp',
-     strategyAddr: '0x9e7f57f3c3b147d234d38f9071b7d53b08c7fd85'
    },
    farmDetails: {
      farmAddress: '0xDA481b277dCe305B97F4091bD66595d57CF31634',
@@ -900,8 +832,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'CVX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiCvxEthLp',
-     strategyAddr: '0xe9f71e65b13a036127f30ae8e397d7a65a51f421'
    },
    farmDetails: {
      farmAddress: '0x62e558cda4619e31af8c84cd8f345fa474afe1b9',
@@ -925,8 +855,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'USDC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyYearnUsdcV2',
-     strategyAddr: '0xEecEE2637c7328300846622c802B2a29e65f3919'
    },
    farmDetails: {
      farmAddress: '0x9e1126c51c319A1d31d928DC498c9988C094e793',
@@ -950,8 +878,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'lusdCRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyYearnCrvLusd',
-     strategyAddr: '0x699cF8fE0C1A6948527cD4737454824c6E3828f1'
    },
    farmDetails: {
      farmAddress: '0x2040c856d53d5CbB111c81D5A85ccc10829c5783',
@@ -975,8 +901,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'FRAXCRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyYearnCrvFrax',
-     strategyAddr: '0x516438F14801131D51D534790e95CF5888261B2B'
    },
    farmDetails: {
      farmAddress: '0xCAbdCB680fC0E477bbB0aC77b2a278cA54D0E6Ff',
@@ -1000,8 +924,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'COMETH-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyComethUSDC',
-     strategyAddr: '0x51cF19A126E642948B5c5747471fd722B2EdCa25'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1025,8 +947,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'COMETH-PICKLE',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyComethPickleMust',
-     strategyAddr: '0x4a19C49Ee3233A2AE103487f3699D70573EC2371'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1050,8 +970,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'COMETH-MATIC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyComethMaticMust',
-     strategyAddr: '0xe75c8805f9970c7547255059A22d14001d3D7b94'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1075,8 +993,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'DAI',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyAaveDai',
-     strategyAddr: '0x0b198b5EE64aB29c98A094380c867079d5a1682e'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1100,8 +1016,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'am3CRV',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyCrvAave',
-     strategyAddr: '0xf0fD3eDF4008d471465A8ef5F6397760Fd623F74'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1125,8 +1039,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'PSLP-USDT',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiEthUsdt',
-     strategyAddr: '0x7072B80D4E259F26b82C2C4e53cDBFB71450195e'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1150,8 +1062,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'PSLP-MATIC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategySushiMaticEth',
-     strategyAddr: '0x402EB598361fEf397DcF8594B3B88732eEe1661e'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1175,8 +1085,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: undefined,
-     strategyAddr: undefined
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
@@ -1200,8 +1108,6 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
    jarDetails: {
      apiKey: 'QLP-MIMATIC',
      harvestStyle: HarvestStyle.PASSIVE,
-     strategyName: 'StrategyQuickMimaticUsdc',
-     strategyAddr: '0xb35C8E85b4866422a135bFfaA46A6AAaB436CF05'
    },
    farmDetails: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
