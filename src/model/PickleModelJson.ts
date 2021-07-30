@@ -63,11 +63,16 @@ export interface StandaloneFarmDefinition extends AssetDefinition {
     farmNickname: string
 }
 
-
+export interface DillDetails {
+    pickleLocked: number;
+    totalDill: number;
+}
 
 export interface PickleModelJson {
     jarsAndFarms: {
         jars: JarDefinition[],
         standaloneFarms: StandaloneFarmDefinition[],
-    }
+    },
+    dill: DillDetails,
+    prices: any
 }

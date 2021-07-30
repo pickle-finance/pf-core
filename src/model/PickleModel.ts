@@ -1,9 +1,10 @@
-import { AssetEnablement, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
-import { ethers, Signer } from 'ethers';
+import { AssetEnablement, DillDetails, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
+import { Contract, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { jars, standaloneFarms } from "./JarsAndFarms";
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
+import dillAbi from "../Contracts/ABIs/dill.json";
 import { Chain } from "../chain/ChainModel";
 import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
@@ -26,12 +27,14 @@ export class PickleModel {
         const controller = (chosenChain === Chain.Ethereum ? CONTROLLER_ETH : CONTROLLER_POLYGON);
         await this.addJarStrategies(jarsToUse, controller, resolver);
         await this.addHarvestData(jarsToUse, prices, resolver);
-
+        //const dillObject = await this.getDillDetails(resolver);
         return {
             jarsAndFarms: {
                 jars: jarsToUse,
                 standaloneFarms: farmsToUse
-            }
+            },
+            dill: undefined,
+            prices: Object.fromEntries(prices.getCache())
         }
     }
     async addJarStrategies(jars: JarDefinition[], controllerAddr: string, resolver: Signer | Provider) {
@@ -62,5 +65,25 @@ export class PickleModel {
         }
     }
 
+    async getDillDetails(resolver: Signer | Provider) : Promise<DillDetails> {
+        try {
+        const dillContractAddr = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
+        const dillContract : Contract = new ethers.Contract(dillContractAddr, dillAbi, resolver);
+        const dec18 = ethers.utils.parseEther("1");
+        const supply = (await(dillContract.supply())).mul(dec18);
+        const supplyFloat = parseFloat(ethers.utils.formatEther(supply));
+
+        const totalSupply = (await(dillContract.totalSupply())).mul(dec18);
+        const totalSupplyFloat = parseFloat(ethers.utils.formatEther(totalSupply));
+
+        return {
+            pickleLocked: totalSupplyFloat,
+            totalDill: supplyFloat
+        }
+    } catch( e ) {
+        console.log(e);
+        return undefined;
+    }
+    }
 }
 
