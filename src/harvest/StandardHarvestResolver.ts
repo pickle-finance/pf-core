@@ -54,7 +54,8 @@ export class StandardHarvestResolver extends AbstractJarHarvestResolver {
       priceTokenDec
     )
   );
-  const balanceUSD = priceTokenBal * this.getTokenPrice(pricesUSD, priceToken) * 2;
+  const tokenPrice = this.getTokenPrice(pricesUSD, priceToken.toLowerCase());
+  const balanceUSD = priceTokenBal * tokenPrice * 2;
 
   const otherTokenAvai = parseFloat(
     ethers.utils.formatUnits(
@@ -62,7 +63,7 @@ export class StandardHarvestResolver extends AbstractJarHarvestResolver {
       priceTokenDec
     )
   );
-  const earnableUSD = otherTokenAvai * this.getTokenPrice(pricesUSD, priceToken) * 2;
+  const earnableUSD = otherTokenAvai * this.getTokenPrice(pricesUSD, priceToken.toLowerCase()) * 2;
 
   const harvestableUSD =
     parseFloat(ethers.utils.formatEther(harvestable)) * pricesUSD.get(this.rewardToken);

@@ -57,11 +57,7 @@ export class PickleModel {
                 const harvestData : JarHarvestData = await discovery.findHarvestResolver(jars[i]).getJarHarvestData(jars[i], prices, resolver);
                 jars[i].jarDetails.harvestStats = harvestData?.stats;
             } catch( e ) {
-                console.log("\n\n\n");
-                console.log("Jar: ");
-                console.log(JSON.stringify(jars[i]));
-                console.log("Error:  ");
-                console.log(e);
+                console.log("Error loading harvest data: " + e);
             }
         }
     }
