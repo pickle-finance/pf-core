@@ -190,3 +190,33 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
 
 
 }
+
+
+export async function fetchHistoricalPriceSeries(options: {from: Date}) {
+    const coinGecko = new CoinGecko();
+  
+    const toDate = new Date();
+    /**
+     * Fetching more than 90 days gives us daily data points (instead of hourly)
+     * resulting in a much smaller payload.
+     */
+    const fromDate =
+      getDayDiff(options.from, toDate) > 90
+        ? options.from
+        : new Date(toDate.getTime() - 91 * 24 * 60 * 60 * 1000);
+    const response: any = await coinGecko.coins.fetchMarketChartRange(
+      "pickle-finance",
+      {
+        vs_currency: "usd",
+        from: Math.round(fromDate.getTime() / 1000),
+        to: Math.round(toDate.getTime() / 1000),
+      },
+    );
+  
+    return response.data.prices;
+  };
+
+  // TODO move to better location
+  export const getDayDiff = (date1: Date, date2: Date): number => {
+    return Math.ceil((date2.getTime() - date1.getTime()) / (1000 * 60 * 60 * 24));
+  };

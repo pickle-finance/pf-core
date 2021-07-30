@@ -13,7 +13,7 @@ export class Dill__factory {
   }
 }
 
-const _abi = [
+export const _abi = [
   {
     name: "CommitOwnership",
     inputs: [

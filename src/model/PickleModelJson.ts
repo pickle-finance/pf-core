@@ -66,6 +66,18 @@ export interface StandaloneFarmDefinition extends AssetDefinition {
 export interface DillDetails {
     pickleLocked: number;
     totalDill: number;
+    dillWeeks: DillWeek[]
+}
+
+export interface DillWeek {
+    weeklyPickleAmount : number,
+    totalPickleAmount : number,
+    weeklyDillAmount : number,
+    totalDillAmount : number,
+    pickleDillRatio : number,
+    picklePriceUsd : number,
+    isProjected: boolean,
+    distributionTime: Date
 }
 
 export interface PickleModelJson {

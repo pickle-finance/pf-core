@@ -4,7 +4,8 @@ import { PickleModel } from "./model/PickleModel";
 
 async function doStuff() {
   const model : PickleModel = new PickleModel();
-  const provider = ethers.getDefaultProvider('homestead');
+  const provider = //ethers.getDefaultProvider('homestead');
+    new ethers.providers.InfuraProvider();
   const result = await model.run(Chain.Ethereum, provider);
   console.log(JSON.stringify(result, null, 2));
   //console.log(result === undefined ? "" : "a");

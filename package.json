@@ -45,6 +45,7 @@
         "coingecko-api": "^1.0.10",
         "node-fetch": "^2.6.1",
         "tslib": "~2.3.0",
+        "moment": "^2.29.1",
         "web3": "^1.3.6"
     },
     "volta": {
