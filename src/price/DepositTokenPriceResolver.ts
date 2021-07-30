@@ -80,11 +80,11 @@ export class DepositTokenPriceResolver implements IPriceResolver {
             if( token === JAR_SADDLE_D4.depositToken) {
                 return 1;
             } else if( token === JAR_ALETH.depositToken ) {
-                return this.getContractPrice("eth", cache);
+                return this.getContractPrice("weth", cache);
             }
         } else if( protocol === PROTOCOL_TYPE_CURVE ) {
             if( token === JAR_steCRV.depositToken) {
-                return this.getContractPrice("eth", cache);
+                return this.getContractPrice("weth", cache);
             } else if( token === JAR_AM3CRV.depositToken) {
                 return 1;
             }

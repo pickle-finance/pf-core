@@ -48,7 +48,6 @@ export class PickleModel {
                 console.log("Error loading jar " + oneJarDef.id + " - " + e);
             }
         }));
-        console.log(JSON.stringify(jars,null,2));
     }
 
     async addHarvestData(jars: JarDefinition[], prices: PriceCache, resolver: Signer | Provider) {

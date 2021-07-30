@@ -10,6 +10,10 @@ export class StandardHarvestResolver extends AbstractJarHarvestResolver {
     this.rewardToken = rewardToken;
   }
 
+  getBaseTokenName() : string {
+    return "weth";
+  }
+
   async getJarHarvestStats(_jar: Contract, depositToken: string, strategy: Contract, 
     balance: ethers.BigNumber, available: ethers.BigNumber, pricesUSD: PriceCache): Promise<JarHarvestStats> {
   // Uniswap
@@ -22,19 +26,19 @@ export class StandardHarvestResolver extends AbstractJarHarvestResolver {
     UniPair.token1()
   ]);
 
-  // Its always a pair of ETH <> OtherToken
-  const WEth = new ethers.Contract(this.getTokenContract("weth"), uniswapV2PairAbi, strategy.provider);
+  // Its always a pair of base <> OtherToken
+  const base = new ethers.Contract(this.getTokenContract(this.getBaseTokenName()), uniswapV2PairAbi, strategy.provider);
 
   const priceToken = this.getTokenPrice( pricesUSD, token0) ? token0 : token1;
   const priceTokenContract = new ethers.Contract(priceToken, uniswapV2PairAbi, strategy.provider);
 
   const [
-    _wethInPool,
+    _baseInPool,
     priceTokenInPool,
     priceTokenDec,
     harvestable
   ] = await Promise.all([
-    WEth.balanceOf(uniPair),
+    base.balanceOf(uniPair),
     priceTokenContract.balanceOf(uniPair),
     priceTokenContract.decimals(),
     strategy.getHarvestable()

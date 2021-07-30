@@ -11,6 +11,8 @@ import { YearnHarvestResolver } from "./YearnHarvestResolver";
 import { UniHarvestResolver } from "./UniHarvestResolver";
 import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_MQQQ_UST, JAR_UNIV2_MSLV_UST, JAR_UNIV2_MTSLA_UST, JAR_UNIV2_ETH_DAI, JAR_UNIV2_ETH_USDC, JAR_UNIV2_ETH_USDT, JAR_UNIV2_ETH_WBTC, JAR_SUSHI_ETH_DAI, JAR_SUSHI_ETH, JAR_SUSHI_ETH_USDC, JAR_SUSHI_ETH_USDT, JAR_SUSHI_ETH_WBTC, JAR_SUSHI_ETH_YVECRV, JAR_SUSHI_ETH_YFI, JAR_SUSHI_ETH_YVBOOST, JAR_SUSHI_MIC_USDT, JAR_SUSHI_MIS_USDT, JAR_UNIV2_FEI_TRIBE, JAR_UNIV2_LUSD_ETH, JAR_SUSHI_ETH_ALCX, JAR_SUSHI_CVX_ETH, JAR_LQTY, JAR_SADDLE_D4 } from "../model/JarsAndFarms";
 import { JarDefinition } from "../model/PickleModelJson";
+import { MirrorHarvestResolver } from "./MirrorHarvestResolver";
+import { FeiHarvestResolver } from "./FeiTribeHarvestResolver";
 
 export class JarHarvestResolverDiscovery {
     findHarvestResolver(definition: JarDefinition) : JarHarvestResolver {
@@ -41,7 +43,7 @@ export class JarHarvestResolverDiscovery {
         }
 
         if (isFeiJar(definition.contract)) {
-            return new StandardHarvestResolver("tribe");
+            return new FeiHarvestResolver("tribe");
         }
 
         if (isAlchemixJar(definition.contract)) {
@@ -61,7 +63,7 @@ export class JarHarvestResolverDiscovery {
         }
 
         if( isMirrorJar(definition.contract)) {
-            return new StandardHarvestResolver("mir");
+            return new MirrorHarvestResolver("mir");
         }
 
         if( isSaddleD4Jar(definition.contract)) {
@@ -135,11 +137,11 @@ const isAlchemixJar = (jarAddress) => {
     return jarAddress.toLowerCase() === JAR_SUSHI_ETH_ALCX.contract.toLowerCase();
 };
 
-const isCvxJar = (jarAddress) => {
+export const isCvxJar = (jarAddress) => {
     return jarAddress.toLowerCase() === JAR_SUSHI_CVX_ETH.contract.toLowerCase();
 };
 
-const isLqtyJar = (jarAddress) => {
+export const isLqtyJar = (jarAddress) => {
     return jarAddress.toLowerCase() === JAR_LQTY.contract.toLowerCase();
   };
 

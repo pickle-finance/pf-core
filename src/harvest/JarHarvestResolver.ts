@@ -4,8 +4,10 @@ import { Chain } from '../chain/ChainModel';
 import { ethers, Signer } from 'ethers';
 import jarsAbi from "../Contracts/ABIs/jar.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
+import strategyDual from "../Contracts/ABIs/strategy-dual.json";
 import { Provider } from '@ethersproject/providers';
 import { JarDefinition } from '../model/PickleModelJson';
+import { isCvxJar, isLqtyJar } from './JarHarvestResolverDiscovery';
 
 export interface JarHarvestStats {
     balanceUSD: number;
@@ -31,7 +33,7 @@ export interface JarHarvestStats {
 
   export abstract class AbstractJarHarvestResolver implements JarHarvestResolver {
     async getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider) : Promise<JarHarvestData> {
-        const strategy = new ethers.Contract(definition.jarDetails.strategyAddr, this.getStrategyAbi(), resolver);
+        const strategy = new ethers.Contract(definition.jarDetails.strategyAddr, this.getStrategyAbi(definition), resolver);
         const jar = new ethers.Contract(definition.contract, jarsAbi, resolver);
         const [available, balance1 ] = await Promise.all([
             jar.available(),
@@ -48,10 +50,9 @@ export interface JarHarvestStats {
                 strategyAddr: definition.jarDetails.strategyAddr,
                 stats: stats
                 };
-              } catch( e ) {
-              console.log("Error for part 6: " + definition.id + " " + e);
+          } catch( e ) {
+            stats = undefined;
           }
-          console.log("Part6");
           return {
             name: definition.id,
             jarAddr: definition.contract,
@@ -73,8 +74,10 @@ export interface JarHarvestStats {
     findTokenContract(id: string, chain: Chain) {
           return ExternalTokenModelSingleton.getToken(id,chain)?.contractAddr;
     }
-    getStrategyAbi() : any {
-          return strategyAbi;
+    getStrategyAbi(definition: JarDefinition) : any {
+        if (isCvxJar(definition.contract) || isLqtyJar(definition.contract)) 
+            return strategyDual;
+        return strategyAbi;
     }
     abstract getJarHarvestStats(  
         jar: ethers.Contract,
