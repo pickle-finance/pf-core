@@ -104,7 +104,7 @@ export class PickleModel {
         await ethcallProvider.init();
         const controllerContract = new MulticallContract(controllerAddr, controllerAbi);
         const strategyAddresses : string[] = await ethcallProvider.all<string[]>(
-            jars.map((oneJar) => controllerContract.strategies(oneJar.depositToken))
+            jars.map((oneJar) => controllerContract.strategies(oneJar.depositToken.addr))
           );
         for( let i = 0; i < jars.length; i++ ) {
             jars[i].jarDetails.strategyAddr = strategyAddresses[i];

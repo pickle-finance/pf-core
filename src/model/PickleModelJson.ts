@@ -27,12 +27,18 @@ export enum HarvestStyle {
     ACTIVE = 1,
     PASSIVE = 2
 }
+
+export interface DepositToken {
+    addr: string,
+    name: string,
+    link: string,
+    components?: string[]
+}
+
 export interface AssetDefinition {
     id: string,
     contract: string,
-    depositToken: string,
-    depositTokenName: string,
-    depositTokenLink: string,
+    depositToken: DepositToken,
     enablement: AssetEnablement,
     chain: Chain,
     protocol: string,

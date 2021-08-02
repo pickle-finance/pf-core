@@ -42,7 +42,7 @@ export interface JarHarvestStats {
           const balance = balance1.add(available);
           let stats : JarHarvestStats;
           try {
-              stats = await this.getJarHarvestStats(jar, definition.depositToken, strategy, balance, available, priceCache, resolver);
+              stats = await this.getJarHarvestStats(jar, definition.depositToken.addr, strategy, balance, available, priceCache, resolver);
               return {
                 name: definition.id,
                 jarAddr: definition.contract,

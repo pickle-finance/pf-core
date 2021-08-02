@@ -48,7 +48,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     getProtocolFromDepositToken(token: string) : string {
         const matching : Set<string> = new Set<string>();
         for( let i = 0; i < this.myAssets.length; i++) {
-            if( this.myAssets[i].depositToken.toLowerCase() === token.toLowerCase()) {
+            if( this.myAssets[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
                 matching.add(this.myAssets[i].protocol);
             }
         }
@@ -71,21 +71,21 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         } else if (protocol === PROTOCOL_TYPE_QUICKSWAP_POLYGON) {
             return this.getPriceFromStandardPair(await this.getQuickswapPair(protocol, token.toLowerCase(), block));
         } else if( protocol === PROTOCOL_TYPE_YEARN ) {
-            if( token === JAR_USDC.depositToken) {
+            if( token === JAR_USDC.depositToken.addr) {
                 return this.getContractPrice(token, cache)
-            } else if( token === JAR_lusdCRV.depositToken || token === JAR_fraxCRV.depositToken ) {
+            } else if( token === JAR_lusdCRV.depositToken.addr || token === JAR_fraxCRV.depositToken.addr ) {
                 return 1;
             }
         } else if( protocol === PROTOCOL_TYPE_SADDLE ) {
-            if( token === JAR_SADDLE_D4.depositToken) {
+            if( token === JAR_SADDLE_D4.depositToken.addr) {
                 return 1;
-            } else if( token === JAR_ALETH.depositToken ) {
+            } else if( token === JAR_ALETH.depositToken.addr ) {
                 return this.getContractPrice("weth", cache);
             }
         } else if( protocol === PROTOCOL_TYPE_CURVE ) {
-            if( token === JAR_steCRV.depositToken) {
+            if( token === JAR_steCRV.depositToken.addr) {
                 return this.getContractPrice("weth", cache);
-            } else if( token === JAR_AM3CRV.depositToken) {
+            } else if( token === JAR_AM3CRV.depositToken.addr) {
                 return 1;
             }
             return this.getContractPrice(token, cache);

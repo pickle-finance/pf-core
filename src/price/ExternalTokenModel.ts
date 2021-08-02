@@ -66,6 +66,8 @@ export class ExternalTokenModel {
         this.etherTokens.set("fxs", new ExternalToken(Chain.Ethereum, "fxs", "frax-share", "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0".toLowerCase()));
         this.etherTokens.set("lqty", new ExternalToken(Chain.Ethereum, "lqty", "liquity", "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase()));
         this.etherTokens.set("3crv", new ExternalToken(Chain.Ethereum, "3crv", "lp-3pool-curve", "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490".toLowerCase()));
+        this.etherTokens.set("spell", new ExternalToken(Chain.Ethereum, "spell", "spell", "0x090185f2135308bad17527004364ebcc2d37e5f6".toLowerCase()));
+        this.etherTokens.set("mim", new ExternalToken(Chain.Ethereum, "mim", "mim", "0x99d8a9c45b2eca8864373a26d1459e3dff1e17f3".toLowerCase()));
 
         this.polyTokens.set("usdc", new ExternalToken(Chain.Polygon, "usdc", "usd-coin", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 6));
         this.polyTokens.set("weth", new ExternalToken(Chain.Polygon, "weth", "weth", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase()));
@@ -77,6 +79,10 @@ export class ExternalTokenModel {
         this.polyTokens.set("usdt", new ExternalToken(Chain.Polygon, "usdt", "tether", "0xc2132d05d31c914a87c6611c10748aeb04b58e8f".toLowerCase()));
         this.polyTokens.set("mimatic", new ExternalToken(Chain.Polygon, "mimatic", "mimatic", "0xa3fa99a148fa48d14ed51d610c367c61876997f1".toLowerCase(), ExternalTokenFetchStyle.ID));
         this.polyTokens.set("qi", new ExternalToken(Chain.Polygon, "qi", "qi-dao", "0x580a84c73811e1839f75d86d75d88cca0c241ff4".toLowerCase(), ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("mweth", new ExternalToken(Chain.Polygon, "mweth", "weth", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619".toLowerCase(), ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("musdt", new ExternalToken(Chain.Polygon, "musdt", "usdt", "0xc2132D05D31c914a87C6611C10748AEb04B58e8F".toLowerCase(), ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("musdc", new ExternalToken(Chain.Polygon, "musdc", "usdc", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), ExternalTokenFetchStyle.ID));
+        
 
         // Make the reverse map to fascilitate contract lookups
         const allTokenList : ExternalToken[] = Array.from(this.polyTokens.values()).concat(Array.from(this.etherTokens.values()));
