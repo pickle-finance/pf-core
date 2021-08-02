@@ -4,7 +4,7 @@ import { Provider } from '@ethersproject/providers';
 import {  Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
-import { jars, standaloneFarms } from "./JarsAndFarms";
+import { jars, JAR_SADDLE_D4, standaloneFarms } from "./JarsAndFarms";
 import { Chain } from "../chain/ChainModel";
 import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
@@ -18,7 +18,8 @@ export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
 export class PickleModel {
 
     async run(chosenChain: Chain, resolver: Signer | Provider) : Promise<PickleModelJson> {
-        const jarsToUse : JarDefinition[] = jars.filter(x => x.chain === chosenChain).filter(x => x.enablement === AssetEnablement.ENABLED);
+        const jarsToUse : JarDefinition[] = //jars.filter(x => x.chain === chosenChain).filter(x => x.enablement === AssetEnablement.ENABLED);
+            [JAR_SADDLE_D4];
         const farmsToUse : StandaloneFarmDefinition[] = standaloneFarms.filter(x => x.chain === chosenChain);
         const prices : PriceCache = new PriceCache();
         const arr: string[] = ExternalTokenModelSingleton.getTokens(chosenChain).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
@@ -28,15 +29,15 @@ export class PickleModel {
         await this.addJarStrategies(jarsToUse, controller, resolver);
 
         await this.addHarvestData(jarsToUse, prices, resolver);
-        const dillObject = await getDillDetails(0, prices, resolver); // TODO fix first arg
+//        const dillObject = await getDillDetails(0, prices, resolver); // TODO fix first arg
 
         return {
             jarsAndFarms: {
                 jars: jarsToUse,
                 standaloneFarms: farmsToUse
             },
-            dill: dillObject,
-            prices: prices //Object.fromEntries(prices.getCache())
+            dill: undefined,//dillObject,
+            prices: undefined,//Object.fromEntries(prices.getCache())
         }
     }
     async addJarStrategies(jars: JarDefinition[], controllerAddr: string, resolver: Signer | Provider) {
