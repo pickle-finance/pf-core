@@ -15,11 +15,15 @@ export class SaddleD4HarvestResolver extends AbstractJarHarvestResolver {
     balance: ethers.BigNumber, available: ethers.BigNumber, pricesUSD: PriceCache): Promise<JarHarvestStats> {
     
     const strategyAddress : string = strategy.address;
-
     const alcxContract = new ethers.Contract(this.getTokenContract("alcx"), erc20Abi, strategy.provider);
     const lqtyContract = new ethers.Contract(this.getTokenContract("lqty"), erc20Abi, strategy.provider);
     const tribeContract = new ethers.Contract(this.getTokenContract("tribe"), erc20Abi, strategy.provider);
     const fraxContract = new ethers.Contract(this.getTokenContract("fxs"), erc20Abi, strategy.provider);
+    const alcxPrice = pricesUSD.get("alcx");
+    const lqtyPrice = pricesUSD.get("lqty");
+    const tribePrice = pricesUSD.get("tribe");
+    const fxsPrice = pricesUSD.get("fxs");
+
 
     const [
       alcxBal,
@@ -36,11 +40,6 @@ export class SaddleD4HarvestResolver extends AbstractJarHarvestResolver {
     ]);
 
     
-    const alcxPrice = pricesUSD.get("alcx");
-    const lqtyPrice = pricesUSD.get("lqty");
-    const tribePrice = pricesUSD.get("tribe");
-    const fxsPrice = pricesUSD.get("fxs");
-
     const harvestable = harvestableArr[0]
       .add(fxsBal).mul(fxsPrice.toFixed())
       .add(harvestableArr[1].add(tribeBal).mul(tribePrice.toFixed()))
