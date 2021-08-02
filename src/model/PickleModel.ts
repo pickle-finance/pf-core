@@ -1,10 +1,11 @@
 import { AssetEnablement,  JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
-import { Signer } from 'ethers';
+import { ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import {  Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
-import { jars, JAR_SADDLE_D4, standaloneFarms } from "./JarsAndFarms";
+import jarAbi from "../Contracts/ABIs/jar.json";
+import { JAR_SADDLE_D4, standaloneFarms } from "./JarsAndFarms";
 import { Chain } from "../chain/ChainModel";
 import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
@@ -27,19 +28,21 @@ export class PickleModel {
 
         const controller = (chosenChain === Chain.Ethereum ? CONTROLLER_ETH : CONTROLLER_POLYGON);
         await this.addJarStrategies(jarsToUse, controller, resolver);
-
+        await this.addJarRatios(jarsToUse, controller, resolver);
+        
         await this.addHarvestData(jarsToUse, prices, resolver);
-//        const dillObject = await getDillDetails(0, prices, resolver); // TODO fix first arg
+        const dillObject = await getDillDetails(0, prices, resolver); // TODO fix first arg
 
         return {
             jarsAndFarms: {
                 jars: jarsToUse,
                 standaloneFarms: farmsToUse
             },
-            dill: undefined,//dillObject,
-            prices: undefined,//Object.fromEntries(prices.getCache())
+            dill: dillObject,
+            prices: Object.fromEntries(prices.getCache())
         }
     }
+
     async addJarStrategies(jars: JarDefinition[], controllerAddr: string, resolver: Signer | Provider) {
 
         const ethcallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
@@ -56,6 +59,17 @@ export class PickleModel {
           );
         for( let i = 0; i < jars.length; i++ ) {
             jars[i].jarDetails.strategyName = strategyNames[i];
+        }
+    }
+
+    async addJarRatios(jars: JarDefinition[], _controllerAddr: string, resolver: Signer | Provider) {
+        const ethcallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+        await ethcallProvider.init();
+        const ratios : string[] = await ethcallProvider.all<string[]>(
+            jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
+          );
+        for( let i = 0; i < jars.length; i++ ) {
+            jars[i].jarDetails.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
         }
     }
 

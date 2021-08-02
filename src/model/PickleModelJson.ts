@@ -49,6 +49,7 @@ export interface JarDetails {
     harvestStyle: HarvestStyle
     strategyName?: string,
     strategyAddr?: string,
+    ratio?: number,
     harvestStats?: JarHarvestStats | ActiveJarHarvestStats
 }
 
