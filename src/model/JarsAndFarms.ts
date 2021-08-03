@@ -4,7 +4,7 @@ import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle,
 /**
  * Now the actual implementations
  */
-export const standaloneFarms: StandaloneFarmDefinition[] = []
+export const STANDALONE_FARM_DEFINITIONS: StandaloneFarmDefinition[] = []
 export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
     id: 'Sushi Pickle/Eth',
     farmNickname: 'SushiSwap MasterChefv2',
@@ -16,7 +16,7 @@ export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
     chain: Chain.Ethereum,
     protocol: 'sushiswap',
 }
-standaloneFarms.push(FARM_SUSHI_PICKLE_ETH);
+STANDALONE_FARM_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
 
 export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
     id: 'Uniswap Pickle/Eth',
@@ -29,9 +29,9 @@ export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
     chain: Chain.Ethereum,
     protocol: 'uniswap',
 }
-standaloneFarms.push(FARM_UNI_PICKLE_ETH);
+STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
- export const jars : JarDefinition[] = []
+ export const JAR_DEFINITIONS : JarDefinition[] = []
  export const JAR_sCRV: JarDefinition =
  {
    id: 'pJar 0a',
@@ -52,7 +52,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'psCRV v2'
    }
  }
- jars.push(JAR_sCRV);
+ JAR_DEFINITIONS.push(JAR_sCRV);
  
  
  export const JAR_renCRV: JarDefinition =
@@ -75,7 +75,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'prenBTC CRV'
    }
  }
- jars.push(JAR_renCRV);
+ JAR_DEFINITIONS.push(JAR_renCRV);
  
  
  export const JAR_3CRV: JarDefinition =
@@ -98,7 +98,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'p3CRV'
    }
  }
- jars.push(JAR_3CRV);
+ JAR_DEFINITIONS.push(JAR_3CRV);
  
  
  export const JAR_steCRV: JarDefinition =
@@ -121,7 +121,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'stEthCrv'
    }
  }
- jars.push(JAR_steCRV);
+ JAR_DEFINITIONS.push(JAR_steCRV);
  
  
  export const JAR_UNIV2_ETH_DAI: JarDefinition =
@@ -144,7 +144,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIDAI v2'
    }
  }
- jars.push(JAR_UNIV2_ETH_DAI);
+ JAR_DEFINITIONS.push(JAR_UNIV2_ETH_DAI);
  
  
  export const JAR_UNIV2_ETH_USDC: JarDefinition =
@@ -167,7 +167,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIUSDC v2'
    }
  }
- jars.push(JAR_UNIV2_ETH_USDC);
+ JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDC);
  
  
  export const JAR_UNIV2_ETH_USDT: JarDefinition =
@@ -190,7 +190,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIUSDT v2'
    }
  }
- jars.push(JAR_UNIV2_ETH_USDT);
+ JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDT);
  
  
  export const JAR_UNIV2_ETH_WBTC: JarDefinition =
@@ -213,7 +213,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIWBTC'
    }
  }
- jars.push(JAR_UNIV2_ETH_WBTC);
+ JAR_DEFINITIONS.push(JAR_UNIV2_ETH_WBTC);
  
  
  export const JAR_pDAI: JarDefinition =
@@ -236,7 +236,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pDAI'
    }
  }
- jars.push(JAR_pDAI);
+ JAR_DEFINITIONS.push(JAR_pDAI);
  
  
  export const JAR_ALETH: JarDefinition =
@@ -259,7 +259,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSaddleAlEth'
    }
  }
- jars.push(JAR_ALETH);
+ JAR_DEFINITIONS.push(JAR_ALETH);
  
  
  export const JAR_LQTY: JarDefinition =
@@ -282,7 +282,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pLQTY'
    }
  }
- jars.push(JAR_LQTY);
+ JAR_DEFINITIONS.push(JAR_LQTY);
  
  
  export const JAR_SUSHI_ETH_DAI: JarDefinition =
@@ -305,7 +305,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP DAI'
    }
  }
- jars.push(JAR_SUSHI_ETH_DAI);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_DAI);
  
  
  export const JAR_SUSHI_ETH_USDC: JarDefinition =
@@ -328,7 +328,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP USDC'
    }
  }
- jars.push(JAR_SUSHI_ETH_USDC);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_USDC);
  
  
  export const JAR_SUSHI_ETH_USDT: JarDefinition =
@@ -351,7 +351,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP USDT'
    }
  }
- jars.push(JAR_SUSHI_ETH_USDT);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_USDT);
  
  
  export const JAR_SUSHI_ETH_WBTC: JarDefinition =
@@ -374,7 +374,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP WBTC'
    }
  }
- jars.push(JAR_SUSHI_ETH_WBTC);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_WBTC);
  
  
  export const JAR_SUSHI_ETH_YFI: JarDefinition =
@@ -397,7 +397,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP YFI'
    }
  }
- jars.push(JAR_SUSHI_ETH_YFI);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_YFI);
  
  
  export const JAR_UNI_BAC_DAI: JarDefinition =
@@ -420,7 +420,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIv2-BAC-DAI LP'
    }
  }
- jars.push(JAR_UNI_BAC_DAI);
+ JAR_DEFINITIONS.push(JAR_UNI_BAC_DAI);
  
 
 
@@ -444,7 +444,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP MIC/USDT LP'
    }
  }
- jars.push(JAR_SUSHI_MIC_USDT);
+ JAR_DEFINITIONS.push(JAR_SUSHI_MIC_USDT);
  
 
 
@@ -468,7 +468,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP MIS/USDT'
    }
  }
- jars.push(JAR_SUSHI_MIS_USDT);
+ JAR_DEFINITIONS.push(JAR_SUSHI_MIS_USDT);
  
 
 
@@ -492,7 +492,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP yveCRV'
    }
  }
- jars.push(JAR_SUSHI_ETH_YVECRV);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_YVECRV);
  
 
  export const JAR_UNI_BAS_DAI: JarDefinition =
@@ -515,7 +515,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'UNI BAS/DAI'
    }
  }
- jars.push(JAR_SUSHI_ETH_YVECRV);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_YVECRV);
  
  
  export const JAR_UNIV2_MIR_UST: JarDefinition =
@@ -538,7 +538,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 MIR/UST'
    }
  }
- jars.push(JAR_UNIV2_MIR_UST);
+ JAR_DEFINITIONS.push(JAR_UNIV2_MIR_UST);
  
  
  export const JAR_UNIV2_MTSLA_UST: JarDefinition =
@@ -561,7 +561,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 MTSLA/UST'
    }
  }
- jars.push(JAR_UNIV2_MTSLA_UST);
+ JAR_DEFINITIONS.push(JAR_UNIV2_MTSLA_UST);
  
  
  export const JAR_UNIV2_MAAPL_UST: JarDefinition =
@@ -584,7 +584,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 MAAPL/UST'
    }
  }
- jars.push(JAR_UNIV2_MAAPL_UST);
+ JAR_DEFINITIONS.push(JAR_UNIV2_MAAPL_UST);
  
  
  export const JAR_UNIV2_MQQQ_UST: JarDefinition =
@@ -607,7 +607,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 MQQQ/UST'
    }
  }
- jars.push(JAR_UNIV2_MQQQ_UST);
+ JAR_DEFINITIONS.push(JAR_UNIV2_MQQQ_UST);
  
  
  export const JAR_UNIV2_MSLV_UST: JarDefinition =
@@ -630,7 +630,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 MSLV/UST'
    }
  }
- jars.push(JAR_UNIV2_MSLV_UST);
+ JAR_DEFINITIONS.push(JAR_UNIV2_MSLV_UST);
  
  
  export const JAR_UNIV2_MBABA_UST: JarDefinition =
@@ -653,7 +653,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 MBABA/UST'
    }
  }
- jars.push(JAR_UNIV2_MBABA_UST);
+ JAR_DEFINITIONS.push(JAR_UNIV2_MBABA_UST);
  
  
  export const JAR_SUSHI_ETH: JarDefinition =
@@ -676,7 +676,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP SUSHI'
    }
  }
- jars.push(JAR_SUSHI_ETH);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH);
  
  
  export const JAR_UNIV2_FEI_TRIBE: JarDefinition =
@@ -699,7 +699,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 FEI/TRIBE'
    }
  }
- jars.push(JAR_UNIV2_FEI_TRIBE);
+ JAR_DEFINITIONS.push(JAR_UNIV2_FEI_TRIBE);
  
 
 
@@ -723,7 +723,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP yvBOOST (deprecated)'
    }
  }
- jars.push(JAR_YVBOOST_ETH);
+ JAR_DEFINITIONS.push(JAR_YVBOOST_ETH);
  
 
 
@@ -747,7 +747,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSADDLED4'
    }
  }
- jars.push(JAR_SADDLE_D4);
+ JAR_DEFINITIONS.push(JAR_SADDLE_D4);
  
  
  export const JAR_UNIV2_LUSD_ETH: JarDefinition =
@@ -770,7 +770,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pUNIV2 LUSD/ETH'
    }
  }
- jars.push(JAR_UNIV2_LUSD_ETH);
+ JAR_DEFINITIONS.push(JAR_UNIV2_LUSD_ETH);
  
  
  export const JAR_SUSHI_ETH_ALCX: JarDefinition =
@@ -793,7 +793,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP ALCX/ETH'
    }
  }
- jars.push(JAR_SUSHI_ETH_ALCX);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_ALCX);
  
  
  export const JAR_SUSHI_ETH_YVBOOST: JarDefinition =
@@ -816,7 +816,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP yvBOOST'
    }
  }
- jars.push(JAR_SUSHI_ETH_YVBOOST);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_YVBOOST);
  
  
  export const JAR_SUSHI_CVX_ETH: JarDefinition =
@@ -839,7 +839,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSUSHICVXETH'
    }
  }
- jars.push(JAR_SUSHI_CVX_ETH);
+ JAR_DEFINITIONS.push(JAR_SUSHI_CVX_ETH);
  
  
  export const JAR_USDC: JarDefinition =
@@ -862,7 +862,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pYearnUSDCv2'
    }
  }
- jars.push(JAR_USDC);
+ JAR_DEFINITIONS.push(JAR_USDC);
  
  
  export const JAR_lusdCRV: JarDefinition =
@@ -885,7 +885,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pYearnLusdCRV'
    }
  }
- jars.push(JAR_lusdCRV);
+ JAR_DEFINITIONS.push(JAR_lusdCRV);
  
  
  export const JAR_fraxCRV: JarDefinition =
@@ -908,7 +908,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pYearnFraxCRV'
    }
  }
- jars.push(JAR_fraxCRV);
+ JAR_DEFINITIONS.push(JAR_fraxCRV);
  
  
  export const JAR_COMETH_USDC_WETH: JarDefinition =
@@ -931,7 +931,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pCLP USDC/WETH'
    }
  }
- jars.push(JAR_COMETH_USDC_WETH);
+ JAR_DEFINITIONS.push(JAR_COMETH_USDC_WETH);
  
  
  export const JAR_COMETH_PICKLE_MUST: JarDefinition =
@@ -954,7 +954,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pCLP PICKLE/MUST'
    }
  }
- jars.push(JAR_COMETH_PICKLE_MUST);
+ JAR_DEFINITIONS.push(JAR_COMETH_PICKLE_MUST);
  
  
  export const JAR_COMETH_MATIC_MUST: JarDefinition =
@@ -977,7 +977,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pCLP MATIC/MUST'
    }
  }
- jars.push(JAR_COMETH_MATIC_MUST);
+ JAR_DEFINITIONS.push(JAR_COMETH_MATIC_MUST);
  
  
  export const JAR_AAVEDAI: JarDefinition =
@@ -1000,7 +1000,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pAaveDAI'
    }
  }
- jars.push(JAR_AAVEDAI);
+ JAR_DEFINITIONS.push(JAR_AAVEDAI);
  
  
  export const JAR_AM3CRV: JarDefinition =
@@ -1023,7 +1023,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'am3CRV'
    }
  }
- jars.push(JAR_AM3CRV);
+ JAR_DEFINITIONS.push(JAR_AM3CRV);
  
  
  export const JAR_POLY_SUSHI_ETH_USDT: JarDefinition =
@@ -1046,7 +1046,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP ETH/USDT'
    }
  }
- jars.push(JAR_POLY_SUSHI_ETH_USDT);
+ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_ETH_USDT);
  
  
  export const JAR_POLY_SUSHI_MATIC_ETH: JarDefinition =
@@ -1069,7 +1069,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP ETH/MATIC'
    }
  }
- jars.push(JAR_POLY_SUSHI_MATIC_ETH);
+ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_MATIC_ETH);
  
  
  export const JAR_QUICKmiMATICUSDC_old: JarDefinition =
@@ -1092,7 +1092,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pQLP MAI (old)'
    }
  }
- jars.push(JAR_QUICKmiMATICUSDC_old);
+ JAR_DEFINITIONS.push(JAR_QUICKmiMATICUSDC_old);
  
  
  export const JAR_QUICK_MIMATIC_USDC: JarDefinition =
@@ -1115,7 +1115,7 @@ standaloneFarms.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pQLP MAI'
    }
  }
- jars.push(JAR_QUICK_MIMATIC_USDC);
+ JAR_DEFINITIONS.push(JAR_QUICK_MIMATIC_USDC);
  
 
-export const allAssets : AssetDefinition[] = [].concat(standaloneFarms).concat(jars);
+export const ALL_ASSETS : AssetDefinition[] = [].concat(STANDALONE_FARM_DEFINITIONS).concat(JAR_DEFINITIONS);
