@@ -17,6 +17,7 @@ export const PROTOCOL_TYPE_TOKENPRICE = "tokenprice"
 
 export enum AssetEnablement {
     DISABLED = 1,
+    PERMANENTLY_DISABLED,
     ENABLED,
     DEV
 }

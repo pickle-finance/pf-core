@@ -161,16 +161,38 @@ export class CoinGeckpPriceResolver implements IPriceResolver {
 
     private async fetchPricesForContracts(contractIds: string[]) : Promise<Map<string,number>> {
         const joined = contractIds.join("%2C");
-        const contractPrice = await fetch(
-            `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${joined}&vs_currencies=usd`
-        );
-        
-        const resp = await contractPrice.json();
-        const retMap : Map<string,number> = new Map();
-        Object.keys(resp).map((key) => {
-            retMap.set(key, resp[key].usd);
-        });
-        return retMap;
+        const url = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${joined}&vs_currencies=usd`;
+        console.log(url);
+        try {
+            console.log("Before fetch");
+            const contractPrice = await fetch(url).then(response => {
+                if (response.ok) {
+                  response.json().then((data) => {
+                    console.log(data);
+                  });  
+                } else {
+                    console.log("Something wrong");
+                    throw 'There is something wrong';
+                }
+              }).
+              catch(error => {
+                  console.log(error);
+              });
+            console.log("After fetch");
+            const retMap : Map<string,number> = new Map();
+/*        
+            const resp = await contractPrice.json();
+            Object.keys(resp).map((key) => {
+                retMap.set(key, resp[key].usd);
+            });
+            console.log("Returning");
+            */
+            return retMap;
+        } catch(e) {
+            console.log("error");
+            console.log(e);
+            return null;
+        }
     };
     
     /**

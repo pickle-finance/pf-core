@@ -47,5 +47,3 @@ export class PriceCache {
     return true;
   }
 }
-
-export const PRICE_CACHE_SINGLETON : PriceCache = new PriceCache();

@@ -200,7 +200,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    depositToken: '0xBb2b8038a1640196FbE3e38816F3e67Cba72D940',
    depositTokenName: 'UNI WBTC/ETH',
    depositTokenLink: 'https://app.uniswap.org/#/add/v2/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/ETH',
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
    jarDetails: {
