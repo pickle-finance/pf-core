@@ -13,7 +13,7 @@ export class Dill__factory {
   }
 }
 
-export const _abi = [
+const _abi = [
   {
     name: "CommitOwnership",
     inputs: [
@@ -381,23 +381,6 @@ export const _abi = [
     type: "function",
   },
   {
-    name: "totalSupply",
-    outputs: [
-      {
-        type: "uint256",
-        name: "",
-      },
-    ],
-    inputs: [
-      {
-        type: "uint256",
-        name: "t",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     name: "totalSupplyAt",
     outputs: [
       {
@@ -439,7 +422,6 @@ export const _abi = [
     inputs: [],
     stateMutability: "view",
     type: "function",
-    gas: "1841",
   },
   {
     name: "supply",
@@ -452,7 +434,6 @@ export const _abi = [
     inputs: [],
     stateMutability: "view",
     type: "function",
-    gas: "1871",
   },
   {
     name: "locked",
@@ -474,7 +455,6 @@ export const _abi = [
     ],
     stateMutability: "view",
     type: "function",
-    gas: "3359",
   },
   {
     name: "epoch",

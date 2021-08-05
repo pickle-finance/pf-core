@@ -20,55 +20,52 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
-interface StrategyInterface extends ethers.utils.Interface {
+interface StrategyDualInterface extends ethers.utils.Interface {
   functions: {
     "balanceOf()": FunctionFragment;
     "balanceOfPool()": FunctionFragment;
     "balanceOfWant()": FunctionFragment;
-    "brine()": FunctionFragment;
-    "burn()": FunctionFragment;
-    "burnFee()": FunctionFragment;
-    "burnMax()": FunctionFragment;
     "controller()": FunctionFragment;
-    "dai()": FunctionFragment;
+    "cvx()": FunctionFragment;
     "deposit()": FunctionFragment;
     "execute(address,bytes)": FunctionFragment;
-    "freeWithdraw(uint256)": FunctionFragment;
-    "gauge()": FunctionFragment;
     "getHarvestable()": FunctionFragment;
     "getName()": FunctionFragment;
     "governance()": FunctionFragment;
     "harvest()": FunctionFragment;
-    "keepUNI()": FunctionFragment;
-    "keepUNIMax()": FunctionFragment;
-    "performanceFee()": FunctionFragment;
-    "performanceMax()": FunctionFragment;
-    "pickle()": FunctionFragment;
-    "rewards()": FunctionFragment;
-    "setBurnFee(uint256)": FunctionFragment;
+    "harvesters(address)": FunctionFragment;
+    "masterChef()": FunctionFragment;
+    "performanceDevFee()": FunctionFragment;
+    "performanceDevMax()": FunctionFragment;
+    "performanceTreasuryFee()": FunctionFragment;
+    "performanceTreasuryMax()": FunctionFragment;
+    "poolId()": FunctionFragment;
+    "revokeHarvesters(address[])": FunctionFragment;
     "setController(address)": FunctionFragment;
     "setGovernance(address)": FunctionFragment;
-    "setKeepUNI(uint256)": FunctionFragment;
-    "setPerformanceFee(uint256)": FunctionFragment;
+    "setPerformanceDevFee(uint256)": FunctionFragment;
+    "setPerformanceTreasuryFee(uint256)": FunctionFragment;
     "setStrategist(address)": FunctionFragment;
     "setTimelock(address)": FunctionFragment;
-    "setWithdrawalFee(uint256)": FunctionFragment;
+    "setWithdrawalDevFundFee(uint256)": FunctionFragment;
+    "setWithdrawalTreasuryFee(uint256)": FunctionFragment;
     "strategist()": FunctionFragment;
+    "sushi()": FunctionFragment;
+    "sushiRouter()": FunctionFragment;
+    "sushi_cvx_eth_lp()": FunctionFragment;
+    "sushi_cvx_poolId()": FunctionFragment;
     "timelock()": FunctionFragment;
-    "uni()": FunctionFragment;
     "univ2Router2()": FunctionFragment;
     "want()": FunctionFragment;
     "weth()": FunctionFragment;
+    "whitelistHarvesters(address[])": FunctionFragment;
     "withdraw(uint256)": FunctionFragment;
     "withdrawAll()": FunctionFragment;
-    "withdrawalFee()": FunctionFragment;
-    "withdrawalMax()": FunctionFragment;
-    "getCurrentLeverage()": FunctionFragment;
-    "masterChef()": FunctionFragment;
-    "poolId()": FunctionFragment;
-    "rewardToken()": FunctionFragment;
-    "getHarvestableSushi()": FunctionFragment;
-    "getHarvestableAlcx()": FunctionFragment;
+    "withdrawForSwap(uint256)": FunctionFragment;
+    "withdrawalDevFundFee()": FunctionFragment;
+    "withdrawalDevFundMax()": FunctionFragment;
+    "withdrawalTreasuryFee()": FunctionFragment;
+    "withdrawalTreasuryMax()": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "balanceOf", values?: undefined): string;
@@ -80,25 +77,16 @@ interface StrategyInterface extends ethers.utils.Interface {
     functionFragment: "balanceOfWant",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "brine", values?: undefined): string;
-  encodeFunctionData(functionFragment: "burn", values?: undefined): string;
-  encodeFunctionData(functionFragment: "burnFee", values?: undefined): string;
-  encodeFunctionData(functionFragment: "burnMax", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "controller",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "dai", values?: undefined): string;
+  encodeFunctionData(functionFragment: "cvx", values?: undefined): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "execute",
     values: [string, BytesLike]
   ): string;
-  encodeFunctionData(
-    functionFragment: "freeWithdraw",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "gauge", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getHarvestable",
     values?: undefined
@@ -109,24 +97,31 @@ interface StrategyInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "harvest", values?: undefined): string;
-  encodeFunctionData(functionFragment: "keepUNI", values?: undefined): string;
+  encodeFunctionData(functionFragment: "harvesters", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "keepUNIMax",
+    functionFragment: "masterChef",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "performanceFee",
+    functionFragment: "performanceDevFee",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "performanceMax",
+    functionFragment: "performanceDevMax",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "pickle", values?: undefined): string;
-  encodeFunctionData(functionFragment: "rewards", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "setBurnFee",
-    values: [BigNumberish]
+    functionFragment: "performanceTreasuryFee",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "performanceTreasuryMax",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "revokeHarvesters",
+    values: [string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "setController",
@@ -137,11 +132,11 @@ interface StrategyInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "setKeepUNI",
+    functionFragment: "setPerformanceDevFee",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setPerformanceFee",
+    functionFragment: "setPerformanceTreasuryFee",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
@@ -150,21 +145,41 @@ interface StrategyInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "setTimelock", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "setWithdrawalFee",
+    functionFragment: "setWithdrawalDevFundFee",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setWithdrawalTreasuryFee",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "strategist",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "sushi", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "sushiRouter",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "sushi_cvx_eth_lp",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "sushi_cvx_poolId",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "timelock", values?: undefined): string;
-  encodeFunctionData(functionFragment: "uni", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "univ2Router2",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "want", values?: undefined): string;
   encodeFunctionData(functionFragment: "weth", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "whitelistHarvesters",
+    values: [string[]]
+  ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
     values: [BigNumberish]
@@ -174,32 +189,23 @@ interface StrategyInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "withdrawalFee",
+    functionFragment: "withdrawForSwap",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawalDevFundFee",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "withdrawalMax",
+    functionFragment: "withdrawalDevFundMax",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getCurrentLeverage",
+    functionFragment: "withdrawalTreasuryFee",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "masterChef",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "rewardToken",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getHarvestableSushi",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getHarvestableAlcx",
+    functionFragment: "withdrawalTreasuryMax",
     values?: undefined
   ): string;
 
@@ -212,19 +218,10 @@ interface StrategyInterface extends ethers.utils.Interface {
     functionFragment: "balanceOfWant",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "brine", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burnFee", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burnMax", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "controller", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "dai", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "cvx", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "freeWithdraw",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "gauge", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getHarvestable",
     data: BytesLike
@@ -232,19 +229,29 @@ interface StrategyInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "getName", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "harvest", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "keepUNI", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "keepUNIMax", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "harvesters", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "masterChef", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "performanceFee",
+    functionFragment: "performanceDevFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "performanceMax",
+    functionFragment: "performanceDevMax",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "pickle", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "rewards", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "setBurnFee", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "performanceTreasuryFee",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "performanceTreasuryMax",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "revokeHarvesters",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setController",
     data: BytesLike
@@ -253,9 +260,12 @@ interface StrategyInterface extends ethers.utils.Interface {
     functionFragment: "setGovernance",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "setKeepUNI", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setPerformanceFee",
+    functionFragment: "setPerformanceDevFee",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setPerformanceTreasuryFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -267,54 +277,68 @@ interface StrategyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setWithdrawalFee",
+    functionFragment: "setWithdrawalDevFundFee",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setWithdrawalTreasuryFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "strategist", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "sushi", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "sushiRouter",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "sushi_cvx_eth_lp",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "sushi_cvx_poolId",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "timelock", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "uni", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "univ2Router2",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "want", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "weth", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "whitelistHarvesters",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawAll",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "withdrawalFee",
+    functionFragment: "withdrawForSwap",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "withdrawalMax",
+    functionFragment: "withdrawalDevFundFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getCurrentLeverage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "masterChef", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardToken",
+    functionFragment: "withdrawalDevFundMax",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getHarvestableSushi",
+    functionFragment: "withdrawalTreasuryFee",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getHarvestableAlcx",
+    functionFragment: "withdrawalTreasuryMax",
     data: BytesLike
   ): Result;
 
   events: {};
 }
 
-export class Strategy extends Contract {
+export class StrategyDual extends Contract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -355,7 +379,7 @@ export class Strategy extends Contract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: StrategyInterface;
+  interface: StrategyDualInterface;
 
   functions: {
     balanceOf(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -370,33 +394,13 @@ export class Strategy extends Contract {
 
     "balanceOfWant()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    brine(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "brine()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    burn(overrides?: CallOverrides): Promise<[string]>;
-
-    "burn()"(overrides?: CallOverrides): Promise<[string]>;
-
-    burnFee(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "burnFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    burnMax(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "burnMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     controller(overrides?: CallOverrides): Promise<[string]>;
 
     "controller()"(overrides?: CallOverrides): Promise<[string]>;
 
-    dai(overrides?: CallOverrides): Promise<[string]>;
+    cvx(overrides?: CallOverrides): Promise<[string]>;
 
-    "dai()"(overrides?: CallOverrides): Promise<[string]>;
+    "cvx()"(overrides?: CallOverrides): Promise<[string]>;
 
     deposit(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -418,23 +422,11 @@ export class Strategy extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    freeWithdraw(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    getHarvestable(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
-    "freeWithdraw(uint256)"(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    gauge(overrides?: CallOverrides): Promise<[string]>;
-
-    "gauge()"(overrides?: CallOverrides): Promise<[string]>;
-
-    getHarvestable(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "getHarvestable()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "getHarvestable()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber]>;
 
     getName(overrides?: CallOverrides): Promise<[string]>;
 
@@ -452,37 +444,44 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    keepUNI(overrides?: CallOverrides): Promise<[BigNumber]>;
+    harvesters(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
-    "keepUNI()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "harvesters(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-    keepUNIMax(overrides?: CallOverrides): Promise<[BigNumber]>;
+    masterChef(overrides?: CallOverrides): Promise<[string]>;
 
-    "keepUNIMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "masterChef()"(overrides?: CallOverrides): Promise<[string]>;
 
-    performanceFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+    performanceDevFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "performanceFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "performanceDevFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    performanceMax(overrides?: CallOverrides): Promise<[BigNumber]>;
+    performanceDevMax(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "performanceMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "performanceDevMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    pickle(overrides?: CallOverrides): Promise<[string]>;
+    performanceTreasuryFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<[string]>;
+    "performanceTreasuryFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    rewards(overrides?: CallOverrides): Promise<[string]>;
+    performanceTreasuryMax(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "rewards()"(overrides?: CallOverrides): Promise<[string]>;
+    "performanceTreasuryMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    setBurnFee(
-      _burnFee: BigNumberish,
+    poolId(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "poolId()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    revokeHarvesters(
+      _harvesters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "setBurnFee(uint256)"(
-      _burnFee: BigNumberish,
+    "revokeHarvesters(address[])"(
+      _harvesters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -506,23 +505,23 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setKeepUNI(
-      _keepUNI: BigNumberish,
+    setPerformanceDevFee(
+      _performanceDevFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "setKeepUNI(uint256)"(
-      _keepUNI: BigNumberish,
+    "setPerformanceDevFee(uint256)"(
+      _performanceDevFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setPerformanceFee(
-      _performanceFee: BigNumberish,
+    setPerformanceTreasuryFee(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "setPerformanceFee(uint256)"(
-      _performanceFee: BigNumberish,
+    "setPerformanceTreasuryFee(uint256)"(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -546,13 +545,23 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setWithdrawalFee(
-      _withdrawalFee: BigNumberish,
+    setWithdrawalDevFundFee(
+      _withdrawalDevFundFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "setWithdrawalFee(uint256)"(
-      _withdrawalFee: BigNumberish,
+    "setWithdrawalDevFundFee(uint256)"(
+      _withdrawalDevFundFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setWithdrawalTreasuryFee(
+      _withdrawalTreasuryFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "setWithdrawalTreasuryFee(uint256)"(
+      _withdrawalTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -560,13 +569,25 @@ export class Strategy extends Contract {
 
     "strategist()"(overrides?: CallOverrides): Promise<[string]>;
 
+    sushi(overrides?: CallOverrides): Promise<[string]>;
+
+    "sushi()"(overrides?: CallOverrides): Promise<[string]>;
+
+    sushiRouter(overrides?: CallOverrides): Promise<[string]>;
+
+    "sushiRouter()"(overrides?: CallOverrides): Promise<[string]>;
+
+    sushi_cvx_eth_lp(overrides?: CallOverrides): Promise<[string]>;
+
+    "sushi_cvx_eth_lp()"(overrides?: CallOverrides): Promise<[string]>;
+
+    sushi_cvx_poolId(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "sushi_cvx_poolId()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     timelock(overrides?: CallOverrides): Promise<[string]>;
 
     "timelock()"(overrides?: CallOverrides): Promise<[string]>;
-
-    uni(overrides?: CallOverrides): Promise<[string]>;
-
-    "uni()"(overrides?: CallOverrides): Promise<[string]>;
 
     univ2Router2(overrides?: CallOverrides): Promise<[string]>;
 
@@ -579,6 +600,16 @@ export class Strategy extends Contract {
     weth(overrides?: CallOverrides): Promise<[string]>;
 
     "weth()"(overrides?: CallOverrides): Promise<[string]>;
+
+    whitelistHarvesters(
+      _harvesters: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "whitelistHarvesters(address[])"(
+      _harvesters: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
@@ -598,41 +629,31 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    withdrawalFee(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "withdrawalFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    withdrawalMax(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "withdrawalMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    getCurrentLeverage(
+    withdrawForSwap(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "getCurrentLeverage()"(
+    "withdrawForSwap(uint256)"(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    masterChef(overrides?: CallOverrides): Promise<[string]>;
+    withdrawalDevFundFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "masterChef()"(overrides?: CallOverrides): Promise<[string]>;
+    "withdrawalDevFundFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    poolId(overrides?: CallOverrides): Promise<[BigNumber]>;
+    withdrawalDevFundMax(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "poolId()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "withdrawalDevFundMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    rewardToken(overrides?: CallOverrides): Promise<[string]>;
+    withdrawalTreasuryFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "rewardToken()"(overrides?: CallOverrides): Promise<[string]>;
+    "withdrawalTreasuryFee()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getHarvestableSushi(overrides?: CallOverrides): Promise<[BigNumber]>;
+    withdrawalTreasuryMax(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "getHarvestableSushi()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    getHarvestableAlcx(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "getHarvestableAlcx()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "withdrawalTreasuryMax()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   balanceOf(overrides?: CallOverrides): Promise<BigNumber>;
@@ -647,33 +668,13 @@ export class Strategy extends Contract {
 
   "balanceOfWant()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  brine(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "brine()"(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  burn(overrides?: CallOverrides): Promise<string>;
-
-  "burn()"(overrides?: CallOverrides): Promise<string>;
-
-  burnFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "burnFee()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  burnMax(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "burnMax()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   controller(overrides?: CallOverrides): Promise<string>;
 
   "controller()"(overrides?: CallOverrides): Promise<string>;
 
-  dai(overrides?: CallOverrides): Promise<string>;
+  cvx(overrides?: CallOverrides): Promise<string>;
 
-  "dai()"(overrides?: CallOverrides): Promise<string>;
+  "cvx()"(overrides?: CallOverrides): Promise<string>;
 
   deposit(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -695,23 +696,11 @@ export class Strategy extends Contract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  freeWithdraw(
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  getHarvestable(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
-  "freeWithdraw(uint256)"(
-    _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  gauge(overrides?: CallOverrides): Promise<string>;
-
-  "gauge()"(overrides?: CallOverrides): Promise<string>;
-
-  getHarvestable(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "getHarvestable()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "getHarvestable()"(
+    overrides?: CallOverrides
+  ): Promise<[BigNumber, BigNumber]>;
 
   getName(overrides?: CallOverrides): Promise<string>;
 
@@ -729,37 +718,44 @@ export class Strategy extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  keepUNI(overrides?: CallOverrides): Promise<BigNumber>;
+  harvesters(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-  "keepUNI()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "harvesters(address)"(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  keepUNIMax(overrides?: CallOverrides): Promise<BigNumber>;
+  masterChef(overrides?: CallOverrides): Promise<string>;
 
-  "keepUNIMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "masterChef()"(overrides?: CallOverrides): Promise<string>;
 
-  performanceFee(overrides?: CallOverrides): Promise<BigNumber>;
+  performanceDevFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "performanceFee()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "performanceDevFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  performanceMax(overrides?: CallOverrides): Promise<BigNumber>;
+  performanceDevMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "performanceMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "performanceDevMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  pickle(overrides?: CallOverrides): Promise<string>;
+  performanceTreasuryFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "pickle()"(overrides?: CallOverrides): Promise<string>;
+  "performanceTreasuryFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  rewards(overrides?: CallOverrides): Promise<string>;
+  performanceTreasuryMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "rewards()"(overrides?: CallOverrides): Promise<string>;
+  "performanceTreasuryMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  setBurnFee(
-    _burnFee: BigNumberish,
+  poolId(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  revokeHarvesters(
+    _harvesters: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "setBurnFee(uint256)"(
-    _burnFee: BigNumberish,
+  "revokeHarvesters(address[])"(
+    _harvesters: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -783,23 +779,23 @@ export class Strategy extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setKeepUNI(
-    _keepUNI: BigNumberish,
+  setPerformanceDevFee(
+    _performanceDevFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "setKeepUNI(uint256)"(
-    _keepUNI: BigNumberish,
+  "setPerformanceDevFee(uint256)"(
+    _performanceDevFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setPerformanceFee(
-    _performanceFee: BigNumberish,
+  setPerformanceTreasuryFee(
+    _performanceTreasuryFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "setPerformanceFee(uint256)"(
-    _performanceFee: BigNumberish,
+  "setPerformanceTreasuryFee(uint256)"(
+    _performanceTreasuryFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -823,13 +819,23 @@ export class Strategy extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setWithdrawalFee(
-    _withdrawalFee: BigNumberish,
+  setWithdrawalDevFundFee(
+    _withdrawalDevFundFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "setWithdrawalFee(uint256)"(
-    _withdrawalFee: BigNumberish,
+  "setWithdrawalDevFundFee(uint256)"(
+    _withdrawalDevFundFee: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setWithdrawalTreasuryFee(
+    _withdrawalTreasuryFee: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "setWithdrawalTreasuryFee(uint256)"(
+    _withdrawalTreasuryFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -837,13 +843,25 @@ export class Strategy extends Contract {
 
   "strategist()"(overrides?: CallOverrides): Promise<string>;
 
+  sushi(overrides?: CallOverrides): Promise<string>;
+
+  "sushi()"(overrides?: CallOverrides): Promise<string>;
+
+  sushiRouter(overrides?: CallOverrides): Promise<string>;
+
+  "sushiRouter()"(overrides?: CallOverrides): Promise<string>;
+
+  sushi_cvx_eth_lp(overrides?: CallOverrides): Promise<string>;
+
+  "sushi_cvx_eth_lp()"(overrides?: CallOverrides): Promise<string>;
+
+  sushi_cvx_poolId(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "sushi_cvx_poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   timelock(overrides?: CallOverrides): Promise<string>;
 
   "timelock()"(overrides?: CallOverrides): Promise<string>;
-
-  uni(overrides?: CallOverrides): Promise<string>;
-
-  "uni()"(overrides?: CallOverrides): Promise<string>;
 
   univ2Router2(overrides?: CallOverrides): Promise<string>;
 
@@ -856,6 +874,16 @@ export class Strategy extends Contract {
   weth(overrides?: CallOverrides): Promise<string>;
 
   "weth()"(overrides?: CallOverrides): Promise<string>;
+
+  whitelistHarvesters(
+    _harvesters: string[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "whitelistHarvesters(address[])"(
+    _harvesters: string[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   "withdraw(uint256)"(
     _amount: BigNumberish,
@@ -875,41 +903,31 @@ export class Strategy extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  withdrawalFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "withdrawalFee()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  withdrawalMax(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "withdrawalMax()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  getCurrentLeverage(
+  withdrawForSwap(
+    _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "getCurrentLeverage()"(
+  "withdrawForSwap(uint256)"(
+    _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  masterChef(overrides?: CallOverrides): Promise<string>;
+  withdrawalDevFundFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "masterChef()"(overrides?: CallOverrides): Promise<string>;
+  "withdrawalDevFundFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  poolId(overrides?: CallOverrides): Promise<BigNumber>;
+  withdrawalDevFundMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "withdrawalDevFundMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  rewardToken(overrides?: CallOverrides): Promise<string>;
+  withdrawalTreasuryFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "rewardToken()"(overrides?: CallOverrides): Promise<string>;
+  "withdrawalTreasuryFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getHarvestableSushi(overrides?: CallOverrides): Promise<BigNumber>;
+  withdrawalTreasuryMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "getHarvestableSushi()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  getHarvestableAlcx(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "getHarvestableAlcx()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "withdrawalTreasuryMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     balanceOf(overrides?: CallOverrides): Promise<BigNumber>;
@@ -924,29 +942,13 @@ export class Strategy extends Contract {
 
     "balanceOfWant()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    brine(overrides?: CallOverrides): Promise<void>;
-
-    "brine()"(overrides?: CallOverrides): Promise<void>;
-
-    burn(overrides?: CallOverrides): Promise<string>;
-
-    "burn()"(overrides?: CallOverrides): Promise<string>;
-
-    burnFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "burnFee()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    burnMax(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "burnMax()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     controller(overrides?: CallOverrides): Promise<string>;
 
     "controller()"(overrides?: CallOverrides): Promise<string>;
 
-    dai(overrides?: CallOverrides): Promise<string>;
+    cvx(overrides?: CallOverrides): Promise<string>;
 
-    "dai()"(overrides?: CallOverrides): Promise<string>;
+    "cvx()"(overrides?: CallOverrides): Promise<string>;
 
     deposit(overrides?: CallOverrides): Promise<void>;
 
@@ -964,23 +966,11 @@ export class Strategy extends Contract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    freeWithdraw(
-      _amount: BigNumberish,
+    getHarvestable(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
+
+    "getHarvestable()"(
       overrides?: CallOverrides
-    ): Promise<void>;
-
-    "freeWithdraw(uint256)"(
-      _amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    gauge(overrides?: CallOverrides): Promise<string>;
-
-    "gauge()"(overrides?: CallOverrides): Promise<string>;
-
-    getHarvestable(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getHarvestable()"(overrides?: CallOverrides): Promise<BigNumber>;
+    ): Promise<[BigNumber, BigNumber]>;
 
     getName(overrides?: CallOverrides): Promise<string>;
 
@@ -994,37 +984,44 @@ export class Strategy extends Contract {
 
     "harvest()"(overrides?: CallOverrides): Promise<void>;
 
-    keepUNI(overrides?: CallOverrides): Promise<BigNumber>;
+    harvesters(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
-    "keepUNI()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "harvesters(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    keepUNIMax(overrides?: CallOverrides): Promise<BigNumber>;
+    masterChef(overrides?: CallOverrides): Promise<string>;
 
-    "keepUNIMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "masterChef()"(overrides?: CallOverrides): Promise<string>;
 
-    performanceFee(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceDevFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "performanceFee()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "performanceDevFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    performanceMax(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceDevMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "performanceMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "performanceDevMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    pickle(overrides?: CallOverrides): Promise<string>;
+    performanceTreasuryFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<string>;
+    "performanceTreasuryFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards(overrides?: CallOverrides): Promise<string>;
+    performanceTreasuryMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "rewards()"(overrides?: CallOverrides): Promise<string>;
+    "performanceTreasuryMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setBurnFee(
-      _burnFee: BigNumberish,
+    poolId(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    revokeHarvesters(
+      _harvesters: string[],
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setBurnFee(uint256)"(
-      _burnFee: BigNumberish,
+    "revokeHarvesters(address[])"(
+      _harvesters: string[],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1048,23 +1045,23 @@ export class Strategy extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setKeepUNI(
-      _keepUNI: BigNumberish,
+    setPerformanceDevFee(
+      _performanceDevFee: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setKeepUNI(uint256)"(
-      _keepUNI: BigNumberish,
+    "setPerformanceDevFee(uint256)"(
+      _performanceDevFee: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setPerformanceFee(
-      _performanceFee: BigNumberish,
+    setPerformanceTreasuryFee(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setPerformanceFee(uint256)"(
-      _performanceFee: BigNumberish,
+    "setPerformanceTreasuryFee(uint256)"(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1085,13 +1082,23 @@ export class Strategy extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setWithdrawalFee(
-      _withdrawalFee: BigNumberish,
+    setWithdrawalDevFundFee(
+      _withdrawalDevFundFee: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setWithdrawalFee(uint256)"(
-      _withdrawalFee: BigNumberish,
+    "setWithdrawalDevFundFee(uint256)"(
+      _withdrawalDevFundFee: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setWithdrawalTreasuryFee(
+      _withdrawalTreasuryFee: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "setWithdrawalTreasuryFee(uint256)"(
+      _withdrawalTreasuryFee: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1099,13 +1106,25 @@ export class Strategy extends Contract {
 
     "strategist()"(overrides?: CallOverrides): Promise<string>;
 
+    sushi(overrides?: CallOverrides): Promise<string>;
+
+    "sushi()"(overrides?: CallOverrides): Promise<string>;
+
+    sushiRouter(overrides?: CallOverrides): Promise<string>;
+
+    "sushiRouter()"(overrides?: CallOverrides): Promise<string>;
+
+    sushi_cvx_eth_lp(overrides?: CallOverrides): Promise<string>;
+
+    "sushi_cvx_eth_lp()"(overrides?: CallOverrides): Promise<string>;
+
+    sushi_cvx_poolId(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "sushi_cvx_poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     timelock(overrides?: CallOverrides): Promise<string>;
 
     "timelock()"(overrides?: CallOverrides): Promise<string>;
-
-    uni(overrides?: CallOverrides): Promise<string>;
-
-    "uni()"(overrides?: CallOverrides): Promise<string>;
 
     univ2Router2(overrides?: CallOverrides): Promise<string>;
 
@@ -1118,6 +1137,16 @@ export class Strategy extends Contract {
     weth(overrides?: CallOverrides): Promise<string>;
 
     "weth()"(overrides?: CallOverrides): Promise<string>;
+
+    whitelistHarvesters(
+      _harvesters: string[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "whitelistHarvesters(address[])"(
+      _harvesters: string[],
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
@@ -1133,37 +1162,31 @@ export class Strategy extends Contract {
 
     "withdrawAll()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    withdrawalFee(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawForSwap(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "withdrawalFee()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawForSwap(uint256)"(
+      _amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    withdrawalMax(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalDevFundFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "withdrawalMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalDevFundFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getCurrentLeverage(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalDevFundMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "getCurrentLeverage()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalDevFundMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    masterChef(overrides?: CallOverrides): Promise<string>;
+    withdrawalTreasuryFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "masterChef()"(overrides?: CallOverrides): Promise<string>;
+    "withdrawalTreasuryFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    poolId(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalTreasuryMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardToken(overrides?: CallOverrides): Promise<string>;
-
-    "rewardToken()"(overrides?: CallOverrides): Promise<string>;
-
-    getHarvestableSushi(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getHarvestableSushi()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getHarvestableAlcx(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getHarvestableAlcx()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalTreasuryMax()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {};
@@ -1181,33 +1204,13 @@ export class Strategy extends Contract {
 
     "balanceOfWant()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    brine(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "brine()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    burn(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "burn()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    burnFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "burnFee()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    burnMax(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "burnMax()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     controller(overrides?: CallOverrides): Promise<BigNumber>;
 
     "controller()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    dai(overrides?: CallOverrides): Promise<BigNumber>;
+    cvx(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "dai()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "cvx()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1229,20 +1232,6 @@ export class Strategy extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    freeWithdraw(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "freeWithdraw(uint256)"(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    gauge(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "gauge()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     getHarvestable(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getHarvestable()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1263,37 +1252,44 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    keepUNI(overrides?: CallOverrides): Promise<BigNumber>;
+    harvesters(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    "keepUNI()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "harvesters(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    keepUNIMax(overrides?: CallOverrides): Promise<BigNumber>;
+    masterChef(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "keepUNIMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "masterChef()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    performanceFee(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceDevFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "performanceFee()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "performanceDevFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    performanceMax(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceDevMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "performanceMax()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "performanceDevMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    pickle(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceTreasuryFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "performanceTreasuryFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceTreasuryMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "rewards()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "performanceTreasuryMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setBurnFee(
-      _burnFee: BigNumberish,
+    poolId(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    revokeHarvesters(
+      _harvesters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "setBurnFee(uint256)"(
-      _burnFee: BigNumberish,
+    "revokeHarvesters(address[])"(
+      _harvesters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1317,23 +1313,23 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setKeepUNI(
-      _keepUNI: BigNumberish,
+    setPerformanceDevFee(
+      _performanceDevFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "setKeepUNI(uint256)"(
-      _keepUNI: BigNumberish,
+    "setPerformanceDevFee(uint256)"(
+      _performanceDevFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setPerformanceFee(
-      _performanceFee: BigNumberish,
+    setPerformanceTreasuryFee(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "setPerformanceFee(uint256)"(
-      _performanceFee: BigNumberish,
+    "setPerformanceTreasuryFee(uint256)"(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1357,13 +1353,23 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setWithdrawalFee(
-      _withdrawalFee: BigNumberish,
+    setWithdrawalDevFundFee(
+      _withdrawalDevFundFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "setWithdrawalFee(uint256)"(
-      _withdrawalFee: BigNumberish,
+    "setWithdrawalDevFundFee(uint256)"(
+      _withdrawalDevFundFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setWithdrawalTreasuryFee(
+      _withdrawalTreasuryFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setWithdrawalTreasuryFee(uint256)"(
+      _withdrawalTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1371,13 +1377,25 @@ export class Strategy extends Contract {
 
     "strategist()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    sushi(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "sushi()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sushiRouter(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "sushiRouter()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sushi_cvx_eth_lp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "sushi_cvx_eth_lp()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sushi_cvx_poolId(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "sushi_cvx_poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     timelock(overrides?: CallOverrides): Promise<BigNumber>;
 
     "timelock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    uni(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "uni()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     univ2Router2(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1390,6 +1408,16 @@ export class Strategy extends Contract {
     weth(overrides?: CallOverrides): Promise<BigNumber>;
 
     "weth()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    whitelistHarvesters(
+      _harvesters: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "whitelistHarvesters(address[])"(
+      _harvesters: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
@@ -1409,41 +1437,31 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    withdrawalFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "withdrawalFee()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    withdrawalMax(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "withdrawalMax()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getCurrentLeverage(
+    withdrawForSwap(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "getCurrentLeverage()"(
+    "withdrawForSwap(uint256)"(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    masterChef(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalDevFundFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "masterChef()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalDevFundFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    poolId(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalDevFundMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "poolId()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalDevFundMax()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewardToken(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalTreasuryFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "rewardToken()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalTreasuryFee()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getHarvestableSushi(overrides?: CallOverrides): Promise<BigNumber>;
+    withdrawalTreasuryMax(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "getHarvestableSushi()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getHarvestableAlcx(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getHarvestableAlcx()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "withdrawalTreasuryMax()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -1459,33 +1477,13 @@ export class Strategy extends Contract {
 
     "balanceOfWant()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    brine(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "brine()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    burn(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "burn()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    burnFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "burnFee()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    burnMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "burnMax()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     controller(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "controller()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    dai(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    cvx(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "dai()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "cvx()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1506,20 +1504,6 @@ export class Strategy extends Contract {
       _data: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    freeWithdraw(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "freeWithdraw(uint256)"(
-      _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    gauge(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "gauge()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getHarvestable(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1543,41 +1527,59 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    keepUNI(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "keepUNI()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    keepUNIMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "keepUNIMax()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    performanceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "performanceFee()"(
+    harvesters(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    performanceMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "performanceMax()"(
+    "harvesters(address)"(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    pickle(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    masterChef(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "masterChef()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    rewards(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    performanceDevFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "rewards()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "performanceDevFee()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    setBurnFee(
-      _burnFee: BigNumberish,
+    performanceDevMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "performanceDevMax()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    performanceTreasuryFee(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "performanceTreasuryFee()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    performanceTreasuryMax(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "performanceTreasuryMax()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    poolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "poolId()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    revokeHarvesters(
+      _harvesters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "setBurnFee(uint256)"(
-      _burnFee: BigNumberish,
+    "revokeHarvesters(address[])"(
+      _harvesters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1601,23 +1603,23 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setKeepUNI(
-      _keepUNI: BigNumberish,
+    setPerformanceDevFee(
+      _performanceDevFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "setKeepUNI(uint256)"(
-      _keepUNI: BigNumberish,
+    "setPerformanceDevFee(uint256)"(
+      _performanceDevFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setPerformanceFee(
-      _performanceFee: BigNumberish,
+    setPerformanceTreasuryFee(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "setPerformanceFee(uint256)"(
-      _performanceFee: BigNumberish,
+    "setPerformanceTreasuryFee(uint256)"(
+      _performanceTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1641,13 +1643,23 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setWithdrawalFee(
-      _withdrawalFee: BigNumberish,
+    setWithdrawalDevFundFee(
+      _withdrawalDevFundFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "setWithdrawalFee(uint256)"(
-      _withdrawalFee: BigNumberish,
+    "setWithdrawalDevFundFee(uint256)"(
+      _withdrawalDevFundFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setWithdrawalTreasuryFee(
+      _withdrawalTreasuryFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "setWithdrawalTreasuryFee(uint256)"(
+      _withdrawalTreasuryFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1655,13 +1667,29 @@ export class Strategy extends Contract {
 
     "strategist()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    sushi(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "sushi()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    sushiRouter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "sushiRouter()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    sushi_cvx_eth_lp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "sushi_cvx_eth_lp()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    sushi_cvx_poolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "sushi_cvx_poolId()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     timelock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "timelock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    uni(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "uni()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     univ2Router2(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1674,6 +1702,16 @@ export class Strategy extends Contract {
     weth(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "weth()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    whitelistHarvesters(
+      _harvesters: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "whitelistHarvesters(address[])"(
+      _harvesters: string[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
@@ -1693,47 +1731,45 @@ export class Strategy extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    withdrawalFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "withdrawalFee()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    withdrawalMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "withdrawalMax()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getCurrentLeverage(
+    withdrawForSwap(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "getCurrentLeverage()"(
+    "withdrawForSwap(uint256)"(
+      _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    masterChef(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "masterChef()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    poolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "poolId()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    rewardToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "rewardToken()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getHarvestableSushi(
+    withdrawalDevFundFee(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "getHarvestableSushi()"(
+    "withdrawalDevFundFee()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getHarvestableAlcx(
+    withdrawalDevFundMax(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "getHarvestableAlcx()"(
+    "withdrawalDevFundMax()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    withdrawalTreasuryFee(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawalTreasuryFee()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    withdrawalTreasuryMax(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawalTreasuryMax()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

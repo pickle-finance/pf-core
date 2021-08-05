@@ -481,12 +481,9 @@ export class Dill extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    "totalSupply()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "totalSupply(uint256)"(
-      t: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    "totalSupply()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     totalSupplyAt(
       _block: BigNumberish,
@@ -791,12 +788,9 @@ export class Dill extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "totalSupply(uint256)"(
-    t: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   totalSupplyAt(
     _block: BigNumberish,
@@ -1080,12 +1074,9 @@ export class Dill extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "totalSupply(uint256)"(
-      t: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupplyAt(
       _block: BigNumberish,
@@ -1429,12 +1420,9 @@ export class Dill extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "totalSupply(uint256)"(
-      t: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    "totalSupply()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupplyAt(
       _block: BigNumberish,
@@ -1712,12 +1700,9 @@ export class Dill extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "totalSupply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "totalSupply(uint256)"(
-      t: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    "totalSupply()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupplyAt(
       _block: BigNumberish,

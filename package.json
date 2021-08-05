@@ -1,23 +1,36 @@
 {
-    "name": "picklefinance-core",
-    "version": "0.1.0",
-    "description": "A repository for all picklefinance core code",
-    "engines": {
-        "node": ">= 14.16 <15"
-    },
-    "author": "Bwar",
-    "license": "Apache-2.0",
-    "scripts": {
-        "start": "node build/src/main.js",
-        "clean": "rimraf coverage build tmp",
-        "prebuild": "npm run lint",
-        "build": "tsc -p tsconfig.release.json --resolveJsonModule",
-        "build:watch": "tsc -w -p tsconfig.release.json",
-        "lint": "eslint . --ext .ts,.tsx",
-        "test": "jest --coverage",
-        "test:watch": "jest --watch",
-        "typechain": "typechain --target ethers-v5 --outDir ./src/Contracts/ContractsImpl ./src/Contracts/ABIs/**/*.json"
-    },
+  "name": "picklefinance-core",
+  "version": "0.1.1",
+  "description": "A repository for all picklefinance core code",
+  "engines": {
+      "node": ">= 14.16 <15"
+  },
+  "author": "Bwar",
+  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "start": "node lib/main.js",
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf out || rmdir out /s /q",
+    "compile": "tsc -p ./",
+    "prepublish": "tsc -p .",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "typechain": "typechain --target ethers-v5 --outDir ./src/Contracts/ContractsImpl ./src/Contracts/ABIs/**/*.json"
+  },
+  "files": [
+    "/lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robstryker/picklefinance-core"
+  },
+  "bugs": {
+    "url": "https://github.com/robstryker/picklefinance-core/issues"
+  },
+  "license": "Apache-2.0",
     "devDependencies": {
         "@typechain/ethers-v5": "^6.0.0",
         "@types/jest": "~26.0.23",

@@ -5,14 +5,14 @@
 import { Contract, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 
-import type { Strategy } from "../Strategy";
+import type { StrategyDual } from "../StrategyDual";
 
-export class Strategy__factory {
+export class StrategyDual__factory {
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): Strategy {
-    return new Contract(address, _abi, signerOrProvider) as Strategy;
+  ): StrategyDual {
+    return new Contract(address, _abi, signerOrProvider) as StrategyDual;
   }
 }
 
@@ -84,52 +84,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "brine",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "burn",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "burnFee",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "burnMax",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "controller",
     outputs: [
       {
@@ -143,7 +97,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "dai",
+    name: "cvx",
     outputs: [
       {
         internalType: "address",
@@ -186,35 +140,14 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_amount",
-        type: "uint256",
-      },
-    ],
-    name: "freeWithdraw",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "gauge",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "getHarvestable",
     outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
       {
         internalType: "uint256",
         name: "",
@@ -258,13 +191,19 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "keepUNI",
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "harvesters",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "bool",
         name: "",
-        type: "uint256",
+        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -272,46 +211,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "keepUNIMax",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "performanceFee",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "performanceMax",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "pickle",
+    name: "masterChef",
     outputs: [
       {
         internalType: "address",
@@ -324,12 +224,64 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "rewards",
+    name: "performanceDevFee",
     outputs: [
       {
-        internalType: "address",
+        internalType: "uint256",
         name: "",
-        type: "address",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "performanceDevMax",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "performanceTreasuryFee",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "performanceTreasuryMax",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "poolId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -338,12 +290,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_burnFee",
-        type: "uint256",
+        internalType: "address[]",
+        name: "_harvesters",
+        type: "address[]",
       },
     ],
-    name: "setBurnFee",
+    name: "revokeHarvesters",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -378,11 +330,11 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_keepUNI",
+        name: "_performanceDevFee",
         type: "uint256",
       },
     ],
-    name: "setKeepUNI",
+    name: "setPerformanceDevFee",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -391,11 +343,11 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_performanceFee",
+        name: "_performanceTreasuryFee",
         type: "uint256",
       },
     ],
-    name: "setPerformanceFee",
+    name: "setPerformanceTreasuryFee",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -430,11 +382,24 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "_withdrawalFee",
+        name: "_withdrawalDevFundFee",
         type: "uint256",
       },
     ],
-    name: "setWithdrawalFee",
+    name: "setWithdrawalDevFundFee",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_withdrawalTreasuryFee",
+        type: "uint256",
+      },
+    ],
+    name: "setWithdrawalTreasuryFee",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -454,7 +419,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "timelock",
+    name: "sushi",
     outputs: [
       {
         internalType: "address",
@@ -467,7 +432,46 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "uni",
+    name: "sushiRouter",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "sushi_cvx_eth_lp",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "sushi_cvx_poolId",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "timelock",
     outputs: [
       {
         internalType: "address",
@@ -520,6 +524,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address[]",
+        name: "_harvesters",
+        type: "address[]",
+      },
+    ],
+    name: "whitelistHarvesters",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_amount",
         type: "uint256",
@@ -563,38 +580,18 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "withdrawalFee",
-    outputs: [
+    inputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "_amount",
         type: "uint256",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "withdrawalMax",
+    name: "withdrawForSwap",
     outputs: [
       {
         internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getCurrentLeverage",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
+        name: "balance",
         type: "uint256",
       },
     ],
@@ -603,20 +600,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "masterChef",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "poolId",
+    name: "withdrawalDevFundFee",
     outputs: [
       {
         internalType: "uint256",
@@ -629,20 +613,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "rewardToken",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getHarvestableSushi",
+    name: "withdrawalDevFundMax",
     outputs: [
       {
         internalType: "uint256",
@@ -655,7 +626,20 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "getHarvestableAlcx",
+    name: "withdrawalTreasuryFee",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "withdrawalTreasuryMax",
     outputs: [
       {
         internalType: "uint256",

@@ -1,19 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "importHelpers": true,
-    "jsx": "react",
-    "alwaysStrict": true,
+    "declaration": true,
+    "declarationMap": true,
     "sourceMap": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
+    "allowJs": true,
+    "outDir": "./lib",
+    "strict": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noImplicitAny": false,
@@ -21,7 +20,6 @@
     "strictNullChecks": false
   },
   "include": [
-    "src/**/*",
-    "tests/**/*"
+    "src",
   ]
 }
