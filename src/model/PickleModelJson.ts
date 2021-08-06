@@ -35,40 +35,56 @@ export interface DepositToken {
     components?: string[]
 }
 
-export interface AssetDefinition {
+export interface JarDefinition {
     id: string,
     contract: string,
     depositToken: DepositToken,
     enablement: AssetEnablement,
     chain: Chain,
     protocol: string,
-    // TODO add docs here
-    //docs?: AssetDocumentation
+    details: JarDetails,
+    farm: NestedFarmDetails,
 }
-
-export interface JarDefinition extends AssetDefinition {
-    jarDetails: JarDetails,
-    farmDetails: FarmDetails,
+export interface StandaloneFarmDefinition {
+    id: string,
+    farmNickname: string,
+    contract: string,
+    depositToken: DepositToken,
+    enablement: AssetEnablement,
+    chain: Chain,
+    protocol: string,
+    details?: FarmDetails,
 }
-
 export interface JarDetails {
     apiKey: string,
     harvestStyle: HarvestStyle
     strategyName?: string,
     strategyAddr?: string,
     ratio?: number,
-    harvestStats?: JarHarvestStats | ActiveJarHarvestStats
+    harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
+    oneDayApy?: number,
+    threeDayApy?: number,
+    sevenDayApy?: number,
+    thirtyDayApy?: number,
 }
 
 export interface FarmDetails {
-    farmAddress: string,
-    farmDepositTokenName: string,
-    farmNickname: string,    
+    allocShare?: number,
+    tokenBalance?: number,
+    valueBalance?: number,
+    picklePerBlock?: number,
+    picklePerDay?: number,
+    oneDayApy?: number,
+    threeDayApy?: number,
+    sevenDayApy?: number,
+    thirtyDayApy?: number,
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface StandaloneFarmDefinition extends AssetDefinition {
-    farmNickname: string
+export interface NestedFarmDetails {
+    farmAddress: string,
+    farmDepositTokenName: string,
+    farmNickname: string,
+    details?: FarmDetails,
 }
 
 export interface DillDetails {

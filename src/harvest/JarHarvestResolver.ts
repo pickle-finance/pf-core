@@ -33,7 +33,7 @@ export interface JarHarvestStats {
 
   export abstract class AbstractJarHarvestResolver implements JarHarvestResolver {
     async getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider) : Promise<JarHarvestData> {
-        const strategy = new ethers.Contract(definition.jarDetails.strategyAddr, this.getStrategyAbi(definition), resolver);
+        const strategy = new ethers.Contract(definition.details.strategyAddr, this.getStrategyAbi(definition), resolver);
         const jar = new ethers.Contract(definition.contract, jarsAbi, resolver);
         const [available, balance1 ] = await Promise.all([
             jar.available(),
@@ -46,8 +46,8 @@ export interface JarHarvestStats {
               return {
                 name: definition.id,
                 jarAddr: definition.contract,
-                strategyName: definition.jarDetails.strategyName,
-                strategyAddr: definition.jarDetails.strategyAddr,
+                strategyName: definition.details.strategyName,
+                strategyAddr: definition.details.strategyAddr,
                 stats: stats
                 };
           } catch( e ) {
@@ -56,8 +56,8 @@ export interface JarHarvestStats {
           return {
             name: definition.id,
             jarAddr: definition.contract,
-            strategyName: definition.jarDetails.strategyName,
-            strategyAddr: definition.jarDetails.strategyAddr,
+            strategyName: definition.details.strategyName,
+            strategyAddr: definition.details.strategyAddr,
             stats: stats
         };
     }

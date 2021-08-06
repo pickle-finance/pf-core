@@ -1,4 +1,4 @@
-import { AssetEnablement, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, HarvestStyle, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
 import { ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -12,6 +12,9 @@ import { CoinGeckpPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { JarHarvestResolverDiscovery } from "../harvest/JarHarvestResolverDiscovery";
 import { JarHarvestData, JarHarvestResolver } from "../harvest/JarHarvestResolver";
 import { getDillDetails } from "../dill/DillUtility";
+import { FarmDatabaseEntry, getFarmDatabaseEntry, AssetDatabaseEntry, getJarAssetData } from "../database/DatabaseUtil";
+import { PerformanceData, getProtocolPerformance, JarFarmPerformanceData, getJarFarmPerformanceData } from "../performance/AssetPerformance";
+import { JAR_DEFINITIONS } from "./JarsAndFarms";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -35,7 +38,7 @@ export class PickleModel {
         await this.ensureStrategyDataLoaded(this.jars);
         await this.ensureRatiosLoaded(this.jars);
         await this.ensureHarvestDataLoaded(this.jars);
-        
+        await this.ensureApyLoaded(this.jars);
         const dillObject = await getDillDetails(0, this.prices, this.etherResolver);
 
         return {
@@ -49,7 +52,38 @@ export class PickleModel {
     }
 
 
+    async ensureApyLoaded(jars: JarDefinition[]) {
+        for( let jar of jars ) {
+            if( jar.details && jar.details.apiKey ) {
+             const perfData : PerformanceData = await getProtocolPerformance(jar);
+             const farmEntry : FarmDatabaseEntry = await getFarmDatabaseEntry(jar);
+             const jarData : AssetDatabaseEntry[] = await getJarAssetData(jar);
+             const result : JarFarmPerformanceData = await getJarFarmPerformanceData(
+                 perfData, farmEntry === undefined ? undefined : farmEntry.apy*100, jarData);
 
+             jar.details.oneDayApy = result.oneDay;
+             jar.details.threeDayApy = result.threeDay;
+             jar.details.sevenDayApy = result.sevenDay;
+             jar.details.thirtyDayApy = result.thirtyDay;
+             if( jar.farm ) {
+                 jar.farm.details = {};
+                 if( farmEntry !== undefined ) {
+                    jar.farm.details.allocShare= farmEntry.allocShare;
+                    jar.farm.details.tokenBalance= farmEntry.tokenBalance;
+                    jar.farm.details.valueBalance= farmEntry.valueBalance;
+                    jar.farm.details.picklePerBlock= farmEntry.picklePerBlock;
+                    jar.farm.details.picklePerDay= farmEntry.picklePerDay;
+                 }
+                 if( result !== undefined ) {
+                    jar.farm.details.oneDayApy= result.oneDayFarm;
+                    jar.farm.details.threeDayApy= result.threeDayFarm;
+                    jar.farm.details.sevenDayApy= result.sevenDayFarm;
+                    jar.farm.details.thirtyDayApy= result.thirtyDayFarm;
+                 }
+             }
+           }
+        }
+    }
     async ensurePriceCacheLoaded() {
         if( this.prices === undefined ) {
             const tmp : PriceCache = new PriceCache();
@@ -64,7 +98,7 @@ export class PickleModel {
 
     async ensureStrategyDataLoaded(jars: JarDefinition[]) {
         for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].jarDetails.strategyAddr === undefined || jars[i].jarDetails.strategyName === undefined ) {
+            if( jars[i].details.strategyAddr === undefined || jars[i].details.strategyName === undefined ) {
                 await this.loadStrategyData(jars);
                 return;
             }
@@ -76,6 +110,7 @@ export class PickleModel {
         const polyJars = jars.filter(x => x.chain === Chain.Polygon);
         if( ethJars.length > 0 )
             await this.addJarStrategies(ethJars, CONTROLLER_ETH, this.etherResolver);
+            // TODO
 //        if( polyJars.length > 0 )
 //            await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, this.polyResolver);
     }
@@ -83,7 +118,7 @@ export class PickleModel {
 
     async ensureRatiosLoaded(jars: JarDefinition[]) {
         for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].jarDetails.ratio === undefined ) {
+            if( jars[i].details.ratio === undefined ) {
                 await this.loadRatiosData(jars);
                 return;
             }
@@ -107,13 +142,19 @@ export class PickleModel {
             jars.map((oneJar) => controllerContract.strategies(oneJar.depositToken.addr))
           );
         for( let i = 0; i < jars.length; i++ ) {
-            jars[i].jarDetails.strategyAddr = strategyAddresses[i];
+            if( jars[i].details === undefined ) {
+                jars[i].details = {
+                    apiKey: undefined,
+                    harvestStyle: HarvestStyle.PASSIVE
+                };
+            }
+            jars[i].details.strategyAddr = strategyAddresses[i];
         }
 
         const ethcallProvider2 = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
         await ethcallProvider2.init();
-        const withStrategyAddresses = jars.filter((x) => x.jarDetails.strategyAddr !== undefined && 
-            x.jarDetails.strategyAddr !== "0x0000000000000000000000000000000000000000" && x.enablement !== AssetEnablement.DISABLED);
+        const withStrategyAddresses = jars.filter((x) => x.details.strategyAddr !== undefined && 
+            x.details.strategyAddr !== "0x0000000000000000000000000000000000000000" && x.enablement !== AssetEnablement.DISABLED);
 
 /*
         // debug
@@ -122,7 +163,7 @@ export class PickleModel {
             await ethcallProvider3.init();
             const arr : JarDefinition[] = [withStrategyAddresses[i]];
             await ethcallProvider3.all<string[]>(
-                arr.map((oneJar) => new MulticallContract(oneJar.jarDetails.strategyAddr, strategyAbi).getName())
+                arr.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).getName())
             ).then((response) => {
                 console.log(response);
             });
@@ -130,10 +171,10 @@ export class PickleModel {
 */
 
         const strategyNames : string[] = await ethcallProvider2.all<string[]>(
-            withStrategyAddresses.map((oneJar) => new MulticallContract(oneJar.jarDetails.strategyAddr, strategyAbi).getName())
+            withStrategyAddresses.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).getName())
         );
         for( let i = 0; i < withStrategyAddresses.length; i++ ) {
-            withStrategyAddresses[i].jarDetails.strategyName = strategyNames[i];
+            withStrategyAddresses[i].details.strategyName = strategyNames[i];
         }
     }
 
@@ -159,14 +200,14 @@ export class PickleModel {
             jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
           );
         for( let i = 0; i < jars.length; i++ ) {
-            jars[i].jarDetails.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
+            jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
         }
     }
 
     async ensureHarvestDataLoaded(jars: JarDefinition[]) {
         const ethJars = jars.filter(x => x.chain === Chain.Ethereum);
         for( let i = 0; i < ethJars.length; i++ ) {
-            if( ethJars[i].jarDetails.harvestStats === undefined ) {
+            if( ethJars[i].details.harvestStats === undefined ) {
                 await this.loadHarvestData([ethJars[i]]);
             }
         }
@@ -182,7 +223,7 @@ export class PickleModel {
                     console.log("cant find harvest resolver for jar " + jars[i].id);
                 } else {
                     const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this.prices, resolver);
-                    jars[i].jarDetails.harvestStats = harvestData?.stats;
+                    jars[i].details.harvestStats = harvestData?.stats;
                 }
             } catch( e ) {
                 console.log("Error loading harvest data for jar " + jars[i].id + ":  " + e);

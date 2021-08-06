@@ -1,15 +1,15 @@
-import { readQueryFromGraph, protocolToSubgraphUrl} from "../graph/TheGraph";
+import { readQueryFromGraph, protocolToSubgraphUrl, getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV } from "../model/JarsAndFarms";
-import { AssetDefinition, PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE } from "../model/PickleModelJson";
+import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition } from "../model/PickleModelJson";
 import { CoinGeckpPriceResolver } from "./CoinGeckoPriceResolver";
 import { ExternalTokenModelSingleton } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache } from "./PriceCache";
 
 export class DepositTokenPriceResolver implements IPriceResolver {
-    myAssets : AssetDefinition[];
-    constructor(assets: AssetDefinition[]) {
-        this.myAssets = assets;
+    myJars : JarDefinition[];
+    constructor(assets: JarDefinition[]) {
+        this.myJars = assets;
     }
 
     getFromCache(ids: string[], cache: PriceCache): Map<string, number> {
@@ -47,9 +47,9 @@ export class DepositTokenPriceResolver implements IPriceResolver {
 
     getProtocolFromDepositToken(token: string) : string {
         const matching : Set<string> = new Set<string>();
-        for( let i = 0; i < this.myAssets.length; i++) {
-            if( this.myAssets[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
-                matching.add(this.myAssets[i].protocol);
+        for( let i = 0; i < this.myJars.length; i++) {
+            if( this.myJars[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
+                matching.add(this.myJars[i].protocol);
             }
         }
         if( matching.size === 1 ) {
@@ -61,15 +61,15 @@ export class DepositTokenPriceResolver implements IPriceResolver {
 
     async getTokenPriceFromGraph(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
         if (protocol === PROTOCOL_TYPE_SUSHISWAP) {
-            return await this.getPriceFromSushiPair(await this.getSushiSwapPair(protocol, token.toLowerCase(), block), cache);
+            return await this.getPriceFromSushiPair(await getSushiSwapPair(protocol, token.toLowerCase(), block), cache);
         } else if (protocol === PROTOCOL_TYPE_UNISWAP) {
-            return this.getPriceFromStandardPair(await this.getUniswapPair(protocol, token.toLowerCase(), block));
+            return this.getPriceFromStandardPair(await getUniswapPair(protocol, token.toLowerCase(), block));
         } else if (protocol === PROTOCOL_TYPE_SUSHISWAP_POLYGON) {
-            return this.getPriceFromStandardPair(await this.getSushiSwapPolyPair(protocol, token.toLowerCase(), block));
+            return this.getPriceFromStandardPair(await getSushiSwapPolyPair(protocol, token.toLowerCase(), block));
         } else if (protocol === PROTOCOL_TYPE_COMETHSWAP) {
-            return this.getPriceFromStandardPair(await this.getComethPair(protocol, token.toLowerCase(), block));
+            return this.getPriceFromStandardPair(await getComethPair(protocol, token.toLowerCase(), block));
         } else if (protocol === PROTOCOL_TYPE_QUICKSWAP_POLYGON) {
-            return this.getPriceFromStandardPair(await this.getQuickswapPair(protocol, token.toLowerCase(), block));
+            return this.getPriceFromStandardPair(await getQuickswapPair(protocol, token.toLowerCase(), block));
         } else if( protocol === PROTOCOL_TYPE_YEARN ) {
             if( token === JAR_USDC.depositToken.addr) {
                 return this.getContractPrice(token, cache)
@@ -126,75 +126,6 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         const reserveUSD = pair.data.pair.reserveUSD;
         const liquidityPrice = 1 / pair.data.pair.totalSupply;
         return reserveUSD * liquidityPrice;
-    };
-
-    protected async getSushiSwapPair(protocol: string, token: string, block?: number): Promise<any> {
-        const query = `
-            {
-            pair(id: "${token.toLowerCase()}"${block ? `, block: {number: ${block}}` : ""
-            }) {
-                reserve0
-                reserve1
-                token0 {
-                id
-                }
-                token1 {
-                id
-                }
-                totalSupply
-            }
-            }
-        `;
-        return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-    }
-
-    protected async getSushiSwapPolyPair(protocol: string, token: string, block?: number): Promise<any> {
-        const query = `
-        {
-            pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-            reserveUSD
-            totalSupply
-            }
-        }
-        `;
-        const pairReturn = await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-        return pairReturn;
-    }
-
-    protected async getUniswapPair(protocol: string, token: string, block?: number): Promise<any> {
-        const query = `
-            {
-                pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-                reserveUSD
-                totalSupply
-                }
-            }
-            `;
-        return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-    };
-
-    protected async getComethPair(protocol: string, token: string, block?: number): Promise<any> {
-        const query = `
-            {
-                pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-                reserveUSD
-                totalSupply
-                }
-            }
-            `;
-        return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-    };
-
-    protected async getQuickswapPair(protocol: string, token: string, block?: number): Promise<any> {
-        const query = `
-            {
-                pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-                reserveUSD
-                totalSupply
-                }
-            }
-            `;
-        return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
     };
 
     protected async getContractPrice(id: string, cache: PriceCache): Promise<number> {

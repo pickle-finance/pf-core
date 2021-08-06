@@ -1,5 +1,5 @@
 import { Chain } from "../chain/ChainModel";
-import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle, AssetDefinition } from "./PickleModelJson";
+import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle } from "./PickleModelJson";
 
 /**
  * Now the actual implementations
@@ -50,15 +50,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'curve',
-   jarDetails: {
+   details: {
      apiKey: 'sCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'psCRV v2',
-     farmDepositTokenName: 'psCRV v2'
-   }
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_sCRV);
  
@@ -75,15 +71,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'curve',
-   jarDetails: {
+   details: {
      apiKey: 'renBTCCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'prenBTC CRV',
-     farmDepositTokenName: 'prenBTC CRV'
-   }
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_renCRV);
  
@@ -100,11 +92,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'curve',
-   jarDetails: {
+   details: {
      apiKey: '3poolCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xf5bD1A4894a6ac1D786c7820bC1f36b1535147F6',
      farmNickname: 'p3CRV',
      farmDepositTokenName: 'p3CRV'
@@ -125,11 +117,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'curve',
-   jarDetails: {
+   details: {
      apiKey: 'steCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x4731CD18fFfF2C2A43f72eAe1B598dC3c0C16912',
      farmNickname: 'stETH-ETH',
      farmDepositTokenName: 'stEthCrv'
@@ -151,15 +143,8 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
-     apiKey: undefined,
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'pUNIDAI v2',
-     farmDepositTokenName: 'pUNIDAI v2'
-   }
+   details: undefined,
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_UNIV2_ETH_DAI);
  
@@ -177,15 +162,8 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
-     apiKey: undefined,
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'pUNIUSDC v2',
-     farmDepositTokenName: 'pUNIUSDC v2'
-   }
+   details: undefined,
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDC);
  
@@ -203,15 +181,8 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
-     apiKey: undefined,
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'pUNIUSDT v2',
-     farmDepositTokenName: 'pUNIUSDT v2'
-   }
+   details: undefined,
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDT);
  
@@ -229,15 +200,8 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
-     apiKey: undefined,
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'pUNIWBTC',
-     farmDepositTokenName: 'pUNIWBTC'
-   }
+   details: undefined,
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_UNIV2_ETH_WBTC);
  
@@ -254,15 +218,8 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'compound',
-   jarDetails: {
-     apiKey: undefined,
-     harvestStyle: HarvestStyle.ACTIVE,
-   },
-   farmDetails: {
-     farmAddress: undefined,
-     farmNickname: 'pDAI',
-     farmDepositTokenName: 'pDAI'
-   }
+   details: undefined,
+   farm: undefined
  }
  JAR_DEFINITIONS.push(JAR_pDAI);
  
@@ -279,11 +236,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DEV,
    chain: Chain.Ethereum,
    protocol: 'saddle',
-   jarDetails: {
+   details: {
      apiKey: 'ALETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x042650a573f3d62d91C36E08045d7d0fd9E63759',
      farmNickname: 'Pickled alEth',
      farmDepositTokenName: 'pSaddleAlEth'
@@ -304,11 +261,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'tokenprice',
-   jarDetails: {
+   details: {
      apiKey: 'LQTY',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xA7BC844a76e727Ec5250f3849148c21F4b43CeEA',
      farmNickname: 'Pickled LQTY',
      farmDepositTokenName: 'pLQTY'
@@ -330,11 +287,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'SLP-DAI',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x6092c7084821057060ce2030F9CC11B22605955F',
      farmNickname: 'pSLP DAI',
      farmDepositTokenName: 'pSLP DAI'
@@ -356,11 +313,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'SLP-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x8F720715d34Ff1FDa1342963EF6372d1557dB3A7',
      farmNickname: 'pSLP USDC',
      farmDepositTokenName: 'pSLP USDC'
@@ -382,11 +339,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'SLP-USDT',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x421476a3c0338E929cf9B77f7D087533bc9d2a2d',
      farmNickname: 'pSLP USDT',
      farmDepositTokenName: 'pSLP USDT'
@@ -408,11 +365,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'SLP-WBTC',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xD55331E7bCE14709d825557E5Bca75C73ad89bFb',
      farmNickname: 'pSLP WBTC',
      farmDepositTokenName: 'pSLP WBTC'
@@ -434,11 +391,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'SLP-YFI',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x2E32b1c2D7086DB1620F4586E09BaC7147640838',
      farmNickname: 'pSLP YFI',
      farmDepositTokenName: 'pSLP YFI'
@@ -460,11 +417,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: undefined,
      farmNickname: 'Back Scratcher',
      farmDepositTokenName: 'pUNIv2-BAC-DAI LP'
@@ -487,11 +444,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: undefined,
      farmNickname: 'Back Scratcher',
      farmDepositTokenName: 'pSLP MIC/USDT LP'
@@ -514,11 +471,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: undefined,
      farmNickname: 'Back Scratcher',
      farmDepositTokenName: 'pSLP MIS/USDT'
@@ -541,11 +498,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'yveCRV-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xd3F6732D758008E59e740B2bc2C1b5E420b752c2',
      farmNickname: 'Back Scratcher',
      farmDepositTokenName: 'pSLP yveCRV'
@@ -567,11 +524,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: undefined,
      farmNickname: 'Back Scratcher',
      farmDepositTokenName: 'UNI BAS/DAI'
@@ -593,11 +550,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'MIR-UST',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x02c9420467a22ad6067ef0CB4459752F45266C07',
      farmNickname: 'pUNIV2 MIR/UST',
      farmDepositTokenName: 'pUNIV2 MIR/UST'
@@ -619,11 +576,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'MTSLA-UST',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xd7513F24B4D3672ADD9AF6C739Eb6EeBB85D8dD5',
      farmNickname: 'pUNIV2 MTSLA/UST',
      farmDepositTokenName: 'pUNIV2 MTSLA/UST'
@@ -645,11 +602,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'MAAPL-UST',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x2Df015B117343e24AEC9AC99909A4c097a2828Ab',
      farmNickname: 'pUNIV2 MAAPL/UST',
      farmDepositTokenName: 'pUNIV2 MAAPL/UST'
@@ -671,11 +628,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'MQQQ-UST',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x3D24b7693A0a5Bf13977b19C81460aEd3f60C150',
      farmNickname: 'pUNIV2 MQQQ/UST',
      farmDepositTokenName: 'pUNIV2 MQQQ/UST'
@@ -697,11 +654,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'MSLV-UST',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x1456846B5A7d3c7F9Ea643a4847376fB19fC1aB1',
      farmNickname: 'pUNIV2 MSLV/UST',
      farmDepositTokenName: 'pUNIV2 MSLV/UST'
@@ -723,11 +680,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'MBABA-UST',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x6Ea17c249f6cFD434A01c54701A8694766b76594',
      farmNickname: 'pUNIV2 MBABA/UST',
      farmDepositTokenName: 'pUNIV2 MBABA/UST'
@@ -749,11 +706,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'SUSHI-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xdaf08622Ce348fdEA09709F279B6F5673B1e0dad',
      farmNickname: 'pSLP SUSHI',
      farmDepositTokenName: 'pSLP SUSHI'
@@ -775,11 +732,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'FEI-TRIBE',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xeA5b46877E2d131405DB7e5155CC15B8e55fbD27',
      farmNickname: 'pUNIV2 FEI/TRIBE',
      farmDepositTokenName: 'pUNIV2 FEI/TRIBE'
@@ -802,11 +759,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xeA5b46877E2d131405DB7e5155CC15B8e55fbD27',
      farmNickname: 'pSLP yvBOOST (deprecated)',
      farmDepositTokenName: 'pSLP yvBOOST (deprecated)'
@@ -829,11 +786,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'saddle',
-   jarDetails: {
+   details: {
      apiKey: 'saddled4',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x08cb0a0ba8e4f143e4e6f7bed65e02b6dfb9a16c',
      farmNickname: 'Saddle D4',
      farmDepositTokenName: 'pSADDLED4'
@@ -855,11 +812,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Ethereum,
    protocol: 'uniswap',
-   jarDetails: {
+   details: {
      apiKey: 'LUSD-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xbc9d68f38881a9c161da18881e21b2ac9df87b55',
      farmNickname: 'pUNIV2 LUSD/ETH',
      farmDepositTokenName: 'pUNIV2 LUSD/ETH'
@@ -881,11 +838,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'ALCX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xE9bEAd1d3e3A25E8AF7a6B40e48de469a9613EDe',
      farmNickname: 'pSLP ALCX/ETH',
      farmDepositTokenName: 'pSLP ALCX/ETH'
@@ -907,11 +864,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'yvBOOST-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xDA481b277dCe305B97F4091bD66595d57CF31634',
      farmNickname: 'Back Scratcher',
      farmDepositTokenName: 'pSLP yvBOOST'
@@ -933,11 +890,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'sushiswap',
-   jarDetails: {
+   details: {
      apiKey: 'CVX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x62e558cda4619e31af8c84cd8f345fa474afe1b9',
      farmNickname: 'pSUSHICVXETH',
      farmDepositTokenName: 'pSUSHICVXETH'
@@ -959,11 +916,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'yearn',
-   jarDetails: {
+   details: {
      apiKey: 'USDC',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x9e1126c51c319A1d31d928DC498c9988C094e793',
      farmNickname: 'Pickled Yearn USDC',
      farmDepositTokenName: 'pYearnUSDCv2'
@@ -985,11 +942,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'yearn',
-   jarDetails: {
+   details: {
      apiKey: 'lusdCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x2040c856d53d5CbB111c81D5A85ccc10829c5783',
      farmNickname: 'Pickled Yearn LUSD',
      farmDepositTokenName: 'pYearnLusdCRV'
@@ -1011,11 +968,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Ethereum,
    protocol: 'yearn',
-   jarDetails: {
+   details: {
      apiKey: 'FRAXCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0xCAbdCB680fC0E477bbB0aC77b2a278cA54D0E6Ff',
      farmNickname: 'Pickled Yearn FRAX',
      farmDepositTokenName: 'pYearnFraxCRV'
@@ -1037,12 +994,12 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'comethswap',
-   jarDetails: {
+   details: {
      apiKey: 'COMETH-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
 
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pCLP USDC/WETH',
      farmDepositTokenName: 'pCLP USDC/WETH'
@@ -1064,11 +1021,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'comethswap',
-   jarDetails: {
+   details: {
      apiKey: 'COMETH-PICKLE',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pCLP PICKLE/MUST',
      farmDepositTokenName: 'pCLP PICKLE/MUST'
@@ -1090,11 +1047,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'comethswap',
-   jarDetails: {
+   details: {
      apiKey: 'COMETH-MATIC',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pCLP MATIC/MUST',
      farmDepositTokenName: 'pCLP MATIC/MUST'
@@ -1116,11 +1073,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'aave_polygon',
-   jarDetails: {
+   details: {
      apiKey: 'DAI',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pAaveDAI',
      farmDepositTokenName: 'pAaveDAI'
@@ -1142,11 +1099,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'curve',
-   jarDetails: {
+   details: {
      apiKey: 'am3CRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'am3CRV',
      farmDepositTokenName: 'am3CRV'
@@ -1168,11 +1125,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'sushiswap_polygon',
-   jarDetails: {
+   details: {
      apiKey: 'PSLP-USDT',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pSLP ETH/USDT',
      farmDepositTokenName: 'pSLP ETH/USDT'
@@ -1194,11 +1151,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'sushiswap_polygon',
-   jarDetails: {
+   details: {
      apiKey: 'PSLP-MATIC',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pSLP ETH/MATIC',
      farmDepositTokenName: 'pSLP ETH/MATIC'
@@ -1220,11 +1177,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.DISABLED,
    chain: Chain.Polygon,
    protocol: 'quickswap_polygon',
-   jarDetails: {
+   details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pQLP MAI (old)',
      farmDepositTokenName: 'pQLP MAI (old)'
@@ -1246,17 +1203,14 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    enablement: AssetEnablement.ENABLED,
    chain: Chain.Polygon,
    protocol: 'quickswap_polygon',
-   jarDetails: {
+   details: {
      apiKey: 'QLP-MIMATIC',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farmDetails: {
+   farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
      farmNickname: 'pQLP MAI',
      farmDepositTokenName: 'pQLP MAI'
    }
  }
  JAR_DEFINITIONS.push(JAR_QUICK_MIMATIC_USDC);
- 
-
-export const ALL_ASSETS : AssetDefinition[] = [].concat(STANDALONE_FARM_DEFINITIONS).concat(JAR_DEFINITIONS);
