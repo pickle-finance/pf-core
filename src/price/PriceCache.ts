@@ -1,8 +1,26 @@
 import { IPriceResolver } from "./IPriceResolver";
 
-export class PriceCache {
-  private cache : Map<string,number> = new Map<string,number>();
+export const RESOLVER_COINGECKO = 'resolver_gecko';
+export const RESOLVER_DEPOSIT_TOKEN = 'resolver_deposit_token';
 
+export class PriceCache {
+  private resolverMap : Map<string,IPriceResolver> = new Map<string,IPriceResolver>();
+  private cache : Map<string,number> = new Map<string,number>();
+  constructor() {
+  }
+
+  addResolver(id: string, resolver: IPriceResolver){
+    this.resolverMap.set(id, resolver);
+  }
+
+  getResolver(id: string) : IPriceResolver {
+    return this.resolverMap.get(id);
+  }
+
+  get(id: string) : number  {
+    return this.cache.get(id);
+  }
+  
   put(id: string, val: number) {
     this.cache.set(id,val);
   }
@@ -15,10 +33,6 @@ export class PriceCache {
     return new Map<string,number>(this.cache);
   }
 
-  get(id: string) : number  {
-    return this.cache.get(id);
-  }
-  
   /**
    * Return the requested prices, or a superset of the requested prices, or undefined 
    * if the prices you sought could not be found. 
@@ -26,7 +40,11 @@ export class PriceCache {
    * @param resolver 
    * @returns 
    */
-  async getPrices(tokens: string[], resolver: IPriceResolver ) : Promise<Map<string,number>> {
+  async getPrices(tokens: string[], resolverKey: string ) : Promise<Map<string,number>> {
+    const resolver : IPriceResolver = this.getResolver(resolverKey);
+    if( resolver === undefined ) {
+      return undefined;
+    }
     const fromCache :  Map<string,number> = resolver.getFromCache(tokens, this);
     if( fromCache !== null && fromCache !== undefined) {
       return fromCache;

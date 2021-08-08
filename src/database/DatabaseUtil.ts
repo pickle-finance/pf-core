@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 import AWS from 'aws-sdk';
-import { stringMap } from "aws-sdk/clients/finspacedata";
 import { JarDefinition } from "../model/PickleModelJson";
 
 if( !process.env.AWS_ACCESS_KEY_ID) {

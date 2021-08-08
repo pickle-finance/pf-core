@@ -131,6 +131,5 @@ export class ExternalTokenModel {
             return Array.from(this.polyTokens.values());
         return null;
     }
-
 }
 export const ExternalTokenModelSingleton = new ExternalTokenModel();

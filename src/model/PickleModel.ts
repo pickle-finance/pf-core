@@ -6,15 +6,14 @@ import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
 import { Chain } from "../chain/ChainModel";
-import { PriceCache } from "../price/PriceCache";
+import { PriceCache, RESOLVER_COINGECKO } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
-import { CoinGeckpPriceResolver } from "../price/CoinGeckoPriceResolver";
+import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { JarHarvestResolverDiscovery } from "../harvest/JarHarvestResolverDiscovery";
 import { JarHarvestData, JarHarvestResolver } from "../harvest/JarHarvestResolver";
 import { getDillDetails } from "../dill/DillUtility";
 import { FarmDatabaseEntry, getFarmDatabaseEntry, AssetDatabaseEntry, getJarAssetData } from "../database/DatabaseUtil";
 import { PerformanceData, getProtocolPerformance, JarFarmPerformanceData, getJarFarmPerformanceData } from "../performance/AssetPerformance";
-import { JAR_DEFINITIONS } from "./JarsAndFarms";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -87,10 +86,11 @@ export class PickleModel {
     async ensurePriceCacheLoaded() {
         if( this.prices === undefined ) {
             const tmp : PriceCache = new PriceCache();
+            tmp.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
             const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
-            await tmp.getPrices(arr, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
+            await tmp.getPrices(arr, RESOLVER_COINGECKO);
             const arr2: string[] = ExternalTokenModelSingleton.getTokens(Chain.Polygon).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
-            await tmp.getPrices(arr2, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
+            await tmp.getPrices(arr2, RESOLVER_COINGECKO);
             this.prices = tmp;
         }
         return this.prices;
@@ -231,4 +231,5 @@ export class PickleModel {
         }
     }
 }
+
 

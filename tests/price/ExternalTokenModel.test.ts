@@ -1,14 +1,16 @@
 import { Chain } from '../../src/chain/ChainModel';
-import { CoinGeckpPriceResolver } from '../../src/price/CoinGeckoPriceResolver';
+import { CoinGeckoPriceResolver } from '../../src/price/CoinGeckoPriceResolver';
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from '../../src/price/ExternalTokenModel';
-import { PriceCache } from '../../src/price/PriceCache';
+import { PriceCache, RESOLVER_COINGECKO } from '../../src/price/PriceCache';
 
 describe('Coingecko and external token integration', () => {
 
   test('Ether token test', async () => {
     const pm : PriceCache = new PriceCache();
+    pm.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
+
     const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
-    const ret : Map<string,number> = await pm.getPrices(arr, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
+    const ret : Map<string,number> = await pm.getPrices(arr,RESOLVER_COINGECKO);
     expect(ret).toBeDefined();
     const err : string[] = [];
     for( const i of arr ) {
@@ -18,7 +20,7 @@ describe('Coingecko and external token integration', () => {
     }
 
     const polyArr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Polygon).map(a => a.coingeckoId);
-    const polyRet : Map<string,number> = await pm.getPrices(polyArr, new CoinGeckpPriceResolver(ExternalTokenModelSingleton));
+    const polyRet : Map<string,number> = await pm.getPrices(polyArr, RESOLVER_COINGECKO);
     for( const i of polyArr ) {
       if( polyRet.get(i) === undefined ) {
         err.push("Coin " + i + " not found in CoinGecko result: poly")

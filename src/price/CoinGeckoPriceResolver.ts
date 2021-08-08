@@ -18,7 +18,7 @@ interface NeedleAliases {
  * 
  * This class will only query for symbols that are defined in the ExternalTokenModel. 
  */
-export class CoinGeckpPriceResolver implements IPriceResolver {
+export class CoinGeckoPriceResolver implements IPriceResolver {
     tokenModel: ExternalTokenModel;
     constructor(tokenModel: ExternalTokenModel) {
         this.tokenModel = tokenModel;

@@ -1,10 +1,8 @@
-import { readQueryFromGraph, protocolToSubgraphUrl, getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
+import { getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV } from "../model/JarsAndFarms";
 import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition } from "../model/PickleModelJson";
-import { CoinGeckpPriceResolver } from "./CoinGeckoPriceResolver";
-import { ExternalTokenModelSingleton } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
-import { PriceCache } from "./PriceCache";
+import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
 export class DepositTokenPriceResolver implements IPriceResolver {
     myJars : JarDefinition[];
@@ -130,8 +128,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
 
     protected async getContractPrice(id: string, cache: PriceCache): Promise<number> {
         try {
-            const resolver: CoinGeckpPriceResolver = new CoinGeckpPriceResolver(ExternalTokenModelSingleton);
-            return (await cache.getPrices([id.toLowerCase()], resolver)).get(id.toLowerCase());
+            return (await cache.getPrices([id.toLowerCase()], RESOLVER_COINGECKO)).get(id.toLowerCase());
         } catch (e) {
             return undefined;
         }

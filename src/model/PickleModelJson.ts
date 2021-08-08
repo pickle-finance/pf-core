@@ -43,7 +43,7 @@ export interface JarDefinition {
     chain: Chain,
     protocol: string,
     details: JarDetails,
-    farm: NestedFarmDetails,
+    farm: NestedFarm,
 }
 export interface StandaloneFarmDefinition {
     id: string,
@@ -80,7 +80,7 @@ export interface FarmDetails {
     thirtyDayApy?: number,
 }
 
-export interface NestedFarmDetails {
+export interface NestedFarm {
     farmAddress: string,
     farmDepositTokenName: string,
     farmNickname: string,
