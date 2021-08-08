@@ -16,16 +16,16 @@ export const PROTOCOL_TYPE_TOKENPRICE = "tokenprice"
 
 
 export enum AssetEnablement {
-    DISABLED = 1,
-    PERMANENTLY_DISABLED,
-    ENABLED,
-    DEV
+    DISABLED = 'disabled',
+    PERMANENTLY_DISABLED = 'permanently_disabled',
+    ENABLED = 'enabled',
+    DEV = 'dev'
 }
 
 
 export enum HarvestStyle {
-    ACTIVE = 1,
-    PASSIVE = 2
+    ACTIVE = 'active',
+    PASSIVE = 'passive'
 }
 
 export interface DepositToken {
