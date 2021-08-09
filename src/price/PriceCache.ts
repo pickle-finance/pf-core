@@ -1,3 +1,6 @@
+import { CoinGeckoPriceResolver } from "./CoinGeckoPriceResolver";
+import { DepositTokenPriceResolver } from "./DepositTokenPriceResolver";
+import { ExternalTokenModelSingleton } from "./ExternalTokenModel";
 import { IPriceResolver } from "./IPriceResolver";
 
 export const RESOLVER_COINGECKO = 'resolver_gecko';

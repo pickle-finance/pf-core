@@ -1,4 +1,4 @@
-import { Chain } from "../chain/ChainModel";
+import { ChainNetwork } from "../chain/Chains";
 import { ActiveJarHarvestStats, JarHarvestStats } from "../harvest/JarHarvestResolver";
 
 // TODO move these out i guess?
@@ -40,7 +40,7 @@ export interface JarDefinition {
     contract: string,
     depositToken: DepositToken,
     enablement: AssetEnablement,
-    chain: Chain,
+    chain: ChainNetwork,
     protocol: string,
     details: JarDetails,
     farm: NestedFarm,
@@ -51,7 +51,7 @@ export interface StandaloneFarmDefinition {
     contract: string,
     depositToken: DepositToken,
     enablement: AssetEnablement,
-    chain: Chain,
+    chain: ChainNetwork,
     protocol: string,
     details?: FarmDetails,
 }

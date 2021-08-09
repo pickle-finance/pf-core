@@ -1,4 +1,4 @@
-import { Chain } from "../../src/chain/ChainModel";
+import { ChainNetwork } from "../../src/chain/Chains";
 
 import { PriceCache, RESOLVER_COINGECKO } from "../../src/price/PriceCache";
 import { DepositTokenPriceResolver } from "../../src/price/DepositTokenPriceResolver";
@@ -53,7 +53,7 @@ describe('Swap Token Price Resolver', () => {
 
   test('Verify all jars and farms on eth can have the price discovered', async () => {
     const resolver : DepositTokenPriceResolver = new DepositTokenPriceResolver(JAR_DEFINITIONS);
-    const ethAssets = JAR_DEFINITIONS.filter(asset => asset.chain === Chain.Ethereum && asset.protocol !== 'compound');
+    const ethAssets = JAR_DEFINITIONS.filter(asset => asset.chain === ChainNetwork.Ethereum && asset.protocol !== 'compound');
     const cache : PriceCache = getCleanPriceCache();
     for( let i = 0; i < ethAssets.length; i++ ) {
       const result = await resolver.getOrResolve([JAR_DEFINITIONS[i].depositToken.addr], cache);
@@ -65,7 +65,7 @@ describe('Swap Token Price Resolver', () => {
 
   test('Verify all jars and farms on polygon can have the price discovered', async () => {
     const resolver : DepositTokenPriceResolver = new DepositTokenPriceResolver(JAR_DEFINITIONS);
-    const ethAssets = JAR_DEFINITIONS.filter(asset => asset.chain === Chain.Polygon);
+    const ethAssets = JAR_DEFINITIONS.filter(asset => asset.chain === ChainNetwork.Polygon);
     const cache : PriceCache = getCleanPriceCache();
     for( let i = 0; i < ethAssets.length; i++ ) {
       const result = await resolver.getOrResolve([JAR_DEFINITIONS[i].depositToken.addr], cache);

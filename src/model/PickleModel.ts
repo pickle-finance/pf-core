@@ -5,8 +5,8 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
-import { Chain } from "../chain/ChainModel";
-import { PriceCache, RESOLVER_COINGECKO } from "../price/PriceCache";
+import { ChainNetwork, Chains } from "../chain/Chains";
+import { PriceCache, RESOLVER_COINGECKO, RESOLVER_DEPOSIT_TOKEN } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { JarHarvestResolverDiscovery } from "../harvest/JarHarvestResolverDiscovery";
@@ -14,6 +14,7 @@ import { JarHarvestData, JarHarvestResolver } from "../harvest/JarHarvestResolve
 import { getDillDetails } from "../dill/DillUtility";
 import { FarmDatabaseEntry, getFarmDatabaseEntry, AssetDatabaseEntry, getJarAssetData } from "../database/DatabaseUtil";
 import { PerformanceData, getProtocolPerformance, JarFarmPerformanceData, getJarFarmPerformanceData } from "../performance/AssetPerformance";
+import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -33,6 +34,7 @@ export class PickleModel {
     }
 
     async generateFullApi() : Promise<PickleModelJson> {
+        await this.initializeChains();
         await this.ensurePriceCacheLoaded();
         await this.ensureStrategyDataLoaded(this.jars);
         await this.ensureRatiosLoaded(this.jars);
@@ -47,6 +49,28 @@ export class PickleModel {
             },
             dill: dillObject,
             prices: Object.fromEntries(this.prices.getCache())
+        }
+    }
+
+    initializeChains() {
+        if( this.etherResolver ) {
+            const isSigner : boolean = (this.etherResolver as Signer).provider !== undefined;
+            const ethSigner : Signer = isSigner ? (this.etherResolver as Signer) : undefined;
+            const ethProvider : Provider = isSigner ? (this.etherResolver as Signer).provider : (this.etherResolver as Provider);
+            if( ethSigner ) 
+                Chains.get(ChainNetwork.Ethereum).setSigner(ethSigner);
+            if( ethProvider) 
+                Chains.get(ChainNetwork.Ethereum).setPreferredWeb3Provider(ethProvider);
+        }
+
+        if( this.polyResolver ) {
+            const isSigner : boolean = (this.polyResolver as Signer).provider !== undefined;
+            const polySigner : Signer = isSigner ? (this.polyResolver as Signer) : undefined;
+            const polyProvider : Provider = isSigner ? (this.polyResolver as Signer).provider : (this.polyResolver as Provider);
+            if( polySigner ) 
+                Chains.get(ChainNetwork.Polygon).setSigner(polySigner);
+            if( polyProvider) 
+                Chains.get(ChainNetwork.Polygon).setPreferredWeb3Provider(polyProvider);
         }
     }
 
@@ -87,9 +111,12 @@ export class PickleModel {
         if( this.prices === undefined ) {
             const tmp : PriceCache = new PriceCache();
             tmp.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
-            const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
+            tmp.addResolver(RESOLVER_DEPOSIT_TOKEN, new DepositTokenPriceResolver(this.jars));
+            
+        
+            const arr: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
             await tmp.getPrices(arr, RESOLVER_COINGECKO);
-            const arr2: string[] = ExternalTokenModelSingleton.getTokens(Chain.Polygon).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
+            const arr2: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Polygon).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
             await tmp.getPrices(arr2, RESOLVER_COINGECKO);
             this.prices = tmp;
         }
@@ -106,8 +133,8 @@ export class PickleModel {
     }
 
     async loadStrategyData(jars: JarDefinition[]) {
-        const ethJars = jars.filter(x => x.chain === Chain.Ethereum);
-        const polyJars = jars.filter(x => x.chain === Chain.Polygon);
+        const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum);
+        const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon);
         if( ethJars.length > 0 )
             await this.addJarStrategies(ethJars, CONTROLLER_ETH, this.etherResolver);
             // TODO
@@ -126,8 +153,8 @@ export class PickleModel {
     }
 
     async loadRatiosData(jars: JarDefinition[]) {
-        const ethJars = jars.filter(x => x.chain === Chain.Ethereum && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
-//        const polyJars = jars.filter(x => x.chain === Chain.Polygon);
+        const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+//        const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon);
         if( ethJars.length > 0 )
             await this.addJarRatios(ethJars, CONTROLLER_ETH, this.etherResolver);
 //        if( polyJars.length > 0 )
@@ -205,7 +232,7 @@ export class PickleModel {
     }
 
     async ensureHarvestDataLoaded(jars: JarDefinition[]) {
-        const ethJars = jars.filter(x => x.chain === Chain.Ethereum);
+        const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum);
         for( let i = 0; i < ethJars.length; i++ ) {
             if( ethJars[i].details.harvestStats === undefined ) {
                 await this.loadHarvestData([ethJars[i]]);
@@ -217,7 +244,7 @@ export class PickleModel {
         const discovery : JarHarvestResolverDiscovery = new JarHarvestResolverDiscovery();
         for( let i = 0; i < jars.length; i++ ) {
             try {
-                const resolver = (jars[i].chain === Chain.Ethereum ? this.etherResolver : this.polyResolver);
+                const resolver = (jars[i].chain === ChainNetwork.Ethereum ? this.etherResolver : this.polyResolver);
                 const harvestResolver : JarHarvestResolver = discovery.findHarvestResolver(jars[i]);
                 if( harvestResolver === undefined || harvestResolver === null ) {
                     console.log("cant find harvest resolver for jar " + jars[i].id);

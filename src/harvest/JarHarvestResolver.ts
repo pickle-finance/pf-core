@@ -1,13 +1,13 @@
 import { PriceCache } from '../price/PriceCache';
 import { ExternalTokenModelSingleton } from '../price/ExternalTokenModel';
-import { Chain } from '../chain/ChainModel';
 import { ethers, Signer } from 'ethers';
+import { Provider } from '@ethersproject/providers';
 import jarsAbi from "../Contracts/ABIs/jar.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import strategyDual from "../Contracts/ABIs/strategy-dual.json";
-import { Provider } from '@ethersproject/providers';
 import { JarDefinition } from '../model/PickleModelJson';
 import { isCvxJar, isLqtyJar } from './JarHarvestResolverDiscovery';
+import { ChainNetwork } from '../chain/Chains';
 
 export interface JarHarvestStats {
     balanceUSD: number;
@@ -62,16 +62,16 @@ export interface JarHarvestStats {
         };
     }
     getTokenContract(name: string) : string {
-        return ExternalTokenModelSingleton.getToken(name, Chain.Ethereum)?.contractAddr;
+        return ExternalTokenModelSingleton.getToken(name, ChainNetwork.Ethereum)?.contractAddr;
     }
     
-    getTokenChainContract(name: string, chain: Chain) : string {
+    getTokenChainContract(name: string, chain: ChainNetwork) : string {
         return ExternalTokenModelSingleton.getToken(name, chain)?.contractAddr;
     }
     getTokenPrice(cache: PriceCache, id: string) : number {
         return cache.get(id);
     }
-    findTokenContract(id: string, chain: Chain) {
+    findTokenContract(id: string, chain: ChainNetwork) {
           return ExternalTokenModelSingleton.getToken(id,chain)?.contractAddr;
     }
     getStrategyAbi(definition: JarDefinition) : any {

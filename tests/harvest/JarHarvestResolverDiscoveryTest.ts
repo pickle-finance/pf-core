@@ -1,4 +1,4 @@
-import { Chain } from "../../src/chain/ChainModel";
+import { ChainNetwork } from "../../src/chain/Chains";
 import { JarHarvestResolver } from "../../src/harvest/JarHarvestResolver";
 import { JarHarvestResolverDiscovery } from "../../src/harvest/JarHarvestResolverDiscovery";
 import { JAR_DEFINITIONS } from "../../src/model/JarsAndFarms";
@@ -8,7 +8,7 @@ describe('Discovery for jar harvest data', () => {
 
   test('Check all enabled jars have a resolver', async () => {
     const jars2 = JAR_DEFINITIONS.filter((element) => { 
-      return element.enablement === AssetEnablement.ENABLED && element.chain === Chain.Ethereum
+      return element.enablement === AssetEnablement.ENABLED && element.chain === ChainNetwork.Ethereum
     });
     for( let i = 0; i < jars2.length; i++ ) {
       const resolver : JarHarvestResolver = new JarHarvestResolverDiscovery().findHarvestResolver(jars2[i]);

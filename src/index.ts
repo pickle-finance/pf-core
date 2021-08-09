@@ -1,4 +1,4 @@
-import { Chain } from "./chain/ChainModel";
+import { ChainNetwork } from "./chain/Chains";
 import { PickleModel } from "./model/PickleModel";
 
-export { Chain, PickleModel};
+export { ChainNetwork, PickleModel};

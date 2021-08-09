@@ -1,4 +1,4 @@
-import { Chain } from "../chain/ChainModel";
+import { ChainNetwork } from "../chain/Chains";
 import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle } from "./PickleModelJson";
 
 /**
@@ -16,7 +16,7 @@ export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
       components: ["pickle", "weth"]
     },
     enablement: AssetEnablement.ENABLED,
-    chain: Chain.Ethereum,
+    chain: ChainNetwork.Ethereum,
     protocol: 'sushiswap',
 }
 STANDALONE_FARM_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
@@ -32,7 +32,7 @@ export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
       components: ["pickle", "weth"]
     },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
 }
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
@@ -48,7 +48,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://www.curve.fi/susdv2/deposit',
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'curve',
    details: {
      apiKey: 'sCRV',
@@ -69,7 +69,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://www.curve.fi/ren/deposit',
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'curve',
    details: {
      apiKey: 'renBTCCRV',
@@ -90,7 +90,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://www.curve.fi/3pool/deposit',
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'curve',
    details: {
      apiKey: '3poolCRV',
@@ -115,7 +115,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://www.curve.fi/steth/deposit',
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'curve',
    details: {
      apiKey: 'steCRV',
@@ -141,7 +141,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["dai", "weth"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
    farm: undefined
@@ -160,7 +160,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["usdc", "weth"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
    farm: undefined
@@ -179,7 +179,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["usdt", "weth"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
    farm: undefined
@@ -198,7 +198,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["wbtc", "weth"],
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
    farm: undefined
@@ -216,7 +216,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f',
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'compound',
    details: undefined,
    farm: undefined
@@ -234,7 +234,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://saddle.exchange/#/pools/aleth/deposit',
    },
    enablement: AssetEnablement.DEV,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'saddle',
    details: {
      apiKey: 'ALETH',
@@ -259,7 +259,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d',
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'tokenprice',
    details: {
      apiKey: 'LQTY',
@@ -285,7 +285,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["dai", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'SLP-DAI',
@@ -311,7 +311,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["usdc", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'SLP-USDC',
@@ -337,7 +337,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["weth", "usdt"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'SLP-USDT',
@@ -363,7 +363,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["wbtc", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'SLP-WBTC',
@@ -389,7 +389,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["yfi", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'SLP-YFI',
@@ -415,7 +415,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["bac", "dai"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: undefined,
@@ -442,7 +442,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mic", "usdt"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: undefined,
@@ -469,7 +469,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mis", "usdt"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: undefined,
@@ -496,7 +496,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["weth", "yvecrv"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'yveCRV-ETH',
@@ -522,7 +522,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["bas", "dai"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: undefined,
@@ -548,7 +548,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mir", "ust"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'MIR-UST',
@@ -574,7 +574,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mtsla", "ust"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'MTSLA-UST',
@@ -600,7 +600,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["maapl", "ust"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'MAAPL-UST',
@@ -626,7 +626,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mqqq", "ust"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'MQQQ-UST',
@@ -652,7 +652,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mslv", "ust"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'MSLV-UST',
@@ -678,7 +678,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mbaba", "ust"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'MBABA-UST',
@@ -704,7 +704,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["sushi", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'SUSHI-ETH',
@@ -730,7 +730,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["fei", "tribe"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'FEI-TRIBE',
@@ -757,7 +757,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["weth", "yvboost"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: undefined,
@@ -784,7 +784,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["alusd", "fei", "frax", "lusd"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'saddle',
    details: {
      apiKey: 'saddled4',
@@ -810,7 +810,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["lusd", "weth"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
      apiKey: 'LUSD-ETH',
@@ -836,7 +836,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["weth", "alcx"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'ALCX-ETH',
@@ -862,7 +862,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["weth", "yvboost"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'yvBOOST-ETH',
@@ -888,7 +888,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["cvx", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
      apiKey: 'CVX-ETH',
@@ -914,7 +914,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["usdc"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'yearn',
    details: {
      apiKey: 'USDC',
@@ -940,7 +940,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["lusd", "3crv"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'yearn',
    details: {
      apiKey: 'lusdCRV',
@@ -966,7 +966,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["frax", "3crv"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Ethereum,
+   chain: ChainNetwork.Ethereum,
    protocol: 'yearn',
    details: {
      apiKey: 'FRAXCRV',
@@ -992,7 +992,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components:  ["usdc", "weth"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'comethswap',
    details: {
      apiKey: 'COMETH-USDC',
@@ -1019,7 +1019,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["pickle", "must"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'comethswap',
    details: {
      apiKey: 'COMETH-PICKLE',
@@ -1045,7 +1045,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["matic", "must"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'comethswap',
    details: {
      apiKey: 'COMETH-MATIC',
@@ -1071,7 +1071,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["dai"]
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'aave_polygon',
    details: {
      apiKey: 'DAI',
@@ -1097,7 +1097,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: [], // TODO
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'curve',
    details: {
      apiKey: 'am3CRV',
@@ -1123,7 +1123,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mweth", "musdt"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'sushiswap_polygon',
    details: {
      apiKey: 'PSLP-USDT',
@@ -1149,7 +1149,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["mweth", "matic"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'sushiswap_polygon',
    details: {
      apiKey: 'PSLP-MATIC',
@@ -1175,7 +1175,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["wusdc", "mimatic"],
    },
    enablement: AssetEnablement.DISABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'quickswap_polygon',
    details: {
      apiKey: undefined,
@@ -1201,7 +1201,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       components: ["wusdc", "mimatic"],
    },
    enablement: AssetEnablement.ENABLED,
-   chain: Chain.Polygon,
+   chain: ChainNetwork.Polygon,
    protocol: 'quickswap_polygon',
    details: {
      apiKey: 'QLP-MIMATIC',

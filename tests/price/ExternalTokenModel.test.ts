@@ -1,4 +1,4 @@
-import { Chain } from '../../src/chain/ChainModel';
+import { ChainNetwork } from '../../src/chain/Chains';
 import { CoinGeckoPriceResolver } from '../../src/price/CoinGeckoPriceResolver';
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from '../../src/price/ExternalTokenModel';
 import { PriceCache, RESOLVER_COINGECKO } from '../../src/price/PriceCache';
@@ -9,7 +9,7 @@ describe('Coingecko and external token integration', () => {
     const pm : PriceCache = new PriceCache();
     pm.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
 
-    const arr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
+    const arr: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
     const ret : Map<string,number> = await pm.getPrices(arr,RESOLVER_COINGECKO);
     expect(ret).toBeDefined();
     const err : string[] = [];
@@ -19,7 +19,7 @@ describe('Coingecko and external token integration', () => {
       }
     }
 
-    const polyArr: string[] = ExternalTokenModelSingleton.getTokens(Chain.Polygon).map(a => a.coingeckoId);
+    const polyArr: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Polygon).map(a => a.coingeckoId);
     const polyRet : Map<string,number> = await pm.getPrices(polyArr, RESOLVER_COINGECKO);
     for( const i of polyArr ) {
       if( polyRet.get(i) === undefined ) {
@@ -43,11 +43,11 @@ describe('Coingecko and external token integration', () => {
   });
 
   test('Simple gets', async () => {
-    const daiEth = ExternalTokenModelSingleton.getToken("dai", Chain.Ethereum);
-    const daiPoly = ExternalTokenModelSingleton.getToken("dai", Chain.Polygon);
+    const daiEth = ExternalTokenModelSingleton.getToken("dai", ChainNetwork.Ethereum);
+    const daiPoly = ExternalTokenModelSingleton.getToken("dai", ChainNetwork.Polygon);
 
-    const mustEth = ExternalTokenModelSingleton.getToken("must", Chain.Ethereum);
-    const mustPoly = ExternalTokenModelSingleton.getToken("must", Chain.Polygon);
+    const mustEth = ExternalTokenModelSingleton.getToken("must", ChainNetwork.Ethereum);
+    const mustPoly = ExternalTokenModelSingleton.getToken("must", ChainNetwork.Polygon);
 
     expect(daiEth).not.toBeNull();
     expect(daiPoly).not.toBeNull();
