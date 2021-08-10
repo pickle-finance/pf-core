@@ -75,7 +75,8 @@ export async function getUniswapPair(protocol: string, token: string, block?: nu
             }
         }
         `;
-    return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
+    const ret = await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
+    return ret;
 };
 
 export async function getComethPair(protocol: string, token: string, block?: number): Promise<any> {

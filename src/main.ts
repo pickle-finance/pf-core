@@ -9,7 +9,8 @@ async function generateFullApi() {
   const model : PickleModel = new PickleModel(JAR_DEFINITIONS, STANDALONE_FARM_DEFINITIONS, 
     new ethers.providers.InfuraProvider(), new ethers.providers.JsonRpcProvider('https://rpc-mainnet.maticvigil.com/'));
   const result = await model.generateFullApi();
-  console.log(JSON.stringify(result, null, 2));
+  const resultString = JSON.stringify(result, null, 2);
+  process.stdout.write(resultString);
 }
 
 generateFullApi();

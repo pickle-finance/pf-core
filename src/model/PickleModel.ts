@@ -11,7 +11,7 @@ import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/E
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { JarHarvestResolverDiscovery } from "../harvest/JarHarvestResolverDiscovery";
 import { JarHarvestData, JarHarvestResolver } from "../harvest/JarHarvestResolver";
-import { getDillDetails } from "../dill/DillUtility";
+import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
 import { FarmDatabaseEntry, getFarmDatabaseEntry, AssetDatabaseEntry, getJarAssetData } from "../database/DatabaseUtil";
 import { PerformanceData, getProtocolPerformance, JarFarmPerformanceData, getJarFarmPerformanceData } from "../performance/AssetPerformance";
 import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
@@ -38,9 +38,11 @@ export class PickleModel {
         await this.ensurePriceCacheLoaded();
         await this.ensureStrategyDataLoaded(this.jars);
         await this.ensureRatiosLoaded(this.jars);
+        await this.ensureDepositTokenPriceLoaded(this.jars);
         await this.ensureHarvestDataLoaded(this.jars);
         await this.ensureApyLoaded(this.jars);
-        const dillObject = await getDillDetails(0, this.prices, this.etherResolver);
+        const weeklyDistribution : number = getWeeklyDistribution(this.jars);
+        const dillObject = await getDillDetails(weeklyDistribution, this.prices, this.etherResolver);
 
         return {
             jarsAndFarms: {
@@ -137,9 +139,8 @@ export class PickleModel {
         const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon);
         if( ethJars.length > 0 )
             await this.addJarStrategies(ethJars, CONTROLLER_ETH, this.etherResolver);
-            // TODO
-//        if( polyJars.length > 0 )
-//            await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, this.polyResolver);
+        if( polyJars.length > 0 )
+            await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, this.polyResolver);
     }
 
 
@@ -152,19 +153,31 @@ export class PickleModel {
         }
     }
 
+
+    async ensureDepositTokenPriceLoaded(jars: JarDefinition[]) {
+        let notPermDisabled : JarDefinition[] = jars.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+        const depositTokens: string[] = notPermDisabled.map((entry)=>{return entry.depositToken.addr});
+        const results : Map<string,number> = await this.prices.getPrices(depositTokens, RESOLVER_DEPOSIT_TOKEN);
+        for( let i = 0; i < notPermDisabled.length; i++ ) {
+            const needle = notPermDisabled[i].depositToken.addr;
+            notPermDisabled[i].depositToken.price = results.get(needle);
+        }
+    }
+
     async loadRatiosData(jars: JarDefinition[]) {
         const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
-//        const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon);
+        const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
         if( ethJars.length > 0 )
             await this.addJarRatios(ethJars, CONTROLLER_ETH, this.etherResolver);
-//        if( polyJars.length > 0 )
-//            await this.addJarRatios(polyJars, CONTROLLER_POLYGON, this.polyResolver);
+        if( polyJars.length > 0 )
+            await this.addJarRatios(polyJars, CONTROLLER_POLYGON, this.polyResolver);
     }
 
     async addJarStrategies(jars: JarDefinition[], controllerAddr: string, resolver: Signer | Provider) {
         const ethcallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
         await ethcallProvider.init();
         const controllerContract = new MulticallContract(controllerAddr, controllerAbi);
+
         const strategyAddresses : string[] = await ethcallProvider.all<string[]>(
             jars.map((oneJar) => controllerContract.strategies(oneJar.depositToken.addr))
           );
@@ -215,11 +228,16 @@ export class PickleModel {
             const ethcallProvider3 = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
             await ethcallProvider3.init();
             const arr : JarDefinition[] = [jars[i]];
-            await ethcallProvider3.all<string[]>(
-                arr.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
-            ).then((response) => {
-                console.log(response);
-            });
+            console.log(jars[i].id);
+            try {
+                await ethcallProvider3.all<string[]>(
+                    arr.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
+                ).then((response) => {
+                    console.log(response);
+                });
+            } catch(error) {
+                console.log(error);
+            }
         }
         */
 

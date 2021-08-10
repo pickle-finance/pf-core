@@ -1,4 +1,4 @@
-import { DillDetails, DillWeek } from "../model/PickleModelJson";
+import { AssetEnablement, DillDetails, DillWeek, JarDefinition } from "../model/PickleModelJson";
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import {  Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -13,6 +13,20 @@ const firstMeaningfulDistributionTimestamp = 1619049600;
 
 const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
 const FEE_DISTRIBUTOR = "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc";
+
+export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
+  let weeklyProfit = 0;
+  for( let i = 0; i < jars.length; i++ ) {
+    if( jars[i].enablement === AssetEnablement.ENABLED || jars[i].enablement === AssetEnablement.DEV) {
+      if( jars[i].details && jars[i].details.harvestStats && jars[i].details.harvestStats.balanceUSD) {
+        const weeklyProfitPerJar = jars[i].details.harvestStats.balanceUSD * 
+                jars[i].details.threeDayApy * .01 * 0.2 / 52;
+        weeklyProfit += weeklyProfitPerJar;          
+      }
+    }
+  }
+  return weeklyProfit * 0.45;
+}
 
 export async function getDillDetails(thisWeekProjectedDistribution: number, 
                 priceCache: PriceCache, resolver: Signer | Provider) : Promise<DillDetails> {

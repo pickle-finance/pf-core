@@ -32,7 +32,8 @@ export interface DepositToken {
     addr: string,
     name: string,
     link: string,
-    components?: string[]
+    components?: string[],
+    price?: number
 }
 
 export interface JarDefinition {

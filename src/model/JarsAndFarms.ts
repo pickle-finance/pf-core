@@ -1174,7 +1174,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
       components: ["wusdc", "mimatic"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Polygon,
    protocol: 'quickswap_polygon',
    details: {
