@@ -264,9 +264,7 @@ export class PickleModel {
             try {
                 const resolver = (jars[i].chain === ChainNetwork.Ethereum ? this.etherResolver : this.polyResolver);
                 const harvestResolver : JarHarvestResolver = discovery.findHarvestResolver(jars[i]);
-                if( harvestResolver === undefined || harvestResolver === null ) {
-                    console.log("cant find harvest resolver for jar " + jars[i].id);
-                } else {
+                if( harvestResolver !== undefined && harvestResolver !== null ) {
                     const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this.prices, resolver);
                     jars[i].details.harvestStats = harvestData?.stats;
                 }
