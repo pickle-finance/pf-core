@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { JarDefinition } from "../model/PickleModelJson";
 import yearnRegistryABI from '../Contracts/ABIs/yearn-registry.json';
 import { readQueryFromGraphProtocol } from "../graph/TheGraph";
-import fetch from 'node-fetch';
+import fetch from 'cross-fetch';
 import { AssetDatabaseEntry, CURRENT, ONE_DAY, ONE_YEAR_MS, SEVEN_DAYS, THIRTY_DAYS, THREE_DAYS } from "../database/DatabaseUtil";
 
 

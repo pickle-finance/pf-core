@@ -1,5 +1,5 @@
 import CoinGecko from "coingecko-api";
-import fetch from "node-fetch";
+import fetch from "cross-fetch";
 import { ExternalToken, ExternalTokenModel } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache } from "./PriceCache";
