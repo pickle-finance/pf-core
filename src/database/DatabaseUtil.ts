@@ -1,15 +1,5 @@
 import { ethers } from "ethers";
-import AWS from 'aws-sdk';
 import { JarDefinition } from "../model/PickleModelJson";
-
-if( !process.env.AWS_ACCESS_KEY_ID) {
-  process.env.AWS_ACCESS_KEY_ID='AKIAWGTBZFDSLCIUVTVF';
-}
-if( !process.env.AWS_SECRET_ACCESS_KEY) {
-  process.env.AWS_SECRET_ACCESS_KEY='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';
-}
-AWS.config.update({region:'us-west-1'});
-const ddb = new AWS.DynamoDB.DocumentClient({ apiVersion: "2012-08-10" });
 
 export const CURRENT = 0;
 export const ONE_DAY = 48;
@@ -44,6 +34,47 @@ export interface FarmDatabaseEntry {
   picklePerHour: number,
   picklePerDay: number,
 }
+
+export interface XY {
+  x: number,
+  y: number,
+}
+/*
+
+export async function getJarAssetSingleDataSingle(asset: JarDefinition, before: number) : Promise<AssetDatabaseEntry> {
+  let params : any;
+  if( before ) {
+    params = {
+      TableName: "asset",
+      KeyConditionExpression: "asset = :asset",
+      FilterExpression : '#tskey <> :tsval',
+      ExpressionAttributeValues: {
+        ":asset": asset.details.apiKey.toLowerCase(),
+        ":tsval": before,
+      },
+      ExpressionAttributeNames: {
+        "#tskey": "timestamp"
+      },
+      Limit: SAMPLE_DAYS,
+      PageSize: 1,
+      ScanIndexForward: false
+    };  
+  } else {
+    params = {
+      TableName: "asset",
+      KeyConditionExpression: "asset = :asset",
+      ExpressionAttributeValues: {
+        ":asset": asset.details.apiKey.toLowerCase()
+      },
+      Limit: 1,
+      ScanIndexForward: false,
+    };  
+  } 
+
+  const data = await ddb.query(params).promise();
+  // @ts-ignore
+  return data.Items;
+};
 
 
 export async function getJarAssetData(asset: JarDefinition, count: number = SAMPLE_DAYS) : Promise<AssetDatabaseEntry[]> {
@@ -103,11 +134,6 @@ export async function getJarAssetData(asset: JarDefinition, count: number = SAMP
     return result.Items.length > 0 ? result.Items[0].height : createdBlock;
   };
 
-  export interface XY {
-    x: number,
-    y: number,
-  }
-
   export async function getJarPerformance(asset: JarDefinition, count?: number ) : Promise<XY[]> {
     let data : any[] = await getJarAssetData(asset, count);
     // Is this code valid? 
@@ -120,3 +146,4 @@ export async function getJarAssetData(asset: JarDefinition, count: number = SAMP
     }
     return data.map(item => ({x: item.timestamp, y: parseFloat(item.ratio)}));
   }
+  */

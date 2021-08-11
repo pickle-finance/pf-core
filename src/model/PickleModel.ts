@@ -12,8 +12,6 @@ import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { JarHarvestResolverDiscovery } from "../harvest/JarHarvestResolverDiscovery";
 import { JarHarvestData, JarHarvestResolver } from "../harvest/JarHarvestResolver";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
-import { FarmDatabaseEntry, getFarmDatabaseEntry, AssetDatabaseEntry, getJarAssetData } from "../database/DatabaseUtil";
-import { PerformanceData, getProtocolPerformance, JarFarmPerformanceData, getJarFarmPerformanceData } from "../performance/AssetPerformance";
 import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
@@ -36,11 +34,11 @@ export class PickleModel {
     async generateFullApi() : Promise<PickleModelJson> {
         await this.initializeChains();
         await this.ensurePriceCacheLoaded();
-        await this.ensureStrategyDataLoaded(this.jars);
-        await this.ensureRatiosLoaded(this.jars);
-        await this.ensureDepositTokenPriceLoaded(this.jars);
-        await this.ensureHarvestDataLoaded(this.jars);
-        await this.ensureApyLoaded(this.jars);
+        await this.ensureStrategyDataLoaded();
+        await this.ensureRatiosLoaded();
+        await this.ensureDepositTokenPriceLoaded();
+        await this.ensureHarvestDataLoaded();
+        //await this.ensureHistoricalApyLoaded();
         const weeklyDistribution : number = getWeeklyDistribution(this.jars);
         const dillObject = await getDillDetails(weeklyDistribution, this.prices, this.etherResolver);
 
@@ -76,8 +74,8 @@ export class PickleModel {
         }
     }
 
-
-    async ensureApyLoaded(jars: JarDefinition[]) {
+/*
+    async ensureHistoricalApyLoaded(jars: JarDefinition[]) {
         for( let jar of jars ) {
             if( jar.details && jar.details.apiKey ) {
              const perfData : PerformanceData = await getProtocolPerformance(jar);
@@ -109,6 +107,8 @@ export class PickleModel {
            }
         }
     }
+    */
+   
     async ensurePriceCacheLoaded() {
         if( this.prices === undefined ) {
             const tmp : PriceCache = new PriceCache();
@@ -125,18 +125,18 @@ export class PickleModel {
         return this.prices;
     }
 
-    async ensureStrategyDataLoaded(jars: JarDefinition[]) {
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.strategyAddr === undefined || jars[i].details.strategyName === undefined ) {
-                await this.loadStrategyData(jars);
+    async ensureStrategyDataLoaded() {
+        for( let i = 0; i < this.jars.length; i++ ) {
+            if( this.jars[i].details.strategyAddr === undefined || this.jars[i].details.strategyName === undefined ) {
+                await this.loadStrategyData();
                 return;
             }
         }
     }
 
-    async loadStrategyData(jars: JarDefinition[]) {
-        const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum);
-        const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon);
+    async loadStrategyData() {
+        const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum);
+        const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon);
         if( ethJars.length > 0 )
             await this.addJarStrategies(ethJars, CONTROLLER_ETH, this.etherResolver);
         if( polyJars.length > 0 )
@@ -144,18 +144,18 @@ export class PickleModel {
     }
 
 
-    async ensureRatiosLoaded(jars: JarDefinition[]) {
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.ratio === undefined ) {
-                await this.loadRatiosData(jars);
+    async ensureRatiosLoaded() {
+        for( let i = 0; i < this.jars.length; i++ ) {
+            if( this.jars[i].details.ratio === undefined ) {
+                await this.loadRatiosData(this.jars);
                 return;
             }
         }
     }
 
 
-    async ensureDepositTokenPriceLoaded(jars: JarDefinition[]) {
-        let notPermDisabled : JarDefinition[] = jars.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+    async ensureDepositTokenPriceLoaded() {
+        let notPermDisabled : JarDefinition[] = this.jars.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
         const depositTokens: string[] = notPermDisabled.map((entry)=>{return entry.depositToken.addr});
         const results : Map<string,number> = await this.prices.getPrices(depositTokens, RESOLVER_DEPOSIT_TOKEN);
         for( let i = 0; i < notPermDisabled.length; i++ ) {
@@ -249,8 +249,8 @@ export class PickleModel {
         }
     }
 
-    async ensureHarvestDataLoaded(jars: JarDefinition[]) {
-        const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum);
+    async ensureHarvestDataLoaded() {
+        const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum);
         for( let i = 0; i < ethJars.length; i++ ) {
             if( ethJars[i].details.harvestStats === undefined ) {
                 await this.loadHarvestData([ethJars[i]]);
