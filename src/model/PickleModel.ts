@@ -1,4 +1,4 @@
-import { AssetEnablement, HarvestStyle, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, DillDetails, HarvestStyle, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
 import { ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -22,6 +22,7 @@ export class PickleModel {
     etherResolver: Signer|Provider;
     polyResolver: Signer|Provider;
     prices : PriceCache;
+    dillDetails: DillDetails;
 
     constructor( jars: JarDefinition[], standaloneFarms: StandaloneFarmDefinition[],
         etherResolver: Signer|Provider, polygonResolver: Signer|Provider) {
@@ -39,15 +40,18 @@ export class PickleModel {
         await this.ensureDepositTokenPriceLoaded();
         await this.ensureHarvestDataLoaded();
         //await this.ensureHistoricalApyLoaded();
-        const weeklyDistribution : number = getWeeklyDistribution(this.jars);
-        const dillObject = await getDillDetails(weeklyDistribution, this.prices, this.etherResolver);
+        this.dillDetails = await getDillDetails(getWeeklyDistribution(this.jars), 
+                this.prices, this.etherResolver);
+        return this.toJson();
+    }
 
+    toJson() : PickleModelJson {
         return {
             jarsAndFarms: {
                 jars: this.jars,
                 standaloneFarms: this.standaloneFarms
             },
-            dill: dillObject,
+            dill: this.dillDetails,
             prices: Object.fromEntries(this.prices.getCache())
         }
     }
