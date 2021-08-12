@@ -26,8 +26,8 @@ export class PickleModel {
 
     constructor( jars: JarDefinition[], standaloneFarms: StandaloneFarmDefinition[],
         etherResolver: Signer|Provider, polygonResolver: Signer|Provider) {
-        this.jars = jars;
-        this.standaloneFarms = standaloneFarms;
+        this.jars = JSON.parse(JSON.stringify(jars));
+        this.standaloneFarms = JSON.parse(JSON.stringify(standaloneFarms));
         this.etherResolver = etherResolver;
         this.polyResolver = polygonResolver;
     }

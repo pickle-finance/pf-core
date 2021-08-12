@@ -745,34 +745,6 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  JAR_DEFINITIONS.push(JAR_UNIV2_FEI_TRIBE);
  
 
-
- export const JAR_YVBOOST_ETH: JarDefinition =
- {
-   id: 'pJar 0.99s (inactive)',
-   contract: '0xCeD67a187b923F0E5ebcc77C7f2F7da20099e378',
-   depositToken: {
-      addr: '0x9461173740D27311b176476FA27e94C681b1Ea6b',
-      name: 'yvBOOST-ETH_SLP',
-      link: undefined,
-      components: ["weth", "yvboost"],
-   },
-   enablement: AssetEnablement.DISABLED,
-   chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
-   details: {
-     apiKey: undefined,
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farm: {
-     farmAddress: '0xeA5b46877E2d131405DB7e5155CC15B8e55fbD27',
-     farmNickname: 'pSLP yvBOOST (deprecated)',
-     farmDepositTokenName: 'pSLP yvBOOST (deprecated)'
-   }
- }
- JAR_DEFINITIONS.push(JAR_YVBOOST_ETH);
- 
-
-
  export const JAR_SADDLE_D4: JarDefinition =
  {
    id: 'pJar 0.99s4',
