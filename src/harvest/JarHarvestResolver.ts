@@ -1,8 +1,7 @@
-import { PriceCache } from '../price/PriceCache';
+import { PriceCache, RESOLVER_DEPOSIT_TOKEN } from '../price/PriceCache';
 import { ExternalTokenModelSingleton } from '../price/ExternalTokenModel';
-import { ethers, Signer } from 'ethers';
+import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import jarsAbi from "../Contracts/ABIs/jar.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import strategyDual from "../Contracts/ABIs/strategy-dual.json";
 import { JarDefinition } from '../model/PickleModelJson';
@@ -32,63 +31,51 @@ export interface JarHarvestStats {
   }
 
   export abstract class AbstractJarHarvestResolver implements JarHarvestResolver {
-    async getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider) : Promise<JarHarvestData> {
-        const strategy = new ethers.Contract(definition.details.strategyAddr, this.getStrategyAbi(definition), resolver);
-        const jar = new ethers.Contract(definition.contract, jarsAbi, resolver);
-        const [available, balance1 ] = await Promise.all([
-            jar.available(),
-            strategy.balanceOf()
-          ]);
-          const balance = balance1.add(available);
-          let stats : JarHarvestStats;
-          try {
-              stats = await this.getJarHarvestStats(jar, definition.depositToken.addr, strategy, balance, available, priceCache, resolver);
-              return {
-                name: definition.id,
-                jarAddr: definition.contract,
-                strategyName: definition.details.strategyName,
-                strategyAddr: definition.details.strategyAddr,
-                stats: stats
-                };
-          } catch( e ) {
-            stats = undefined;
-          }
-          return {
+    async getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, 
+        balance: BigNumber, available: BigNumber, resolver: Signer | Provider) : Promise<JarHarvestData> {
+
+        const balanceWithAvailable = balance.add(available);
+        const depositTokenDecimals = (definition.depositToken.decimals ? definition.depositToken.decimals : 18);
+        const depositTokenPrice : number = await priceCache.getPrice(definition.depositToken.addr, RESOLVER_DEPOSIT_TOKEN);
+        const balanceUSD : number = parseFloat(ethers.utils.formatUnits(balanceWithAvailable, depositTokenDecimals)) * depositTokenPrice;
+        const availUSD : number = parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) * depositTokenPrice;
+
+        const harvestableUSD : number = await this.getHarvestableUSD(definition, priceCache, resolver);
+        return {
             name: definition.id,
             jarAddr: definition.contract,
             strategyName: definition.details.strategyName,
             strategyAddr: definition.details.strategyAddr,
-            stats: stats
+            stats: {
+               balanceUSD: balanceUSD,
+               earnableUSD: availUSD,
+               harvestableUSD: harvestableUSD 
+            }
         };
     }
-    getTokenContract(name: string) : string {
-        return ExternalTokenModelSingleton.getToken(name, ChainNetwork.Ethereum)?.contractAddr;
+    addr(name: string) : string {
+        const t1 = ExternalTokenModelSingleton.getToken(name, ChainNetwork.Ethereum)?.contractAddr;
+        if( t1 !== undefined )
+            return t1;
+        return ExternalTokenModelSingleton.getToken(name, ChainNetwork.Polygon)?.contractAddr;
     }
-    
-    getTokenChainContract(name: string, chain: ChainNetwork) : string {
-        return ExternalTokenModelSingleton.getToken(name, chain)?.contractAddr;
+    address(id: string, chain: ChainNetwork) {
+        return ExternalTokenModelSingleton.getToken(id,chain)?.contractAddr;
     }
-    getTokenPrice(cache: PriceCache, id: string) : number {
+    priceOf(cache: PriceCache, id: string) : number {
         return cache.get(id);
-    }
-    findTokenContract(id: string, chain: ChainNetwork) {
-          return ExternalTokenModelSingleton.getToken(id,chain)?.contractAddr;
     }
     getStrategyAbi(definition: JarDefinition) : any {
         if (isCvxJar(definition.contract) || isLqtyJar(definition.contract)) 
             return strategyDual;
         return strategyAbi;
     }
-    abstract getJarHarvestStats(  
-        jar: ethers.Contract,
-        depositToken: string,
-        strategy: ethers.Contract,
-        balance: ethers.BigNumber,
-        available: ethers.BigNumber,
-        pricesUSD: PriceCache,
-        resolver: Signer | Provider): Promise<JarHarvestStats>;
+
+    abstract getHarvestableUSD( jar: JarDefinition, prices: PriceCache, resolver: Signer | Provider): Promise<number>;
   }
   export interface JarHarvestResolver {
-      getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, resolver: Signer | Provider) : Promise<JarHarvestData>;
+      getJarHarvestData(definition: JarDefinition, priceCache: PriceCache, 
+        balance: BigNumber, available: BigNumber,
+        resolver: Signer | Provider) : Promise<JarHarvestData>;
   }
 

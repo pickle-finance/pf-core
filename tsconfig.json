@@ -15,8 +15,6 @@
     "resolveJsonModule": true,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true,
     "strictNullChecks": false
   },
   "include": [

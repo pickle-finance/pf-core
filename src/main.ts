@@ -1,15 +1,31 @@
+import { InfuraProvider } from "@ethersproject/providers";
 import { ethers } from "ethers";
-import { JAR_DEFINITIONS,STANDALONE_FARM_DEFINITIONS } from "./model/JarsAndFarms";
+import { PickleModelJson } from ".";
+import { DinoEth } from "./harvest/dino-eth";
+import { DinoUsdc } from "./harvest/dino-usdc";
+import { JAR_AM3CRV, JAR_COMETH_MATIC_MUST, JAR_DEFINITIONS,JAR_MIM3CRV,JAR_MIMETH,JAR_SPELLETH,JAR_SUSHI_DINO_USDC,JAR_USDC,STANDALONE_FARM_DEFINITIONS } from "./model/JarsAndFarms";
 import { PickleModel } from "./model/PickleModel";
 
 // This is an example of the code you'd want to run in dashboard
 async function generateFullApi() {
-
+/*
   const model : PickleModel = new PickleModel(JAR_DEFINITIONS, STANDALONE_FARM_DEFINITIONS, 
     new ethers.providers.InfuraProvider(), new ethers.providers.JsonRpcProvider('https://rpc-mainnet.maticvigil.com/'));
   const result = await model.generateFullApi();
   const resultString = JSON.stringify(result, null, 2);
   process.stdout.write(resultString);
+*/
+
+const model : PickleModel = new PickleModel([ JAR_SUSHI_DINO_USDC], [], new InfuraProvider(), null);
+
+await model.ensurePriceCacheLoaded();
+await model.ensureStrategyDataLoaded();
+await model.ensureHarvestDataLoaded();
+
+const result : PickleModelJson.PickleModelJson = model.toJson();
+process.stdout.write(JSON.stringify(result, null, 2));
+
+
 /**
 
   const result1 : AssetDatabaseEntry[] = await getJarAssetData(JAR_SUSHI_ETH_ALCX);

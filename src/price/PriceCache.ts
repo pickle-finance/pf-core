@@ -37,6 +37,21 @@ export class PriceCache {
   }
 
   /**
+   * Return a single price. 
+   * Not super efficient but handy when you know the cache is already loaded. 
+   * 
+   * @param token 
+   * @param resolverKey 
+   * @returns 
+   */
+  async getPrice(token: string, resolverKey: string ) : Promise<number> {
+    const map : Map<string,number> = await this.getPrices([token], resolverKey);
+    if( map === undefined )
+      return undefined;
+    return map.get(token);
+  }
+
+  /**
    * Return the requested prices, or a superset of the requested prices, or undefined 
    * if the prices you sought could not be found. 
    * @param tokens 

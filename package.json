@@ -1,6 +1,6 @@
 {
   "name": "picklefinance-core",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A repository for all picklefinance core code",
   "engines": {
     "node": ">= 14.16 <15"
@@ -48,12 +48,12 @@
     "typescript": "^4.0.3"
   },
   "dependencies": {
-    "@ethersproject/abstract-provider": "^5.0.4",
+    "@ethersproject/abstract-provider": "^5.1.0",
     "@ethersproject/providers": "^5.1.0",
     "@types/coingecko-api": "^1.0.0",
     "coingecko-api": "^1.0.10",
     "cross-fetch": "^3.1.4",
-    "ethers": "^5.0.14",
+    "ethers": "^5.1.0",
     "ethers-multicall": "^0.2.1",
     "moment": "^2.29.1",
     "tslib": "~2.3.0",

@@ -32,6 +32,7 @@ export interface DepositToken {
     addr: string,
     name: string,
     link: string,
+    decimals?: number,
     components?: string[],
     price?: number
 }

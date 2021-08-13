@@ -9,7 +9,6 @@ describe('Testing ChainModel', () => {
   test('Chain Models Exist', async () => {
     let chain  : IChain = Chains.get(ChainNetwork.Ethereum);
     expect(chain).toBeDefined();
-    expect(chain.getPreferredWeb3Provider()).not.toBeDefined();
     expect(chain.getRandomWeb3Provider()).toBeDefined();
     expect(chain.id).toBe(1);
     expect(chain.name).toBe(ChainNetwork.Ethereum);
@@ -18,7 +17,7 @@ describe('Testing ChainModel', () => {
     
     chain  = Chains.get(ChainNetwork.Polygon);
     expect(chain).toBeDefined();
-    expect(chain.getPreferredWeb3Provider()).not.toBeDefined();
+    expect(chain.getPreferredWeb3Provider()).toBeDefined();
     expect(chain.getRandomWeb3Provider()).toBeDefined();
     expect(chain.id).toBe(137);
     expect(chain.name).toBe(ChainNetwork.Polygon);
@@ -30,7 +29,6 @@ describe('Testing ChainModel', () => {
     let chain  : IChain = Chains.get(ChainNetwork.Ethereum);
     const infura : Provider = new ethers.providers.InfuraProvider();
     expect(chain).toBeDefined();
-    expect(chain.getPreferredWeb3Provider()).not.toBeDefined();
     chain.setPreferredWeb3Provider(infura);
     expect(chain.getPreferredWeb3Provider()).toBeDefined();
   });

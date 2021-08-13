@@ -47,7 +47,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       name: 'sCRV',
       link: 'https://www.curve.fi/susdv2/deposit',
    },
-   enablement: AssetEnablement.ENABLED,
+   enablement: AssetEnablement.DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'curve',
    details: {
@@ -140,7 +140,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://app.uniswap.org/#/add/v2/0x6b175474e89094c44da98b954eedeac495271d0f/ETH',
       components: ["dai", "weth"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
@@ -159,7 +159,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://app.uniswap.org/#/add/v2/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/ETH',
       components: ["usdc", "weth"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
@@ -178,7 +178,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://app.uniswap.org/#/add/v2/ETH/0xdac17f958d2ee523a2206206994597c13d831ec7',
       components: ["usdt", "weth"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: undefined,
@@ -215,7 +215,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       name: 'DAI',
       link: 'https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f',
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'compound',
    details: undefined,
@@ -233,7 +233,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       name: 'SADDLE-ETH-alETH',
       link: 'https://saddle.exchange/#/pools/aleth/deposit',
    },
-   enablement: AssetEnablement.DEV,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'saddle',
    details: {
@@ -414,7 +414,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: undefined,
       components: ["bac", "dai"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
@@ -441,7 +441,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: undefined,
       components: ["mic", "usdt"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
@@ -468,7 +468,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: undefined,
       components: ["mis", "usdt"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'sushiswap',
    details: {
@@ -521,7 +521,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: undefined,
       components: ["bas", "dai"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
@@ -534,7 +534,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'UNI BAS/DAI'
    }
  }
- JAR_DEFINITIONS.push(JAR_SUSHI_ETH_YVECRV);
+ JAR_DEFINITIONS.push(JAR_UNI_BAS_DAI);
  
  
  export const JAR_UNIV2_MIR_UST: JarDefinition =
@@ -781,7 +781,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://app.uniswap.org/#/add/v2/0x5f98805A4E8be255a32880FDeC7F6728C6568bA0/ETH',
       components: ["lusd", "weth"],
    },
-   enablement: AssetEnablement.DISABLED,
+   enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: 'uniswap',
    details: {
@@ -884,6 +884,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       name: 'USDC',
       link: 'https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
       components: ["usdc"],
+      decimals: 6
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
@@ -952,6 +953,140 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_fraxCRV);
  
+
+
+ export const JAR_MIM3CRV: JarDefinition =
+ {
+   id: 'pjar 0.99m1',
+   contract: '0x1Bf62aCb8603Ef7F3A0DFAF79b25202fe1FAEE06',
+   depositToken: {
+      addr: '0x5a6a4d54456819380173272a5e8e9b9904bdf41b',
+      name: 'mim3CRV',
+      link: 'https://curve.fi/mim/deposit',
+      components: ["mim", "3crv"], // TODO
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: 'curve',
+   details: {
+     apiKey: 'MIM3CRV',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0xE58f2F41D586803615fAdfc423a41c148fd1D949',
+     farmNickname: 'mim3CRV',
+     farmDepositTokenName: 'pAbraMim3CRV'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_MIM3CRV);
+ 
+
+
+ export const JAR_SPELLETH: JarDefinition =
+ {
+   id: 'pjar 0.99m2',
+   contract: '0xdB84a6A48881545E8595218b7a2A3c9bd28498aE',
+   depositToken: {
+      addr: '0xb5de0c3753b6e1b4dba616db82767f17513e6d4e',
+      name: 'SpellEth',
+      link: 'https://app.sushi.com/add/ETH/0x090185f2135308BaD17527004364eBcC2D37e5F6',
+      components: ["spell", "weth"], // TODO
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: 'sushiswap',
+   details: {
+     apiKey: 'SPELL-ETH',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0xF7eECA3C5B0A01D051690E0cF082AE5006c7e073',
+     farmNickname: 'AbraSpellEth',
+     farmDepositTokenName: 'pAbraSpellEth'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_SPELLETH);
+
+
+ export const JAR_MIMETH: JarDefinition =
+ {
+   id: 'pjar 0.99m3',
+   contract: '0x993f35FaF4AEA39e1dfF28f45098429E0c87126C',
+   depositToken: {
+      addr: '0x07d5695a24904cc1b6e3bd57cc7780b90618e3c4',
+      name: 'MimEth',
+      link: 'https://app.sushi.com/add/ETH/0x99D8a9C45b2ecA8864373A26D1459e3Dff1e17F3',
+      components: ["mim", "weth"], // TODO
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: 'sushiswap',
+   details: {
+     apiKey: 'MIM-ETH',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0xF7eECA3C5B0A01D051690E0cF082AE5006c7e073',
+     farmNickname: 'AbraSpellEth',
+     farmDepositTokenName: 'pAbraSpellEth'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_MIMETH);
+ 
+
+ export const JAR_FOXETH: JarDefinition =
+ {
+   id: 'pjar 0.99f1',
+   contract: '0xeb8174F94FDAcCB099422d9A816B8E17d5e393E3',
+   depositToken: {
+      addr: '0x470e8de2eBaef52014A47Cb5E6aF86884947F08c',
+      name: 'UNIv2-FOX-ETH LP',
+      link: 'https://app.uniswap.org/#/add/v2/0xc770eefad204b5180df6a14ee197d99d808ee52d/ETH',
+      components: ["fox", "weth"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: 'uniswap',
+   details: {
+     apiKey: 'FOX-ETH',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x58675Af6001e8785e69CE82746a74a37f824EBAE',
+     farmNickname: 'pFoxEth',
+     farmDepositTokenName: 'pUNI-FoxEth'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_FOXETH);
+
+ export const JAR_TRUETH: JarDefinition =
+ {
+   id: 'pjar 0.99t',
+   contract: '0x1d92e1702D7054f74eAC3a9569AeB87FC93e101D',
+   depositToken: {
+      addr: '0xfCEAAf9792139BF714a694f868A215493461446D',
+      name: 'SUSHI-TRU-ETH LP',
+      link: 'https://app.sushi.com/add/ETH/0x4C19596f5aAfF459fA38B0f7eD92F11AE6543784',
+      components: ["tru", "weth"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: 'sushiswap',
+   details: {
+     apiKey: 'TRU-ETH',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x9fec5e5d75274f8cfa4261f8e97138920e142470',
+     farmNickname: 'pSUSHITRUETH',
+     farmDepositTokenName: 'pSLP-TRU-ETH'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_TRUETH);
+ 
+
+
+ // Polygon
  
  export const JAR_COMETH_USDC_WETH: JarDefinition =
  {
@@ -1135,7 +1270,59 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_POLY_SUSHI_MATIC_ETH);
  
- 
+
+ export const JAR_SUSHI_DINO_USDC: JarDefinition =
+ {
+   id: 'polyJar 4c',
+   contract: '0xC8450922d18793AD97C401D65BaE8A83aE5353a8',
+   depositToken: {
+      addr: '0x3324af8417844e70b81555A6D1568d78f4D4Bf1f',
+      name: 'SushiDinoUsdc',
+      link: 'https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
+      components: ["dino", "usdc"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: 'sushiswap_polygon',
+   details: {
+     apiKey: 'DINO-USDC',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'pSLPDinoUsdc',
+     farmDepositTokenName: 'pSLPDinoUsdc'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_SUSHI_DINO_USDC);
+
+ /*
+ export const JAR_SUSHI_DINO_ETH: JarDefinition =
+ {
+   id: 'polyJar 4d',
+   contract: '0x1cCDB8152Bb12aa34e5E7F6C9c7870cd6C45E37F',
+   depositToken: {
+      addr: '0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11',
+      name: 'SushiDinoEth',
+      link: 'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
+      components: ["dino", "usdc"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: 'sushiswap_polygon',
+   details: {
+     apiKey: 'DINO-USDC',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'pSLPDinoEth',
+     farmDepositTokenName: 'pSLPDinoEth'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_SUSHI_DINO_ETH);
+*/
+
  export const JAR_QUICKmiMATICUSDC_old: JarDefinition =
  {
    id: 'polyJar 5a_old (inactive)',
@@ -1144,7 +1331,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       addr: '0x160532d2536175d65c03b97b0630a9802c274dad',
       name: 'QUICK MAI/USDC',
       link: 'https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
-      components: ["wusdc", "mimatic"],
+      components: ["musdc", "mimatic"],
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Polygon,
@@ -1170,7 +1357,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       addr: '0x160532d2536175d65c03b97b0630a9802c274dad',
       name: 'QUICK MAI/USDC',
       link: 'https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
-      components: ["wusdc", "mimatic"],
+      components: ["musdc", "mimatic"],
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,

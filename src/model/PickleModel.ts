@@ -1,5 +1,5 @@
 import { AssetEnablement, DillDetails, HarvestStyle, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
-import { ethers, Signer } from 'ethers';
+import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
@@ -19,8 +19,6 @@ export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
 export class PickleModel {
     jars: JarDefinition[];
     standaloneFarms: StandaloneFarmDefinition[];
-    etherResolver: Signer|Provider;
-    polyResolver: Signer|Provider;
     prices : PriceCache;
     dillDetails: DillDetails;
 
@@ -28,12 +26,10 @@ export class PickleModel {
         etherResolver: Signer|Provider, polygonResolver: Signer|Provider) {
         this.jars = JSON.parse(JSON.stringify(jars));
         this.standaloneFarms = JSON.parse(JSON.stringify(standaloneFarms));
-        this.etherResolver = etherResolver;
-        this.polyResolver = polygonResolver;
+        this.initializeChains(etherResolver, polygonResolver);
     }
 
     async generateFullApi() : Promise<PickleModelJson> {
-        await this.initializeChains();
         await this.ensurePriceCacheLoaded();
         await this.ensureStrategyDataLoaded();
         await this.ensureRatiosLoaded();
@@ -41,7 +37,7 @@ export class PickleModel {
         await this.ensureHarvestDataLoaded();
         //await this.ensureHistoricalApyLoaded();
         this.dillDetails = await getDillDetails(getWeeklyDistribution(this.jars), 
-                this.prices, this.etherResolver);
+                this.prices, Chains.getResolver(ChainNetwork.Ethereum));
         return this.toJson();
     }
 
@@ -56,21 +52,21 @@ export class PickleModel {
         }
     }
 
-    initializeChains() {
-        if( this.etherResolver ) {
-            const isSigner : boolean = (this.etherResolver as Signer).provider !== undefined;
-            const ethSigner : Signer = isSigner ? (this.etherResolver as Signer) : undefined;
-            const ethProvider : Provider = isSigner ? (this.etherResolver as Signer).provider : (this.etherResolver as Provider);
+    initializeChains(etherResolver: Signer|Provider, polygonResolver: Signer|Provider) {
+        if( etherResolver ) {
+            const isSigner : boolean = (etherResolver as Signer).provider !== undefined;
+            const ethSigner : Signer = isSigner ? (etherResolver as Signer) : undefined;
+            const ethProvider : Provider = isSigner ? (etherResolver as Signer).provider : (etherResolver as Provider);
             if( ethSigner ) 
                 Chains.get(ChainNetwork.Ethereum).setSigner(ethSigner);
             if( ethProvider) 
                 Chains.get(ChainNetwork.Ethereum).setPreferredWeb3Provider(ethProvider);
         }
 
-        if( this.polyResolver ) {
-            const isSigner : boolean = (this.polyResolver as Signer).provider !== undefined;
-            const polySigner : Signer = isSigner ? (this.polyResolver as Signer) : undefined;
-            const polyProvider : Provider = isSigner ? (this.polyResolver as Signer).provider : (this.polyResolver as Provider);
+        if( polygonResolver ) {
+            const isSigner : boolean = (polygonResolver as Signer).provider !== undefined;
+            const polySigner : Signer = isSigner ? (polygonResolver as Signer) : undefined;
+            const polyProvider : Provider = isSigner ? (polygonResolver as Signer).provider : (polygonResolver as Provider);
             if( polySigner ) 
                 Chains.get(ChainNetwork.Polygon).setSigner(polySigner);
             if( polyProvider) 
@@ -142,9 +138,9 @@ export class PickleModel {
         const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum);
         const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon);
         if( ethJars.length > 0 )
-            await this.addJarStrategies(ethJars, CONTROLLER_ETH, this.etherResolver);
+            await this.addJarStrategies(ethJars, CONTROLLER_ETH, Chains.getResolver(ChainNetwork.Ethereum));
         if( polyJars.length > 0 )
-            await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, this.polyResolver);
+            await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, Chains.getResolver(ChainNetwork.Polygon));
     }
 
 
@@ -172,9 +168,9 @@ export class PickleModel {
         const ethJars = jars.filter(x => x.chain === ChainNetwork.Ethereum && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
         const polyJars = jars.filter(x => x.chain === ChainNetwork.Polygon && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
         if( ethJars.length > 0 )
-            await this.addJarRatios(ethJars, CONTROLLER_ETH, this.etherResolver);
+            await this.addJarRatios(ethJars, CONTROLLER_ETH, Chains.getResolver(ChainNetwork.Ethereum));
         if( polyJars.length > 0 )
-            await this.addJarRatios(polyJars, CONTROLLER_POLYGON, this.polyResolver);
+            await this.addJarRatios(polyJars, CONTROLLER_POLYGON, Chains.getResolver(ChainNetwork.Polygon));
     }
 
     async addJarStrategies(jars: JarDefinition[], controllerAddr: string, resolver: Signer | Provider) {
@@ -223,9 +219,6 @@ export class PickleModel {
     }
 
     async addJarRatios(jars: JarDefinition[], _controllerAddr: string, resolver: Signer | Provider) {
-        const ethcallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
-        await ethcallProvider.init();
-
         // debug
         /*
         for( let i = 0; i < jars.length; i++ ) {
@@ -244,6 +237,8 @@ export class PickleModel {
             }
         }
         */
+        const ethcallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+        await ethcallProvider.init();
 
         const ratios : string[] = await ethcallProvider.all<string[]>(
             jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
@@ -255,21 +250,53 @@ export class PickleModel {
 
     async ensureHarvestDataLoaded() {
         const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum);
+        const missingEth : JarDefinition[] = [];
         for( let i = 0; i < ethJars.length; i++ ) {
-            if( ethJars[i].details.harvestStats === undefined ) {
-                await this.loadHarvestData([ethJars[i]]);
+            if( ethJars[i].details.harvestStats === undefined && ethJars[i].enablement !== AssetEnablement.PERMANENTLY_DISABLED) {
+                missingEth.push(ethJars[i]);
             }
         }
+        await this.loadHarvestData(missingEth, ChainNetwork.Ethereum);
+
+
+        const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon);
+        const missingPoly : JarDefinition[] = [];
+        for( let i = 0; i < polyJars.length; i++ ) {
+            if( polyJars[i].details.harvestStats === undefined && polyJars[i].enablement !== AssetEnablement.PERMANENTLY_DISABLED) {
+                missingPoly.push(polyJars[i]);
+            }
+        }
+        await this.loadHarvestData(missingPoly, ChainNetwork.Polygon);
+
     }
 
-    async loadHarvestData(jars: JarDefinition[]) {
+    async loadHarvestData(jars: JarDefinition[], chain: ChainNetwork) {
+        if( jars.length === 0) {
+            return;
+        }
+
+        const signer : Provider = Chains.get(chain).getPreferredWeb3Provider();
+
+        // Load balances as a group
+        const multicallProvider = new MulticallProvider(signer);
+        await multicallProvider.init();
+        const balanceOf = await multicallProvider.all<BigNumber[]>(
+            jars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf()));
+        
+        // Load available as a group
+        const multicallProvider2 = new MulticallProvider(signer);
+        await multicallProvider2.init();
+        const available = await multicallProvider2.all<BigNumber[]>(
+        jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
+    
         const discovery : JarHarvestResolverDiscovery = new JarHarvestResolverDiscovery();
         for( let i = 0; i < jars.length; i++ ) {
             try {
-                const resolver = (jars[i].chain === ChainNetwork.Ethereum ? this.etherResolver : this.polyResolver);
+                const resolver = Chains.getResolver(jars[i].chain);
                 const harvestResolver : JarHarvestResolver = discovery.findHarvestResolver(jars[i]);
                 if( harvestResolver !== undefined && harvestResolver !== null ) {
-                    const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this.prices, resolver);
+                    const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this.prices, 
+                        balanceOf[i], available[i], resolver);
                     jars[i].details.harvestStats = harvestData?.stats;
                 }
             } catch( e ) {
