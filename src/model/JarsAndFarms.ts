@@ -1296,20 +1296,20 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_SUSHI_DINO_USDC);
 
- /*
- export const JAR_SUSHI_DINO_ETH: JarDefinition =
+ 
+ export const JAR_QUICK_DINO_ETH: JarDefinition =
  {
    id: 'polyJar 4d',
    contract: '0x1cCDB8152Bb12aa34e5E7F6C9c7870cd6C45E37F',
    depositToken: {
       addr: '0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11',
-      name: 'SushiDinoEth',
+      name: 'QuickDinoEth',
       link: 'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
       components: ["dino", "usdc"],
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'sushiswap_polygon',
+   protocol: 'quickswap_polygon',
    details: {
      apiKey: 'DINO-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1320,8 +1320,8 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLPDinoEth'
    }
  }
- JAR_DEFINITIONS.push(JAR_SUSHI_DINO_ETH);
-*/
+ JAR_DEFINITIONS.push(JAR_QUICK_DINO_ETH);
+
 
  export const JAR_QUICKmiMATICUSDC_old: JarDefinition =
  {
@@ -1373,3 +1373,53 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    }
  }
  JAR_DEFINITIONS.push(JAR_QUICK_MIMATIC_USDC);
+
+ export const JAR_QUICK_QI_MIMATIC: JarDefinition =
+ {
+   id: 'polyJar 5b',
+   contract: '0x74dC9cdCa9a96Fd0B7900e6eb953d1EA8567c3Ce',
+   depositToken: {
+      addr: '0x7AfcF11F3e2f01e71B7Cc6b8B5e707E42e6Ea397',
+      name: 'QUICK QI/MIMATIC',
+      link: 'https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x580A84C73811E1839F75d86d75d88cCa0c241fF4',
+      components: ["qi", "mimatic"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: 'quickswap_polygon',
+   details: {
+     apiKey: 'QLP-QI',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'qQLP QI',
+     farmDepositTokenName: 'pQLP QI'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_QUICK_QI_MIMATIC);
+
+ export const JAR_IRON3USD: JarDefinition =
+ {
+   id: 'polyJar 6a',
+   contract: '0xE484Ed97E19F6B649E78db0F37D173C392F7A1D9',
+   depositToken: {
+      addr: '0xb4d09ff3dA7f9e9A2BA029cb0A81A989fd7B8f17',
+      name: 'Iron3USD',
+      link: 'https://app.iron.finance/swap/pools/is3usd/deposit',
+      components: ["usdc", "usdt", "dai"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: 'iron_polygon',
+   details: {
+     apiKey: 'IS3USD',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'pIS3USD',
+     farmDepositTokenName: 'pIS3USD'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_IRON3USD);

@@ -66,6 +66,7 @@ export interface JarHarvestStats {
         return cache.get(id);
     }
     getStrategyAbi(definition: JarDefinition) : any {
+        // This doesn't belong here? We should have the default and let others override.
         if (isCvxJar(definition.contract) || isLqtyJar(definition.contract)) 
             return strategyDual;
         return strategyAbi;
@@ -78,4 +79,3 @@ export interface JarHarvestStats {
         balance: BigNumber, available: BigNumber,
         resolver: Signer | Provider) : Promise<JarHarvestData>;
   }
-

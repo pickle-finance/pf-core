@@ -8,6 +8,7 @@ export const PROTOCOL_TYPE_SUSHISWAP_POLYGON = "sushiswap_polygon";
 export const PROTOCOL_TYPE_COMETHSWAP = "comethswap";
 export const PROTOCOL_TYPE_QUICKSWAP_POLYGON = "quickswap_polygon";
 export const PROTOCOL_TYPE_AAVE_POLYGON = "aave_polygon";
+export const PROTOCOL_TYPE_IRON_POLYGON = "iron_polygon";
 export const PROTOCOL_TYPE_YEARN = "yearn";
 export const PROTOCOL_TYPE_SADDLE = "saddle";
 export const PROTOCOL_TYPE_CURVE = "curve";

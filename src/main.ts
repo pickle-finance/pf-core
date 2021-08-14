@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { PickleModelJson } from ".";
 import { DinoEth } from "./harvest/dino-eth";
 import { DinoUsdc } from "./harvest/dino-usdc";
-import { JAR_AM3CRV, JAR_COMETH_MATIC_MUST, JAR_DEFINITIONS,JAR_MIM3CRV,JAR_MIMETH,JAR_SPELLETH,JAR_SUSHI_DINO_USDC,JAR_USDC,STANDALONE_FARM_DEFINITIONS } from "./model/JarsAndFarms";
+import { JAR_AM3CRV, JAR_COMETH_MATIC_MUST, JAR_DEFINITIONS,JAR_MIM3CRV,JAR_MIMETH,JAR_QUICK_DINO_ETH,JAR_SPELLETH,JAR_SUSHI_DINO_USDC,JAR_USDC,STANDALONE_FARM_DEFINITIONS } from "./model/JarsAndFarms";
 import { PickleModel } from "./model/PickleModel";
 
 // This is an example of the code you'd want to run in dashboard
@@ -16,7 +16,7 @@ async function generateFullApi() {
   process.stdout.write(resultString);
 */
 
-const model : PickleModel = new PickleModel([ JAR_SUSHI_DINO_USDC], [], new InfuraProvider(), null);
+const model : PickleModel = new PickleModel([ JAR_QUICK_DINO_ETH], [], new InfuraProvider(), null);
 
 await model.ensurePriceCacheLoaded();
 await model.ensureStrategyDataLoaded();

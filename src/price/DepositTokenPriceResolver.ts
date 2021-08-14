@@ -1,6 +1,6 @@
 import { getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
-import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition } from "../model/PickleModelJson";
+import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition, PROTOCOL_TYPE_AAVE_POLYGON, PROTOCOL_TYPE_IRON_POLYGON } from "../model/PickleModelJson";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
@@ -37,7 +37,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
                 if( protocol === undefined ) {
                     return null;
                 }
-                const price : number = await this.getTokenPriceFromGraph(protocol, ids[i], cache);
+                const price : number = await this.getTokenPriceForProtocol(protocol, ids[i], cache);
                 if( price !== undefined ) {
                     ret.set(ids[i], price);
                 }
@@ -60,7 +60,10 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     }
 
 
-    async getTokenPriceFromGraph(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
+    /*
+    A lot of this is wrong. Don't know which repo I copied it from.
+    */
+    async getTokenPriceForProtocol(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
         if (protocol === PROTOCOL_TYPE_SUSHISWAP) {
             return await this.getPriceFromSushiPair(await getSushiSwapPair(protocol, token.toLowerCase(), block), cache);
         } else if (protocol === PROTOCOL_TYPE_UNISWAP) {
@@ -92,7 +95,9 @@ export class DepositTokenPriceResolver implements IPriceResolver {
                 return 1;
             }
             return this.getContractPrice(token, cache);
-        } else if( protocol === "aave_polygon" ) {
+        } else if( protocol === PROTOCOL_TYPE_AAVE_POLYGON) {
+            return 1;
+        } else if( protocol === PROTOCOL_TYPE_IRON_POLYGON) {
             return 1;
         } else if( protocol === PROTOCOL_TYPE_TOKENPRICE ) {
             return this.getContractPrice(token, cache);
