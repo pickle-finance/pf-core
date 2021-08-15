@@ -135,15 +135,15 @@ export class PickleModel {
     }
 
     async loadStrategyData() {
-        const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum && x.details.controller === undefined);
-        const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon && x.details.controller === undefined);
+        const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum && x.details?.controller === undefined);
+        const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon && x.details?.controller === undefined);
         if( ethJars.length > 0 )
             await this.addJarStrategies(ethJars, CONTROLLER_ETH, Chains.getResolver(ChainNetwork.Ethereum));
         if( polyJars.length > 0 )
             await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, Chains.getResolver(ChainNetwork.Polygon));
 
         // Now handle jars with custom controllers
-        const customControllerJars = this.jars.filter(x => x.details.controller !== undefined);
+        const customControllerJars = this.jars.filter(x => x.details?.controller !== undefined);
 
         for( let i = 0; i < customControllerJars.length; i++ ) {
             await this.addJarStrategies([customControllerJars[i]], 
@@ -203,7 +203,7 @@ export class PickleModel {
         const ethcallProvider2 = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
         await ethcallProvider2.init();
         const withStrategyAddresses = jars.filter((x) => x.details.strategyAddr !== undefined && 
-            x.details.strategyAddr !== "0x0000000000000000000000000000000000000000" && x.enablement !== AssetEnablement.DISABLED);
+            x.details.strategyAddr !== "0x0000000000000000000000000000000000000000" && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
 
 /*
         // debug
