@@ -4,6 +4,7 @@ import { sorbettiereAbi } from '../Contracts/ABIs/sorbettiere.abi';
 import { JarDefinition } from '../model/PickleModelJson';
 import { PriceCache } from '../price/PriceCache';
 import { AbstractJarHarvestResolver } from './JarHarvestResolver';
+import erc20Abi from '../Contracts/ABIs/erc20.json';
 
 export class MimEth extends AbstractJarHarvestResolver {
   constructor() {
@@ -16,12 +17,13 @@ export class MimEth extends AbstractJarHarvestResolver {
       sorbettiereAbi,
       resolver,
     );
-    const [spell, spellPrice] = await Promise.all([
+    const spellToken = new ethers.Contract(this.addr("spell"), erc20Abi, resolver);
+    const [spell, spellPrice, spellBal] = await Promise.all([
       sorbettiere.pendingIce(2, jar.details.strategyAddr),
-      this.priceOf(prices, 'spell-token'),
+      this.priceOf(prices, 'spell'),
+      spellToken.balanceOf(jar.details.strategyAddr),
     ]);
-
-    const harvestable = spell.mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());
+    const harvestable = spell.add(spellBal).mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }

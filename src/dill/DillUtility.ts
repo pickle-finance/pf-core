@@ -14,7 +14,8 @@ const firstMeaningfulDistributionTimestamp = 1619049600;
 const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
 const FEE_DISTRIBUTOR = "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc";
 
-export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
+export function getWeeklyDistribution(_jars: JarDefinition[] ) : number {
+  /*
   let weeklyProfit = 0;
   for( let i = 0; i < jars.length; i++ ) {
     if( jars[i].enablement === AssetEnablement.ENABLED || jars[i].enablement === AssetEnablement.DEV) {
@@ -26,6 +27,9 @@ export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
     }
   }
   return weeklyProfit * 0.45;
+  */
+ // We don't have the apy anymore, it's from DB
+ return 0;
 }
 
 export async function getDillDetails(thisWeekProjectedDistribution: number, 

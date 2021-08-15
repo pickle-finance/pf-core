@@ -50,17 +50,18 @@ export interface JarDefinition {
 }
 export interface StandaloneFarmDefinition {
     id: string,
-    farmNickname: string,
     contract: string,
     depositToken: DepositToken,
     enablement: AssetEnablement,
     chain: ChainNetwork,
     protocol: string,
     details?: FarmDetails,
+    farmNickname: string,
 }
 export interface JarDetails {
     apiKey: string,
     harvestStyle: HarvestStyle
+    controller?: string,
     strategyName?: string,
     strategyAddr?: string,
     ratio?: number,

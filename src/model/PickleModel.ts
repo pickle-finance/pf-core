@@ -135,12 +135,21 @@ export class PickleModel {
     }
 
     async loadStrategyData() {
-        const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum);
-        const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon);
+        const ethJars = this.jars.filter(x => x.chain === ChainNetwork.Ethereum && x.details.controller === undefined);
+        const polyJars = this.jars.filter(x => x.chain === ChainNetwork.Polygon && x.details.controller === undefined);
         if( ethJars.length > 0 )
             await this.addJarStrategies(ethJars, CONTROLLER_ETH, Chains.getResolver(ChainNetwork.Ethereum));
         if( polyJars.length > 0 )
             await this.addJarStrategies(polyJars, CONTROLLER_POLYGON, Chains.getResolver(ChainNetwork.Polygon));
+
+        // Now handle jars with custom controllers
+        const customControllerJars = this.jars.filter(x => x.details.controller !== undefined);
+
+        for( let i = 0; i < customControllerJars.length; i++ ) {
+            await this.addJarStrategies([customControllerJars[i]], 
+                customControllerJars[i].details.controller, 
+                Chains.getResolver(customControllerJars[i].chain));
+        }
     }
 
 

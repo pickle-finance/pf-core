@@ -1377,7 +1377,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  export const JAR_QUICK_QI_MIMATIC: JarDefinition =
  {
    id: 'polyJar 5b',
-   contract: '0x74dC9cdCa9a96Fd0B7900e6eb953d1EA8567c3Ce',
+   contract: '0xd06a56c864C80e4cC76A2eF778183104BF0c848d',
    depositToken: {
       addr: '0x7AfcF11F3e2f01e71B7Cc6b8B5e707E42e6Ea397',
       name: 'QUICK QI/MIMATIC',
@@ -1390,6 +1390,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    details: {
      apiKey: 'QLP-QI',
      harvestStyle: HarvestStyle.PASSIVE,
+     controller: "0x7749fbd85f388f4a186b1d339c2fd270dd0aa647",
    },
    farm: {
      farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
