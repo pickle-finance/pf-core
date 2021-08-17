@@ -29,6 +29,12 @@ export enum HarvestStyle {
     PASSIVE = 'passive'
 }
 
+
+export enum AssetType {
+    JAR = 'jar',
+    STANDALONE_FARM = 'standalone_farm'
+}
+
 export interface DepositToken {
     addr: string,
     name: string,
@@ -38,23 +44,20 @@ export interface DepositToken {
     price?: number
 }
 
-export interface JarDefinition {
+export interface PickleAsset {
+    type: AssetType, 
     id: string,
     contract: string,
     depositToken: DepositToken,
     enablement: AssetEnablement,
     chain: ChainNetwork,
     protocol: string,
+}
+export interface JarDefinition extends PickleAsset {
     details: JarDetails,
     farm: NestedFarm,
 }
-export interface StandaloneFarmDefinition {
-    id: string,
-    contract: string,
-    depositToken: DepositToken,
-    enablement: AssetEnablement,
-    chain: ChainNetwork,
-    protocol: string,
+export interface StandaloneFarmDefinition extends PickleAsset {
     details?: FarmDetails,
     farmNickname: string,
 }
@@ -107,12 +110,15 @@ export interface DillWeek {
     isProjected: boolean,
     distributionTime: Date
 }
-
+export interface PlatformData {
+    platformTVL: number
+}
 export interface PickleModelJson {
     jarsAndFarms: {
         jars: JarDefinition[],
         standaloneFarms: StandaloneFarmDefinition[],
     },
     dill: DillDetails,
-    prices: any
+    prices: any,
+    platform: PlatformData
 }

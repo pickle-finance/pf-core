@@ -1,12 +1,12 @@
 import { getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
-import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition, PROTOCOL_TYPE_AAVE_POLYGON, PROTOCOL_TYPE_IRON_POLYGON } from "../model/PickleModelJson";
+import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition, PROTOCOL_TYPE_AAVE_POLYGON, PROTOCOL_TYPE_IRON_POLYGON, PickleAsset } from "../model/PickleModelJson";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
 export class DepositTokenPriceResolver implements IPriceResolver {
-    myJars : JarDefinition[];
-    constructor(assets: JarDefinition[]) {
+    myJars : PickleAsset[];
+    constructor(assets: PickleAsset[]) {
         this.myJars = assets;
     }
 

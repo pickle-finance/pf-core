@@ -1,10 +1,11 @@
-import { AssetEnablement, DillDetails, HarvestStyle, JarDefinition, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, DillDetails, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
+import erc20Abi from '../Contracts/ABIs/erc20.json';
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { PriceCache, RESOLVER_COINGECKO, RESOLVER_DEPOSIT_TOKEN } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
@@ -36,6 +37,9 @@ export class PickleModel {
         await this.ensureDepositTokenPriceLoaded();
         await this.ensureHarvestDataLoaded();
         //await this.ensureHistoricalApyLoaded();
+
+        await this.ensureStandaloneFarmsBalanceLoaded();
+
         this.dillDetails = await getDillDetails(getWeeklyDistribution(this.jars), 
                 this.prices, Chains.getResolver(ChainNetwork.Ethereum));
         return this.toJson();
@@ -48,7 +52,10 @@ export class PickleModel {
                 standaloneFarms: this.standaloneFarms
             },
             dill: this.dillDetails,
-            prices: Object.fromEntries(this.prices.getCache())
+            prices: Object.fromEntries(this.prices.getCache()),
+            platform: {
+                platformTVL: this.calculatePlatformTVL()
+            }
         }
     }
 
@@ -113,8 +120,8 @@ export class PickleModel {
         if( this.prices === undefined ) {
             const tmp : PriceCache = new PriceCache();
             tmp.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
-            tmp.addResolver(RESOLVER_DEPOSIT_TOKEN, new DepositTokenPriceResolver(this.jars));
-            
+            const allAssets : PickleAsset[] = [].concat(this.jars).concat(this.standaloneFarms);
+            tmp.addResolver(RESOLVER_DEPOSIT_TOKEN, new DepositTokenPriceResolver(allAssets));
         
             const arr: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
             await tmp.getPrices(arr, RESOLVER_COINGECKO);
@@ -171,6 +178,15 @@ export class PickleModel {
             const needle = notPermDisabled[i].depositToken.addr;
             notPermDisabled[i].depositToken.price = results.get(needle);
         }
+
+        let farmNotPermDisabled : StandaloneFarmDefinition[] = this.standaloneFarms.filter((farm)=>{return farm.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+        const farmDepositTokens: string[] = farmNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
+        const farmResults : Map<string,number> = await this.prices.getPrices(depositTokens, RESOLVER_DEPOSIT_TOKEN);
+        for( let i = 0; i < farmNotPermDisabled.length; i++ ) {
+            const needle = farmNotPermDisabled[i].depositToken.addr;
+            farmNotPermDisabled[i].depositToken.price = results.get(needle);
+        }
+
     }
 
     async loadRatiosData(jars: JarDefinition[]) {
@@ -312,6 +328,36 @@ export class PickleModel {
                 console.log("Error loading harvest data for jar " + jars[i].id + ":  " + e);
             }
         }
+    }
+
+    async ensureStandaloneFarmsBalanceLoaded() {
+        for( let i = 0; i < this.standaloneFarms.length; i++ ) {
+            const depositTokenContract = new ethers.Contract(this.standaloneFarms[i].depositToken.addr, 
+                erc20Abi, Chains.getResolver(this.standaloneFarms[i].chain));
+            const tokens = await depositTokenContract.balanceOf(this.standaloneFarms[i].contract);
+            const results : number = await this.prices.getPrice(this.standaloneFarms[i].depositToken.addr, RESOLVER_DEPOSIT_TOKEN);
+            const tokenBalance = parseFloat(ethers.utils.formatEther(tokens));
+            const valueBalance = tokenBalance * results;
+            if( this.standaloneFarms[i].details === undefined ) {
+                this.standaloneFarms[i].details = {};
+            }
+            this.standaloneFarms[i].details.tokenBalance = tokenBalance;
+            this.standaloneFarms[i].details.valueBalance = valueBalance;
+        }
+    }
+    calculatePlatformTVL() : number {
+        let tvl = 0;
+        for( let i = 0; i < this.standaloneFarms.length; i++ ) {
+            if( this.standaloneFarms[i].details?.valueBalance) {
+                tvl += this.standaloneFarms[i].details?.valueBalance;
+            }
+        }
+        for( let i = 0; i < this.jars.length; i++ ) {
+            if( this.jars[i].details?.harvestStats?.balanceUSD) {
+                tvl += this.jars[i].details?.harvestStats?.balanceUSD;
+            }
+        }
+        return tvl;
     }
 }
 
