@@ -2,19 +2,21 @@ import { ChainNetwork } from "../chain/Chains";
 import { ActiveJarHarvestStats, JarHarvestStats } from "../harvest/JarHarvestResolver";
 
 // TODO move these out i guess?
-export const PROTOCOL_TYPE_UNISWAP = "uniswap";
-export const PROTOCOL_TYPE_SUSHISWAP = "sushiswap";
-export const PROTOCOL_TYPE_SUSHISWAP_POLYGON = "sushiswap_polygon";
-export const PROTOCOL_TYPE_COMETHSWAP = "comethswap";
-export const PROTOCOL_TYPE_QUICKSWAP_POLYGON = "quickswap_polygon";
-export const PROTOCOL_TYPE_AAVE_POLYGON = "aave_polygon";
-export const PROTOCOL_TYPE_IRON_POLYGON = "iron_polygon";
-export const PROTOCOL_TYPE_YEARN = "yearn";
-export const PROTOCOL_TYPE_SADDLE = "saddle";
-export const PROTOCOL_TYPE_CURVE = "curve";
-export const PROTOCOL_TYPE_COMPOUND = "compound";
-export const PROTOCOL_TYPE_TOKENPRICE = "tokenprice"
-
+export enum AssetProtocol {
+    UNISWAP = "uniswap",
+    SUSHISWAP = "sushiswap",
+    SUSHISWAP_POLYGON = "sushiswap_polygon",
+    COMETHSWAP = "comethswap",
+    QUICKSWAP_POLYGON = "quickswap_polygon",
+    AAVE_POLYGON = "aave_polygon",
+    IRON_POLYGON = "iron_polygon",
+    YEARN = "yearn",
+    SADDLE = "saddle",
+    CURVE = "curve",
+    COMPOUND = "compound",
+    BPROTOCOL = "bprotocol",
+    TOKENPRICE = "tokenprice"
+}
 
 export enum AssetEnablement {
     DISABLED = 'disabled',

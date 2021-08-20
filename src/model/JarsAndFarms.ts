@@ -1,5 +1,5 @@
 import { ChainNetwork } from "../chain/Chains";
-import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle, AssetType, PickleAsset, ExternalAssetDefinition } from "./PickleModelJson";
+import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle, AssetType, PickleAsset, ExternalAssetDefinition, AssetProtocol } from "./PickleModelJson";
 
 /**
  * Now the actual implementations
@@ -18,7 +18,7 @@ export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Ethereum,
-    protocol: 'sushiswap',
+    protocol: AssetProtocol.SUSHISWAP,
 }
 STANDALONE_FARM_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
 
@@ -35,7 +35,7 @@ export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
     },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
 }
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
@@ -52,7 +52,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'curve',
+   protocol: AssetProtocol.CURVE,
    details: {
      apiKey: 'sCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -74,7 +74,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'curve',
+   protocol: AssetProtocol.CURVE,
    details: {
      apiKey: 'renBTCCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -96,7 +96,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'curve',
+   protocol: AssetProtocol.CURVE,
    details: {
      apiKey: '3poolCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -122,7 +122,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'curve',
+   protocol: AssetProtocol.CURVE,
    details: {
      apiKey: 'steCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -149,7 +149,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: undefined,
    farm: undefined
  }
@@ -169,7 +169,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: undefined,
    farm: undefined
  }
@@ -189,7 +189,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: undefined,
    farm: undefined
  }
@@ -209,7 +209,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: undefined,
    farm: undefined
  }
@@ -228,7 +228,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'compound',
+   protocol: AssetProtocol.COMPOUND,
    details: undefined,
    farm: undefined
  }
@@ -247,7 +247,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'saddle',
+   protocol: AssetProtocol.SADDLE,
    details: {
      apiKey: 'ALETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -274,7 +274,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'tokenprice',
+   protocol: AssetProtocol.TOKENPRICE,
    details: {
      apiKey: 'LQTY',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -301,7 +301,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SLP-DAI',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -328,7 +328,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SLP-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -355,7 +355,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SLP-USDT',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -382,7 +382,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SLP-WBTC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -409,7 +409,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SLP-YFI',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -436,7 +436,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
@@ -464,7 +464,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
@@ -492,7 +492,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
@@ -520,7 +520,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'yveCRV-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -547,7 +547,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
@@ -574,7 +574,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'MIR-UST',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -601,7 +601,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'MTSLA-UST',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -628,7 +628,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'MAAPL-UST',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -655,7 +655,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'MQQQ-UST',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -682,7 +682,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'MSLV-UST',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -709,7 +709,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'MBABA-UST',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -736,7 +736,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SUSHI-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -763,7 +763,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'FEI-TRIBE',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -790,7 +790,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'saddle',
+   protocol: AssetProtocol.SADDLE,
    details: {
      apiKey: 'saddled4',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -817,7 +817,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'LUSD-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -844,7 +844,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'ALCX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -871,7 +871,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'yvBOOST-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -898,7 +898,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'CVX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -926,7 +926,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'yearn',
+   protocol: AssetProtocol.YEARN,
    details: {
      apiKey: 'USDC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -953,7 +953,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'yearn',
+   protocol: AssetProtocol.YEARN,
    details: {
      apiKey: 'lusdCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -980,7 +980,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'yearn',
+   protocol: AssetProtocol.YEARN,
    details: {
      apiKey: 'FRAXCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1007,7 +1007,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.DEV,
    chain: ChainNetwork.Ethereum,
-   protocol: 'yearn',
+   protocol: AssetProtocol.YEARN,
    details: {
      apiKey: 'IBCRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1031,7 +1031,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'curve',
+   protocol: AssetProtocol.CURVE,
    details: {
      apiKey: 'MIM3CRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1059,7 +1059,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'SPELL-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1086,7 +1086,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'MIM-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1113,7 +1113,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'uniswap',
+   protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'FOX-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1139,7 +1139,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
-   protocol: 'sushiswap',
+   protocol: AssetProtocol.SUSHISWAP,
    details: {
      apiKey: 'TRU-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1168,7 +1168,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'comethswap',
+   protocol: AssetProtocol.COMETHSWAP,
    details: {
      apiKey: 'COMETH-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1196,7 +1196,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'comethswap',
+   protocol: AssetProtocol.COMETHSWAP,
    details: {
      apiKey: 'COMETH-PICKLE',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1223,7 +1223,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'comethswap',
+   protocol: AssetProtocol.COMETHSWAP,
    details: {
      apiKey: 'COMETH-MATIC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1250,7 +1250,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'aave_polygon',
+   protocol: AssetProtocol.AAVE_POLYGON,
    details: {
      apiKey: 'DAI',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1277,7 +1277,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'curve',
+   protocol: AssetProtocol.CURVE,
    details: {
      apiKey: 'am3CRV',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1304,7 +1304,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'sushiswap_polygon',
+   protocol: AssetProtocol.SUSHISWAP_POLYGON,
    details: {
      apiKey: 'PSLP-USDT',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1331,7 +1331,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'sushiswap_polygon',
+   protocol: AssetProtocol.SUSHISWAP_POLYGON,
    details: {
      apiKey: 'PSLP-MATIC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1358,7 +1358,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'sushiswap_polygon',
+   protocol: AssetProtocol.SUSHISWAP_POLYGON,
    details: {
      apiKey: 'DINO-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1385,7 +1385,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'quickswap_polygon',
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
    details: {
      apiKey: 'DINO-USDC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1412,7 +1412,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.PERMANENTLY_DISABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'quickswap_polygon',
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
    details: {
      apiKey: undefined,
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1439,7 +1439,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'quickswap_polygon',
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
    details: {
      apiKey: 'QLP-MIMATIC',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1465,7 +1465,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'quickswap_polygon',
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
    details: {
      apiKey: 'QLP-QI',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1492,7 +1492,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Polygon,
-   protocol: 'iron_polygon',
+   protocol: AssetProtocol.IRON_POLYGON,
    details: {
      apiKey: 'IS3USD',
      harvestStyle: HarvestStyle.PASSIVE,
@@ -1521,7 +1521,7 @@ export const ASSET_PBAMM: ExternalAssetDefinition =
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
-  protocol: 'bprotocol',
+  protocol: AssetProtocol.BPROTOCOL,
   details: {
     apiKey: 'PBAMM',
     includeInTvl: false

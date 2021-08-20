@@ -1,6 +1,6 @@
 import { getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
-import { PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON, PROTOCOL_TYPE_YEARN, PROTOCOL_TYPE_SADDLE, PROTOCOL_TYPE_CURVE, PROTOCOL_TYPE_TOKENPRICE, JarDefinition, PROTOCOL_TYPE_AAVE_POLYGON, PROTOCOL_TYPE_IRON_POLYGON, PickleAsset } from "../model/PickleModelJson";
+import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
@@ -64,29 +64,29 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     A lot of this is wrong. Don't know which repo I copied it from.
     */
     async getTokenPriceForProtocol(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
-        if (protocol === PROTOCOL_TYPE_SUSHISWAP) {
+        if (protocol === AssetProtocol.SUSHISWAP) {
             return await this.getPriceFromSushiPair(await getSushiSwapPair(protocol, token.toLowerCase(), block), cache);
-        } else if (protocol === PROTOCOL_TYPE_UNISWAP) {
+        } else if (protocol === AssetProtocol.UNISWAP) {
             return this.getPriceFromStandardPair(await getUniswapPair(protocol, token.toLowerCase(), block));
-        } else if (protocol === PROTOCOL_TYPE_SUSHISWAP_POLYGON) {
+        } else if (protocol === AssetProtocol.SUSHISWAP_POLYGON) {
             return this.getPriceFromStandardPair(await getSushiSwapPolyPair(protocol, token.toLowerCase(), block));
-        } else if (protocol === PROTOCOL_TYPE_COMETHSWAP) {
+        } else if (protocol === AssetProtocol.COMETHSWAP) {
             return this.getPriceFromStandardPair(await getComethPair(protocol, token.toLowerCase(), block));
-        } else if (protocol === PROTOCOL_TYPE_QUICKSWAP_POLYGON) {
+        } else if (protocol === AssetProtocol.QUICKSWAP_POLYGON) {
             return this.getPriceFromStandardPair(await getQuickswapPair(protocol, token.toLowerCase(), block));
-        } else if( protocol === PROTOCOL_TYPE_YEARN ) {
+        } else if( protocol === AssetProtocol.YEARN ) {
             if( token === JAR_USDC.depositToken.addr) {
                 return this.getContractPrice(token, cache)
             } else if( token === JAR_lusdCRV.depositToken.addr || token === JAR_fraxCRV.depositToken.addr ) {
                 return 1;
             }
-        } else if( protocol === PROTOCOL_TYPE_SADDLE ) {
+        } else if( protocol === AssetProtocol.SADDLE ) {
             if( token === JAR_SADDLE_D4.depositToken.addr) {
                 return 1;
             } else if( token === JAR_ALETH.depositToken.addr ) {
                 return this.getContractPrice("weth", cache);
             }
-        } else if( protocol === PROTOCOL_TYPE_CURVE ) {
+        } else if( protocol === AssetProtocol.CURVE ) {
             if( token === JAR_steCRV.depositToken.addr) {
                 return this.getContractPrice("weth", cache);
             } else if( token === JAR_AM3CRV.depositToken.addr) {
@@ -95,11 +95,11 @@ export class DepositTokenPriceResolver implements IPriceResolver {
                 return 1;
             }
             return this.getContractPrice(token, cache);
-        } else if( protocol === PROTOCOL_TYPE_AAVE_POLYGON) {
+        } else if( protocol === AssetProtocol.AAVE_POLYGON) {
             return 1;
-        } else if( protocol === PROTOCOL_TYPE_IRON_POLYGON) {
+        } else if( protocol === AssetProtocol.IRON_POLYGON) {
             return 1;
-        } else if( protocol === PROTOCOL_TYPE_TOKENPRICE ) {
+        } else if( protocol === AssetProtocol.TOKENPRICE ) {
             return this.getContractPrice(token, cache);
         }
         return undefined;
