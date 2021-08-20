@@ -32,7 +32,8 @@ export enum HarvestStyle {
 
 export enum AssetType {
     JAR = 'jar',
-    STANDALONE_FARM = 'standalone_farm'
+    STANDALONE_FARM = 'standalone_farm',
+    EXTERNAL = 'external'
 }
 
 export interface DepositToken {
@@ -53,14 +54,29 @@ export interface PickleAsset {
     chain: ChainNetwork,
     protocol: string,
 }
+
+export interface ExternalAssetDefinition extends PickleAsset {
+    details: ExternalDetails,
+    farm?: NestedFarm
+}
+
+
 export interface JarDefinition extends PickleAsset {
     details: JarDetails,
-    farm: NestedFarm,
+    farm?: NestedFarm,
 }
 export interface StandaloneFarmDefinition extends PickleAsset {
     details?: FarmDetails,
     farmNickname: string,
 }
+
+interface HistoricalAPY {
+    oneDayApy?: number,
+    threeDayApy?: number,
+    sevenDayApy?: number,
+    thirtyDayApy?: number
+}
+
 export interface JarDetails {
     apiKey: string,
     harvestStyle: HarvestStyle
@@ -69,10 +85,7 @@ export interface JarDetails {
     strategyAddr?: string,
     ratio?: number,
     harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
-    oneDayApy?: number,
-    threeDayApy?: number,
-    sevenDayApy?: number,
-    thirtyDayApy?: number,
+    historicalApy?: HistoricalAPY,
 }
 
 export interface FarmDetails {
@@ -81,10 +94,13 @@ export interface FarmDetails {
     valueBalance?: number,
     picklePerBlock?: number,
     picklePerDay?: number,
-    oneDayApy?: number,
-    threeDayApy?: number,
-    sevenDayApy?: number,
-    thirtyDayApy?: number,
+    historicalApy?: HistoricalAPY,
+}
+
+export interface ExternalDetails {
+    apiKey?: string,
+    valueBalance?: number,
+    includeInTvl?: boolean,
 }
 
 export interface NestedFarm {
@@ -114,9 +130,10 @@ export interface PlatformData {
     platformTVL: number
 }
 export interface PickleModelJson {
-    jarsAndFarms: {
+    assets: {
         jars: JarDefinition[],
         standaloneFarms: StandaloneFarmDefinition[],
+        external: ExternalAssetDefinition[]
     },
     dill: DillDetails,
     prices: any,

@@ -1,5 +1,5 @@
 import { ChainNetwork } from "../chain/Chains";
-import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle, AssetType } from "./PickleModelJson";
+import { StandaloneFarmDefinition, AssetEnablement, JarDefinition, HarvestStyle, AssetType, PickleAsset, ExternalAssetDefinition } from "./PickleModelJson";
 
 /**
  * Now the actual implementations
@@ -259,6 +259,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    }
  }
  JAR_DEFINITIONS.push(JAR_ALETH);
+ 
  
  
  export const JAR_LQTY: JarDefinition =
@@ -1129,7 +1130,6 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  JAR_DEFINITIONS.push(JAR_TRUETH);
  
 
-
  // Polygon
  
  export const JAR_COMETH_USDC_WETH: JarDefinition =
@@ -1481,3 +1481,29 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    }
  }
  JAR_DEFINITIONS.push(JAR_IRON3USD);
+
+
+// External Assets
+export const EXTERNAL_DEFINITIONS : ExternalAssetDefinition[] = []
+
+export const ASSET_PBAMM: ExternalAssetDefinition =
+{
+ type: AssetType.EXTERNAL,
+  id: 'B.Protocol BAMM',
+  contract: '0x54bC9113f1f55cdBDf221daf798dc73614f6D972',
+  depositToken: {
+     addr: '0x5f98805a4e8be255a32880fdec7f6728c6568ba0',
+     name: 'LUSD',
+     link: 'https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x5f98805A4E8be255a32880FDeC7F6728C6568bA0',
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: 'bprotocol',
+  details: {
+    apiKey: 'PBAMM',
+    includeInTvl: false
+  }
+}
+EXTERNAL_DEFINITIONS.push(ASSET_PBAMM);
+
+export const ALL_ASSETS : PickleAsset[] = [].concat(JAR_DEFINITIONS).concat(STANDALONE_FARM_DEFINITIONS).concat(EXTERNAL_DEFINITIONS);
