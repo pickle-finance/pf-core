@@ -992,7 +992,30 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    }
  }
  JAR_DEFINITIONS.push(JAR_fraxCRV);
+
  
+ export const JAR_CRV_IB: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'pJar Y-4',
+   contract: '0x4E9806345fb39FFebd70A01f177A675805019ba8',
+   depositToken: {
+      addr: '0x5282a4ef67d9c33135340fb3289cc1711c13638c',
+      name: 'crvIB',
+      link: 'https://curve.fi/ib/deposit',
+      components: ["dai", "usdc", "usdt"],
+   },
+   enablement: AssetEnablement.DEV,
+   chain: ChainNetwork.Ethereum,
+   protocol: 'yearn',
+   details: {
+     apiKey: 'IBCRV',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: undefined
+ }
+ JAR_DEFINITIONS.push(JAR_CRV_IB);
+
 
 
  export const JAR_MIM3CRV: JarDefinition =
