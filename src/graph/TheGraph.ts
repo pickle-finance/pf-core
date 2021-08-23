@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import { PROTOCOL_TYPE_UNISWAP, PROTOCOL_TYPE_SUSHISWAP, PROTOCOL_TYPE_SUSHISWAP_POLYGON, PROTOCOL_TYPE_COMETHSWAP, PROTOCOL_TYPE_QUICKSWAP_POLYGON } from '../model/PickleModelJson';
+import { AssetProtocol } from '../model/PickleModelJson';
 
 const SUBGRAPH_URL_PICKLE: string = "https://api.thegraph.com/subgraphs/name/pickle-finance/pickle"
 const SUBGRAPH_URL_PICKLE_POLYGON: string = "https://api.thegraph.com/subgraphs/name/pickle-finance/pickle-polygon"
@@ -12,11 +12,11 @@ const SUBGRAPH_URL_QUICKSWAP = "https://api.thegraph.com/subgraphs/name/sameepsi
 
 
 export const protocolToSubgraphUrl : Map<string,string> = new Map([
-    [PROTOCOL_TYPE_UNISWAP,SUBGRAPH_URL_UNISWAP],
-    [PROTOCOL_TYPE_SUSHISWAP,SUBGRAPH_URL_SUSHISWAP],
-    [PROTOCOL_TYPE_SUSHISWAP_POLYGON,SUBGRAPH_URL_SUSHISWAP_POLYGON],
-    [PROTOCOL_TYPE_COMETHSWAP,SUBGRAPH_URL_COMETH],
-    [PROTOCOL_TYPE_QUICKSWAP_POLYGON,SUBGRAPH_URL_QUICKSWAP], //TODO is this right?
+    [AssetProtocol.UNISWAP,SUBGRAPH_URL_UNISWAP],
+    [AssetProtocol.SUSHISWAP,SUBGRAPH_URL_SUSHISWAP],
+    [AssetProtocol.SUSHISWAP_POLYGON,SUBGRAPH_URL_SUSHISWAP_POLYGON],
+    [AssetProtocol.COMETHSWAP,SUBGRAPH_URL_COMETH],
+    [AssetProtocol.QUICKSWAP_POLYGON,SUBGRAPH_URL_QUICKSWAP], //TODO is this right?
 ]);
 
 export async function readQueryFromGraphProtocol(query:string, protocol: string) : Promise<any> {

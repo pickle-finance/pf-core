@@ -5,9 +5,9 @@ import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
 export class DepositTokenPriceResolver implements IPriceResolver {
-    myJars : PickleAsset[];
+    myAssets : PickleAsset[];
     constructor(assets: PickleAsset[]) {
-        this.myJars = assets;
+        this.myAssets = assets;
     }
 
     getFromCache(ids: string[], cache: PriceCache): Map<string, number> {
@@ -48,9 +48,9 @@ export class DepositTokenPriceResolver implements IPriceResolver {
 
     getProtocolFromDepositToken(token: string) : string {
         const matching : Set<string> = new Set<string>();
-        for( let i = 0; i < this.myJars.length; i++) {
-            if( this.myJars[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
-                matching.add(this.myJars[i].protocol);
+        for( let i = 0; i < this.myAssets.length; i++) {
+            if( this.myAssets[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
+                matching.add(this.myAssets[i].protocol);
             }
         }
         if( matching.size === 1 ) {

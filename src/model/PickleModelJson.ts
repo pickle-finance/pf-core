@@ -1,5 +1,5 @@
 import { ChainNetwork } from "../chain/Chains";
-import { ActiveJarHarvestStats, JarHarvestStats } from "../harvest/JarHarvestResolver";
+import { ActiveJarHarvestStats, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 
 // TODO move these out i guess?
 export enum AssetProtocol {
@@ -140,4 +140,16 @@ export interface PickleModelJson {
     dill: DillDetails,
     prices: any,
     platform: PlatformData
+}
+
+export interface AssetProjectedApr {
+    components: AssetAprComponent[];
+    apr: number;
+    apy: number;
+}
+
+export interface AssetAprComponent {
+    name: string,
+    apr: number,
+    compoundable: boolean,
 }
