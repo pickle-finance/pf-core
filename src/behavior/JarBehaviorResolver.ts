@@ -1,8 +1,21 @@
-import { PriceCache } from '../price/PriceCache';
 import { BigNumber, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AssetProjectedApr, JarDefinition } from '../model/PickleModelJson';
 import { PickleModel } from '..';
+
+export const ONE_YEAR_SECONDS = 360*24*60*60;
+export const AVERAGE_BLOCK_TIME = 13.22;
+
+export interface PoolId {
+  [key: string]: number;
+}
+
+export interface PoolInfo {
+  [key: string]: {
+    poolId: number;
+    tokenName: string;
+  };
+}
 
 export interface JarHarvestStats {
     balanceUSD: number;
@@ -25,7 +38,7 @@ export interface JarHarvestStats {
       strategyAddr: string,
       stats: JarHarvestStats | ActiveJarHarvestStats
   }
-  export const ONE_YEAR_SECONDS = 360*24*60*60;
+
   export interface JarBehavior {
     getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr>;
 

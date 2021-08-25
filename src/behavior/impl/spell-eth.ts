@@ -2,7 +2,6 @@ import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { sorbettiereAbi } from '../../Contracts/ABIs/sorbettiere.abi';
 import { JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from '../../model/PickleModel';
 

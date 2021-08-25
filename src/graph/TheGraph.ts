@@ -32,27 +32,6 @@ export async function readQueryFromGraph(query:string, url: string) : Promise<an
     return tst.json();
 }
 
-
-export async function getSushiSwapPair(protocol: string, token: string, block?: number): Promise<any> {
-    const query = `
-        {
-        pair(id: "${token.toLowerCase()}"${block ? `, block: {number: ${block}}` : ""
-        }) {
-            reserve0
-            reserve1
-            token0 {
-            id
-            }
-            token1 {
-            id
-            }
-            totalSupply
-        }
-        }
-    `;
-    return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-}
-
 export async function getSushiSwapPolyPair(protocol: string, token: string, block?: number): Promise<any> {
     const query = `
     {

@@ -1,9 +1,7 @@
-import { PriceCache, RESOLVER_DEPOSIT_TOKEN } from '../price/PriceCache';
-import { ExternalTokenModelSingleton } from '../price/ExternalTokenModel';
+import { RESOLVER_DEPOSIT_TOKEN } from '../price/PriceCache';
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../model/PickleModelJson';
-import { ChainNetwork } from '../chain/Chains';
 import { JarBehavior, JarHarvestData } from './JarBehaviorResolver';
 import { PickleModel } from '../model/PickleModel';
 
@@ -25,14 +23,13 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         return undefined;
     }
 
-    // TODO move to math utility or something?
-    getCompoundingAPY(apr: number) {
-        return 100 * (Math.pow(1 + apr / 365, 365) - 1);
-    };
-    
     /**
      * All apr components should arrive with percentages as apr values, 
      * so for example an APR of 50% should arrive as "50" and not "0.50"
+     * 
+     * All components should arrive post-fee (if applicable). 
+     * It's best to use  `createAprComponent` for this purpose unless
+     * you require custom logic. 
      */
     aprComponentsToProjectedApr(components: AssetAprComponent[]) : AssetProjectedApr {
         let compoundableApr = 0;
@@ -45,7 +42,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
             }
         }
         let totalApr = compoundableApr + nonCompoundableApr;
-        let totalApy = this.getCompoundingAPY(compoundableApr/100) + nonCompoundableApr;
+        let totalApy = getCompoundingAPY(compoundableApr/100) + nonCompoundableApr;
         return {
           components: components, 
           apr: totalApr,
@@ -53,10 +50,10 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         }
     }
 
-    createAprComponent(id: string, aprPostFee: number, compoundable: boolean) : AssetAprComponent {
+    createAprComponent(id: string, aprPreFee: number, compoundable: boolean) : AssetAprComponent {
         return {
             name: id,
-            apr: aprPostFee,
+            apr: compoundable ? aprPreFee * 0.8 : aprPreFee,
             compoundable: compoundable
         };
     }
@@ -84,3 +81,10 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     }
     abstract getHarvestableUSD(jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number>;
 }
+
+
+// TODO move to math utility or something?
+export function getCompoundingAPY(apr: number) {
+    return 100 * (Math.pow(1 + apr / 365, 365) - 1);
+};
+

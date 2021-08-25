@@ -2,15 +2,21 @@ import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { multiSushiStrategyAbi } from '../../Contracts/ABIs/multi-sushi-strategy.abi';
-import { JarDefinition } from '../../model/PickleModelJson';
+import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from '../../model/PickleModel';
+import { SushiJar } from './sushi-jar';
 
-export class SlpCvxEth extends AbstractJarBehavior {
+export class SlpCvxEth extends SushiJar {
   constructor() {
-    super();
+    super(multiSushiStrategyAbi);
   }
+  
+  async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    return await this.chefV2AprStats(definition, model, "cvx");
+  }
+
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const strategy = new ethers.Contract(jar.details.strategyAddr, multiSushiStrategyAbi, resolver);

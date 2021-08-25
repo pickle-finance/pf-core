@@ -1126,7 +1126,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_FOXETH);
 
- export const JAR_TRUETH: JarDefinition =
+ export const JAR_SUSHI_ETH_TRU: JarDefinition =
  {
   type: AssetType.JAR,
    id: 'pjar 0.99t',
@@ -1150,7 +1150,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      farmDepositTokenName: 'pSLP-TRU-ETH'
    }
  }
- JAR_DEFINITIONS.push(JAR_TRUETH);
+ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
  
 
  // Polygon

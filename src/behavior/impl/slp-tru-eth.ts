@@ -1,14 +1,16 @@
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import { JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { parseUnits } from 'ethers/lib/utils';
 import { multiSushiStrategyAbi } from '../../Contracts/ABIs/multi-sushi-strategy.abi';
 import { PickleModel } from '../../model/PickleModel';
+import { SushiJar } from './sushi-jar';
 
-export class SlpTruEth extends AbstractJarBehavior {
+export class SlpTruEth extends SushiJar {
+  constructor() {
+    super(multiSushiStrategyAbi);
+  }
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const strategy = new ethers.Contract(jar.details.strategyAddr, multiSushiStrategyAbi, resolver);
     const truToken = new ethers.Contract(model.addr("tru"), erc20Abi, resolver);
@@ -24,4 +26,8 @@ export class SlpTruEth extends AbstractJarBehavior {
     const harvestable = truValue.add(sushiValue);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
+  async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    return await this.chefV2AprStats(definition, model, "tru");
+  }
+
 }

@@ -55,6 +55,7 @@ export interface PickleAsset {
     enablement: AssetEnablement,
     chain: ChainNetwork,
     protocol: string,
+    aprStats?: AssetProjectedApr
 }
 
 export interface ExternalAssetDefinition extends PickleAsset {
@@ -110,6 +111,7 @@ export interface NestedFarm {
     farmDepositTokenName: string,
     farmNickname: string,
     details?: FarmDetails,
+    farmApyComponents?: AssetAprComponent[]
 }
 
 export interface DillDetails {

@@ -1,13 +1,15 @@
-import { getComethPair, getQuickswapPair, getSushiSwapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
+import { getComethPair, getQuickswapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
+import { PickleModel } from "../model/PickleModel";
 import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
+import {getSushiSwapPairData } from "../protocols/SushiSwapUtil";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
 export class DepositTokenPriceResolver implements IPriceResolver {
-    myAssets : PickleAsset[];
-    constructor(assets: PickleAsset[]) {
-        this.myAssets = assets;
+    model : PickleModel;
+    constructor(model: PickleModel) {
+        this.model = model;
     }
 
     getFromCache(ids: string[], cache: PriceCache): Map<string, number> {
@@ -35,6 +37,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
                 // Sushi might require many token lookups. 
                 const protocol : string = this.getProtocolFromDepositToken(ids[i]);
                 if( protocol === undefined ) {
+                    // should we return null or just skip it? 
                     return null;
                 }
                 const price : number = await this.getTokenPriceForProtocol(protocol, ids[i], cache);
@@ -48,9 +51,10 @@ export class DepositTokenPriceResolver implements IPriceResolver {
 
     getProtocolFromDepositToken(token: string) : string {
         const matching : Set<string> = new Set<string>();
-        for( let i = 0; i < this.myAssets.length; i++) {
-            if( this.myAssets[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
-                matching.add(this.myAssets[i].protocol);
+        const myAssets : PickleAsset[] = this.model.getAllAssets();
+        for( let i = 0; i < myAssets.length; i++) {
+            if( myAssets[i].depositToken.addr.toLowerCase() === token.toLowerCase()) {
+                matching.add(myAssets[i].protocol);
             }
         }
         if( matching.size === 1 ) {
@@ -65,7 +69,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     */
     async getTokenPriceForProtocol(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
         if (protocol === AssetProtocol.SUSHISWAP) {
-            return await this.getPriceFromSushiPair(await getSushiSwapPair(protocol, token.toLowerCase(), block), cache);
+            return await this.getPriceFromSushiPair(await getSushiSwapPairData(this.model, token.toLowerCase()), this.model.prices);
         } else if (protocol === AssetProtocol.UNISWAP) {
             return this.getPriceFromStandardPair(await getUniswapPair(protocol, token.toLowerCase(), block));
         } else if (protocol === AssetProtocol.SUSHISWAP_POLYGON) {
@@ -105,8 +109,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         return undefined;
     }
 
-    protected async getPriceFromSushiPair(pair: any, cache: PriceCache): Promise<number> {
-        const innerPair = pair.data.pair;
+    protected async getPriceFromSushiPair(innerPair: any, cache: PriceCache): Promise<number> {
         let token0Price = await this.getContractPrice(innerPair.token0.id, cache);
         let token1Price = await this.getContractPrice(innerPair.token1.id, cache);
 

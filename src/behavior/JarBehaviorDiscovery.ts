@@ -1,9 +1,16 @@
-import { BigNumber, ethers, Signer } from 'ethers';
+import { Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_MQQQ_UST, JAR_UNIV2_MSLV_UST, JAR_UNIV2_MTSLA_UST, JAR_UNIV2_ETH_DAI, JAR_UNIV2_ETH_USDC, JAR_UNIV2_ETH_USDT, JAR_UNIV2_ETH_WBTC, JAR_SUSHI_ETH_DAI, JAR_SUSHI_ETH, JAR_SUSHI_ETH_USDC, JAR_SUSHI_ETH_USDT, JAR_SUSHI_ETH_WBTC, JAR_SUSHI_ETH_YVECRV, JAR_SUSHI_ETH_YFI, JAR_SUSHI_ETH_YVBOOST, JAR_SUSHI_MIC_USDT, JAR_SUSHI_MIS_USDT, JAR_UNIV2_FEI_TRIBE, JAR_UNIV2_LUSD_ETH, JAR_SUSHI_ETH_ALCX, JAR_SUSHI_CVX_ETH, JAR_LQTY, JAR_SADDLE_D4, JAR_3CRV, JAR_steCRV, JAR_renCRV, JAR_AAVEDAI, JAR_POLY_SUSHI_MATIC_ETH, JAR_POLY_SUSHI_ETH_USDT, JAR_COMETH_USDC_WETH, JAR_COMETH_PICKLE_MUST, JAR_COMETH_MATIC_MUST, JAR_QUICK_MIMATIC_USDC, JAR_fraxCRV, JAR_USDC, JAR_lusdCRV, JAR_AM3CRV, JAR_sCRV, JAR_MIM3CRV, JAR_SPELLETH, JAR_MIMETH, JAR_FOXETH, JAR_TRUETH, JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD } from "../model/JarsAndFarms";
+import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_MQQQ_UST, 
+    JAR_UNIV2_MSLV_UST, JAR_UNIV2_MTSLA_UST, 
+    JAR_SUSHI_ETH_DAI, JAR_SUSHI_ETH, JAR_SUSHI_ETH_USDC, JAR_SUSHI_ETH_USDT, JAR_SUSHI_ETH_WBTC, 
+    JAR_SUSHI_ETH_YVECRV, JAR_SUSHI_ETH_YFI, JAR_SUSHI_ETH_YVBOOST,  
+    JAR_UNIV2_FEI_TRIBE, JAR_SUSHI_ETH_ALCX, JAR_SUSHI_CVX_ETH, JAR_LQTY, JAR_SADDLE_D4,
+     JAR_3CRV, JAR_steCRV, JAR_renCRV, JAR_AAVEDAI, JAR_POLY_SUSHI_MATIC_ETH, JAR_POLY_SUSHI_ETH_USDT,
+      JAR_COMETH_USDC_WETH, JAR_COMETH_PICKLE_MUST, JAR_COMETH_MATIC_MUST, JAR_QUICK_MIMATIC_USDC, 
+      JAR_fraxCRV, JAR_USDC, JAR_lusdCRV, JAR_AM3CRV, JAR_sCRV, JAR_MIM3CRV, JAR_SPELLETH, JAR_MIMETH, JAR_FOXETH, 
+    JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD, JAR_SUSHI_ETH_TRU } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
-import { PriceCache } from '../price/PriceCache';
 import { JarBehavior } from './JarBehaviorResolver';
 import { AbstractJarBehavior } from "./AbstractJarBehavior";
 import { DinoEth } from './impl/dino-eth';
@@ -55,17 +62,25 @@ export class noOpJarBehavior extends AbstractJarBehavior {
 const jarToBehavior : Map<string,JarBehavior> = new Map<string, JarBehavior>();
 // Converted
 jarToBehavior.set( JAR_steCRV.id, new SteCrv());
-
-// Yet to convert
-jarToBehavior.set( JAR_SUSHI_ETH_ALCX.id, new AlcxEth());
-jarToBehavior.set( JAR_SUSHI_ETH_YVBOOST.id, new SlpYvboostEth());
-jarToBehavior.set( JAR_SUSHI_ETH_YVECRV.id, new SlpYvecrvEth());
+jarToBehavior.set( JAR_3CRV.id, new ThreeCrv());
+jarToBehavior.set( JAR_renCRV.id, new RenBtcCRV());
 jarToBehavior.set( JAR_SUSHI_ETH_DAI.id, new SlpDaiEth());
 jarToBehavior.set( JAR_SUSHI_ETH.id, new SlpSushiEth());
 jarToBehavior.set( JAR_SUSHI_ETH_USDC.id, new SlpUsdcEth());
 jarToBehavior.set( JAR_SUSHI_ETH_USDT.id, new SlpUsdtEth());
 jarToBehavior.set( JAR_SUSHI_ETH_WBTC.id, new SlpWbtcEth());
 jarToBehavior.set( JAR_SUSHI_ETH_YFI.id, new SlpYfiEth());
+jarToBehavior.set( JAR_SUSHI_ETH_TRU.id, new SlpTruEth());
+jarToBehavior.set( JAR_SUSHI_ETH_YVBOOST.id, new SlpYvboostEth());
+jarToBehavior.set( JAR_SUSHI_ETH_YVECRV.id, new SlpYvecrvEth());
+jarToBehavior.set( JAR_SUSHI_CVX_ETH.id, new SlpCvxEth());
+jarToBehavior.set( JAR_SUSHI_ETH_ALCX.id, new AlcxEth());
+
+// Yet to convert
+jarToBehavior.set( JAR_SPELLETH.id, new SpellEth());
+jarToBehavior.set( JAR_MIMETH.id, new MimEth());
+
+
 jarToBehavior.set( JAR_UNIV2_MAAPL_UST.id, new MaaplUst());
 jarToBehavior.set( JAR_UNIV2_MBABA_UST.id, new MBabaUst());
 jarToBehavior.set( JAR_UNIV2_MIR_UST.id, new MirUst());
@@ -73,16 +88,12 @@ jarToBehavior.set( JAR_UNIV2_MQQQ_UST.id, new MqqqUst());
 jarToBehavior.set( JAR_UNIV2_MSLV_UST.id, new MslvUst());
 jarToBehavior.set( JAR_UNIV2_MTSLA_UST.id, new MtslaUst());
 jarToBehavior.set( JAR_UNIV2_FEI_TRIBE.id, new FeiTribe());
-jarToBehavior.set( JAR_3CRV.id, new ThreeCrv());
-jarToBehavior.set( JAR_renCRV.id, new RenBtcCRV());
-jarToBehavior.set( JAR_SUSHI_CVX_ETH.id, new SlpCvxEth());
 jarToBehavior.set( JAR_LQTY.id, new pLqty());
 jarToBehavior.set( JAR_SADDLE_D4.id, new SaddleD4());
 jarToBehavior.set( JAR_MIM3CRV.id, new Mim3Crv());
-jarToBehavior.set( JAR_SPELLETH.id, new SpellEth());
-jarToBehavior.set( JAR_MIMETH.id, new MimEth());
 jarToBehavior.set( JAR_FOXETH.id, new FoxEth());
-jarToBehavior.set( JAR_TRUETH.id, new SlpTruEth());
+
+// deprecated
 jarToBehavior.set( JAR_USDC.id, new noOpJarBehavior());
 jarToBehavior.set( JAR_lusdCRV.id, new noOpJarBehavior());
 jarToBehavior.set( JAR_fraxCRV.id, new noOpJarBehavior());

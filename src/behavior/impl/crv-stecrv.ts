@@ -1,12 +1,10 @@
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
-import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import CrvRewardsABI from '../../Contracts/ABIs/crv-rewards.json';
-import { curveThirdPartyGaugeAbi } from '../../Contracts/ABIs/curve-external-gauge.abi';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import { Chains } from '../../chain/Chains';
-import { AbstractJarBehavior, ONE_YEAR_IN_SECONDS } from '../AbstractJarBehavior';
+import { AbstractJarBehavior} from '../AbstractJarBehavior';
 import { PickleModel } from '../../model/PickleModel';
 import { convexPools, CVX_BOOSTER } from '../../protocols/ProtocolUtil';
 import { formatEther } from 'ethers/lib/utils';
@@ -99,15 +97,16 @@ export class SteCrv extends AbstractJarBehavior {
 
       const components: AssetAprComponent[] = [
         this.createAprComponent("LP", lpApy, false),
-        this.createAprComponent("CRV", crvApy*0.8, true),
-        this.createAprComponent("CVX", cvxApy*0.8, true),
-        this.createAprComponent("LDO", rewardApy*0.8, true)
+        this.createAprComponent("CRV", crvApy, true),
+        this.createAprComponent("CVX", cvxApy, true),
+        this.createAprComponent("LDO", rewardApy, true)
       ];
       return this.aprComponentsToProjectedApr(components);
     }
     return undefined;
   }
 
+  // TODO needs to complete
   async getHarvestableUSD( _jar: JarDefinition, _model: PickleModel, _resolver: Signer | Provider): Promise<number> {
     /*
     const lido = new ethers.Contract(LIDO_ADDRESS, erc20Abi, resolver);

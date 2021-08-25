@@ -16,6 +16,7 @@ import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
 import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { JarBehavior, JarHarvestData } from "../behavior/JarBehaviorResolver";
+import { getOrLoadAllSushiSwapPairDataIntoCache } from "../protocols/SushiSwapUtil";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -50,6 +51,10 @@ export class PickleModel {
         return arr as ExternalAssetDefinition[];
     }
 
+    getAllAssets() : PickleAsset[] {
+        return this.allAssets;
+    }
+
     addr(name: string): string {
         const t1 = ExternalTokenModelSingleton.getToken(name, ChainNetwork.Ethereum)?.contractAddr;
         if (t1 !== undefined)
@@ -64,6 +69,10 @@ export class PickleModel {
         await this.ensurePriceCacheLoaded();
         await this.ensureStrategyDataLoaded();
         await this.ensureRatiosLoaded();
+
+        // load protocol-specific data
+        await getOrLoadAllSushiSwapPairDataIntoCache(this);
+
         await this.ensureDepositTokenPriceLoaded();
         await this.ensureHarvestDataLoaded();
         //await this.ensureHistoricalApyLoaded();
@@ -96,8 +105,7 @@ export class PickleModel {
         if( this.prices === undefined ) {
             const tmp : PriceCache = new PriceCache();
             tmp.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
-            const allAssets : PickleAsset[] = this.allAssets;
-            tmp.addResolver(RESOLVER_DEPOSIT_TOKEN, new DepositTokenPriceResolver(allAssets));
+            tmp.addResolver(RESOLVER_DEPOSIT_TOKEN, new DepositTokenPriceResolver(this));
             this.prices = tmp;
         }
     }
@@ -438,11 +446,17 @@ export class PickleModel {
     }
 
     async loadApyComponents() {
-        const asset : PickleAsset = this.findAsset(JAR_steCRV.id);
-        const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
-        const beh : JarBehavior = discovery.findAssetBehavior(asset);
-        const ret = await beh.getProjectedAprStats(asset as JarDefinition, this);
-        console.log(JSON.stringify(ret));
+        for( let i = 0; i < this.allAssets.length; i++ ) {
+            const asset : PickleAsset = this.allAssets[i];
+            const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
+            const beh : JarBehavior = discovery.findAssetBehavior(asset);
+            if( beh !== undefined ) {
+                const ret = await beh.getProjectedAprStats(asset as JarDefinition, this);
+                if( ret ) {
+                    this.allAssets[i].aprStats = ret;
+                }
+            }
+        }
     }
     findAsset(id: string) : PickleAsset {
         for( let i = 0; i < this.allAssets.length; i++ ) {
