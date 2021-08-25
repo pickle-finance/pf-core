@@ -1,8 +1,9 @@
-import { getComethPair, getQuickswapPair, getSushiSwapPolyPair, getUniswapPair} from "../graph/TheGraph";
+import { getComethPair, getQuickswapPair, getSushiSwapPolyPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
 import { PickleModel } from "../model/PickleModel";
 import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import {getSushiSwapPairData } from "../protocols/SushiSwapUtil";
+import { getUniSwapPairData } from "../protocols/UniswapUtil";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
 
@@ -69,9 +70,9 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     */
     async getTokenPriceForProtocol(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
         if (protocol === AssetProtocol.SUSHISWAP) {
-            return await this.getPriceFromSushiPair(await getSushiSwapPairData(this.model, token.toLowerCase()), this.model.prices);
+            return await this.getZeroSafePairPrice(await getSushiSwapPairData(this.model, token.toLowerCase()), this.model.prices);
         } else if (protocol === AssetProtocol.UNISWAP) {
-            return this.getPriceFromStandardPair(await getUniswapPair(protocol, token.toLowerCase(), block));
+            return this.getZeroSafePairPrice(await getUniSwapPairData(this.model, token.toLowerCase()), this.model.prices);
         } else if (protocol === AssetProtocol.SUSHISWAP_POLYGON) {
             return this.getPriceFromStandardPair(await getSushiSwapPolyPair(protocol, token.toLowerCase(), block));
         } else if (protocol === AssetProtocol.COMETHSWAP) {
@@ -109,7 +110,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         return undefined;
     }
 
-    protected async getPriceFromSushiPair(innerPair: any, cache: PriceCache): Promise<number> {
+    protected async getZeroSafePairPrice(innerPair: any, cache: PriceCache): Promise<number> {
         let token0Price = await this.getContractPrice(innerPair.token0.id, cache);
         let token1Price = await this.getContractPrice(innerPair.token1.id, cache);
 

@@ -1024,7 +1024,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    id: 'pjar 0.99m1',
    contract: '0x1Bf62aCb8603Ef7F3A0DFAF79b25202fe1FAEE06',
    depositToken: {
-      addr: '0x5a6a4d54456819380173272a5e8e9b9904bdf41b',
+      addr: '0x5a6A4D54456819380173272A5E8E9B9904BdF41B',
       name: 'mim3CRV',
       link: 'https://curve.fi/mim/deposit',
       components: ["mim", "3crv"], // TODO
@@ -1052,7 +1052,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    id: 'pjar 0.99m2',
    contract: '0xdB84a6A48881545E8595218b7a2A3c9bd28498aE',
    depositToken: {
-      addr: '0xb5de0c3753b6e1b4dba616db82767f17513e6d4e',
+      addr: '0xb5De0C3753b6E1B4dBA616Db82767F17513E6d4E',
       name: 'SpellEth',
       link: 'https://app.sushi.com/add/ETH/0x090185f2135308BaD17527004364eBcC2D37e5F6',
       components: ["spell", "weth"], // TODO
@@ -1079,7 +1079,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    id: 'pjar 0.99m3',
    contract: '0x993f35FaF4AEA39e1dfF28f45098429E0c87126C',
    depositToken: {
-      addr: '0x07d5695a24904cc1b6e3bd57cc7780b90618e3c4',
+      addr: '0x07D5695a24904CC1B6e3bd57cC7780B90618e3c4',
       name: 'MimEth',
       link: 'https://app.sushi.com/add/ETH/0x99D8a9C45b2ecA8864373A26D1459e3Dff1e17F3',
       components: ["mim", "weth"], // TODO

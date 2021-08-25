@@ -1,10 +1,12 @@
 import { ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { JarDefinition } from '../../model/PickleModelJson';
+import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { mirRewardAbi } from '../../Contracts/ABIs/mir-reward.abi';
 import { PickleModel } from '../../model/PickleModel';
+import { calculateMirAPY, calculateUniswapLpApr } from '../../protocols/UniswapUtil';
+import { Chains } from '../../chain/Chains';
 
 export abstract class MirJar extends AbstractJarBehavior {
   private rewardAddress: string;
@@ -12,6 +14,16 @@ export abstract class MirJar extends AbstractJarBehavior {
   constructor( rewardAddress: string ) {
     super();
     this.rewardAddress = rewardAddress;
+  }
+
+  async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    const mir : number = await calculateMirAPY(this.rewardAddress, definition, model, Chains.get(definition.chain).getProviderOrSigner());
+    const lp : number = await calculateUniswapLpApr(model, definition.depositToken.addr);
+
+    return this.aprComponentsToProjectedApr([
+      this.createAprComponent("lp", lp, false),
+      this.createAprComponent("mir", mir, true)
+    ]);
   }
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {

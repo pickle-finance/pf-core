@@ -75,22 +75,22 @@ jarToBehavior.set( JAR_SUSHI_ETH_YVBOOST.id, new SlpYvboostEth());
 jarToBehavior.set( JAR_SUSHI_ETH_YVECRV.id, new SlpYvecrvEth());
 jarToBehavior.set( JAR_SUSHI_CVX_ETH.id, new SlpCvxEth());
 jarToBehavior.set( JAR_SUSHI_ETH_ALCX.id, new AlcxEth());
-
-// Yet to convert
 jarToBehavior.set( JAR_SPELLETH.id, new SpellEth());
 jarToBehavior.set( JAR_MIMETH.id, new MimEth());
-
-
-jarToBehavior.set( JAR_UNIV2_MAAPL_UST.id, new MaaplUst());
+jarToBehavior.set( JAR_MIM3CRV.id, new Mim3Crv());
 jarToBehavior.set( JAR_UNIV2_MBABA_UST.id, new MBabaUst());
 jarToBehavior.set( JAR_UNIV2_MIR_UST.id, new MirUst());
+jarToBehavior.set( JAR_UNIV2_MAAPL_UST.id, new MaaplUst());
 jarToBehavior.set( JAR_UNIV2_MQQQ_UST.id, new MqqqUst());
 jarToBehavior.set( JAR_UNIV2_MSLV_UST.id, new MslvUst());
 jarToBehavior.set( JAR_UNIV2_MTSLA_UST.id, new MtslaUst());
+
+// Yet to convert
+
+
 jarToBehavior.set( JAR_UNIV2_FEI_TRIBE.id, new FeiTribe());
 jarToBehavior.set( JAR_LQTY.id, new pLqty());
 jarToBehavior.set( JAR_SADDLE_D4.id, new SaddleD4());
-jarToBehavior.set( JAR_MIM3CRV.id, new Mim3Crv());
 jarToBehavior.set( JAR_FOXETH.id, new FoxEth());
 
 // deprecated

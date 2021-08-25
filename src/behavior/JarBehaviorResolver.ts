@@ -6,17 +6,6 @@ import { PickleModel } from '..';
 export const ONE_YEAR_SECONDS = 360*24*60*60;
 export const AVERAGE_BLOCK_TIME = 13.22;
 
-export interface PoolId {
-  [key: string]: number;
-}
-
-export interface PoolInfo {
-  [key: string]: {
-    poolId: number;
-    tokenName: string;
-  };
-}
-
 export interface JarHarvestStats {
     balanceUSD: number;
     earnableUSD: number;

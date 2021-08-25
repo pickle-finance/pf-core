@@ -64,6 +64,9 @@ export class PickleModel {
     address(id: string, chain: ChainNetwork) {
         return ExternalTokenModelSingleton.getToken(id, chain)?.contractAddr;
     }
+    tokenDecimals(id: string, chain:ChainNetwork) {
+        return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
+    }
 
     async generateFullApi() : Promise<PickleModelJson> {
         await this.ensurePriceCacheLoaded();
