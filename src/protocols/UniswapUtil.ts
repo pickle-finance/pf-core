@@ -4,13 +4,10 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import { BigNumber, Contract, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { formatEther } from "ethers/lib/utils";
-import { getCompoundingAPY } from "../behavior/AbstractJarBehavior";
 import { AssetProtocol, JarDefinition, PickleAsset } from "../model/PickleModelJson";
 import stakingRewardsAbi from '../Contracts/ABIs/staking-rewards.json';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import { readQueryFromGraph } from "../graph/TheGraph";
-import { resourceLimits } from "worker_threads";
-import { WSATYPE_NOT_FOUND } from "constants";
 
 
 export const MIRROR_MIR_UST_STAKING_REWARDS   = "0x5d447Fc0F8965cED158BAB42414Af10139Edf0AF";

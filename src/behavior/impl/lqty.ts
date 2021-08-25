@@ -2,10 +2,10 @@ import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { multiSushiStrategyAbi } from '../../Contracts/ABIs/multi-sushi-strategy.abi';
-import { JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
+import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from '../../model/PickleModel';
+import { getOrLoadYearnDataFromDune } from '../../protocols/DuneDataUtility';
 
 export class pLqty extends AbstractJarBehavior {
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
@@ -26,4 +26,21 @@ export class pLqty extends AbstractJarBehavior {
     const harvestable = wethValue.add(lusdValue);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
+
+
+  async getProjectedAprStats(_definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    const apr1 : number = await this.calculateLqtyStakingAPY(model);
+    const apr1Comp : AssetAprComponent = this.createAprComponent(
+      "auto-compounded ETH and LUSD fees", apr1, true);
+    return super.aprComponentsToProjectedApr([apr1Comp]);
+  }
+  async calculateLqtyStakingAPY(model: PickleModel) {
+    const duneData = await getOrLoadYearnDataFromDune(model);
+    if (duneData) {
+      let lqtyApy = 0;
+      lqtyApy = duneData?.data?.get_result_by_result_id[0].data?.apr / 100;
+      return lqtyApy * 100;
+    }
+    return 0;
+  };
 }

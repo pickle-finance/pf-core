@@ -84,14 +84,14 @@ jarToBehavior.set( JAR_UNIV2_MAAPL_UST.id, new MaaplUst());
 jarToBehavior.set( JAR_UNIV2_MQQQ_UST.id, new MqqqUst());
 jarToBehavior.set( JAR_UNIV2_MSLV_UST.id, new MslvUst());
 jarToBehavior.set( JAR_UNIV2_MTSLA_UST.id, new MtslaUst());
+jarToBehavior.set( JAR_FOXETH.id, new FoxEth());
+jarToBehavior.set( JAR_UNIV2_FEI_TRIBE.id, new FeiTribe());
 
 // Yet to convert
 
 
-jarToBehavior.set( JAR_UNIV2_FEI_TRIBE.id, new FeiTribe());
 jarToBehavior.set( JAR_LQTY.id, new pLqty());
 jarToBehavior.set( JAR_SADDLE_D4.id, new SaddleD4());
-jarToBehavior.set( JAR_FOXETH.id, new FoxEth());
 
 // deprecated
 jarToBehavior.set( JAR_USDC.id, new noOpJarBehavior());
