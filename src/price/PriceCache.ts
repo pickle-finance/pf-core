@@ -33,6 +33,17 @@ export class PriceCache {
     return new Map<string,number>(this.cache);
   }
 
+  async priceOf(token: string) : Promise<number> {
+    let keys: string[] = [].concat(Array.from( this.resolverMap.keys()));
+    for( let i = 0; i < keys.length; i++ ) {
+      const map : Map<string,number> = await this.getPrices([token], keys[i]);
+      if( map !== undefined && map.get(token) !== undefined ) {
+        return map.get(token);
+      }
+    }
+    return undefined;
+  }
+
   /**
    * Return a single price. 
    * Not super efficient but handy when you know the cache is already loaded. 

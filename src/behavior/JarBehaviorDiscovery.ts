@@ -86,10 +86,6 @@ jarToBehavior.set( JAR_UNIV2_MSLV_UST.id, new MslvUst());
 jarToBehavior.set( JAR_UNIV2_MTSLA_UST.id, new MtslaUst());
 jarToBehavior.set( JAR_FOXETH.id, new FoxEth());
 jarToBehavior.set( JAR_UNIV2_FEI_TRIBE.id, new FeiTribe());
-
-// Yet to convert
-
-
 jarToBehavior.set( JAR_LQTY.id, new pLqty());
 jarToBehavior.set( JAR_SADDLE_D4.id, new SaddleD4());
 
@@ -99,14 +95,20 @@ jarToBehavior.set( JAR_lusdCRV.id, new noOpJarBehavior());
 jarToBehavior.set( JAR_fraxCRV.id, new noOpJarBehavior());
 jarToBehavior.set( JAR_sCRV.id, new noOpJarBehavior());
 
+
+
 // Polygon
 jarToBehavior.set( JAR_AAVEDAI.id, new DaiJar());
-jarToBehavior.set( JAR_POLY_SUSHI_MATIC_ETH.id, new PSlpMaticEth());
-jarToBehavior.set( JAR_POLY_SUSHI_ETH_USDT.id, new PSlpUsdtEth());
 jarToBehavior.set( JAR_COMETH_USDC_WETH.id, new ComethUsdcEth());
 jarToBehavior.set( JAR_COMETH_PICKLE_MUST.id, new ComethPickleMust());
 jarToBehavior.set( JAR_COMETH_MATIC_MUST.id, new ComethMaticMust());
+jarToBehavior.set( JAR_POLY_SUSHI_MATIC_ETH.id, new PSlpMaticEth());
+jarToBehavior.set( JAR_POLY_SUSHI_ETH_USDT.id, new PSlpUsdtEth());
+
 jarToBehavior.set( JAR_AM3CRV.id, new PThreeCrv());
+// Yet to convert
+
+
 jarToBehavior.set( JAR_QUICK_MIMATIC_USDC.id, new MimaticUSDC());
 jarToBehavior.set( JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set( JAR_IRON3USD.id, new Is3Usd());

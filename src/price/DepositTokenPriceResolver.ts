@@ -41,7 +41,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
                     // should we return null or just skip it? 
                     return null;
                 }
-                const price : number = await this.getTokenPriceForProtocol(protocol, ids[i], cache);
+                const price : number = await this.getTokenPriceForProtocol(protocol, ids[i], this.model);
                 if( price !== undefined ) {
                     ret.set(ids[i], price);
                 }
@@ -68,11 +68,11 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     /*
     A lot of this is wrong. Don't know which repo I copied it from.
     */
-    async getTokenPriceForProtocol(protocol: string, token: string, cache: PriceCache, block?: number): Promise<number> {
+    async getTokenPriceForProtocol(protocol: string, token: string, model: PickleModel, block?: number): Promise<number> {
         if (protocol === AssetProtocol.SUSHISWAP) {
-            return await this.getZeroSafePairPrice(await getSushiSwapPairData(this.model, token.toLowerCase()), this.model.prices);
+            return await this.getZeroSafePairPrice(await getSushiSwapPairData(this.model, token.toLowerCase()), model);
         } else if (protocol === AssetProtocol.UNISWAP) {
-            return this.getZeroSafePairPrice(await getUniSwapPairData(this.model, token.toLowerCase()), this.model.prices);
+            return this.getZeroSafePairPrice(await getUniSwapPairData(this.model, token.toLowerCase()), model);
         } else if (protocol === AssetProtocol.SUSHISWAP_POLYGON) {
             return this.getPriceFromStandardPair(await getSushiSwapPolyPair(protocol, token.toLowerCase(), block));
         } else if (protocol === AssetProtocol.COMETHSWAP) {
@@ -81,7 +81,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
             return this.getPriceFromStandardPair(await getQuickswapPair(protocol, token.toLowerCase(), block));
         } else if( protocol === AssetProtocol.YEARN ) {
             if( token === JAR_USDC.depositToken.addr) {
-                return this.getContractPrice(token, cache)
+                return this.getContractPrice(token, model)
             } else if( token === JAR_lusdCRV.depositToken.addr || token === JAR_fraxCRV.depositToken.addr ) {
                 return 1;
             }
@@ -89,30 +89,30 @@ export class DepositTokenPriceResolver implements IPriceResolver {
             if( token === JAR_SADDLE_D4.depositToken.addr) {
                 return 1;
             } else if( token === JAR_ALETH.depositToken.addr ) {
-                return this.getContractPrice("weth", cache);
+                return this.getContractPrice("weth", model);
             }
         } else if( protocol === AssetProtocol.CURVE ) {
             if( token === JAR_steCRV.depositToken.addr) {
-                return this.getContractPrice("weth", cache);
+                return this.getContractPrice("weth", model);
             } else if( token === JAR_AM3CRV.depositToken.addr) {
                 return 1;
             } else if( token === JAR_MIM3CRV.depositToken.addr) {
                 return 1;
             }
-            return this.getContractPrice(token, cache);
+            return this.getContractPrice(token, model);
         } else if( protocol === AssetProtocol.AAVE_POLYGON) {
             return 1;
         } else if( protocol === AssetProtocol.IRON_POLYGON) {
             return 1;
         } else if( protocol === AssetProtocol.TOKENPRICE ) {
-            return this.getContractPrice(token, cache);
+            return this.getContractPrice(token, model);
         }
         return undefined;
     }
 
-    protected async getZeroSafePairPrice(innerPair: any, cache: PriceCache): Promise<number> {
-        let token0Price = await this.getContractPrice(innerPair.token0.id, cache);
-        let token1Price = await this.getContractPrice(innerPair.token1.id, cache);
+    protected async getZeroSafePairPrice(innerPair: any, model: PickleModel): Promise<number> {
+        let token0Price = await this.getContractPrice(innerPair.token0.id, model);
+        let token1Price = await this.getContractPrice(innerPair.token1.id, model);
 
         if (token0Price === 0 && token1Price === 0) {
             return undefined;
@@ -140,9 +140,9 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         return reserveUSD * liquidityPrice;
     };
 
-    protected async getContractPrice(id: string, cache: PriceCache): Promise<number> {
+    protected async getContractPrice(id: string, model: PickleModel): Promise<number> {
         try {
-            return (await cache.getPrices([id.toLowerCase()], RESOLVER_COINGECKO)).get(id.toLowerCase());
+            return (await model.priceOf(id.toLowerCase()));
         } catch (e) {
             return undefined;
         }

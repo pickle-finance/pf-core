@@ -24,8 +24,8 @@ export class SlpCvxEth extends SushiJar {
     const [res, cvxWallet, cvxPrice, sushiPrice]: [BigNumber[], BigNumber, number, number] = await Promise.all([
       strategy.getHarvestable().catch(() => BigNumber.from('0')),
       cvxToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
-      model.prices.get("cvx"),
-      model.prices.get("sushi"),
+      await model.priceOf("cvx"),
+      await model.priceOf("sushi"),
     ]);
 
     const sushiValue = res[0].mul(sushiPrice.toFixed());

@@ -16,7 +16,7 @@ export class DinoEth extends AbstractJarBehavior {
 
     const [dino, dinoPrice, dinoBal] = await Promise.all([
       rewards.pendingDino(this.poolId, jar.details.strategyAddr),
-      model.prices.get('dino'),
+      await model.priceOf('dino'),
       dinoToken.balanceOf(jar.details.strategyAddr),
     ]);
 

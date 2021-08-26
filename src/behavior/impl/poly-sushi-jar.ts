@@ -1,11 +1,13 @@
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import { JarDefinition } from '../../model/PickleModelJson';
+import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from '../../chain/Chains';
 import { PickleModel } from '../../model/PickleModel';
+import { PoolId } from '../../protocols/ProtocolUtil';
+import { calculatePolySushiAPY } from '../../protocols/PolySushiUtil';
 
 export abstract class PolySushiJar extends AbstractJarBehavior {
   strategyAbi: any;
@@ -22,8 +24,8 @@ export abstract class PolySushiJar extends AbstractJarBehavior {
       await Promise.all([
         sushiToken.balanceOf(jar.details.strategyAddr),
         maticToken.balanceOf(jar.details.strategyAddr),
-        model.prices.get('sushi'),
-        model.prices.get('matic'),
+        await model.priceOf('sushi'),
+        await model.priceOf('matic'),
       ]);
     const res = await strategy.getHarvestable();
     const pendingSushi = res[0];
@@ -34,5 +36,11 @@ export abstract class PolySushiJar extends AbstractJarBehavior {
       .mul(sushiPrice.toFixed())
       .add(pendingMatic.add(walletMatic).mul(maticPrice.toFixed()));
     return parseFloat(ethers.utils.formatEther(harvestable));
+  }
+
+  async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    return this.aprComponentsToProjectedApr(
+      await calculatePolySushiAPY(definition, model)
+    );
   }
 }

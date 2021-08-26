@@ -17,8 +17,8 @@ export class pLqty extends AbstractJarBehavior {
         strategy.getHarvestable().catch(() => BigNumber.from('0')),
         wethToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
         lusdToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
-        model.prices.get("weth"),
-        model.prices.get("lusd"),
+        await model.priceOf("weth"),
+        await model.priceOf("lusd"),
       ]);
 
     const wethValue = res[1].add(wethWallet).mul(wethPrice.toFixed());

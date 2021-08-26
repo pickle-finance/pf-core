@@ -17,8 +17,8 @@ export class SlpTruEth extends SushiJar {
     const [res, truWallet, truPrice, sushiPrice]: [BigNumber[], BigNumber, number, number] = await Promise.all([
       strategy.getHarvestable().catch(() => BigNumber.from('0')),
       truToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
-      model.prices.get("tru"),
-      model.prices.get("sushi")
+      await model.priceOf("tru"),
+      await model.priceOf("sushi")
     ]);
 
     const sushiValue = res[0].mul(sushiPrice.toFixed());

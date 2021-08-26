@@ -17,7 +17,7 @@ export class FoxEth extends AbstractJarBehavior {
     const rewards = new ethers.Contract(this.rewardAddress, feiAbi, resolver);
     const [fox, foxPrice] = await Promise.all<BigNumber, number>([
       rewards.earned(jar.details.strategyAddr),
-      model.prices.get('shapeshift-fox-token'),
+      await model.priceOf('shapeshift-fox-token'),
     ]);
     const harvestable = fox.mul(foxPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
@@ -53,7 +53,7 @@ export class FoxEth extends AbstractJarBehavior {
     const { pricePerToken } = await getUniPairData(jar, model, Chains.get(jar.chain).getPreferredWeb3Provider());
 
     const foxRewardsPerYear = foxRewardRate * ONE_YEAR_SECONDS;
-    const valueRewardedPerYear = model.prices.get("fox") * foxRewardsPerYear;
+    const valueRewardedPerYear = await model.priceOf("fox") * foxRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const foxAPY = valueRewardedPerYear / totalValueStaked;

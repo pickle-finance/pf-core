@@ -19,7 +19,7 @@ export class MimaticUSDC extends AbstractJarBehavior {
     const [qi, wallet, qiPrice]: [BigNumber, BigNumber, number] = await Promise.all([
       strategy.getHarvestable().catch(() => BigNumber.from('0')),
       qiToken.balanceOf(jar.details.strategyAddr),
-      model.prices.get('qi-dao'),
+      await model.priceOf('qi-dao'),
     ]);
     const harvestable = qi.add(wallet).mul(qiPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));

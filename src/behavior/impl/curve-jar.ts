@@ -36,6 +36,27 @@ export interface RawStatAPYs {
   aave: number;
 }
 
+export async function getCurveRawStats(model: PickleModel, network: ChainNetwork) : Promise<RawStatAPYs> {
+  const key = (network === ChainNetwork.Ethereum ? CurveAprRawStatsEthKey : CurveAprRawStatsPolyKey)
+  let fromCache : any = model.resourceCache.get(key);
+  if( fromCache === undefined ) {
+    const url = (network === ChainNetwork.Ethereum ? curveAPYsURLEth : curveAPYsURLPoly)
+    const stats : RawStatAPYs = await loadCurveRawStats(url);
+    model.resourceCache.set(key, stats);
+    return stats;
+  }
+  return fromCache;
+}
+
+export async function loadCurveRawStats(url: string) : Promise<RawStatAPYs> {
+  const res = await fetch(url).then((x) => x.json());
+  const stats = res.apy.day;
+  for (const k of Object.keys(stats)) {
+    stats[k] = stats[k] * 100;
+  }
+  return stats;
+}
+
 export abstract class CurveJar extends AbstractJarBehavior {
   readonly gaugeAddress: string;
 
@@ -44,26 +65,7 @@ export abstract class CurveJar extends AbstractJarBehavior {
     this.gaugeAddress = gaugeAddress;
   }
 
-  async getCurveRawStats(model: PickleModel, network: ChainNetwork) : Promise<RawStatAPYs> {
-    const key = (network === ChainNetwork.Ethereum ? CurveAprRawStatsEthKey : CurveAprRawStatsPolyKey)
-    let fromCache : any = model.resourceCache.get(key);
-    if( fromCache === undefined ) {
-      const url = (network === ChainNetwork.Ethereum ? curveAPYsURLEth : curveAPYsURLPoly)
-      const stats : RawStatAPYs = await this.loadCurveRawStats(url);
-      model.resourceCache.set(key, stats);
-      return stats;
-    }
-    return fromCache;
-  }
 
-  async loadCurveRawStats(url: string) : Promise<RawStatAPYs> {
-    const res = await fetch(url).then((x) => x.json());
-    const stats = res.apy.day;
-    for (const k of Object.keys(stats)) {
-      stats[k] = stats[k] * 100;
-    }
-    return stats;
-  }
 
   async getCurveCrvAPY(jar: JarDefinition, model: PickleModel, 
     underlyingPrice: number,
@@ -94,7 +96,7 @@ export abstract class CurveJar extends AbstractJarBehavior {
         (((gaugeRate * weight * 31536000) / workingSupply) * 0.4) /
         (virtualPrice * underlyingPrice);
 
-      const crvApy = rate * model.prices.get("crv") * 100;
+      const crvApy = rate * await model.priceOf("crv") * 100;
       return { name: "CRV", apr: crvApy, compoundable: true};
   }
 
@@ -102,7 +104,7 @@ export abstract class CurveJar extends AbstractJarBehavior {
     const gauge = new ethers.Contract(this.gaugeAddress, curveGaugeAbi, resolver);
     const [crv, crvPrice] = await Promise.all([
       gauge.callStatic.claimable_tokens(jar.details.strategyAddr),
-      model.prices.get('curve-dao-token'),
+      await model.priceOf('curve-dao-token'),
     ]);
     const harvestable = crv.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));

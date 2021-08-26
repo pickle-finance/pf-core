@@ -28,7 +28,7 @@ export abstract class MirJar extends AbstractJarBehavior {
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const rewards = new ethers.Contract(this.rewardAddress, mirRewardAbi, resolver);
-    const [mir, mirPrice] = await Promise.all([rewards.earned(jar.details.strategyAddr), model.prices.get('mirror-protocol')]);
+    const [mir, mirPrice] = await Promise.all([rewards.earned(jar.details.strategyAddr), await model.priceOf('mirror-protocol')]);
     const harvestable = mir.mul(mirPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }

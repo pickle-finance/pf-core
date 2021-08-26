@@ -33,7 +33,7 @@ export class MimEth extends AbstractJarBehavior {
     const spellToken = new ethers.Contract(model.addr("spell"), erc20Abi, resolver);
     const [spell, spellPrice, spellBal] = await Promise.all([
       sorbettiere.pendingIce(2, jar.details.strategyAddr),
-      model.prices.get('spell'),
+      await model.priceOf('spell'),
       spellToken.balanceOf(jar.details.strategyAddr),
     ]);
     const harvestable = spell.add(spellBal).mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());

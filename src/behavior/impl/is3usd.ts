@@ -12,7 +12,7 @@ export class Is3Usd extends AbstractJarBehavior {
     const ironchef = new ethers.Contract('0x1fd1259fa8cdc60c6e8c86cfa592ca1b8403dfad', ironchefAbi, resolver);
     const [ice, icePrice] = await Promise.all([
       ironchef.pendingReward(0, jar.details.strategyAddr),
-      model.prices.get('iron-finance'),
+      await model.priceOf('iron-finance'),
     ]);
 
     const harvestable = ice.mul(BigNumber.from((icePrice * 1e18).toFixed())).div((1e18).toFixed());

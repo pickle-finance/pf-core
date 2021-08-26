@@ -31,7 +31,7 @@ export class Mim3Crv extends AbstractJarBehavior {
     );
     const [spell, spellPrice] = await Promise.all([
       sorbettiere.pendingIce(1, jar.details.strategyAddr),
-      model.prices.get('spell'),
+      await model.priceOf('spell'),
     ]);
 
     const harvestable = spell.mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());

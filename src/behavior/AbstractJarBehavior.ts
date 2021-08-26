@@ -5,7 +5,7 @@ import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../model/Pi
 import { JarBehavior, JarHarvestData } from './JarBehaviorResolver';
 import { PickleModel } from '../model/PickleModel';
 
-export const ONE_YEAR_IN_SECONDS : number = 365*24*60*60
+export const ONE_YEAR_IN_SECONDS : number = 360*24*60*60
 
 export abstract class AbstractJarBehavior implements JarBehavior {
 
@@ -17,8 +17,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     // and put this functionality right here or in the subclasses
     async getDepositTokenPrice(definition: JarDefinition, model: PickleModel): Promise<number> {
         if( definition && definition.depositToken && definition.depositToken.addr) {
-            return model.prices.getPrice(definition.depositToken.addr, RESOLVER_DEPOSIT_TOKEN);
-
+            return await model.priceOf(definition.depositToken.addr);
         }
         return undefined;
     }
@@ -62,7 +61,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
 
         const balanceWithAvailable = balance.add(available);
         const depositTokenDecimals = (definition.depositToken.decimals ? definition.depositToken.decimals : 18);
-        const depositTokenPrice: number = await model.prices.getPrice(definition.depositToken.addr, RESOLVER_DEPOSIT_TOKEN);
+        const depositTokenPrice: number = await model.priceOf(definition.depositToken.addr);
         const balanceUSD: number = parseFloat(ethers.utils.formatUnits(balanceWithAvailable, depositTokenDecimals)) * depositTokenPrice;
         const availUSD: number = parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) * depositTokenPrice;
 

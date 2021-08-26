@@ -19,7 +19,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
     const [sushi, wallet, sushiPrice]: [BigNumber, BigNumber, number] = await Promise.all([
       strategy.getHarvestable().catch(() => BigNumber.from('0')),
       sushiToken.balanceOf(jar.details.strategyAddr),
-      model.prices.get('sushi'),
+      await model.priceOf('sushi'),
     ]);
     const harvestable = sushi.add(wallet).mul(sushiPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));

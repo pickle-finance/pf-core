@@ -16,7 +16,7 @@ export class FeiTribe extends AbstractJarBehavior {
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const rewards = new ethers.Contract(this.rewardAddress, feiAbi, resolver);
-    const [tribe, tribePrice] = await Promise.all([rewards.earned(jar.details.strategyAddr), model.prices.get('tribe-2')]);
+    const [tribe, tribePrice] = await Promise.all([rewards.earned(jar.details.strategyAddr), await model.priceOf('tribe-2')]);
     const harvestable = tribe.mul(tribePrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
@@ -50,7 +50,7 @@ export class FeiTribe extends AbstractJarBehavior {
     const { pricePerToken } = await getUniPairData(jar, model, Chains.get(jar.chain).getPreferredWeb3Provider());
 
     const tribeRewardsPerYear = tribeRewardRate * ONE_YEAR_SECONDS;
-    const valueRewardedPerYear = model.prices.get("tribe") * tribeRewardsPerYear;
+    const valueRewardedPerYear = await model.priceOf("tribe") * tribeRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const tribeAPY = valueRewardedPerYear / totalValueStaked;

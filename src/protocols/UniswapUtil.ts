@@ -7,7 +7,8 @@ import { formatEther } from "ethers/lib/utils";
 import { AssetProtocol, JarDefinition, PickleAsset } from "../model/PickleModelJson";
 import stakingRewardsAbi from '../Contracts/ABIs/staking-rewards.json';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
-import { readQueryFromGraph } from "../graph/TheGraph";
+import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
+import { getGenericPairData, IGenericPairData } from "./ProtocolUtil";
 
 
 export const MIRROR_MIR_UST_STAKING_REWARDS   = "0x5d447Fc0F8965cED158BAB42414Af10139Edf0AF";
@@ -40,7 +41,7 @@ export async function calculateMirAPY(rewardsAddress: string, jar: JarDefinition
       const { pricePerToken } = await getUniPairData(jar, model, resolver);
 
       const mirRewardsPerYear = mirRewardRate * ONE_YEAR_SECONDS;
-      const valueRewardedPerYear = model.prices.get("mir") * mirRewardsPerYear;
+      const valueRewardedPerYear = await model.priceOf("mir") * mirRewardsPerYear;
 
       const totalValueStaked = totalSupply * pricePerToken;
       const mirAPY = valueRewardedPerYear / totalValueStaked;
@@ -50,56 +51,12 @@ export async function calculateMirAPY(rewardsAddress: string, jar: JarDefinition
 
 
 export async function getUniPairData(jar: JarDefinition, model: PickleModel, 
-    resolver: Provider|Signer) {
-    const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
-    await multicallProvider.init();
-    const pairAddress:string = jar.depositToken.addr;
-
-    const componentA = jar.depositToken.components[0];
-    const componentB = jar.depositToken.components[1];
-    const addressA = model.address(componentA, jar.chain);
-    const addressB = model.address(componentB, jar.chain);
-    
-    // setup contracts
-    const tokenA = new MulticallContract(addressA, erc20Abi);
-    const tokenB = new MulticallContract(addressB, erc20Abi);
-    const pair = new MulticallContract(pairAddress, erc20Abi);
-
-    const [
-      numAInPairBN,
-      numBInPairBN,
-      totalSupplyBN,
-    ] = await multicallProvider?.all([
-      tokenA.balanceOf(pairAddress),
-      tokenB.balanceOf(pairAddress),
-      pair.totalSupply(),
-    ]);
-
-    // get num of tokens
-    const numAInPair = numAInPairBN / Math.pow(10, model.tokenDecimals(componentA, jar.chain));
-    const numBInPair = numBInPairBN / Math.pow(10, model.tokenDecimals(componentB, jar.chain));
-
-    // get prices
-    const priceA = model.prices.get(componentA);
-    const priceB = model.prices.get(componentB);
-
-    let totalValueOfPair;
-    // In case price one token is not listed on coingecko
-    if (priceA) {
-      totalValueOfPair = 2 * priceA * numAInPair;
-    } else {
-      totalValueOfPair = 2 * priceB * numBInPair;
-    }
-
-    const totalSupply = totalSupplyBN / 1e18; // Uniswap LP tokens are always 18 decimals
-    const pricePerToken = totalValueOfPair / totalSupply;
-
-    return { totalValueOfPair, totalSupply, pricePerToken };
+    _resolver: Provider|Signer) : Promise<IGenericPairData> {
+        return getGenericPairData(jar, model, 18);
   };
 
 
 export const UNI_PAIR_DATA_CACHE_KEY = "uniswap.pair.data.cache.key";
-export const UNI_GRAPH_URL = "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2";
 
 export async function runUniswapPairDataQueryOnce(allDepositTokens: string[]) {
     const asString = "\"" + allDepositTokens.join('\",\"') + "\"";
@@ -120,11 +77,10 @@ export async function runUniswapPairDataQueryOnce(allDepositTokens: string[]) {
           totalSupply
           }
       }`;
-      return readQueryFromGraph(query, UNI_GRAPH_URL);
+      return readQueryFromGraph(query, protocolToSubgraphUrl.get(AssetProtocol.UNISWAP));
 }
 
 export function findMissingPairDayDatas(allDepositTokens: string[], result: any) : string[] {
-
     const missing: string[] = [];
     for( let i = 0; i < allDepositTokens.length; i++ ) {
         let found = false;

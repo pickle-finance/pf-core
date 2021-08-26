@@ -21,9 +21,9 @@ import { getOrLoadAllSushiSwapPairDataIntoCache } from "../protocols/SushiSwapUt
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
 export class PickleModel {
-    allAssets : PickleAsset[];
-    prices : PriceCache;
-    dillDetails: DillDetails;
+    private allAssets : PickleAsset[];
+    private prices : PriceCache;
+    private dillDetails: DillDetails;
 
     // This can be used to cache any object with a key that might be shared
     // by a few different classes. 
@@ -67,7 +67,9 @@ export class PickleModel {
     tokenDecimals(id: string, chain:ChainNetwork) {
         return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
     }
-
+    async priceOf(token: string) : Promise<number> {
+        return this.prices.priceOf(token);
+    }
     async generateFullApi() : Promise<PickleModelJson> {
         await this.ensurePriceCacheLoaded();
         await this.ensureStrategyDataLoaded();

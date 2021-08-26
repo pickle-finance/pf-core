@@ -29,7 +29,7 @@ export class SpellEth extends AbstractJarBehavior {
     );
     const [spell, spellPrice] = await Promise.all([
       sorbettiere.pendingIce(0, jar.details.strategyAddr),
-      model.prices.get('spell-token'),
+      await model.priceOf('spell-token'),
     ]);
 
     const harvestable = spell.mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());

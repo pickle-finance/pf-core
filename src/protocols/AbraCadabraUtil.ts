@@ -54,7 +54,7 @@ const abracadabraIds: PoolId = {
     let tokenPrice: number = definition.depositToken.price;
 
     const iceRewardsPerYear = icePerSecond * ONE_YEAR_SECONDS;
-    const valueRewardedPerYear = model.prices.get("spell") * iceRewardsPerYear;
+    const valueRewardedPerYear = await model.priceOf("spell") * iceRewardsPerYear;
 
     const totalValueStaked = supplyInRewarder * tokenPrice;
     const spellAPY = valueRewardedPerYear / totalValueStaked;

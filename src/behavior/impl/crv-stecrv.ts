@@ -6,12 +6,20 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import { Chains } from '../../chain/Chains';
 import { AbstractJarBehavior} from '../AbstractJarBehavior';
 import { PickleModel } from '../../model/PickleModel';
-import { convexPools, CVX_BOOSTER } from '../../protocols/ProtocolUtil';
 import { formatEther } from 'ethers/lib/utils';
 import { Erc20__factory } from '../../Contracts/ContractsImpl';
 import { CvxBooster__factory } from '../../Contracts/ContractsImpl';
 import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
 import fetch from "cross-fetch";
+import { PoolInfo } from '../../protocols/ProtocolUtil';
+
+export const CVX_BOOSTER = "0xF403C135812408BFbE8713b5A23a04b3D48AAE31";
+export const convexPools: PoolInfo = {
+    "0x06325440D014e39736583c165C2963BA99fAf14E": {
+      poolId: 25,
+      tokenName: "steth",
+    },
+  };
 
 export class SteCrv extends AbstractJarBehavior {
   constructor() {
@@ -68,7 +76,7 @@ export class SteCrv extends AbstractJarBehavior {
     await multicallProvider.init();
 
     const cvxPool = convexPools[definition.depositToken.addr];
-    if (curveAPY && multicallProvider && model.prices) {
+    if (curveAPY && multicallProvider ) {
       const lpApy = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
       const crvApy = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
       const rewardApy = parseFloat(curveAPY[cvxPool.tokenName]?.additionalRewards[0].apy);
@@ -88,10 +96,10 @@ export class SteCrv extends AbstractJarBehavior {
 
       const isStEth = cvxPool.tokenName === "steth"
       
-      const poolValue = parseFloat(formatEther(depositLocked)) * ( isStEth ? model.prices.get("weth") : 0);
+      const poolValue = parseFloat(formatEther(depositLocked)) * ( isStEth ? await model.priceOf("weth") : 0);
       
       const cvxReward = await this.getCvxMint(parseFloat(formatEther(crvReward)), model, resolver)
-      const cvxValuePerYear = cvxReward * model.prices.get("cvx") * ONE_YEAR_SECONDS / duration.toNumber(); 
+      const cvxValuePerYear = cvxReward * await model.priceOf("cvx") * ONE_YEAR_SECONDS / duration.toNumber(); 
       
       const cvxApy = cvxValuePerYear / poolValue * 100
 
@@ -114,10 +122,10 @@ export class SteCrv extends AbstractJarBehavior {
     const [crv, crvPrice, ldo, ldoWallet, ldoPrice]: [BigNumber, number, BigNumber, BigNumber, number] =
       await Promise.all([
         gauge.callStatic.claimable_tokens(jar.details.strategyAddr),
-        model.prices.get('curve-dao-token'),
+        await model.priceOf('curve-dao-token'),
         gauge.callStatic.claimable_reward(jar.details.strategyAddr, LIDO_ADDRESS),
         lido.balanceOf(jar.details.strategyAddr),
-        model.prices.get('lido-dao'),
+        await model.priceOf('lido-dao'),
       ]);
     const lidoValue = ldo.add(ldoWallet).mul(ldoPrice.toFixed());
     const harvestable = crv.mul(crvPrice.toFixed()).add(lidoValue);
