@@ -89,7 +89,7 @@ export class ExternalTokenModel {
         this.polyTokens.set("musdc", new ExternalToken(ChainNetwork.Polygon, "musdc", "usdc", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), ExternalTokenFetchStyle.ID));
         this.polyTokens.set("crv", new ExternalToken(ChainNetwork.Polygon, "crv", "curve-dao-token", "0x172370d5cd63279efa6d502dab29171933a610af".toLowerCase(), ExternalTokenFetchStyle.ID));
         this.polyTokens.set("dino", new ExternalToken(ChainNetwork.Polygon, "dino", "dinoswap", "0xAa9654BECca45B5BDFA5ac646c939C62b527D394".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("iron", new ExternalToken(ChainNetwork.Polygon, "iron", "iron-finance", "0x4a81f8796e0c6ad4877a51c86693b0de8093f2ef".toLowerCase(), ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("iron", new ExternalToken(ChainNetwork.Polygon, "ice", "iron-finance", "0x4a81f8796e0c6ad4877a51c86693b0de8093f2ef".toLowerCase(), ExternalTokenFetchStyle.ID));
         
 
         // Make the reverse map to fascilitate contract lookups

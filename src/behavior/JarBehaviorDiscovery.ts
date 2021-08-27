@@ -104,16 +104,16 @@ jarToBehavior.set( JAR_COMETH_PICKLE_MUST.id, new ComethPickleMust());
 jarToBehavior.set( JAR_COMETH_MATIC_MUST.id, new ComethMaticMust());
 jarToBehavior.set( JAR_POLY_SUSHI_MATIC_ETH.id, new PSlpMaticEth());
 jarToBehavior.set( JAR_POLY_SUSHI_ETH_USDT.id, new PSlpUsdtEth());
-
+jarToBehavior.set( JAR_SUSHI_DINO_USDC.id, new DinoUsdc());
 jarToBehavior.set( JAR_AM3CRV.id, new PThreeCrv());
-// Yet to convert
-
-
+jarToBehavior.set( JAR_QUICK_DINO_ETH.id, new DinoEth());
 jarToBehavior.set( JAR_QUICK_MIMATIC_USDC.id, new MimaticUSDC());
 jarToBehavior.set( JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set( JAR_IRON3USD.id, new Is3Usd());
-jarToBehavior.set( JAR_QUICK_DINO_ETH.id, new DinoEth());
-jarToBehavior.set( JAR_SUSHI_DINO_USDC.id, new DinoUsdc());
+
+// Yet to convert
+
+
 
 export class JarBehaviorDiscovery {
     findAssetBehavior(definition: PickleAsset) : JarBehavior {

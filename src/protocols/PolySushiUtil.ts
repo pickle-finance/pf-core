@@ -1,5 +1,4 @@
-import { getGenericPairData, PoolId } from './ProtocolUtil';
-import { BigNumber, Contract, ethers, Signer } from 'ethers';
+import { PoolId } from './ProtocolUtil';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import { AssetAprComponent, JarDefinition } from '../model/PickleModelJson';
 import { PickleModel } from '..';
@@ -7,8 +6,10 @@ import { Chains } from '../chain/Chains';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import sushiMiniChefAbi from '../Contracts/ABIs/sushi-minichef.json';
 import { formatEther } from 'ethers/lib/utils';
-import { calculateSushiLpApr, getSushiSwapPairData } from './SushiSwapUtil';
 import { ONE_YEAR_IN_SECONDS } from '../behavior/AbstractJarBehavior';
+import { IChain } from '../chain/IChain';
+import { getLivePairDataFromContracts } from './GenericSwapUtil';
+import { SushiPolyPairManager } from './SushiSwapUtil';
 
 export const SUSHI_MINICHEF = "0x0769fd68dFb93167989C6f7254cd0D766Fb2841F";
 export const MATIC_COMPLEX_REWARDER =
@@ -20,9 +21,14 @@ const polySushiPoolIds: PoolId = {
   };
   
 export async function calculatePolySushiAPY(jar: JarDefinition, model: PickleModel) : Promise<AssetAprComponent[]> {
+    const chain : IChain = Chains.get(jar.chain);
     const provider = Chains.get(jar.chain).getPreferredWeb3Provider();
-    const multicallProvider = new MulticallProvider(provider);
-    await multicallProvider.init();
+    const multicallProvider = new MulticallProvider(provider);//, chain.id);
+    try {
+      await multicallProvider.init();
+    } catch(e) {
+      console.log("calculatePolySushiAPY: " + e);
+    }
 
     const poolId = polySushiPoolIds[jar.depositToken.addr];
     const multicallsushiMinichef = new MulticallContract(
@@ -47,7 +53,7 @@ export async function calculatePolySushiAPY(jar: JarDefinition, model: PickleMod
         poolInfo.allocPoint.toNumber()) /
       totalAllocPointBN.toNumber();
 
-    const { pricePerToken } = await getGenericPairData(jar, model, 18);
+    const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
     const sushiRewardsPerYear = sushiRewardsPerSecond * ONE_YEAR_IN_SECONDS;
     const valueRewardedPerYear = await model.priceOf("sushi") * sushiRewardsPerYear;
@@ -82,7 +88,7 @@ export async function calculatePolySushiAPY(jar: JarDefinition, model: PickleMod
 //    const maticAPY = maticValueRewardedPerYear / totalValueStaked;
 */
 
-    const lpApr : number = await calculateSushiLpApr( jar.depositToken.addr, model);
+    const lpApr : number = await new SushiPolyPairManager().calculateLpApr(model, jar.depositToken.addr);
     return [
         {name: "sushi", apr: sushiAPY, compoundable: true},
         {name: "lp", apr: lpApr, compoundable: false},

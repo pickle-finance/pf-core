@@ -16,7 +16,6 @@ import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
 import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { JarBehavior, JarHarvestData } from "../behavior/JarBehaviorResolver";
-import { getOrLoadAllSushiSwapPairDataIntoCache } from "../protocols/SushiSwapUtil";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -76,7 +75,7 @@ export class PickleModel {
         await this.ensureRatiosLoaded();
 
         // load protocol-specific data
-        await getOrLoadAllSushiSwapPairDataIntoCache(this);
+        //await getOrLoadAllSushiSwapPairDataIntoCache(this);
 
         await this.ensureDepositTokenPriceLoaded();
         await this.ensureHarvestDataLoaded();

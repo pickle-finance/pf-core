@@ -6,7 +6,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from '../../model/PickleModel';
 import { calculateAbradabraApy } from '../../protocols/AbraCadabraUtil';
 import { Chains } from '../../chain/Chains';
-import { calculateSushiLpApr } from '../../protocols/SushiSwapUtil';
+import { SushiEthPairManager } from '../../protocols/SushiSwapUtil';
 
 export class SpellEth extends AbstractJarBehavior {
 
@@ -14,7 +14,7 @@ export class SpellEth extends AbstractJarBehavior {
     const abraApr : number = await calculateAbradabraApy(definition, model, Chains.get(definition.chain).getProviderOrSigner());
     const abraComp : AssetAprComponent = this.createAprComponent("spell", abraApr, true);
 
-    const lpApr : number = await calculateSushiLpApr(definition.depositToken.addr,model);
+    const lpApr : number = await new SushiEthPairManager().calculateLpApr(model, definition.depositToken.addr);
     const lpComp : AssetAprComponent = this.createAprComponent("lp", lpApr, false);
 
     return this.aprComponentsToProjectedApr([abraComp,lpComp]);

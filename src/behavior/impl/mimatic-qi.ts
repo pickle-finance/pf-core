@@ -2,11 +2,13 @@ import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { mimaticStrategyAbi } from '../../Contracts/ABIs/mimatic-strategy.abi';
-import { JarDefinition } from '../../model/PickleModelJson';
+import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from '../../chain/Chains';
 import { PickleModel } from '../../model/PickleModel';
+import { calculateMasterChefRewardsAPR } from '../../protocols/MasterChefApyUtil';
+import { QuickswapPairManager } from '../../protocols/QuickswapUtil';
 
 export class MimaticQi extends AbstractJarBehavior {
   constructor() {
@@ -24,4 +26,14 @@ export class MimaticQi extends AbstractJarBehavior {
     const harvestable = qi.add(wallet).mul(qiPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
+
+  async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    const chefComponent : AssetAprComponent = await calculateMasterChefRewardsAPR(definition, model);
+    const lpApr : number = await new QuickswapPairManager().calculateLpApr(model, definition.depositToken.addr);
+    return this.aprComponentsToProjectedApr([
+      this.createAprComponent("lp", lpApr, false),
+      chefComponent
+    ]);
+  }
+
 }

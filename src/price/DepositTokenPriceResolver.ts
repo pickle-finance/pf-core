@@ -1,11 +1,13 @@
-import { getComethPair, getQuickswapPair, getSushiSwapPolyPair} from "../graph/TheGraph";
 import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
 import { PickleModel } from "../model/PickleModel";
 import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
-import {getSushiSwapPairData } from "../protocols/SushiSwapUtil";
-import { getUniSwapPairData } from "../protocols/UniswapUtil";
+import { ComethPairManager } from "../protocols/ComethUtil";
+import { GenericSwapUtility, getLivePairDataFromContracts, IExtendedPairData } from "../protocols/GenericSwapUtil";
+import { QuickswapPairManager } from "../protocols/QuickswapUtil";
+import { SushiEthPairManager, SushiPolyPairManager } from "../protocols/SushiSwapUtil";
+import { UniPairManager } from "../protocols/UniswapUtil";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
-import { PriceCache, RESOLVER_COINGECKO } from "./PriceCache";
+import { PriceCache } from "./PriceCache";
 
 export class DepositTokenPriceResolver implements IPriceResolver {
     model : PickleModel;
@@ -64,22 +66,32 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         return undefined;
     }
 
-
+    isGenericSwapProtocol(protocol: string) : boolean {
+        return [
+            AssetProtocol.SUSHISWAP.toString(),
+            AssetProtocol.SUSHISWAP_POLYGON.toString(),
+            AssetProtocol.UNISWAP.toString(),
+            AssetProtocol.COMETHSWAP.toString(),
+            AssetProtocol.QUICKSWAP_POLYGON.toString(),
+        ].includes(protocol);
+    }
     /*
     A lot of this is wrong. Don't know which repo I copied it from.
     */
-    async getTokenPriceForProtocol(protocol: string, token: string, model: PickleModel, block?: number): Promise<number> {
-        if (protocol === AssetProtocol.SUSHISWAP) {
-            return await this.getZeroSafePairPrice(await getSushiSwapPairData(this.model, token.toLowerCase()), model);
-        } else if (protocol === AssetProtocol.UNISWAP) {
-            return this.getZeroSafePairPrice(await getUniSwapPairData(this.model, token.toLowerCase()), model);
-        } else if (protocol === AssetProtocol.SUSHISWAP_POLYGON) {
-            return this.getPriceFromStandardPair(await getSushiSwapPolyPair(protocol, token.toLowerCase(), block));
-        } else if (protocol === AssetProtocol.COMETHSWAP) {
-            return this.getPriceFromStandardPair(await getComethPair(protocol, token.toLowerCase(), block));
-        } else if (protocol === AssetProtocol.QUICKSWAP_POLYGON) {
-            return this.getPriceFromStandardPair(await getQuickswapPair(protocol, token.toLowerCase(), block));
-        } else if( protocol === AssetProtocol.YEARN ) {
+    async getTokenPriceForProtocol(protocol: string, token: string, model: PickleModel): Promise<number> {
+        const isSwapUtil : boolean = this.isGenericSwapProtocol(protocol);
+        
+        if( isSwapUtil ) {
+            const match : PickleAsset[] = this.model.getAllAssets().filter((x)=>x.depositToken.addr.toLowerCase() === token.toLowerCase());
+            if( match && match.length > 0)
+                return (await getLivePairDataFromContracts(match[0], this.model, 18)).pricePerToken;
+            return -1;
+        }
+
+        if( protocol === AssetProtocol.TOKENPRICE )
+            return this.getContractPrice(token, model);
+
+        if( protocol === AssetProtocol.YEARN ) {
             if( token === JAR_USDC.depositToken.addr) {
                 return this.getContractPrice(token, model)
             } else if( token === JAR_lusdCRV.depositToken.addr || token === JAR_fraxCRV.depositToken.addr ) {
@@ -104,15 +116,13 @@ export class DepositTokenPriceResolver implements IPriceResolver {
             return 1;
         } else if( protocol === AssetProtocol.IRON_POLYGON) {
             return 1;
-        } else if( protocol === AssetProtocol.TOKENPRICE ) {
-            return this.getContractPrice(token, model);
         }
         return undefined;
     }
 
-    protected async getZeroSafePairPrice(innerPair: any, model: PickleModel): Promise<number> {
-        let token0Price = await this.getContractPrice(innerPair.token0.id, model);
-        let token1Price = await this.getContractPrice(innerPair.token1.id, model);
+    protected async getZeroSafePairPrice(innerPair: IExtendedPairData, model: PickleModel): Promise<number> {
+        let token0Price = await this.getContractPrice(innerPair.token0Id, model);
+        let token1Price = await this.getContractPrice(innerPair.token1Id, model);
 
         if (token0Price === 0 && token1Price === 0) {
             return undefined;
@@ -131,15 +141,6 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         return ret;
     }
 
-    protected getPriceFromStandardPair(pair: any): number {
-        if( pair.data.pair === undefined || pair.data.pair === null) {
-            return undefined;
-        }
-        const reserveUSD = pair.data.pair.reserveUSD;
-        const liquidityPrice = 1 / pair.data.pair.totalSupply;
-        return reserveUSD * liquidityPrice;
-    };
-
     protected async getContractPrice(id: string, model: PickleModel): Promise<number> {
         try {
             return (await model.priceOf(id.toLowerCase()));
@@ -150,7 +151,7 @@ export class DepositTokenPriceResolver implements IPriceResolver {
 
 
     /**
-     * // TODO optimize this for sushi so sushi can return the sub-components and their prices
+     * // TODO an interesting idea that is not yet developed
      * 
      * Get back the price of a given token as well as its components.
      * This resolver has no underlying components. 

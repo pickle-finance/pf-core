@@ -9,7 +9,8 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import { Chains } from '../../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
 import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
-import { calculateUniswapLpApr, getUniPairData } from '../../protocols/UniswapUtil';
+import { calculateUniswapLpApr } from '../../protocols/UniswapUtil';
+import { getLivePairDataFromContracts } from '../../protocols/GenericSwapUtil';
 
 export class FoxEth extends AbstractJarBehavior {
   private rewardAddress = '0xdd80e21669a664bce83e3ad9a0d74f8dad5d9e72';
@@ -50,7 +51,7 @@ export class FoxEth extends AbstractJarBehavior {
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const foxRewardRate = parseFloat(formatEther(rewardRateBN));
 
-    const { pricePerToken } = await getUniPairData(jar, model, Chains.get(jar.chain).getPreferredWeb3Provider());
+    const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
     const foxRewardsPerYear = foxRewardRate * ONE_YEAR_SECONDS;
     const valueRewardedPerYear = await model.priceOf("fox") * foxRewardsPerYear;

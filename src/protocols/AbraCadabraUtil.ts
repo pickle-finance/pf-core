@@ -1,14 +1,11 @@
 import { PickleModel } from "..";
-import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
+import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { PoolId } from "./ProtocolUtil";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
-import { formatEther, formatUnits } from "ethers/lib/utils";
-import { BigNumber, Contract, ethers, Signer } from 'ethers';
+import { formatEther } from "ethers/lib/utils";
+import { Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { JAR_MIM3CRV } from "../model/JarsAndFarms";
-import { getSushiSwapPairData } from "./SushiSwapUtil";
-import { getCurveLpPriceData } from "./CurveUtil";
 import {sorbettiereAbi} from "../Contracts/ABIs/sorbettiere.abi";
 import { JarDefinition } from "../model/PickleModelJson";
 const abracadabraIds: PoolId = {
@@ -58,10 +55,6 @@ const abracadabraIds: PoolId = {
 
     const totalValueStaked = supplyInRewarder * tokenPrice;
     const spellAPY = valueRewardedPerYear / totalValueStaked;
-
-    console.log(JSON.stringify([
-        definition.depositToken.addr, poolId, icePerSecond, tokenPrice, iceRewardsPerYear, valueRewardedPerYear, totalValueStaked, spellAPY
-    ]));
 
     return spellAPY * 100;
     }

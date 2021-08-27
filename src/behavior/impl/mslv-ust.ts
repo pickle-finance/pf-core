@@ -1,5 +1,4 @@
-import { MIRROR_MSLV_UST_STAKING_REWARDS } from '../../protocols/UniswapUtil';
-import { MirJar } from './mir-jar';
+import { MirJar, MIRROR_MSLV_UST_STAKING_REWARDS } from './mir-jar';
 
 export class MslvUst extends MirJar {
   constructor() {

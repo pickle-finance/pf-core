@@ -5,7 +5,7 @@ import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork, Chains } from '../../chain/Chains';
 import { PickleModel } from '../../model/PickleModel';
-import { calculateMCv2SushiRewards, calculateMCv2TokenRewards, calculateSushiLpApr, calculateSushiRewardApr } from '../../protocols/SushiSwapUtil';
+import { calculateMCv2SushiRewards, calculateMCv2TokenRewards, calculateSushiRewardApr, SushiEthPairManager } from '../../protocols/SushiSwapUtil';
 
 export abstract class SushiJar extends AbstractJarBehavior {
   strategyAbi:any;
@@ -32,7 +32,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
     const apr1 : number = await calculateSushiRewardApr(definition.depositToken.addr,model, Chains.get(definition.chain).getProviderOrSigner());
     const apr1Comp : AssetAprComponent = this.createAprComponent("sushi", apr1, true);
 
-    const lpApr : number = await calculateSushiLpApr(definition.depositToken.addr,model);
+    const lpApr : number = await new SushiEthPairManager().calculateLpApr(model, definition.depositToken.addr);
     const lpComp : AssetAprComponent = this.createAprComponent("lp", lpApr, false);
     return super.aprComponentsToProjectedApr([apr1Comp, lpComp]);
   }
@@ -46,7 +46,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
       model, Chains.get(definition.chain).getProviderOrSigner());
     const tokenAprComp : AssetAprComponent = this.createAprComponent(rewardToken,aprTokenRewards, true);
 
-    const lpApr : number = await calculateSushiLpApr(definition.depositToken.addr,model);
+    const lpApr : number = await new SushiEthPairManager().calculateLpApr(model, definition.depositToken.addr);
     const lpComp : AssetAprComponent = this.createAprComponent("lp", lpApr,false);
     
     return super.aprComponentsToProjectedApr([aprSushiComp, tokenAprComp, lpComp]);

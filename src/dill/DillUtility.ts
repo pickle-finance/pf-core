@@ -14,7 +14,41 @@ const firstMeaningfulDistributionTimestamp = 1619049600;
 const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
 const FEE_DISTRIBUTOR = "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc";
 
-export function getWeeklyDistribution(_jars: JarDefinition[] ) : number {
+/**
+ * This implementation is kinda dumb and just takes the current APR 
+ * of all compoundable reward tokens of all jars and adds them together. 
+ * 
+ * @param jars 
+ * @returns 
+ */
+export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
+  const enabledJars = jars.filter((x)=>x.enablement === AssetEnablement.ENABLED);
+  let runningRevenue = 0;
+  for( let i = 0; i < enabledJars.length; i++ ) {
+    if( enabledJars[i].aprStats && enabledJars[i].details.harvestStats) {
+      console.log(enabledJars[i].id + ":  " + enabledJars[i].depositToken.name)
+      const balance = enabledJars[i].details.harvestStats.balanceUSD;
+      const components = enabledJars[i].aprStats.components;
+      let jarUSD : number = 0;
+      for( let j = 0; j < components.length; j++ ) {
+        if( components[j].compoundable) {
+          // We already took 20% off the compoundables, 
+          // so to get our fee, it's 25% of what remains
+          const apr1 = components[j].apr / 100;
+          const yearlyRevPct = apr1 * 0.25;
+          const weeklyRevPct = yearlyRevPct/52;
+          const weeklyFee = weeklyRevPct * balance;
+          const jarComponentUSD = weeklyFee;
+          console.log("apr: " + apr1 + ", yearly: " + yearlyRevPct + ", weeklyRevPct: " + weeklyRevPct 
+          + " * balance " + balance + " = " + jarComponentUSD);
+          jarUSD += jarComponentUSD;
+        }
+      }
+      console.log("jar total: "+ jarUSD);
+      runningRevenue += jarUSD;
+    }
+  }
+  return runningRevenue * 0.45;
   /*
   let weeklyProfit = 0;
   for( let i = 0; i < jars.length; i++ ) {

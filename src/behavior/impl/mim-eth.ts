@@ -8,7 +8,7 @@ import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { PickleModel } from '../../model/PickleModel';
 import { Chains } from '../../chain/Chains';
 import { calculateAbradabraApy } from '../../protocols/AbraCadabraUtil';
-import { calculateSushiLpApr } from '../../protocols/SushiSwapUtil';
+import { SushiEthPairManager } from '../../protocols/SushiSwapUtil';
 
 export class MimEth extends AbstractJarBehavior {
   constructor() {
@@ -19,7 +19,7 @@ export class MimEth extends AbstractJarBehavior {
     const abraApr : number = await calculateAbradabraApy(definition, model, Chains.get(definition.chain).getProviderOrSigner());
     const abraComp : AssetAprComponent = this.createAprComponent("spell", abraApr, true);
 
-    const lpApr : number = await calculateSushiLpApr(definition.depositToken.addr,model);
+    const lpApr : number = await new SushiEthPairManager().calculateLpApr(model, definition.depositToken.addr);
     const lpComp : AssetAprComponent = this.createAprComponent("lp", lpApr, false);
 
     return this.aprComponentsToProjectedApr([abraComp,lpComp]);

@@ -1,6 +1,6 @@
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
-import { formatEther, formatUnits } from "ethers/lib/utils";
-import { BigNumber, Contract, ethers, Signer } from 'ethers';
+import { formatEther } from "ethers/lib/utils";
+import { Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import CurvePoolABI from '../Contracts/ABIs/pool.json';
 

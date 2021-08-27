@@ -2,11 +2,9 @@ import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from '../../chain/Chains';
 import { PickleModel } from '../../model/PickleModel';
-import { PoolId } from '../../protocols/ProtocolUtil';
 import { calculatePolySushiAPY } from '../../protocols/PolySushiUtil';
 
 export abstract class PolySushiJar extends AbstractJarBehavior {

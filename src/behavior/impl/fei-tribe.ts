@@ -9,7 +9,8 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import { Chains } from '../../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
 import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
-import { calculateUniswapLpApr, getUniPairData } from '../../protocols/UniswapUtil';
+import { getLivePairDataFromContracts } from '../../protocols/GenericSwapUtil';
+import { calculateUniswapLpApr } from '../../protocols/UniswapUtil';
 
 export class FeiTribe extends AbstractJarBehavior {
   private rewardAddress = '0x18305DaAe09Ea2F4D51fAa33318be5978D251aBd';
@@ -47,7 +48,7 @@ export class FeiTribe extends AbstractJarBehavior {
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const tribeRewardRate = parseFloat(formatEther(rewardRateBN));
 
-    const { pricePerToken } = await getUniPairData(jar, model, Chains.get(jar.chain).getPreferredWeb3Provider());
+    const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
     const tribeRewardsPerYear = tribeRewardRate * ONE_YEAR_SECONDS;
     const valueRewardedPerYear = await model.priceOf("tribe") * tribeRewardsPerYear;

@@ -32,43 +32,6 @@ export async function readQueryFromGraph(query:string, url: string) : Promise<an
     return tst.json();
 }
 
-export async function getSushiSwapPolyPair(protocol: string, token: string, block?: number): Promise<any> {
-    const query = `
-    {
-        pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-        reserveUSD
-        totalSupply
-        }
-    }
-    `;
-    const pairReturn = await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-    return pairReturn;
-}
-
-export async function getComethPair(protocol: string, token: string, block?: number): Promise<any> {
-    const query = `
-        {
-            pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-            reserveUSD
-            totalSupply
-            }
-        }
-        `;
-    return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-};
-
-export async function getQuickswapPair(protocol: string, token: string, block?: number): Promise<any> {
-    const query = `
-        {
-            pair(id: "${token}"${block ? `, block: {number: ${block}}` : ""}) {
-            reserveUSD
-            totalSupply
-            }
-        }
-        `;
-    return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
-};
-
 
 module.exports.getMasterChef = async () => {
     const query = `
@@ -87,22 +50,6 @@ module.exports.getMasterChef = async () => {
           allocPoint
           lastRewardBlock
           accPicklePerShare
-        }
-      }
-    `;
-    return await readQueryFromGraph(query, SUBGRAPH_URL_PICKLE);
-  };
-  
-
-
-export async function queryRewardsContract(contract: string, block: number) : Promise<any> {
-    let query = `
-      {
-        rewardContract(id: "${contract}", block: {number: ${block}}) {
-          totalRewards
-          currentRewards
-          stakedTokens
-          stakingTokenTotalSupply
         }
       }
     `;

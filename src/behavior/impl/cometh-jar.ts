@@ -1,16 +1,15 @@
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { AssetProjectedApr, AssetProtocol, JarDefinition, PickleAsset } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
-import { AbstractJarBehavior, getCompoundingAPY, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
+import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
+import { AbstractJarBehavior, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import stakingRewardsAbi from '../../Contracts/ABIs/staking-rewards.json';
 import { PickleModel } from '../../model/PickleModel';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
-import { ChainNetwork, Chains } from '../../chain/Chains';
+import { Chains } from '../../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
-import { getComethSwapPairData } from '../../protocols/ComethUtil';
-import { getGenericPairData, IGenericPairData } from '../../protocols/ProtocolUtil';
+import { getLivePairDataFromContracts, IPairData } from '../../protocols/GenericSwapUtil';
+import { ComethPairManager } from '../../protocols/ComethUtil';
 
 export abstract class ComethJar extends AbstractJarBehavior {
   strategyAbi : any;
@@ -35,7 +34,7 @@ export abstract class ComethJar extends AbstractJarBehavior {
 
   async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
     const must : number = await this.calculateComethAPY(this.rewardAddress, definition, model);
-    const lp : number = await this.calculateComethswapLpApr(model, definition.depositToken.addr);
+    const lp : number = await calculateComethswapLpApr(model, definition.depositToken.addr);
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lp, false),
@@ -73,18 +72,12 @@ export abstract class ComethJar extends AbstractJarBehavior {
     return apy * 100;
   }
 
-  async getComethPairData(jar: JarDefinition, model: PickleModel): Promise<IGenericPairData>  {
-    return getGenericPairData(jar, model, 18);
-};
+  async getComethPairData(jar: JarDefinition, model: PickleModel): Promise<IPairData>  {
+    return getLivePairDataFromContracts(jar, model, 18);
+  };
 
-
-  async calculateComethswapLpApr(model: PickleModel, pair: string) {
-    const pairData = await getComethSwapPairData(model, pair);
-    if( pairData ) {
-        const apy =
-        (pairData.dailyVolumeUSD / pairData.reserveUSD) * 0.005 * 360 * 100;
-        return apy;
-    }
-    return 0;
-  }
 }
+async function calculateComethswapLpApr(model: PickleModel, addr: string): Promise<number> {
+  return await new ComethPairManager().calculateLpApr(model, addr);
+}
+

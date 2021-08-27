@@ -1,6 +1,5 @@
 import { PickleModel } from "..";
 import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
-import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
 import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import { PoolId } from "./ProtocolUtil";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -11,9 +10,8 @@ import rewarderAbi from '../Contracts/ABIs/rewarder.json';
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { Contract, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
+import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
-
-export const SUSHI_PAIR_DATA_CACHE_KEY = "sushiswap.pair.data.cache.key";
 
 export const SUSHI_CHEF_ADDR = "0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd";
 export const MASTERCHEFV2_ADDR = "0xef0881ec094552b2e128cf945ef17a6752b4ec5d";
@@ -36,108 +34,78 @@ const sushiPoolIds: PoolId = {
     "0xfCEAAf9792139BF714a694f868A215493461446D": 8,
   };
   
-export async function getSushiSwapPairData(model:PickleModel, pairToken: string): Promise<any> {
-    const result : any = await getOrLoadAllSushiSwapPairDataIntoCache(model);
-    if( result.data.pairDayDatas) {
-        for( let i = 0; i < result.data.pairDayDatas.length; i++ ) {
-            if( result.data.pairDayDatas[i].pair.id === pairToken.toLowerCase()) {
-                return result.data.pairDayDatas[i];
-            }
-        }
+
+
+  const SUSHI_POLY_PAIR_DATA_CACHE_KEY = "sushiswap.poly.pair.data.cache.key";
+  const SUSHI_POLY_PAIR_GRAPH_FIELDS : string[] = [
+    "pair{id}",
+    "reserveUSD",
+    "volumeUSD",
+    "reserve0",
+    "reserve1",
+    "token0{id}",
+    "token1{id}",
+    "totalSupply"
+  ];
+  export class SushiPolyPairManager extends GenericSwapUtility {
+    constructor() {
+      super(SUSHI_POLY_PAIR_DATA_CACHE_KEY, "pair", SUSHI_POLY_PAIR_GRAPH_FIELDS, 
+      AssetProtocol.SUSHISWAP_POLYGON, .0025);
     }
-    return undefined;
-}
 
-
-export async function runSushiswapPairDataQueryOnce(allDepositTokens: string[], graphURL: string) {
-  const asString = "\"" + allDepositTokens.join('\",\"') + "\"";
-
-  const query = `{
-    pairDayDatas(first: ${allDepositTokens.length}, orderBy: date, orderDirection: desc, 
-    where: {
-        pair_in: [${asString}]
+    pairAddressFromDayData(dayData: any): string {
+      return dayData.pair.id;
     }
-    ) {
-      pair{id}
-      reserveUSD
-      volumeUSD
-      reserve0
-      reserve1
-      token0{id}
-      token1{id}
-      totalSupply
-      }
-  }`;
-    return readQueryFromGraph(query, graphURL);
-}
-
-export function findMissingPairDayDatas(allDepositTokens: string[], result: any) : string[] {
-  const missing: string[] = [];
-  for( let i = 0; i < allDepositTokens.length; i++ ) {
-      let found = false;
-      for( let j = 0; j < result.data.pairDayDatas.length; j++ ) {
-          if( result.data.pairDayDatas[j].pair.id === allDepositTokens[i].toLowerCase()) {
-              found = true;
-          }
-      }
-      if( !found ) {
-          missing.push(allDepositTokens[i]);
-      }
+    toExtendedPairData(pair: any): IExtendedPairData {
+      return {
+        pairAddress: pair.id,
+        reserveUSD: pair.reserveUSD,
+        dailyVolumeUSD: pair.volumeUSD,
+        reserve0: pair.reserve0,
+        reserve1: pair.reserve1,
+        token0Id: pair.token0.id,
+        token1Id: pair.token1.id,
+        totalSupply: pair.totalSupply,
+        pricePerToken: pair.reserveUSD / pair.totalSupply
+    }
   }
-  return missing;
 }
-async function loadSushiSwapPairDataIntoCache(model: PickleModel, protocol: AssetProtocol, url: string) {
-  const jars : PickleAsset[] = model.getAllAssets().filter((x)=>x.protocol=== protocol);
-  const allDepositTokens : string[] = jars.map((x)=>x.depositToken.addr.toLowerCase());
 
-  let missing : string[] = [].concat(allDepositTokens);
-  const maxLoops = 3;
-  let result;
-  for( let loop = 0; loop < maxLoops && missing.length > 0; loop++ ) {
-    const tmp = await runSushiswapPairDataQueryOnce(missing, url);
-    if( !result ) {
-        result = tmp;
-    } else {
-        result.data.pairDayDatas = result.data.pairDayDatas.concat(tmp.data.pairDayDatas);
-    }
-    missing = findMissingPairDayDatas(allDepositTokens, result);
+const SUSHI_ETH_PAIR_DATA_CACHE_KEY = "sushiswap.eth.pair.data.cache.key";
+const SUSHI_ETH_PAIR_GRAPH_FIELDS : string[] = [
+  "pairAddress",
+  "reserveUSD",
+  "dailyVolumeUSD",
+  "reserve0",
+  "reserve1",
+  "token0{id}",
+  "token1{id}",
+  "totalSupply",
+];
+export class SushiEthPairManager extends GenericSwapUtility {
+  constructor() {
+    super(SUSHI_ETH_PAIR_DATA_CACHE_KEY, "pairAddress", SUSHI_ETH_PAIR_GRAPH_FIELDS, 
+    AssetProtocol.SUSHISWAP, .0025);
   }
-  return result;
+
+  pairAddressFromDayData(dayData: any): string {
+    return dayData.pairAddress;
+  }
+  toExtendedPairData(pair: any): IExtendedPairData {
+    return {
+      pairAddress: pair.pairAddress,
+      reserveUSD: pair.reserveUSD,
+      dailyVolumeUSD: pair.dailyVolumeUSD,
+      reserve0: pair.reserve0,
+      reserve1: pair.reserve1,
+      token0Id: pair.token0.id,
+      token1Id: pair.token1.id,
+      totalSupply: pair.totalSupply,
+      pricePerToken: pair.reserveUSD / pair.totalSupply
+  }
+}
 }
 
-/**
- * Run graph queries for both mainnet and polygon and group them together
- * @param model 
- * @returns 
- */
-export async function getOrLoadAllSushiSwapPairDataIntoCache(model: PickleModel) : Promise<any> {
-    if( model.resourceCache.get(SUSHI_PAIR_DATA_CACHE_KEY))
-        return model.resourceCache.get(SUSHI_PAIR_DATA_CACHE_KEY);
-    
-    const r1 = await loadSushiSwapPairDataIntoCache(model, AssetProtocol.SUSHISWAP, protocolToSubgraphUrl.get(AssetProtocol.SUSHISWAP));
-    const r2 = await loadSushiSwapPairDataIntoCache(model, AssetProtocol.SUSHISWAP_POLYGON, protocolToSubgraphUrl.get(AssetProtocol.SUSHISWAP_POLYGON));
-    let result;
-    if( r1 && r1.data && r1.data.pairDayDatas) {
-      if( r2?.data?.pairDayDatas ) {
-        result = r1.data.pairDayDatas.concat(r2.data.pairDayDatas);
-      } else {
-        result = r1;
-      }
-    } else {
-      result = r2;
-    }
-
-    model.resourceCache.set(SUSHI_PAIR_DATA_CACHE_KEY, result);
-    return result;
-}
-
-export async function calculateSushiLpApr(lpTokenAddress: string, model: PickleModel) {
-    const pairData = await getSushiSwapPairData(model, lpTokenAddress);
-    if( pairData ) {
-        return (pairData.volumeUSD / pairData.reserveUSD) * 0.0025 * 360 * 100;
-    }
-    return 0;
-}
 
 export async function calculateSushiRewardApr(lpTokenAddress: string, 
     model: PickleModel, resolver : Signer | Provider) : Promise<number> {
@@ -145,7 +113,8 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
     const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
     await multicallProvider.init();
 
-    const pairData = await getSushiSwapPairData(model, lpTokenAddress);
+    
+    const pairData = await new SushiEthPairManager().getPairData(model, lpTokenAddress);
     if( pairData && await model.priceOf("sushi")) {
         const poolId = sushiPoolIds[lpTokenAddress];
         const multicallSushiChef = new MulticallContract(
@@ -173,8 +142,7 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
           sushiRewardsPerBlock * (ONE_YEAR_SECONDS / AVERAGE_BLOCK_TIME);
         const valueRewardedPerYear = await model.priceOf("sushi") * sushiRewardsPerYear;
   
-        const totalValueStaked = pairData.reserveUSD;
-        const sushiAPY = valueRewardedPerYear / totalValueStaked;
+        const sushiAPY = valueRewardedPerYear / pairData.reserveUSD;
         return sushiAPY * 100;
       }
     return 0;
@@ -186,7 +154,6 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
       const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
       await multicallProvider.init();
 
-      const pairData = await getSushiSwapPairData(model, lpTokenAddress);
       const poolId = sushiPoolV2Ids[lpTokenAddress];
       const multicallMasterChefV2 = new MulticallContract(
         MASTERCHEFV2_ADDR,masterChefV2Abi);
@@ -214,7 +181,7 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
       const sushiRewardsPerYear =
       sushiRewardsPerBlock * (ONE_YEAR_SECONDS / AVERAGE_BLOCK_TIME);
       const valueRewardedPerYear = await model.priceOf("sushi") * sushiRewardsPerYear;
-      const pricePerToken = pairData.reserveUSD/pairData.totalSupply;
+      const pricePerToken = await model.priceOf(lpTokenAddress);
       const totalValueStaked = supplyInRewarder * pricePerToken;
       const sushiAPY = valueRewardedPerYear / totalValueStaked;
       return sushiAPY * 100;
@@ -233,7 +200,6 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
       const supplyInMasterChefBN = await lpToken.balanceOf(MASTERCHEFV2_ADDR);
       const supplyInMasterChef = parseFloat(formatEther(supplyInMasterChefBN));
 
-      const pairData = await getSushiSwapPairData(model, lpTokenAddress);
 
       // TODO clean this mess up
       let rewardsPerYear = 0;
@@ -253,7 +219,7 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
       }
       const valueRewardedPerYear = await model.priceOf(rewardToken) * rewardsPerYear;
 
-      const pricePerToken = pairData.reserveUSD/pairData.totalSupply;
+      const pricePerToken = await model.priceOf(lpTokenAddress);
       const totalValueStaked = pricePerToken * supplyInMasterChef;
       const rewardAPR = valueRewardedPerYear / totalValueStaked;
       
