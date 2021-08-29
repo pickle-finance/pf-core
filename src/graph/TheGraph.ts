@@ -29,7 +29,12 @@ export async function readQueryFromGraph(query:string, url: string) : Promise<an
         method: "POST",
         body: JSON.stringify({ query })
       });
-    return tst.json();
+    try {
+      return tst.json();
+    } catch(error) {
+      console.log(error);
+      console.log(tst);
+    }
 }
 
 

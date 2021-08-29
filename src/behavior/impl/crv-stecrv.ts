@@ -61,7 +61,7 @@ export class SteCrv extends AbstractJarBehavior {
 
   async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
     const resolver : Provider | Signer = Chains.get(definition.chain).getPreferredWeb3Provider();
-    const curveAPY = (await fetch(
+    const curveFetched = await fetch(
       "https://cors.bridged.cc/https://www.convexfinance.com/api/curve-apys",
       {
         method: "GET",
@@ -69,7 +69,9 @@ export class SteCrv extends AbstractJarBehavior {
           "X-Requested-With": "XMLHttpRequest"
         },
       },
-    ).then((x) => x.json()))?.apys;
+    )
+    const asJson = await curveFetched.json();
+    const curveAPY = asJson.apys;
     
     // Component 1
     const multicallProvider = new MulticallProvider(resolver);

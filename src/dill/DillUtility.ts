@@ -26,7 +26,6 @@ export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
   let runningRevenue = 0;
   for( let i = 0; i < enabledJars.length; i++ ) {
     if( enabledJars[i].aprStats && enabledJars[i].details.harvestStats) {
-      console.log(enabledJars[i].id + ":  " + enabledJars[i].depositToken.name)
       const balance = enabledJars[i].details.harvestStats.balanceUSD;
       const components = enabledJars[i].aprStats.components;
       let jarUSD : number = 0;
@@ -35,16 +34,14 @@ export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
           // We already took 20% off the compoundables, 
           // so to get our fee, it's 25% of what remains
           const apr1 = components[j].apr / 100;
-          const yearlyRevPct = apr1 * 0.25;
+          // aprs are 360 days. convert to 365 days for more accurate weekly
+          const yearlyRevPct = apr1 * 0.25 * 365 / 360;
           const weeklyRevPct = yearlyRevPct/52;
           const weeklyFee = weeklyRevPct * balance;
           const jarComponentUSD = weeklyFee;
-          console.log("apr: " + apr1 + ", yearly: " + yearlyRevPct + ", weeklyRevPct: " + weeklyRevPct 
-          + " * balance " + balance + " = " + jarComponentUSD);
           jarUSD += jarComponentUSD;
         }
       }
-      console.log("jar total: "+ jarUSD);
       runningRevenue += jarUSD;
     }
   }

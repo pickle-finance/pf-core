@@ -45,6 +45,9 @@ export abstract class GenericSwapUtility {
 
     findMissingPairDayDatas(allDepositTokens: string[], result: any) : string[] {
         const missing: string[] = [];
+        if( !result || !result.data || !result.data.pairDayDatas) 
+            return allDepositTokens;
+
         for( let i = 0; i < allDepositTokens.length; i++ ) {
             let found = false;
             for( let j = 0; j < result.data.pairDayDatas.length; j++ ) {
@@ -73,10 +76,14 @@ export abstract class GenericSwapUtility {
         let result;
         for( let loop = 0; loop < maxLoops && missing.length > 0; loop++ ) {
             const tmp = await this.runPairDataQueryOnce(missing);
-            if( !result ) {
+
+            if( !result && tmp && tmp.data && tmp.data.pairDayDatas) {
                 result = tmp;
-            } else {
-                result.data.pairDayDatas = result.data.pairDayDatas.concat(tmp.data.pairDayDatas);
+            } else if( result ) {
+                if( result && result.data && result.data.pairDayDatas 
+                    && tmp && tmp.data && tmp.data.pairDayDatas ) {
+                    result.data.pairDayDatas = result.data.pairDayDatas.concat(tmp.data.pairDayDatas);
+                }
             }
             missing = this.findMissingPairDayDatas(allDepositTokens, result);
         }
