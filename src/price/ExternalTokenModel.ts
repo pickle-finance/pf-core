@@ -15,7 +15,7 @@ export class ExternalToken {
     decimals: number;
     fetchType: ExternalTokenFetchStyle;
     constructor(chain: ChainNetwork, id: string, cgid: string, addr: string, 
-        style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH, dec = 18) {
+        dec = 18, style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH) {
         this.chain = chain;
         this.id = id;
         this.coingeckoId = cgid;
@@ -39,16 +39,16 @@ export class ExternalTokenModel {
         this.etherTokens.set("susd", new ExternalToken(ChainNetwork.Ethereum, "susd", "nusd", "0x57ab1ec28d129707052df4df418d58a2d46d5f51".toLowerCase()));
         this.etherTokens.set("crv", new ExternalToken(ChainNetwork.Ethereum, "crv", "curve-dao-token", "0xD533a949740bb3306d119CC777fa900bA034cd52".toLowerCase()));
         this.etherTokens.set("weth", new ExternalToken(ChainNetwork.Ethereum, "weth", "weth", "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2".toLowerCase()));
-        this.etherTokens.set("wbtc", new ExternalToken(ChainNetwork.Ethereum, "wbtc", "wrapped-bitcoin", "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599".toLowerCase()));
+        this.etherTokens.set("wbtc", new ExternalToken(ChainNetwork.Ethereum, "wbtc", "wrapped-bitcoin", "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599".toLowerCase(),8));
         this.etherTokens.set("yfi", new ExternalToken(ChainNetwork.Ethereum, "yfi", "yearn-finance", "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase()));
         this.etherTokens.set("bac", new ExternalToken(ChainNetwork.Ethereum, "bac", "basis-cash", "0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a".toLowerCase()));
-        this.etherTokens.set("mic", new ExternalToken(ChainNetwork.Ethereum, "mic", "mith-cash", "0x368b3a58b5f49392e5c9e4c998cb0bb966752e51".toLowerCase(), ExternalTokenFetchStyle.NONE));
-        this.etherTokens.set("mis", new ExternalToken(ChainNetwork.Ethereum, "mis", "mithril-share", "0x4b4d2e899658fb59b1d518b68fe836b100ee8958".toLowerCase(), ExternalTokenFetchStyle.NONE));
+        this.etherTokens.set("mic", new ExternalToken(ChainNetwork.Ethereum, "mic", "mith-cash", "0x368b3a58b5f49392e5c9e4c998cb0bb966752e51".toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
+        this.etherTokens.set("mis", new ExternalToken(ChainNetwork.Ethereum, "mis", "mithril-share", "0x4b4d2e899658fb59b1d518b68fe836b100ee8958".toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
         this.etherTokens.set("ldo", new ExternalToken(ChainNetwork.Ethereum, "ldo", "lido-dao", "0x5a98fcbea516cf06857215779fd812ca3bef1b32".toLowerCase()));
         this.etherTokens.set("yvecrv", new ExternalToken(ChainNetwork.Ethereum, "yvecrv", "vecrv-dao-yvault", "0xc5bddf9843308380375a611c18b50fb9341f502a".toLowerCase()));
         this.etherTokens.set("bas", new ExternalToken(ChainNetwork.Ethereum, "bas", "basis-share", "0x106538cc16f938776c7c180186975bca23875287".toLowerCase()));
         this.etherTokens.set("mir", new ExternalToken(ChainNetwork.Ethereum, "mir", "mirror-protocol", "0x09a3ecafa817268f77be1283176b946c4ff2e608".toLowerCase()));
-        this.etherTokens.set("ust", new ExternalToken(ChainNetwork.Ethereum, "ust", "terrausd", "0xa47c8bf37f92abed4a126bda807a7b7498661acd".toLowerCase(),ExternalTokenFetchStyle.ID));
+        this.etherTokens.set("ust", new ExternalToken(ChainNetwork.Ethereum, "ust", "terrausd", "0xa47c8bf37f92abed4a126bda807a7b7498661acd".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         this.etherTokens.set("mtsla", new ExternalToken(ChainNetwork.Ethereum, "mtsla", "mirrored-tesla", "0x21ca39943e91d704678f5d00b6616650f066fd63".toLowerCase()));
         this.etherTokens.set("maapl", new ExternalToken(ChainNetwork.Ethereum, "maapl", "mirrored-apple", "0xd36932143f6ebdedd872d5fb0651f4b72fd15a84".toLowerCase()));
         this.etherTokens.set("mqqq", new ExternalToken(ChainNetwork.Ethereum, "mqqq", "mirrored-invesco-qqq-trust", "0x13b02c8de71680e71f0820c996e4be43c2f57d15".toLowerCase()));
@@ -77,19 +77,19 @@ export class ExternalTokenModel {
         this.polyTokens.set("usdc", new ExternalToken(ChainNetwork.Polygon, "usdc", "usd-coin", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 6));
         this.polyTokens.set("weth", new ExternalToken(ChainNetwork.Polygon, "weth", "weth", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase()));
         this.polyTokens.set("dai", new ExternalToken(ChainNetwork.Polygon, "dai", "dai", "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase()));
-        this.polyTokens.set("must", new ExternalToken(ChainNetwork.Polygon, "must", "must", "0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("pickle", new ExternalToken(ChainNetwork.Polygon, "pickle", "pickle-finance", "0x2b88ad57897a8b496595925f43048301c37615da".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("matic", new ExternalToken(ChainNetwork.Polygon, "matic", "matic-network", "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase(), ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("must", new ExternalToken(ChainNetwork.Polygon, "must", "must", "0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("pickle", new ExternalToken(ChainNetwork.Polygon, "pickle", "pickle-finance", "0x2b88ad57897a8b496595925f43048301c37615da".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("matic", new ExternalToken(ChainNetwork.Polygon, "matic", "matic-network", "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         this.polyTokens.set("sushi", new ExternalToken(ChainNetwork.Polygon, "sushi", "sushi", "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a".toLowerCase()));
         this.polyTokens.set("usdt", new ExternalToken(ChainNetwork.Polygon, "usdt", "tether", "0xc2132d05d31c914a87c6611c10748aeb04b58e8f".toLowerCase()));
-        this.polyTokens.set("mimatic", new ExternalToken(ChainNetwork.Polygon, "mimatic", "mimatic", "0xa3fa99a148fa48d14ed51d610c367c61876997f1".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("qi", new ExternalToken(ChainNetwork.Polygon, "qi", "qi-dao", "0x580a84c73811e1839f75d86d75d88cca0c241ff4".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("mweth", new ExternalToken(ChainNetwork.Polygon, "mweth", "weth", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("musdt", new ExternalToken(ChainNetwork.Polygon, "musdt", "usdt", "0xc2132D05D31c914a87C6611C10748AEb04B58e8F".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("musdc", new ExternalToken(ChainNetwork.Polygon, "musdc", "usdc", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("crv", new ExternalToken(ChainNetwork.Polygon, "crv", "curve-dao-token", "0x172370d5cd63279efa6d502dab29171933a610af".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("dino", new ExternalToken(ChainNetwork.Polygon, "dino", "dinoswap", "0xAa9654BECca45B5BDFA5ac646c939C62b527D394".toLowerCase(), ExternalTokenFetchStyle.ID));
-        this.polyTokens.set("iron", new ExternalToken(ChainNetwork.Polygon, "ice", "iron-finance", "0x4a81f8796e0c6ad4877a51c86693b0de8093f2ef".toLowerCase(), ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("mimatic", new ExternalToken(ChainNetwork.Polygon, "mimatic", "mimatic", "0xa3fa99a148fa48d14ed51d610c367c61876997f1".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("qi", new ExternalToken(ChainNetwork.Polygon, "qi", "qi-dao", "0x580a84c73811e1839f75d86d75d88cca0c241ff4".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("mweth", new ExternalToken(ChainNetwork.Polygon, "mweth", "weth", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("musdt", new ExternalToken(ChainNetwork.Polygon, "musdt", "usdt", "0xc2132D05D31c914a87C6611C10748AEb04B58e8F".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("musdc", new ExternalToken(ChainNetwork.Polygon, "musdc", "usdc", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("crv", new ExternalToken(ChainNetwork.Polygon, "crv", "curve-dao-token", "0x172370d5cd63279efa6d502dab29171933a610af".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("dino", new ExternalToken(ChainNetwork.Polygon, "dino", "dinoswap", "0xAa9654BECca45B5BDFA5ac646c939C62b527D394".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        this.polyTokens.set("iron", new ExternalToken(ChainNetwork.Polygon, "ice", "iron-finance", "0x4a81f8796e0c6ad4877a51c86693b0de8093f2ef".toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         
 
         // Make the reverse map to fascilitate contract lookups

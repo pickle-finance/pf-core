@@ -1,4 +1,4 @@
-import { AssetEnablement, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -386,19 +386,26 @@ export class PickleModel {
         const available = await multicallProvider2.all<BigNumber[]>(
         jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
     
+        const harvestArr: Promise<JarHarvestData>[] = [];
         const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
         for( let i = 0; i < jars.length; i++ ) {
             try {
                 const resolver = Chains.getResolver(jars[i].chain);
                 const harvestResolver : JarBehavior = discovery.findAssetBehavior(jars[i]);
                 if( harvestResolver !== undefined && harvestResolver !== null ) {
-                    const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this, 
-                        balanceOf[i], available[i], resolver);
-                    jars[i].details.harvestStats = harvestData?.stats;
+                    harvestArr.push(harvestResolver.getJarHarvestData(jars[i], this, 
+                        balanceOf[i], available[i], resolver));
+                    //const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this, 
+                    //    balanceOf[i], available[i], resolver);
+                    //jars[i].details.harvestStats = harvestData?.stats;
                 }
             } catch( e ) {
                 console.log("Error loading harvest data for jar " + jars[i].id + ":  " + e);
             }
+        }
+        const results: JarHarvestData[] = await Promise.all(harvestArr);
+        for( let j = 0; j < jars.length; j++ ) {
+            jars[j].details.harvestStats = results[j]?.stats;
         }
     }
 
@@ -450,16 +457,16 @@ export class PickleModel {
     }
 
     async loadApyComponents() {
-        for( let i = 0; i < this.allAssets.length; i++ ) {
-            const asset : PickleAsset = this.allAssets[i];
-            const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
-            const beh : JarBehavior = discovery.findAssetBehavior(asset);
-            if( beh !== undefined ) {
-                const ret = await beh.getProjectedAprStats(asset as JarDefinition, this);
-                if( ret ) {
-                    this.allAssets[i].aprStats = ret;
-                }
-            }
+        const withBehaviors : PickleAsset[] = 
+            this.allAssets.filter((x)=>new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined);
+        const aprStats: AssetProjectedApr[] = await Promise.all(
+            withBehaviors.map(async (x) => {
+                return new JarBehaviorDiscovery().findAssetBehavior(x)
+                        .getProjectedAprStats(x as JarDefinition, this);
+            })
+        );
+        for( let i = 0; i < withBehaviors.length; i++ ) {
+            withBehaviors[i].aprStats = aprStats[i];
         }
     }
     findAsset(id: string) : PickleAsset {
