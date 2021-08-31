@@ -1,6 +1,9 @@
 import { ethers } from "ethers";
 import { JarDefinition } from "../model/PickleModelJson";
 
+/**
+ * This file is not used currently. Might be deleted. 
+ */
 export const CURRENT = 0;
 export const ONE_DAY = 48;
 export const THREE_DAYS = ONE_DAY * 3;

@@ -1,4 +1,4 @@
-import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV } from "../model/JarsAndFarms";
+import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV, JAR_CRV_IB } from "../model/JarsAndFarms";
 import { PickleModel } from "../model/PickleModel";
 import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import { ComethPairManager } from "../protocols/ComethUtil";
@@ -94,7 +94,9 @@ export class DepositTokenPriceResolver implements IPriceResolver {
         if( protocol === AssetProtocol.YEARN ) {
             if( token === JAR_USDC.depositToken.addr) {
                 return this.getContractPrice(token, model)
-            } else if( token === JAR_lusdCRV.depositToken.addr || token === JAR_fraxCRV.depositToken.addr ) {
+            } else if( token === JAR_lusdCRV.depositToken.addr || 
+                token === JAR_fraxCRV.depositToken.addr ||
+                token === JAR_CRV_IB.depositToken.addr ) {
                 return 1;
             }
         } else if( protocol === AssetProtocol.SADDLE ) {

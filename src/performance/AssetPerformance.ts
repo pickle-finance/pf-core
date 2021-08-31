@@ -25,7 +25,7 @@ export interface JarFarmPerformanceData {
     thirtyDayFarm: number,
 }
 
-// TODO: handle 3 / 7 / 30 days, handle liqduidity edge case more gracefully
+// Unused
 export async function getProtocolPerformance(asset: JarDefinition) : Promise<PerformanceData> {
     if( !asset.protocol )
         return undefined;

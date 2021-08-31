@@ -8,7 +8,7 @@ import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_
      JAR_3CRV, JAR_steCRV, JAR_renCRV, JAR_AAVEDAI, JAR_POLY_SUSHI_MATIC_ETH, JAR_POLY_SUSHI_ETH_USDT,
       JAR_COMETH_USDC_WETH, JAR_COMETH_PICKLE_MUST, JAR_COMETH_MATIC_MUST, JAR_QUICK_MIMATIC_USDC, 
       JAR_fraxCRV, JAR_USDC, JAR_lusdCRV, JAR_AM3CRV, JAR_sCRV, JAR_MIM3CRV, JAR_SPELLETH, JAR_MIMETH, JAR_FOXETH, 
-    JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD, JAR_SUSHI_ETH_TRU } from "../model/JarsAndFarms";
+    JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD, JAR_SUSHI_ETH_TRU, JAR_CRV_IB } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
 import { JarBehavior } from './JarBehaviorResolver';
@@ -53,6 +53,7 @@ import { SlpYvboostEth } from './impl/slp-yvboost-eth';
 import { SlpYvecrvEth } from './impl/slp-yvecrv-eth';
 import { SpellEth } from './impl/spell-eth';
 import { PickleModel } from '../model/PickleModel';
+import { YearnJar } from './impl/yearn-jar';
 
 export class noOpJarBehavior extends AbstractJarBehavior {
     async getHarvestableUSD( _jar: JarDefinition, _model: PickleModel, _resolver: Signer | Provider): Promise<number> {
@@ -88,11 +89,13 @@ jarToBehavior.set( JAR_FOXETH.id, new FoxEth());
 jarToBehavior.set( JAR_UNIV2_FEI_TRIBE.id, new FeiTribe());
 jarToBehavior.set( JAR_LQTY.id, new pLqty());
 jarToBehavior.set( JAR_SADDLE_D4.id, new SaddleD4());
+jarToBehavior.set( JAR_USDC.id, new YearnJar());
+jarToBehavior.set( JAR_lusdCRV.id, new YearnJar());
+jarToBehavior.set( JAR_fraxCRV.id, new YearnJar());
+jarToBehavior.set( JAR_CRV_IB.id, new YearnJar());
+
 
 // deprecated
-jarToBehavior.set( JAR_USDC.id, new noOpJarBehavior());
-jarToBehavior.set( JAR_lusdCRV.id, new noOpJarBehavior());
-jarToBehavior.set( JAR_fraxCRV.id, new noOpJarBehavior());
 jarToBehavior.set( JAR_sCRV.id, new noOpJarBehavior());
 
 

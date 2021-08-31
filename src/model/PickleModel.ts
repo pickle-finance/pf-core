@@ -29,6 +29,7 @@ export class PickleModel {
     resourceCache: Map<string, any>;
 
     constructor( allAssets: PickleAsset[], etherResolver: Signer|Provider, polygonResolver: Signer|Provider) {
+        // Make a copy so the original definitions stay unchanged. 
         this.allAssets = JSON.parse(JSON.stringify(allAssets));
         this.initializeChains(etherResolver, polygonResolver);
         this.initializePriceCache();
@@ -69,17 +70,16 @@ export class PickleModel {
     async priceOf(token: string) : Promise<number> {
         return this.prices.priceOf(token);
     }
+    providerFor(network: ChainNetwork) : Provider {
+        return Chains.get(network).getPreferredWeb3Provider();
+    }
     async generateFullApi() : Promise<PickleModelJson> {
         await this.ensurePriceCacheLoaded();
         await this.ensureStrategyDataLoaded();
         await this.ensureRatiosLoaded();
 
-        // load protocol-specific data
-        //await getOrLoadAllSushiSwapPairDataIntoCache(this);
-
         await this.ensureDepositTokenPriceLoaded();
         await this.ensureHarvestDataLoaded();
-        //await this.ensureHistoricalApyLoaded();
 
         await this.ensureStandaloneFarmsBalanceLoaded();
         await this.ensureExternalAssetBalanceLoaded();

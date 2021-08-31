@@ -34,6 +34,10 @@ export class PriceCache {
   }
 
   async priceOf(token: string) : Promise<number> {
+    if( this.cache.get(token)) {
+      return this.cache.get(token);
+    }
+    
     let keys: string[] = [].concat(Array.from( this.resolverMap.keys()));
     for( let i = 0; i < keys.length; i++ ) {
       const map : Map<string,number> = await this.getPrices([token], keys[i]);

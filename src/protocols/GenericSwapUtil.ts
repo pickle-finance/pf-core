@@ -1,11 +1,6 @@
 import { PickleModel } from "..";
-import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
-import { BigNumber, Contract, ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { formatEther } from "ethers/lib/utils";
-import { AssetProtocol, JarDefinition, PickleAsset } from "../model/PickleModelJson";
-import stakingRewardsAbi from '../Contracts/ABIs/staking-rewards.json';
+import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
 import { Chains } from "../chain/Chains";
