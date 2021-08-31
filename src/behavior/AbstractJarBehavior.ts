@@ -2,7 +2,7 @@ import { RESOLVER_DEPOSIT_TOKEN } from '../price/PriceCache';
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../model/PickleModelJson';
-import { JarBehavior, JarHarvestData } from './JarBehaviorResolver';
+import { JarBehavior, JarHarvestStats } from './JarBehaviorResolver';
 import { PickleModel } from '../model/PickleModel';
 
 export const ONE_YEAR_IN_SECONDS : number = 360*24*60*60
@@ -56,8 +56,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
             compoundable: compoundable
         };
     }
-    async getJarHarvestData(definition: JarDefinition, model: PickleModel,
-        balance: BigNumber, available: BigNumber, resolver: Signer | Provider): Promise<JarHarvestData> {
+    async getAssetHarvestData(definition: JarDefinition, model: PickleModel,
+        balance: BigNumber, available: BigNumber, resolver: Signer | Provider): Promise<JarHarvestStats> {
 
         const balanceWithAvailable = balance.add(available);
         const depositTokenDecimals = (definition.depositToken.decimals ? definition.depositToken.decimals : 18);
@@ -67,15 +67,9 @@ export abstract class AbstractJarBehavior implements JarBehavior {
 
         const harvestableUSD: number = await this.getHarvestableUSD(definition, model, resolver);
         return {
-            name: definition.id,
-            jarAddr: definition.contract,
-            strategyName: definition.details.strategyName,
-            strategyAddr: definition.details.strategyAddr,
-            stats: {
-                balanceUSD: balanceUSD,
-                earnableUSD: availUSD,
-                harvestableUSD: harvestableUSD
-            }
+            balanceUSD: balanceUSD,
+            earnableUSD: availUSD,
+            harvestableUSD: harvestableUSD
         };
     }
     abstract getHarvestableUSD(jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number>;

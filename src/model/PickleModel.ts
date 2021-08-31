@@ -15,7 +15,7 @@ import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
 import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
 import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
-import { JarBehavior, JarHarvestData } from "../behavior/JarBehaviorResolver";
+import { ActiveJarHarvestStats, JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -386,26 +386,23 @@ export class PickleModel {
         const available = await multicallProvider2.all<BigNumber[]>(
         jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
     
-        const harvestArr: Promise<JarHarvestData>[] = [];
+        const harvestArr: Promise<JarHarvestStats>[] = [];
         const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
         for( let i = 0; i < jars.length; i++ ) {
             try {
                 const resolver = Chains.getResolver(jars[i].chain);
                 const harvestResolver : JarBehavior = discovery.findAssetBehavior(jars[i]);
                 if( harvestResolver !== undefined && harvestResolver !== null ) {
-                    harvestArr.push(harvestResolver.getJarHarvestData(jars[i], this, 
+                    harvestArr.push(harvestResolver.getAssetHarvestData(jars[i], this, 
                         balanceOf[i], available[i], resolver));
-                    //const harvestData : JarHarvestData = await harvestResolver.getJarHarvestData(jars[i], this, 
-                    //    balanceOf[i], available[i], resolver);
-                    //jars[i].details.harvestStats = harvestData?.stats;
                 }
             } catch( e ) {
                 console.log("Error loading harvest data for jar " + jars[i].id + ":  " + e);
             }
         }
-        const results: JarHarvestData[] = await Promise.all(harvestArr);
+        const results: JarHarvestStats[] = await Promise.all(harvestArr);
         for( let j = 0; j < jars.length; j++ ) {
-            jars[j].details.harvestStats = results[j]?.stats;
+            jars[j].details.harvestStats = results[j];
         }
     }
 

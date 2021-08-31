@@ -22,22 +22,16 @@ export interface JarHarvestStats {
     currentLeverage: number;
   }
 
-  export interface JarHarvestData {
-      name: string,
-      jarAddr: string,
-      strategyName: string,
-      strategyAddr: string,
-      stats: JarHarvestStats | ActiveJarHarvestStats
-  }
-
-  export interface JarBehavior {
+  export interface AssetBehavior {
     getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr>;
 
     getDepositTokenPrice(definition: JarDefinition, model: PickleModel): Promise<number>;
     
-    getJarHarvestData(definition: JarDefinition, model: PickleModel, 
+    getAssetHarvestData(definition: JarDefinition, model: PickleModel, 
       balance: BigNumber, available: BigNumber,
-      resolver: Signer | Provider) : Promise<JarHarvestData>;
+      resolver: Signer | Provider) : Promise<JarHarvestStats>;
+  }
+  export interface JarBehavior extends AssetBehavior {
   }
 
 
