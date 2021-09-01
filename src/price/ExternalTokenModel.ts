@@ -125,11 +125,19 @@ export class ExternalTokenModel {
     }
 
     getToken(id: string, chain: ChainNetwork) : ExternalToken {
-        if( chain === ChainNetwork.Ethereum )
-            return this.etherTokens.get(id);
-        if( chain === ChainNetwork.Polygon )
-            return this.polyTokens.get(id);
-        return null;
+        let ret : ExternalToken;
+        if( chain === ChainNetwork.Ethereum ) {
+            ret = this.etherTokens.get(id);
+        } else if( chain === ChainNetwork.Polygon ) {
+            ret = this.polyTokens.get(id);
+        } 
+        if( ret === undefined ) {
+            // Search by contract
+            if( id.toLowerCase().startsWith("0x")) {
+                ret = this.findTokenFromContract(id);
+            }
+        }
+        return ret ? ret : null;
     }
 
     getTokens(chain: ChainNetwork) : ExternalToken[] {

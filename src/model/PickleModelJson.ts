@@ -43,6 +43,7 @@ export interface DepositToken {
     name: string,
     link: string,
     decimals?: number,
+    totalSupply?: number,
     components?: string[],
     price?: number
 }
@@ -87,6 +88,7 @@ export interface JarDetails {
     strategyName?: string,
     strategyAddr?: string,
     ratio?: number,
+    totalSupply?: number,
     harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
     historicalApy?: HistoricalAPY,
 }

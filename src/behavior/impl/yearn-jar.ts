@@ -1,11 +1,8 @@
-import { BigNumber, ethers, Signer } from 'ethers';
+import { Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
+import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { ChainNetwork, Chains } from '../../chain/Chains';
 import { PickleModel } from '../../model/PickleModel';
-import { calculateMCv2SushiRewards, calculateMCv2TokenRewards, calculateSushiRewardApr, SushiEthPairManager } from '../../protocols/SushiSwapUtil';
 import { calculateYearnAPY } from '../../protocols/YearnUtil';
 
 export class YearnJar extends AbstractJarBehavior {
