@@ -16,6 +16,7 @@ import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
 import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { ActiveJarHarvestStats, JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
+import { getPBammBalance, PBammAsset } from "../behavior/impl/pbamm";
 
 export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
 export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
@@ -246,7 +247,6 @@ export class PickleModel {
             const needle = externalNotPermDisabled[i].depositToken.addr;
             externalNotPermDisabled[i].depositToken.price = externalResults.get(needle);
         }
-
     }
 
     async loadRatiosData(jars: JarDefinition[]) {
@@ -429,26 +429,9 @@ export class PickleModel {
         const external : ExternalAssetDefinition[] = this.getExternalAssets();
         for( let i = 0; i < external.length; i++ ) {
             if( external[i].id === ASSET_PBAMM.id) {
-                const stabilityPoolAddr = "0x66017D22b0f8556afDd19FC67041899Eb65a21bb";
-                const pBAMM = "0x54bC9113f1f55cdBDf221daf798dc73614f6D972";
-                const pLQTY = "0x65B2532474f717D5A8ba38078B78106D56118bbb";
-
-                // 1) how many lusd in stability pool for us
-                const stabilityPoolContract = new ethers.Contract(stabilityPoolAddr,
-                stabilityPool, Chains.getResolver(external[i].chain));
-                const lusdInStabilityPool = await stabilityPoolContract.getCompoundedLUSDDeposit(pBAMM);
-                const lusdPrice = await this.prices.getPrice("lusd", RESOLVER_COINGECKO);
-                const lusdValue = parseFloat(ethers.utils.formatEther(lusdInStabilityPool)) * lusdPrice;
-          
-
-                const pLqtyContract = new ethers.Contract(pLQTY,
-                    erc20Abi, Chains.getResolver(external[i].chain));
-                const pLqtyTokens = await pLqtyContract.balanceOf(pBAMM);
-                const lqtyPrice = await this.prices.getPrice("lqty", RESOLVER_COINGECKO);
-                const ratio = (this.findAsset(JAR_LQTY.id) as JarDefinition).details.ratio;
-                const lqtyValue = parseFloat(ethers.utils.formatEther(pLqtyTokens)) * lqtyPrice * ratio;
-
-                external[i].details.valueBalance = lusdValue + lqtyValue;
+                const asset = new PBammAsset();
+                const bal = await asset.getAssetHarvestData(external[i], this, null, null, null);
+                external[i].details.harvestStats = bal;
             }
         }
     }

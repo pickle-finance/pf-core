@@ -102,7 +102,7 @@ export interface FarmDetails {
 
 export interface ExternalDetails {
     apiKey?: string,
-    valueBalance?: number,
+    harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
     includeInTvl?: boolean,
 }
 

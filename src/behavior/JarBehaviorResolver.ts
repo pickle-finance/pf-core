@@ -1,6 +1,6 @@
 import { BigNumber, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { AssetProjectedApr, JarDefinition } from '../model/PickleModelJson';
+import { AssetProjectedApr, ExternalAssetDefinition, JarDefinition, PickleAsset } from '../model/PickleModelJson';
 import { PickleModel } from '..';
 
 export const ONE_YEAR_SECONDS = 360*24*60*60;
@@ -22,16 +22,18 @@ export interface JarHarvestStats {
     currentLeverage: number;
   }
 
-  export interface AssetBehavior {
-    getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr>;
+  export interface AssetBehavior<T extends PickleAsset> {
+    getProjectedAprStats(definition: T, model: PickleModel) : Promise<AssetProjectedApr>;
 
-    getDepositTokenPrice(definition: JarDefinition, model: PickleModel): Promise<number>;
+    getDepositTokenPrice(definition: T, model: PickleModel): Promise<number>;
     
-    getAssetHarvestData(definition: JarDefinition, model: PickleModel, 
+    getAssetHarvestData(definition: T, model: PickleModel, 
       balance: BigNumber, available: BigNumber,
       resolver: Signer | Provider) : Promise<JarHarvestStats>;
   }
-  export interface JarBehavior extends AssetBehavior {
+  export interface JarBehavior extends AssetBehavior<JarDefinition> {
+  }
+  export interface ExternalAssetBehavior extends AssetBehavior<ExternalAssetDefinition> {
   }
 
 
