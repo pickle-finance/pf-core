@@ -31,31 +31,13 @@ export abstract class AbstractJarBehavior implements JarBehavior {
      * you require custom logic. 
      */
     aprComponentsToProjectedApr(components: AssetAprComponent[]) : AssetProjectedApr {
-        let compoundableApr = 0;
-        let nonCompoundableApr = 0;
-        for( let i = 0; i < components.length; i++ ) {
-            if( components[i].compoundable ) {
-                compoundableApr += components[i].apr;
-            } else {
-                nonCompoundableApr += components[i].apr;
-            }
-        }
-        let totalApr = compoundableApr + nonCompoundableApr;
-        let totalApy = getCompoundingAPY(compoundableApr/100) + nonCompoundableApr;
-        return {
-          components: components, 
-          apr: totalApr,
-          apy: totalApy
-        }
+        return aprComponentsToProjectedAprImpl(components);
     }
 
     createAprComponent(id: string, aprPreFee: number, compoundable: boolean) : AssetAprComponent {
-        return {
-            name: id,
-            apr: compoundable ? aprPreFee * 0.8 : aprPreFee,
-            compoundable: compoundable
-        };
+        return createAprComponentImpl(id, aprPreFee, compoundable);
     }
+
     async getAssetHarvestData(definition: JarDefinition, model: PickleModel,
         balance: BigNumber, available: BigNumber, resolver: Signer | Provider): Promise<JarHarvestStats> {
 
@@ -75,6 +57,42 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     abstract getHarvestableUSD(jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number>;
 }
 
+
+
+    /**
+     * All apr components should arrive with percentages as apr values, 
+     * so for example an APR of 50% should arrive as "50" and not "0.50"
+     * 
+     * All components should arrive post-fee (if applicable). 
+     * It's best to use  `createAprComponent` for this purpose unless
+     * you require custom logic. 
+     */
+     export function aprComponentsToProjectedAprImpl(components: AssetAprComponent[]) : AssetProjectedApr {
+        let compoundableApr = 0;
+        let nonCompoundableApr = 0;
+        for( let i = 0; i < components.length; i++ ) {
+            if( components[i].compoundable ) {
+                compoundableApr += components[i].apr;
+            } else {
+                nonCompoundableApr += components[i].apr;
+            }
+        }
+        let totalApr = compoundableApr + nonCompoundableApr;
+        let totalApy = getCompoundingAPY(compoundableApr/100) + nonCompoundableApr;
+        return {
+          components: components, 
+          apr: totalApr,
+          apy: totalApy
+        }
+    }
+
+    export function createAprComponentImpl(id: string, aprPreFee: number, compoundable: boolean) : AssetAprComponent {
+        return {
+            name: id,
+            apr: compoundable ? aprPreFee * 0.8 : aprPreFee,
+            compoundable: compoundable
+        };
+    }
 
 // TODO move to math utility or something?
 export function getCompoundingAPY(apr: number) {

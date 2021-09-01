@@ -71,6 +71,9 @@ export class PickleModel {
     async priceOf(token: string) : Promise<number> {
         return this.prices.priceOf(token);
     }
+    priceOfSync(token: string) : number {
+        return this.prices.get(token);
+    }
     providerFor(network: ChainNetwork) : Provider {
         return Chains.get(network).getPreferredWeb3Provider();
     }
@@ -432,6 +435,9 @@ export class PickleModel {
                 const asset = new PBammAsset();
                 const bal = await asset.getAssetHarvestData(external[i], this, null, null, null);
                 external[i].details.harvestStats = bal;
+
+                const aprStats = await asset.getProjectedAprStats(external[i], this);
+                external[i].aprStats = aprStats;
             }
         }
     }

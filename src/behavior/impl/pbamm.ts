@@ -6,18 +6,39 @@ import { PickleModel } from "../..";
 import { Chains } from "../../chain/Chains";
 import { JAR_LQTY } from "../../model/JarsAndFarms";
 import { JarDefinition, AssetProjectedApr, PickleAsset, ExternalAssetDefinition } from "../../model/PickleModelJson";
-import { RESOLVER_COINGECKO } from "../../price/PriceCache";
-import { ExternalAssetBehavior, JarBehavior, JarHarvestStats } from "../JarBehaviorResolver";
+import { ExternalAssetBehavior, JarHarvestStats } from "../JarBehaviorResolver";
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import stabilityPool from '../../Contracts/ABIs/stability-pool.json';
+import { formatEther } from "ethers/lib/utils";
+import { getOrLoadYearnDataFromDune } from "../../protocols/DuneDataUtility";
+import { aprComponentsToProjectedAprImpl, createAprComponentImpl } from "../AbstractJarBehavior";
 
 const stabilityPoolAddr = "0x66017D22b0f8556afDd19FC67041899Eb65a21bb";
 const pBAMM = "0x54bC9113f1f55cdBDf221daf798dc73614f6D972";
 const pLQTY = "0x65B2532474f717D5A8ba38078B78106D56118bbb";
 
 export class PBammAsset implements ExternalAssetBehavior {
-    async getProjectedAprStats(_definition: ExternalAssetDefinition, _model: PickleModel): Promise<AssetProjectedApr> {
-        throw new Error("Method not implemented.");
+    async getProjectedAprStats(definition: ExternalAssetDefinition, model: PickleModel): Promise<AssetProjectedApr> {
+      // LQTY APR calc
+      const lusdContract = new Contract(model.addr("lusd"), erc20Abi, model.providerFor(definition.chain));
+
+      const remainingLQTY = 13344950;
+      const lusdInSP = await lusdContract.balanceOf(stabilityPoolAddr);
+      const lqtyApr =
+        (remainingLQTY * model.priceOfSync("lqty")) / (+formatEther(lusdInSP) * model.priceOfSync("lusd"));
+      const duneData = await getOrLoadYearnDataFromDune(model);
+      const liquidationRate = duneData?.data?.get_result_by_result_id[0].data?.apr / 100;
+      const liquidationYield = (liquidationRate * 0.8 * lqtyApr)/2;
+      const total = (lqtyApr + liquidationYield)*100;
+        
+      return {
+          components: [
+            {name: "lqty", apr: lqtyApr*100, compoundable: false},
+            {name: "liquidation", apr: liquidationYield*100, compoundable: false},
+          ],
+          apr: total,
+          apy: total
+      };
     }
     async getDepositTokenPrice(definition: ExternalAssetDefinition, model: PickleModel): Promise<number> {
         if( definition && definition.depositToken && definition.depositToken.addr) {
