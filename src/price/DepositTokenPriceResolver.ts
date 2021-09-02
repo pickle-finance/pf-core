@@ -26,11 +26,12 @@ export class DepositTokenPriceResolver implements IPriceResolver {
     }
     
     async getOrResolveSingle(id: string, cache: PriceCache): Promise<number> {
-        return (await this.getOrResolve([id],cache)).get(id);
+        return this.getOrResolve([id], cache).then((x) => x.get(id));
     }
 
     async getOrResolve(ids: string[], cache: PriceCache): Promise<Map<string, number>> {
         const fromCache = cache.getCache();
+        const jobs : Promise<void>[] = [];
         const ret : Map<string,number> = new Map<string,number>();
         for( let i = 0; i < ids.length; i++ ) {
             if( fromCache.get(ids[i]) !== undefined ) {
@@ -43,12 +44,15 @@ export class DepositTokenPriceResolver implements IPriceResolver {
                     // should we return null or just skip it? 
                     return null;
                 }
-                const price : number = await this.getTokenPriceForProtocol(protocol, ids[i], this.model);
-                if( price !== undefined ) {
-                    ret.set(ids[i], price);
-                }
+                jobs.push(
+                    this.getTokenPriceForProtocol(protocol, ids[i], this.model).then((x)=>{
+                        if( x !== undefined ) 
+                            ret.set(ids[i], x);
+                    })
+                );
             }
         }
+        await Promise.all(jobs);
         return ret;
     }
 

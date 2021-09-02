@@ -78,7 +78,7 @@ export class PickleModel {
         return Chains.get(network).getPreferredWeb3Provider();
     }
     async generateFullApi() : Promise<PickleModelJson> {
-
+        const t1 = Date.now();
         await Promise.all([
             this.ensurePriceCacheLoaded(),
             this.ensureStrategyDataLoaded(),
@@ -87,9 +87,11 @@ export class PickleModel {
             this.ensureDepositTokenTotalSupplyLoaded(),
             this.ensureComponentTokensLoaded(),
         ]);
+        const t2 = Date.now();
 
 
         await this.ensureDepositTokenPriceLoaded();
+        const t3 = Date.now();
 
         await Promise.all([
             this.ensureStandaloneFarmsBalanceLoaded(),
@@ -97,8 +99,16 @@ export class PickleModel {
             this.ensureHarvestDataLoaded(),
             this.loadApyComponents(),
         ]);
+        const t4 = Date.now();
         this.dillDetails = await getDillDetails(getWeeklyDistribution(this.getJars()), 
                 this.prices, Chains.getResolver(ChainNetwork.Ethereum));
+        const t5 = Date.now();
+
+        console.log(t2-t1);
+        console.log(t3-t2);
+        console.log(t4-t3);
+        console.log(t5-t4);
+        
         return this.toJson();
     }
 
@@ -302,27 +312,32 @@ export class PickleModel {
     async ensureDepositTokenPriceLoaded() {
         // No idea why this needs to be split up. 
         // Might be able to unify it again. 
-
         let notPermDisabled : JarDefinition[] = this.getJars().filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+        let farmNotPermDisabled : StandaloneFarmDefinition[] = this.getStandaloneFarms().filter((farm)=>{return farm.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+        let externalNotPermDisabled : ExternalAssetDefinition[] = this.getExternalAssets().filter((asset)=>{return asset.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+
         const depositTokens: string[] = notPermDisabled.map((entry)=>{return entry.depositToken.addr});
-        const results : Map<string,number> = await this.prices.getPrices(depositTokens, RESOLVER_DEPOSIT_TOKEN);
+        const farmDepositTokens: string[] = farmNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
+        const externalDepositTokens: string[] = externalNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
+
+        const [results, farmResults, externalResults] = await Promise.all([
+            this.prices.getPrices(depositTokens, RESOLVER_DEPOSIT_TOKEN),
+            this.prices.getPrices(farmDepositTokens, RESOLVER_DEPOSIT_TOKEN),
+            this.prices.getPrices(externalDepositTokens, RESOLVER_DEPOSIT_TOKEN)
+        ]);
+
+
         for( let i = 0; i < notPermDisabled.length; i++ ) {
             const needle = notPermDisabled[i].depositToken.addr;
             notPermDisabled[i].depositToken.price = results.get(needle);
         }
 
-        let farmNotPermDisabled : StandaloneFarmDefinition[] = this.getStandaloneFarms().filter((farm)=>{return farm.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-        const farmDepositTokens: string[] = farmNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
-        const farmResults : Map<string,number> = await this.prices.getPrices(farmDepositTokens, RESOLVER_DEPOSIT_TOKEN);
         for( let i = 0; i < farmNotPermDisabled.length; i++ ) {
             const needle = farmNotPermDisabled[i].depositToken.addr;
             farmNotPermDisabled[i].depositToken.price = farmResults.get(needle);
         }
 
 
-        let externalNotPermDisabled : ExternalAssetDefinition[] = this.getExternalAssets().filter((asset)=>{return asset.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-        const externalDepositTokens: string[] = externalNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
-        const externalResults : Map<string,number> = await this.prices.getPrices(externalDepositTokens, RESOLVER_DEPOSIT_TOKEN);
         for( let i = 0; i < externalNotPermDisabled.length; i++ ) {
             const needle = externalNotPermDisabled[i].depositToken.addr;
             externalNotPermDisabled[i].depositToken.price = externalResults.get(needle);
@@ -487,32 +502,38 @@ export class PickleModel {
         // Load balances as a group
         const multicallProvider = new MulticallProvider(signer);
         await multicallProvider.init();
-        const balanceOf = await multicallProvider.all<BigNumber[]>(
-            jars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf()));
-        
-        // Load available as a group
+
         const multicallProvider2 = new MulticallProvider(signer);
         await multicallProvider2.init();
-        const available = await multicallProvider2.all<BigNumber[]>(
-        jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
+
+        const balanceOfProm : Promise<BigNumber[]> =  multicallProvider.all<BigNumber[]>(
+            jars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf()));
+
+        // Load available as a group
+        const availableProm : Promise<BigNumber[]> =  multicallProvider2.all<BigNumber[]>(
+            jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
+
+        const [balanceOf, available] = await Promise.all([
+            balanceOfProm, availableProm
+        ]);
+        
     
         const harvestArr: Promise<JarHarvestStats>[] = [];
         const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
-        for( let i = 0; i < jars.length; i++ ) {
+        const harvestableJars : JarDefinition[] = jars.filter((x)=>discovery.findAssetBehavior(x) !== null && discovery.findAssetBehavior(x) !== undefined)
+        for( let i = 0; i < harvestableJars.length; i++ ) {
             try {
-                const resolver = Chains.getResolver(jars[i].chain);
-                const harvestResolver : JarBehavior = discovery.findAssetBehavior(jars[i]);
-                if( harvestResolver !== undefined && harvestResolver !== null ) {
-                    harvestArr.push(harvestResolver.getAssetHarvestData(jars[i], this, 
-                        balanceOf[i], available[i], resolver));
-                }
+                const resolver = Chains.getResolver(harvestableJars[i].chain);
+                const harvestResolver : JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
+                harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
+                    balanceOf[i], available[i], resolver));
             } catch( e ) {
                 console.log("Error loading harvest data for jar " + jars[i].id + ":  " + e);
             }
         }
         const results: JarHarvestStats[] = await Promise.all(harvestArr);
-        for( let j = 0; j < jars.length; j++ ) {
-            jars[j].details.harvestStats = results[j];
+        for( let j = 0; j < harvestableJars.length; j++ ) {
+            harvestableJars[j].details.harvestStats = results[j];
         }
     }
 
