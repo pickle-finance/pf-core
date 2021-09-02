@@ -142,6 +142,7 @@ export async function getDillDetails(thisWeekProjectedDistribution: number,
             const weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
             lastTotalDillAmount = totalDillAmount;
   
+            const buybackUsd = Math.floor(100*pickleDillRatio * totalDillAmount * picklePriceUsd)/100;
             return {
               weeklyPickleAmount,
               totalPickleAmount,
@@ -149,6 +150,7 @@ export async function getDillDetails(thisWeekProjectedDistribution: number,
               totalDillAmount,
               pickleDillRatio,
               picklePriceUsd,
+              buybackUsd,
               isProjected,
               distributionTime,
             };

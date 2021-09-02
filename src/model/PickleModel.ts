@@ -1,5 +1,5 @@
 import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
-import { BigNumber, ethers, Signer } from 'ethers';
+import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
@@ -78,12 +78,14 @@ export class PickleModel {
         return Chains.get(network).getPreferredWeb3Provider();
     }
     async generateFullApi() : Promise<PickleModelJson> {
+
         await Promise.all([
             this.ensurePriceCacheLoaded(),
             this.ensureStrategyDataLoaded(),
             this.ensureRatiosLoaded(),
             this.ensureJarTotalSupplyLoaded(),
             this.ensureDepositTokenTotalSupplyLoaded(),
+            this.ensureComponentTokensLoaded(),
         ]);
 
 
@@ -239,6 +241,53 @@ export class PickleModel {
             }
         }
     }
+    async ensureComponentTokensLoaded() {
+        return Promise.all([
+            this.ensureComponentTokensLoadedForChain(ChainNetwork.Ethereum),
+            this.ensureComponentTokensLoadedForChain(ChainNetwork.Polygon),
+        ]);
+    }
+
+    async ensureComponentTokensLoadedForChain(chain: ChainNetwork) {
+        interface requests {
+            asset: PickleAsset,
+            pool: string,
+            token: string,
+            tokenName: string,
+            result?: BigNumberish
+            
+        };
+        const arr : requests[] = [];
+        const assets = this.getAllAssets().filter((x)=>x.chain === chain);
+        for( let i = 0; i < assets.length; i++ ) {
+            if( assets[i].depositToken && assets[i].depositToken.components 
+                && assets[i].depositToken.components.length > 0) {
+                for( let j = 0; j < assets[i].depositToken.components.length; j++ ) {
+                    arr.push({
+                        asset: assets[i],
+                        pool: assets[i].depositToken.addr, 
+                        tokenName: assets[i].depositToken.components[j],
+                        token:  this.address(assets[i].depositToken.components[j], chain)})
+                }
+            }
+        }
+
+        const ethcallProvider = new MulticallProvider(Chains.get(chain).getPreferredWeb3Provider());
+        await ethcallProvider.init();
+
+        const results : string[] = await ethcallProvider.all<string[]>(
+            arr.map((oneArr) => new MulticallContract(oneArr.token, erc20Abi).balanceOf(oneArr.pool))
+        );
+
+        for( let i = 0; i < results.length; i++ ) {
+            if( arr[i].asset.depositToken.componentTokens === undefined ) {
+                arr[i].asset.depositToken.componentTokens = [];
+            }
+            const decimals = this.tokenDecimals(arr[i].token, arr[i].asset.chain);
+            arr[i].asset.depositToken.componentTokens.push(
+                parseFloat(ethers.utils.formatUnits(results[i], decimals)));
+        }
+    }
 
     async ensureDepositTokenTotalSupplyLoaded() {
         const jars : JarDefinition[] = this.getJars();
@@ -304,9 +353,11 @@ export class PickleModel {
     }
 
     async loadDepositTokenTotalSupplyData() {
+        const onEth : PickleAsset[] = [].concat(this.semiActiveJarsEth())
+            .concat(this.getStandaloneFarms().filter((x)=>x.chain === ChainNetwork.Ethereum));
         await Promise.all([
-            this.addDepositTokenTotalSupply(this.semiActiveJarsEth(), Chains.getResolver(ChainNetwork.Ethereum)),
-            this.addDepositTokenTotalSupply(this.semiActiveJarsPoly(), Chains.getResolver(ChainNetwork.Polygon))
+            this.addDepositTokenTotalSupply(onEth, Chains.getResolver(ChainNetwork.Ethereum)),
+            this.addDepositTokenTotalSupply(this.semiActiveJarsPoly(), Chains.getResolver(ChainNetwork.Polygon)),
         ]);
     }
 
@@ -385,7 +436,7 @@ export class PickleModel {
     }
 
 
-    async addDepositTokenTotalSupply(jars: JarDefinition[], resolver: Signer | Provider) {
+    async addDepositTokenTotalSupply(jars: PickleAsset[], resolver: Signer | Provider) {
         if( jars === undefined || jars.length === 0 )
             return;
 

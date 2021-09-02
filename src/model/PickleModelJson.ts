@@ -45,6 +45,7 @@ export interface DepositToken {
     decimals?: number,
     totalSupply?: number,
     components?: string[],
+    componentTokens?: number[],
     price?: number
 }
 
@@ -129,6 +130,7 @@ export interface DillWeek {
     totalDillAmount : number,
     pickleDillRatio : number,
     picklePriceUsd : number,
+    buybackUsd: number,
     isProjected: boolean,
     distributionTime: Date
 }
