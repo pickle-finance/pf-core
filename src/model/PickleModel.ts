@@ -17,7 +17,7 @@ import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { ActiveJarHarvestStats, JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 import { getPBammBalance, PBammAsset } from "../behavior/impl/pbamm";
-import { loadGaugeData } from "../farms/FarmUtil";
+import { loadGaugeAprData } from "../farms/FarmUtil";
 
 
 export const ADDRESSES = {
@@ -70,6 +70,18 @@ export class PickleModel {
         return arr as ExternalAssetDefinition[];
     }
 
+    semiActiveJars(chain: ChainNetwork) : JarDefinition[] {
+        return this.getJars().filter(x => x.chain === chain 
+            && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+    }
+
+    semiActiveAssets(chain: ChainNetwork) : PickleAsset[] {
+        return [].concat(this.getJars().filter(x => x.chain === chain 
+                && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED))
+                .concat(this.getStandaloneFarms().filter(x => x.chain === chain 
+                    && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED));
+    }
+
     getAllAssets() : PickleAsset[] {
         return this.allAssets;
     }
@@ -110,10 +122,11 @@ export class PickleModel {
 
         await this.ensureDepositTokenPriceLoaded();
         const t3 = Date.now();
+        await this.ensureFarmsBalanceLoaded();
+        const t3a = Date.now();
 
         await Promise.all([
-            loadGaugeData(this, ChainNetwork.Ethereum),
-            this.ensureStandaloneFarmsBalanceLoaded(),
+            this.loadGaugeAprData(),
             this.ensureExternalAssetBalanceLoaded(),
             this.ensureHarvestDataLoaded(),
             this.loadApyComponents(),
@@ -123,11 +136,13 @@ export class PickleModel {
                 this.prices, Chains.getResolver(ChainNetwork.Ethereum));
         const t5 = Date.now();
 
+        /*
         console.log(t2-t1);
         console.log(t3-t2);
+        console.log(t3a-t3);
         console.log(t4-t3);
         console.log(t5-t4);
-        
+*/        
         return this.toJson();
     }
 
@@ -365,33 +380,22 @@ export class PickleModel {
 
     async loadRatiosData() {
         await Promise.all([
-            this.addJarRatios(this.semiActiveJarsEth(), Chains.getResolver(ChainNetwork.Ethereum)),
-            this.addJarRatios(this.semiActiveJarsPoly(), Chains.getResolver(ChainNetwork.Polygon)),
+            this.addJarRatios(this.semiActiveJars(ChainNetwork.Ethereum), Chains.getResolver(ChainNetwork.Ethereum)),
+            this.addJarRatios(this.semiActiveJars(ChainNetwork.Polygon), Chains.getResolver(ChainNetwork.Polygon)),
         ]);
     }
 
     async loadJarTotalSupplyData() {
         return Promise.all([
-            this.addJarTotalSupply(this.semiActiveJarsEth(), Chains.getResolver(ChainNetwork.Ethereum)),
-            this.addJarTotalSupply(this.semiActiveJarsPoly(), Chains.getResolver(ChainNetwork.Polygon)),
+            this.addJarTotalSupply(this.semiActiveJars(ChainNetwork.Ethereum), Chains.getResolver(ChainNetwork.Ethereum)),
+            this.addJarTotalSupply(this.semiActiveJars(ChainNetwork.Polygon), Chains.getResolver(ChainNetwork.Polygon)),
         ]);
     }
 
-    semiActiveJarsEth() : JarDefinition[] {
-        return this.getJars().filter(x => x.chain === ChainNetwork.Ethereum 
-            && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
-    }
-    semiActiveJarsPoly() : JarDefinition[] {
-        return this.getJars().filter(x => x.chain === ChainNetwork.Polygon 
-            && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
-    }
-
     async loadDepositTokenTotalSupplyData() {
-        const onEth : PickleAsset[] = [].concat(this.semiActiveJarsEth())
-            .concat(this.getStandaloneFarms().filter((x)=>x.chain === ChainNetwork.Ethereum));
         await Promise.all([
-            this.addDepositTokenTotalSupply(onEth, Chains.getResolver(ChainNetwork.Ethereum)),
-            this.addDepositTokenTotalSupply(this.semiActiveJarsPoly(), Chains.getResolver(ChainNetwork.Polygon)),
+            this.addDepositTokenTotalSupply(this.semiActiveAssets(ChainNetwork.Ethereum), Chains.getResolver(ChainNetwork.Ethereum)),
+            this.addDepositTokenTotalSupply(this.semiActiveAssets(ChainNetwork.Polygon), Chains.getResolver(ChainNetwork.Polygon)),
         ]);
     }
 
@@ -556,21 +560,64 @@ export class PickleModel {
         }
     }
 
-    async ensureStandaloneFarmsBalanceLoaded() {
-        const farms : StandaloneFarmDefinition[] = this.getStandaloneFarms();
+    ensureStandaloneFarmsBalanceLoaded(farms: StandaloneFarmDefinition[], balances: any[]) {
         for( let i = 0; i < farms.length; i++ ) {
-            const depositTokenContract = new ethers.Contract(farms[i].depositToken.addr, 
-                erc20Abi, Chains.getResolver(farms[i].chain));
-            const tokens = await depositTokenContract.balanceOf(farms[i].contract);
-            const results : number = await this.prices.getPrice(farms[i].depositToken.addr, RESOLVER_DEPOSIT_TOKEN);
+            const tokens = balances[i];
+            const depositTokenPrice : number = farms[i].depositToken.price;
             const tokenBalance = parseFloat(ethers.utils.formatEther(tokens));
-            const valueBalance = tokenBalance * results;
+            const valueBalance = tokenBalance * depositTokenPrice;
             if( farms[i].details === undefined ) {
                 farms[i].details = {};
             }
             farms[i].details.tokenBalance = tokenBalance;
             farms[i].details.valueBalance = valueBalance;
         }
+    }
+
+    ensureNestedFarmsBalanceLoaded(jarsWithFarms: JarDefinition[], balances: any[]) {
+        for( let i = 0; i < jarsWithFarms.length; i++ ) {
+            const ptokenPrice : number = jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
+            const ptokens = balances[i];
+            const ptokenBalance = parseFloat(ethers.utils.formatEther(ptokens));
+            const valueBalance = ptokenBalance * ptokenPrice;
+            if( jarsWithFarms[i].farm.details === undefined ) {
+                jarsWithFarms[i].farm.details = {};
+            }
+            jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
+            jarsWithFarms[i].farm.details.valueBalance = valueBalance;
+        }
+    }
+
+    async ensureFarmsBalanceLoadedForProtocol(chain: ChainNetwork) {
+        const ethcallProvider = new MulticallProvider(this.providerFor(chain));
+        await ethcallProvider.init();
+
+        // Run on eth standalone farms
+        const ethFarms : StandaloneFarmDefinition[] = this.getStandaloneFarms().filter((x)=>x.chain === chain);
+        const ethFarmResults : string[] = await ethcallProvider.all<string[]>(
+            ethFarms.map((oneFarm) => new MulticallContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(oneFarm.contract))
+        );
+        this.ensureStandaloneFarmsBalanceLoaded(ethFarms, ethFarmResults);
+
+
+        const protocolJarsWithFarms : JarDefinition[] = this.semiActiveJars(chain).filter((x)=>{return x.farm !== undefined });
+        const protocolJarsWithFarmResults : string[] = await ethcallProvider.all<string[]>(
+            protocolJarsWithFarms.map((oneJar) => new MulticallContract(oneJar.contract, erc20Abi).balanceOf(oneJar.farm.farmAddress))
+        );
+        this.ensureNestedFarmsBalanceLoaded(protocolJarsWithFarms, protocolJarsWithFarmResults);
+    }
+
+    async loadGaugeAprData() {
+        return Promise.all([
+            loadGaugeAprData(this, ChainNetwork.Ethereum),
+            loadGaugeAprData(this, ChainNetwork.Polygon),
+        ]);
+    }
+    async ensureFarmsBalanceLoaded() {
+        return Promise.all([
+            this.ensureFarmsBalanceLoadedForProtocol(ChainNetwork.Ethereum),
+            this.ensureFarmsBalanceLoadedForProtocol(ChainNetwork.Polygon),
+        ])
     }
 
 
