@@ -3,7 +3,6 @@ import { Provider } from '@ethersproject/providers';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { mimaticStrategyAbi } from '../../Contracts/ABIs/mimatic-strategy.abi';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from '../../chain/Chains';
 import { PickleModel } from '../../model/PickleModel';

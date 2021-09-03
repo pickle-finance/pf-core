@@ -2,8 +2,7 @@
 import { BigNumber, Contract, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
-import { AbstractJarBehavior, getCompoundingAPY, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
+import { AbstractJarBehavior, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
 import {ironchefAbi} from '../../Contracts/ABIs/ironchef.abi';
 import { CONTROLLER_ETH, CONTROLLER_POLYGON, PickleModel } from '../../model/PickleModel';
 import { formatEther } from 'ethers/lib/utils';
@@ -11,7 +10,6 @@ import { ChainNetwork } from '../..';
 import { Chains } from '../../chain/Chains';
 import controllerAbi from '../../Contracts/ABIs/controller.json';
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
-import MasterchefAbi from '../../Contracts/ABIs/masterchef.json';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 

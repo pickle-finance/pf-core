@@ -100,6 +100,7 @@ export interface FarmDetails {
     valueBalance?: number,
     picklePerBlock?: number,
     picklePerDay?: number,
+    farmApyComponents?: AssetAprComponent[],
     historicalApy?: HistoricalAPY,
 }
 
@@ -114,7 +115,6 @@ export interface NestedFarm {
     farmDepositTokenName: string,
     farmNickname: string,
     details?: FarmDetails,
-    farmApyComponents?: AssetAprComponent[]
 }
 
 export interface DillDetails {
@@ -157,5 +157,6 @@ export interface AssetProjectedApr {
 export interface AssetAprComponent {
     name: string,
     apr: number,
+    maxApr?: number,
     compoundable: boolean,
 }

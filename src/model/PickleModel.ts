@@ -17,9 +17,27 @@ import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { ActiveJarHarvestStats, JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 import { getPBammBalance, PBammAsset } from "../behavior/impl/pbamm";
+import { loadGaugeData } from "../farms/FarmUtil";
 
-export const CONTROLLER_ETH = "0x6847259b2B3A4c17e7c43C54409810aF48bA5210";
-export const CONTROLLER_POLYGON = "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09";
+
+export const ADDRESSES = {
+    Ethereum: {
+      pickle: "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5",
+      masterChef: "0xbD17B1ce622d73bD438b9E658acA5996dc394b0d",
+      controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
+      dill: "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf",
+      gaugeProxy: "0x2e57627ACf6c1812F99e274d0ac61B786c19E74f",
+    },
+    Polygon: {
+      pickle: "0x2b88ad57897a8b496595925f43048301c37615da",
+      masterChef: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+      controller: "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09",
+      minichef: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+    },
+};
+
+export const CONTROLLER_ETH = ADDRESSES.Ethereum.controller;
+export const CONTROLLER_POLYGON = ADDRESSES.Polygon.controller;
 export class PickleModel {
     private allAssets : PickleAsset[];
     private prices : PriceCache;
@@ -94,6 +112,7 @@ export class PickleModel {
         const t3 = Date.now();
 
         await Promise.all([
+            loadGaugeData(this, ChainNetwork.Ethereum),
             this.ensureStandaloneFarmsBalanceLoaded(),
             this.ensureExternalAssetBalanceLoaded(),
             this.ensureHarvestDataLoaded(),
