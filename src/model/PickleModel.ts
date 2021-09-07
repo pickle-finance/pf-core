@@ -1,4 +1,4 @@
-import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -42,7 +42,7 @@ export class PickleModel {
     private allAssets : PickleAsset[];
     private prices : PriceCache;
     private dillDetails: DillDetails;
-
+    private platformData: PlatformData;
     // This can be used to cache any object with a key that might be shared
     // by a few different classes. 
     resourceCache: Map<string, any>;
@@ -135,7 +135,7 @@ export class PickleModel {
         this.dillDetails = await getDillDetails(getWeeklyDistribution(this.getJars()), 
                 this.prices, Chains.getResolver(ChainNetwork.Ethereum));
         const t5 = Date.now();
-
+        this.platformData = this.loadPlatformData();
         /*
         console.log(t2-t1);
         console.log(t3-t2);
@@ -155,9 +155,7 @@ export class PickleModel {
             },
             dill: this.dillDetails,
             prices: Object.fromEntries(this.prices.getCache()),
-            platform: {
-                platformTVL: this.calculatePlatformTVL()
-            }
+            platform: this.platformData,
         }
     }
 
@@ -556,10 +554,15 @@ export class PickleModel {
         }
         const results: JarHarvestStats[] = await Promise.all(harvestArr);
         for( let j = 0; j < harvestableJars.length; j++ ) {
+            if( results[j] ) {
+                results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
+                results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
+                results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
+            }
             harvestableJars[j].details.harvestStats = results[j];
+            
         }
     }
-
     ensureStandaloneFarmsBalanceLoaded(farms: StandaloneFarmDefinition[], balances: any[]) {
         for( let i = 0; i < farms.length; i++ ) {
             const tokens = balances[i];
@@ -646,9 +649,26 @@ export class PickleModel {
             })
         );
         for( let i = 0; i < withBehaviors.length; i++ ) {
-            withBehaviors[i].aprStats = aprStats[i];
+            withBehaviors[i].aprStats = this.cleanAprStats(aprStats[i]);
         }
     }
+
+    cleanAprStats(stats: AssetProjectedApr) : AssetProjectedApr{
+        if( stats ) {
+            stats.apr = toThreeDec(stats.apr);
+            stats.apy = toThreeDec(stats.apy);
+            if( stats.components) {
+                for( let i = 0; i < stats.components.length; i++ ) {
+                    stats.components[i].apr = toThreeDec(stats.components[i].apr);
+                    if( stats.components[i].maxApr)
+                        stats.components[i].maxApr = toThreeDec(stats.components[i].maxApr);
+                    
+                }
+            }
+        }
+        return stats;
+    }
+
     findAsset(id: string) : PickleAsset {
         for( let i = 0; i < this.allAssets.length; i++ ) {
             if( this.allAssets[i].id === id) 
@@ -657,22 +677,41 @@ export class PickleModel {
         return undefined;
     }
 
-    calculatePlatformTVL() : number {
+    loadPlatformData(): PlatformData {
         const farms : StandaloneFarmDefinition[] = this.getStandaloneFarms();
         let tvl = 0;
+        let blendedRateSum = 0;
+        let harvestPending = 0;
         for( let i = 0; i < farms.length; i++ ) {
             if( farms[i].details?.valueBalance) {
                 tvl += farms[i].details?.valueBalance;
+                // TODO standalone farms don't generate fees at all
+                // They also don't increase AUM much at all other than emitted pickle
+                //blendedRateSum += 0;
             }
         }
         const jars : JarDefinition[] = this.getJars();
         for( let i = 0; i < jars.length; i++ ) {
             if( jars[i].details?.harvestStats?.balanceUSD) {
-                tvl += jars[i].details?.harvestStats?.balanceUSD;
+                const jarApr = jars[i].aprStats?.apr ? jars[i].aprStats?.apr : 0;
+                const bal = jars[i].details?.harvestStats?.balanceUSD ? jars[i].details.harvestStats.balanceUSD : 0;
+                const pending = jars[i].details?.harvestStats?.harvestableUSD ? jars[i].details?.harvestStats?.harvestableUSD : 0;
+                tvl += bal;
+                blendedRateSum += (bal * jarApr);
+                harvestPending += pending;
             }
         }
-        return tvl;
+        return {
+            platformTVL: tvl,
+            platformBlendedRate: (blendedRateSum/tvl),
+            harvestPending: harvestPending
+        };
     }
 }
+
+
+const toThreeDec = function (param:number) {
+    return Math.floor(param*1000)/1000;
+  };
 
 

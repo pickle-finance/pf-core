@@ -72,7 +72,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     const jar : JarDefinition = findJarForGauge(gauge, model);
     if( jar !== undefined ) {
         const c : AssetAprComponent = createAprRange(jar.details.ratio, jar.depositToken.price, 
-            gauge.rewardRatePerYear, model.priceOfSync("pickle"));
+            gauge.rewardRatePerYear*100, model.priceOfSync("pickle"));
         jar.farm.details.farmApyComponents = [c];
         jar.farm.details.allocShare = gauge.allocPoint;
         return;

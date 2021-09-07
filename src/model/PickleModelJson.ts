@@ -135,7 +135,9 @@ export interface DillWeek {
     distributionTime: Date
 }
 export interface PlatformData {
-    platformTVL: number
+    platformTVL: number,
+    platformBlendedRate: number,
+    harvestPending: number,
 }
 export interface PickleModelJson {
     assets: {

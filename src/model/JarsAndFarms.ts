@@ -72,7 +72,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       name: 'renBTCCRV',
       link: 'https://www.curve.fi/ren/deposit',
    },
-   enablement: AssetEnablement.ENABLED,
+   enablement: AssetEnablement.DISABLED,
    chain: ChainNetwork.Ethereum,
    protocol: AssetProtocol.CURVE,
    details: {

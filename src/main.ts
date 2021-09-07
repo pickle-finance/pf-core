@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { ChainNetwork } from ".";
-import { ALL_ASSETS, JAR_IRON3USD } from "./model/JarsAndFarms";
+import { ALL_ASSETS, JAR_IRON3USD, JAR_SUSHI_ETH_YVECRV } from "./model/JarsAndFarms";
 import { PickleModel } from "./model/PickleModel";
 // This is an example of the code you'd want to run in dashboard
 async function generateFullApi() {
