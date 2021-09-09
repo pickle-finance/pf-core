@@ -62,8 +62,8 @@ export abstract class GenericSwapUtility {
 
 
     async getOrLoadAllPairDataIntoCache(model: PickleModel) : Promise<any> {
-        if( model.resourceCache.get(this.cacheKey))
-            return model.resourceCache.get(this.cacheKey);
+        if( model.getResourceCache().get(this.cacheKey))
+            return model.getResourceCache().get(this.cacheKey);
         
         const jars : PickleAsset[] = model.getAllAssets().filter((x)=>x.protocol=== this.protocol);
         const allDepositTokens : string[] = jars.map((x)=>x.depositToken.addr.toLowerCase());
@@ -84,7 +84,7 @@ export abstract class GenericSwapUtility {
             missing = this.findMissingPairDayDatas(allDepositTokens, result);
         }
     
-        model.resourceCache.set(this.cacheKey, result);
+        model.getResourceCache().set(this.cacheKey, result);
         return result;
     }
 
