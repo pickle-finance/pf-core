@@ -67,6 +67,7 @@ export class ExternalTokenModel {
         this.etherTokens.set("fxs", new ExternalToken(ChainNetwork.Ethereum, "fxs", "frax-share", "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0".toLowerCase()));
         this.etherTokens.set("lqty", new ExternalToken(ChainNetwork.Ethereum, "lqty", "liquity", "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase()));
         this.etherTokens.set("3crv", new ExternalToken(ChainNetwork.Ethereum, "3crv", "lp-3pool-curve", "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490".toLowerCase()));
+        this.etherTokens.set("scrv", new ExternalToken(ChainNetwork.Ethereum, "scrv", "lp-scurve", "0xc25a3a3b969415c80451098fa907ec722572917f".toLowerCase()));
         this.etherTokens.set("spell", new ExternalToken(ChainNetwork.Ethereum, "spell", "spell-token", "0x090185f2135308bad17527004364ebcc2d37e5f6".toLowerCase()));
         this.etherTokens.set("mim", new ExternalToken(ChainNetwork.Ethereum, "mim", "mim", "0x99d8a9c45b2eca8864373a26d1459e3dff1e17f3".toLowerCase()));
         this.etherTokens.set("fox", new ExternalToken(ChainNetwork.Ethereum, "fox", "shapeshift-fox-token", "0xc770eefad204b5180df6a14ee197d99d808ee52d".toLowerCase()));

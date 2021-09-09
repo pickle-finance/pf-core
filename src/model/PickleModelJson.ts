@@ -17,6 +17,15 @@ export enum AssetProtocol {
     BPROTOCOL = "bprotocol",
     TOKENPRICE = "tokenprice"
 }
+export const SWAP_PROTOCOLS : AssetProtocol[] = [
+    AssetProtocol.SUSHISWAP,
+    AssetProtocol.SUSHISWAP_POLYGON,
+    AssetProtocol.UNISWAP,
+    AssetProtocol.COMETHSWAP,
+    AssetProtocol.QUICKSWAP_POLYGON,
+];
+
+
 
 export enum AssetEnablement {
     DISABLED = 'disabled',

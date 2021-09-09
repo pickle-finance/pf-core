@@ -26,7 +26,10 @@ export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
   let runningRevenue = 0;
   for( let i = 0; i < enabledJars.length; i++ ) {
     if( enabledJars[i].aprStats && enabledJars[i].details.harvestStats) {
-      const balance = enabledJars[i].details.harvestStats.balanceUSD;
+      let balance = enabledJars[i].details.harvestStats.balanceUSD;
+      if( balance === undefined || isNaN(balance)) {
+        balance = 0;
+      }
       const components = enabledJars[i].aprStats.components;
       let jarUSD : number = 0;
       for( let j = 0; j < components.length; j++ ) {
@@ -46,21 +49,6 @@ export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
     }
   }
   return runningRevenue * 0.45;
-  /*
-  let weeklyProfit = 0;
-  for( let i = 0; i < jars.length; i++ ) {
-    if( jars[i].enablement === AssetEnablement.ENABLED || jars[i].enablement === AssetEnablement.DEV) {
-      if( jars[i].details && jars[i].details.harvestStats && jars[i].details.harvestStats.balanceUSD) {
-        const weeklyProfitPerJar = jars[i].details.harvestStats.balanceUSD * 
-                jars[i].details.threeDayApy * .01 * 0.2 / 52;
-        weeklyProfit += weeklyProfitPerJar;          
-      }
-    }
-  }
-  return weeklyProfit * 0.45;
-  */
- // We don't have the apy anymore, it's from DB
- return 0;
 }
 
 export async function getDillDetails(thisWeekProjectedDistribution: number, 

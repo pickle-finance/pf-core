@@ -4,6 +4,7 @@ import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
 import { Chains } from "../chain/Chains";
+import { JAR_POLY_SUSHI_ETH_USDT } from "../model/JarsAndFarms";
 
 export abstract class GenericSwapUtility {
     cacheKey:string;
@@ -136,7 +137,7 @@ export interface IPairData {
     const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
     await multicallProvider.init();
     const pairAddress:string = jar.depositToken.addr;
-  
+
     const componentA = jar.depositToken.components[0];
     const componentB = jar.depositToken.components[1];
     const addressA = model.address(componentA, jar.chain);
@@ -156,14 +157,13 @@ export interface IPairData {
       tokenB.balanceOf(pairAddress),
       pair.totalSupply(),
     ]);
-  
     // get num of tokens
     const numAInPair = numAInPairBN / Math.pow(10, model.tokenDecimals(componentA, jar.chain));
     const numBInPair = numBInPairBN / Math.pow(10, model.tokenDecimals(componentB, jar.chain));
   
     // get prices
-    const priceA = await model.priceOf(componentA);
-    const priceB = await model.priceOf(componentB);
+    const priceA = model.priceOfSync(componentA);
+    const priceB = model.priceOfSync(componentB);
   
     let reserveUSD;
     // In case price one token is not listed on coingecko
@@ -180,4 +180,5 @@ export interface IPairData {
   
     return { reserveUSD, totalSupply, pricePerToken };
   };
-  
+
+

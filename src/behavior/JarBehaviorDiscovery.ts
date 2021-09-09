@@ -115,9 +115,6 @@ jarToBehavior.set( JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set( JAR_IRON3USD.id, new Is3Usd());
 
 // Yet to convert
-
-
-
 export class JarBehaviorDiscovery {
     findAssetBehavior(definition: PickleAsset) : JarBehavior {
         return jarToBehavior.get(definition.id);

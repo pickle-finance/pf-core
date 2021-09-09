@@ -1,4 +1,3 @@
-import { RESOLVER_DEPOSIT_TOKEN } from '../price/PriceCache';
 import { BigNumber, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../model/PickleModelJson';

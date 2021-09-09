@@ -6,18 +6,17 @@ import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
 import erc20Abi from '../Contracts/ABIs/erc20.json';
-import stabilityPool from '../Contracts/ABIs/stability-pool.json';
 import { ChainNetwork, Chains } from "../chain/Chains";
-import { PriceCache, RESOLVER_COINGECKO, RESOLVER_DEPOSIT_TOKEN } from "../price/PriceCache";
+import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
-import { DepositTokenPriceResolver } from "../price/DepositTokenPriceResolver";
-import { ASSET_PBAMM, JAR_LQTY, JAR_steCRV } from "./JarsAndFarms";
+import { ASSET_PBAMM } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
-import { ActiveJarHarvestStats, JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
-import { getPBammBalance, PBammAsset } from "../behavior/impl/pbamm";
+import { JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
+import { PBammAsset } from "../behavior/impl/pbamm";
 import { loadGaugeAprData } from "../farms/FarmUtil";
+import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 
 
 export const ADDRESSES = {
@@ -161,12 +160,10 @@ export class PickleModel {
 
     initializePriceCache() {
         if( this.prices === undefined ) {
-            const tmp : PriceCache = new PriceCache();
-            tmp.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
-            tmp.addResolver(RESOLVER_DEPOSIT_TOKEN, new DepositTokenPriceResolver(this));
-            this.prices = tmp;
+            this.prices = new PriceCache();
         }
     }
+
     initializeChains(etherResolver: Signer|Provider, polygonResolver: Signer|Provider) {
         if( etherResolver ) {
             const isSigner : boolean = (etherResolver as Signer).provider !== undefined;
@@ -226,10 +223,11 @@ export class PickleModel {
    
     async ensurePriceCacheLoaded(){
         if( this.prices && this.prices.getCache() && this.prices.getCache().size === 0 ) {
+            const cgResolver = new CoinGeckoPriceResolver(ExternalTokenModelSingleton);
             const arr: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
-            await this.prices.getPrices(arr, RESOLVER_COINGECKO);
+            await this.prices.getPrices(arr, cgResolver);
             const arr2: string[] = ExternalTokenModelSingleton.getTokens(ChainNetwork.Polygon).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId);
-            await this.prices.getPrices(arr2, RESOLVER_COINGECKO);
+            await this.prices.getPrices(arr2, cgResolver);
         }
     }
 
@@ -344,35 +342,11 @@ export class PickleModel {
     async ensureDepositTokenPriceLoaded() {
         // No idea why this needs to be split up. 
         // Might be able to unify it again. 
-        let notPermDisabled : JarDefinition[] = this.getJars().filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-        let farmNotPermDisabled : StandaloneFarmDefinition[] = this.getStandaloneFarms().filter((farm)=>{return farm.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-        let externalNotPermDisabled : ExternalAssetDefinition[] = this.getExternalAssets().filter((asset)=>{return asset.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-
-        const depositTokens: string[] = notPermDisabled.map((entry)=>{return entry.depositToken.addr});
-        const farmDepositTokens: string[] = farmNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
-        const externalDepositTokens: string[] = externalNotPermDisabled.map((entry)=>{return entry.depositToken.addr});
-
-        const [results, farmResults, externalResults] = await Promise.all([
-            this.prices.getPrices(depositTokens, RESOLVER_DEPOSIT_TOKEN),
-            this.prices.getPrices(farmDepositTokens, RESOLVER_DEPOSIT_TOKEN),
-            this.prices.getPrices(externalDepositTokens, RESOLVER_DEPOSIT_TOKEN)
-        ]);
-
-
-        for( let i = 0; i < notPermDisabled.length; i++ ) {
-            const needle = notPermDisabled[i].depositToken.addr;
-            notPermDisabled[i].depositToken.price = results.get(needle);
-        }
-
-        for( let i = 0; i < farmNotPermDisabled.length; i++ ) {
-            const needle = farmNotPermDisabled[i].depositToken.addr;
-            farmNotPermDisabled[i].depositToken.price = farmResults.get(needle);
-        }
-
-
-        for( let i = 0; i < externalNotPermDisabled.length; i++ ) {
-            const needle = externalNotPermDisabled[i].depositToken.addr;
-            externalNotPermDisabled[i].depositToken.price = externalResults.get(needle);
+        let notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+        let prices : number[] = await Promise.all(notDisabled.map((x)=>getDepositTokenPrice(x, this)));
+        for( let i = 0; i < notDisabled.length; i++ ) {
+            notDisabled[i].depositToken.price = prices[i];
+            this.prices.put(notDisabled[i].depositToken.addr, prices[i]);
         }
     }
 
