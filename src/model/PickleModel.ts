@@ -86,11 +86,15 @@ export class PickleModel {
         return this.allAssets;
     }
 
+    // Results unpredictable if similar token on multiple chains. 
+    // Please be specific, use address()
     addr(name: string): string {
-        const t1 = ExternalTokenModelSingleton.getToken(name, ChainNetwork.Ethereum)?.contractAddr;
-        if (t1 !== undefined)
+        for( let i = 0; i < this.configuredChains.length; i++ ) {
+            const t1 = ExternalTokenModelSingleton.getToken(name, this.configuredChains[i])?.contractAddr;
+            if (t1 !== undefined)
             return t1;
-        return ExternalTokenModelSingleton.getToken(name, ChainNetwork.Polygon)?.contractAddr;
+        }
+        return undefined;
     }
     address(id: string, chain: ChainNetwork) {
         return ExternalTokenModelSingleton.getToken(id, chain)?.contractAddr;
