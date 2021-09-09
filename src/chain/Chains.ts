@@ -7,6 +7,7 @@ import { Signer } from "@ethersproject/abstract-signer";
 export enum ChainNetwork {
     Ethereum = 'Ethereum',
     Polygon = 'Polygon',
+    OKEx = 'OKEx',
     //Binance
 }
 
@@ -17,15 +18,26 @@ export class EthereumChain extends AbstractChain {
 }
 
 export class PolygonChain extends AbstractChain {
-    constructor() {
-        super(137, ChainNetwork.Polygon, 'https://polygonscan.com',
-          [
-            'https://rpc-mainnet.maticvigil.com',
-            'https://matic-mainnet.chainstacklabs.com/',
-            'https://rpc-mainnet.matic.network',
-        ]);
-    }
+  constructor() {
+      super(137, ChainNetwork.Polygon, 'https://polygonscan.com',
+        [
+          'https://rpc-mainnet.maticvigil.com',
+          'https://matic-mainnet.chainstacklabs.com/',
+          'https://rpc-mainnet.matic.network',
+      ]);
+  }
 }
+
+export class OKExChain extends AbstractChain {
+  constructor() {
+      super(66, ChainNetwork.OKEx, 'https://www.oklink.com/okexchain',
+        [
+          'https://exchainrpc.okex.org'
+      ]);
+  }
+}
+
+
 
 export class Chains {
     private static singleton: Chains = new Chains();
