@@ -1479,6 +1479,33 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_QUICK_QI_MIMATIC);
 
+
+ export const JAR_QUICK_QI_MATIC: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'polyJar 5c',
+   contract: '0xe5bd4954bd6749a8e939043eedce4c62b41cc6d0',
+   depositToken: {
+      addr: '0x9a8b2601760814019b7e6ee0052e25f1c623d1e6',
+      name: 'QUICK QI/MATIC',
+      link: 'https://quickswap.exchange/#/add/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270/0x580A84C73811E1839F75d86d75d88cCa0c241fF4',
+      components: ["qi", "matic"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
+   details: {
+     apiKey: 'QLP-QIMATIC',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'qQLP QI-MATIC',
+     farmDepositTokenName: 'pQLP QI-MATIC'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_QUICK_QI_MATIC);
+
  export const JAR_IRON3USD: JarDefinition =
  {
   type: AssetType.JAR,
