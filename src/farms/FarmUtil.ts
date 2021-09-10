@@ -12,19 +12,18 @@ import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { AssetAprComponent, JarDefinition, StandaloneFarmDefinition } from "../model/PickleModelJson";
 
 export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) {
-    let rawGaugeData: IRawGaugeData[];
     if( chain === ChainNetwork.Ethereum) {
-        rawGaugeData = await loadGaugeDataEth();
-    } else if( chain === ChainNetwork.Polygon) {
-        rawGaugeData = await loadPolygonGaugeData();
-    }
-
-    if( rawGaugeData && rawGaugeData.length > 0 ) {
-        for( let i = 0; i < rawGaugeData.length; i++ ) {
-            if( chain === ChainNetwork.Ethereum)
+        let rawGaugeData = await loadGaugeDataEth();
+        if( rawGaugeData && rawGaugeData.length > 0 ) {
+            for( let i = 0; i < rawGaugeData.length; i++ ) {
                 setAssetGaugeAprEth(rawGaugeData[i], model)
-            else if( chain === ChainNetwork.Polygon) {
-                setAssetGaugeAprPoly(rawGaugeData[i], model);
+            }
+        }
+    } else if( chain === ChainNetwork.Polygon) {
+        let rawGaugeData = await loadPolygonGaugeData();
+        if( rawGaugeData && rawGaugeData.length > 0 ) {
+            for( let i = 0; i < rawGaugeData.length; i++ ) {
+                setAssetGaugeAprPoly(rawGaugeData[i], model)
             }
         }
     }
@@ -100,7 +99,7 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
     // Check if it's a normal jar
     const jar : JarDefinition = findJarForGauge(gauge, model);
     if( jar !== undefined ) {
-        const apr = gauge.rewardRatePerYear * model.priceOfSync("pickle") / (jar.farm.details.valueBalance);
+        const apr = 100*gauge.rewardRatePerYear * model.priceOfSync("pickle") / (jar.farm.details.valueBalance);
         const c : AssetAprComponent = {
             name: "pickle", apr: apr, compoundable: false
         };

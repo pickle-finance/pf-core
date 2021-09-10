@@ -1350,59 +1350,6 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  JAR_DEFINITIONS.push(JAR_POLY_SUSHI_MATIC_ETH);
  
 
- export const JAR_SUSHI_DINO_USDC: JarDefinition =
- {
-  type: AssetType.JAR,
-   id: 'polyJar 4c',
-   contract: '0xC8450922d18793AD97C401D65BaE8A83aE5353a8',
-   depositToken: {
-      addr: '0x3324af8417844e70b81555A6D1568d78f4D4Bf1f',
-      name: 'SushiDinoUsdc',
-      link: 'https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
-      components: ["dino", "usdc"],
-   },
-   enablement: AssetEnablement.ENABLED,
-   chain: ChainNetwork.Polygon,
-   protocol: AssetProtocol.SUSHISWAP_POLYGON,
-   details: {
-     apiKey: 'DINO-USDC',
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farm: {
-     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
-     farmNickname: 'pSLPDinoUsdc',
-     farmDepositTokenName: 'pSLPDinoUsdc'
-   }
- }
- JAR_DEFINITIONS.push(JAR_SUSHI_DINO_USDC);
-
- 
- export const JAR_QUICK_DINO_ETH: JarDefinition =
- {
-  type: AssetType.JAR,
-   id: 'polyJar 4d',
-   contract: '0x1cCDB8152Bb12aa34e5E7F6C9c7870cd6C45E37F',
-   depositToken: {
-      addr: '0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11',
-      name: 'QuickDinoEth',
-      link: 'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
-      components: ["dino", "usdc"],
-   },
-   enablement: AssetEnablement.ENABLED,
-   chain: ChainNetwork.Polygon,
-   protocol: AssetProtocol.QUICKSWAP_POLYGON,
-   details: {
-     apiKey: 'DINO-USDC',
-     harvestStyle: HarvestStyle.PASSIVE,
-   },
-   farm: {
-     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
-     farmNickname: 'pSLPDinoEth',
-     farmDepositTokenName: 'pSLPDinoEth'
-   }
- }
- JAR_DEFINITIONS.push(JAR_QUICK_DINO_ETH);
-
 
  export const JAR_QUICKmiMATICUSDC_old: JarDefinition =
  {
@@ -1468,7 +1415,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       link: 'https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x580A84C73811E1839F75d86d75d88cCa0c241fF4',
       components: ["qi", "mimatic"],
    },
-   enablement: AssetEnablement.ENABLED,
+   enablement: AssetEnablement.DISABLED,
    chain: ChainNetwork.Polygon,
    protocol: AssetProtocol.QUICKSWAP_POLYGON,
    details: {
@@ -1536,6 +1483,60 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    }
  }
  JAR_DEFINITIONS.push(JAR_IRON3USD);
+
+ export const JAR_SUSHI_DINO_USDC: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'polyJar 7a',
+   contract: '0xC8450922d18793AD97C401D65BaE8A83aE5353a8',
+   depositToken: {
+      addr: '0x3324af8417844e70b81555A6D1568d78f4D4Bf1f',
+      name: 'SushiDinoUsdc',
+      link: 'https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
+      components: ["dino", "musdc"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: AssetProtocol.SUSHISWAP_POLYGON,
+   details: {
+     apiKey: 'DINO-USDC',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'pSLPDinoUsdc',
+     farmDepositTokenName: 'pSLPDinoUsdc'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_SUSHI_DINO_USDC);
+
+ 
+ export const JAR_QUICK_DINO_ETH: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'polyJar 7b',
+   contract: '0x1cCDB8152Bb12aa34e5E7F6C9c7870cd6C45E37F',
+   depositToken: {
+      addr: '0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11',
+      name: 'QuickDinoEth',
+      link: 'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
+      components: ["dino", "mweth"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
+   details: {
+     apiKey: 'DINO-WETH',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749',
+     farmNickname: 'pSLPDinoEth',
+     farmDepositTokenName: 'pSLPDinoEth'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_QUICK_DINO_ETH);
+
 
 
 // External Assets
