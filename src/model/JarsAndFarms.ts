@@ -1042,7 +1042,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      harvestStyle: HarvestStyle.PASSIVE,
    },
    farm: {
-     farmAddress: '0xE58f2F41D586803615fAdfc423a41c148fd1D949',
+     farmAddress: '0x801BD61c272e8Ded8700736048422AFd63cF2346',
      farmNickname: 'mim3CRV',
      farmDepositTokenName: 'pAbraMim3CRV'
    }
@@ -1087,7 +1087,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       addr: '0x07D5695a24904CC1B6e3bd57cC7780B90618e3c4',
       name: 'MimEth',
       link: 'https://app.sushi.com/add/ETH/0x99D8a9C45b2ecA8864373A26D1459e3Dff1e17F3',
-      components: ["mim", "weth"], // TODO
+      components: ["mim", "weth"], 
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
@@ -1097,9 +1097,9 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      harvestStyle: HarvestStyle.PASSIVE,
    },
    farm: {
-     farmAddress: '0xF7eECA3C5B0A01D051690E0cF082AE5006c7e073',
-     farmNickname: 'AbraSpellEth',
-     farmDepositTokenName: 'pAbraSpellEth'
+     farmAddress: '0xe58f2f41d586803615fadfc423a41c148fd1d949',
+     farmNickname: 'AbraMimEth',
+     farmDepositTokenName: 'pAbraMimEth'
    }
  }
  JAR_DEFINITIONS.push(JAR_MIMETH);

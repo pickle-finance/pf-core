@@ -7,6 +7,9 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from '../../model/PickleModel';
 import { Chains } from '../../chain/Chains';
 import { calculateAbradabraApy } from '../../protocols/AbraCadabraUtil';
+import { convexStrategyMim3CRVAbi } from '../../Contracts/ABIs/convex-strategy-mim3crv.abi';
+import erc20Abi from '../../Contracts/ABIs/erc20.json';
+import { getProjectedConvexAprStats } from '../../protocols/ConvexUtility';
 
 
 // TODO strategy being migrated to convex
@@ -16,25 +19,37 @@ export class Mim3Crv extends AbstractJarBehavior {
   }
 
   async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
-    const abraApr : number = await calculateAbradabraApy(definition, model, Chains.get(definition.chain).getProviderOrSigner());
-    const abraComp : AssetAprComponent = this.createAprComponent("spell", abraApr, true);
-
-    // TODO shouldn't there be curve fees here?!
-    return this.aprComponentsToProjectedApr([abraComp]);
+    return this.aprComponentsToProjectedApr(await getProjectedConvexAprStats(definition, model));
   }
   
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
-    const sorbettiere = new ethers.Contract(
-      '0xf43480afe9863da4acbd4419a47d9cc7d25a647f',
-      sorbettiereAbi,
-      resolver,
-    );
-    const [spell, spellPrice] = await Promise.all([
-      sorbettiere.pendingIce(1, jar.details.strategyAddr),
-      await model.priceOf('spell'),
+    const crv = new ethers.Contract(model.address("crv", jar.chain), erc20Abi, resolver);
+    const spell = new ethers.Contract(model.address("spell", jar.chain), erc20Abi, resolver);
+    const cvx = new ethers.Contract(model.address("cvx", jar.chain), erc20Abi, resolver);
+    const strategy = new ethers.Contract(jar.details.strategyAddr, convexStrategyMim3CRVAbi, resolver);
+    const [crvWallet, cvxWallet, spellWallet, crvPrice, cvxPrice, spellPrice, pending]: [
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      number,
+      number,
+      number,
+      BigNumber[],
+    ] = await Promise.all([
+      crv.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
+      cvx.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
+      spell.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
+      model.priceOfSync('crv'),
+      model.priceOfSync('cvx'),
+      model.priceOfSync('spell'),
+      strategy.getHarvestable(),
     ]);
-
-    const harvestable = spell.mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());
+    const harvestable = crvWallet
+      .add(pending[0])
+      .mul(crvPrice.toFixed())
+      .add(
+        cvxWallet.add(pending[1]).mul(cvxPrice.toFixed()).add(spellWallet.add(pending[2]).mul(spellPrice.toFixed())),
+      );
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }
