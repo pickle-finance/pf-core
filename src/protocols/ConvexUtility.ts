@@ -115,7 +115,7 @@ const convexPools: PoolInfo = {
       const components: AssetAprComponent[] = [
         createAprComponentImpl("LP", lpApy, false),
         createAprComponentImpl("CRV", crvApy, true),
-        createAprComponentImpl("CVX", cvxApy, true),
+        createAprComponentImpl("CVX", cvxApy*100, true),
         createAprComponentImpl(cvxPool.rewardName, rewardApy, true)
       ];
       return components;
