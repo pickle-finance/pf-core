@@ -43,6 +43,6 @@ export class UniPairManager extends GenericSwapUtility {
 
 
 export async function calculateUniswapLpApr(model: PickleModel, addr: string): Promise<number> {
-    return await new UniPairManager().calculateLpApr(model, addr);
+    return new UniPairManager().calculateLpApr(model, addr);
   }
   
