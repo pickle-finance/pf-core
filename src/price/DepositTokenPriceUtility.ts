@@ -81,7 +81,7 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
             return getStableswapPriceAddress("0x445fe580ef8d70ff569ab36e80c647af338db351", asset, model);
         }
         if( depTokenAddr === JAR_SADDLE_D4.depositToken.addr) {
-            getStableswapPriceAddress("0xc69ddcd4dfef25d8a793241834d4cc4b3668ead6", asset, model);
+            return getStableswapPriceAddress("0xc69ddcd4dfef25d8a793241834d4cc4b3668ead6", asset, model);
         } 
         if( depTokenAddr === JAR_MIM3CRV.depositToken.addr) {
             return getStableswapPrice(asset, model);
