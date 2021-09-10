@@ -106,7 +106,7 @@ export class PickleModel {
         return this.prices.priceOf(token);
     }
     priceOfSync(token: string) : number {
-        return this.prices.get(token);
+        return this.prices.priceOf(token);
     }
     providerFor(network: ChainNetwork) : Provider {
         return Chains.get(network).getPreferredWeb3Provider();
@@ -511,7 +511,12 @@ export class PickleModel {
         for( let i = 0; i < farms.length; i++ ) {
             const tokens = balances[i];
             const depositTokenPrice : number = farms[i].depositToken.price;
-            const tokenBalance = parseFloat(ethers.utils.formatEther(tokens));
+            let dec = farms[i].depositToken.decimals ? farms[i].depositToken.decimals :
+                this.tokenDecimals(farms[i].depositToken.addr, farms[i].chain);
+            if( !dec ) {
+                dec = 18;
+            }
+            const tokenBalance = parseFloat(ethers.utils.formatUnits(tokens, dec));
             const valueBalance = tokenBalance * depositTokenPrice;
             if( farms[i].details === undefined ) {
                 farms[i].details = {};
@@ -525,7 +530,8 @@ export class PickleModel {
         for( let i = 0; i < jarsWithFarms.length; i++ ) {
             const ptokenPrice : number = jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
             const ptokens = balances[i];
-            const ptokenBalance = parseFloat(ethers.utils.formatEther(ptokens));
+            let dec = jarsWithFarms[i].details.decimals ? jarsWithFarms[i].details.decimals : 18;
+            const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
             const valueBalance = ptokenBalance * ptokenPrice;
             if( jarsWithFarms[i].farm.details === undefined ) {
                 jarsWithFarms[i].farm.details = {};

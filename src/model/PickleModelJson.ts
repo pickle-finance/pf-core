@@ -93,6 +93,7 @@ interface HistoricalAPY {
 
 export interface JarDetails {
     apiKey: string,
+    decimals?: number,
     harvestStyle: HarvestStyle
     controller?: string,
     strategyName?: string,

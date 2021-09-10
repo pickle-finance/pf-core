@@ -928,6 +928,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    chain: ChainNetwork.Ethereum,
    protocol: AssetProtocol.YEARN,
    details: {
+     decimals: 6,
      apiKey: 'USDC',
      harvestStyle: HarvestStyle.PASSIVE,
    },

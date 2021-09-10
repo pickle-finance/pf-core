@@ -58,10 +58,11 @@ function findStandaloneFarmForGauge(gauge:IRawGaugeData, model: PickleModel) : S
     return undefined;
 }
 function createAprRange(jarRatio: number, depositTokenPrice: number, 
-    rewardRatePY: number, picklePrice: number ) : AssetAprComponent {
+    rewardRatePY: number, picklePrice: number, dec: number ) : AssetAprComponent {
     const pricePerPToken = jarRatio * depositTokenPrice;
+    const dec2 = 18-dec;
     const fullApy =
-      (rewardRatePY * picklePrice) / pricePerPToken;
+      (rewardRatePY * picklePrice) / (pricePerPToken * Math.pow(10,dec2));
     const component = {name: "pickle", maxApr: fullApy, apr: 0.4 * fullApy, compoundable: false};
     return component;
 
@@ -72,8 +73,11 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     const jar : JarDefinition = findJarForGauge(gauge, model);
     if( jar !== undefined ) {
         const c : AssetAprComponent = createAprRange(jar.details.ratio, jar.depositToken.price, 
-            gauge.rewardRatePerYear*100, model.priceOfSync("pickle"));
-        jar.farm.details.farmApyComponents = [c];
+            gauge.rewardRatePerYear*100, model.priceOfSync("pickle"), 
+            jar.details.decimals ? jar.details.decimals : 18);
+        if( c && c.apr ) {
+            jar.farm.details.farmApyComponents = [c];
+        }
         jar.farm.details.allocShare = gauge.allocPoint;
         return;
     }
@@ -82,8 +86,10 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     const saFarm : StandaloneFarmDefinition = findStandaloneFarmForGauge(gauge, model);
     if( saFarm !== undefined ) {
         const c : AssetAprComponent = createAprRange(1, saFarm.depositToken.price, 
-            gauge.rewardRatePerYear*100, model.priceOfSync("pickle"));
-        saFarm.details.farmApyComponents = [c];
+            gauge.rewardRatePerYear*100, model.priceOfSync("pickle"), 18);
+        if( c && c.apr ) {
+            saFarm.details.farmApyComponents = [c];
+        }
         saFarm.details.allocShare = gauge.allocPoint;
         return;
     }
@@ -98,7 +104,9 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
         const c : AssetAprComponent = {
             name: "pickle", apr: apr, compoundable: false
         };
-        jar.farm.details.farmApyComponents = [c];
+        if( c && c.apr ) {
+            jar.farm.details.farmApyComponents = [c];
+        }
         jar.farm.details.allocShare = gauge.allocPoint;
         return;
     }
@@ -107,8 +115,10 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
     const saFarm : StandaloneFarmDefinition = findStandaloneFarmForGauge(gauge, model);
     if( saFarm !== undefined ) {
         const c : AssetAprComponent = createAprRange(1, saFarm.depositToken.price, 
-            gauge.rewardRatePerYear, model.priceOfSync("pickle"));
-        saFarm.details.farmApyComponents = [c];
+            gauge.rewardRatePerYear, model.priceOfSync("pickle"), 18);
+        if( c && c.apr ) {
+            saFarm.details.farmApyComponents = [c];
+        }
         saFarm.details.allocShare = gauge.allocPoint;
         return;
     }
@@ -191,6 +201,7 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
         //totalSupply: +totalSupplies[idx].toString(),
       };
     });
+    
     return gauges;
 }
 
