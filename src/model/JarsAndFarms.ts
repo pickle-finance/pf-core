@@ -1002,7 +1002,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    contract: '0x4E9806345fb39FFebd70A01f177A675805019ba8',
    depositToken: {
       addr: '0x5282a4ef67d9c33135340fb3289cc1711c13638c',
-      name: 'crvIB',
+      name: 'ibCRV',
       link: 'https://curve.fi/ib/deposit',
       components: ["dai", "usdc", "usdt"],
    },
@@ -1013,8 +1013,12 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      apiKey: 'IBCRV',
      harvestStyle: HarvestStyle.PASSIVE,
    },
-   farm: undefined
- }
+   farm: {
+    farmAddress: '0x87B54048B60689EE81F48F8797e7FCF64fBf081b',
+    farmNickname: 'Pickled Yearn Iron Bank',
+    farmDepositTokenName: 'pYearnIbCRV'
+  }
+}
  JAR_DEFINITIONS.push(JAR_CRV_IB);
 
 
