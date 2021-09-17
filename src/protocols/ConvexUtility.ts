@@ -66,16 +66,21 @@ const convexPools: PoolInfo = {
   export async function getProjectedConvexAprStats(definition: JarDefinition, 
     model: PickleModel) : Promise<AssetAprComponent[]> {
     const resolver : Provider | Signer = Chains.get(definition.chain).getPreferredWeb3Provider();
-    const fetchPromise = fetch(
-      "https://cors.bridged.cc/https://www.convexfinance.com/api/curve-apys",
-      {
-        method: "GET",
-        headers: new Headers({
-          "X-Requested-With": "XMLHttpRequest",
-        }),
-      },
-    ).then((x) => x.json())
-    .catch(()=>{ return undefined});
+    let fetchPromise = undefined;
+    try {
+      fetchPromise = fetch(
+        "https://cors.bridged.cc/https://www.convexfinance.com/api/curve-apys",
+        {
+          method: "GET",
+          headers: new Headers({
+            "X-Requested-With": "XMLHttpRequest",
+          }),
+        },
+      ).then((x) => x.json())
+      .catch(()=>{ return undefined});
+    } catch(error) {
+      // do nothing
+    }
     const fetchResult = await fetchPromise;
     if( !fetchResult )
       return [];
