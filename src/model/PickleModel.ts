@@ -33,6 +33,9 @@ export const ADDRESSES = {
       controller: "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09",
       minichef: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
     },
+    UNIVERSAL: {
+        nullAddr: "0x0000000000000000000000000000000000000000"
+    }
 };
 
 export const CONTROLLER_ETH = ADDRESSES.Ethereum.controller;
@@ -140,6 +143,9 @@ export class PickleModel {
             this.ensureRatiosLoaded(),
             this.ensureJarTotalSupplyLoaded(),
             this.ensureDepositTokenTotalSupplyLoaded(),
+            this.ensureJarBalanceLoaded(),
+            /*
+            */
             this.ensureComponentTokensLoaded(),
         ]);
         const t2 = Date.now();
@@ -335,6 +341,23 @@ export class PickleModel {
             this.addDepositTokenTotalSupply(this.semiActiveJars(x), Chains.getResolver(x))));
     }
 
+
+    async ensureJarBalanceLoaded() {
+        const jars : JarDefinition[] = this.getJars();
+        for( let i = 0; i < jars.length; i++ ) {
+            if( jars[i].details.totalSupply === undefined ) {
+                await this.loadJarBalanceData();
+                return;
+            }
+        }
+    }
+
+    async loadJarBalanceData() : Promise<any>  {
+        return Promise.all(this.configuredChains.map((x)=>
+            this.addDepositTokenBalance(this.semiActiveJars(x), Chains.getResolver(x))));
+    }
+
+
     async ensureDepositTokenPriceLoaded() {
         let notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
         let prices : number[] = await Promise.all(notDisabled.map((x)=>getDepositTokenPrice(x, this)));
@@ -364,8 +387,9 @@ export class PickleModel {
 
         const ethcallProvider2 = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
         await ethcallProvider2.init();
-        const withStrategyAddresses = jars.filter((x) => x.details.strategyAddr !== undefined && 
-            x.details.strategyAddr !== "0x0000000000000000000000000000000000000000" && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+        const withStrategyAddresses = jars.filter((x) => x.details.strategyAddr !== undefined 
+            && x.details.strategyAddr !== ADDRESSES.UNIVERSAL.nullAddr
+            && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
 
 /*
         // debug
@@ -419,6 +443,23 @@ export class PickleModel {
     }
 
 
+    async addDepositTokenBalance(jars: JarDefinition[], resolver: Signer | Provider) {
+        if( jars === undefined || jars.length === 0 )
+            return;
+
+        const ethcallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+        await ethcallProvider.init();
+
+        const balance : string[] = await ethcallProvider.all<string[]>(
+            jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).balance())
+          );
+        for( let i = 0; i < jars.length; i++ ) {
+            jars[i].details.depositTokenBalance = 
+            parseFloat(ethers.utils.formatUnits(balance[i], 
+                jars[i].details.decimals ? jars[i].details.decimals : 18));
+        }
+    }
+
     async addDepositTokenTotalSupply(jars: PickleAsset[], resolver: Signer | Provider) {
         if( jars === undefined || jars.length === 0 )
             return;
@@ -443,7 +484,9 @@ export class PickleModel {
             const missing : JarDefinition[] = [];
             const jars = this.getJars().filter(x => x.chain === this.configuredChains[i]);
             for( let j = 0; j < jars.length; j++ ) {
-                if( jars[j].details.harvestStats === undefined && jars[j].enablement !== AssetEnablement.PERMANENTLY_DISABLED) {
+                if( jars[j].details.harvestStats === undefined 
+                    && jars[j].enablement !== AssetEnablement.PERMANENTLY_DISABLED
+                    && jars[j].details.strategyAddr !== ADDRESSES.UNIVERSAL.nullAddr) {
                     missing.push(jars[j]);
                 }
             }
@@ -523,6 +566,11 @@ export class PickleModel {
             }
             farms[i].details.tokenBalance = tokenBalance;
             farms[i].details.valueBalance = valueBalance;
+            farms[i].details.harvestStats = {
+                balanceUSD: valueBalance,
+                earnableUSD: 0,
+                harvestableUSD: 0
+            }
         }
     }
 

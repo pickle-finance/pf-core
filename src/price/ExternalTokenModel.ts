@@ -72,6 +72,7 @@ export class ExternalTokenModel {
         this.etherTokens.set("mim", new ExternalToken(ChainNetwork.Ethereum, "mim", "magic-internet-money", "0x99d8a9c45b2eca8864373a26d1459e3dff1e17f3".toLowerCase()));
         this.etherTokens.set("fox", new ExternalToken(ChainNetwork.Ethereum, "fox", "shapeshift-fox-token", "0xc770eefad204b5180df6a14ee197d99d808ee52d".toLowerCase()));
         this.etherTokens.set("tru", new ExternalToken(ChainNetwork.Ethereum, "tru", "truefi", "0x4C19596f5aAfF459fA38B0f7eD92F11AE6543784".toLowerCase(), 8));
+        this.etherTokens.set("rly", new ExternalToken(ChainNetwork.Ethereum, "rly", "rally-2", "0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b".toLowerCase(), 18));
         
 
         // Polygon

@@ -80,7 +80,7 @@ export interface JarDefinition extends PickleAsset {
     farm?: NestedFarm,
 }
 export interface StandaloneFarmDefinition extends PickleAsset {
-    details?: FarmDetails,
+    details?: StandaloneFarmDetails,
     farmNickname: string,
 }
 
@@ -100,8 +100,14 @@ export interface JarDetails {
     strategyAddr?: string,
     ratio?: number,
     totalSupply?: number,
+    depositTokenBalance?: number,
     harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
     historicalApy?: HistoricalAPY,
+}
+
+export interface StandaloneFarmDetails extends FarmDetails {
+    apiKey?: string,
+    harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
 }
 
 export interface FarmDetails {

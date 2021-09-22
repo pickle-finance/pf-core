@@ -72,9 +72,9 @@ const convexPools: PoolInfo = {
         "https://cors.bridged.cc/https://www.convexfinance.com/api/curve-apys",
         {
           method: "GET",
-          headers: new Headers({
+          headers: {
             "X-Requested-With": "XMLHttpRequest",
-          }),
+          },
         },
       ).then((x) => x.json())
       .catch(()=>{ return undefined});

@@ -912,6 +912,30 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  JAR_DEFINITIONS.push(JAR_SUSHI_CVX_ETH);
  
  
+ export const JAR_UNI_RLY_ETH: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'pJar A',
+   contract: '0xEB801AB73E9A2A482aA48CaCA13B1954028F4c94',
+   depositToken: {
+      addr: '0x27fD0857F0EF224097001E87e61026E39e1B04d1',
+      name: 'UNI RLY/ETH',
+      link: 'https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+      components: ["rly", "weth"],
+      decimals: 18
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: AssetProtocol.UNISWAP,
+   details: {
+     decimals: 18,
+     apiKey: 'RLY-ETH',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+ }
+ JAR_DEFINITIONS.push(JAR_UNI_RLY_ETH);
+ 
+
  export const JAR_USDC: JarDefinition =
  {
   type: AssetType.JAR,
