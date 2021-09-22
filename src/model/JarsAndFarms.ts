@@ -1538,6 +1538,27 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  JAR_DEFINITIONS.push(JAR_QUICK_DINO_ETH);
 
 
+ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'polyJar 4e',
+   contract: '0x1D35e4348826857eaFb22739d4e494C0337cb427',
+   depositToken: {
+      addr: '0x57602582eB5e82a197baE4E8b6B80E39abFC94EB',
+      name: 'SushiPickleDai',
+      link: 'https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394',
+      components: ["pickle", "dai"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: AssetProtocol.QUICKSWAP_POLYGON,
+   details: {
+     apiKey: 'PSLP-PICKLE',
+     harvestStyle: HarvestStyle.PASSIVE,
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
+
 
 // External Assets
 export const EXTERNAL_DEFINITIONS : ExternalAssetDefinition[] = []

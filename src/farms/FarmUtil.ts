@@ -204,11 +204,12 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
     return gauges;
 }
 
-export async function loadPolygonGaugeData() : 
-    Promise<IRawGaugeData[]> {
+export async function loadPolygonGaugeData() : Promise<IRawGaugeData[]> {
+    return loadPolygonGaugeDataForMinichef(ADDRESSES.Polygon.minichef);
+}
 
+export async function loadPolygonGaugeDataForMinichef(minichefAddr: string) : Promise<IRawGaugeData[]> {
     const provider : Provider = Chains.get(ChainNetwork.Polygon).getPreferredWeb3Provider();
-    const minichefAddr = ADDRESSES.Polygon.minichef;
     const minichef = new Contract(minichefAddr, MinichefAbi, provider);
     const [ppsBN, poolLengthBN] = await Promise.all([
         minichef.picklePerSecond()

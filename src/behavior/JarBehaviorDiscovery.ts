@@ -5,10 +5,11 @@ import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_
     JAR_SUSHI_ETH_DAI, JAR_SUSHI_ETH, JAR_SUSHI_ETH_USDC, JAR_SUSHI_ETH_USDT, JAR_SUSHI_ETH_WBTC, 
     JAR_SUSHI_ETH_YVECRV, JAR_SUSHI_ETH_YFI, JAR_SUSHI_ETH_YVBOOST,  
     JAR_UNIV2_FEI_TRIBE, JAR_SUSHI_ETH_ALCX, JAR_SUSHI_CVX_ETH, JAR_LQTY, JAR_SADDLE_D4,
-     JAR_3CRV, JAR_steCRV, JAR_renCRV, JAR_AAVEDAI, JAR_POLY_SUSHI_MATIC_ETH, JAR_POLY_SUSHI_ETH_USDT,
-      JAR_COMETH_USDC_WETH, JAR_COMETH_PICKLE_MUST, JAR_COMETH_MATIC_MUST, JAR_QUICK_MIMATIC_USDC, 
-      JAR_fraxCRV, JAR_USDC, JAR_lusdCRV, JAR_AM3CRV, JAR_sCRV, JAR_MIM3CRV, JAR_SPELLETH, JAR_MIMETH, JAR_FOXETH, 
-    JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD, JAR_SUSHI_ETH_TRU, JAR_CRV_IB, JAR_QUICK_QI_MATIC } from "../model/JarsAndFarms";
+    JAR_3CRV, JAR_steCRV, JAR_renCRV, JAR_AAVEDAI, JAR_POLY_SUSHI_MATIC_ETH, JAR_POLY_SUSHI_ETH_USDT,
+    JAR_COMETH_USDC_WETH, JAR_COMETH_PICKLE_MUST, JAR_COMETH_MATIC_MUST, JAR_QUICK_MIMATIC_USDC, 
+    JAR_fraxCRV, JAR_USDC, JAR_lusdCRV, JAR_AM3CRV, JAR_sCRV, JAR_MIM3CRV, JAR_SPELLETH, JAR_MIMETH, JAR_FOXETH, 
+    JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD, JAR_SUSHI_ETH_TRU,
+    JAR_CRV_IB, JAR_QUICK_QI_MATIC, JAR_POLY_SUSHI_PICKLE_DAI } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
 import { JarBehavior } from './JarBehaviorResolver';
@@ -40,6 +41,7 @@ import { MtslaUst } from './impl/mtsla-ust';
 import { PThreeCrv } from './impl/p3crv';
 import { PSlpMaticEth } from './impl/pslp-matic-eth';
 import { PSlpUsdtEth } from './impl/pslp-usdt-eth';
+import { PSlpPickleDai } from './impl/pslp-pickle-dai';
 import { SaddleD4 } from './impl/saddled4';
 import { SlpCvxEth } from './impl/slp-cvx-eth';
 import { SlpDaiEth } from './impl/slp-dai-eth';
@@ -108,6 +110,7 @@ jarToBehavior.set( JAR_COMETH_PICKLE_MUST.id, new ComethPickleMust());
 jarToBehavior.set( JAR_COMETH_MATIC_MUST.id, new ComethMaticMust());
 jarToBehavior.set( JAR_POLY_SUSHI_MATIC_ETH.id, new PSlpMaticEth());
 jarToBehavior.set( JAR_POLY_SUSHI_ETH_USDT.id, new PSlpUsdtEth());
+jarToBehavior.set( JAR_POLY_SUSHI_PICKLE_DAI.id, new PSlpPickleDai());
 jarToBehavior.set( JAR_SUSHI_DINO_USDC.id, new DinoUsdc());
 jarToBehavior.set( JAR_AM3CRV.id, new PThreeCrv());
 jarToBehavior.set( JAR_QUICK_DINO_ETH.id, new DinoEth());

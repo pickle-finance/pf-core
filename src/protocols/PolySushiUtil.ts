@@ -16,6 +16,7 @@ export const MATIC_COMPLEX_REWARDER =
   "0xa3378Ca78633B3b9b2255EAa26748770211163AE";
 
 const polySushiPoolIds: PoolId = {
+    "0x57602582eB5e82a197baE4E8b6B80E39abFC94EB": 37,
     "0xc2755915a85c6f6c1c0f3a86ac8c058f11caa9c9": 2,
     "0xc4e595acdd7d12fec385e5da5d43160e8a0bac0e": 0,
   };
