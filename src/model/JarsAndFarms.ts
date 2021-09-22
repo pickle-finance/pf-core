@@ -36,6 +36,9 @@ export const FARM_UNI_PICKLE_ETH : StandaloneFarmDefinition = {
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
    protocol: AssetProtocol.UNISWAP,
+   details: {
+     apiKey: "pickle-eth"
+   }
 }
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
