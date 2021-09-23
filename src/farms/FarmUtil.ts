@@ -8,7 +8,7 @@ import MinichefAbi from '../Contracts/ABIs/minichef.json';
 import { BigNumber, Contract, ethers } from "ethers";
 import gaugeAbi from '../Contracts/ABIs/gauge.json';
 import gaugeProxyAbi from '../Contracts/ABIs/gauge-proxy.json';
-import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
+import { ETH_SECONDS_PER_BLOCK, ONE_YEAR_IN_SECONDS, POLYGON_SECONDS_PER_BLOCK } from "../behavior/AbstractJarBehavior";
 import { AssetAprComponent, JarDefinition, StandaloneFarmDefinition } from "../model/PickleModelJson";
 
 export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) {
@@ -60,9 +60,16 @@ function createAprRange(jarRatio: number, depositTokenPrice: number,
     rewardRatePY: number, picklePrice: number, dec: number ) : AssetAprComponent {
     const pricePerPToken = jarRatio * depositTokenPrice;
     const dec2 = 18-dec;
-    const fullApy =
+    const fullApr =
       (rewardRatePY * picklePrice) / (pricePerPToken * Math.pow(10,dec2));
-    const component = {name: "pickle", maxApr: fullApy, apr: 0.4 * fullApy, compoundable: false};
+    const avgApr = (rewardRatePY * picklePrice);
+
+    const component : AssetAprComponent = {
+        name: "pickle", 
+        apr: 0.4 * fullApr, 
+        maxApr: fullApr, 
+        compoundable: false};
+
     return component;
 
 }
@@ -71,13 +78,17 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     // Check if it's a normal jar
     const jar : JarDefinition = findJarForGauge(gauge, model);
     if( jar !== undefined ) {
-        const c : AssetAprComponent = createAprRange(jar.details.ratio, jar.depositToken.price, 
+        const c : AssetAprComponent = createAprRange(jar.details.ratio, 
+            jar.depositToken.price, 
             gauge.rewardRatePerYear*100, model.priceOfSync("pickle"), 
             jar.details.decimals ? jar.details.decimals : 18);
         if( c && c.apr ) {
             jar.farm.details.farmApyComponents = [c];
         }
         jar.farm.details.allocShare = gauge.allocPoint;
+        jar.farm.details.picklePerDay = gauge.poolPicklesPerYear/360;
+        jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * ETH_SECONDS_PER_BLOCK;
+        
         return;
     }
 
@@ -90,6 +101,9 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
             saFarm.details.farmApyComponents = [c];
         }
         saFarm.details.allocShare = gauge.allocPoint;
+        saFarm.details.picklePerDay = gauge.poolPicklesPerYear/360;
+        saFarm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * ETH_SECONDS_PER_BLOCK;
+
         return;
     }
 }
@@ -107,10 +121,14 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
             jar.farm.details.farmApyComponents = [c];
         }
         jar.farm.details.allocShare = gauge.allocPoint;
+        jar.farm.details.picklePerDay = gauge.poolPicklesPerYear/360;
+        jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * POLYGON_SECONDS_PER_BLOCK;
+
         return;
     }
 
     // Chek standalone farms
+    // This is likely wrong but we don't have standalone farms on poly?
     const saFarm : StandaloneFarmDefinition = findStandaloneFarmForGauge(gauge, model);
     if( saFarm !== undefined ) {
         const c : AssetAprComponent = createAprRange(1, saFarm.depositToken.price, 
@@ -119,6 +137,8 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
             saFarm.details.farmApyComponents = [c];
         }
         saFarm.details.allocShare = gauge.allocPoint;
+        saFarm.details.picklePerDay = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS)*60*60*24;
+        saFarm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * POLYGON_SECONDS_PER_BLOCK;
         return;
     }
 }
@@ -131,9 +151,11 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
     await multicallProvider.init();
 
     const proxy : Contract = new Contract(ADDRESSES.Ethereum.gaugeProxy, gaugeProxyAbi, Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider());
-    const [tokens, totalWeight] = await Promise.all([
+    const masterChef : Contract = new Contract(ADDRESSES.Ethereum.masterChef, MasterchefAbi, Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider());
+    const [tokens, totalWeight, ppb] = await Promise.all([
         proxy.tokens(),
-        proxy.totalWeight()
+        proxy.totalWeight(),
+        masterChef.picklePerBlock()
     ]);
 
     const mcGaugeProxy = new MulticallContract(
@@ -189,16 +211,18 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
         const rrpy = +derivedSupplies[idx].toString() ? 
         (+gaugeRewardRates[idx].toString() / +derivedSupplies[idx].toString()) * ONE_YEAR_IN_SECONDS
         : Number.POSITIVE_INFINITY;
-        
-      return {
-        allocPoint: +gaugeWeights[idx].toString() / +totalWeight.toString() || 0,
+    
+    const alloc = +gaugeWeights[idx].toString() / +totalWeight.toString() || 0;
+    const ret : IRawGaugeData = {
+        allocPoint: alloc,
         token: token,
         gaugeAddress: gaugeAddresses[idx],
         rewardRate: +gaugeRewardRates[idx].toString(),
         rewardRatePerYear: rrpy,
-        //derivedSupply: +derivedSupplies[idx].toString(),
-        //totalSupply: +totalSupplies[idx].toString(),
+        poolPicklesPerYear: alloc * 
+            parseFloat(ethers.utils.formatEther(ppb)) * ONE_YEAR_IN_SECONDS / ETH_SECONDS_PER_BLOCK, //13 second blocks
       };
+    return ret;
     });
     
     return gauges;
@@ -249,6 +273,7 @@ export async function loadPolygonGaugeDataForMinichef(minichefAddr: string) : Pr
             allocPoint: poolShareOfPickles,
             token: lpTokens[i],
             gaugeAddress: minichefAddr,
+            poolPicklesPerYear: poolPicklesPerYear,
             rewardRatePerYear: poolPicklesPerYear
         });
     }
@@ -260,7 +285,8 @@ export interface IRawGaugeData {
     token: string,
     gaugeAddress: string,
     rewardRatePerYear: number,
-    //rewardRate: number,
+    poolPicklesPerYear: number
+    rewardRate?: number,
     //derivedSupply: number,
     //totalSupply: number
 }
