@@ -1,5 +1,5 @@
 import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
-import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
+import { BigNumber, BigNumberish, Contract, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
@@ -11,7 +11,7 @@ import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
-import { ASSET_PBAMM } from "./JarsAndFarms";
+import { ASSET_PBAMM, JAR_CRV_IB } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 import { PBammAsset } from "../behavior/impl/pbamm";
@@ -501,9 +501,13 @@ export class PickleModel {
     }
 
     async loadHarvestData(jars: JarDefinition[], chain: ChainNetwork) {
-        if( jars.length === 0) {
+        if( !jars || jars.length === 0)
             return;
-        }
+        
+        const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
+        const harvestableJars : JarDefinition[] = jars.filter((x)=>discovery.findAssetBehavior(x) !== null && discovery.findAssetBehavior(x) !== undefined)
+        if( !harvestableJars || harvestableJars.length === 0)
+            return;
 
         const signer : Provider = Chains.get(chain).getPreferredWeb3Provider();
 
@@ -515,20 +519,16 @@ export class PickleModel {
         await multicallProvider2.init();
 
         const balanceOfProm : Promise<BigNumber[]> =  multicallProvider.all<BigNumber[]>(
-            jars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf()));
-
+            harvestableJars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf()));
         // Load available as a group
         const availableProm : Promise<BigNumber[]> =  multicallProvider2.all<BigNumber[]>(
-            jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
+            harvestableJars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
 
         const [balanceOf, available] = await Promise.all([
             balanceOfProm, availableProm
         ]);
-        
     
         const harvestArr: Promise<JarHarvestStats>[] = [];
-        const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
-        const harvestableJars : JarDefinition[] = jars.filter((x)=>discovery.findAssetBehavior(x) !== null && discovery.findAssetBehavior(x) !== undefined)
         for( let i = 0; i < harvestableJars.length; i++ ) {
             try {
                 const resolver = Chains.getResolver(harvestableJars[i].chain);
@@ -536,7 +536,7 @@ export class PickleModel {
                 harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
                     balanceOf[i], available[i], resolver));
             } catch( e ) {
-                console.log("Error loading harvest data for jar " + jars[i].id + ":  " + e);
+                console.log("Error loading harvest data for jar " + harvestableJars[i].id + ":  " + e);
             }
         }
         const results: JarHarvestStats[] = await Promise.all(harvestArr);
