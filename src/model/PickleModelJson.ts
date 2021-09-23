@@ -100,7 +100,7 @@ export interface JarDetails {
     strategyAddr?: string,
     ratio?: number,
     totalSupply?: number,
-    depositTokenBalance?: number,
+    tokenBalance?: number,
     harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
     historicalApy?: HistoricalAPY,
 }

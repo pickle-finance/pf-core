@@ -454,7 +454,7 @@ export class PickleModel {
             jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).balance())
           );
         for( let i = 0; i < jars.length; i++ ) {
-            jars[i].details.depositTokenBalance = 
+            jars[i].details.tokenBalance = 
             parseFloat(ethers.utils.formatUnits(balance[i], 
                 jars[i].details.decimals ? jars[i].details.decimals : 18));
         }
