@@ -5,8 +5,8 @@ import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 
 export enum ChainNetwork {
-    Ethereum = 'Ethereum',
-    Polygon = 'Polygon',
+    Ethereum = 'eth',
+    Polygon = 'polygon',
     OKEx = 'OKEx',
     //Binance
 }
