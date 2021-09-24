@@ -19,6 +19,9 @@ export const FARM_SUSHI_PICKLE_ETH : StandaloneFarmDefinition = {
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Ethereum,
     protocol: AssetProtocol.SUSHISWAP,
+    details: {
+      apiKey: "sushi-pickle-eth",
+    }
 }
 STANDALONE_FARM_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
 

@@ -9,10 +9,10 @@ import { JAR_UNIV2_MAAPL_UST, JAR_UNIV2_MBABA_UST, JAR_UNIV2_MIR_UST, JAR_UNIV2_
     JAR_COMETH_USDC_WETH, JAR_COMETH_PICKLE_MUST, JAR_COMETH_MATIC_MUST, JAR_QUICK_MIMATIC_USDC, 
     JAR_fraxCRV, JAR_USDC, JAR_lusdCRV, JAR_AM3CRV, JAR_sCRV, JAR_MIM3CRV, JAR_SPELLETH, JAR_MIMETH, JAR_FOXETH, 
     JAR_SUSHI_DINO_USDC, JAR_QUICK_DINO_ETH, JAR_QUICK_QI_MIMATIC, JAR_IRON3USD, JAR_SUSHI_ETH_TRU,
-    JAR_CRV_IB, JAR_QUICK_QI_MATIC, JAR_POLY_SUSHI_PICKLE_DAI, JAR_UNI_RLY_ETH } from "../model/JarsAndFarms";
+    JAR_CRV_IB, JAR_QUICK_QI_MATIC, JAR_POLY_SUSHI_PICKLE_DAI, JAR_UNI_RLY_ETH, ASSET_PBAMM } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
-import { JarBehavior } from './JarBehaviorResolver';
+import { AssetBehavior, JarBehavior } from './JarBehaviorResolver';
 import { AbstractJarBehavior } from "./AbstractJarBehavior";
 import { DinoEth } from './impl/dino-eth';
 import { AlcxEth } from './impl/alcx-eth';
@@ -58,6 +58,7 @@ import { PickleModel } from '../model/PickleModel';
 import { YearnJar } from './impl/yearn-jar';
 import { MaticQi } from './impl/matic-qi';
 import { RlyEth } from './impl/rly-eth';
+import { PBammAsset } from './impl/pbamm';
 
 export class noOpJarBehavior extends AbstractJarBehavior {
     async getHarvestableUSD( _jar: JarDefinition, _model: PickleModel, _resolver: Signer | Provider): Promise<number> {
@@ -118,9 +119,12 @@ jarToBehavior.set( JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set( JAR_QUICK_QI_MATIC.id, new MaticQi());
 jarToBehavior.set( JAR_IRON3USD.id, new Is3Usd());
 
+jarToBehavior.set( ASSET_PBAMM.id, new PBammAsset());
+
+
 // Yet to convert
 export class JarBehaviorDiscovery {
-    findAssetBehavior(definition: PickleAsset) : JarBehavior {
+    findAssetBehavior(definition: PickleAsset) : AssetBehavior<PickleAsset> {
         return jarToBehavior.get(definition.id);
     }
   }

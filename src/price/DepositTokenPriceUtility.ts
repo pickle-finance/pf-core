@@ -53,6 +53,7 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
         if( checkCache )
             return checkCache;
 
+        // Is this necessary?
         if( depTokenAddr === JAR_USDC.depositToken.addr) {
             return getContractPrice(depTokenAddr, model)
         } 

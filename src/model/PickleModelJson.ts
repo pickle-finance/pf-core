@@ -66,7 +66,8 @@ export interface PickleAsset {
     enablement: AssetEnablement,
     chain: ChainNetwork,
     protocol: string,
-    aprStats?: AssetProjectedApr
+    aprStats?: AssetProjectedApr,
+    details: AssetDetails
 }
 
 export interface ExternalAssetDefinition extends PickleAsset {
@@ -80,7 +81,7 @@ export interface JarDefinition extends PickleAsset {
     farm?: NestedFarm,
 }
 export interface StandaloneFarmDefinition extends PickleAsset {
-    details?: StandaloneFarmDetails,
+    details: StandaloneFarmDetails,
     farmNickname: string,
 }
 
@@ -91,8 +92,7 @@ interface HistoricalAPY {
     d30?: number
 }
 
-export interface JarDetails {
-    apiKey: string,
+export interface JarDetails extends AssetDetails {
     decimals?: number,
     harvestStyle: HarvestStyle
     controller?: string,
@@ -101,13 +101,14 @@ export interface JarDetails {
     ratio?: number,
     totalSupply?: number,
     tokenBalance?: number,
-    harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
     historicalApy?: HistoricalAPY,
 }
 
-export interface StandaloneFarmDetails extends FarmDetails {
+export interface AssetDetails {
     apiKey?: string,
     harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
+}
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {
 }
 
 export interface FarmDetails {
@@ -120,9 +121,7 @@ export interface FarmDetails {
     historicalApy?: HistoricalAPY,
 }
 
-export interface ExternalDetails {
-    apiKey?: string,
-    harvestStats?: JarHarvestStats | ActiveJarHarvestStats,
+export interface ExternalDetails extends AssetDetails {
     includeInTvl?: boolean,
 }
 

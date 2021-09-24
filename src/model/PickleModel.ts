@@ -1,5 +1,5 @@
 import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
-import { BigNumber, BigNumberish, Contract, ethers, Signer } from 'ethers';
+import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
@@ -11,10 +11,8 @@ import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
-import { ASSET_PBAMM, JAR_CRV_IB } from "./JarsAndFarms";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
-import { PBammAsset } from "../behavior/impl/pbamm";
 import { loadGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 
@@ -136,25 +134,25 @@ export class PickleModel {
     }
 
     async generateFullApi() : Promise<PickleModelJson> {
-        const t1 = Date.now();
+        await this.loadJarAndFarmData();
+        this.dillDetails = await getDillDetails(getWeeklyDistribution(this.getJars()), 
+                this.prices, Chains.getResolver(ChainNetwork.Ethereum));
+        this.platformData = this.loadPlatformData();
+        return this.toJson();
+    }
+    async loadJarAndFarmData() : Promise<void> {
         await Promise.all([
             this.ensurePriceCacheLoaded(),
-            this.ensureStrategyDataLoaded(),
-            this.ensureRatiosLoaded(),
-            this.ensureJarTotalSupplyLoaded(),
-            this.ensureDepositTokenTotalSupplyLoaded(),
-            this.ensureJarBalanceLoaded(),
-            /*
-            */
+            this.loadStrategyData(),
+            this.loadRatiosData(),
+            this.loadJarTotalSupplyData(),
+            this.loadDepositTokenTotalSupplyData(),
+            this.loadJarBalanceData(),
             this.ensureComponentTokensLoaded(),
         ]);
-        const t2 = Date.now();
-
 
         await this.ensureDepositTokenPriceLoaded();
-        const t3 = Date.now();
         await this.ensureFarmsBalanceLoaded();
-        const t3a = Date.now();
 
         await Promise.all([
             this.loadGaugeAprData(),
@@ -162,19 +160,6 @@ export class PickleModel {
             this.ensureHarvestDataLoaded(),
             this.loadApyComponents(),
         ]);
-        const t4 = Date.now();
-        this.dillDetails = await getDillDetails(getWeeklyDistribution(this.getJars()), 
-                this.prices, Chains.getResolver(ChainNetwork.Ethereum));
-        const t5 = Date.now();
-        this.platformData = this.loadPlatformData();
-        /*
-        console.log(t2-t1);
-        console.log(t3-t2);
-        console.log(t3a-t3);
-        console.log(t4-t3);
-        console.log(t5-t4);
-*/        
-        return this.toJson();
     }
 
     toJson() : PickleModelJson {
@@ -222,16 +207,6 @@ export class PickleModel {
         }
     }
 
-    async ensureStrategyDataLoaded() {
-        const jars : JarDefinition[] = this.getJars();
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.strategyAddr === undefined || jars[i].details.strategyName === undefined ) {
-                await this.loadStrategyData();
-                return;
-            }
-        }
-    }
-
     async loadStrategyData() : Promise<any> {
         const jars : JarDefinition[] = this.getJars();
         const promises : Promise<any>[] = [];
@@ -252,29 +227,11 @@ export class PickleModel {
     }
 
 
-
-    async ensureRatiosLoaded() : Promise<any> {
-        const jars : JarDefinition[] = this.getJars();
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.ratio === undefined ) {
-                return this.loadRatiosData();
-            }
-        }
-    }
-
     async loadRatiosData() : Promise<any> {
         await Promise.all(this.configuredChains.map((x)=> 
                 this.addJarRatios(this.semiActiveJars(x), Chains.getResolver(x))));
     }
 
-    async ensureJarTotalSupplyLoaded() : Promise<any>  {
-        const jars : JarDefinition[] = this.getJars();
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.totalSupply === undefined ) {
-                return this.loadJarTotalSupplyData();
-            }
-        }
-    }
     async loadJarTotalSupplyData() : Promise<any>  {
         return Promise.all(this.configuredChains.map((x)=>
             this.addJarTotalSupply(this.semiActiveJars(x), Chains.getResolver(x))));
@@ -326,30 +283,9 @@ export class PickleModel {
         }
     }
 
-    async ensureDepositTokenTotalSupplyLoaded() {
-        const jars : JarDefinition[] = this.getJars();
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.totalSupply === undefined ) {
-                await this.loadDepositTokenTotalSupplyData();
-                return;
-            }
-        }
-    }
-
     async loadDepositTokenTotalSupplyData() : Promise<any>  {
         return Promise.all(this.configuredChains.map((x)=>
             this.addDepositTokenTotalSupply(this.semiActiveJars(x), Chains.getResolver(x))));
-    }
-
-
-    async ensureJarBalanceLoaded() {
-        const jars : JarDefinition[] = this.getJars();
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details.totalSupply === undefined ) {
-                await this.loadJarBalanceData();
-                return;
-            }
-        }
     }
 
     async loadJarBalanceData() : Promise<any>  {
@@ -358,6 +294,7 @@ export class PickleModel {
     }
 
 
+    // Could this be moved to the asset behaviors instead??
     async ensureDepositTokenPriceLoaded() {
         let notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
         let prices : number[] = await Promise.all(notDisabled.map((x)=>getDepositTokenPrice(x, this)));
@@ -620,12 +557,12 @@ export class PickleModel {
         // This needs to be separated out and unified, seriously. 
         const external : ExternalAssetDefinition[] = this.getExternalAssets();
         for( let i = 0; i < external.length; i++ ) {
-            if( external[i].id === ASSET_PBAMM.id) {
-                const asset = new PBammAsset();
-                const bal = await asset.getAssetHarvestData(external[i], this, null, null, null);
+            const behavior = new JarBehaviorDiscovery().findAssetBehavior(external[i]);
+            if( behavior ) {
+                const bal = await behavior.getAssetHarvestData(external[i], this, null, null, null);
                 external[i].details.harvestStats = bal;
 
-                const aprStats = await asset.getProjectedAprStats(external[i], this);
+                const aprStats = await behavior.getProjectedAprStats(external[i], this);
                 external[i].aprStats = aprStats;
             }
         }

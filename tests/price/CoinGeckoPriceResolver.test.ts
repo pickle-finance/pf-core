@@ -1,13 +1,12 @@
 import { CoinGeckoPriceResolver } from "../../src/price/CoinGeckoPriceResolver";
 import { ExternalTokenModelSingleton } from "../../src/price/ExternalTokenModel";
-import { PriceCache, RESOLVER_COINGECKO} from "../../src/price/PriceCache";
+import { PriceCache} from "../../src/price/PriceCache";
 
 describe('Testing coingecko', () => {
 
   async function getPrices(str: string[]) : Promise<Map<string,number>> {
     const pc : PriceCache = new PriceCache();
-    pc.addResolver(RESOLVER_COINGECKO, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
-    return await pc.getPrices(str, RESOLVER_COINGECKO);
+    return await pc.getPrices(str, new CoinGeckoPriceResolver(ExternalTokenModelSingleton));
   }
 
   test('Call get prices for single coin, short name', async () => {
