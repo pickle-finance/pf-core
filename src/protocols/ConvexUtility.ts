@@ -94,7 +94,9 @@ const convexPools: PoolInfo = {
     if (curveAPY && multicallProvider ) {
       const lpApy = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
       const crvApy = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
-      const rewardApy = parseFloat(curveAPY[cvxPool.tokenName]?.additionalRewards[0].apy);
+      const addtlRewards = curveAPY[cvxPool.tokenName] ? curveAPY[cvxPool.tokenName].additionalRewards : undefined;
+      const addtlRewardApy = addtlRewards && addtlRewards.length > 0 && addtlRewards[0] !== undefined  ? addtlRewards[0] : 0;
+      const rewardApy = parseFloat(addtlRewardApy);
 
       const poolInfo = await CvxBooster__factory.connect(CVX_BOOSTER, resolver).poolInfo(cvxPool.poolId)
 

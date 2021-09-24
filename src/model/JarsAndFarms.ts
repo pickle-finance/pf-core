@@ -919,11 +919,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  {
   type: AssetType.JAR,
    id: 'pJar A',
-   contract: '0xEB801AB73E9A2A482aA48CaCA13B1954028F4c94',
+   contract: '0x0989a227E7c50311f7De61e5e61F7c28Df8936f0',
    depositToken: {
       addr: '0x27fD0857F0EF224097001E87e61026E39e1B04d1',
       name: 'UNI RLY/ETH',
-      link: 'https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+      link: 'https://app.uniswap.org/#/add/v2/0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b/ETH',
       components: ["rly", "weth"],
       decimals: 18
    },
@@ -935,6 +935,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
      apiKey: 'RLY-ETH',
      harvestStyle: HarvestStyle.PASSIVE,
    },
+   farm: {
+    farmAddress: '0x1a6e44981B4144261932E460d30C9342e961f5D9',
+    farmNickname: 'pUNIV2 RLY/ETH',
+    farmDepositTokenName: 'pUNIV2 RLY/ETH'
+  }
  }
  JAR_DEFINITIONS.push(JAR_UNI_RLY_ETH);
  
