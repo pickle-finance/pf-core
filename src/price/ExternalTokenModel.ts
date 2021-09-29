@@ -109,6 +109,8 @@ export class ExternalTokenModel {
         arbitrumTokens.set("wbtc", new ExternalToken(ChainNetwork.Arbitrum, "wbtc", "wrapped-bitcoin", '0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("usdt", new ExternalToken(ChainNetwork.Arbitrum, "usdt", "usdt", '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("weth", new ExternalToken(ChainNetwork.Arbitrum, "weth", "weth", '0x82af49447d8a07e3bd95bd0d56f35241523fbab1'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        arbitrumTokens.set("2crv", new ExternalToken(ChainNetwork.Arbitrum, "2crv", "2crv", '0xbf7e49483881c76487b0989cd7d9a8239b20ca41'.toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
+        
 
         // Make the reverse map to fascilitate contract lookups
         const tokenMaps: Map<string,ExternalToken>[] = this.allChainMaps();

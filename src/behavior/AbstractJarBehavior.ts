@@ -18,7 +18,10 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     // and put this functionality right here or in the subclasses
     async getDepositTokenPrice(definition: JarDefinition, model: PickleModel): Promise<number> {
         if( definition && definition.depositToken && definition.depositToken.addr) {
-            return await model.priceOf(definition.depositToken.addr);
+            const ret = model.priceOfSync(definition.depositToken.addr);
+            if( ret !== undefined && ret !== null ) {
+                return ret;
+            }
         }
         return undefined;
     }

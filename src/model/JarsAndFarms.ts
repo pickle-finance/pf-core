@@ -1594,14 +1594,76 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
+ // Arbitrum
 
+ export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'arbJar 1a',
+   contract: '0x94feade0d3d832e4a05d459ebea9350c6cdd3bca',
+   depositToken: {
+      addr: '0xb6DD51D5425861C808Fd60827Ab6CFBfFE604959',
+      name: 'Sushi MIM-ETH',
+      link: 'https://app.sushi.com/add/0xFEa7a6a0B346362BF88A9e4A88416B77a57D6c2A/ETH',
+      components: ["mim", "weth"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Arbitrum,
+   protocol: AssetProtocol.SUSHISWAP,
+   details: {
+     apiKey: 'ArbitrumSlpMimEth',
+     harvestStyle: HarvestStyle.PASSIVE,
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_ARBITRUM_SLP_MIM_ETH);
 
-// ADD_ASSET
+ 
+export const JAR_ARBITRUM_SLP_SPELL_ETH: JarDefinition =
+{
+ type: AssetType.JAR,
+  id: 'arbJar 1b',
+  contract: '0x9Cae10143d7316dF417413C43b79Fb5b44Fa85e2',
+  depositToken: {
+     addr: '0x8f93Eaae544e8f5EB077A1e09C1554067d9e2CA8',
+     name: 'Sushi SPELL-ETH',
+     link: 'https://app.sushi.com/add/0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af/ETH',
+     components: ["spell", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: 'ArbitrumSlpSpellEth',
+    harvestStyle: HarvestStyle.PASSIVE,
+  }
+}
+JAR_DEFINITIONS.push(JAR_ARBITRUM_SLP_SPELL_ETH);
+
+export const JAR_ARBITRUM_MIM2CRV: JarDefinition =
+{
+ type: AssetType.JAR,
+  id: 'arbJar 1c',
+  contract: '0x973b669ef8c1459f7cb685bf7d7bcd4150977504',
+  depositToken: {
+     addr: '0x30dF229cefa463e991e29D42DB0bae2e122B2AC7',
+     name: 'Abracadabra MIM-2CRV',
+     link: 'https://arbitrum.curve.fi/factory/0/deposit',
+     components: ["mim", "2crv"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: 'Mim2CRV',
+    harvestStyle: HarvestStyle.PASSIVE,
+  }
+}
+JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
 
 export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition =
 {
  type: AssetType.JAR,
-  id: 'arbJar 2a',
+  id: 'arbJar 2b',
   contract: '0x8e93d85afa9e6a092676912c3eb00f46c533a07c',
   depositToken: {
      addr: '0x8e0b8c8bb9db49a46697f3a5bb8a308e744821d2',
@@ -1619,33 +1681,14 @@ export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition =
 }
 JAR_DEFINITIONS.push(JAR_ARBITRUM_CRV_TRICRYPTO);
 
-/*
-export const JAR_ARBITRUM_MIM2CRV: JarDefinition =
-{
- type: AssetType.JAR,
-  id: 'arbJar 1c',
-  contract: '0x8e93d85afa9e6a092676912c3eb00f46c533a07c',
-  depositToken: {
-     addr: '0x8e0b8c8bb9db49a46697f3a5bb8a308e744821d2',
-     name: 'Abracadabra MIM-2CRV',
-     link: 'https://arbitrum.curve.fi/tricrypto/deposit',
-     components: ["usdt", "wbtc", "weth"],
-  },
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.CURVE,
-  details: {
-    apiKey: 'CrvTricrypto',
-    harvestStyle: HarvestStyle.PASSIVE,
-  }
-}
-JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
-*/
+// ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
+
+
+
 
 
 // External Assets
 export const EXTERNAL_DEFINITIONS : ExternalAssetDefinition[] = []
-
 export const ASSET_PBAMM: ExternalAssetDefinition =
 {
  type: AssetType.EXTERNAL,
