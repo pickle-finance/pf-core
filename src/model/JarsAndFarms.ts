@@ -1595,6 +1595,54 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
 
+
+// ADD_ASSET
+
+export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition =
+{
+ type: AssetType.JAR,
+  id: 'arbJar 2a',
+  contract: '0x8e93d85afa9e6a092676912c3eb00f46c533a07c',
+  depositToken: {
+     addr: '0x8e0b8c8bb9db49a46697f3a5bb8a308e744821d2',
+     name: 'Curve Tricrypto',
+     link: 'https://arbitrum.curve.fi/tricrypto/deposit',
+     components: ["usdt", "wbtc", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: 'CrvTricrypto',
+    harvestStyle: HarvestStyle.PASSIVE,
+  }
+}
+JAR_DEFINITIONS.push(JAR_ARBITRUM_CRV_TRICRYPTO);
+
+/*
+export const JAR_ARBITRUM_MIM2CRV: JarDefinition =
+{
+ type: AssetType.JAR,
+  id: 'arbJar 1c',
+  contract: '0x8e93d85afa9e6a092676912c3eb00f46c533a07c',
+  depositToken: {
+     addr: '0x8e0b8c8bb9db49a46697f3a5bb8a308e744821d2',
+     name: 'Abracadabra MIM-2CRV',
+     link: 'https://arbitrum.curve.fi/tricrypto/deposit',
+     components: ["usdt", "wbtc", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: 'CrvTricrypto',
+    harvestStyle: HarvestStyle.PASSIVE,
+  }
+}
+JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
+*/
+
+
 // External Assets
 export const EXTERNAL_DEFINITIONS : ExternalAssetDefinition[] = []
 

@@ -87,7 +87,7 @@ const convexPools: PoolInfo = {
     const curveAPY = fetchResult?.apys;      
     
     // Component 1
-    const multicallProvider = new MulticallProvider(resolver);
+    const multicallProvider = model.multicallProviderFor(definition.chain);
     await multicallProvider.init();
 
     const cvxPool = convexPools[definition.depositToken.addr];

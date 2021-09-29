@@ -7,7 +7,8 @@ import { Signer } from "@ethersproject/abstract-signer";
 export enum ChainNetwork {
     Ethereum = 'eth',
     Polygon = 'polygon',
-    OKEx = 'OKEx',
+    OKEx = 'okex',
+    Arbitrum = 'arbitrum',
     //Binance
 }
 
@@ -31,13 +32,17 @@ export class PolygonChain extends AbstractChain {
 export class OKExChain extends AbstractChain {
   constructor() {
       super(66, ChainNetwork.OKEx, 'https://www.oklink.com/okexchain',
-        [
-          'https://exchainrpc.okex.org'
-      ]);
+        ['https://exchainrpc.okex.org']);
   }
 }
 
 
+export class ArbitumChain extends AbstractChain {
+  constructor() {
+      super(42161, ChainNetwork.Arbitrum, 'https://arbiscan.io',
+        ['https://arb1.arbitrum.io/rpc']);
+  }
+}
 
 export class Chains {
     private static singleton: Chains = new Chains();
@@ -47,8 +52,13 @@ export class Chains {
         Chains.singleton = this;
         this.chainData.set(ChainNetwork.Ethereum, new EthereumChain());
         this.chainData.set(ChainNetwork.Polygon, new PolygonChain());
+        this.chainData.set(ChainNetwork.Arbitrum, new ArbitumChain());
     }
 
+    static list() : ChainNetwork[] {
+      return [...Chains.singleton.chainData.keys()];
+    }
+    
     static get(network: ChainNetwork) : IChain {
       const chain = Chains.singleton.chainData.get(network);
       if (!chain) {

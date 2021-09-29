@@ -7,6 +7,7 @@ import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
 import { PriceCache } from "../price/PriceCache";
 import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
 import moment from "moment";
+import { ChainNetwork, PickleModel } from "..";
 
 const week = 7 * 24 * 60 * 60;
 const firstMeaningfulDistributionTimestamp = 1619049600;
@@ -52,8 +53,8 @@ export function getWeeklyDistribution(jars: JarDefinition[] ) : number {
 }
 
 export async function getDillDetails(thisWeekProjectedDistribution: number, 
-                priceCache: PriceCache, resolver: Signer | Provider) : Promise<DillDetails> {
-    const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+                priceCache: PriceCache, model: PickleModel, chain: ChainNetwork) : Promise<DillDetails> {
+    const multicallProvider = model.multicallProviderFor(chain);
     await multicallProvider.init();
 
     try {

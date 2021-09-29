@@ -1,7 +1,7 @@
 import { ChainNetwork, Chains } from "../chain/Chains";
-import { CONTROLLER_ETH, CONTROLLER_POLYGON, PickleModel } from "../model/PickleModel";
+import { PickleModel } from "../model/PickleModel";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
-import { BigNumber, Contract, ethers, Signer } from 'ethers';
+import { Contract } from 'ethers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from '../Contracts/ABIs/controller.json';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
@@ -16,15 +16,11 @@ import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 
 export async function calculateMasterChefRewardsAPR(jar: JarDefinition, 
   model: PickleModel) : Promise<AssetAprComponent> {
-    let controllerAddr = jar.details.controller ? jar.details.controller :
-        jar.chain === ChainNetwork.Ethereum ? CONTROLLER_ETH : 
-        jar.chain === ChainNetwork.Polygon ? CONTROLLER_POLYGON :
-        undefined;
-    
-
+    let controllerAddr = model.controllerForJar(jar);
     if( !controllerAddr ) {
         return undefined;    
     }
+
     const resolver: Provider = Chains.get(jar.chain).getPreferredWeb3Provider();
     const controller = new Contract(controllerAddr, controllerAbi, resolver);
     const jarStrategy = await controller.strategies(jar.depositToken.addr);
@@ -34,7 +30,7 @@ export async function calculateMasterChefRewardsAPR(jar: JarDefinition,
     const rewardTokenAddress = await strategyContract.rewardToken();
 
 
-    const multicallProvider = new MulticallProvider(resolver);
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
 
@@ -64,6 +60,7 @@ export async function calculateMasterChefRewardsAPR(jar: JarDefinition,
 
     const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
+    // TODO move average block time to the chain??
     const avgBlockTime = jar.chain === ChainNetwork.Ethereum ? AVERAGE_BLOCK_TIME : AVERAGE_BLOCK_TIME_POLYGON;
     const rewardsPerYear =
         rewardsPerBlock * (ONE_YEAR_IN_SECONDS / avgBlockTime);

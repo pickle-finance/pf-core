@@ -15,7 +15,7 @@ export const dinoPoolIds: PoolId = {
   };
   
 export async function calculateFossilFarmsAPY(jar: JarDefinition, model: PickleModel) {
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const multicallFossilFarms = new MulticallContract(
       FOSSIL_FARMS, fossilFarmsAbi);

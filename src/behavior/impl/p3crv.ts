@@ -65,7 +65,7 @@ export class PThreeCrv extends AbstractJarBehavior {
 
 
   async getProjectedAprStats(jar: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
     const now = Date.now() / 1000;

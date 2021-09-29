@@ -14,7 +14,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         return undefined;
     }
 
-    // TODO we can eventually get rid of the RESOLVER_DEPOSIT_TOKEN thingie
+    // TODO we can eventually get rid of the DepositTokenPriceUtility thingie
     // and put this functionality right here or in the subclasses
     async getDepositTokenPrice(definition: JarDefinition, model: PickleModel): Promise<number> {
         if( definition && definition.depositToken && definition.depositToken.addr) {
@@ -42,13 +42,13 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     async getAssetHarvestData(definition: JarDefinition, model: PickleModel,
         balance: BigNumber, available: BigNumber, resolver: Signer | Provider): Promise<JarHarvestStats> {
 
+        const harvestableUSD: number = await this.getHarvestableUSD(definition, model, resolver);
         const balanceWithAvailable = balance.add(available);
         const depositTokenDecimals = (definition.depositToken.decimals ? definition.depositToken.decimals : 18);
         const depositTokenPrice: number = await model.priceOf(definition.depositToken.addr);
         const balanceUSD: number = parseFloat(ethers.utils.formatUnits(balanceWithAvailable, depositTokenDecimals)) * depositTokenPrice;
         const availUSD: number = parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) * depositTokenPrice;
 
-        const harvestableUSD: number = await this.getHarvestableUSD(definition, model, resolver);
         return {
             balanceUSD: balanceUSD,
             earnableUSD: availUSD,

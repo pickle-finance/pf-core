@@ -29,7 +29,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
     return await this.chefV1AprStats(definition, model);
   }
   async chefV1AprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
-    const apr1 : number = await calculateSushiRewardApr(definition.depositToken.addr,model, Chains.get(definition.chain).getProviderOrSigner());
+    const apr1 : number = await calculateSushiRewardApr(definition.depositToken.addr,model, definition.chain);
     const apr1Comp : AssetAprComponent = this.createAprComponent("sushi", apr1, true);
 
     const lpApr : number = await new SushiEthPairManager().calculateLpApr(model, definition.depositToken.addr);
@@ -39,7 +39,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
 
   async chefV2AprStats(definition: JarDefinition, model: PickleModel, rewardToken: string) : Promise<AssetProjectedApr> {
     const aprSushiRewards : number = await calculateMCv2SushiRewards(definition.depositToken.addr, 
-      model, Chains.get(definition.chain).getProviderOrSigner());
+      model, definition.chain);
     const aprSushiComp : AssetAprComponent = this.createAprComponent("sushi", aprSushiRewards,true);
 
     const aprTokenRewards : number = await calculateMCv2TokenRewards(definition.depositToken.addr,rewardToken, 

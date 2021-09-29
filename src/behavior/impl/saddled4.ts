@@ -28,7 +28,7 @@ export class SaddleD4 extends AbstractJarBehavior {
 
   async calculateSaddleD4APY(jar: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr>{
     const swapFlashLoanAddress = "0xC69DDcd4DFeF25D8a793241834d4cc4b3668EAD6";
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const multicallCommunalFarm = new MulticallContract(COMMUNAL_FARM,communalFarmAbi);
 

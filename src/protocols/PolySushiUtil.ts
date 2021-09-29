@@ -22,9 +22,7 @@ const polySushiPoolIds: PoolId = {
   };
   
 export async function calculatePolySushiAPY(jar: JarDefinition, model: PickleModel) : Promise<AssetAprComponent[]> {
-    const chain : IChain = Chains.get(jar.chain);
-    const provider = Chains.get(jar.chain).getPreferredWeb3Provider();
-    const multicallProvider = new MulticallProvider(provider);//, chain.id);
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     try {
       await multicallProvider.init();
     } catch(e) {

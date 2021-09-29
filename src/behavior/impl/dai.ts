@@ -34,7 +34,7 @@ export class DaiJar extends AbstractJarBehavior {
         pool.underlyingAsset.toUpperCase() === assetAddress.toUpperCase(),
     );
 
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
     const maticPrice = await model.priceOf("matic");

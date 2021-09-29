@@ -17,9 +17,9 @@ const abracadabraIds: PoolId = {
 
   
   export async function calculateAbradabraApy(definition: JarDefinition, model: PickleModel,
-     resolver : Signer | Provider) : Promise<number> {
+     _resolver : Signer | Provider) : Promise<number> {
 
-    const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+    const multicallProvider = model.multicallProviderFor(definition.chain);
     await multicallProvider.init();
     
     

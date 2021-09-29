@@ -4,9 +4,8 @@ import { Provider } from '@ethersproject/providers';
 import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { AbstractJarBehavior, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
 import {ironchefAbi} from '../../Contracts/ABIs/ironchef.abi';
-import { CONTROLLER_ETH, CONTROLLER_POLYGON, PickleModel } from '../../model/PickleModel';
+import { PickleModel } from '../../model/PickleModel';
 import { formatEther } from 'ethers/lib/utils';
-import { ChainNetwork } from '../..';
 import { Chains } from '../../chain/Chains';
 import controllerAbi from '../../Contracts/ABIs/controller.json';
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
@@ -30,19 +29,14 @@ export class Is3Usd extends AbstractJarBehavior {
     ]);
   }
   async calculateIronChefAPY(jar: JarDefinition, model: PickleModel) : Promise<number> {
-    let controllerAddr = jar.details.controller ? jar.details.controller :
-    jar.chain === ChainNetwork.Ethereum ? CONTROLLER_ETH : 
-    jar.chain === ChainNetwork.Polygon ? CONTROLLER_POLYGON :
-    undefined;
-
-
+    const controllerAddr = model.controllerForJar(jar);
     if( !controllerAddr ) {
         return undefined;    
     }
     const resolver: Provider = Chains.get(jar.chain).getPreferredWeb3Provider();
     const controller = new Contract(controllerAddr, controllerAbi, resolver);
 
-    const multicallProvider = new MulticallProvider(resolver);
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
     const jarStrategy = await controller.strategies(jar.depositToken.addr);

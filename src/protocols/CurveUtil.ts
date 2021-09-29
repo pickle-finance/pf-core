@@ -3,9 +3,10 @@ import { formatEther } from "ethers/lib/utils";
 import { Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import CurvePoolABI from '../Contracts/ABIs/pool.json';
+import { ChainNetwork, PickleModel } from '..';
 
-export async function getCurveLpPriceData(tokenAddress: string, resolver: Provider | Signer) : Promise<number> {
-    const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+export async function getCurveLpPriceData(tokenAddress: string, model: PickleModel, chain: ChainNetwork) : Promise<number> {
+    const multicallProvider = model.multicallProviderFor(chain);
     await multicallProvider.init();
 
     const multicallPoolContract = new MulticallContract(

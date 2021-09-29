@@ -29,9 +29,9 @@ export abstract class MirJar extends AbstractJarBehavior {
   }
   
   async calculateMirAPY(rewardsAddress: string, jar: JarDefinition, 
-      model: PickleModel, resolver: Provider | Signer) {
+      model: PickleModel) {
   
-      const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+      const multicallProvider = model.multicallProviderFor(jar.chain);
       await multicallProvider.init();
       
       const multicallUniStakingRewards = 
@@ -60,7 +60,7 @@ export abstract class MirJar extends AbstractJarBehavior {
   }
   
   async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
-    const mir : number = await this.calculateMirAPY(this.rewardAddress, definition, model, Chains.get(definition.chain).getProviderOrSigner());
+    const mir : number = await this.calculateMirAPY(this.rewardAddress, definition, model);
     const lp : number = await calculateUniswapLpApr(model, definition.depositToken.addr);
 
     return this.aprComponentsToProjectedApr([

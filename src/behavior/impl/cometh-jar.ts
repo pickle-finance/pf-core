@@ -43,7 +43,7 @@ export abstract class ComethJar extends AbstractJarBehavior {
   }
 
   async calculateComethAPY(rewardsAddress: string, jar: JarDefinition, model: PickleModel) : Promise<number> {
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const multicallStakingRewards = new MulticallContract(
       rewardsAddress,stakingRewardsAbi);

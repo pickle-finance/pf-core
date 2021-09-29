@@ -134,7 +134,7 @@ export interface IPairData {
 
   export async function getLivePairDataFromContracts(jar: PickleAsset, model: PickleModel,
     depositTokenDecimals: number) : Promise<IPairData> {
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const pairAddress:string = jar.depositToken.addr;
 

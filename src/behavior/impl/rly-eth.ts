@@ -52,7 +52,7 @@ export class RlyEth extends AbstractJarBehavior {
 
 
   async calculateRallyApy(jar: JarDefinition, model: PickleModel) : Promise<number> {
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const multicallRallyRewardPools = new MulticallContract(
       RALLY_REWARD_POOLS, rallyRewardPoolsAbi);

@@ -1,4 +1,4 @@
-import { Contract, ethers, Signer } from 'ethers';
+import { ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
@@ -12,12 +12,20 @@ import fetch from 'cross-fetch';
 
 export const GAUGE_CONTROLLER_ADDR = "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB";
 
-const CurveAprRawStatsEthKey = "curveJar.apr.rawstats.eth.key";
-const CurveAprRawStatsPolyKey = "curveJar.apr.rawstats.poly.key";
-const curveAPYsURLEth = "https://stats.curve.fi/raw-stats/apys.json";
-const curveAPYsURLPoly = "https://stats.curve.fi/raw-stats-polygon/apys.json";
+export interface CurveChainMetadata {
+    cacheKey: string,
+    url: string
+}
+const curveMetadataForChains : Map<ChainNetwork, CurveChainMetadata> = new Map();
+curveMetadataForChains.set(ChainNetwork.Ethereum, 
+  {cacheKey: "curveJar.apr.rawstats.eth.key", url: "https://stats.curve.fi/raw-stats/apys.json"});
+curveMetadataForChains.set(ChainNetwork.Polygon, 
+  {cacheKey: "curveJar.apr.rawstats.poly.key", url: "https://stats.curve.fi/raw-stats-polygon/apys.json"});
+curveMetadataForChains.set(ChainNetwork.Arbitrum, 
+  {cacheKey: "curveJar.apr.rawstats.arbitrum.key", url: "https://stats.curve.fi/raw-stats-arbitrum/apys.json"});
+  // ADD_CHAIN
 
-export interface RawStatAPYs {
+  export interface RawStatAPYs {
   compound: number;
   usdt: number;
   y: number;
@@ -37,12 +45,14 @@ export interface RawStatAPYs {
 }
 
 export async function getCurveRawStats(model: PickleModel, network: ChainNetwork) : Promise<RawStatAPYs> {
-  const key = (network === ChainNetwork.Ethereum ? CurveAprRawStatsEthKey : CurveAprRawStatsPolyKey)
-  let fromCache : any = model.resourceCache.get(key);
+  const metadata = curveMetadataForChains.get(network);
+  if( !metadata )
+    return undefined;
+
+  let fromCache : any = model.resourceCache.get(metadata.cacheKey);
   if( fromCache === undefined ) {
-    const url = (network === ChainNetwork.Ethereum ? curveAPYsURLEth : curveAPYsURLPoly)
-    const stats : RawStatAPYs = await loadCurveRawStats(url);
-    model.resourceCache.set(key, stats);
+    const stats : RawStatAPYs = await loadCurveRawStats(metadata.url);
+    model.resourceCache.set(metadata.cacheKey, stats);
     return stats;
   }
   return fromCache;
@@ -71,7 +81,7 @@ export abstract class CurveJar extends AbstractJarBehavior {
     underlyingPrice: number,
     gauge: string, pool: string): Promise<AssetAprComponent> {
       
-      const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+      const multicallProvider = model.multicallProviderFor(jar.chain);
       await multicallProvider.init();
       const mcGauge = new MulticallContract(gauge, curveGaugeAbi);
       const mcPool = new MulticallContract(pool, poolAbi);

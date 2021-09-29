@@ -1,4 +1,4 @@
-import { PickleModel } from "..";
+import { ChainNetwork, PickleModel } from "..";
 import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
 import { PoolId } from "./ProtocolUtil";
@@ -108,9 +108,9 @@ export class SushiEthPairManager extends GenericSwapUtility {
 
 
 export async function calculateSushiRewardApr(lpTokenAddress: string, 
-    model: PickleModel, resolver : Signer | Provider) : Promise<number> {
+    model: PickleModel, chain: ChainNetwork) : Promise<number> {
 
-    const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+    const multicallProvider = model.multicallProviderFor(chain);
     await multicallProvider.init();
 
     
@@ -149,9 +149,9 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
   };
 
   export async function calculateMCv2SushiRewards(lpTokenAddress: string, 
-    model: PickleModel, resolver : Signer | Provider) : Promise<number> {
+    model: PickleModel, chain: ChainNetwork) : Promise<number> {
 
-      const multicallProvider = new MulticallProvider((resolver as Signer).provider === undefined ? (resolver as Provider) : (resolver as Signer).provider);
+      const multicallProvider = model.multicallProviderFor(chain);
       await multicallProvider.init();
 
       const poolId = sushiPoolV2Ids[lpTokenAddress];

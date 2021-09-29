@@ -7,6 +7,8 @@ import MetaPoolABI from "../Contracts/ABIs/meta-pool.json";
 import { ethers } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 
+// TODO:  This class should really disappear 
+// and its logic be brought into the jar behavior itself
 function isGenericSwapProtocol(protocol: string) : boolean {
     return SWAP_PROTOCOLS.filter((x)=>x.toString() === protocol).length > 0;
 }
@@ -44,7 +46,8 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
 
 
     /*
-    A lot of this is wrong. Don't know which repo I copied it from.
+       A lot of this is wrong. Don't know which repo I copied it from.
+       ADD_ASSET  deposit token price
     */
     export async function getDepositTokenPrice(asset: PickleAsset, model: PickleModel): Promise<number> {
         // first, always check the cache

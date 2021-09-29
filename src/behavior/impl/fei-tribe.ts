@@ -36,7 +36,7 @@ export class FeiTribe extends AbstractJarBehavior {
   }
 
   async calculateFeiAPY( jar:JarDefinition, model:PickleModel) : Promise<number> {
-    const multicallProvider = new MulticallProvider(Chains.get(jar.chain).getPreferredWeb3Provider());
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
     const multicallFeichef = new MulticallContract(FEI_MASTERCHEF,feiChefAbi);
