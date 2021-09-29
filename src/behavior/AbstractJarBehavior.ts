@@ -3,6 +3,7 @@ import { Provider } from '@ethersproject/providers';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../model/PickleModelJson';
 import { JarBehavior, JarHarvestStats } from './JarBehaviorResolver';
 import { PickleModel } from '../model/PickleModel';
+import { getDepositTokenPrice } from '../price/DepositTokenPriceUtility';
 
 export const ONE_YEAR_IN_SECONDS : number = 360*24*60*60
 export const POLYGON_SECONDS_PER_BLOCK = 2;
@@ -23,7 +24,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
                 return ret;
             }
         }
-        return undefined;
+        return getDepositTokenPrice(definition, model);
     }
 
     /**
