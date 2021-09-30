@@ -187,6 +187,7 @@ export class PickleModel {
             dill: this.dillDetails,
             prices: Object.fromEntries(this.prices.getCache()),
             platform: this.platformData,
+            timestamp: Date.now()
         }
     }
 

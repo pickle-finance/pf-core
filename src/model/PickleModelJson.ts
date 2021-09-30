@@ -162,7 +162,8 @@ export interface PickleModelJson {
     },
     dill: DillDetails,
     prices: any,
-    platform: PlatformData
+    platform: PlatformData,
+    timestamp: number
 }
 
 export interface AssetProjectedApr {
