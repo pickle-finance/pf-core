@@ -1,20 +1,23 @@
 import { ChainNetwork, PickleModel } from "..";
 import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
-import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
+import { AssetProtocol, JarDefinition, PickleAsset } from "../model/PickleModelJson";
 import { PoolId } from "./ProtocolUtil";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import sushiChefAbi from '../Contracts/ABIs/sushi-chef.json';
+import sushiMiniChefAbi from '../Contracts/ABIs/sushi-minichef.json';
 import masterChefV2Abi from '../Contracts/ABIs/masterchefv2.json';
 import rewarderAbi from '../Contracts/ABIs/rewarder.json';
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { Contract, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
+import { ADDRESSES } from "../model/PickleModel";
 
 
 export const SUSHI_CHEF_ADDR = "0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd";
 export const MASTERCHEFV2_ADDR = "0xef0881ec094552b2e128cf945ef17a6752b4ec5d";
+export const SUSHI_MINICHEF_ARBITRUM_ADDR = "0xF4d73326C13a4Fc5FD7A064217e12780e9Bd62c3";
 
 
 const sushiPoolIds: PoolId = {
@@ -34,7 +37,11 @@ const sushiPoolIds: PoolId = {
     "0xfCEAAf9792139BF714a694f868A215493461446D": 8,
   };
   
-
+  const sushiPoolIdsArbitrum: PoolId = {
+    "0xb6DD51D5425861C808Fd60827Ab6CFBfFE604959": 9,
+    "0x8f93Eaae544e8f5EB077A1e09C1554067d9e2CA8": 11,
+  };
+  
 
   const SUSHI_POLY_PAIR_DATA_CACHE_KEY = "sushiswap.poly.pair.data.cache.key";
   const SUSHI_POLY_PAIR_GRAPH_FIELDS : string[] = [
@@ -226,3 +233,60 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
       return rewardAPR * 100;
   };
 
+
+
+  export async function calculateSushiApyArbitrum(jar: JarDefinition, model: PickleModel) {
+    const lpTokenAddress: string = jar.depositToken.addr;
+    const multicallProvider = model.multicallProviderFor(jar.chain);
+    const poolId = sushiPoolIdsArbitrum[lpTokenAddress];
+    const multicallsushiMinichef = new MulticallContract(SUSHI_MINICHEF_ARBITRUM_ADDR, sushiMiniChefAbi);
+    const lpToken = new MulticallContract(lpTokenAddress, erc20Abi);
+    const [
+      sushiPerSecondBN,
+      totalAllocPointBN,
+      poolInfo,
+      totalSupplyBN,
+    ] = await multicallProvider.all([
+      multicallsushiMinichef.sushiPerSecond(),
+      multicallsushiMinichef.totalAllocPoint(),
+      multicallsushiMinichef.poolInfo(poolId),
+      lpToken.balanceOf(SUSHI_MINICHEF_ARBITRUM_ADDR),
+    ]);
+    const totalSupply = parseFloat(formatEther(totalSupplyBN));
+    const sushiRewardsPerSecond =
+      (parseFloat(formatEther(sushiPerSecondBN)) *
+        poolInfo.allocPoint.toNumber()) /
+      totalAllocPointBN.toNumber();
+      const pricePerToken = jar.depositToken.price;
+      const sushiRewardsPerYear = sushiRewardsPerSecond * (365 * 24 * 60 * 60);
+      const valueRewardedPerYear = model.priceOfSync("sushi") * sushiRewardsPerYear;
+
+      const totalValueStaked = totalSupply * pricePerToken;
+      const sushiAPY = valueRewardedPerYear / totalValueStaked;
+      return sushiAPY;
+  };
+
+  export async function calculateMCv2ApyArbitrum(jar: JarDefinition, model: PickleModel, rewardToken: string) {
+    const lpTokenAddress = jar.depositToken.addr;
+    const poolId = sushiPoolIdsArbitrum[lpTokenAddress];
+    const sushiMinichef = new Contract(SUSHI_MINICHEF_ARBITRUM_ADDR, sushiMiniChefAbi, model.providerFor(jar.chain));
+    const rewarder_addr = await sushiMinichef.rewarder(poolId);
+    const rewarder = new Contract(rewarder_addr, rewarderAbi,  model.providerFor(jar.chain));
+    const lpToken = new Contract(lpTokenAddress, erc20Abi,  model.providerFor(jar.chain));
+    const totalSupplyBN = await lpToken.balanceOf(sushiMinichef.address);
+    const totalSupply = parseFloat(formatEther(totalSupplyBN));
+    const pricePerToken = jar.depositToken.price;
+
+    let rewardsPerYear = 0;
+    if (rewardToken === "spell") {
+      const tokenPerSecondBN = await rewarder.rewardPerSecond();
+      rewardsPerYear =
+        parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
+    }
+
+    const valueRewardedPerYear = model.priceOfSync(rewardToken) * rewardsPerYear;
+
+    const totalValueStaked = totalSupply * pricePerToken;
+    const rewardAPY = valueRewardedPerYear / totalValueStaked;
+    return rewardAPY;
+};

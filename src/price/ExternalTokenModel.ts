@@ -106,8 +106,8 @@ export class ExternalTokenModel {
         arbitrumTokens.set("sushi", new ExternalToken(ChainNetwork.Arbitrum, "sushi", "sushi", '0xd4d42f0b6def4ce0383636770ef773390d85c61a'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("mim", new ExternalToken(ChainNetwork.Arbitrum, "mim", "magic-internet-money", '0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("crv", new ExternalToken(ChainNetwork.Arbitrum, "crv", "curve-dao-token", '0x11cdb42b0eb46d95f990bedd4695a6e3fa034978'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
-        arbitrumTokens.set("wbtc", new ExternalToken(ChainNetwork.Arbitrum, "wbtc", "wrapped-bitcoin", '0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
-        arbitrumTokens.set("usdt", new ExternalToken(ChainNetwork.Arbitrum, "usdt", "usdt", '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        arbitrumTokens.set("wbtc", new ExternalToken(ChainNetwork.Arbitrum, "wbtc", "wrapped-bitcoin", '0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f'.toLowerCase(), 8, ExternalTokenFetchStyle.ID));
+        arbitrumTokens.set("usdt", new ExternalToken(ChainNetwork.Arbitrum, "usdt", "usdt", '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9'.toLowerCase(), 6, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("weth", new ExternalToken(ChainNetwork.Arbitrum, "weth", "weth", '0x82af49447d8a07e3bd95bd0d56f35241523fbab1'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("2crv", new ExternalToken(ChainNetwork.Arbitrum, "2crv", "2crv", '0xbf7e49483881c76487b0989cd7d9a8239b20ca41'.toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
         

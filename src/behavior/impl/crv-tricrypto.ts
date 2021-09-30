@@ -7,6 +7,7 @@ import { curveThirdPartyGaugeAbi } from '../../Contracts/ABIs/curve-external-gau
 import { formatEther } from 'ethers/lib/utils';
 import curvePoolAbi from '../../Contracts/ABIs/curve-pool.json';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
+import { calculateCurveApyArbitrum } from '../../protocols/CurveUtil';
 
 export class CrvTricrypto extends CurveJar {
 
@@ -48,8 +49,15 @@ export class CrvTricrypto extends CurveJar {
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
-  async getProjectedAprStats(_definition: JarDefinition, _model: PickleModel) : Promise<AssetProjectedApr> {
-    return this.aprComponentsToProjectedApr([]);
+  async getProjectedAprStats(jar: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+    const apr = await calculateCurveApyArbitrum(jar, model, 
+      "0x960ea3e3C7FB317332d990873d354E18d7645590",
+      "0x97E2768e8E73511cA874545DC5Ff8067eB19B787",
+      ["usdt", "wbtc", "weth"]
+    );
+    return this.aprComponentsToProjectedApr([
+      this.createAprComponent("crv", apr, true),
+    ]);
   }
 
 
