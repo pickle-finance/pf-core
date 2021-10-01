@@ -1613,6 +1613,11 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    details: {
      apiKey: 'ArbitrumSlpMimEth',
      harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0x7ecc7163469f37b777d7b8f45a667314030ace24',
+     farmNickname: 'pSLP MIM/ETH',
+     farmDepositTokenName: 'pSLP MIM/ETH'
    }
  }
  JAR_DEFINITIONS.push(JAR_ARBITRUM_SLP_MIM_ETH);
@@ -1635,7 +1640,13 @@ export const JAR_ARBITRUM_SLP_SPELL_ETH: JarDefinition =
   details: {
     apiKey: 'ArbitrumSlpSpellEth',
     harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: '0x7ecc7163469f37b777d7b8f45a667314030ace24',
+    farmNickname: 'pSLP SPELL/ETH',
+    farmDepositTokenName: 'pSLP SPELL/ETH'
   }
+
 }
 JAR_DEFINITIONS.push(JAR_ARBITRUM_SLP_SPELL_ETH);
 
@@ -1656,6 +1667,11 @@ export const JAR_ARBITRUM_MIM2CRV: JarDefinition =
   details: {
     apiKey: 'Mim2CRV',
     harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: '0x7ecc7163469f37b777d7b8f45a667314030ace24',
+    farmNickname: 'Abracadabra MIM2CRV',
+    farmDepositTokenName: 'Abracadabra MIM2CRV'
   }
 }
 JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
@@ -1677,6 +1693,11 @@ export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition =
   details: {
     apiKey: 'CrvTricrypto',
     harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: '0x7ecc7163469f37b777d7b8f45a667314030ace24',
+    farmNickname: 'Curve Tricrypto',
+    farmDepositTokenName: 'Curve Tricrypto'
   }
 }
 JAR_DEFINITIONS.push(JAR_ARBITRUM_CRV_TRICRYPTO);

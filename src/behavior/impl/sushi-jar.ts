@@ -43,7 +43,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
     const aprSushiComp : AssetAprComponent = this.createAprComponent("sushi", aprSushiRewards,true);
 
     const aprTokenRewards : number = await calculateMCv2TokenRewards(definition.depositToken.addr,rewardToken, 
-      model, Chains.get(definition.chain).getProviderOrSigner());
+      model, Chains.get(definition.chain).getProviderOrSigner(), definition.chain);
     const tokenAprComp : AssetAprComponent = this.createAprComponent(rewardToken,aprTokenRewards, true);
 
     const lpApr : number = await new SushiEthPairManager().calculateLpApr(model, definition.depositToken.addr);

@@ -9,7 +9,6 @@ import strategyAbi from "../Contracts/ABIs/strategy.json";
 import MasterchefAbi from '../Contracts/ABIs/masterchef.json';
 import { Provider } from '@ethersproject/providers';
 import { formatEther } from "ethers/lib/utils";
-import { AVERAGE_BLOCK_TIME, AVERAGE_BLOCK_TIME_POLYGON } from "../behavior/JarBehaviorResolver";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { getLivePairDataFromContracts } from "./GenericSwapUtil";
 import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
@@ -61,7 +60,7 @@ export async function calculateMasterChefRewardsAPR(jar: JarDefinition,
     const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
     // TODO move average block time to the chain??
-    const avgBlockTime = jar.chain === ChainNetwork.Ethereum ? AVERAGE_BLOCK_TIME : AVERAGE_BLOCK_TIME_POLYGON;
+    const avgBlockTime = Chains.get(jar.chain).secondsPerBlock;
     const rewardsPerYear =
         rewardsPerBlock * (ONE_YEAR_IN_SECONDS / avgBlockTime);
     const rewardTokenPrice = await model.priceOf(rewardTokenAddress);

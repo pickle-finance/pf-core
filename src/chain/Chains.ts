@@ -3,7 +3,10 @@ import { AbstractChain } from "./AbstractChain";
 import { IChain } from "./IChain";
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-
+export const POLYGON_SECONDS_PER_BLOCK = 2;
+export const ARBITRUM_SECONDS_PER_BLOCK = 4;
+export const OKEX_SECONDS_PER_BLOCK = 3; // ??? is this right?
+export const ETH_SECONDS_PER_BLOCK = 13;
 export enum ChainNetwork {
     Ethereum = 'eth',
     Polygon = 'polygon',
@@ -14,13 +17,16 @@ export enum ChainNetwork {
 
 export class EthereumChain extends AbstractChain {
     constructor() {
-        super(1, ChainNetwork.Ethereum,  'https://etherscan.io',["https://cloudflare-eth.com/"]);
+        super(1, ChainNetwork.Ethereum,  ETH_SECONDS_PER_BLOCK,
+          'https://etherscan.io',["https://cloudflare-eth.com/"]);
     }
 }
 
 export class PolygonChain extends AbstractChain {
   constructor() {
-      super(137, ChainNetwork.Polygon, 'https://polygonscan.com',
+      super(137, ChainNetwork.Polygon, 
+        POLYGON_SECONDS_PER_BLOCK,
+        'https://polygonscan.com',
         [
           'https://rpc-mainnet.maticvigil.com',
           'https://matic-mainnet.chainstacklabs.com/',
@@ -31,7 +37,9 @@ export class PolygonChain extends AbstractChain {
 
 export class OKExChain extends AbstractChain {
   constructor() {
-      super(66, ChainNetwork.OKEx, 'https://www.oklink.com/okexchain',
+      super(66, ChainNetwork.OKEx, 
+        OKEX_SECONDS_PER_BLOCK,
+        'https://www.oklink.com/okexchain',
         ['https://exchainrpc.okex.org']);
   }
 }
@@ -39,7 +47,9 @@ export class OKExChain extends AbstractChain {
 
 export class ArbitumChain extends AbstractChain {
   constructor() {
-      super(42161, ChainNetwork.Arbitrum, 'https://arbiscan.io',
+      super(42161, ChainNetwork.Arbitrum, 
+        ARBITRUM_SECONDS_PER_BLOCK,
+        'https://arbiscan.io',
         ['https://arb1.arbitrum.io/rpc']);
   }
 }

@@ -6,7 +6,6 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import { Chains } from '../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
 import { FOSSIL_FARMS } from '../behavior/impl/dino-usdc';
-import { AVERAGE_BLOCK_TIME_POLYGON } from '../behavior/JarBehaviorResolver';
 import { PoolId } from './ProtocolUtil';
 
 export const dinoPoolIds: PoolId = {
@@ -43,7 +42,7 @@ export async function calculateFossilFarmsAPY(jar: JarDefinition, model: PickleM
     const pricePerToken = await model.priceOf(jar.depositToken.addr);
 
     const rewardsPerYear =
-        rewardsPerBlock * ((360 * 24 * 60 * 60) / AVERAGE_BLOCK_TIME_POLYGON);
+        rewardsPerBlock * ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
     const dinoRewardedPerYear = await model.priceOf("dino") * rewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;

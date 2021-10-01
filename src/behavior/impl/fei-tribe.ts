@@ -10,7 +10,7 @@ import stakingRewardsAbi from '../../Contracts/ABIs/staking-rewards.json';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import { Chains } from '../../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
-import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
+import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
 import { getLivePairDataFromContracts } from '../../protocols/GenericSwapUtil';
 import { calculateUniswapLpApr } from '../../protocols/UniswapUtil';
 
@@ -62,7 +62,7 @@ export class FeiTribe extends AbstractJarBehavior {
 
     const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
-    const tribeRewardsPerYear = tribeRewardsPerBlock * (ONE_YEAR_SECONDS / AVERAGE_BLOCK_TIME);
+    const tribeRewardsPerYear = tribeRewardsPerBlock * (ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock);
     const valueRewardedPerYear = model.priceOfSync("tribe") * tribeRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;

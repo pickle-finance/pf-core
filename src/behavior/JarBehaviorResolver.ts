@@ -4,9 +4,6 @@ import { AssetProjectedApr, ExternalAssetDefinition, JarDefinition, PickleAsset 
 import { PickleModel } from '..';
 
 export const ONE_YEAR_SECONDS = 360*24*60*60;
-export const AVERAGE_BLOCK_TIME = 13.22;
-export const AVERAGE_BLOCK_TIME_POLYGON = 2;
-
 
 export interface JarHarvestStats {
     balanceUSD: number;

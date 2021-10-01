@@ -5,9 +5,8 @@ import { JarBehavior, JarHarvestStats } from './JarBehaviorResolver';
 import { PickleModel } from '../model/PickleModel';
 import { getDepositTokenPrice } from '../price/DepositTokenPriceUtility';
 
+// TODO move these constants out to somewhere better
 export const ONE_YEAR_IN_SECONDS : number = 360*24*60*60
-export const POLYGON_SECONDS_PER_BLOCK = 2;
-export const ETH_SECONDS_PER_BLOCK = 13;
 
 export abstract class AbstractJarBehavior implements JarBehavior {
 

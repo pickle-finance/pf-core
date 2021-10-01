@@ -6,6 +6,7 @@ export interface IChain {
     readonly name: string;
     readonly rpcProviderUrls: string[];
     readonly explorer: string;
+    readonly secondsPerBlock: number;
     getPreferredWeb3Provider() : Provider;
     setPreferredWeb3Provider(provider: Provider);
     getRandomWeb3Provider() : Provider;

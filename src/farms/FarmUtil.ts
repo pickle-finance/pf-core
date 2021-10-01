@@ -1,4 +1,4 @@
-import { ChainNetwork } from "..";
+import { ChainNetwork, IChain } from "..";
 import { Chains } from "../chain/Chains";
 import { ADDRESSES, PickleModel } from "../model/PickleModel";
 import { Provider } from '@ethersproject/providers';
@@ -8,10 +8,27 @@ import MinichefAbi from '../Contracts/ABIs/minichef.json';
 import { BigNumber, Contract, ethers } from "ethers";
 import gaugeAbi from '../Contracts/ABIs/gauge.json';
 import gaugeProxyAbi from '../Contracts/ABIs/gauge-proxy.json';
-import { ETH_SECONDS_PER_BLOCK, ONE_YEAR_IN_SECONDS, POLYGON_SECONDS_PER_BLOCK } from "../behavior/AbstractJarBehavior";
+import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { AssetAprComponent, JarDefinition, StandaloneFarmDefinition } from "../model/PickleModelJson";
 
+export function minichefAddressForChain(network: ChainNetwork) {
+    // TODO ADD_CHAIN
+    if( network === ChainNetwork.Polygon )
+        return ADDRESSES.Polygon.minichef;
+    if( network === ChainNetwork.Arbitrum )
+        return ADDRESSES.Arbitrum.minichef;
+    return undefined;
+}
+export function secondsPerBlock(network: ChainNetwork) {
+    // TODO move this OUT
+    const chain : IChain = Chains.get(network);
+    if( chain ) {
+        return chain.secondsPerBlock;
+    }
+    return undefined;
+}
 export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) {
+    // TODO ADD_CHAIN
     if( chain === ChainNetwork.Ethereum) {
         let rawGaugeData = await loadGaugeDataEth();
         if( rawGaugeData && rawGaugeData.length > 0 ) {
@@ -19,11 +36,13 @@ export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) 
                 setAssetGaugeAprEth(rawGaugeData[i], model)
             }
         }
-    } else if( chain === ChainNetwork.Polygon) {
-        let rawGaugeData = await loadPolygonGaugeData();
+    } else {
+        // All other chains use minichef currently
+        const minichefAddr : string = minichefAddressForChain(chain);
+        let rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
         if( rawGaugeData && rawGaugeData.length > 0 ) {
             for( let i = 0; i < rawGaugeData.length; i++ ) {
-                setAssetGaugeAprPoly(rawGaugeData[i], model)
+                setAssetGaugeAprMinichef(rawGaugeData[i], model, secondsPerBlock(chain));
             }
         }
     }
@@ -87,7 +106,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
         }
         jar.farm.details.allocShare = gauge.allocPoint;
         jar.farm.details.picklePerDay = gauge.poolPicklesPerYear/360;
-        jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * ETH_SECONDS_PER_BLOCK;
+        jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * secondsPerBlock(ChainNetwork.Ethereum) ;
         
         return;
     }
@@ -102,14 +121,14 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
         }
         saFarm.details.allocShare = gauge.allocPoint;
         saFarm.details.picklePerDay = gauge.poolPicklesPerYear/360;
-        saFarm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * ETH_SECONDS_PER_BLOCK;
+        saFarm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * secondsPerBlock(ChainNetwork.Ethereum);
 
         return;
     }
 }
 
 
-export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
+export function setAssetGaugeAprMinichef(gauge: IRawGaugeData, model: PickleModel, secPerBlock: number) {
     // Check if it's a normal jar
     const jar : JarDefinition = findJarForGauge(gauge, model);
     if( jar !== undefined ) {
@@ -122,13 +141,13 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
         }
         jar.farm.details.allocShare = gauge.allocPoint;
         jar.farm.details.picklePerDay = gauge.poolPicklesPerYear/360;
-        jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * POLYGON_SECONDS_PER_BLOCK;
+        jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * secPerBlock;
 
         return;
     }
 
     // Chek standalone farms
-    // This is likely wrong but we don't have standalone farms on poly?
+    // This is likely wrong but we don't have standalone farms on other chains?
     const saFarm : StandaloneFarmDefinition = findStandaloneFarmForGauge(gauge, model);
     if( saFarm !== undefined ) {
         const c : AssetAprComponent = createAprRange(1, saFarm.depositToken.price, 
@@ -138,7 +157,7 @@ export function setAssetGaugeAprPoly(gauge: IRawGaugeData, model: PickleModel) {
         }
         saFarm.details.allocShare = gauge.allocPoint;
         saFarm.details.picklePerDay = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS)*60*60*24;
-        saFarm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * POLYGON_SECONDS_PER_BLOCK;
+        saFarm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * secPerBlock;
         return;
     }
 }
@@ -219,8 +238,8 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
         gaugeAddress: gaugeAddresses[idx],
         rewardRate: +gaugeRewardRates[idx].toString(),
         rewardRatePerYear: rrpy,
-        poolPicklesPerYear: alloc * 
-            parseFloat(ethers.utils.formatEther(ppb)) * ONE_YEAR_IN_SECONDS / ETH_SECONDS_PER_BLOCK, //13 second blocks
+        poolPicklesPerYear: alloc * parseFloat(ethers.utils.formatEther(ppb)) 
+                * ONE_YEAR_IN_SECONDS / secondsPerBlock(ChainNetwork.Ethereum),
       };
     return ret;
     });
@@ -228,12 +247,13 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
     return gauges;
 }
 
-export async function loadPolygonGaugeData() : Promise<IRawGaugeData[]> {
-    return loadPolygonGaugeDataForMinichef(ADDRESSES.Polygon.minichef);
+
+export async function loadArbitrumGaugeData() : Promise<IRawGaugeData[]> {
+    return loadGaugeDataForMinichef(ADDRESSES.Arbitrum.minichef, ChainNetwork.Arbitrum);
 }
 
-export async function loadPolygonGaugeDataForMinichef(minichefAddr: string) : Promise<IRawGaugeData[]> {
-    const provider : Provider = Chains.get(ChainNetwork.Polygon).getPreferredWeb3Provider();
+export async function loadGaugeDataForMinichef(minichefAddr: string, chain: ChainNetwork) : Promise<IRawGaugeData[]> {
+    const provider : Provider = Chains.get(chain).getPreferredWeb3Provider();
     const minichef = new Contract(minichefAddr, MinichefAbi, provider);
     const [ppsBN, poolLengthBN] = await Promise.all([
         minichef.picklePerSecond()

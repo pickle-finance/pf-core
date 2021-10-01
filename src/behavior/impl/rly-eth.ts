@@ -7,7 +7,7 @@ import rallyRewardPoolsAbi from '../../Contracts/ABIs/rally-reward-pools.json';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { PickleModel } from '../../model/PickleModel';
 import { formatEther } from 'ethers/lib/utils';
-import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
+import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
 import { calculateUniswapLpApr } from '../../protocols/UniswapUtil';
 import { PoolId } from '../../protocols/ProtocolUtil';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -78,7 +78,7 @@ export class RlyEth extends AbstractJarBehavior {
     const pricePerToken = jar.depositToken.price;
     const rlyPrice = model.priceOfSync("rly");
     const rlyRewardsPerYear =
-    rlyPerBlock * (ONE_YEAR_SECONDS / AVERAGE_BLOCK_TIME);
+      rlyPerBlock * (ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock);
     const valueRewardedPerYear = rlyPrice * rlyRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;

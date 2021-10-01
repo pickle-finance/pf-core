@@ -1,5 +1,5 @@
-import { ChainNetwork, PickleModel } from "..";
-import { AVERAGE_BLOCK_TIME, ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
+import { ChainNetwork, Chains, PickleModel } from "..";
+import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { AssetProtocol, JarDefinition, PickleAsset } from "../model/PickleModelJson";
 import { PoolId } from "./ProtocolUtil";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -146,7 +146,7 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
   
   
         const sushiRewardsPerYear =
-          sushiRewardsPerBlock * (ONE_YEAR_SECONDS / AVERAGE_BLOCK_TIME);
+          sushiRewardsPerBlock * (ONE_YEAR_SECONDS / Chains.get(chain).secondsPerBlock);
         const valueRewardedPerYear = await model.priceOf("sushi") * sushiRewardsPerYear;
   
         const sushiAPY = valueRewardedPerYear / pairData.reserveUSD;
@@ -186,7 +186,7 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
         totalAllocPointBN.toNumber();
 
       const sushiRewardsPerYear =
-      sushiRewardsPerBlock * (ONE_YEAR_SECONDS / AVERAGE_BLOCK_TIME);
+      sushiRewardsPerBlock * (ONE_YEAR_SECONDS / Chains.get(chain).secondsPerBlock);
       const valueRewardedPerYear = await model.priceOf("sushi") * sushiRewardsPerYear;
       const pricePerToken = await model.priceOf(lpTokenAddress);
       const totalValueStaked = supplyInRewarder * pricePerToken;
@@ -199,7 +199,7 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
   }
   */
   export async function calculateMCv2TokenRewards(lpTokenAddress: string, rewardToken: string,
-    model: PickleModel, resolver : Signer | Provider) : Promise<number> {
+    model: PickleModel, resolver : Signer | Provider, chain: ChainNetwork) : Promise<number> {
       const poolId = sushiPoolV2Ids[lpTokenAddress];
       const rewarder_addr = await new Contract(MASTERCHEFV2_ADDR, masterChefV2Abi, resolver).rewarder(poolId);
       const rewarder = new Contract(rewarder_addr, rewarderAbi, resolver);
@@ -212,9 +212,14 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
       let rewardsPerYear = 0;
       if (rewardToken === "alcx") {
         const tokenPerBlockBN = await rewarder.tokenPerBlock();
+        const secPerBl = Chains.get(chain).secondsPerBlock;
         rewardsPerYear =
           (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) /
-          AVERAGE_BLOCK_TIME;
+          Chains.get(chain).secondsPerBlock;
+        const rewardsPerYear2 =
+          (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) /
+          13;
+        console.log("Test");
       } else if (rewardToken === "cvx") {
         const tokenPerSecondBN = await rewarder.rewardRate();
         rewardsPerYear =

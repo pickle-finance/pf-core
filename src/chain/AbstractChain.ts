@@ -9,9 +9,13 @@ export abstract class AbstractChain implements IChain {
     name: string;
     explorer: string;
     rpcProviderUrls: string[];
+    secondsPerBlock: number;
     private preferredProvider : Provider;
     private signer : Signer;
-    constructor(id: number, name: string, explorer: string, rpcProviderUrls: string[]) {
+    constructor(id: number, name: string, 
+        secondsPerBlock: number,
+        explorer: string, rpcProviderUrls: string[]) {
+        this.secondsPerBlock = secondsPerBlock;
         this.id = id;
         this.name = name;
         this.explorer = explorer;
