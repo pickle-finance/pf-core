@@ -28,7 +28,7 @@ export class ArbitrumSpellEth extends AbstractJarBehavior {
     ]);
 
     const sushiValue = res[0].mul(sushiPrice.toFixed());
-    const spellValue = res[1].add(spellWallet).mul(spellPrice.toFixed());
+    const spellValue = res[1].add(spellWallet).mul((spellPrice*1e6).toFixed()).div(1e6);
     const harvestable = spellValue.add(sushiValue);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }

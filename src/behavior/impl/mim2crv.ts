@@ -27,7 +27,7 @@ export class Mim2Crv extends CurveJar {
       model.priceOfSync('spell'),
       strategy.getHarvestable(),
     ]);
-    const harvestable = spellWallet.add(pending).mul(spellPrice.toFixed());
+    const harvestable = spellWallet.add(pending).mul((spellPrice * 1e6).toFixed()).div(1e6);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
