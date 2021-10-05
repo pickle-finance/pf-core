@@ -7,6 +7,7 @@ export enum AssetProtocol {
     SUSHISWAP = "sushiswap",
     SUSHISWAP_POLYGON = "sushiswap_polygon",
     COMETHSWAP = "comethswap",
+    DODOSWAP = "dodoswap",
     QUICKSWAP_POLYGON = "quickswap_polygon",
     AAVE_POLYGON = "aave_polygon",
     IRON_POLYGON = "iron_polygon",
@@ -23,6 +24,7 @@ export const SWAP_PROTOCOLS : AssetProtocol[] = [
     AssetProtocol.UNISWAP,
     AssetProtocol.COMETHSWAP,
     AssetProtocol.QUICKSWAP_POLYGON,
+    AssetProtocol.DODOSWAP
 ];
 
 

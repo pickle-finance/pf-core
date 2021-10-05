@@ -219,7 +219,6 @@ export async function calculateSushiRewardApr(lpTokenAddress: string,
         const rewardsPerYear2 =
           (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) /
           13;
-        console.log("Test");
       } else if (rewardToken === "cvx") {
         const tokenPerSecondBN = await rewarder.rewardRate();
         rewardsPerYear =

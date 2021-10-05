@@ -1676,6 +1676,33 @@ export const JAR_ARBITRUM_MIM2CRV: JarDefinition =
 }
 JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
 
+export const JAR_ARBITRUM_DODO_HND_ETH: JarDefinition =
+{
+ type: AssetType.JAR,
+  id: 'arbJar 3a',
+  contract: '0x4d622C1f40A83C6FA2c0E441AE393e6dE61E7dD2',
+  depositToken: {
+     addr: '0x65E17c52128396443d4A9A61EaCf0970F05F8a20',
+     name: 'Dodo HND-ETH',
+     link: 'https://app.dodoex.io/liquidity?poolAddress=0x65e17c52128396443d4a9a61eacf0970f05f8a20',
+     components: ["hnd", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.DODOSWAP,
+  details: {
+    apiKey: 'DodoHndEth',
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: '0x7ecc7163469f37b777d7b8f45a667314030ace24',
+    farmNickname: 'pDODO HND/ETH',
+    farmDepositTokenName: 'pDODO HND/ETH'
+  }
+
+}
+JAR_DEFINITIONS.push(JAR_ARBITRUM_DODO_HND_ETH);
+
 export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition =
 {
  type: AssetType.JAR,
