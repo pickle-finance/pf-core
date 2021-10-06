@@ -110,8 +110,8 @@ export class ExternalTokenModel {
         arbitrumTokens.set("usdt", new ExternalToken(ChainNetwork.Arbitrum, "usdt", "usdt", '0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9'.toLowerCase(), 6, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("weth", new ExternalToken(ChainNetwork.Arbitrum, "weth", "weth", '0x82af49447d8a07e3bd95bd0d56f35241523fbab1'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         arbitrumTokens.set("2crv", new ExternalToken(ChainNetwork.Arbitrum, "2crv", "2crv", '0xbf7e49483881c76487b0989cd7d9a8239b20ca41'.toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
-        arbitrumTokens.set("dodo", new ExternalToken(ChainNetwork.Arbitrum, "dodo", "dodo", '0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581'.toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
-        arbitrumTokens.set("hnd", new ExternalToken(ChainNetwork.Arbitrum, "hnd", "hundred-finance", '0x10010078a54396f62c96df8532dc2b4847d47ed3'.toLowerCase(), 18, ExternalTokenFetchStyle.NONE));
+        arbitrumTokens.set("dodo", new ExternalToken(ChainNetwork.Arbitrum, "dodo", "dodo", '0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
+        arbitrumTokens.set("hnd", new ExternalToken(ChainNetwork.Arbitrum, "hnd", "hundred-finance", '0x10010078a54396f62c96df8532dc2b4847d47ed3'.toLowerCase(), 18, ExternalTokenFetchStyle.ID));
         
 
         // Make the reverse map to fascilitate contract lookups
