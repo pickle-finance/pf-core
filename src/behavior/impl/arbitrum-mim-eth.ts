@@ -23,12 +23,12 @@ export class ArbitrumMimEth extends AbstractJarBehavior {
     const [res, spellWallet, spellPrice, sushiPrice]: [BigNumber[], BigNumber, number, number] = await Promise.all([
       strategy.getHarvestable().catch(() => BigNumber.from('0')),
       spellToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
-      model.priceOfSync("mim"),
+      model.priceOfSync("spell"),
       model.priceOfSync("sushi"),
     ]);
-
+    
     const sushiValue = res[0].mul(sushiPrice.toFixed());
-    const spellValue = res[1].add(spellWallet).mul(spellPrice.toFixed());
+    const spellValue = res[1].add(spellWallet).mul((spellPrice*1e6).toFixed()).div(1e6);
     const harvestable = spellValue.add(sushiValue);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
