@@ -4,7 +4,6 @@ import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { AbstractJarBehavior } from '../AbstractJarBehavior';
 import { PickleModel } from '../../model/PickleModel';
 import { getProjectedConvexAprStats } from '../../protocols/ConvexUtility';
-import { convexStrategyAbi } from '../../Contracts/ABIs/convex-strategy.abi';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 
 export class CurveCvxCrv extends AbstractJarBehavior {
@@ -38,7 +37,7 @@ export class CurveCvxCrv extends AbstractJarBehavior {
     );
     const strategy = new ethers.Contract(
       jar.details.strategyAddr,
-      convexStrategyAbi,
+      twoRewardAbi,
       resolver,
     );
     const [crvWallet, cvxWallet, crvPrice, cvxPrice, pending]: [
@@ -62,3 +61,24 @@ export class CurveCvxCrv extends AbstractJarBehavior {
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }
+
+const twoRewardAbi : any = [
+  {
+    "inputs": [],
+    "name": "getHarvestable",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
