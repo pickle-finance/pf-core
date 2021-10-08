@@ -1194,6 +1194,34 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_CURVE_CVXCRVLP);
 
+ export const JAR_CVXCRV: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'pjar 0f',
+   contract: '0xB245280Fd1795f5068DEf8E8f32DB7846b030b2B',
+   depositToken: {
+      addr: '0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7',
+      name: 'cvxCRV',
+      link: 'https://curve.fi/factory/22/deposit',
+      components: [
+        "cvxcrv"
+      ]
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Ethereum,
+   protocol: AssetProtocol.CURVE, // Not actually a Curve LP but doesn't seem to matter
+   details: {
+     apiKey: 'cvxcrv',
+     harvestStyle: HarvestStyle.PASSIVE,
+   },
+   farm: {
+     farmAddress: '0xd27b644ff94841ea54286a0e93b480c09aaaa1e7',
+     farmNickname: 'cvxCRV',
+     farmDepositTokenName: 'cvxCRV'
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_CVXCRV);
+
  export const JAR_SUSHI_ETH_TRU: JarDefinition =
  {
   type: AssetType.JAR,

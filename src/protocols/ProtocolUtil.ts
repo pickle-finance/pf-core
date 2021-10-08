@@ -10,6 +10,7 @@ export interface PoolInfo {
       tokenName: string;
       tokenPriceLookup: string,
       rewardName: string;
-      rewardPriceLookup: string
+      rewardPriceLookup: string,
+      rewarder?: string,
     };
   }

@@ -5,18 +5,11 @@ import { AbstractJarBehavior } from '../AbstractJarBehavior';
 import { PickleModel } from '../../model/PickleModel';
 import { getProjectedConvexAprStats } from '../../protocols/ConvexUtility';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
 import { convexStrategyAbi } from '../../Contracts/ABIs/convex-strategy.abi';
 
-export class CurveCvxCrv extends AbstractJarBehavior {
+export class CvxCrv extends AbstractJarBehavior {
   constructor() {
     super();
-
-  }
-  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
-    const r = (await getStableswapPriceAddress("0x9D0464996170c6B9e75eED71c68B99dDEDf279e8", asset, model)) 
-    * (model.priceOfSync("cvxcrv"));
-    return r;
   }
 
   async getProjectedAprStats(
@@ -43,50 +36,41 @@ export class CurveCvxCrv extends AbstractJarBehavior {
       erc20Abi,
       resolver,
     );
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      twoRewardAbi,
+
+    const threeCrv = new ethers.Contract(
+      model.address('3crv', jar.chain),
+      erc20Abi,
       resolver,
     );
-    const [crvWallet, cvxWallet, crvPrice, cvxPrice, pending]: [
+
+    const strategy = new ethers.Contract(
+      jar.details.strategyAddr,
+      convexStrategyAbi,
+      resolver,
+    );
+    const [crvWallet, cvxWallet, threeCrvWallet, crvPrice, cvxPrice, threeCrvPrice, pending]: [
       BigNumber,
       BigNumber,
+      BigNumber,
+      number,
       number,
       number,
       BigNumber[],
     ] = await Promise.all([
       crv.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
       cvx.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
+      threeCrv.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
       model.priceOfSync('crv'),
       model.priceOfSync('cvx'),
+      model.priceOfSync('3crv'),
       strategy.getHarvestable(),
     ]);
     const harvestable = crvWallet
       .add(pending[0])
       .mul(crvPrice.toFixed())
-      .add(cvxWallet.add(pending[1]).mul(cvxPrice.toFixed()));
+      .add(cvxWallet.add(pending[1]).mul(cvxPrice.toFixed()))
+      .add(threeCrvWallet.add(pending[2]).mul(threeCrvPrice.toFixed()));
 
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }
-
-const twoRewardAbi : any = [
-  {
-    "inputs": [],
-    "name": "getHarvestable",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  }
-];

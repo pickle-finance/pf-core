@@ -36,6 +36,14 @@ const convexPools: PoolInfo = {
     tokenPriceLookup: "crv",
     rewardPriceLookup: "cvx",
   },
+  "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7": {
+    poolId: null, // not used
+    tokenName: "cvxcrv",
+    rewardName: "3crv",
+    tokenPriceLookup: "cvxcrv",
+    rewardPriceLookup: "3crv",
+    rewarder: "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e"
+  },
 };
 
   export async function getCvxMint (crvEarned: number, model: PickleModel, provider: Provider|Signer ): Promise<number> {
@@ -106,10 +114,10 @@ const convexPools: PoolInfo = {
       const addtlRewardApy = addtlRewards && addtlRewards.length > 0 && addtlRewards[0] !== undefined  ? addtlRewards[0] : 0;
       const rewardApy = parseFloat(addtlRewardApy);
 
-      const poolInfo = await CvxBooster__factory.connect(CVX_BOOSTER, resolver).poolInfo(cvxPool.poolId)
+      const rewarder = cvxPool.rewarder || (await CvxBooster__factory.connect(CVX_BOOSTER, resolver).poolInfo(cvxPool.poolId)).crvRewards
 
       const crvRewardsMC = new MulticallContract(
-        poolInfo.crvRewards,
+        rewarder,
         CrvRewardsABI,
       );
 
