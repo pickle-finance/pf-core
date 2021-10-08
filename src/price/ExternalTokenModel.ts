@@ -79,6 +79,7 @@ export class ExternalTokenModel {
         etherTokens.set("fox", new ExternalToken(ChainNetwork.Ethereum, "fox", "shapeshift-fox-token", "0xc770eefad204b5180df6a14ee197d99d808ee52d".toLowerCase()));
         etherTokens.set("tru", new ExternalToken(ChainNetwork.Ethereum, "tru", "truefi", "0x4C19596f5aAfF459fA38B0f7eD92F11AE6543784".toLowerCase(), 8));
         etherTokens.set("rly", new ExternalToken(ChainNetwork.Ethereum, "rly", "rally-2", "0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b".toLowerCase(), 18));
+        etherTokens.set("cvxcrv", new ExternalToken(ChainNetwork.Ethereum, "cvxcrv", "convex-crv", "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7".toLowerCase(), 18));
 
         // Polygon
         const polyTokens: Map<string,ExternalToken> = this.chainTokens.get(ChainNetwork.Polygon);

@@ -1,4 +1,4 @@
-import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV, JAR_CRV_IB, JAR_sCRV, JAR_renCRV } from "../model/JarsAndFarms";
+import { JAR_USDC, JAR_lusdCRV, JAR_fraxCRV, JAR_SADDLE_D4, JAR_ALETH, JAR_steCRV, JAR_AM3CRV, JAR_MIM3CRV, JAR_CRV_IB, JAR_sCRV, JAR_renCRV, JAR_CURVE_CVXCRVLP } from "../model/JarsAndFarms";
 import { PickleModel } from "../model/PickleModel";
 import { AssetProtocol, PickleAsset, SWAP_PROTOCOLS } from "../model/PickleModelJson";
 import { getLivePairDataFromContracts } from "../protocols/GenericSwapUtil";
@@ -41,6 +41,24 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
         virtualPrice =  await (curveStyle ? pool.get_virtual_price() : pool.getVirtualPrice());
     } catch(e) {
     }
+    /* TODO explore if this is necessary
+    let lowest : number | undefined = undefined;
+    const components = asset.depositToken.components;
+    for( let i = 0; i < components.length; i++ ) {
+        const p = model.priceOfSync(components[i]);
+        if( p !== undefined ) {
+            if(lowest === undefined || p < lowest) {
+                lowest = p;
+            }
+        }
+    }
+    const virtPrice = parseFloat(ethers.utils.formatEther(virtualPrice));
+    if( lowest !== undefined ) {
+        return lowest * virtPrice;
+    }
+    return virtPrice;
+    */
+
     return parseFloat(ethers.utils.formatEther(virtualPrice));
   };
 
@@ -96,6 +114,11 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
         if( depTokenAddr === JAR_steCRV.depositToken.addr) {
             return (await getStableswapPriceAddress("0xdc24316b9ae028f1497c275eb9192a3ea0f67022", asset, model)) 
                     * (await getContractPrice("weth", model));
+        }
+        if( depTokenAddr === JAR_CURVE_CVXCRVLP.depositToken.addr) {
+            const r = (await getStableswapPriceAddress("0x9D0464996170c6B9e75eED71c68B99dDEDf279e8", asset, model)) 
+                    * (model.priceOfSync("cvxcrv"));
+            return r;
         }
         
         if( asset.protocol === AssetProtocol.AAVE_POLYGON) {

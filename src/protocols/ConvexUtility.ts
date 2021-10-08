@@ -13,6 +13,7 @@ import { PoolInfo } from './ProtocolUtil';
 import { createAprComponentImpl } from '../behavior/AbstractJarBehavior';
 
 const CVX_BOOSTER = "0xF403C135812408BFbE8713b5A23a04b3D48AAE31";
+
 const convexPools: PoolInfo = {
   "0x06325440D014e39736583c165C2963BA99fAf14E": {
     poolId: 25,
@@ -27,6 +28,13 @@ const convexPools: PoolInfo = {
     rewardName: "spell",
     tokenPriceLookup: "dai",
     rewardPriceLookup: "spell",
+  },
+  "0x9D0464996170c6B9e75eED71c68B99dDEDf279e8": {
+    poolId: 41,
+    tokenName: "cvxcrv",
+    rewardName: "cvx",
+    tokenPriceLookup: "crv",
+    rewardPriceLookup: "cvx",
   },
 };
 
@@ -126,8 +134,11 @@ const convexPools: PoolInfo = {
         createAprComponentImpl("LP", lpApy, false),
         createAprComponentImpl("CRV", crvApy, true),
         createAprComponentImpl("CVX", cvxApy*100, true),
-        createAprComponentImpl(cvxPool.rewardName, rewardApy, true)
       ];
+      const rewardToLower = cvxPool.rewardName.toLowerCase();
+      if( rewardToLower !== 'cvx' && rewardToLower !== 'crv' ) {
+        components.push(createAprComponentImpl(cvxPool.rewardName, rewardApy, true));
+      }
       return components;
     }
     return undefined;

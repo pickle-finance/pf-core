@@ -1175,6 +1175,9 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
       addr: '0x9D0464996170c6B9e75eED71c68B99dDEDf279e8',
       name: 'Curve cvxCRV LP',
       link: 'https://curve.fi/factory/22/deposit',
+      components: [
+        "crv", "cvxcrv"
+      ]
    },
    enablement: AssetEnablement.ENABLED,
    chain: ChainNetwork.Ethereum,
