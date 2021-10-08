@@ -22,7 +22,7 @@ export class MimaticQi extends AbstractJarBehavior {
       qiToken.balanceOf(jar.details.strategyAddr),
       await model.priceOf('qi-dao'),
     ]);
-    const harvestable = qi.add(wallet).mul(qiPrice.toFixed());
+    const harvestable = qi.add(wallet).mul((qiPrice*1e6).toFixed()).div(1e6);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
