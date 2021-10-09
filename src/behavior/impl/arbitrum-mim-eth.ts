@@ -19,7 +19,7 @@ export class ArbitrumMimEth extends AbstractJarBehavior {
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const strategy = new ethers.Contract(jar.details.strategyAddr, multiSushiStrategyAbi, resolver);
-    const spellToken = new ethers.Contract(model.address("mim", jar.chain), erc20Abi, resolver);
+    const spellToken = new ethers.Contract(model.address("spell", jar.chain), erc20Abi, resolver);
     const [res, spellWallet, spellPrice, sushiPrice]: [BigNumber[], BigNumber, number, number] = await Promise.all([
       strategy.getHarvestable().catch(() => BigNumber.from('0')),
       spellToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
