@@ -10,6 +10,12 @@ import { ChainNetwork, Chains } from '../../chain/Chains';
 import fetch from 'cross-fetch';
 
 export class DaiJar extends AbstractJarBehavior {
+
+  async getDepositTokenPrice(_asset: JarDefinition, model: PickleModel): Promise<number> {
+    // TODO is this correct? Is there no virtual price? 
+    return model.priceOfSync("dai");
+  }
+
    async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const strategy = new ethers.Contract(jar.details.strategyAddr, foldingStrategyAbi, resolver);
     const [matic, maticPrice] = await Promise.all([strategy.getMaticAccrued(), await model.priceOf('matic')]);

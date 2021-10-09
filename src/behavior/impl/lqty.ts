@@ -8,6 +8,10 @@ import { PickleModel } from '../../model/PickleModel';
 import { getOrLoadYearnDataFromDune } from '../../protocols/DuneDataUtility';
 
 export class pLqty extends AbstractJarBehavior {
+  async getDepositTokenPrice(definition: JarDefinition, model: PickleModel): Promise<number> {
+    return model.priceOfSync(definition.depositToken.addr);
+  }
+
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const strategy = new ethers.Contract(jar.details.strategyAddr, multiSushiStrategyAbi, resolver);
     const wethToken = new ethers.Contract(model.addr("weth"), erc20Abi, resolver);

@@ -11,8 +11,13 @@ import controllerAbi from '../../Contracts/ABIs/controller.json';
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
+import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
 
 export class Is3Usd extends AbstractJarBehavior {
+  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
+    return getStableswapPriceAddress("0x837503e8a8753ae17fb8c8151b8e6f586defcb57", asset, model);
+  }
+
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
     const ironchef = new ethers.Contract('0x1fd1259fa8cdc60c6e8c86cfa592ca1b8403dfad', ironchefAbi, resolver);
     const [ice, icePrice] = await Promise.all([

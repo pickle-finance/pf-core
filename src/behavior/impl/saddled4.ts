@@ -12,6 +12,7 @@ import { Chains } from '../../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
 import { calculateUniswapLpApr } from '../../protocols/UniswapUtil';
 import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
+import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
 
 export const COMMUNAL_FARM = "0x0639076265e9f88542C91DCdEda65127974A5CA5";
 export class SaddleD4 extends AbstractJarBehavior {
@@ -20,6 +21,9 @@ export class SaddleD4 extends AbstractJarBehavior {
     super();
   }
 
+  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
+    return getStableswapPriceAddress("0xc69ddcd4dfef25d8a793241834d4cc4b3668ead6", asset, model);
+  }
 
   async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
     return this.calculateSaddleD4APY(definition, model);

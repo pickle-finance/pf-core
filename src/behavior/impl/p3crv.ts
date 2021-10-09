@@ -11,6 +11,7 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import fetch from 'cross-fetch';
 import { formatEther } from 'ethers/lib/utils';
+import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
 
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
 
@@ -44,6 +45,10 @@ const aaveContracts = {
 export class PThreeCrv extends AbstractJarBehavior {
   constructor() {
     super();
+  }
+
+  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
+    return getStableswapPriceAddress("0x445fe580ef8d70ff569ab36e80c647af338db351", asset, model);
   }
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {

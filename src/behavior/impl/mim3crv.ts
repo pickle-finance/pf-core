@@ -10,12 +10,17 @@ import { calculateAbradabraApy } from '../../protocols/AbraCadabraUtil';
 import { convexStrategyMim3CRVAbi } from '../../Contracts/ABIs/convex-strategy-mim3crv.abi';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { getProjectedConvexAprStats } from '../../protocols/ConvexUtility';
+import { getStableswapPrice } from '../../price/DepositTokenPriceUtility';
 
 
 // TODO strategy being migrated to convex
 export class Mim3Crv extends AbstractJarBehavior {
   constructor() {
     super();
+  }
+
+  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
+    return getStableswapPrice(asset, model);
   }
 
   async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {

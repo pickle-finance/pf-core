@@ -5,10 +5,17 @@ import { AbstractJarBehavior } from '../AbstractJarBehavior';
 import { PickleModel } from '../../model/PickleModel';
 import { getProjectedConvexAprStats } from '../../protocols/ConvexUtility';
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
+import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
 
 export class CurveCvxCrv extends AbstractJarBehavior {
   constructor() {
     super();
+
+  }
+  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
+    const r = (await getStableswapPriceAddress("0x9D0464996170c6B9e75eED71c68B99dDEDf279e8", asset, model)) 
+    * (model.priceOfSync("cvxcrv"));
+    return r;
   }
 
   async getProjectedAprStats(
