@@ -4,6 +4,7 @@ import { sorbettiereAbi } from '../../Contracts/ABIs/sorbettiere.abi';
 import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from '../../model/PickleModel';
+import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import { calculateAbradabraApy } from '../../protocols/AbraCadabraUtil';
 import { Chains } from '../../chain/Chains';
 import { SushiEthPairManager } from '../../protocols/SushiSwapUtil';
@@ -27,12 +28,15 @@ export class SpellEth extends AbstractJarBehavior {
       sorbettiereAbi,
       resolver,
     );
-    const [spell, spellPrice] = await Promise.all([
+    const spellToken = new ethers.Contract(model.address("spell", jar.chain), erc20Abi, resolver);
+    
+    const [spell, spellWallet, spellPrice] = await Promise.all([
       sorbettiere.pendingIce(0, jar.details.strategyAddr),
+      spellToken.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
       await model.priceOf('spell-token'),
     ]);
 
-    const harvestable = spell.mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());
+    const harvestable = spell.add(spellWallet).mul(BigNumber.from((spellPrice * 1e18).toFixed())).div((1e18).toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }
