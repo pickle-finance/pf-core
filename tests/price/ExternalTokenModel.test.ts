@@ -1,6 +1,7 @@
 import { ChainNetwork } from '../../src/chain/Chains';
+import { IExternalToken } from '../../src/model/PickleModelJson';
 import { CoinGeckoPriceResolver } from '../../src/price/CoinGeckoPriceResolver';
-import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from '../../src/price/ExternalTokenModel';
+import { ExternalToken, ExternalTokenFetchStyle, ExternalTokenModelSingleton } from '../../src/price/ExternalTokenModel';
 import { PriceCache } from '../../src/price/PriceCache';
 
 describe('Coingecko and external token integration', () => {
@@ -51,6 +52,22 @@ describe('Coingecko and external token integration', () => {
     expect(daiPoly).not.toBeNull();
     expect(mustPoly).not.toBeNull();
     expect(mustEth).toBeFalsy();
+  });
+
+  test('Simple gets', async () => {
+    // Test that each external token contract maps to a single token
+    const tokens : IExternalToken[] = ExternalTokenModelSingleton.getAllTokensOutput();
+    const seen = [];
+    const errors = [];
+    for( let i = 0; i < tokens.length; i++ ) {
+      if( seen.includes(tokens[i].contractAddr.toLowerCase())) {
+        errors.push("Contract " + tokens[i].contractAddr.toLowerCase() + " used by more than 1 token");
+      } else {
+        seen.push(tokens[i].contractAddr.toLowerCase());
+      }
+    }
+    console.log(JSON.stringify(errors));
+    expect(errors.length).toBe(0);
   });
 
 });

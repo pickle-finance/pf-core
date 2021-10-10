@@ -1,5 +1,6 @@
 import { ChainNetwork } from "../chain/Chains";
 import { ActiveJarHarvestStats, JarHarvestStats } from "../behavior/JarBehaviorResolver";
+import { ExternalTokenModel } from "../price/ExternalTokenModel";
 
 // TODO move these out i guess?
 export enum AssetProtocol {
@@ -47,6 +48,13 @@ export enum AssetType {
     JAR = 'jar',
     STANDALONE_FARM = 'standalone_farm',
     EXTERNAL = 'external'
+}
+
+export interface IExternalToken {
+    chain: ChainNetwork;
+    id: string;
+    contractAddr: string;
+    decimals: number;
 }
 
 export interface DepositToken {
@@ -163,6 +171,7 @@ export interface PickleModelJson {
         external: ExternalAssetDefinition[]
     },
     dill: DillDetails,
+    tokens: IExternalToken[],
     prices: any,
     platform: PlatformData,
     timestamp: number

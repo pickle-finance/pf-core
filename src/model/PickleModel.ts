@@ -185,6 +185,7 @@ export class PickleModel {
                 external: this.getExternalAssets(),
             },
             dill: this.dillDetails,
+            tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
             prices: Object.fromEntries(this.prices.getCache()),
             platform: this.platformData,
             timestamp: Date.now()
