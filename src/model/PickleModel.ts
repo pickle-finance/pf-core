@@ -468,8 +468,6 @@ export class PickleModel {
         if( !harvestableJars || harvestableJars.length === 0)
             return;
 
-        const signer : Provider = Chains.get(chain).getPreferredWeb3Provider();
-
         // Load balances as a group
         const multicallProvider = this.multicallProviderFor(chain);
         await multicallProvider.init();

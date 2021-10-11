@@ -40,7 +40,8 @@ export enum AssetEnablement {
 
 export enum HarvestStyle {
     ACTIVE = 'active',
-    PASSIVE = 'passive'
+    PASSIVE = 'passive',
+    EARN_BEFORE_HARVEST = 'earnBeforeHarvest'
 }
 
 

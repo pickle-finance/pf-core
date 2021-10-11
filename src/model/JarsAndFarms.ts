@@ -772,7 +772,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    protocol: AssetProtocol.UNISWAP,
    details: {
      apiKey: 'FEI-TRIBE',
-     harvestStyle: HarvestStyle.PASSIVE,
+     harvestStyle: HarvestStyle.EARN_BEFORE_HARVEST,
    },
    farm: {
      farmAddress: '0xeA5b46877E2d131405DB7e5155CC15B8e55fbD27',
@@ -799,7 +799,7 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
    protocol: AssetProtocol.SADDLE,
    details: {
      apiKey: 'saddled4',
-     harvestStyle: HarvestStyle.PASSIVE,
+     harvestStyle: HarvestStyle.EARN_BEFORE_HARVEST,
    },
    farm: {
      farmAddress: '0x08cb0a0ba8e4f143e4e6f7bed65e02b6dfb9a16c',
