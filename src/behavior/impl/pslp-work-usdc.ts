@@ -5,29 +5,25 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import erc20Abi from '../../Contracts/ABIs/erc20.json';
 import {dinoRewardAbi} from '../../Contracts/ABIs/dino-reward.abi';
 import { PickleModel } from '../../model/PickleModel';
-import { calculateFossilFarmsAPY } from '../../protocols/DinoUtil';
+import { calculateFossilFarmsAPY, dinoPoolIds, FOSSIL_FARMS } from '../../protocols/DinoUtil';
 import { SushiPolyPairManager } from '../../protocols/SushiSwapUtil';
 
-export const FOSSIL_FARMS = "0x1948abc5400aa1d72223882958da3bec643fb4e5";
-
 export class PSlpWorkUsdc extends AbstractJarBehavior {
-  private rewardAddress = FOSSIL_FARMS;
-  private poolId = 20;
 
   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
-    const rewards = new ethers.Contract(this.rewardAddress, dinoRewardAbi, resolver);
+    const rewards = new ethers.Contract(FOSSIL_FARMS, dinoRewardAbi, resolver);
     const dinoToken = new ethers.Contract(model.addr("dino"), erc20Abi, resolver);
 
     const [dino, dinoPrice, dinoBal] = await Promise.all([
-      rewards.pendingDino(this.poolId, jar.details.strategyAddr),
-      await model.priceOf('dinoswap'),
+      rewards.pendingDino(dinoPoolIds[jar.depositToken.addr], jar.details.strategyAddr),
+      model.priceOfSync('dinoswap'),
       dinoToken.balanceOf(jar.details.strategyAddr),
     ]);
 
     const harvestable = dino
       .add(dinoBal)
-      .mul(BigNumber.from((dinoPrice * 1e18).toFixed()))
-      .div((1e18).toFixed());
+      .mul(BigNumber.from((dinoPrice * 1e10).toFixed()))
+      .div((1e10).toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 

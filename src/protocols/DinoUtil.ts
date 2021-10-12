@@ -5,12 +5,14 @@ import { PickleModel } from '../model/PickleModel';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import { Chains } from '../chain/Chains';
 import { formatEther } from 'ethers/lib/utils';
-import { FOSSIL_FARMS } from '../behavior/impl/dino-usdc';
 import { PoolId } from './ProtocolUtil';
 
+
+export const FOSSIL_FARMS = "0x1948abc5400aa1d72223882958da3bec643fb4e5";
 export const dinoPoolIds: PoolId = {
     "0x3324af8417844e70b81555A6D1568d78f4D4Bf1f": 10,
     "0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11": 11,
+    "0xab0454b98daf4a02ea29292e6a8882fb2c787dd4": 20,
   };
   
 export async function calculateFossilFarmsAPY(jar: JarDefinition, model: PickleModel) {
@@ -18,7 +20,6 @@ export async function calculateFossilFarmsAPY(jar: JarDefinition, model: PickleM
     await multicallProvider.init();
     const multicallFossilFarms = new MulticallContract(
       FOSSIL_FARMS, fossilFarmsAbi);
-
     const lpToken = new MulticallContract(jar.depositToken.addr,erc20Abi);
     const [
       dinoPerBlockBN,
@@ -44,7 +45,6 @@ export async function calculateFossilFarmsAPY(jar: JarDefinition, model: PickleM
     const rewardsPerYear =
         rewardsPerBlock * ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
     const dinoRewardedPerYear = await model.priceOf("dino") * rewardsPerYear;
-
     const totalValueStaked = totalSupply * pricePerToken;
     const dinoAPY = dinoRewardedPerYear / totalValueStaked;
     return dinoAPY * 100;
