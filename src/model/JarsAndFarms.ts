@@ -1622,6 +1622,27 @@ STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
  }
  JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
+ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition =
+ {
+  type: AssetType.JAR,
+   id: 'polyJar 7c',
+   contract: '0xd170f0a8629a6f7a1e330d5fc455d96e54c09675',
+   depositToken: {
+      addr: '0xab0454b98daf4a02ea29292e6a8882fb2c787dd4',
+      name: 'SushiWorkUsdc',
+      link: 'https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0x6002410dDA2Fb88b4D0dc3c1D562F7761191eA80',
+      components: ["usdc", "work"],
+   },
+   enablement: AssetEnablement.ENABLED,
+   chain: ChainNetwork.Polygon,
+   protocol: AssetProtocol.SUSHISWAP_POLYGON,
+   details: {
+     apiKey: 'PSLP-WORK',
+     harvestStyle: HarvestStyle.PASSIVE,
+   }
+ }
+ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_WORK_USDC);
+
  // Arbitrum
 
  export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition =

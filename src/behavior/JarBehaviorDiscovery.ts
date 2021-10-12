@@ -55,6 +55,7 @@ import {
   JAR_ARBITRUM_SLP_SPELL_ETH,
   JAR_ARBITRUM_DODO_HND_ETH,
   JAR_CURVE_CVXCRVLP,
+  JAR_POLY_SUSHI_WORK_USDC,
 } from '../model/JarsAndFarms';
 import { JarDefinition, PickleAsset } from '../model/PickleModelJson';
 
@@ -111,6 +112,7 @@ import { ArbitrumMimEth } from './impl/arbitrum-mim-eth';
 import { ArbitrumSpellEth } from './impl/arbitrum-spell-eth';
 import { ArbitrumHndEth } from './impl/arbitrum-hnd-eth';
 import { CurveCvxCrv } from './impl/crv-cvxcrv';
+import { PSlpWorkUsdc } from './impl/pslp-work-usdc';
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -173,6 +175,7 @@ jarToBehavior.set(JAR_QUICK_MIMATIC_USDC.id, new MimaticUSDC());
 jarToBehavior.set(JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set(JAR_QUICK_QI_MATIC.id, new MaticQi());
 jarToBehavior.set(JAR_IRON3USD.id, new Is3Usd());
+jarToBehavior.set(JAR_POLY_SUSHI_WORK_USDC.id, new PSlpWorkUsdc());
 
 // Arbitrum
 jarToBehavior.set(JAR_ARBITRUM_SLP_MIM_ETH.id, new ArbitrumMimEth());
