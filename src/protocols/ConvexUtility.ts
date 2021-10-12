@@ -77,7 +77,7 @@ const convexPools: PoolInfo = {
     let fetchPromise = undefined;
     try {
       fetchPromise = fetch(
-        "https://cors.bridged.cc/https://www.convexfinance.com/api/curve-apys",
+        "https://www.convexfinance.com/api/curve-apys",
         {
           method: "GET",
           headers: {
