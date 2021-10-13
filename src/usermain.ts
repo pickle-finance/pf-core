@@ -13,8 +13,10 @@ async function generateUserData(walletId: string) {
   ).then((response) => response.json());
   const userModel : UserModel = new UserModel(core as PickleModelJson.PickleModelJson, walletId);
   const earnings = await userModel.generateUserModel();
-  const resultString = JSON.stringify(earnings, null, 2);
-  process.stdout.write(resultString);
+  if( earnings) {
+    const resultString = JSON.stringify(earnings, null, 2);
+    process.stdout.write(resultString);
+  }
 }
 
 /*
