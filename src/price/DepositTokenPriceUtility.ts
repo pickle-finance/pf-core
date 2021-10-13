@@ -47,24 +47,6 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
         virtualPrice =  await (curveStyle ? pool.get_virtual_price() : pool.getVirtualPrice());
     } catch(e) {
     }
-    /* TODO explore if this is necessary
-    let lowest : number | undefined = undefined;
-    const components = asset.depositToken.components;
-    for( let i = 0; i < components.length; i++ ) {
-        const p = model.priceOfSync(components[i]);
-        if( p !== undefined ) {
-            if(lowest === undefined || p < lowest) {
-                lowest = p;
-            }
-        }
-    }
-    const virtPrice = parseFloat(ethers.utils.formatEther(virtualPrice));
-    if( lowest !== undefined ) {
-        return lowest * virtPrice;
-    }
-    return virtPrice;
-    */
-
     return parseFloat(ethers.utils.formatEther(virtualPrice));
   };
 
@@ -96,34 +78,6 @@ export async function getStableswapPriceAddress(addr: string, asset: PickleAsset
                 "0xA5407eAE9Ba41422680e2e00537571bcC53efBfD",asset, model));
         }
         
-        if( depTokenAddr === JAR_AM3CRV.depositToken.addr) {
-            return getStableswapPriceAddress("0x445fe580ef8d70ff569ab36e80c647af338db351", asset, model);
-        }
-        if( depTokenAddr === JAR_SADDLE_D4.depositToken.addr) {
-            return getStableswapPriceAddress("0xc69ddcd4dfef25d8a793241834d4cc4b3668ead6", asset, model);
-        } 
-        if( depTokenAddr === JAR_MIM3CRV.depositToken.addr) {
-            return getStableswapPrice(asset, model);
-        }
-        if( asset.protocol === AssetProtocol.IRON_POLYGON) {
-            return getStableswapPriceAddress("0x837503e8a8753ae17fb8c8151b8e6f586defcb57", asset, model);
-        }
-        if( depTokenAddr === JAR_steCRV.depositToken.addr) {
-            return (await getStableswapPriceAddress("0xdc24316b9ae028f1497c275eb9192a3ea0f67022", asset, model)) 
-                    * (model.priceOfSync("weth"));
-        }
-        if( depTokenAddr === JAR_CURVE_CVXCRVLP.depositToken.addr) {
-            const r = (await getStableswapPriceAddress("0x9D0464996170c6B9e75eED71c68B99dDEDf279e8", asset, model)) 
-                    * (model.priceOfSync("cvxcrv"));
-            return r;
-        }
-        if(depTokenAddr === JAR_CVXCRV.depositToken.addr) {
-            return model.priceOfSync("cvxcrv")
-        }
-        
-        if( asset.protocol === AssetProtocol.AAVE_POLYGON) {
-            return model.priceOfSync("dai");
-        } 
         if( depTokenAddr === JAR_ALETH.depositToken.addr ) {
             return model.priceOfSync("weth");
         }
