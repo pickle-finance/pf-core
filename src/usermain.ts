@@ -1,11 +1,6 @@
-import { ChainNetwork, PickleModelJson } from ".";
-import { ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { ALL_ASSETS } from "./model/JarsAndFarms";
-import { PickleModel } from "./model/PickleModel";
+import { PickleModelJson } from ".";
 import fetch from 'cross-fetch';
 import { UserModel } from "./client/UserModel";
-import { exit } from "process";
 
 async function generateUserData(walletId: string) {
   const core = await fetch(

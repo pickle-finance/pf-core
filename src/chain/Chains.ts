@@ -74,7 +74,7 @@ export class Chains {
       // ADD_CHAIN 
       setMulticallAddress(42161, '0x813715eF627B01f4931d8C6F8D2459F26E19137E');
 
-      for(let key of Chains.list()) {
+      for(const key of Chains.list()) {
         const resolver = chains.get(key);
         if( resolver ) {
             const isSigner : boolean = (resolver as Signer).provider !== undefined;
@@ -99,7 +99,7 @@ export class Chains {
       return chain;
     }
     static fromId(id: number) : IChain {
-      for (let [key, value] of Chains.singleton.chainData) {
+      for (const [key, value] of Chains.singleton.chainData) {
         if( value.id === id )
           return value;
       }
