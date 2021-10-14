@@ -56,6 +56,7 @@ import {
   JAR_ARBITRUM_DODO_HND_ETH,
   JAR_CURVE_CVXCRVLP,
   JAR_POLY_SUSHI_WORK_USDC,
+  JAR_CVXCRV,
 } from '../model/JarsAndFarms';
 import { JarDefinition, PickleAsset } from '../model/PickleModelJson';
 
@@ -113,6 +114,7 @@ import { ArbitrumSpellEth } from './impl/arbitrum-spell-eth';
 import { ArbitrumHndEth } from './impl/arbitrum-hnd-eth';
 import { CurveCvxCrv } from './impl/crv-cvxcrv';
 import { PSlpWorkUsdc } from './impl/pslp-work-usdc';
+import { CvxCrv } from './impl/cvxcrv';
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -159,6 +161,7 @@ jarToBehavior.set(JAR_fraxCRV.id, new YearnJar());
 jarToBehavior.set(JAR_CRV_IB.id, new YearnJar());
 jarToBehavior.set(JAR_UNI_RLY_ETH.id, new RlyEth());
 jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
+jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
