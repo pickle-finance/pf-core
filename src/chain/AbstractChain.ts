@@ -1,7 +1,6 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { ethers, providers } from "ethers";
-import Web3 from "web3";
 import { IChain } from "./IChain";
 
 export abstract class AbstractChain implements IChain {

@@ -1,4 +1,3 @@
-import Web3 from "web3";
 import { AbstractChain } from "./AbstractChain";
 import { IChain } from "./IChain";
 import { Provider } from "@ethersproject/abstract-provider";
