@@ -73,278 +73,278 @@ interface StabilityPoolInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "BORROWING_FEE_FLOOR",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "CCR", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "DECIMAL_PRECISION",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "LUSD_GAS_COMPENSATION",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "MCR", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "MIN_NET_DEBT",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "NAME", values?: undefined): string;
   encodeFunctionData(functionFragment: "P", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "PERCENT_DIVISOR",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "SCALE_FACTOR",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "_100pct", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "activePool",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "borrowerOperations",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "communityIssuance",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "currentEpoch",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "currentScale",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "defaultPool",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "depositSnapshots",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(functionFragment: "deposits", values: [string]): string;
   encodeFunctionData(
     functionFragment: "epochToScaleToG",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "epochToScaleToSum",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "frontEndSnapshots",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "frontEndStakes",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(functionFragment: "frontEnds", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getCompoundedFrontEndStake",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "getCompoundedLUSDDeposit",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "getDepositorETHGain",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "getDepositorLQTYGain",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(functionFragment: "getETH", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getEntireSystemColl",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "getEntireSystemDebt",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "getFrontEndLQTYGain",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "getTotalLUSDDeposits",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "isOwner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "lastETHError_Offset",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "lastLQTYError",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "lastLUSDLossError_Offset",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "lusdToken", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "offset",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "priceFeed", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "provideToSP",
-    values: [BigNumberish, string]
+    values: [BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "registerFrontEnd",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "setAddresses",
-    values: [string, string, string, string, string, string, string]
+    values: [string, string, string, string, string, string, string],
   ): string;
   encodeFunctionData(
     functionFragment: "sortedTroves",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "troveManager",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawETHGainToTrove",
-    values: [string, string]
+    values: [string, string],
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawFromSP",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
 
   decodeFunctionResult(
     functionFragment: "BORROWING_FEE_FLOOR",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "CCR", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "DECIMAL_PRECISION",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "LUSD_GAS_COMPENSATION",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "MCR", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "MIN_NET_DEBT",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "NAME", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "P", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "PERCENT_DIVISOR",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "SCALE_FACTOR",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "_100pct", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "activePool", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "borrowerOperations",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "communityIssuance",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "currentEpoch",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "currentScale",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "defaultPool",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "depositSnapshots",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "deposits", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "epochToScaleToG",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "epochToScaleToSum",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "frontEndSnapshots",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "frontEndStakes",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "frontEnds", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getCompoundedFrontEndStake",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCompoundedLUSDDeposit",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getDepositorETHGain",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getDepositorLQTYGain",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "getETH", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getEntireSystemColl",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getEntireSystemDebt",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getFrontEndLQTYGain",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getTotalLUSDDeposits",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "isOwner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lastETHError_Offset",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "lastLQTYError",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "lastLUSDLossError_Offset",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "lusdToken", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "offset", data: BytesLike): Result;
@@ -352,31 +352,31 @@ interface StabilityPoolInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "priceFeed", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "provideToSP",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "registerFrontEnd",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "setAddresses",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "sortedTroves",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "troveManager",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawETHGainToTrove",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawFromSP",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
 
   events: {
@@ -410,10 +410,10 @@ interface StabilityPoolInterface extends ethers.utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: "ActivePoolAddressChanged"): EventFragment;
   getEvent(
-    nameOrSignatureOrTopic: "BorrowerOperationsAddressChanged"
+    nameOrSignatureOrTopic: "BorrowerOperationsAddressChanged",
   ): EventFragment;
   getEvent(
-    nameOrSignatureOrTopic: "CommunityIssuanceAddressChanged"
+    nameOrSignatureOrTopic: "CommunityIssuanceAddressChanged",
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DefaultPoolAddressChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "DepositSnapshotUpdated"): EventFragment;
@@ -435,10 +435,10 @@ interface StabilityPoolInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "ScaleUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SortedTrovesAddressChanged"): EventFragment;
   getEvent(
-    nameOrSignatureOrTopic: "StabilityPoolETHBalanceUpdated"
+    nameOrSignatureOrTopic: "StabilityPoolETHBalanceUpdated",
   ): EventFragment;
   getEvent(
-    nameOrSignatureOrTopic: "StabilityPoolLUSDBalanceUpdated"
+    nameOrSignatureOrTopic: "StabilityPoolLUSDBalanceUpdated",
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TroveManagerAddressChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UserDepositChanged"): EventFragment;
@@ -450,26 +450,26 @@ export class StabilityPool extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -482,7 +482,7 @@ export class StabilityPool extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: StabilityPoolInterface;
@@ -558,7 +558,7 @@ export class StabilityPool extends Contract {
 
     depositSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -571,7 +571,7 @@ export class StabilityPool extends Contract {
 
     "depositSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -584,14 +584,14 @@ export class StabilityPool extends Contract {
 
     deposits(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, string] & { initialValue: BigNumber; frontEndTag: string }
     >;
 
     "deposits(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, string] & { initialValue: BigNumber; frontEndTag: string }
     >;
@@ -599,30 +599,30 @@ export class StabilityPool extends Contract {
     epochToScaleToG(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "epochToScaleToG(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     epochToScaleToSum(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "epochToScaleToSum(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     frontEndSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -635,7 +635,7 @@ export class StabilityPool extends Contract {
 
     "frontEndSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -648,66 +648,66 @@ export class StabilityPool extends Contract {
 
     frontEndStakes(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "frontEndStakes(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     frontEnds(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, boolean] & { kickbackRate: BigNumber; registered: boolean }
     >;
 
     "frontEnds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, boolean] & { kickbackRate: BigNumber; registered: boolean }
     >;
 
     getCompoundedFrontEndStake(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "getCompoundedFrontEndStake(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getCompoundedLUSDDeposit(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "getCompoundedLUSDDeposit(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getDepositorETHGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "getDepositorETHGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getDepositorLQTYGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "getDepositorLQTYGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getETH(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -715,29 +715,29 @@ export class StabilityPool extends Contract {
     "getETH()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getEntireSystemColl(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { entireSystemColl: BigNumber }>;
 
     "getEntireSystemColl()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { entireSystemColl: BigNumber }>;
 
     getEntireSystemDebt(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { entireSystemDebt: BigNumber }>;
 
     "getEntireSystemDebt()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { entireSystemDebt: BigNumber }>;
 
     getFrontEndLQTYGain(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "getFrontEndLQTYGain(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getTotalLUSDDeposits(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -759,7 +759,7 @@ export class StabilityPool extends Contract {
     lastLUSDLossError_Offset(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "lastLUSDLossError_Offset()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     lusdToken(overrides?: CallOverrides): Promise<[string]>;
@@ -769,13 +769,13 @@ export class StabilityPool extends Contract {
     offset(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "offset(uint256,uint256)"(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -789,23 +789,23 @@ export class StabilityPool extends Contract {
     provideToSP(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "provideToSP(uint256,address)"(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     registerFrontEnd(
       _kickbackRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "registerFrontEnd(uint256)"(
       _kickbackRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setAddresses(
@@ -816,7 +816,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "setAddresses(address,address,address,address,address,address,address)"(
@@ -827,7 +827,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     sortedTroves(overrides?: CallOverrides): Promise<[string]>;
@@ -841,23 +841,23 @@ export class StabilityPool extends Contract {
     withdrawETHGainToTrove(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "withdrawETHGainToTrove(address,address)"(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     withdrawFromSP(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "withdrawFromSP(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -931,7 +931,7 @@ export class StabilityPool extends Contract {
 
   depositSnapshots(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       S: BigNumber;
@@ -944,7 +944,7 @@ export class StabilityPool extends Contract {
 
   "depositSnapshots(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       S: BigNumber;
@@ -957,14 +957,14 @@ export class StabilityPool extends Contract {
 
   deposits(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, string] & { initialValue: BigNumber; frontEndTag: string }
   >;
 
   "deposits(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, string] & { initialValue: BigNumber; frontEndTag: string }
   >;
@@ -972,30 +972,30 @@ export class StabilityPool extends Contract {
   epochToScaleToG(
     arg0: BigNumberish,
     arg1: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "epochToScaleToG(uint128,uint128)"(
     arg0: BigNumberish,
     arg1: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   epochToScaleToSum(
     arg0: BigNumberish,
     arg1: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "epochToScaleToSum(uint128,uint128)"(
     arg0: BigNumberish,
     arg1: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   frontEndSnapshots(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       S: BigNumber;
@@ -1008,7 +1008,7 @@ export class StabilityPool extends Contract {
 
   "frontEndSnapshots(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       S: BigNumber;
@@ -1023,61 +1023,61 @@ export class StabilityPool extends Contract {
 
   "frontEndStakes(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   frontEnds(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, boolean] & { kickbackRate: BigNumber; registered: boolean }
   >;
 
   "frontEnds(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, boolean] & { kickbackRate: BigNumber; registered: boolean }
   >;
 
   getCompoundedFrontEndStake(
     _frontEnd: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "getCompoundedFrontEndStake(address)"(
     _frontEnd: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getCompoundedLUSDDeposit(
     _depositor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "getCompoundedLUSDDeposit(address)"(
     _depositor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getDepositorETHGain(
     _depositor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "getDepositorETHGain(address)"(
     _depositor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getDepositorLQTYGain(
     _depositor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "getDepositorLQTYGain(address)"(
     _depositor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getETH(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1094,12 +1094,12 @@ export class StabilityPool extends Contract {
 
   getFrontEndLQTYGain(
     _frontEnd: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "getFrontEndLQTYGain(address)"(
     _frontEnd: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getTotalLUSDDeposits(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1129,13 +1129,13 @@ export class StabilityPool extends Contract {
   offset(
     _debtToOffset: BigNumberish,
     _collToAdd: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "offset(uint256,uint256)"(
     _debtToOffset: BigNumberish,
     _collToAdd: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
@@ -1149,23 +1149,23 @@ export class StabilityPool extends Contract {
   provideToSP(
     _amount: BigNumberish,
     _frontEndTag: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "provideToSP(uint256,address)"(
     _amount: BigNumberish,
     _frontEndTag: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   registerFrontEnd(
     _kickbackRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "registerFrontEnd(uint256)"(
     _kickbackRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setAddresses(
@@ -1176,7 +1176,7 @@ export class StabilityPool extends Contract {
     _sortedTrovesAddress: string,
     _priceFeedAddress: string,
     _communityIssuanceAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "setAddresses(address,address,address,address,address,address,address)"(
@@ -1187,7 +1187,7 @@ export class StabilityPool extends Contract {
     _sortedTrovesAddress: string,
     _priceFeedAddress: string,
     _communityIssuanceAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   sortedTroves(overrides?: CallOverrides): Promise<string>;
@@ -1201,23 +1201,23 @@ export class StabilityPool extends Contract {
   withdrawETHGainToTrove(
     _upperHint: string,
     _lowerHint: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "withdrawETHGainToTrove(address,address)"(
     _upperHint: string,
     _lowerHint: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   withdrawFromSP(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "withdrawFromSP(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -1291,7 +1291,7 @@ export class StabilityPool extends Contract {
 
     depositSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -1304,7 +1304,7 @@ export class StabilityPool extends Contract {
 
     "depositSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -1317,14 +1317,14 @@ export class StabilityPool extends Contract {
 
     deposits(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, string] & { initialValue: BigNumber; frontEndTag: string }
     >;
 
     "deposits(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, string] & { initialValue: BigNumber; frontEndTag: string }
     >;
@@ -1332,30 +1332,30 @@ export class StabilityPool extends Contract {
     epochToScaleToG(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "epochToScaleToG(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     epochToScaleToSum(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "epochToScaleToSum(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     frontEndSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -1368,7 +1368,7 @@ export class StabilityPool extends Contract {
 
     "frontEndSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
         S: BigNumber;
@@ -1383,61 +1383,61 @@ export class StabilityPool extends Contract {
 
     "frontEndStakes(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     frontEnds(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, boolean] & { kickbackRate: BigNumber; registered: boolean }
     >;
 
     "frontEnds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, boolean] & { kickbackRate: BigNumber; registered: boolean }
     >;
 
     getCompoundedFrontEndStake(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getCompoundedFrontEndStake(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getCompoundedLUSDDeposit(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getCompoundedLUSDDeposit(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getDepositorETHGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getDepositorETHGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getDepositorLQTYGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getDepositorLQTYGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getETH(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1454,12 +1454,12 @@ export class StabilityPool extends Contract {
 
     getFrontEndLQTYGain(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getFrontEndLQTYGain(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getTotalLUSDDeposits(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1489,13 +1489,13 @@ export class StabilityPool extends Contract {
     offset(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "offset(uint256,uint256)"(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -1509,23 +1509,23 @@ export class StabilityPool extends Contract {
     provideToSP(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "provideToSP(uint256,address)"(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     registerFrontEnd(
       _kickbackRate: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "registerFrontEnd(uint256)"(
       _kickbackRate: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     setAddresses(
@@ -1536,7 +1536,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "setAddresses(address,address,address,address,address,address,address)"(
@@ -1547,7 +1547,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     sortedTroves(overrides?: CallOverrides): Promise<string>;
@@ -1561,48 +1561,48 @@ export class StabilityPool extends Contract {
     withdrawETHGainToTrove(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "withdrawETHGainToTrove(address,address)"(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     withdrawFromSP(
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "withdrawFromSP(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
   filters: {
     ActivePoolAddressChanged(
-      _newActivePoolAddress: null
+      _newActivePoolAddress: null,
     ): TypedEventFilter<[string], { _newActivePoolAddress: string }>;
 
     BorrowerOperationsAddressChanged(
-      _newBorrowerOperationsAddress: null
+      _newBorrowerOperationsAddress: null,
     ): TypedEventFilter<[string], { _newBorrowerOperationsAddress: string }>;
 
     CommunityIssuanceAddressChanged(
-      _newCommunityIssuanceAddress: null
+      _newCommunityIssuanceAddress: null,
     ): TypedEventFilter<[string], { _newCommunityIssuanceAddress: string }>;
 
     DefaultPoolAddressChanged(
-      _newDefaultPoolAddress: null
+      _newDefaultPoolAddress: null,
     ): TypedEventFilter<[string], { _newDefaultPoolAddress: string }>;
 
     DepositSnapshotUpdated(
       _depositor: string | null,
       _P: null,
       _S: null,
-      _G: null
+      _G: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, BigNumber],
       { _depositor: string; _P: BigNumber; _S: BigNumber; _G: BigNumber }
@@ -1611,19 +1611,19 @@ export class StabilityPool extends Contract {
     ETHGainWithdrawn(
       _depositor: string | null,
       _ETH: null,
-      _LUSDLoss: null
+      _LUSDLoss: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { _depositor: string; _ETH: BigNumber; _LUSDLoss: BigNumber }
     >;
 
     EpochUpdated(
-      _currentEpoch: null
+      _currentEpoch: null,
     ): TypedEventFilter<[BigNumber], { _currentEpoch: BigNumber }>;
 
     EtherSent(
       _to: null,
-      _amount: null
+      _amount: null,
     ): TypedEventFilter<
       [string, BigNumber],
       { _to: string; _amount: BigNumber }
@@ -1631,7 +1631,7 @@ export class StabilityPool extends Contract {
 
     FrontEndRegistered(
       _frontEnd: string | null,
-      _kickbackRate: null
+      _kickbackRate: null,
     ): TypedEventFilter<
       [string, BigNumber],
       { _frontEnd: string; _kickbackRate: BigNumber }
@@ -1640,7 +1640,7 @@ export class StabilityPool extends Contract {
     FrontEndSnapshotUpdated(
       _frontEnd: string | null,
       _P: null,
-      _G: null
+      _G: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { _frontEnd: string; _P: BigNumber; _G: BigNumber }
@@ -1649,7 +1649,7 @@ export class StabilityPool extends Contract {
     FrontEndStakeChanged(
       _frontEnd: string | null,
       _newFrontEndStake: null,
-      _depositor: null
+      _depositor: null,
     ): TypedEventFilter<
       [string, BigNumber, string],
       { _frontEnd: string; _newFrontEndStake: BigNumber; _depositor: string }
@@ -1657,7 +1657,7 @@ export class StabilityPool extends Contract {
 
     FrontEndTagSet(
       _depositor: string | null,
-      _frontEnd: string | null
+      _frontEnd: string | null,
     ): TypedEventFilter<
       [string, string],
       { _depositor: string; _frontEnd: string }
@@ -1666,7 +1666,7 @@ export class StabilityPool extends Contract {
     G_Updated(
       _G: null,
       _epoch: null,
-      _scale: null
+      _scale: null,
     ): TypedEventFilter<
       [BigNumber, BigNumber, BigNumber],
       { _G: BigNumber; _epoch: BigNumber; _scale: BigNumber }
@@ -1674,7 +1674,7 @@ export class StabilityPool extends Contract {
 
     LQTYPaidToDepositor(
       _depositor: string | null,
-      _LQTY: null
+      _LQTY: null,
     ): TypedEventFilter<
       [string, BigNumber],
       { _depositor: string; _LQTY: BigNumber }
@@ -1682,19 +1682,19 @@ export class StabilityPool extends Contract {
 
     LQTYPaidToFrontEnd(
       _frontEnd: string | null,
-      _LQTY: null
+      _LQTY: null,
     ): TypedEventFilter<
       [string, BigNumber],
       { _frontEnd: string; _LQTY: BigNumber }
     >;
 
     LUSDTokenAddressChanged(
-      _newLUSDTokenAddress: null
+      _newLUSDTokenAddress: null,
     ): TypedEventFilter<[string], { _newLUSDTokenAddress: string }>;
 
     OwnershipTransferred(
       previousOwner: string | null,
-      newOwner: string | null
+      newOwner: string | null,
     ): TypedEventFilter<
       [string, string],
       { previousOwner: string; newOwner: string }
@@ -1703,41 +1703,41 @@ export class StabilityPool extends Contract {
     P_Updated(_P: null): TypedEventFilter<[BigNumber], { _P: BigNumber }>;
 
     PriceFeedAddressChanged(
-      _newPriceFeedAddress: null
+      _newPriceFeedAddress: null,
     ): TypedEventFilter<[string], { _newPriceFeedAddress: string }>;
 
     S_Updated(
       _S: null,
       _epoch: null,
-      _scale: null
+      _scale: null,
     ): TypedEventFilter<
       [BigNumber, BigNumber, BigNumber],
       { _S: BigNumber; _epoch: BigNumber; _scale: BigNumber }
     >;
 
     ScaleUpdated(
-      _currentScale: null
+      _currentScale: null,
     ): TypedEventFilter<[BigNumber], { _currentScale: BigNumber }>;
 
     SortedTrovesAddressChanged(
-      _newSortedTrovesAddress: null
+      _newSortedTrovesAddress: null,
     ): TypedEventFilter<[string], { _newSortedTrovesAddress: string }>;
 
     StabilityPoolETHBalanceUpdated(
-      _newBalance: null
+      _newBalance: null,
     ): TypedEventFilter<[BigNumber], { _newBalance: BigNumber }>;
 
     StabilityPoolLUSDBalanceUpdated(
-      _newBalance: null
+      _newBalance: null,
     ): TypedEventFilter<[BigNumber], { _newBalance: BigNumber }>;
 
     TroveManagerAddressChanged(
-      _newTroveManagerAddress: null
+      _newTroveManagerAddress: null,
     ): TypedEventFilter<[string], { _newTroveManagerAddress: string }>;
 
     UserDepositChanged(
       _depositor: string | null,
-      _newDeposit: null
+      _newDeposit: null,
     ): TypedEventFilter<
       [string, BigNumber],
       { _depositor: string; _newDeposit: BigNumber }
@@ -1815,107 +1815,107 @@ export class StabilityPool extends Contract {
 
     depositSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "depositSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     deposits(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "deposits(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     epochToScaleToG(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "epochToScaleToG(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     epochToScaleToSum(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "epochToScaleToSum(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     frontEndSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "frontEndSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     frontEndStakes(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "frontEndStakes(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     frontEnds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "frontEnds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getCompoundedFrontEndStake(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getCompoundedFrontEndStake(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getCompoundedLUSDDeposit(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getCompoundedLUSDDeposit(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getDepositorETHGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getDepositorETHGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getDepositorLQTYGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getDepositorLQTYGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getETH(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1932,12 +1932,12 @@ export class StabilityPool extends Contract {
 
     getFrontEndLQTYGain(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "getFrontEndLQTYGain(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getTotalLUSDDeposits(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1967,13 +1967,13 @@ export class StabilityPool extends Contract {
     offset(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "offset(uint256,uint256)"(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1987,23 +1987,23 @@ export class StabilityPool extends Contract {
     provideToSP(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "provideToSP(uint256,address)"(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     registerFrontEnd(
       _kickbackRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "registerFrontEnd(uint256)"(
       _kickbackRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setAddresses(
@@ -2014,7 +2014,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "setAddresses(address,address,address,address,address,address,address)"(
@@ -2025,7 +2025,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     sortedTroves(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2039,33 +2039,33 @@ export class StabilityPool extends Contract {
     withdrawETHGainToTrove(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "withdrawETHGainToTrove(address,address)"(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     withdrawFromSP(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "withdrawFromSP(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     BORROWING_FEE_FLOOR(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "BORROWING_FEE_FLOOR()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     CCR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2075,15 +2075,15 @@ export class StabilityPool extends Contract {
     DECIMAL_PRECISION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "DECIMAL_PRECISION()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     LUSD_GAS_COMPENSATION(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "LUSD_GAS_COMPENSATION()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     MCR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2105,7 +2105,7 @@ export class StabilityPool extends Contract {
     PERCENT_DIVISOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "PERCENT_DIVISOR()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     SCALE_FACTOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2121,17 +2121,17 @@ export class StabilityPool extends Contract {
     "activePool()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     borrowerOperations(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "borrowerOperations()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     communityIssuance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "communityIssuance()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     currentEpoch(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2148,116 +2148,116 @@ export class StabilityPool extends Contract {
 
     depositSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "depositSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     deposits(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "deposits(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     epochToScaleToG(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "epochToScaleToG(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     epochToScaleToSum(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "epochToScaleToSum(uint128,uint128)"(
       arg0: BigNumberish,
       arg1: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     frontEndSnapshots(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "frontEndSnapshots(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     frontEndStakes(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "frontEndStakes(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     frontEnds(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "frontEnds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getCompoundedFrontEndStake(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getCompoundedFrontEndStake(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getCompoundedLUSDDeposit(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getCompoundedLUSDDeposit(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getDepositorETHGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getDepositorETHGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getDepositorLQTYGain(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getDepositorLQTYGain(address)"(
       _depositor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getETH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2265,37 +2265,37 @@ export class StabilityPool extends Contract {
     "getETH()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getEntireSystemColl(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getEntireSystemColl()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getEntireSystemDebt(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getEntireSystemDebt()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getFrontEndLQTYGain(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getFrontEndLQTYGain(address)"(
       _frontEnd: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getTotalLUSDDeposits(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "getTotalLUSDDeposits()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     isOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2303,11 +2303,11 @@ export class StabilityPool extends Contract {
     "isOwner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lastETHError_Offset(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "lastETHError_Offset()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     lastLQTYError(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2315,11 +2315,11 @@ export class StabilityPool extends Contract {
     "lastLQTYError()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lastLUSDLossError_Offset(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "lastLUSDLossError_Offset()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     lusdToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2329,13 +2329,13 @@ export class StabilityPool extends Contract {
     offset(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "offset(uint256,uint256)"(
       _debtToOffset: BigNumberish,
       _collToAdd: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2349,23 +2349,23 @@ export class StabilityPool extends Contract {
     provideToSP(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "provideToSP(uint256,address)"(
       _amount: BigNumberish,
       _frontEndTag: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     registerFrontEnd(
       _kickbackRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "registerFrontEnd(uint256)"(
       _kickbackRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setAddresses(
@@ -2376,7 +2376,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "setAddresses(address,address,address,address,address,address,address)"(
@@ -2387,7 +2387,7 @@ export class StabilityPool extends Contract {
       _sortedTrovesAddress: string,
       _priceFeedAddress: string,
       _communityIssuanceAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     sortedTroves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2401,23 +2401,23 @@ export class StabilityPool extends Contract {
     withdrawETHGainToTrove(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "withdrawETHGainToTrove(address,address)"(
       _upperHint: string,
       _lowerHint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     withdrawFromSP(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "withdrawFromSP(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

@@ -10,7 +10,7 @@ import type { CrvRewards } from "../CrvRewards";
 export class CrvRewards__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): CrvRewards {
     return new Contract(address, _abi, signerOrProvider) as CrvRewards;
   }

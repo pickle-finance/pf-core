@@ -14,10 +14,10 @@ export interface TypedEvent<EventArgs extends Result> extends Event {
 
 export type TypedListener<
   EventArgsArray extends Array<any>,
-  EventArgsObject
+  EventArgsObject,
 > = (
   ...listenerArg: [
     ...EventArgsArray,
-    TypedEvent<EventArgsArray & EventArgsObject>
+    TypedEvent<EventArgsArray & EventArgsObject>,
   ]
 ) => void;

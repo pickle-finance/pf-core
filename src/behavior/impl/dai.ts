@@ -1,37 +1,59 @@
-import { ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
+import { ethers, Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import {foldingStrategyAbi} from '../../Contracts/ABIs/folding-strategy.abi';
-import AaveStrategyAbi from '../../Contracts/ABIs/aave-strategy.json';
-import { PickleModel } from '../../model/PickleModel';
-import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
-import { ChainNetwork, Chains } from '../../chain/Chains';
-import fetch from 'cross-fetch';
+import { foldingStrategyAbi } from "../../Contracts/ABIs/folding-strategy.abi";
+import AaveStrategyAbi from "../../Contracts/ABIs/aave-strategy.json";
+import { PickleModel } from "../../model/PickleModel";
+import { Contract as MulticallContract } from "ethers-multicall";
+import { ChainNetwork } from "../../chain/Chains";
+import fetch from "cross-fetch";
 
 export class DaiJar extends AbstractJarBehavior {
-
-  async getDepositTokenPrice(_asset: JarDefinition, model: PickleModel): Promise<number> {
-    // TODO is this correct? Is there no virtual price? 
+  async getDepositTokenPrice(
+    _asset: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
+    // TODO is this correct? Is there no virtual price?
     return model.priceOfSync("dai");
   }
 
-   async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
-    const strategy = new ethers.Contract(jar.details.strategyAddr, foldingStrategyAbi, resolver);
-    const [matic, maticPrice] = await Promise.all([strategy.getMaticAccrued(), await model.priceOf('matic')]);
+  async getHarvestableUSD(
+    jar: JarDefinition,
+    model: PickleModel,
+    resolver: Signer | Provider,
+  ): Promise<number> {
+    const strategy = new ethers.Contract(
+      jar.details.strategyAddr,
+      foldingStrategyAbi,
+      resolver,
+    );
+    const [matic, maticPrice] = await Promise.all([
+      strategy.getMaticAccrued(),
+      await model.priceOf("matic"),
+    ]);
     const harvestable = matic.mul(maticPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
-
-  async getProjectedAprStats(definition: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
-    return this.calculateAaveAPY(definition, model,
+  async getProjectedAprStats(
+    definition: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetProjectedApr> {
+    return this.calculateAaveAPY(
+      definition,
+      model,
       model.address("dai", ChainNetwork.Polygon),
-      "0x0b198b5EE64aB29c98A094380c867079d5a1682e");
-}
+      "0x0b198b5EE64aB29c98A094380c867079d5a1682e",
+    );
+  }
 
-  async calculateAaveAPY(jar: JarDefinition, model: PickleModel,
-     assetAddress: string, strategyAddress: string ) : Promise<AssetProjectedApr> {
+  async calculateAaveAPY(
+    jar: JarDefinition,
+    model: PickleModel,
+    assetAddress: string,
+    strategyAddress: string,
+  ): Promise<AssetProjectedApr> {
     const pools = await fetch(
       "https://aave-api-v2.aave.com/data/liquidity/v2?poolId=0xd05e3E715d945B59290df0ae8eF85c1BdB684744",
     ).then((response) => response.json());
@@ -44,13 +66,15 @@ export class DaiJar extends AbstractJarBehavior {
     await multicallProvider.init();
 
     const maticPrice = await model.priceOf("matic");
-    if (!pool || !maticPrice || !multicallProvider) 
-      return super.aprComponentsToProjectedApr(
-        [super.createAprComponent("Error Loading APY", 0, false)]
-      );
+    if (!pool || !maticPrice || !multicallProvider)
+      return super.aprComponentsToProjectedApr([
+        super.createAprComponent("Error Loading APY", 0, false),
+      ]);
 
-
-    const aaveStrategy = new MulticallContract(strategyAddress,AaveStrategyAbi);
+    const aaveStrategy = new MulticallContract(
+      strategyAddress,
+      AaveStrategyAbi,
+    );
     const [supplied, borrowed, balance] = (
       await multicallProvider.all([
         aaveStrategy.getSuppliedView(),
@@ -67,7 +91,7 @@ export class DaiJar extends AbstractJarBehavior {
       +pool["totalLiquidity"] /
       +pool["referenceItem"]["priceInUsd"];
     const borrowMaticAPR =
-      (+pool.vEmissionPerSecond * 365 * 3600 * 24 *  maticPrice) /
+      (+pool.vEmissionPerSecond * 365 * 3600 * 24 * maticPrice) /
       +pool["totalDebt"] /
       +pool["referenceItem"]["priceInUsd"];
 
@@ -78,9 +102,9 @@ export class DaiJar extends AbstractJarBehavior {
     const rawAPY =
       (rawSupplyAPY * supplied - rawBorrowAPY * borrowed) / balance;
 
-      return super.aprComponentsToProjectedApr([
-        super.createAprComponent("lp", rawAPY, false),
-        super.createAprComponent("matic", maticAPR*100, true)
-      ]);
-  };
+    return super.aprComponentsToProjectedApr([
+      super.createAprComponent("lp", rawAPY, false),
+      super.createAprComponent("matic", maticAPR * 100, true),
+    ]);
+  }
 }

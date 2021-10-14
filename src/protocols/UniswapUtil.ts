@@ -1,13 +1,9 @@
 import { PickleModel } from "..";
-import { Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { AssetProtocol, JarDefinition, PickleAsset } from "../model/PickleModelJson";
-import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
+import { AssetProtocol } from "../model/PickleModelJson";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
-
 const UNI_PAIR_DATA_CACHE_KEY = "uniswap.pair.data.cache.key";
-const UNI_PAIR_GRAPH_FIELDS : string[] = [
+const UNI_PAIR_GRAPH_FIELDS: string[] = [
   "pairAddress",
   "reserveUSD",
   "dailyVolumeUSD",
@@ -19,8 +15,13 @@ const UNI_PAIR_GRAPH_FIELDS : string[] = [
 ];
 export class UniPairManager extends GenericSwapUtility {
   constructor() {
-    super(UNI_PAIR_DATA_CACHE_KEY, "pairAddress", UNI_PAIR_GRAPH_FIELDS, 
-    AssetProtocol.UNISWAP, .003);
+    super(
+      UNI_PAIR_DATA_CACHE_KEY,
+      "pairAddress",
+      UNI_PAIR_GRAPH_FIELDS,
+      AssetProtocol.UNISWAP,
+      0.003,
+    );
   }
 
   pairAddressFromDayData(dayData: any): string {
@@ -36,13 +37,14 @@ export class UniPairManager extends GenericSwapUtility {
       token0Id: pair.token0.id,
       token1Id: pair.token1.id,
       totalSupply: pair.totalSupply,
-      pricePerToken: pair.reserveUSD / pair.totalSupply
-    }
+      pricePerToken: pair.reserveUSD / pair.totalSupply,
+    };
   }
 }
 
-
-export async function calculateUniswapLpApr(model: PickleModel, addr: string): Promise<number> {
-    return new UniPairManager().calculateLpApr(model, addr);
-  }
-  
+export async function calculateUniswapLpApr(
+  model: PickleModel,
+  addr: string,
+): Promise<number> {
+  return new UniPairManager().calculateLpApr(model, addr);
+}

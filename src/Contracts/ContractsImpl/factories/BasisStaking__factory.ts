@@ -10,7 +10,7 @@ import type { BasisStaking } from "../BasisStaking";
 export class BasisStaking__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): BasisStaking {
     return new Contract(address, _abi, signerOrProvider) as BasisStaking;
   }

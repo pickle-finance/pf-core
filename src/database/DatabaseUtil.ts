@@ -1,8 +1,5 @@
-import { ethers } from "ethers";
-import { JarDefinition } from "../model/PickleModelJson";
-
 /**
- * This file is not used currently. Might be deleted. 
+ * This file is not used currently. Might be deleted.
  */
 export const CURRENT = 0;
 export const ONE_DAY = 48;
@@ -13,34 +10,34 @@ export const SAMPLE_DAYS = THIRTY_DAYS + 1;
 export const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
 
 export interface AssetDatabaseEntry {
-  asset:string,
-	balance:number,
-	height:number,
-	ratio:number,
-	supply:number,
-	timestamp:number,
-	value:number,
+  asset: string;
+  balance: number;
+  height: number;
+  ratio: number;
+  supply: number;
+  timestamp: number;
+  value: number;
 }
 
 export interface FarmDatabaseEntry {
-  apy: number,
-  valuePerHour: number
-  address: string,
-  valueBalance: number,
-  valuePerBlock: number,
-  tokenAddress: string,
-  allocShare: number,
-  gaugeAddress: string,
-  valuePerDay: number,
-  tokenBalance: number,
-  picklePerBlock: number,
-  picklePerHour: number,
-  picklePerDay: number,
+  apy: number;
+  valuePerHour: number;
+  address: string;
+  valueBalance: number;
+  valuePerBlock: number;
+  tokenAddress: string;
+  allocShare: number;
+  gaugeAddress: string;
+  valuePerDay: number;
+  tokenBalance: number;
+  picklePerBlock: number;
+  picklePerHour: number;
+  picklePerDay: number;
 }
 
 export interface XY {
-  x: number,
-  y: number,
+  x: number;
+  y: number;
 }
 /*
 

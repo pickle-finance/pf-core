@@ -42,111 +42,111 @@ interface PickleRewarderInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "add",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "claimOwnership",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "massUpdatePools",
-    values: [BigNumberish[]]
+    values: [BigNumberish[]],
   ): string;
   encodeFunctionData(
     functionFragment: "onPickleReward",
-    values: [BigNumberish, string, string, BigNumberish, BigNumberish]
+    values: [BigNumberish, string, string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "pendingOwner",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "pendingToken",
-    values: [BigNumberish, string]
+    values: [BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "pendingTokens",
-    values: [BigNumberish, string, BigNumberish]
+    values: [BigNumberish, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "poolIds",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "poolInfo",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "poolLength",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "rewardPerSecond",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "set",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "setRewardPerSecond",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string, boolean, boolean]
+    values: [string, boolean, boolean],
   ): string;
   encodeFunctionData(
     functionFragment: "updatePool",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "userInfo",
-    values: [BigNumberish, string]
+    values: [BigNumberish, string],
   ): string;
 
   decodeFunctionResult(functionFragment: "add", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "claimOwnership",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "massUpdatePools",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "onPickleReward",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingOwner",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "pendingToken",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "pendingTokens",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "poolIds", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolInfo", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolLength", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "rewardPerSecond",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setRewardPerSecond",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "updatePool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "userInfo", data: BytesLike): Result;
@@ -176,26 +176,26 @@ export class PickleRewarder extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -208,7 +208,7 @@ export class PickleRewarder extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: PickleRewarderInterface;
@@ -217,31 +217,31 @@ export class PickleRewarder extends Contract {
     add(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "add(uint256,uint256)"(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     claimOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "claimOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     onPickleReward(
@@ -250,7 +250,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "onPickleReward(uint256,address,address,uint256,uint256)"(
@@ -259,7 +259,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -273,20 +273,20 @@ export class PickleRewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { pending: BigNumber }>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { pending: BigNumber }>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -298,7 +298,7 @@ export class PickleRewarder extends Contract {
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -308,17 +308,17 @@ export class PickleRewarder extends Contract {
 
     poolIds(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accPicklePerShare: BigNumber;
@@ -329,7 +329,7 @@ export class PickleRewarder extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accPicklePerShare: BigNumber;
@@ -339,11 +339,11 @@ export class PickleRewarder extends Contract {
     >;
 
     poolLength(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { pools: BigNumber }>;
 
     "poolLength()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber] & { pools: BigNumber }>;
 
     rewardPerSecond(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -353,53 +353,53 @@ export class PickleRewarder extends Contract {
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "set(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setRewardPerSecond(
       _rewardPerSecond: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "setRewardPerSecond(uint256)"(
       _rewardPerSecond: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferOwnership(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -407,7 +407,7 @@ export class PickleRewarder extends Contract {
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -416,31 +416,31 @@ export class PickleRewarder extends Contract {
   add(
     allocPoint: BigNumberish,
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "add(uint256,uint256)"(
     allocPoint: BigNumberish,
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   claimOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "claimOwnership()"(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   massUpdatePools(
     pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "massUpdatePools(uint256[])"(
     pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   onPickleReward(
@@ -449,7 +449,7 @@ export class PickleRewarder extends Contract {
     to: string,
     arg3: BigNumberish,
     lpToken: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "onPickleReward(uint256,address,address,uint256,uint256)"(
@@ -458,7 +458,7 @@ export class PickleRewarder extends Contract {
     to: string,
     arg3: BigNumberish,
     lpToken: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
@@ -472,20 +472,20 @@ export class PickleRewarder extends Contract {
   pendingToken(
     _pid: BigNumberish,
     _user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "pendingToken(uint256,address)"(
     _pid: BigNumberish,
     _user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   pendingTokens(
     pid: BigNumberish,
     user: string,
     arg2: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [string[], BigNumber[]] & {
       rewardTokens: string[];
@@ -497,7 +497,7 @@ export class PickleRewarder extends Contract {
     pid: BigNumberish,
     user: string,
     arg2: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [string[], BigNumber[]] & {
       rewardTokens: string[];
@@ -509,12 +509,12 @@ export class PickleRewarder extends Contract {
 
   "poolIds(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   poolInfo(
     arg0: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
       accPicklePerShare: BigNumber;
@@ -525,7 +525,7 @@ export class PickleRewarder extends Contract {
 
   "poolInfo(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
       accPicklePerShare: BigNumber;
@@ -545,53 +545,53 @@ export class PickleRewarder extends Contract {
   set(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "set(uint256,uint256)"(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setRewardPerSecond(
     _rewardPerSecond: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "setRewardPerSecond(uint256)"(
     _rewardPerSecond: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferOwnership(
     newOwner: string,
     direct: boolean,
     renounce: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "transferOwnership(address,bool,bool)"(
     newOwner: string,
     direct: boolean,
     renounce: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   updatePool(
     pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "updatePool(uint256)"(
     pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   userInfo(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
@@ -599,7 +599,7 @@ export class PickleRewarder extends Contract {
   "userInfo(uint256,address)"(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
@@ -608,13 +608,13 @@ export class PickleRewarder extends Contract {
     add(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "add(uint256,uint256)"(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     claimOwnership(overrides?: CallOverrides): Promise<void>;
@@ -623,12 +623,12 @@ export class PickleRewarder extends Contract {
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     onPickleReward(
@@ -637,7 +637,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "onPickleReward(uint256,address,address,uint256,uint256)"(
@@ -646,7 +646,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -660,20 +660,20 @@ export class PickleRewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -685,7 +685,7 @@ export class PickleRewarder extends Contract {
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -697,12 +697,12 @@ export class PickleRewarder extends Contract {
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accPicklePerShare: BigNumber;
@@ -713,7 +713,7 @@ export class PickleRewarder extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accPicklePerShare: BigNumber;
@@ -733,42 +733,42 @@ export class PickleRewarder extends Contract {
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "set(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     setRewardPerSecond(
       _rewardPerSecond: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "setRewardPerSecond(uint256)"(
       _rewardPerSecond: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     transferOwnership(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accPicklePerShare: BigNumber;
@@ -779,7 +779,7 @@ export class PickleRewarder extends Contract {
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accPicklePerShare: BigNumber;
@@ -791,7 +791,7 @@ export class PickleRewarder extends Contract {
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -799,7 +799,7 @@ export class PickleRewarder extends Contract {
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -812,7 +812,7 @@ export class PickleRewarder extends Contract {
       user: string | null,
       pid: BigNumberish | null,
       amount: null,
-      to: string | null
+      to: string | null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, string],
       { user: string; pid: BigNumber; amount: BigNumber; to: string }
@@ -820,19 +820,19 @@ export class PickleRewarder extends Contract {
 
     LogPoolAddition(
       pid: BigNumberish | null,
-      allocPoint: null
+      allocPoint: null,
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { pid: BigNumber; allocPoint: BigNumber }
     >;
 
     LogRewardPerSecond(
-      rewardPerSecond: null
+      rewardPerSecond: null,
     ): TypedEventFilter<[BigNumber], { rewardPerSecond: BigNumber }>;
 
     LogSetPool(
       pid: BigNumberish | null,
-      allocPoint: null
+      allocPoint: null,
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { pid: BigNumber; allocPoint: BigNumber }
@@ -842,7 +842,7 @@ export class PickleRewarder extends Contract {
       pid: BigNumberish | null,
       lastRewardTime: null,
       lpSupply: null,
-      accPicklePerShare: null
+      accPicklePerShare: null,
     ): TypedEventFilter<
       [BigNumber, BigNumber, BigNumber, BigNumber],
       {
@@ -855,7 +855,7 @@ export class PickleRewarder extends Contract {
 
     OwnershipTransferred(
       previousOwner: string | null,
-      newOwner: string | null
+      newOwner: string | null,
     ): TypedEventFilter<
       [string, string],
       { previousOwner: string; newOwner: string }
@@ -866,31 +866,31 @@ export class PickleRewarder extends Contract {
     add(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "add(uint256,uint256)"(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     claimOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "claimOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     onPickleReward(
@@ -899,7 +899,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "onPickleReward(uint256,address,address,uint256,uint256)"(
@@ -908,7 +908,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -922,41 +922,41 @@ export class PickleRewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "pendingTokens(uint256,address,uint256)"(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     poolIds(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     poolInfo(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     poolLength(overrides?: CallOverrides): Promise<BigNumber>;
@@ -970,59 +970,59 @@ export class PickleRewarder extends Contract {
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "set(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setRewardPerSecond(
       _rewardPerSecond: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "setRewardPerSecond(uint256)"(
       _rewardPerSecond: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -1030,31 +1030,31 @@ export class PickleRewarder extends Contract {
     add(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "add(uint256,uint256)"(
       allocPoint: BigNumberish,
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     claimOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "claimOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     onPickleReward(
@@ -1063,7 +1063,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "onPickleReward(uint256,address,address,uint256,uint256)"(
@@ -1072,7 +1072,7 @@ export class PickleRewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1086,47 +1086,47 @@ export class PickleRewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "pendingTokens(uint256,address,uint256)"(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     poolIds(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     poolLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1136,65 +1136,65 @@ export class PickleRewarder extends Contract {
     rewardPerSecond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "rewardPerSecond()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "set(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setRewardPerSecond(
       _rewardPerSecond: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "setRewardPerSecond(uint256)"(
       _rewardPerSecond: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

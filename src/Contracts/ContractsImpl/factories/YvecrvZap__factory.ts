@@ -10,7 +10,7 @@ import type { YvecrvZap } from "../YvecrvZap";
 export class YvecrvZap__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): YvecrvZap {
     return new Contract(address, _abi, signerOrProvider) as YvecrvZap;
   }

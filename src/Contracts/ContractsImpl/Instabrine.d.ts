@@ -35,15 +35,15 @@ interface InstabrineInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "curvePickleJarToPrimitive_1",
-    values: [string, BigNumberish, string, string, BigNumberish, string]
+    values: [string, BigNumberish, string, string, BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "curvePickleJarToPrimitive_2",
-    values: [string, BigNumberish, string, string, [string, string]]
+    values: [string, BigNumberish, string, string, [string, string]],
   ): string;
   encodeFunctionData(
     functionFragment: "curvePickleJarToPrimitive_3",
-    values: [string, BigNumberish, string, string, [string, string, string]]
+    values: [string, BigNumberish, string, string, [string, string, string]],
   ): string;
   encodeFunctionData(
     functionFragment: "curvePickleJarToPrimitive_4",
@@ -52,16 +52,16 @@ interface InstabrineInterface extends ethers.utils.Interface {
       BigNumberish,
       string,
       string,
-      [string, string, string, string]
-    ]
+      [string, string, string, string],
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "emergencyERC20Retrieve",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "pickleJarToPrimitive",
-    values: [string, BigNumberish, string]
+    values: [string, BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "primitiveToCurvePickleJar_2",
@@ -70,8 +70,8 @@ interface InstabrineInterface extends ethers.utils.Interface {
       [string, string],
       [BigNumberish, BigNumberish],
       string,
-      string
-    ]
+      string,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "primitiveToCurvePickleJar_3",
@@ -80,8 +80,8 @@ interface InstabrineInterface extends ethers.utils.Interface {
       [string, string, string],
       [BigNumberish, BigNumberish, BigNumberish],
       string,
-      string
-    ]
+      string,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "primitiveToCurvePickleJar_4",
@@ -90,53 +90,53 @@ interface InstabrineInterface extends ethers.utils.Interface {
       [string, string, string, string],
       [BigNumberish, BigNumberish, BigNumberish, BigNumberish],
       string,
-      string
-    ]
+      string,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "primitiveToPickleJar",
-    values: [string, BigNumberish, string]
+    values: [string, BigNumberish, string],
   ): string;
 
   decodeFunctionResult(
     functionFragment: "curvePickleJarToPrimitive_1",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "curvePickleJarToPrimitive_2",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "curvePickleJarToPrimitive_3",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "curvePickleJarToPrimitive_4",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "emergencyERC20Retrieve",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "pickleJarToPrimitive",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "primitiveToCurvePickleJar_2",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "primitiveToCurvePickleJar_3",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "primitiveToCurvePickleJar_4",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "primitiveToPickleJar",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
 
   events: {};
@@ -148,26 +148,26 @@ export class Instabrine extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -180,7 +180,7 @@ export class Instabrine extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: InstabrineInterface;
@@ -193,7 +193,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "curvePickleJarToPrimitive_1(address,uint256,address,address,int128,address)"(
@@ -203,7 +203,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     curvePickleJarToPrimitive_2(
@@ -212,7 +212,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "curvePickleJarToPrimitive_2(address,uint256,address,address,address[2])"(
@@ -221,7 +221,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     curvePickleJarToPrimitive_3(
@@ -230,7 +230,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "curvePickleJarToPrimitive_3(address,uint256,address,address,address[3])"(
@@ -239,7 +239,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     curvePickleJarToPrimitive_4(
@@ -248,7 +248,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "curvePickleJarToPrimitive_4(address,uint256,address,address,address[4])"(
@@ -257,31 +257,31 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     emergencyERC20Retrieve(
       token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "emergencyERC20Retrieve(address)"(
       token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     pickleJarToPrimitive(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "pickleJarToPrimitive(address,uint256,address)"(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     primitiveToCurvePickleJar_2(
@@ -290,7 +290,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "primitiveToCurvePickleJar_2(address,address[2],uint256[2],address,address)"(
@@ -299,7 +299,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     primitiveToCurvePickleJar_3(
@@ -308,7 +308,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "primitiveToCurvePickleJar_3(address,address[3],uint256[3],address,address)"(
@@ -317,7 +317,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     primitiveToCurvePickleJar_4(
@@ -327,11 +327,11 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "primitiveToCurvePickleJar_4(address,address[4],uint256[4],address,address)"(
@@ -341,25 +341,25 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     primitiveToPickleJar(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "primitiveToPickleJar(address,uint256,address)"(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -370,7 +370,7 @@ export class Instabrine extends Contract {
     curve: string,
     index: BigNumberish,
     underlying: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "curvePickleJarToPrimitive_1(address,uint256,address,address,int128,address)"(
@@ -380,7 +380,7 @@ export class Instabrine extends Contract {
     curve: string,
     index: BigNumberish,
     underlying: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   curvePickleJarToPrimitive_2(
@@ -389,7 +389,7 @@ export class Instabrine extends Contract {
     curveLp: string,
     curve: string,
     underlying: [string, string],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "curvePickleJarToPrimitive_2(address,uint256,address,address,address[2])"(
@@ -398,7 +398,7 @@ export class Instabrine extends Contract {
     curveLp: string,
     curve: string,
     underlying: [string, string],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   curvePickleJarToPrimitive_3(
@@ -407,7 +407,7 @@ export class Instabrine extends Contract {
     curveLp: string,
     curve: string,
     underlying: [string, string, string],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "curvePickleJarToPrimitive_3(address,uint256,address,address,address[3])"(
@@ -416,7 +416,7 @@ export class Instabrine extends Contract {
     curveLp: string,
     curve: string,
     underlying: [string, string, string],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   curvePickleJarToPrimitive_4(
@@ -425,7 +425,7 @@ export class Instabrine extends Contract {
     curveLp: string,
     curve: string,
     underlying: [string, string, string, string],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "curvePickleJarToPrimitive_4(address,uint256,address,address,address[4])"(
@@ -434,31 +434,31 @@ export class Instabrine extends Contract {
     curveLp: string,
     curve: string,
     underlying: [string, string, string, string],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   emergencyERC20Retrieve(
     token: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "emergencyERC20Retrieve(address)"(
     token: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   pickleJarToPrimitive(
     jar: string,
     amount: BigNumberish,
     underlying: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "pickleJarToPrimitive(address,uint256,address)"(
     jar: string,
     amount: BigNumberish,
     underlying: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   primitiveToCurvePickleJar_2(
@@ -467,7 +467,7 @@ export class Instabrine extends Contract {
     underlyingAmounts: [BigNumberish, BigNumberish],
     curveLp: string,
     pickleJar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "primitiveToCurvePickleJar_2(address,address[2],uint256[2],address,address)"(
@@ -476,7 +476,7 @@ export class Instabrine extends Contract {
     underlyingAmounts: [BigNumberish, BigNumberish],
     curveLp: string,
     pickleJar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   primitiveToCurvePickleJar_3(
@@ -485,7 +485,7 @@ export class Instabrine extends Contract {
     underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
     curveLp: string,
     pickleJar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "primitiveToCurvePickleJar_3(address,address[3],uint256[3],address,address)"(
@@ -494,7 +494,7 @@ export class Instabrine extends Contract {
     underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
     curveLp: string,
     pickleJar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   primitiveToCurvePickleJar_4(
@@ -503,7 +503,7 @@ export class Instabrine extends Contract {
     underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish, BigNumberish],
     curveLp: string,
     pickleJar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "primitiveToCurvePickleJar_4(address,address[4],uint256[4],address,address)"(
@@ -512,21 +512,21 @@ export class Instabrine extends Contract {
     underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish, BigNumberish],
     curveLp: string,
     pickleJar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   primitiveToPickleJar(
     underlying: string,
     amount: BigNumberish,
     jar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "primitiveToPickleJar(address,uint256,address)"(
     underlying: string,
     amount: BigNumberish,
     jar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -537,7 +537,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "curvePickleJarToPrimitive_1(address,uint256,address,address,int128,address)"(
@@ -547,7 +547,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     curvePickleJarToPrimitive_2(
@@ -556,7 +556,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     "curvePickleJarToPrimitive_2(address,uint256,address,address,address[2])"(
@@ -565,7 +565,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     curvePickleJarToPrimitive_3(
@@ -574,7 +574,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
     "curvePickleJarToPrimitive_3(address,uint256,address,address,address[3])"(
@@ -583,7 +583,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
     curvePickleJarToPrimitive_4(
@@ -592,7 +592,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
     "curvePickleJarToPrimitive_4(address,uint256,address,address,address[4])"(
@@ -601,31 +601,31 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
     emergencyERC20Retrieve(
       token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "emergencyERC20Retrieve(address)"(
       token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     pickleJarToPrimitive(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "pickleJarToPrimitive(address,uint256,address)"(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     primitiveToCurvePickleJar_2(
@@ -634,7 +634,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "primitiveToCurvePickleJar_2(address,address[2],uint256[2],address,address)"(
@@ -643,7 +643,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     primitiveToCurvePickleJar_3(
@@ -652,7 +652,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "primitiveToCurvePickleJar_3(address,address[3],uint256[3],address,address)"(
@@ -661,7 +661,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     primitiveToCurvePickleJar_4(
@@ -671,11 +671,11 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "primitiveToCurvePickleJar_4(address,address[4],uint256[4],address,address)"(
@@ -685,25 +685,25 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     primitiveToPickleJar(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "primitiveToPickleJar(address,uint256,address)"(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -717,7 +717,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "curvePickleJarToPrimitive_1(address,uint256,address,address,int128,address)"(
@@ -727,7 +727,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     curvePickleJarToPrimitive_2(
@@ -736,7 +736,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "curvePickleJarToPrimitive_2(address,uint256,address,address,address[2])"(
@@ -745,7 +745,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     curvePickleJarToPrimitive_3(
@@ -754,7 +754,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "curvePickleJarToPrimitive_3(address,uint256,address,address,address[3])"(
@@ -763,7 +763,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     curvePickleJarToPrimitive_4(
@@ -772,7 +772,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "curvePickleJarToPrimitive_4(address,uint256,address,address,address[4])"(
@@ -781,31 +781,31 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     emergencyERC20Retrieve(
       token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "emergencyERC20Retrieve(address)"(
       token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     pickleJarToPrimitive(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "pickleJarToPrimitive(address,uint256,address)"(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     primitiveToCurvePickleJar_2(
@@ -814,7 +814,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "primitiveToCurvePickleJar_2(address,address[2],uint256[2],address,address)"(
@@ -823,7 +823,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     primitiveToCurvePickleJar_3(
@@ -832,7 +832,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "primitiveToCurvePickleJar_3(address,address[3],uint256[3],address,address)"(
@@ -841,7 +841,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     primitiveToCurvePickleJar_4(
@@ -851,11 +851,11 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "primitiveToCurvePickleJar_4(address,address[4],uint256[4],address,address)"(
@@ -865,25 +865,25 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     primitiveToPickleJar(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "primitiveToPickleJar(address,uint256,address)"(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -895,7 +895,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "curvePickleJarToPrimitive_1(address,uint256,address,address,int128,address)"(
@@ -905,7 +905,7 @@ export class Instabrine extends Contract {
       curve: string,
       index: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     curvePickleJarToPrimitive_2(
@@ -914,7 +914,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "curvePickleJarToPrimitive_2(address,uint256,address,address,address[2])"(
@@ -923,7 +923,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     curvePickleJarToPrimitive_3(
@@ -932,7 +932,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "curvePickleJarToPrimitive_3(address,uint256,address,address,address[3])"(
@@ -941,7 +941,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     curvePickleJarToPrimitive_4(
@@ -950,7 +950,7 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "curvePickleJarToPrimitive_4(address,uint256,address,address,address[4])"(
@@ -959,31 +959,31 @@ export class Instabrine extends Contract {
       curveLp: string,
       curve: string,
       underlying: [string, string, string, string],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     emergencyERC20Retrieve(
       token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "emergencyERC20Retrieve(address)"(
       token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     pickleJarToPrimitive(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "pickleJarToPrimitive(address,uint256,address)"(
       jar: string,
       amount: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     primitiveToCurvePickleJar_2(
@@ -992,7 +992,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "primitiveToCurvePickleJar_2(address,address[2],uint256[2],address,address)"(
@@ -1001,7 +1001,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     primitiveToCurvePickleJar_3(
@@ -1010,7 +1010,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "primitiveToCurvePickleJar_3(address,address[3],uint256[3],address,address)"(
@@ -1019,7 +1019,7 @@ export class Instabrine extends Contract {
       underlyingAmounts: [BigNumberish, BigNumberish, BigNumberish],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     primitiveToCurvePickleJar_4(
@@ -1029,11 +1029,11 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "primitiveToCurvePickleJar_4(address,address[4],uint256[4],address,address)"(
@@ -1043,25 +1043,25 @@ export class Instabrine extends Contract {
         BigNumberish,
         BigNumberish,
         BigNumberish,
-        BigNumberish
+        BigNumberish,
       ],
       curveLp: string,
       pickleJar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     primitiveToPickleJar(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "primitiveToPickleJar(address,uint256,address)"(
       underlying: string,
       amount: BigNumberish,
       jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

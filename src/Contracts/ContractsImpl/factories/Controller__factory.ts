@@ -10,7 +10,7 @@ import type { Controller } from "../Controller";
 export class Controller__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): Controller {
     return new Contract(address, _abi, signerOrProvider) as Controller;
   }

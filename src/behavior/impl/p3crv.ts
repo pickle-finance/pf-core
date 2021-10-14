@@ -1,17 +1,16 @@
-import { ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { curveThirdPartyGaugeAbi } from '../../Contracts/ABIs/curve-external-gauge.abi';
-import { AssetAprComponent, AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
-import { PriceCache } from '../../price/PriceCache';
+import { ethers, Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
+import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { ChainNetwork, Chains } from '../../chain/Chains';
-import { PickleModel } from '../../model/PickleModel';
-import { getCurveRawStats } from './curve-jar';
-import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
-import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import fetch from 'cross-fetch';
-import { formatEther } from 'ethers/lib/utils';
-import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
+import { ChainNetwork } from "../../chain/Chains";
+import { PickleModel } from "../../model/PickleModel";
+import { getCurveRawStats } from "./curve-jar";
+import { Contract as MulticallContract } from "ethers-multicall";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import fetch from "cross-fetch";
+import { formatEther } from "ethers/lib/utils";
+import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
 
@@ -47,29 +46,50 @@ export class PThreeCrv extends AbstractJarBehavior {
     super();
   }
 
-  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
-    return getStableswapPriceAddress("0x445fe580ef8d70ff569ab36e80c647af338db351", asset, model);
+  async getDepositTokenPrice(
+    asset: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
+    return getStableswapPriceAddress(
+      "0x445fe580ef8d70ff569ab36e80c647af338db351",
+      asset,
+      model,
+    );
   }
 
-  async getHarvestableUSD( jar: JarDefinition, model: PickleModel, resolver: Signer | Provider): Promise<number> {
+  async getHarvestableUSD(
+    jar: JarDefinition,
+    model: PickleModel,
+    resolver: Signer | Provider,
+  ): Promise<number> {
     const gauge = new ethers.Contract(
-      '0x19793B454D3AfC7b454F206Ffe95aDE26cA6912c',
+      "0x19793B454D3AfC7b454F206Ffe95aDE26cA6912c",
       curveThirdPartyGaugeAbi,
       resolver,
     );
     const [matic, maticPrice, crv, crvPrice] = await Promise.all([
-      gauge.claimable_reward(jar.details.strategyAddr, model.address("matic", ChainNetwork.Polygon)),
-      await model.priceOf('matic'),
-      gauge.claimable_reward(jar.details.strategyAddr, model.address("crv", ChainNetwork.Polygon)),
-      await model.priceOf('crv'),
+      gauge.claimable_reward(
+        jar.details.strategyAddr,
+        model.address("matic", ChainNetwork.Polygon),
+      ),
+      await model.priceOf("matic"),
+      gauge.claimable_reward(
+        jar.details.strategyAddr,
+        model.address("crv", ChainNetwork.Polygon),
+      ),
+      await model.priceOf("crv"),
     ]);
 
-    const harvestable = matic.mul(maticPrice.toFixed()).add(crv.mul(crvPrice.toFixed()));
+    const harvestable = matic
+      .mul(maticPrice.toFixed())
+      .add(crv.mul(crvPrice.toFixed()));
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
-
-  async getProjectedAprStats(jar: JarDefinition, model: PickleModel) : Promise<AssetProjectedApr> {
+  async getProjectedAprStats(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetProjectedApr> {
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
@@ -82,7 +102,9 @@ export class PThreeCrv extends AbstractJarBehavior {
 
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
     const swap = new MulticallContract(
-      aaveContracts.swap_address,aaveContracts.swap_abi);
+      aaveContracts.swap_address,
+      aaveContracts.swap_abi,
+    );
 
     const aaveApys: number[] = [];
     aaveContracts.underlying_coins.map(async (coinAddress) => {
@@ -116,19 +138,22 @@ export class PThreeCrv extends AbstractJarBehavior {
       aaveApys[1] * (scaledBalance1 / totalBalance) +
       aaveApys[2] * (scaledBalance2 / totalBalance);
 
-    const wmaticRewardsAmount = await model.priceOf("matic") * 1042784 * 6; // Multiplied by 6 to annualize the rewards
-    const crvRewardsAmount = await model.priceOf("crv") * 796812 * 6;
+    const wmaticRewardsAmount = (await model.priceOf("matic")) * 1042784 * 6; // Multiplied by 6 to annualize the rewards
+    const crvRewardsAmount = (await model.priceOf("crv")) * 796812 * 6;
 
     const wmaticAPY = wmaticRewardsAmount / +formatEther(lpBalance);
     const crvAPY = crvRewardsAmount / +formatEther(lpBalance);
 
+    const curveRawStats: any = await getCurveRawStats(model, jar.chain);
 
-    const curveRawStats : any = await getCurveRawStats(model, jar.chain);
-  
-   return this.aprComponentsToProjectedApr([
-        this.createAprComponent("lp", curveRawStats ? curveRawStats.aave : 0, false),
-        this.createAprComponent("crv", crvAPY, true),
-        this.createAprComponent("matic", wmaticAPY, true)
+    return this.aprComponentsToProjectedApr([
+      this.createAprComponent(
+        "lp",
+        curveRawStats ? curveRawStats.aave : 0,
+        false,
+      ),
+      this.createAprComponent("crv", crvAPY, true),
+      this.createAprComponent("matic", wmaticAPY, true),
     ]);
   }
 }

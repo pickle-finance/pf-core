@@ -10,7 +10,7 @@ import type { StrategyDual } from "../StrategyDual";
 export class StrategyDual__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): StrategyDual {
     return new Contract(address, _abi, signerOrProvider) as StrategyDual;
   }

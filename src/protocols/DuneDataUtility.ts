@@ -1,5 +1,5 @@
-import fetch from 'cross-fetch';
-import { PickleModel } from '../model/PickleModel';
+import fetch from "cross-fetch";
+import { PickleModel } from "../model/PickleModel";
 
 const DUNE_API = "https://core-hsr.duneanalytics.com/v1/graphql";
 const body = {
@@ -12,19 +12,19 @@ const body = {
 const YEARN_DATA_IN_DUNE_CACHE_KEY = "yearn.data.from.dune.cache.key";
 
 export async function getOrLoadYearnDataFromDune(model: PickleModel) {
-    if( model.resourceCache.get(YEARN_DATA_IN_DUNE_CACHE_KEY))
-        return model.resourceCache.get(YEARN_DATA_IN_DUNE_CACHE_KEY);
-    
-    const ret = fetchYearnDataFromDune();
-    model.resourceCache.set(YEARN_DATA_IN_DUNE_CACHE_KEY, ret);
-    return ret;
+  if (model.resourceCache.get(YEARN_DATA_IN_DUNE_CACHE_KEY))
+    return model.resourceCache.get(YEARN_DATA_IN_DUNE_CACHE_KEY);
+
+  const ret = fetchYearnDataFromDune();
+  model.resourceCache.set(YEARN_DATA_IN_DUNE_CACHE_KEY, ret);
+  return ret;
 }
 
-export async function fetchYearnDataFromDune() : Promise<any> {
-    const data : any = await fetch(DUNE_API, {
-        body: JSON.stringify(body),
-        method: "POST",
-        mode: "cors",
-      }).then((x) => x.json());
-      return data;
+export async function fetchYearnDataFromDune(): Promise<any> {
+  const data: any = await fetch(DUNE_API, {
+    body: JSON.stringify(body),
+    method: "POST",
+    mode: "cors",
+  }).then((x) => x.json());
+  return data;
 }

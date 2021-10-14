@@ -10,7 +10,7 @@ import type { AaveStrategy } from "../AaveStrategy";
 export class AaveStrategy__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): AaveStrategy {
     return new Contract(address, _abi, signerOrProvider) as AaveStrategy;
   }

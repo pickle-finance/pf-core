@@ -1,21 +1,26 @@
-import { BigNumber, ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { AssetProjectedApr, JarDefinition } from '../../model/PickleModelJson';
-import { AbstractJarBehavior } from '../AbstractJarBehavior';
-import { PickleModel } from '../../model/PickleModel';
-import { getProjectedConvexAprStats } from '../../protocols/ConvexUtility';
-import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import { getStableswapPriceAddress } from '../../price/DepositTokenPriceUtility';
-import { convexStrategyAbi } from '../../Contracts/ABIs/convex-strategy.abi';
+import { BigNumber, ethers, Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import { PickleModel } from "../../model/PickleModel";
+import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
 export class CurveCvxCrv extends AbstractJarBehavior {
   constructor() {
     super();
-
   }
-  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
-    const r = (await getStableswapPriceAddress("0x9D0464996170c6B9e75eED71c68B99dDEDf279e8", asset, model)) 
-    * (model.priceOfSync("cvxcrv"));
+  async getDepositTokenPrice(
+    asset: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
+    const r =
+      (await getStableswapPriceAddress(
+        "0x9D0464996170c6B9e75eED71c68B99dDEDf279e8",
+        asset,
+        model,
+      )) * model.priceOfSync("cvxcrv");
     return r;
   }
 
@@ -34,12 +39,12 @@ export class CurveCvxCrv extends AbstractJarBehavior {
     resolver: Signer | Provider,
   ): Promise<number> {
     const crv = new ethers.Contract(
-      model.address('crv', jar.chain),
+      model.address("crv", jar.chain),
       erc20Abi,
       resolver,
     );
     const cvx = new ethers.Contract(
-      model.address('cvx', jar.chain),
+      model.address("cvx", jar.chain),
       erc20Abi,
       resolver,
     );
@@ -55,10 +60,10 @@ export class CurveCvxCrv extends AbstractJarBehavior {
       number,
       BigNumber[],
     ] = await Promise.all([
-      crv.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
-      cvx.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from('0')),
-      model.priceOfSync('crv'),
-      model.priceOfSync('cvx'),
+      crv.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")),
+      cvx.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")),
+      model.priceOfSync("crv"),
+      model.priceOfSync("cvx"),
       strategy.getHarvestable(),
     ]);
     const harvestable = crvWallet
@@ -70,23 +75,23 @@ export class CurveCvxCrv extends AbstractJarBehavior {
   }
 }
 
-const twoRewardAbi : any = [
+const twoRewardAbi: any = [
   {
-    "inputs": [],
-    "name": "getHarvestable",
-    "outputs": [
+    inputs: [],
+    name: "getHarvestable",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
-  }
+    stateMutability: "view",
+    type: "function",
+  },
 ];

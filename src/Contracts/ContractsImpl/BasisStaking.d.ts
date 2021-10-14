@@ -60,74 +60,74 @@ interface BasisStakingInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "applicableRewardTime",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "approvals", values: [string]): string;
   encodeFunctionData(
     functionFragment: "balanceOf",
-    values: [BigNumberish, string]
+    values: [BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "claimReward",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: "exit", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "isOperator",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "massUpdate",
-    values: [BigNumberish[]]
+    values: [BigNumberish[]],
   ): string;
   encodeFunctionData(
     functionFragment: "migrate",
-    values: [string, BigNumberish]
+    values: [string, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: "operator", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "period", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "periodFinish",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(functionFragment: "poolIdsOf", values: [string]): string;
   encodeFunctionData(functionFragment: "pools", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "rewardEarned",
-    values: [BigNumberish, string]
+    values: [BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "rewardPerToken",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "rewardRate",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "rewardRateBeforeHalve",
-    values?: undefined
+    values?: undefined,
   ): string;
   encodeFunctionData(
     functionFragment: "rewardRatePerPool",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "setPeriod",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "setReward",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: "share", values?: undefined): string;
   encodeFunctionData(functionFragment: "startTime", values?: undefined): string;
@@ -136,42 +136,42 @@ interface BasisStakingInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "store", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "tokenOf",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "transferOperator",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "update",
-    values: [BigNumberish]
+    values: [BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "users",
-    values: [BigNumberish, string]
+    values: [BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish],
   ): string;
 
   decodeFunctionResult(
     functionFragment: "applicableRewardTime",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "approvals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "claimReward",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "exit", data: BytesLike): Result;
@@ -183,30 +183,30 @@ interface BasisStakingInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "period", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "periodFinish",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "poolIdsOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pools", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "rewardEarned",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "rewardPerToken",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "rewardRate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "rewardRateBeforeHalve",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "rewardRatePerPool",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "setPeriod", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setReward", data: BytesLike): Result;
@@ -218,15 +218,15 @@ interface BasisStakingInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "tokenOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOperator",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "update", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "users", data: BytesLike): Result;
@@ -255,26 +255,26 @@ export class BasisStaking extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -287,7 +287,7 @@ export class BasisStaking extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: BasisStakingInterface;
@@ -301,51 +301,51 @@ export class BasisStaking extends Contract {
 
     "approvals(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean]>;
 
     balanceOf(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "balanceOf(uint256,address)"(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     claimReward(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "claimReward(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     exit(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "exit(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     isOperator(overrides?: CallOverrides): Promise<[boolean]>;
@@ -354,24 +354,24 @@ export class BasisStaking extends Contract {
 
     massUpdate(
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "massUpdate(uint256[])"(
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     migrate(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "migrate(address,uint256)"(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     operator(overrides?: CallOverrides): Promise<[string]>;
@@ -392,17 +392,17 @@ export class BasisStaking extends Contract {
 
     poolIdsOf(
       _token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber[]]>;
 
     "poolIdsOf(address)"(
       _token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber[]]>;
 
     pools(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [boolean, BigNumber, BigNumber, BigNumber] & {
         initialized: boolean;
@@ -414,7 +414,7 @@ export class BasisStaking extends Contract {
 
     "pools(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [boolean, BigNumber, BigNumber, BigNumber] & {
         initialized: boolean;
@@ -425,33 +425,33 @@ export class BasisStaking extends Contract {
     >;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "renounceOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     rewardEarned(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "rewardEarned(uint256,address)"(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     rewardPerToken(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "rewardPerToken(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     rewardRate(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -464,34 +464,34 @@ export class BasisStaking extends Contract {
 
     rewardRatePerPool(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "rewardRatePerPool(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     setPeriod(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "setPeriod(uint256,uint256)"(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setReward(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "setReward(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     share(overrides?: CallOverrides): Promise<[string]>;
@@ -503,11 +503,11 @@ export class BasisStaking extends Contract {
     "startTime()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     stop(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "stop()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     stopped(overrides?: CallOverrides): Promise<[boolean]>;
@@ -522,53 +522,53 @@ export class BasisStaking extends Contract {
 
     "tokenOf(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     totalSupply(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "totalSupply(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     transferOperator(
       newOperator_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "transferOperator(address)"(
       newOperator_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     update(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "update(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     users(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         amount: BigNumber;
@@ -580,7 +580,7 @@ export class BasisStaking extends Contract {
     "users(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         amount: BigNumber;
@@ -592,13 +592,13 @@ export class BasisStaking extends Contract {
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -610,51 +610,51 @@ export class BasisStaking extends Contract {
 
   "approvals(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<boolean>;
 
   balanceOf(
     _pid: BigNumberish,
     _owner: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "balanceOf(uint256,address)"(
     _pid: BigNumberish,
     _owner: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   claimReward(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "claimReward(uint256)"(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   deposit(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "deposit(uint256,uint256)"(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   exit(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "exit(uint256)"(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   isOperator(overrides?: CallOverrides): Promise<boolean>;
@@ -663,24 +663,24 @@ export class BasisStaking extends Contract {
 
   massUpdate(
     _pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "massUpdate(uint256[])"(
     _pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   migrate(
     _newPool: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "migrate(address,uint256)"(
     _newPool: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   operator(overrides?: CallOverrides): Promise<string>;
@@ -703,12 +703,12 @@ export class BasisStaking extends Contract {
 
   "poolIdsOf(address)"(
     _token: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber[]>;
 
   pools(
     arg0: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [boolean, BigNumber, BigNumber, BigNumber] & {
       initialized: boolean;
@@ -720,7 +720,7 @@ export class BasisStaking extends Contract {
 
   "pools(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [boolean, BigNumber, BigNumber, BigNumber] & {
       initialized: boolean;
@@ -731,33 +731,33 @@ export class BasisStaking extends Contract {
   >;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "renounceOwnership()"(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   rewardEarned(
     _pid: BigNumberish,
     _target: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "rewardEarned(uint256,address)"(
     _pid: BigNumberish,
     _target: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   rewardPerToken(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "rewardPerToken(uint256)"(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   rewardRate(overrides?: CallOverrides): Promise<BigNumber>;
@@ -770,34 +770,34 @@ export class BasisStaking extends Contract {
 
   rewardRatePerPool(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "rewardRatePerPool(uint256)"(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   setPeriod(
     _startTime: BigNumberish,
     _period: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "setPeriod(uint256,uint256)"(
     _startTime: BigNumberish,
     _period: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setReward(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "setReward(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   share(overrides?: CallOverrides): Promise<string>;
@@ -809,11 +809,11 @@ export class BasisStaking extends Contract {
   "startTime()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   stop(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "stop()"(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   stopped(overrides?: CallOverrides): Promise<boolean>;
@@ -828,53 +828,53 @@ export class BasisStaking extends Contract {
 
   "tokenOf(uint256)"(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   totalSupply(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "totalSupply(uint256)"(
     _pid: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   transferOperator(
     newOperator_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "transferOperator(address)"(
     newOperator_: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferOwnership(
     newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "transferOwnership(address)"(
     newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   update(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "update(uint256)"(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   users(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
       amount: BigNumber;
@@ -886,7 +886,7 @@ export class BasisStaking extends Contract {
   "users(uint256,address)"(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
       amount: BigNumber;
@@ -898,13 +898,13 @@ export class BasisStaking extends Contract {
   withdraw(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "withdraw(uint256,uint256)"(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -916,45 +916,45 @@ export class BasisStaking extends Contract {
 
     "approvals(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     balanceOf(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "balanceOf(uint256,address)"(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     claimReward(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "claimReward(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     exit(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "exit(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     isOperator(overrides?: CallOverrides): Promise<boolean>;
@@ -965,19 +965,19 @@ export class BasisStaking extends Contract {
 
     "massUpdate(uint256[])"(
       _pids: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     migrate(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "migrate(address,uint256)"(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     operator(overrides?: CallOverrides): Promise<string>;
@@ -1000,12 +1000,12 @@ export class BasisStaking extends Contract {
 
     "poolIdsOf(address)"(
       _token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber[]>;
 
     pools(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [boolean, BigNumber, BigNumber, BigNumber] & {
         initialized: boolean;
@@ -1017,7 +1017,7 @@ export class BasisStaking extends Contract {
 
     "pools(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [boolean, BigNumber, BigNumber, BigNumber] & {
         initialized: boolean;
@@ -1034,23 +1034,23 @@ export class BasisStaking extends Contract {
     rewardEarned(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "rewardEarned(uint256,address)"(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     rewardPerToken(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "rewardPerToken(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     rewardRate(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1063,31 +1063,31 @@ export class BasisStaking extends Contract {
 
     rewardRatePerPool(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "rewardRatePerPool(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     setPeriod(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "setPeriod(uint256,uint256)"(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     setReward(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "setReward(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     share(overrides?: CallOverrides): Promise<string>;
@@ -1114,50 +1114,50 @@ export class BasisStaking extends Contract {
 
     "tokenOf(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     totalSupply(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "totalSupply(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     transferOperator(
       newOperator_: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "transferOperator(address)"(
       newOperator_: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     update(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "update(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     users(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         amount: BigNumber;
@@ -1169,7 +1169,7 @@ export class BasisStaking extends Contract {
     "users(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         amount: BigNumber;
@@ -1181,13 +1181,13 @@ export class BasisStaking extends Contract {
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
@@ -1195,7 +1195,7 @@ export class BasisStaking extends Contract {
     DepositToken(
       owner: string | null,
       pid: BigNumberish | null,
-      amount: null
+      amount: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { owner: string; pid: BigNumber; amount: BigNumber }
@@ -1203,7 +1203,7 @@ export class BasisStaking extends Contract {
 
     OperatorTransferred(
       previousOperator: string | null,
-      newOperator: string | null
+      newOperator: string | null,
     ): TypedEventFilter<
       [string, string],
       { previousOperator: string; newOperator: string }
@@ -1211,7 +1211,7 @@ export class BasisStaking extends Contract {
 
     OwnershipTransferred(
       previousOwner: string | null,
-      newOwner: string | null
+      newOwner: string | null,
     ): TypedEventFilter<
       [string, string],
       { previousOwner: string; newOwner: string }
@@ -1220,7 +1220,7 @@ export class BasisStaking extends Contract {
     RewardClaimed(
       owner: string | null,
       pid: BigNumberish | null,
-      amount: null
+      amount: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { owner: string; pid: BigNumber; amount: BigNumber }
@@ -1229,7 +1229,7 @@ export class BasisStaking extends Contract {
     RewardNotified(
       operator: string | null,
       amount: null,
-      period: null
+      period: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { operator: string; amount: BigNumber; period: BigNumber }
@@ -1238,7 +1238,7 @@ export class BasisStaking extends Contract {
     WithdrawToken(
       owner: string | null,
       pid: BigNumberish | null,
-      amount: null
+      amount: null,
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { owner: string; pid: BigNumber; amount: BigNumber }
@@ -1254,51 +1254,51 @@ export class BasisStaking extends Contract {
 
     "approvals(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     balanceOf(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "balanceOf(uint256,address)"(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     claimReward(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "claimReward(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     exit(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "exit(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     isOperator(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1307,24 +1307,24 @@ export class BasisStaking extends Contract {
 
     massUpdate(
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "massUpdate(uint256[])"(
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     migrate(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "migrate(address,uint256)"(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     operator(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1347,44 +1347,44 @@ export class BasisStaking extends Contract {
 
     "poolIdsOf(address)"(
       _token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     pools(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     "pools(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "renounceOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     rewardEarned(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "rewardEarned(uint256,address)"(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     rewardPerToken(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "rewardPerToken(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     rewardRate(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1397,34 +1397,34 @@ export class BasisStaking extends Contract {
 
     rewardRatePerPool(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "rewardRatePerPool(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     setPeriod(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "setPeriod(uint256,uint256)"(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setReward(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "setReward(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     share(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1436,11 +1436,11 @@ export class BasisStaking extends Contract {
     "startTime()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     stop(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "stop()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     stopped(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1455,135 +1455,135 @@ export class BasisStaking extends Contract {
 
     "tokenOf(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     totalSupply(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "totalSupply(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     transferOperator(
       newOperator_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "transferOperator(address)"(
       newOperator_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     update(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "update(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     users(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "users(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     applicableRewardTime(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "applicableRewardTime()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     approvals(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "approvals(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "balanceOf(uint256,address)"(
       _pid: BigNumberish,
       _owner: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     claimReward(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "claimReward(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     exit(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "exit(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     isOperator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1592,24 +1592,24 @@ export class BasisStaking extends Contract {
 
     massUpdate(
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "massUpdate(uint256[])"(
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     migrate(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "migrate(address,uint256)"(
       _newPool: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     operator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1630,52 +1630,52 @@ export class BasisStaking extends Contract {
 
     poolIdsOf(
       _token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "poolIdsOf(address)"(
       _token: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     pools(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "pools(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "renounceOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     rewardEarned(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "rewardEarned(uint256,address)"(
       _pid: BigNumberish,
       _target: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     rewardPerToken(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "rewardPerToken(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     rewardRate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1683,43 +1683,43 @@ export class BasisStaking extends Contract {
     "rewardRate()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     rewardRateBeforeHalve(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "rewardRateBeforeHalve()"(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     rewardRatePerPool(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "rewardRatePerPool(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     setPeriod(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "setPeriod(uint256,uint256)"(
       _startTime: BigNumberish,
       _period: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setReward(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "setReward(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     share(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1731,11 +1731,11 @@ export class BasisStaking extends Contract {
     "startTime()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     stop(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "stop()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     stopped(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1748,76 +1748,76 @@ export class BasisStaking extends Contract {
 
     tokenOf(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "tokenOf(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     totalSupply(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "totalSupply(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     transferOperator(
       newOperator_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "transferOperator(address)"(
       newOperator_: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     update(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "update(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     users(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "users(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

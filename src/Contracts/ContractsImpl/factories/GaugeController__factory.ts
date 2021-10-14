@@ -10,7 +10,7 @@ import type { GaugeController } from "../GaugeController";
 export class GaugeController__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): GaugeController {
     return new Contract(address, _abi, signerOrProvider) as GaugeController;
   }

@@ -1,13 +1,13 @@
-import { BigNumber, ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
-import { PickleModel } from '../..';
-import { JarDefinition, AssetProjectedApr } from '../../model/PickleModelJson';
-import erc20Abi from '../../Contracts/ABIs/erc20.json';
-import { multiSushiStrategyAbi } from '../../Contracts/ABIs/multi-sushi-strategy.abi';
-import { AbstractJarBehavior } from '../AbstractJarBehavior';
-import { formatEther } from 'ethers/lib/utils';
-import { getLivePairDataFromContracts } from '../../protocols/GenericSwapUtil';
-import { ONE_YEAR_SECONDS } from '../JarBehaviorResolver';
+import { BigNumber, ethers, Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
+import { PickleModel } from "../..";
+import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
+import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import { formatEther } from "ethers/lib/utils";
+import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
+import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 
 export class ArbitrumHndEth extends AbstractJarBehavior {
   constructor() {
@@ -32,12 +32,12 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
       resolver,
     );
     const dodoToken = new ethers.Contract(
-      model.address('dodo', jar.chain),
+      model.address("dodo", jar.chain),
       erc20Abi,
       resolver,
     );
     const hndToken = new ethers.Contract(
-      model.address('hnd', jar.chain),
+      model.address("hnd", jar.chain),
       erc20Abi,
       resolver,
     );
@@ -48,15 +48,15 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
       number,
       number,
     ] = await Promise.all([
-      strategy.getHarvestable().catch(() => BigNumber.from('0')),
+      strategy.getHarvestable().catch(() => BigNumber.from("0")),
       dodoToken
         .balanceOf(jar.details.strategyAddr)
-        .catch(() => BigNumber.from('0')),
+        .catch(() => BigNumber.from("0")),
       hndToken
         .balanceOf(jar.details.strategyAddr)
-        .catch(() => BigNumber.from('0')),
-      model.priceOfSync('dodo'),
-      model.priceOfSync('hnd'),
+        .catch(() => BigNumber.from("0")),
+      model.priceOfSync("dodo"),
+      model.priceOfSync("hnd"),
     ]);
 
     const dodoValue = res[0].add(dodoWallet).mul(dodoPrice.toFixed());
@@ -70,7 +70,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const rewards = '0x06633cd8E46C3048621A517D6bb5f0A84b4919c6'; // HND-ETH
+    const rewards = "0x06633cd8E46C3048621A517D6bb5f0A84b4919c6"; // HND-ETH
     const DODO_PER_BLOCK = 0.2665;
     const HND_PER_BLOCK = 1.599;
 
@@ -88,10 +88,10 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     );
 
     const hndValueRewardedPerYear =
-      ((await model.priceOf('hnd')) * HND_PER_BLOCK * ONE_YEAR_SECONDS) / 13.3;
+      ((await model.priceOf("hnd")) * HND_PER_BLOCK * ONE_YEAR_SECONDS) / 13.3;
 
     const dodoValueRewardedPerYear =
-      ((await model.priceOf('dodo')) * DODO_PER_BLOCK * ONE_YEAR_SECONDS) /
+      ((await model.priceOf("dodo")) * DODO_PER_BLOCK * ONE_YEAR_SECONDS) /
       13.3;
 
     const totalValueStaked = totalSupply * pricePerToken;
@@ -99,8 +99,8 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     const dodoApy = dodoValueRewardedPerYear / totalValueStaked;
 
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent('hnd', hndAPY * 100, true),
-      this.createAprComponent('dodo', dodoApy * 100, true),
+      this.createAprComponent("hnd", hndAPY * 100, true),
+      this.createAprComponent("dodo", dodoApy * 100, true),
     ]);
   }
 }

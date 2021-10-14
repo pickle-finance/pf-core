@@ -10,7 +10,7 @@ import type { SushiChef } from "../SushiChef";
 export class SushiChef__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): SushiChef {
     return new Contract(address, _abi, signerOrProvider) as SushiChef;
   }

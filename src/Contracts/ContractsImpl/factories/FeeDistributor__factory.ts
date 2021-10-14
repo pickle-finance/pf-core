@@ -10,7 +10,7 @@ import type { FeeDistributor } from "../FeeDistributor";
 export class FeeDistributor__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): FeeDistributor {
     return new Contract(address, _abi, signerOrProvider) as FeeDistributor;
   }

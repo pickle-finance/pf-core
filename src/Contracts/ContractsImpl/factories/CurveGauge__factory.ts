@@ -10,7 +10,7 @@ import type { CurveGauge } from "../CurveGauge";
 export class CurveGauge__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): CurveGauge {
     return new Contract(address, _abi, signerOrProvider) as CurveGauge;
   }

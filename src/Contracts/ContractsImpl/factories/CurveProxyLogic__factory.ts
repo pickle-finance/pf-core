@@ -10,7 +10,7 @@ import type { CurveProxyLogic } from "../CurveProxyLogic";
 export class CurveProxyLogic__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): CurveProxyLogic {
     return new Contract(address, _abi, signerOrProvider) as CurveProxyLogic;
   }

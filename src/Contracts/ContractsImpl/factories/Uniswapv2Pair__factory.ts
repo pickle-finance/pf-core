@@ -10,7 +10,7 @@ import type { Uniswapv2Pair } from "../Uniswapv2Pair";
 export class Uniswapv2Pair__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): Uniswapv2Pair {
     return new Contract(address, _abi, signerOrProvider) as Uniswapv2Pair;
   }

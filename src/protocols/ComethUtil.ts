@@ -2,7 +2,7 @@ import { AssetProtocol } from "../model/PickleModelJson";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
 const COMETH_PAIR_DATA_CACHE_KEY = "comethswap.pair.data.cache.key";
-const COMETH_PAIR_GRAPH_FIELDS : string[] = [
+const COMETH_PAIR_GRAPH_FIELDS: string[] = [
   "pairAddress",
   "reserveUSD",
   "dailyVolumeUSD",
@@ -14,8 +14,13 @@ const COMETH_PAIR_GRAPH_FIELDS : string[] = [
 ];
 export class ComethPairManager extends GenericSwapUtility {
   constructor() {
-    super(COMETH_PAIR_DATA_CACHE_KEY, "pairAddress", COMETH_PAIR_GRAPH_FIELDS, 
-            AssetProtocol.COMETHSWAP, .005);
+    super(
+      COMETH_PAIR_DATA_CACHE_KEY,
+      "pairAddress",
+      COMETH_PAIR_GRAPH_FIELDS,
+      AssetProtocol.COMETHSWAP,
+      0.005,
+    );
   }
 
   pairAddressFromDayData(dayData: any): string {
@@ -31,7 +36,7 @@ export class ComethPairManager extends GenericSwapUtility {
       token0Id: pair.token0.id,
       token1Id: pair.token1.id,
       totalSupply: pair.totalSupply,
-      pricePerToken: pair.reserveUSD / pair.totalSupply
-    }
+      pricePerToken: pair.reserveUSD / pair.totalSupply,
+    };
   }
 }

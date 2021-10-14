@@ -50,177 +50,177 @@ interface ComptrollerInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "borrowAllowed",
-    values: [string, string, BigNumberish]
+    values: [string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "borrowVerify",
-    values: [string, string, BigNumberish]
+    values: [string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "claimComp",
-    values: [string, string[]]
+    values: [string, string[]],
   ): string;
   encodeFunctionData(functionFragment: "compAccrued", values: [string]): string;
   encodeFunctionData(
     functionFragment: "compBorrowState",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "compBorrowerIndex",
-    values: [string, string]
+    values: [string, string],
   ): string;
   encodeFunctionData(functionFragment: "compSpeeds", values: [string]): string;
   encodeFunctionData(
     functionFragment: "compSupplierIndex",
-    values: [string, string]
+    values: [string, string],
   ): string;
   encodeFunctionData(
     functionFragment: "compSupplyState",
-    values: [string]
+    values: [string],
   ): string;
   encodeFunctionData(
     functionFragment: "enterMarkets",
-    values: [string[]]
+    values: [string[]],
   ): string;
   encodeFunctionData(functionFragment: "exitMarket", values: [string]): string;
   encodeFunctionData(
     functionFragment: "liquidateBorrowAllowed",
-    values: [string, string, string, string, BigNumberish]
+    values: [string, string, string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "liquidateBorrowVerify",
-    values: [string, string, string, string, BigNumberish, BigNumberish]
+    values: [string, string, string, string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "liquidateCalculateSeizeTokens",
-    values: [string, string, BigNumberish]
+    values: [string, string, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: "markets", values: [string]): string;
   encodeFunctionData(
     functionFragment: "mintAllowed",
-    values: [string, string, BigNumberish]
+    values: [string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "mintVerify",
-    values: [string, string, BigNumberish, BigNumberish]
+    values: [string, string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "redeemAllowed",
-    values: [string, string, BigNumberish]
+    values: [string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "redeemVerify",
-    values: [string, string, BigNumberish, BigNumberish]
+    values: [string, string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "repayBorrowAllowed",
-    values: [string, string, string, BigNumberish]
+    values: [string, string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "repayBorrowVerify",
-    values: [string, string, string, BigNumberish, BigNumberish]
+    values: [string, string, string, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "seizeAllowed",
-    values: [string, string, string, string, BigNumberish]
+    values: [string, string, string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "seizeVerify",
-    values: [string, string, string, string, BigNumberish]
+    values: [string, string, string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "transferAllowed",
-    values: [string, string, string, BigNumberish]
+    values: [string, string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "transferVerify",
-    values: [string, string, string, BigNumberish]
+    values: [string, string, string, BigNumberish],
   ): string;
 
   decodeFunctionResult(
     functionFragment: "borrowAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "borrowVerify",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "claimComp", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "compAccrued",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "compBorrowState",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "compBorrowerIndex",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "compSpeeds", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "compSupplierIndex",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "compSupplyState",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "enterMarkets",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "exitMarket", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "liquidateBorrowAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "liquidateBorrowVerify",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "liquidateCalculateSeizeTokens",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "markets", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "mintAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "mintVerify", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "redeemAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "redeemVerify",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "repayBorrowAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "repayBorrowVerify",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "seizeAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "seizeVerify",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferAllowed",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferVerify",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
 
   events: {};
@@ -232,26 +232,26 @@ export class Comptroller extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -264,7 +264,7 @@ export class Comptroller extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: ComptrollerInterface;
@@ -274,34 +274,34 @@ export class Comptroller extends Contract {
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "borrowAllowed(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     borrowVerify(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "borrowVerify(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "claimComp(address,address[])"(
       holder: string,
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "claimComp(address[],address[],bool,bool)"(
@@ -309,90 +309,90 @@ export class Comptroller extends Contract {
       cTokens: string[],
       borrowers: boolean,
       suppliers: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "claimComp(address)"(
       holder: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     compAccrued(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "compAccrued(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     compBorrowState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     "compBorrowState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     compBorrowerIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "compBorrowerIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     compSpeeds(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "compSpeeds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     compSupplierIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     "compSupplierIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     compSupplyState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     "compSupplyState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     enterMarkets(
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "enterMarkets(address[])"(
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     exitMarket(
       cToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "exitMarket(address)"(
       cToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     liquidateBorrowAllowed(
@@ -401,7 +401,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "liquidateBorrowAllowed(address,address,address,address,uint256)"(
@@ -410,7 +410,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     liquidateBorrowVerify(
@@ -420,7 +420,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "liquidateBorrowVerify(address,address,address,address,uint256,uint256)"(
@@ -430,45 +430,45 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     liquidateCalculateSeizeTokens(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     "liquidateCalculateSeizeTokens(address,address,uint256)"(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     markets(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean, BigNumber]>;
 
     "markets(address)"(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean, BigNumber]>;
 
     mintAllowed(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "mintAllowed(address,address,uint256)"(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     mintVerify(
@@ -476,7 +476,7 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "mintVerify(address,address,uint256,uint256)"(
@@ -484,21 +484,21 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     redeemAllowed(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "redeemAllowed(address,address,uint256)"(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     redeemVerify(
@@ -506,7 +506,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "redeemVerify(address,address,uint256,uint256)"(
@@ -514,7 +514,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     repayBorrowAllowed(
@@ -522,7 +522,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "repayBorrowAllowed(address,address,address,uint256)"(
@@ -530,7 +530,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     repayBorrowVerify(
@@ -539,7 +539,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "repayBorrowVerify(address,address,address,uint256,uint256)"(
@@ -548,7 +548,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     seizeAllowed(
@@ -557,7 +557,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "seizeAllowed(address,address,address,address,uint256)"(
@@ -566,7 +566,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     seizeVerify(
@@ -575,7 +575,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "seizeVerify(address,address,address,address,uint256)"(
@@ -584,7 +584,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferAllowed(
@@ -592,7 +592,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "transferAllowed(address,address,address,uint256)"(
@@ -600,7 +600,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferVerify(
@@ -608,7 +608,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     "transferVerify(address,address,address,uint256)"(
@@ -616,7 +616,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -624,34 +624,34 @@ export class Comptroller extends Contract {
     cToken: string,
     borrower: string,
     borrowAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "borrowAllowed(address,address,uint256)"(
     cToken: string,
     borrower: string,
     borrowAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   borrowVerify(
     cToken: string,
     borrower: string,
     borrowAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "borrowVerify(address,address,uint256)"(
     cToken: string,
     borrower: string,
     borrowAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "claimComp(address,address[])"(
     holder: string,
     cTokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "claimComp(address[],address[],bool,bool)"(
@@ -659,90 +659,90 @@ export class Comptroller extends Contract {
     cTokens: string[],
     borrowers: boolean,
     suppliers: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "claimComp(address)"(
     holder: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   compAccrued(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "compAccrued(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   compBorrowState(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, number]>;
 
   "compBorrowState(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, number]>;
 
   compBorrowerIndex(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "compBorrowerIndex(address,address)"(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   compSpeeds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "compSpeeds(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   compSupplierIndex(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   "compSupplierIndex(address,address)"(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   compSupplyState(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, number]>;
 
   "compSupplyState(address)"(
     arg0: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, number]>;
 
   enterMarkets(
     cTokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "enterMarkets(address[])"(
     cTokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   exitMarket(
     cToken: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "exitMarket(address)"(
     cToken: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   liquidateBorrowAllowed(
@@ -751,7 +751,7 @@ export class Comptroller extends Contract {
     liquidator: string,
     borrower: string,
     repayAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "liquidateBorrowAllowed(address,address,address,address,uint256)"(
@@ -760,7 +760,7 @@ export class Comptroller extends Contract {
     liquidator: string,
     borrower: string,
     repayAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   liquidateBorrowVerify(
@@ -770,7 +770,7 @@ export class Comptroller extends Contract {
     borrower: string,
     repayAmount: BigNumberish,
     seizeTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "liquidateBorrowVerify(address,address,address,address,uint256,uint256)"(
@@ -780,45 +780,45 @@ export class Comptroller extends Contract {
     borrower: string,
     repayAmount: BigNumberish,
     seizeTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   liquidateCalculateSeizeTokens(
     cTokenBorrowed: string,
     cTokenCollateral: string,
     repayAmount: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, BigNumber]>;
 
   "liquidateCalculateSeizeTokens(address,address,uint256)"(
     cTokenBorrowed: string,
     cTokenCollateral: string,
     repayAmount: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, BigNumber]>;
 
   markets(
     cTokenAddress: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[boolean, BigNumber]>;
 
   "markets(address)"(
     cTokenAddress: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[boolean, BigNumber]>;
 
   mintAllowed(
     cToken: string,
     minter: string,
     mintAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "mintAllowed(address,address,uint256)"(
     cToken: string,
     minter: string,
     mintAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   mintVerify(
@@ -826,7 +826,7 @@ export class Comptroller extends Contract {
     minter: string,
     mintAmount: BigNumberish,
     mintTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "mintVerify(address,address,uint256,uint256)"(
@@ -834,21 +834,21 @@ export class Comptroller extends Contract {
     minter: string,
     mintAmount: BigNumberish,
     mintTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   redeemAllowed(
     cToken: string,
     redeemer: string,
     redeemTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "redeemAllowed(address,address,uint256)"(
     cToken: string,
     redeemer: string,
     redeemTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   redeemVerify(
@@ -856,7 +856,7 @@ export class Comptroller extends Contract {
     redeemer: string,
     redeemAmount: BigNumberish,
     redeemTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "redeemVerify(address,address,uint256,uint256)"(
@@ -864,7 +864,7 @@ export class Comptroller extends Contract {
     redeemer: string,
     redeemAmount: BigNumberish,
     redeemTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   repayBorrowAllowed(
@@ -872,7 +872,7 @@ export class Comptroller extends Contract {
     payer: string,
     borrower: string,
     repayAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "repayBorrowAllowed(address,address,address,uint256)"(
@@ -880,7 +880,7 @@ export class Comptroller extends Contract {
     payer: string,
     borrower: string,
     repayAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   repayBorrowVerify(
@@ -889,7 +889,7 @@ export class Comptroller extends Contract {
     borrower: string,
     repayAmount: BigNumberish,
     borrowerIndex: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "repayBorrowVerify(address,address,address,uint256,uint256)"(
@@ -898,7 +898,7 @@ export class Comptroller extends Contract {
     borrower: string,
     repayAmount: BigNumberish,
     borrowerIndex: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   seizeAllowed(
@@ -907,7 +907,7 @@ export class Comptroller extends Contract {
     liquidator: string,
     borrower: string,
     seizeTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "seizeAllowed(address,address,address,address,uint256)"(
@@ -916,7 +916,7 @@ export class Comptroller extends Contract {
     liquidator: string,
     borrower: string,
     seizeTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   seizeVerify(
@@ -925,7 +925,7 @@ export class Comptroller extends Contract {
     liquidator: string,
     borrower: string,
     seizeTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "seizeVerify(address,address,address,address,uint256)"(
@@ -934,7 +934,7 @@ export class Comptroller extends Contract {
     liquidator: string,
     borrower: string,
     seizeTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferAllowed(
@@ -942,7 +942,7 @@ export class Comptroller extends Contract {
     src: string,
     dst: string,
     transferTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "transferAllowed(address,address,address,uint256)"(
@@ -950,7 +950,7 @@ export class Comptroller extends Contract {
     src: string,
     dst: string,
     transferTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferVerify(
@@ -958,7 +958,7 @@ export class Comptroller extends Contract {
     src: string,
     dst: string,
     transferTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   "transferVerify(address,address,address,uint256)"(
@@ -966,7 +966,7 @@ export class Comptroller extends Contract {
     src: string,
     dst: string,
     transferTokens: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -974,34 +974,34 @@ export class Comptroller extends Contract {
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "borrowAllowed(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     borrowVerify(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "borrowVerify(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "claimComp(address,address[])"(
       holder: string,
       cTokens: string[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "claimComp(address[],address[],bool,bool)"(
@@ -1009,87 +1009,87 @@ export class Comptroller extends Contract {
       cTokens: string[],
       borrowers: boolean,
       suppliers: boolean,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "claimComp(address)"(
       holder: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     compAccrued(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "compAccrued(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compBorrowState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     "compBorrowState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     compBorrowerIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "compBorrowerIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compSpeeds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "compSpeeds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compSupplierIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "compSupplierIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compSupplyState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     "compSupplyState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, number]>;
 
     enterMarkets(
       cTokens: string[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber[]>;
 
     "enterMarkets(address[])"(
       cTokens: string[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber[]>;
 
     exitMarket(cToken: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "exitMarket(address)"(
       cToken: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     liquidateBorrowAllowed(
@@ -1098,7 +1098,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "liquidateBorrowAllowed(address,address,address,address,uint256)"(
@@ -1107,7 +1107,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     liquidateBorrowVerify(
@@ -1117,7 +1117,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "liquidateBorrowVerify(address,address,address,address,uint256,uint256)"(
@@ -1127,45 +1127,45 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     liquidateCalculateSeizeTokens(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     "liquidateCalculateSeizeTokens(address,address,uint256)"(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber]>;
 
     markets(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean, BigNumber]>;
 
     "markets(address)"(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean, BigNumber]>;
 
     mintAllowed(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "mintAllowed(address,address,uint256)"(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     mintVerify(
@@ -1173,7 +1173,7 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "mintVerify(address,address,uint256,uint256)"(
@@ -1181,21 +1181,21 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     redeemAllowed(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "redeemAllowed(address,address,uint256)"(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     redeemVerify(
@@ -1203,7 +1203,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "redeemVerify(address,address,uint256,uint256)"(
@@ -1211,7 +1211,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     repayBorrowAllowed(
@@ -1219,7 +1219,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "repayBorrowAllowed(address,address,address,uint256)"(
@@ -1227,7 +1227,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     repayBorrowVerify(
@@ -1236,7 +1236,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "repayBorrowVerify(address,address,address,uint256,uint256)"(
@@ -1245,7 +1245,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     seizeAllowed(
@@ -1254,7 +1254,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "seizeAllowed(address,address,address,address,uint256)"(
@@ -1263,7 +1263,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     seizeVerify(
@@ -1272,7 +1272,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "seizeVerify(address,address,address,address,uint256)"(
@@ -1281,7 +1281,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     transferAllowed(
@@ -1289,7 +1289,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "transferAllowed(address,address,address,uint256)"(
@@ -1297,7 +1297,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     transferVerify(
@@ -1305,7 +1305,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     "transferVerify(address,address,address,uint256)"(
@@ -1313,7 +1313,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
@@ -1324,34 +1324,34 @@ export class Comptroller extends Contract {
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "borrowAllowed(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     borrowVerify(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "borrowVerify(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "claimComp(address,address[])"(
       holder: string,
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "claimComp(address[],address[],bool,bool)"(
@@ -1359,90 +1359,90 @@ export class Comptroller extends Contract {
       cTokens: string[],
       borrowers: boolean,
       suppliers: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "claimComp(address)"(
       holder: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     compAccrued(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "compAccrued(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compBorrowState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "compBorrowState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compBorrowerIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "compBorrowerIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compSpeeds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "compSpeeds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compSupplierIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "compSupplierIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     compSupplyState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "compSupplyState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     enterMarkets(
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "enterMarkets(address[])"(
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     exitMarket(
       cToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "exitMarket(address)"(
       cToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     liquidateBorrowAllowed(
@@ -1451,7 +1451,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "liquidateBorrowAllowed(address,address,address,address,uint256)"(
@@ -1460,7 +1460,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     liquidateBorrowVerify(
@@ -1470,7 +1470,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "liquidateBorrowVerify(address,address,address,address,uint256,uint256)"(
@@ -1480,45 +1480,45 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     liquidateCalculateSeizeTokens(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "liquidateCalculateSeizeTokens(address,address,uint256)"(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     markets(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     "markets(address)"(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     mintAllowed(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "mintAllowed(address,address,uint256)"(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     mintVerify(
@@ -1526,7 +1526,7 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "mintVerify(address,address,uint256,uint256)"(
@@ -1534,21 +1534,21 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     redeemAllowed(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "redeemAllowed(address,address,uint256)"(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     redeemVerify(
@@ -1556,7 +1556,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "redeemVerify(address,address,uint256,uint256)"(
@@ -1564,7 +1564,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     repayBorrowAllowed(
@@ -1572,7 +1572,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "repayBorrowAllowed(address,address,address,uint256)"(
@@ -1580,7 +1580,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     repayBorrowVerify(
@@ -1589,7 +1589,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "repayBorrowVerify(address,address,address,uint256,uint256)"(
@@ -1598,7 +1598,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     seizeAllowed(
@@ -1607,7 +1607,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "seizeAllowed(address,address,address,address,uint256)"(
@@ -1616,7 +1616,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     seizeVerify(
@@ -1625,7 +1625,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "seizeVerify(address,address,address,address,uint256)"(
@@ -1634,7 +1634,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferAllowed(
@@ -1642,7 +1642,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "transferAllowed(address,address,address,uint256)"(
@@ -1650,7 +1650,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferVerify(
@@ -1658,7 +1658,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     "transferVerify(address,address,address,uint256)"(
@@ -1666,7 +1666,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -1675,34 +1675,34 @@ export class Comptroller extends Contract {
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "borrowAllowed(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     borrowVerify(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "borrowVerify(address,address,uint256)"(
       cToken: string,
       borrower: string,
       borrowAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "claimComp(address,address[])"(
       holder: string,
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "claimComp(address[],address[],bool,bool)"(
@@ -1710,96 +1710,96 @@ export class Comptroller extends Contract {
       cTokens: string[],
       borrowers: boolean,
       suppliers: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "claimComp(address)"(
       holder: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     compAccrued(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "compAccrued(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     compBorrowState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "compBorrowState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     compBorrowerIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "compBorrowerIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     compSpeeds(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "compSpeeds(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     compSupplierIndex(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "compSupplierIndex(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     compSupplyState(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "compSupplyState(address)"(
       arg0: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     enterMarkets(
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "enterMarkets(address[])"(
       cTokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     exitMarket(
       cToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "exitMarket(address)"(
       cToken: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     liquidateBorrowAllowed(
@@ -1808,7 +1808,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "liquidateBorrowAllowed(address,address,address,address,uint256)"(
@@ -1817,7 +1817,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     liquidateBorrowVerify(
@@ -1827,7 +1827,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "liquidateBorrowVerify(address,address,address,address,uint256,uint256)"(
@@ -1837,45 +1837,45 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     liquidateCalculateSeizeTokens(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "liquidateCalculateSeizeTokens(address,address,uint256)"(
       cTokenBorrowed: string,
       cTokenCollateral: string,
       repayAmount: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     markets(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     "markets(address)"(
       cTokenAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     mintAllowed(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "mintAllowed(address,address,uint256)"(
       cToken: string,
       minter: string,
       mintAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     mintVerify(
@@ -1883,7 +1883,7 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "mintVerify(address,address,uint256,uint256)"(
@@ -1891,21 +1891,21 @@ export class Comptroller extends Contract {
       minter: string,
       mintAmount: BigNumberish,
       mintTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     redeemAllowed(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "redeemAllowed(address,address,uint256)"(
       cToken: string,
       redeemer: string,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     redeemVerify(
@@ -1913,7 +1913,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "redeemVerify(address,address,uint256,uint256)"(
@@ -1921,7 +1921,7 @@ export class Comptroller extends Contract {
       redeemer: string,
       redeemAmount: BigNumberish,
       redeemTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     repayBorrowAllowed(
@@ -1929,7 +1929,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "repayBorrowAllowed(address,address,address,uint256)"(
@@ -1937,7 +1937,7 @@ export class Comptroller extends Contract {
       payer: string,
       borrower: string,
       repayAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     repayBorrowVerify(
@@ -1946,7 +1946,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "repayBorrowVerify(address,address,address,uint256,uint256)"(
@@ -1955,7 +1955,7 @@ export class Comptroller extends Contract {
       borrower: string,
       repayAmount: BigNumberish,
       borrowerIndex: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     seizeAllowed(
@@ -1964,7 +1964,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "seizeAllowed(address,address,address,address,uint256)"(
@@ -1973,7 +1973,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     seizeVerify(
@@ -1982,7 +1982,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "seizeVerify(address,address,address,address,uint256)"(
@@ -1991,7 +1991,7 @@ export class Comptroller extends Contract {
       liquidator: string,
       borrower: string,
       seizeTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferAllowed(
@@ -1999,7 +1999,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "transferAllowed(address,address,address,uint256)"(
@@ -2007,7 +2007,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferVerify(
@@ -2015,7 +2015,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     "transferVerify(address,address,address,uint256)"(
@@ -2023,7 +2023,7 @@ export class Comptroller extends Contract {
       src: string,
       dst: string,
       transferTokens: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

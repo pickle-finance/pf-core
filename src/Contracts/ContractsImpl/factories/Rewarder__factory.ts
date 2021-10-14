@@ -10,7 +10,7 @@ import type { Rewarder } from "../Rewarder";
 export class Rewarder__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): Rewarder {
     return new Contract(address, _abi, signerOrProvider) as Rewarder;
   }
