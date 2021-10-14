@@ -1,10 +1,8 @@
-import { ChainNetwork, PickleModelJson } from ".";
+import { ChainNetwork } from ".";
 import { ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { PickleModel } from "./model/PickleModel";
-import fetch from 'cross-fetch';
-import { UserModel } from "./client/UserModel";
 
 // This is an example of the code you'd want to run in a client
 async function generateFullApi() {

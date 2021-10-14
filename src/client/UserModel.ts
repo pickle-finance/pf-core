@@ -1,14 +1,14 @@
 import { Provider } from '@ethersproject/providers';
-import { Provider as MulticallProvider, Contract as MulticallContract, setMulticallAddress} from 'ethers-multicall';
+import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import { BigNumber } from "@ethersproject/bignumber";
-import { ChainNetwork, Chains, IChain, PickleModelJson } from "..";
+import { ChainNetwork, Chains, PickleModelJson } from "..";
 import { getUserJarSummary, IUserEarningsSummary } from "./UserEarnings";
-import { ALL_ASSETS, JAR_DEFINITIONS } from '../model/JarsAndFarms';
+import { JAR_DEFINITIONS } from '../model/JarsAndFarms';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import gaugeAbi from '../Contracts/ABIs/gauge.json';
 import gaugeProxyAbi from '../Contracts/ABIs/gauge-proxy.json';
 import minichefAbi from '../Contracts/ABIs/minichef.json';
-import { AssetEnablement, JarDefinition, PickleAsset } from '../model/PickleModelJson';
+import { AssetEnablement, JarDefinition } from '../model/PickleModelJson';
 import { ADDRESSES } from '../model/PickleModel';
 import { Contract } from '@ethersproject/contracts';
 
@@ -152,7 +152,7 @@ export class UserModel {
         );
         const ret : BigNumber[] = [];
         for( let i = 0; i < chainAssets.length; i++ ) {
-            let ind : number = lpLower.indexOf(chainAssets[i].contract.toLowerCase());
+            const ind : number = lpLower.indexOf(chainAssets[i].contract.toLowerCase());
             if( ind === -1 ) {
                 ret.push(BigNumber.from(0));
             } else {
@@ -191,7 +191,7 @@ export class UserModel {
         );
         const ret : BigNumber[] = [];
         for( let i = 0; i < chainAssets.length; i++ ) {
-            let ind : number = lpLower.indexOf(chainAssets[i].contract.toLowerCase());
+            const ind : number = lpLower.indexOf(chainAssets[i].contract.toLowerCase());
             if( ind === -1 ) {
                 ret.push(BigNumber.from(0));
             } else {

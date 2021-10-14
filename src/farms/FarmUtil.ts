@@ -5,7 +5,7 @@ import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import MasterchefAbi from '../Contracts/ABIs/masterchef.json';
 import MinichefAbi from '../Contracts/ABIs/minichef.json';
-import { BigNumber, Contract, ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 import gaugeAbi from '../Contracts/ABIs/gauge.json';
 import gaugeProxyAbi from '../Contracts/ABIs/gauge-proxy.json';
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
@@ -27,7 +27,7 @@ export function secondsPerBlock(network: ChainNetwork) {
 export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) {
     // TODO ADD_CHAIN
     if( chain === ChainNetwork.Ethereum) {
-        let rawGaugeData = await loadGaugeDataEth();
+        const rawGaugeData = await loadGaugeDataEth();
         if( rawGaugeData && rawGaugeData.length > 0 ) {
             for( let i = 0; i < rawGaugeData.length; i++ ) {
                 setAssetGaugeAprEth(rawGaugeData[i], model)
@@ -36,7 +36,7 @@ export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) 
     } else {
         // All other chains use minichef currently
         const minichefAddr : string = minichefAddressForChain(chain);
-        let rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
+        const rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
         if( rawGaugeData && rawGaugeData.length > 0 ) {
             for( let i = 0; i < rawGaugeData.length; i++ ) {
                 setAssetGaugeAprMinichef(rawGaugeData[i], model, secondsPerBlock(chain));

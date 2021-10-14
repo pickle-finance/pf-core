@@ -1,7 +1,7 @@
 import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { Provider as MulticallProvider, Contract as MulticallContract, setMulticallAddress} from 'ethers-multicall';
+import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
@@ -296,8 +296,8 @@ export class PickleModel {
     // Could this be moved to the asset behaviors instead??
     async ensureDepositTokenPriceLoaded() {
         const jarBehaviorResolver = new JarBehaviorDiscovery();
-        let notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-        let prices : number[] = await Promise.all(notDisabled.map((x)=>{
+        const notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
+        const prices : number[] = await Promise.all(notDisabled.map((x)=>{
             const beh = jarBehaviorResolver.findAssetBehavior(x);
             return beh ? beh.getDepositTokenPrice(x, this) : getDepositTokenPrice(x, this);
         }));
@@ -509,7 +509,7 @@ export class PickleModel {
         for( let i = 0; i < jarsWithFarms.length; i++ ) {
             const ptokenPrice : number = jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
             const ptokens = balances[i];
-            let dec = jarsWithFarms[i].details.decimals ? jarsWithFarms[i].details.decimals : 18;
+            const dec = jarsWithFarms[i].details.decimals ? jarsWithFarms[i].details.decimals : 18;
             const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
             const valueBalance = ptokenBalance * ptokenPrice;
             if( jarsWithFarms[i].farm.details === undefined ) {
