@@ -45,7 +45,7 @@ export class CvxCrv extends AbstractJarBehavior {
 
     const strategy = new ethers.Contract(
       jar.details.strategyAddr,
-      convexStrategyAbi,
+      threeRewardAbi,
       resolver,
     );
     const [crvWallet, cvxWallet, threeCrvWallet, crvPrice, cvxPrice, threeCrvPrice, pending]: [
@@ -74,3 +74,29 @@ export class CvxCrv extends AbstractJarBehavior {
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }
+
+const threeRewardAbi : any = [
+  {
+    "inputs": [],
+    "name": "getHarvestable",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
