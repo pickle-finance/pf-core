@@ -14,11 +14,9 @@ async function generateUserData(walletId: string) {
   }
 }
 
-/*
 if( process.argv.length !== 3) {
   console.log("Please pass a wallet");
-  exit(1);
+} else {
+  generateUserData(process.argv[2]);
 }
-generateUserData(process.argv[2]);
-*/
-generateUserData('0xc3B08DdFA64d82A24db69DD662ecE6d77E88A96c');
+//generateUserData('0x...');

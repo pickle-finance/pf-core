@@ -23,7 +23,7 @@ export class FoxEth extends AbstractJarBehavior {
       rewards.earned(jar.details.strategyAddr),
       await model.priceOf("shapeshift-fox-token"),
     ]);
-    const harvestable = fox.mul(foxPrice.toFixed());
+    const harvestable = fox.mul((1e8 * foxPrice).toFixed()).div(1e8);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
