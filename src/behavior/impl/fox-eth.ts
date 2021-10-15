@@ -12,7 +12,7 @@ import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 
 export class FoxEth extends AbstractJarBehavior {
-  private rewardAddress = "0xdd80e21669a664bce83e3ad9a0d74f8dad5d9e72";
+  private rewardAddress = "0xc54B9F82C1c54E9D4d274d633c7523f2299c42A0";
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
