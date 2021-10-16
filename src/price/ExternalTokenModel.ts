@@ -350,7 +350,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "must",
-      "must",
+      "ust",
       "0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
