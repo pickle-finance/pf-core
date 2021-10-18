@@ -2,34 +2,28 @@
 import fs from 'fs';
 import fetch from "cross-fetch";
 import { PickleModelJson, JarDefinition, ExternalAssetDefinition, StandaloneFarmDefinition } from './model/PickleModelJson'
+import { ADDRESSES } from './model/PickleModel';
+import { ethers } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import  MinichefAbi from './Contracts/ABIs/minichef.json';
+import MasterchefAbi from './Contracts/ABIs/masterchef.json'
+import { Chains } from '.';
+import { ChainNetwork } from '.';
+import { Contract as MulticallContract, Provider as MulticallProvider, setMulticallAddress } from 'ethers-multicall';
 
-const chainExplorerURLs = {
-    eth: {
-        name: 'Ethereum',
-        url: 'https://etherscan.io/address/'
-    },
-    polygon: {
-        name: 'Polygon',
-        url: 'https://polygonscan.com/address/'
-    },
-    arbitrum: {
-        name: 'Arbitrum One',
-        url: 'https://arbiscan.io/address/'
-    },
-    okex: {
-        name: 'OKExChain',
-        url: 'https://www.oklink.com/okexchain/address/'
-    }
-}
 
 const apiURL = 'https://api.pickle.finance/prod/protocol/pfcore'
 
+interface JarDefinition1 extends JarDefinition {
+    chefPID?: string
+}
+
 interface AssetDefinition {
-    jars: JarDefinition[],
+    jars: JarDefinition1[],
     standaloneFarms: StandaloneFarmDefinition[],
     external: ExternalAssetDefinition[]
 }
-const getData = async () => {
+const getPfcoreApiData = async () => {
     try{
         const promise = await fetch(apiURL);
         const resp = await promise.json();
@@ -41,13 +35,13 @@ const getData = async () => {
 }
 
 const pickleEthInfo = (assets: AssetDefinition):string => {
-    const url = chainExplorerURLs.eth.url;
+    const url: string = Chains.get(ChainNetwork.Ethereum).explorer + '/address/';
     const body = `\n` +
     `## Pickle.finance Contracts (Ethereum)\n\n` +
-    `PickleToken: [0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5](${url}0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5))\n\n` +
+    `PickleToken: [${ADDRESSES.Ethereum.pickle}](${url + ADDRESSES.Ethereum.pickle}))\n\n` +
     `Timelock (48 hours): [0xc2d82a3e2bae0a50f4aeb438285804354b467bc0](${url}0xc2d82a3e2bae0a50f4aeb438285804354b467bc0)\n\n` +
     `Timelock (24 hours): [0x0040E05CE9A5fc9C0aBF89889f7b60c2fC278416](${url}0x0040E05CE9A5fc9C0aBF89889f7b60c2fC278416)\n\n` +
-    `Masterchef: [0xbD17B1ce622d73bD438b9E658acA5996dc394b0d](${url}0xbD17B1ce622d73bD438b9E658acA5996dc394b0d)\n\n` +    // This is
+    `Masterchef: [${ADDRESSES.Ethereum.masterChef}](${url + ADDRESSES.Ethereum.masterChef})\n\n` +    // This is
     `Masterchef v2: [0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d](${url}0xef0881ec094552b2e128cf945ef17a6752b4ec5d)\n\n` +
     `PickleRewarder (For MCv2): [0x7512105dbb4c0e0432844070a45b7ea0d83a23fd](${url}0x7512105dbb4c0e0432844070a45b7ea0d83a23fd)\n\n` +
     `Governance-DAO (multi-sig): [0x9d074E37d408542FD38be78848e8814AFB38db17](${url}0x9d074E37d408542FD38be78848e8814AFB38db17)\n\n` +
@@ -57,8 +51,8 @@ const pickleEthInfo = (assets: AssetDefinition):string => {
     `---\n\n` +
     `## DILL Contracts\n\n` +
     `### Main Contracts\n\n` +
-    `DILL: [0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf](${url}0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf)\n\n` +
-    `GaugeProxy: [0x2e57627ACf6c1812F99e274d0ac61B786c19E74f](${url}0x2e57627ACf6c1812F99e274d0ac61B786c19E74f)\n\n` +
+    `DILL: [${ADDRESSES.Ethereum.dill}](${url + ADDRESSES.Ethereum.dill})\n\n` +
+    `GaugeProxy: [${ADDRESSES.Ethereum.gaugeProxy}](${url + ADDRESSES.Ethereum.gaugeProxy})\n\n` +
     `mDILL: [0x45F7fa97BD0e0C212A844BAea35876C7560F465B](${url}0x45f7fa97bd0e0c212a844baea35876c7560f465b)\n\n` +
     `FeeDistributor: [0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc](${url}0x74c6cade3ef61d64dcc9b97490d9fbb231e4bdcc)\n\n` +
     `SmartWalletChecker: [0x2ff4f44f86f49d45a1c3626bab9d222e84e9e78f](${url}0x2ff4f44f86f49d45a1c3626bab9d222e84e9e78f)\n\n` +
@@ -69,9 +63,8 @@ const pickleEthInfo = (assets: AssetDefinition):string => {
     return body;
 }
 
-// TODO extract standalone farms gauge (uni pickle-eth)
 const gaugesTable = (assets: AssetDefinition, chain: string): string => {
-    const url: string = chainExplorerURLs[chain].url;
+    const url: string = Chains.get(ChainNetwork.Ethereum).explorer;
     const header =
         `| Deposit Token | Gauge Address |\n` + 
         `| ---  | --- |\n`
@@ -92,10 +85,10 @@ const gaugesTable = (assets: AssetDefinition, chain: string): string => {
 }
 
 const pickleJarsEth = (assets: AssetDefinition):string => {
-    const url = chainExplorerURLs.eth.url;
+    const url: string = Chains.get(ChainNetwork.Ethereum).explorer + '/address/';
     const body = `\n` +
     `## Pickle Jars Contracts (Ethereum)\n\n` +
-    `Controller v4: [0x6847259b2B3A4c17e7c43C54409810aF48bA5210](${url}0x6847259b2B3A4c17e7c43C54409810aF48bA5210)\n\n` +
+    `Controller v4: [${ADDRESSES.Ethereum.controller}](${url + ADDRESSES.Ethereum.controller})\n\n` +
     `Upgradeable Controller: [0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637](${url}0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637)\n\n` +
     `Strategist: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
     `Governance: [0xD92c7fAa0Ca0e6AE4918f3a83d9832d9CAEAA0d3](${url}0xD92c7fAa0Ca0e6AE4918f3a83d9832d9CAEAA0d3)\n\n` +
@@ -111,8 +104,7 @@ const pickleJarsEth = (assets: AssetDefinition):string => {
     `UniCurveConverter: [0x8EfAFBD731d779390e4F2392315eea42c14E2B69](${url}0x8EfAFBD731d779390e4F2392315eea42c14E2B69)\n\n` +
     `Harvester Bot: [0x0f571d2625b503bb7c1d2b5655b483a2fa696fef](${url}0x0f571d2625b503bb7c1d2b5655b483a2fa696fef)\n\n` +
     `---\n\n` +
-    // Should Pools be omitted?
-    poolsTable()
+    poolsTable()    // Should Pools be omitted?
     
     return body;
 }
@@ -165,14 +157,16 @@ const poolsTable = ():string => (
 `---\n\n`)
 
 const jarsTable = (assets: AssetDefinition, chain: string) => {
-    const url: string = chainExplorerURLs[chain].url;
+    const url: string = Chains.get(<ChainNetwork>chain).explorer;   // issue?
+    
     const header =
-        `## Pickle Jars (pJars - ${chainExplorerURLs[chain].name})\n\n` +
-        `| Name | Want | PickleJar | Strategy |\n` + 
-        `| ---  | --- | --- | --- |\n`
+        `## Pickle Jars (pJars - ${Object.keys(ChainNetwork).filter( (key) => ChainNetwork[key] === chain )})\n\n` +
+        `| Index | Name | Want | PickleJar | Strategy |\n` + 
+        `| --- | ---  | --- | --- | --- |\n`
     const body = assets.jars.filter( (jar) => jar.chain === chain )
     .map((jar) => {
         var row =
+        `| ${(jar.chefPID? jar.chefPID: "-")} ` +   // some old jars are registered in the masterchef contract by their wants
         `| ${jar.id} | [${jar.depositToken.name}](${url + jar.depositToken.addr}) ` +
         `| [p${jar.depositToken.name}](${url + jar.contract}) ` +
         `| [${(jar.details.strategyName? jar.details.strategyName : 'Strategy-'+jar.depositToken.name)}](${url + jar.details.strategyAddr}) |\n`
@@ -183,14 +177,14 @@ const jarsTable = (assets: AssetDefinition, chain: string) => {
 }
 
 const pickleJarsPoly = (assets: AssetDefinition): string => {
-    const url = chainExplorerURLs.polygon.url;
+    const url: string = Chains.get(ChainNetwork.Polygon).explorer + '/address/';
     const body = `\n` +
     `## Pickle.Finance Contracts (Polygon)\n\n` +
-    `Pickle Token (POS): [0x2b88ad57897a8b496595925f43048301c37615da](${url}0x2b88ad57897a8b496595925f43048301c37615da)\n\n` +
-    `MiniChefV2: [0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749](${url}0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749)\n\n` +
+    `Pickle Token (POS): [${ADDRESSES.Polygon.pickle}](${url + ADDRESSES.Polygon.pickle})\n\n` +
+    `MiniChefV2: [${ADDRESSES.Polygon.minichef}](${url + ADDRESSES.Polygon.minichef})\n\n` +
     `Rewarder: [0xE28287544005094be096301E5eE6E2A6E6Ef5749](${url}0xE28287544005094be096301E5eE6E2A6E6Ef5749)\n\n` +
     `Timelock: [0x63A991b9c34D2590A411584799B030414C9b0D6F](${url}0x63A991b9c34D2590A411584799B030414C9b0D6F)\n\n` +
-    `Controller: [0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09](${url}0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09)\n\n` +
+    `Controller: [${ADDRESSES.Polygon.controller}](${url + ADDRESSES.Polygon.controller})\n\n` +
     `Strategist: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
     `Multi-sig Treasury & Governance: [0xEae55893cC8637c16CF93D43B38aa022d689Fa62](${url}0xEae55893cC8637c16CF93D43B38aa022d689Fa62)\n\n` +
     `Vault Registry: [0x3419D74F5909e7579C1259f6638F82143bd536B1](${url}0x3419D74F5909e7579C1259f6638F82143bd536B1)\n\n` +
@@ -202,13 +196,13 @@ const pickleJarsPoly = (assets: AssetDefinition): string => {
 }
 
 const pickleJarsArb = (assets: AssetDefinition): string => {
-    const url = chainExplorerURLs.arbitrum.url;
+    const url: string = Chains.get(ChainNetwork.Arbitrum).explorer + '/address/';
     const body = `\n` +
     `## Pickle.Finance Contracts (Arbitrum Mainnet)\n\n` +
-    `Controller: [0x55d5bcef2bfd4921b8790525ff87919c2e26bd03](${url}0x55d5bcef2bfd4921b8790525ff87919c2e26bd03)\n\n` +
-    `MiniChef: [0x7ecc7163469f37b777d7b8f45a667314030ace24](${url}0x7ecc7163469f37b777d7b8f45a667314030ace24)\n\n` +
+    `Controller: [${ADDRESSES.Arbitrum.controller}](${url + ADDRESSES.Arbitrum.controller})\n\n` +
+    `MiniChef: [${ADDRESSES.Arbitrum.minichef}](${url + ADDRESSES.Arbitrum.minichef})\n\n` +
     `Strategist/Governance: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
-    `Pickle Token: [0x965772e0E9c84b6f359c8597C891108DcF1c5B1A](${url}0x965772e0E9c84b6f359c8597C891108DcF1c5B1A)\n\n` +
+    `Pickle Token: [${ADDRESSES.Arbitrum.pickle}](${url + ADDRESSES.Arbitrum.pickle})\n\n` +
     `Multi-sig Treasury & Governance: [0xf02CeB58d549E4b403e8F85FBBaEe4c5dfA47c01](${url}0xf02CeB58d549E4b403e8F85FBBaEe4c5dfA47c01)\n\n` +
     `Vault Registry: [0x63292afc5567c19738e2ed6aedc840e5abca910c](${url}0x63292afc5567c19738e2ed6aedc840e5abca910c)\n\n` +
     `---\n\n` +
@@ -219,7 +213,7 @@ const pickleJarsArb = (assets: AssetDefinition): string => {
 }
 
 const pickleJarsOkex = (assets: AssetDefinition): string => {
-    const url = chainExplorerURLs.arbitrum.url;
+    const url: string = Chains.get(ChainNetwork.OKEx).explorer + '/address/';
     const body = `\n` +
     `## Pickle.Finance Contracts (OKExChain Mainnet)\n\n` +
     `ControllerV4: [0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4](https://www.oklink.com/okexchain/address/0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4)\n\n` +
@@ -232,18 +226,76 @@ const pickleJarsOkex = (assets: AssetDefinition): string => {
 
     return body;
 }
-const main = async() => {
-    const stringArr:string[] = [];
-    const pickleModel: PickleModelJson = await getData();
-    const assets: AssetDefinition = pickleModel.assets;
 
+const getMasterChefIds = async (chefAddr: string, network: ChainNetwork) => {
+    const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
+    const networkId = Chains.get(network).id;
+    const provider: Provider = new ethers.providers.JsonRpcProvider(rpcProviderUrl, networkId);
+    const multiProvider = new MulticallProvider(provider, networkId);
+    const chefMulticall = new MulticallContract(chefAddr,MasterchefAbi);
+    try{
+        const poolLength = (await multiProvider.all([chefMulticall.poolLength()]))[0].toNumber();
+        const poolIds = Array.from(Array(poolLength).keys());
+        const resps = await multiProvider.all(poolIds.map( (id) => chefMulticall.poolInfo(id)));
+        const ordered: Record<string, string> = {};
+        resps.forEach( (resp, i) => ordered[resp.lpToken] = i.toString());
+    return ordered;
+    } catch (error) { console.log(error) }
+}
+
+const getMiniChefIds = async (chefAddr: string, network: ChainNetwork) => {
+    const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
+    const networkId = Chains.get(network).id;
+    const provider: Provider = new ethers.providers.JsonRpcProvider(rpcProviderUrl, networkId);
+    const multiProvider = new MulticallProvider(provider, networkId);
+    const chefMulticall = new MulticallContract(chefAddr,MinichefAbi);
+    try{
+        const poolLength = (await multiProvider.all([chefMulticall.poolLength()]))[0].toNumber();
+        const poolIds = Array.from(Array(poolLength).keys());
+        const resps = await multiProvider.all(poolIds.map( (id) => chefMulticall.lpToken(id)));
+        const ordered: Record<string, string> = {};
+        resps.forEach( (resp, i) => ordered[resp] = i.toString());
+    return ordered;
+    } catch (error) { console.log(error) }
+}
+
+const updateModelIndices = (assets: AssetDefinition, orderedList: Record<string, string>[]) => {
+    orderedList.forEach( (orderedObject) => {
+        Object.keys(orderedObject).forEach( (orderedJarAddr) => {
+            assets.jars.forEach( (jar, i) => {
+                // Some jars are registered in the masterchef with their want token, others with the jar's 
+                if (jar.contract.toLowerCase() === orderedJarAddr.toLowerCase() || jar.depositToken.addr.toLowerCase() === orderedJarAddr.toLowerCase()) {
+                    assets.jars[i].chefPID = orderedObject[orderedJarAddr];
+                }
+            });
+            // TODO: Add a loop for standalone farms/external
+        })
+    });
+}
+const main = async() => {
+
+    // ADD_CHAIN
+    // Chains.globalInitialize();
+    setMulticallAddress(42161, '0x813715eF627B01f4931d8C6F8D2459F26E19137E')    // provider address for Arbitrum
+
+    const stringArr:string[] = [];
+    const pickleModel: PickleModelJson = await getPfcoreApiData();
+    const assets: AssetDefinition = pickleModel.assets;
+    const orderedList: Record<string, string>[] = [
+        await getMiniChefIds(ADDRESSES.Arbitrum.minichef, ChainNetwork.Arbitrum),
+        await getMiniChefIds(ADDRESSES.Polygon.minichef, ChainNetwork.Polygon),
+        await getMasterChefIds(ADDRESSES.Ethereum.masterChef, ChainNetwork.Ethereum),
+    ]
+    updateModelIndices(assets, orderedList);
+    
     stringArr.push(pickleEthInfo(assets));
     stringArr.push(pickleJarsEth(assets));
     stringArr.push(pickleJarsPoly(assets));
     stringArr.push(pickleJarsArb(assets));
-    // stringArr.push(pickleJarsOkex(assets));
-    
+    // stringArr.push(pickleJarsOkex(assets));  // TODO uncomment once Okex is added to pf-core
+
     const readme: string = stringArr.join('\n')
+
     fs.writeFile('file.md', readme, (err) => (err? console.log(err):console.log('File written!')));
 }
 
