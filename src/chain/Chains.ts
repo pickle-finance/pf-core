@@ -64,6 +64,7 @@ export class Chains {
         this.chainData.set(ChainNetwork.Ethereum, new EthereumChain());
         this.chainData.set(ChainNetwork.Polygon, new PolygonChain());
         this.chainData.set(ChainNetwork.Arbitrum, new ArbitumChain());
+        this.chainData.set(ChainNetwork.OKEx, new OKExChain());
     }
 
     static list() : ChainNetwork[] {
@@ -72,6 +73,7 @@ export class Chains {
 
     static globalInitialize(chains: Map<ChainNetwork, Provider | Signer>) {
       // ADD_CHAIN 
+      setMulticallAddress(66, "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa");
       setMulticallAddress(42161, '0x813715eF627B01f4931d8C6F8D2459F26E19137E');
 
       for(const key of Chains.list()) {

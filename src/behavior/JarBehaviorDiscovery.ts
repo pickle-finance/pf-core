@@ -57,6 +57,12 @@ import {
   JAR_CURVE_CVXCRVLP,
   JAR_POLY_SUSHI_WORK_USDC,
   JAR_CVXCRV,
+  JAR_OKEX_BXH_USDT,
+  JAR_OKEX_ETHK_BTCK,
+  JAR_OKEX_ETHK_USDT,
+  JAR_OKEX_OKT_CHE,
+  JAR_OKEX_OKT_USDT,
+  JAR_OKEX_USDT_CHE,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -186,6 +192,14 @@ jarToBehavior.set(JAR_ARBITRUM_SLP_SPELL_ETH.id, new ArbitrumSpellEth());
 jarToBehavior.set(JAR_ARBITRUM_MIM2CRV.id, new Mim2Crv());
 jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
+
+// OKEx
+jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new noOpJarBehavior());
+jarToBehavior.set(JAR_OKEX_USDT_CHE.id, new noOpJarBehavior());
+jarToBehavior.set(JAR_OKEX_OKT_USDT.id, new noOpJarBehavior());
+jarToBehavior.set(JAR_OKEX_ETHK_USDT.id, new noOpJarBehavior());
+jarToBehavior.set(JAR_OKEX_BXH_USDT.id, new noOpJarBehavior());
+jarToBehavior.set(JAR_OKEX_ETHK_BTCK.id, new noOpJarBehavior());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

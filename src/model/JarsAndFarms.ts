@@ -1679,6 +1679,167 @@ export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_CRV_TRICRYPTO);
 
+
+
+// OKEx Chain
+
+export const JAR_OKEX_OKT_CHE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 1a",
+  contract: "0xC3f393FB40F8Cc499C1fe7FA5781495dc6FAc9E9",
+  depositToken: {
+    addr: "0x8E68C0216562BCEA5523b27ec6B9B6e1cCcBbf88",
+    name: "CHERRY OKT/CHE",
+    link: "https://www.cherryswap.net/#/add/ETH/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
+    components: ["wokt", "cherry"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.CHERRYSWAP,
+  details: {
+    apiKey: "CherryOktChe",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pCHERRY OKT/CHE",
+    farmDepositTokenName: "pCHERRY OKT/CHE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_OKT_CHE);
+
+
+export const JAR_OKEX_USDT_CHE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 1b",
+  contract: "0xe75c8805f9970c7547255059A22d14001d3D7b94",
+  depositToken: {
+    addr: "0x089dedbFD12F2aD990c55A2F1061b8Ad986bFF88",
+    name: "CHERRY USDT/CHE",
+    link: "https://www.cherryswap.net/#/add/0x382bb369d343125bfb2117af9c149795c6c65c50/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
+    components: ["okusdt", "cherry"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.CHERRYSWAP,
+  details: {
+    apiKey: "CherryUsdtChe",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pCHERRY USDT/CHE",
+    farmDepositTokenName: "pCHERRY USDT/CHE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_USDT_CHE);
+
+
+export const JAR_OKEX_OKT_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 1c",
+  contract: "0x7072B80D4E259F26b82C2C4e53cDBFB71450195e",
+  depositToken: {
+    addr: "0xF3098211d012fF5380A03D80f150Ac6E5753caA8",
+    name: "CHERRY OKT/USDT",
+    link: "https://www.cherryswap.net/#/add/ETH/0x382bb369d343125bfb2117af9c149795c6c65c50",
+    components: ["wokt", "okusdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.CHERRYSWAP,
+  details: {
+    apiKey: "CherryOktUsdt",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pCHERRY OKT/USDT",
+    farmDepositTokenName: "pCHERRY OKT/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_OKT_USDT);
+
+
+
+export const JAR_OKEX_ETHK_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 1e",
+  contract: "0x4a19C49Ee3233A2AE103487f3699D70573EC2371",
+  depositToken: {
+    addr: "0x407F7a2F61E5bAB199F7b9de0Ca330527175Da93",
+    name: "CHERRY ETHK/USDT",
+    link: "https://www.cherryswap.net/#/add/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C/0x382bb369d343125bfb2117af9c149795c6c65c50",
+    components: ["ethk", "okusdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.CHERRYSWAP,
+  details: {
+    apiKey: "CherryEthkUsdt",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pCHERRY ETHK/USDT",
+    farmDepositTokenName: "pCHERRY ETHK/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_ETHK_USDT);
+
+
+
+export const JAR_OKEX_BXH_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2a",
+  contract: "0x09c22bdc438b69bcc190efa8f8e3417277e1dd4f",
+  depositToken: {
+    addr: "0x04b2C23Ca7e29B71fd17655eb9Bd79953fA79faF",
+    name: "BXH: BXH/USDT",
+    link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
+    components: ["bxh", "okusdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.BXH,
+  details: {
+    apiKey: "BxhUsdt",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pBXH: BXH/USDT",
+    farmDepositTokenName: "pBXH: BXH/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_BXH_USDT);
+
+export const JAR_OKEX_ETHK_BTCK: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2b",
+  contract: "0x2a956403816445553FdA5Cbfce2ac6c251454f6f",
+  depositToken: {
+    addr: "0x3799Fb39b7fA01E23338C1C3d652FB1AB6E7D5BC",
+    name: "BXH: ETHK-BTCK",
+    link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
+    components: ["ethk", "btck"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.BXH,
+  details: {
+    apiKey: "BXH-ETHK-BTCK",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pBXH: ETHK-BTCK",
+    farmDepositTokenName: "pBXH: ETHK-BTCK",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_ETHK_BTCK);
+
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
