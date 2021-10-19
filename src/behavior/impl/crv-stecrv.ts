@@ -77,20 +77,17 @@ export class SteCrv extends AbstractJarBehavior {
           .balanceOf(jar.details.strategyAddr)
           .catch(() => BigNumber.from("0")),
         model.priceOfSync("crv"),
-        model.priceOfSync("ldo"),
         model.priceOfSync("cvx"),
+        model.priceOfSync("ldo"),
         strategy.getHarvestable(),
       ]);
-    const harvestable = crvWallet
-      .add(pending[0])
-      .mul(crvPrice.toFixed())
-      .add(
-        cvxWallet
-          .add(pending[1])
-          .mul(cvxPrice.toFixed())
-          .add(ldoWallet.add(pending[2]).mul(ldoPrice.toFixed())),
-      );
-
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    
+      const crvRewards = crvWallet.add(pending[0]).mul((crvPrice*1e6).toFixed()).div(1e6);
+      const cvxRewards = cvxWallet.add(pending[1]).mul((cvxPrice*1e6).toFixed()).div(1e6);
+      const ldoRewards = ldoWallet.add(pending[2]).mul((ldoPrice*1e6).toFixed()).div(1e6);
+      const ethRewards = pending[3].mul((model.priceOfSync("weth")*1e6).toFixed()).div(1e6);
+      
+      const total = crvRewards.add(cvxRewards).add(ldoRewards).add(ethRewards);
+      return parseFloat(ethers.utils.formatEther(total));
   }
 }
