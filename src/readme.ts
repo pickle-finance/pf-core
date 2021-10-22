@@ -33,10 +33,10 @@ interface AssetDefinition {
 }
 
 interface AllocPoints {
-  name: string,
-  lpToken: string,
-  allocPoints: string,
-  totalAllocPoints: string
+  name: string;
+  lpToken: string;
+  allocPoints: string;
+  totalAllocPoints: string;
 }
 
 const getPfcoreApiData = async () => {
@@ -83,7 +83,7 @@ const pickleEthInfo = (assets: AssetDefinition): string => {
 };
 
 const gaugesTable = (assets: AssetDefinition, chain: string): string => {
-  const url: string = Chains.get(ChainNetwork.Ethereum).explorer;
+  const url: string = Chains.get(ChainNetwork.Ethereum).explorer + "/address/";
   const header = `| Deposit Token | Gauge Address |\n` + `| ---  | --- |\n`;
   const body =
     assets.standaloneFarms
@@ -107,23 +107,15 @@ const gaugesTable = (assets: AssetDefinition, chain: string): string => {
   return header + body;
 };
 
-const pickleJarsEth = (assets: AssetDefinition, allocPoints: AllocPoints[]): string => {
+const pickleJarsEth = (
+  assets: AssetDefinition,
+  allocPoints: AllocPoints[],
+): string => {
   const url: string = Chains.get(ChainNetwork.Ethereum).explorer + "/address/";
-  const addresses = ADDRESSES.get(ChainNetwork.Ethereum);
   const body =
     `\n` +
-    `## Pickle Jars Contracts (Ethereum)\n\n` +
-    `Controller v4: [${addresses.controller}](${
-      url + addresses.controller
-    })\n\n` +
-    `Upgradeable Controller: [0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637](${url}0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637)\n\n` +
-    `Strategist: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
-    `Governance: [0xD92c7fAa0Ca0e6AE4918f3a83d9832d9CAEAA0d3](${url}0xD92c7fAa0Ca0e6AE4918f3a83d9832d9CAEAA0d3)\n\n` +
-    `Treasury: [0x066419EaEf5DE53cc5da0d8702b990c5bc7D1AB3](${url}0x066419EaEf5DE53cc5da0d8702b990c5bc7D1AB3)\n\n` +
-    `CRVLocker: [0xb5208a3754a8592e2e934d4e1e7b985ed3ae78a1](${url}0xb5208a3754a8592e2e934d4e1e7b985ed3ae78a1)\n\n` +
-    `Instabrine: [0x8F9676bfa268E94A2480352cC5296A943D5A2809](${url}0x8F9676bfa268E94A2480352cC5296A943D5A2809)\n\n` +
-    `Timelock (12 hours): [0xD92c7fAa0Ca0e6AE4918f3a83d9832d9CAEAA0d3](${url}0xD92c7fAa0Ca0e6AE4918f3a83d9832d9CAEAA0d3)\n\n` +
-    jarsTable(assets, "eth") +
+    contractsList(ChainNetwork.Ethereum) +
+    jarsTableNoIndex(assets, ChainNetwork.Ethereum) +
     `\n` +
     `---\n\n` +
     `## Tools Contracts\n\n` +
@@ -137,19 +129,45 @@ const pickleJarsEth = (assets: AssetDefinition, allocPoints: AllocPoints[]): str
   return body;
 };
 
+const contractsList = (chain: ChainNetwork) => {
+  const url: string = Chains.get(chain).explorer + "/address/";
+  const addresses = ADDRESSES.get(chain);
+  const chainName = Object.keys(ChainNetwork).filter(
+    (key) => ChainNetwork[key] === chain,
+  );
+  const body =
+    `## Pickle Jars Contracts (${chainName})\n\n` +
+    Object.keys(addresses)
+      .map((addressName) => {
+        var line = `${addressName}: [${addresses[addressName]}](${
+          url + addresses[addressName]
+        })\n\n`;
+        return line;
+      })
+      .join("") +
+    `---\n\n`;
+  return body;
+};
+
 const emissionsTable = (allocPoints: AllocPoints[]): string => {
   const url = Chains.get(ChainNetwork.Ethereum).explorer + "/address/";
-  const allo = allocPoints;
   const chainsList = Object.keys(ChainNetwork).slice(1).join("+");
   const body =
     `## PICKLE Emissions Allocation\n\n` +
     `| Chain | Token | AllocPoint | % |\n` +
     `| --- | --- | --- | --- |\n` +
-    allocPoints.map( (token, i) => {
-      var row =
-      `| ${i? chainsList:"Ethereum"} |  [${token.name}](${url+token.lpToken}) | ${token.allocPoints} | ${(Number.parseInt(token.allocPoints)/Number.parseInt(token.totalAllocPoints)*100).toFixed(1)}% |\n`
-      return row;
-    }).join("") +
+    allocPoints
+      .map((token, i) => {
+        var row = `| ${i ? chainsList : "Ethereum"} |  [${token.name}](${
+          url + token.lpToken
+        }) | ${token.allocPoints} | ${(
+          (Number.parseInt(token.allocPoints) /
+            Number.parseInt(token.totalAllocPoints)) *
+          100
+        ).toFixed(1)}% |\n`;
+        return row;
+      })
+      .join("") +
     `---\n\n`;
 
   return body;
@@ -168,7 +186,9 @@ const getAllocPoints = async (): Promise<AllocPoints[]> => {
     MasterchefAbi,
   );
   try {
-    const totalAllocPoints: string = await (await multiProvider.all([chefMulticall.totalAllocPoint()]))[0].toString();
+    const totalAllocPoints: string = await (
+      await multiProvider.all([chefMulticall.totalAllocPoint()])
+    )[0].toString();
     const poolLength = (
       await multiProvider.all([chefMulticall.poolLength()])
     )[0].toNumber();
@@ -177,33 +197,47 @@ const getAllocPoints = async (): Promise<AllocPoints[]> => {
       poolIds.map((id) => chefMulticall.poolInfo(id)),
     );
     let ordered: AllocPoints[];
-    ordered = await Promise.all(resps
-      .filter((resp) => resp.allocPoint != 0)
-      .map(async(resp) => {
-          const tokenName = await (await new ethers.Contract(resp.lpToken, erc20abi, provider).functions.symbol()).toString();
-        return {lpToken: <string>resp.lpToken, allocPoints: <string>resp.allocPoint.toString(), name: <string>tokenName, totalAllocPoints: totalAllocPoints};
-      }))
+    ordered = await Promise.all(
+      resps
+        .filter((resp) => resp.allocPoint != 0)
+        .map(async (resp) => {
+          const tokenName = await (
+            await new ethers.Contract(
+              resp.lpToken,
+              erc20abi,
+              provider,
+            ).functions.symbol()
+          ).toString();
+          return {
+            lpToken: <string>resp.lpToken,
+            allocPoints: <string>resp.allocPoint.toString(),
+            name: <string>tokenName,
+            totalAllocPoints: totalAllocPoints,
+          };
+        }),
+    );
     return ordered;
   } catch (error) {
     console.log(error);
   }
 };
 
-const jarsTable = (assets: AssetDefinition, chain: string) => {
-  const url: string = Chains.get(<ChainNetwork>chain).explorer; // issue?
-
+const jarsTable = (assets: AssetDefinition, chain: ChainNetwork) => {
+  const url: string = Chains.get(chain).explorer + "/address/";
+  const chainName = Object.keys(ChainNetwork).filter(
+    (key) => ChainNetwork[key] === chain,
+  );
   const header =
-    `## Pickle Jars (pJars - ${Object.keys(ChainNetwork).filter(
-      (key) => ChainNetwork[key] === chain,
-    )})\n\n` +
+    `## Pickle Jars (pJars - ${chainName})\n\n` +
     `| Index | Name | Want | PickleJar | Strategy |\n` +
     `| --- | ---  | --- | --- | --- |\n`;
   const body = assets.jars
     .filter((jar) => jar.chain === chain)
     .map((jar) => {
       var row =
-        `| ${jar.chefPID ? jar.chefPID : "-"} ` + // some old jars are registered in the masterchef contract by their wants
+        `| ${jar.chefPID ? jar.chefPID : "-"} ` +
         `| ${jar.id} | [${jar.depositToken.name}](${
+          // some old jars are registered in the masterchef contract by their wants
           url + jar.depositToken.addr
         }) ` +
         `| [p${jar.depositToken.name}](${url + jar.contract}) ` +
@@ -218,62 +252,38 @@ const jarsTable = (assets: AssetDefinition, chain: string) => {
   return header + body;
 };
 
-const pickleJarsPoly = (assets: AssetDefinition): string => {
-  const url: string = Chains.get(ChainNetwork.Polygon).explorer + "/address/";
-  const addresses = ADDRESSES.get(ChainNetwork.Polygon);
-  const body =
-    `\n` +
-    `## Pickle.Finance Contracts (Polygon)\n\n` +
-    `Pickle Token (POS): [${addresses.pickle}](${url + addresses.pickle})\n\n` +
-    `MiniChefV2: [${addresses.minichef}](${url + addresses.minichef})\n\n` +
-    `Rewarder: [0xE28287544005094be096301E5eE6E2A6E6Ef5749](${url}0xE28287544005094be096301E5eE6E2A6E6Ef5749)\n\n` +
-    `Timelock: [0x63A991b9c34D2590A411584799B030414C9b0D6F](${url}0x63A991b9c34D2590A411584799B030414C9b0D6F)\n\n` +
-    `Controller: [${addresses.controller}](${url + addresses.controller})\n\n` +
-    `Strategist: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
-    `Multi-sig Treasury & Governance: [0xEae55893cC8637c16CF93D43B38aa022d689Fa62](${url}0xEae55893cC8637c16CF93D43B38aa022d689Fa62)\n\n` +
-    `Vault Registry: [0x3419D74F5909e7579C1259f6638F82143bd536B1](${url}0x3419D74F5909e7579C1259f6638F82143bd536B1)\n\n` +
-    `---\n\n` +
-    jarsTable(assets, "polygon") +
-    `\n` +
-    `---\n\n`;
-
-  return body;
+const jarsTableNoIndex = (assets: AssetDefinition, chain: ChainNetwork) => {
+  const url: string = Chains.get(chain).explorer + "/address/";
+  const chainName = Object.keys(ChainNetwork).filter(
+    (key) => ChainNetwork[key] === chain,
+  );
+  const header =
+    `## Pickle Jars (pJars - ${chainName})\n\n` +
+    `| Name | Want | PickleJar | Strategy |\n` +
+    `| --- | --- | --- | --- |\n`;
+  const body = assets.jars
+    .filter((jar) => jar.chain === chain)
+    .map((jar) => {
+      var row =
+        `| ${jar.id} | [${jar.depositToken.name}](${
+          // some old jars are registered in the masterchef contract by their wants
+          url + jar.depositToken.addr
+        }) ` +
+        `| [p${jar.depositToken.name}](${url + jar.contract}) ` +
+        `| [${
+          jar.details.strategyName
+            ? jar.details.strategyName
+            : "Strategy-" + jar.depositToken.name
+        }](${url + jar.details.strategyAddr}) |\n`;
+      return row;
+    })
+    .join("");
+  return header + body;
 };
 
-const pickleJarsArb = (assets: AssetDefinition): string => {
-  const url: string = Chains.get(ChainNetwork.Arbitrum).explorer + "/address/";
-  const addresses = ADDRESSES.get(ChainNetwork.Arbitrum);
+const pickleJars = (assets: AssetDefinition, chain: ChainNetwork): string => {
   const body =
-    `\n` +
-    `## Pickle.Finance Contracts (Arbitrum Mainnet)\n\n` +
-    `Controller: [${addresses.controller}](${url + addresses.controller})\n\n` +
-    `MiniChef: [${addresses.minichef}](${url + addresses.minichef})\n\n` +
-    `Strategist/Governance: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
-    `Pickle Token: [${addresses.pickle}](${url + addresses.pickle})\n\n` +
-    `Multi-sig Treasury & Governance: [0xf02CeB58d549E4b403e8F85FBBaEe4c5dfA47c01](${url}0xf02CeB58d549E4b403e8F85FBBaEe4c5dfA47c01)\n\n` +
-    `Vault Registry: [0x63292afc5567c19738e2ed6aedc840e5abca910c](${url}0x63292afc5567c19738e2ed6aedc840e5abca910c)\n\n` +
-    `---\n\n` +
-    jarsTable(assets, "arbitrum") +
-    `\n` +
-    `---\n\n`;
-
-  return body;
-};
-
-const pickleJarsOkex = (assets: AssetDefinition): string => {
-  const url: string = Chains.get(ChainNetwork.OKEx).explorer + "/address/";
-  const addresses = ADDRESSES.get(ChainNetwork.OKEx);
-  const body =
-    `\n` +
-    `## Pickle.Finance Contracts (OKExChain Mainnet)\n\n` +
-    `ControllerV4: [0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4](${url}0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4)\n\n` +
-    `MiniChef: [0x7446BF003b98B7B0D90CE84810AC12d6b8114B62](${url}0x7446BF003b98B7B0D90CE84810AC12d6b8114B62)\n\n` +
-    `Rewarder: [0x48394297ed0a9e9edcc556faaf4222a932605c56](${url}0x48394297ed0a9e9edcc556faaf4222a932605c56)\n\n` +
-    `Strategist/Governance: [0xacfe4511ce883c14c4ea40563f176c3c09b4c47c](${url}0xacfe4511ce883c14c4ea40563f176c3c09b4c47c)\n\n` +
-    `---\n\n` +
-    jarsTable(assets, "okex") +
-    `\n` +
-    `---\n\n`;
+    `\n` + contractsList(chain) + jarsTable(assets, chain) + `\n` + `---\n\n`;
 
   return body;
 };
@@ -347,6 +357,7 @@ const updateModelIndices = (
     });
   });
 };
+
 const main = async () => {
   // ADD_CHAIN
   // Chains.globalInitialize();
@@ -374,9 +385,9 @@ const main = async () => {
 
   stringArr.push(pickleEthInfo(assets));
   stringArr.push(pickleJarsEth(assets, await getAllocPoints()));
-  stringArr.push(pickleJarsPoly(assets));
-  stringArr.push(pickleJarsArb(assets));
-  // stringArr.push(pickleJarsOkex(assets));  // TODO uncomment once Okex is added to pf-core
+  stringArr.push(pickleJars(assets, ChainNetwork.Polygon));
+  stringArr.push(pickleJars(assets, ChainNetwork.Arbitrum));
+  // stringArr.push(pickleJars(assets, ChainNetwork.OKEx));  // TODO uncomment once Okex is added to pf-core
 
   const readme: string = stringArr.join("\n");
 
