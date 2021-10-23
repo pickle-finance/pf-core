@@ -63,6 +63,7 @@ import {
   JAR_OKEX_OKT_CHE,
   JAR_OKEX_OKT_USDT,
   JAR_OKEX_USDT_CHE,
+  JAR_UNIV3_RBN_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -121,6 +122,7 @@ import { ArbitrumHndEth } from "./impl/arbitrum-hnd-eth";
 import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
 import { CvxCrv } from './impl/cvxcrv';
+import { Uni3RbnEth } from "./impl/uni-rbn-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -168,6 +170,7 @@ jarToBehavior.set(JAR_CRV_IB.id, new YearnJar());
 jarToBehavior.set(JAR_UNI_RLY_ETH.id, new RlyEth());
 jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
 jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
+jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());

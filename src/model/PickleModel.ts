@@ -1,4 +1,4 @@
-import { AssetEnablement, AssetProjectedApr, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, AssetProjectedApr, AssetProtocol, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -6,6 +6,7 @@ import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
 import erc20Abi from '../Contracts/ABIs/erc20.json';
+import univ3PoolAbi from "../Contracts/ABIs/univ3Pool.json";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
@@ -390,7 +391,10 @@ export class PickleModel {
         await ethcallProvider.init();
 
         const balance : string[] = await ethcallProvider.all<string[]>(
-            jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).balance())
+            jars.map((oneJar) => 
+                oneJar.protocol === AssetProtocol.UNISWAP_V3 ? 
+                new MulticallContract(oneJar.contract, jarAbi).totalLiquidity() :
+                new MulticallContract(oneJar.contract, jarAbi).balance())
           );
         for( let i = 0; i < jars.length; i++ ) {
             jars[i].details.tokenBalance = 
@@ -407,7 +411,10 @@ export class PickleModel {
         await ethcallProvider.init();
 
         const supply : string[] = await ethcallProvider.all<string[]>(
-            jars.map((oneJar) => new MulticallContract(oneJar.depositToken.addr, erc20Abi).totalSupply())
+            jars.map((oneJar) => 
+                oneJar.protocol === AssetProtocol.UNISWAP_V3 ? 
+                new MulticallContract(oneJar.depositToken.addr, univ3PoolAbi).liquidity() :
+                new MulticallContract(oneJar.depositToken.addr, erc20Abi).totalSupply())
           );
         for( let i = 0; i < jars.length; i++ ) {
             jars[i].depositToken.totalSupply = 
@@ -440,6 +447,39 @@ export class PickleModel {
     }
 
     async loadHarvestData(jars: JarDefinition[], chain: ChainNetwork) {
+        const univ3Jars : JarDefinition[] = jars.filter((x)=>x.protocol === AssetProtocol.UNISWAP_V3);
+        const jarV1 : JarDefinition[] = jars.filter((x)=>x.protocol !== AssetProtocol.UNISWAP_V3);
+        await Promise.all([
+            this.loadHarvestDataJarAbi(jarV1, chain),
+            this.loadHarvestDataCustom(univ3Jars, chain),
+        ]);
+    }
+    async loadHarvestDataCustom(harvestableJars: JarDefinition[], chain: ChainNetwork) {
+        // TODO share code between the two impls
+        const resolver = Chains.getResolver(chain);
+        const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
+        const harvestArr: Promise<JarHarvestStats>[] = [];
+        for( let i = 0; i < harvestableJars.length; i++ ) {
+            try {
+                const harvestResolver : JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
+                harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
+                    BigNumber.from(0),  BigNumber.from(0), resolver));
+            } catch( e ) {
+                console.log("Error loading harvest data for jar " + harvestableJars[i].id + ":  " + e);
+            }
+        }
+        const results: JarHarvestStats[] = await Promise.all(harvestArr);
+        for( let j = 0; j < harvestableJars.length; j++ ) {
+            if( results[j] ) {
+                results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
+                results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
+                results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
+            }
+            harvestableJars[j].details.harvestStats = results[j];
+        }
+    }
+
+    async loadHarvestDataJarAbi(jars: JarDefinition[], chain: ChainNetwork) {
         if( !jars || jars.length === 0)
             return;
         
@@ -465,10 +505,10 @@ export class PickleModel {
             balanceOfProm, availableProm
         ]);
     
+        const resolver = Chains.getResolver(chain);
         const harvestArr: Promise<JarHarvestStats>[] = [];
         for( let i = 0; i < harvestableJars.length; i++ ) {
             try {
-                const resolver = Chains.getResolver(harvestableJars[i].chain);
                 const harvestResolver : JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
                 harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
                     balanceOf[i], available[i], resolver));
@@ -484,7 +524,6 @@ export class PickleModel {
                 results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
             }
             harvestableJars[j].details.harvestStats = results[j];
-            
         }
     }
     ensureStandaloneFarmsBalanceLoaded(farms: StandaloneFarmDefinition[], balances: any[]) {
@@ -624,7 +663,7 @@ export class PickleModel {
         }
         return {
             platformTVL: tvl,
-            platformBlendedRate: (blendedRateSum/tvl),
+            platformBlendedRate: tvl === 0 ? 0 : (blendedRateSum/tvl),
             harvestPending: harvestPending
         };
     }

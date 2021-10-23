@@ -1159,6 +1159,36 @@ export const JAR_SUSHI_ETH_TRU: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
 
+
+
+export const JAR_UNIV3_RBN_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar U3a",
+  contract: "0xD38A7E64677d92D3966285fa3aD1dc68A02b7c33",
+  depositToken: {
+    addr: "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a",
+    name: "Uni V3 RBN/ETH",
+    link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6123b0049f904d730db3c36a31167d9d4121fa6b",
+    components: ["rbn", "weth"],
+    style: {erc20: false}
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xD6CA5052Bf7b57f6AEdeE0D259a0E9AA4DCa64c6",
+    apiKey: "RBN-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /*
+  farm: {
+    farmAddress: "TODO",
+    farmNickname: "pUni V3 RBN/ETH",
+    farmDepositTokenName: "pUni V3 RBN/ETH",
+  },*/
+};
+JAR_DEFINITIONS.push(JAR_UNIV3_RBN_ETH);
+
 // Polygon
 
 export const JAR_COMETH_USDC_WETH: JarDefinition = {

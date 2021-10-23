@@ -7,6 +7,7 @@ import {
 // TODO move these out i guess?
 export enum AssetProtocol {
   UNISWAP = "uniswap",
+  UNISWAP_V3 = "uniswap_v3",
   SUSHISWAP = "sushiswap",
   SUSHISWAP_POLYGON = "sushiswap_polygon",
   COMETHSWAP = "comethswap",
@@ -53,6 +54,10 @@ export enum AssetType {
   EXTERNAL = "external",
 }
 
+export interface DepositTokenStyle {
+  erc20: boolean
+}
+
 export interface IExternalToken {
   chain: ChainNetwork;
   id: string;
@@ -68,6 +73,7 @@ export interface DepositToken {
   totalSupply?: number;
   components?: string[];
   componentTokens?: number[];
+  style?: DepositTokenStyle,
   price?: number;
 }
 

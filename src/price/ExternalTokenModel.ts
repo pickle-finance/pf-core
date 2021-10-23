@@ -319,7 +319,14 @@ export class ExternalTokenModel {
       "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7".toLowerCase(),
       18,
     );
-
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "rbn",
+      "ribbon-finance",
+      "0x6123b0049f904d730db3c36a31167d9d4121fa6b".toLowerCase(),
+      18,
+    );
+    
     // Polygon
     this.addToken(
       ChainNetwork.Polygon,
