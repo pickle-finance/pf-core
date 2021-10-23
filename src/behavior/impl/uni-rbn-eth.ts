@@ -1,5 +1,6 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
+import { BigNumber } from "ethers";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AprNamePair, calculateUniV3Apy } from "../../protocols/UniV3";
@@ -25,11 +26,11 @@ export class Uni3RbnEth extends AbstractJarBehavior {
         return 0;
     }
     async getAssetHarvestData(
-        definition: JarDefinition,
-        model: PickleModel,
-        balance: BigNumber,
-        available: BigNumber,
-        resolver: Signer | Provider,
+        _definition: JarDefinition,
+        _model: PickleModel,
+        _balance: BigNumber,
+        _available: BigNumber,
+        _resolver: Signer | Provider,
       ): Promise<JarHarvestStats> {
           // TODO This is the thing we need to do
           return {
