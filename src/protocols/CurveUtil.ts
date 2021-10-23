@@ -57,5 +57,5 @@ export async function calculateCurveApyArbitrum(
   const crvPrice = model.priceOfSync("crv");
   const crvRewardsAmount = crvPrice * 3500761; // Approximation of CRV emissions
   const crvAPY = crvRewardsAmount / totalStakedUsd;
-  return crvAPY;
+  return crvAPY * 100;
 }
