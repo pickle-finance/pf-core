@@ -40,6 +40,46 @@ const sushiPoolIdsArbitrum: PoolId = {
   "0x8f93Eaae544e8f5EB077A1e09C1554067d9e2CA8": 11,
 };
 
+const SUSHI_ARB_PAIR_DATA_CACHE_KEY = "sushiswap.arb.pair.data.cache.key";
+const SUSHI_ARB_PAIR_GRAPH_FIELDS: string[] = [
+  "pair{id}",
+  "reserveUSD",
+  "volumeUSD",
+  "reserve0",
+  "reserve1",
+  "token0{id}",
+  "token1{id}",
+  "totalSupply",
+];
+export class SushiArbPairManager extends GenericSwapUtility {
+  constructor() {
+    super(
+      SUSHI_ARB_PAIR_DATA_CACHE_KEY,
+      "pair",
+      SUSHI_ARB_PAIR_GRAPH_FIELDS,
+      AssetProtocol.SUSHISWAP_ARBITRUM,
+      0.0025,
+    );
+  }
+
+  pairAddressFromDayData(dayData: any): string {
+    return dayData.pair.id;
+  }
+  toExtendedPairData(pair: any): IExtendedPairData {
+    return {
+      pairAddress: pair.id,
+      reserveUSD: pair.reserveUSD,
+      dailyVolumeUSD: pair.volumeUSD,
+      reserve0: pair.reserve0,
+      reserve1: pair.reserve1,
+      token0Id: pair.token0.id,
+      token1Id: pair.token1.id,
+      totalSupply: pair.totalSupply,
+      pricePerToken: pair.reserveUSD / pair.totalSupply,
+    };
+  }
+}
+
 const SUSHI_POLY_PAIR_DATA_CACHE_KEY = "sushiswap.poly.pair.data.cache.key";
 const SUSHI_POLY_PAIR_GRAPH_FIELDS: string[] = [
   "pair{id}",

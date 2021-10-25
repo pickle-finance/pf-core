@@ -8,6 +8,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import {
   calculateMCv2ApyArbitrum,
   calculateSushiApyArbitrum,
+  SushiArbPairManager,
 } from "../../protocols/SushiSwapUtil";
 
 export class ArbitrumSpellEth extends AbstractJarBehavior {
@@ -68,10 +69,18 @@ export class ArbitrumSpellEth extends AbstractJarBehavior {
       calculateSushiApyArbitrum(jar, model),
       calculateMCv2ApyArbitrum(jar, model, "spell"),
     ]);
+    const lp: number = await calculateSushiswapLpApr(model, jar.depositToken.addr);
 
     return this.aprComponentsToProjectedApr([
+      this.createAprComponent("lp", lp, false),
       this.createAprComponent("sushi", sushiSpellEthApy * 100, true),
       this.createAprComponent("spell", spellEthApy * 100, true),
     ]);
   }
+}
+async function calculateSushiswapLpApr(
+  model: PickleModel,
+  addr: string,
+): Promise<number> {
+  return await new SushiArbPairManager().calculateLpApr(model, addr);
 }

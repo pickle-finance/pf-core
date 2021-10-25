@@ -17,6 +17,8 @@ const SUBGRAPH_URL_SUSHISWAP =
   "https://api.thegraph.com/subgraphs/name/croco-finance/sushiswap";
 const SUBGRAPH_URL_SUSHISWAP_POLYGON =
   "https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange";
+const SUBGRAPH_URL_SUSHISWAP_ARBITRUM =
+  "https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange";
 const SUBGRAPH_URL_COMETH =
   "https://api.thegraph.com/subgraphs/name/cometh-game/comethswap";
 const SUBGRAPH_URL_QUICKSWAP =
@@ -34,6 +36,7 @@ export const protocolToSubgraphUrl: Map<string, string> = new Map([
   [AssetProtocol.UNISWAP, SUBGRAPH_URL_UNISWAP],
   [AssetProtocol.SUSHISWAP, SUBGRAPH_URL_SUSHISWAP],
   [AssetProtocol.SUSHISWAP_POLYGON, SUBGRAPH_URL_SUSHISWAP_POLYGON],
+  [AssetProtocol.SUSHISWAP_ARBITRUM, SUBGRAPH_URL_SUSHISWAP_ARBITRUM],
   [AssetProtocol.COMETHSWAP, SUBGRAPH_URL_COMETH],
   [AssetProtocol.QUICKSWAP_POLYGON, SUBGRAPH_URL_QUICKSWAP], //TODO is this right?
 ]);

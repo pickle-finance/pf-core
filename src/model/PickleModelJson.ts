@@ -10,6 +10,7 @@ export enum AssetProtocol {
   UNISWAP_V3 = "uniswap_v3",
   SUSHISWAP = "sushiswap",
   SUSHISWAP_POLYGON = "sushiswap_polygon",
+  SUSHISWAP_ARBITRUM = "sushiswap_arbitrum",
   COMETHSWAP = "comethswap",
   DODOSWAP = "dodoswap",
   QUICKSWAP_POLYGON = "quickswap_polygon",

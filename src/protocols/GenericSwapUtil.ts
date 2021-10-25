@@ -129,7 +129,7 @@ export abstract class GenericSwapUtility {
       const apy =
         (pairData.dailyVolumeUSD / pairData.reserveUSD) *
         this.lpFee *
-        360 *
+        365 *
         100;
       return apy;
     }
