@@ -1,10 +1,14 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber } from "ethers";
+import { BigNumber, Contract, ethers } from "ethers";
+import { defaultAbiCoder, getAddress, Interface } from "ethers/lib/utils";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { AprNamePair, calculateUniV3Apy } from "../../protocols/UniV3";
+import { AprNamePair, calculateUniV3Apy, getUniV3Info, IncentiveKey, UniV3InfoValue } from "../../protocols/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import univ3StakerAbi from "../../Contracts/ABIs/univ3Staking.json";
+import { oneEParam } from "../../util/BnUtil";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
 
 export class Uni3RbnEth extends AbstractJarBehavior {
     async getDepositTokenPrice(
@@ -26,18 +30,39 @@ export class Uni3RbnEth extends AbstractJarBehavior {
         return 0;
     }
     async getAssetHarvestData(
-        _definition: JarDefinition,
-        _model: PickleModel,
+        definition: JarDefinition,
+        model: PickleModel,
         _balance: BigNumber,
         _available: BigNumber,
-        _resolver: Signer | Provider,
+        resolver: Signer | Provider,
       ): Promise<JarHarvestStats> {
-          // TODO This is the thing we need to do
-          return {
-            balanceUSD: 0,
-            earnableUSD: 0,
-            harvestableUSD: 0,
-          }
+        // TODO  0x1f98407aab862cddef78ed252d6f557aa5b0f00d  is the reward staking contract
+        const rewardStaking = new Contract('0x1f98407aab862cddef78ed252d6f557aa5b0f00d', univ3StakerAbi, resolver);
+        const rbnAddr = '0x6123b0049f904d730db3c36a31167d9d4121fa6b';
+        const val : UniV3InfoValue = getUniV3Info(definition.depositToken.addr);
+        const result = await rewardStaking.getRewardInfo(val.incentiveKey, val.nftNumber);
+        const rewardTokens : BigNumber = result.reward;
+        const decimals : number = model.tokenDecimals("rbn", definition.chain);
+        const rbnPrice : number = model.priceOfSync("rbn");
+        const harvestable = BigNumber.from((rbnPrice*1e4).toFixed()).mul(rewardTokens)
+          .div(oneEParam(decimals)).toNumber() / 1e4;
+
+
+        // Earnable
+        const wethContract = new Contract(model.address("weth", definition.chain), erc20Abi, resolver);
+        const rbnContract = new Contract(model.address("rbn", definition.chain), erc20Abi, resolver);
+        const [wethBal, rbnBal] = await Promise.all([
+          wethContract.balanceOf(definition.contract),
+          rbnContract.balanceOf(definition.contract),
+        ]);
+        const earnableWeth = wethBal.mul((model.priceOfSync("weth") * 100).toFixed()).div(100);
+        const earnableRbn = rbnBal.mul((model.priceOfSync("rbn") * 1000).toFixed()).div(1000);
+        
+        return {
+          balanceUSD: definition.details.tokenBalance * definition.depositToken.price,
+          earnableUSD: earnableWeth.add(earnableRbn).toNumber(),
+          harvestableUSD: harvestable,
+        }
     }
     async getProjectedAprStats(
       jar: JarDefinition,
@@ -48,4 +73,4 @@ export class Uni3RbnEth extends AbstractJarBehavior {
             this.createAprComponent(ret.id, ret.apr, true)
         ]);
     }
-}  
+}

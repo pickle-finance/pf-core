@@ -22,23 +22,40 @@ export interface AprNamePair {
   id: string,
   apr: number,
 }
+export interface IncentiveKey {
+  rewardToken: string,
+  pool: string,
+  startTime: number,
+  endTime: number,
+  refundee: string
+}
+export interface UniV3InfoValue {
+  incentiveKey: IncentiveKey,
+  emissions: number,
+  rewardName: string,
+  nftNumber: number,
+}
 
   // UniV3 Incentives
   const uniV3Info: any = {
     // RBN-ETH
     "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a": {
-      incentiveKey: [
-        "0x6123B0049F904d730dB3C36a31167D9d4121fA6B",
-        "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a",
-        1633694400,
-        1638878400,
-        "0xDAEada3d210D2f45874724BeEa03C7d4BBD41674",
-      ],
+      incentiveKey: {
+        rewardToken: "0x6123B0049F904d730dB3C36a31167D9d4121fA6B",
+        pool: "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a",
+        startTime: 1633694400,
+        endTime: 1638878400,
+        refundee: "0xDAEada3d210D2f45874724BeEa03C7d4BBD41674",
+      },
       emissions: 10000000,
       rewardName: "rbn",
+      nftNumber: 144390
     },
   };
 
+  export function getUniV3Info(key: string) : UniV3InfoValue {
+    return uniV3Info[key] as UniV3InfoValue;
+  }
 
 // Fetches TVL of a XXX/ETH pool and returns prices
 export const getPoolData = async (pool: string, token: string, provider: Provider|Signer) : Promise<UniV3PoolData> => {
@@ -92,12 +109,12 @@ export const getWETHPrice = async (provider) => {
 export const calculateUniV3Apy = async (poolTokenAddress: string, chain: ChainNetwork) : Promise<AprNamePair> => {
   const provider : Provider|Signer = Chains.get(chain).getProviderOrSigner();
   
-  const { incentiveKey, emissions, rewardName } = uniV3Info[
+  const { incentiveKey, emissions, rewardName } = getUniV3Info(
     poolTokenAddress
-  ];
-  const data = await getPoolData(incentiveKey[1], incentiveKey[0], provider);
+  );
+  const data = await getPoolData(incentiveKey.pool, incentiveKey.rewardToken, provider);
   const emissionsPerSecond =
-    emissions / (incentiveKey[3] - incentiveKey[2]);
+    emissions / (incentiveKey.endTime - incentiveKey.startTime);
   const apr =
     (emissionsPerSecond * data.token * ONE_YEAR_IN_SECONDS) / data.tvl;
   return { id: rewardName, apr: apr * 100 }
