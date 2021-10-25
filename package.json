@@ -12,6 +12,7 @@
   "scripts": {
     "start": "node lib/main.js",
     "user": "node lib/usermain.js",
+    "readme": "node lib/readme.js",
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf out || rmdir out /s /q",
     "compile": "tsc -p ./",

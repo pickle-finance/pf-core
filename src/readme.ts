@@ -385,14 +385,15 @@ const main = async () => {
 
   stringArr.push(pickleEthInfo(assets));
   stringArr.push(pickleJarsEth(assets, await getAllocPoints()));
-  stringArr.push(pickleJars(assets, ChainNetwork.Polygon));
-  stringArr.push(pickleJars(assets, ChainNetwork.Arbitrum));
-  // stringArr.push(pickleJars(assets, ChainNetwork.OKEx));  // TODO uncomment once Okex is added to pf-core
+  const nonMainnetNetworks = Chains.list().filter((x)=>x!==ChainNetwork.Ethereum);
+  for( let i = 0; i < nonMainnetNetworks.length; i++ ) {
+    stringArr.push(pickleJars(assets, nonMainnetNetworks[i]));
+  }
 
   const readme: string = stringArr.join("\n");
 
-  fs.writeFile("README.md", readme, (err) =>
-    err ? console.log(err) : console.log("README.md generated!"),
+  fs.writeFile("../contracts/README.md", readme, (err) =>
+    err ? console.log(err) : console.log("../contracts/README.md generated! Remember to go commit it and push it!"),
   );
 };
 
