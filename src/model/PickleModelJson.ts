@@ -5,6 +5,7 @@ import {
 } from "../behavior/JarBehaviorResolver";
 
 // TODO move these out i guess?
+// // ADD_PROTOCOL
 export enum AssetProtocol {
   UNISWAP = "uniswap",
   UNISWAP_V3 = "uniswap_v3",
@@ -25,9 +26,11 @@ export enum AssetProtocol {
   CHERRYSWAP = "cherryswap_okex",
   BXH = "bxh_okex",
 }
+// ADD_PROTOCOL
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.SUSHISWAP,
   AssetProtocol.SUSHISWAP_POLYGON,
+  AssetProtocol.SUSHISWAP_ARBITRUM,
   AssetProtocol.UNISWAP,
   AssetProtocol.COMETHSWAP,
   AssetProtocol.QUICKSWAP_POLYGON,

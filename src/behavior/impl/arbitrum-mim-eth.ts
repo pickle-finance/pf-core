@@ -8,6 +8,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import {
   calculateMCv2ApyArbitrum,
   calculateSushiApyArbitrum,
+  SushiArbPairManager,
 } from "../../protocols/SushiSwapUtil";
 
 export class ArbitrumMimEth extends AbstractJarBehavior {
@@ -64,12 +65,16 @@ export class ArbitrumMimEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const [sushiMimEthApy, spellMimEthApy] = await Promise.all([
+    const [sushiMimEthApy, spellMimEthApy, lpApr] = await Promise.all([
       calculateSushiApyArbitrum(jar, model),
       calculateMCv2ApyArbitrum(jar, model, "spell"),
+      new SushiArbPairManager().calculateLpApr(
+        model, jar.depositToken.addr)
+
     ]);
 
     return this.aprComponentsToProjectedApr([
+      this.createAprComponent("lp", lpApr, false),
       this.createAprComponent("sushi", sushiMimEthApy * 100, true),
       this.createAprComponent("spell", spellMimEthApy * 100, true),
     ]);

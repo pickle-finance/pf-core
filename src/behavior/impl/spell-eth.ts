@@ -11,34 +11,22 @@ import { PickleModel } from "../../model/PickleModel";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateAbradabraApy } from "../../protocols/AbraCadabraUtil";
 import { Chains } from "../../chain/Chains";
-import { SushiEthPairManager } from "../../protocols/SushiSwapUtil";
+import { SushiArbPairManager, SushiEthPairManager } from "../../protocols/SushiSwapUtil";
 
 export class SpellEth extends AbstractJarBehavior {
   async getProjectedAprStats(
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const abraApr: number = await calculateAbradabraApy(
-      definition,
-      model,
-      Chains.get(definition.chain).getProviderOrSigner(),
-    );
-    const abraComp: AssetAprComponent = this.createAprComponent(
-      "spell",
-      abraApr,
-      true,
-    );
+    const chainSigner = Chains.get(definition.chain).getProviderOrSigner();
+    const [abraApr, lpApr] = await Promise.all([
+      calculateAbradabraApy(definition,model,chainSigner),
+      new SushiArbPairManager().calculateLpApr(
+          model, definition.depositToken.addr)
+    ]);
 
-    const lpApr: number = await new SushiEthPairManager().calculateLpApr(
-      model,
-      definition.depositToken.addr,
-    );
-    const lpComp: AssetAprComponent = this.createAprComponent(
-      "lp",
-      lpApr,
-      false,
-    );
-
+    const abraComp: AssetAprComponent = this.createAprComponent("spell", abraApr, true);
+    const lpComp: AssetAprComponent = this.createAprComponent("lp",lpApr,false);
     return this.aprComponentsToProjectedApr([abraComp, lpComp]);
   }
 

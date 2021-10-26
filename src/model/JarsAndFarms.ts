@@ -1598,7 +1598,7 @@ export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.SUSHISWAP,
+  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
   details: {
     apiKey: "ArbitrumSlpMimEth",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1623,7 +1623,7 @@ export const JAR_ARBITRUM_SLP_SPELL_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.SUSHISWAP,
+  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
   details: {
     apiKey: "ArbitrumSlpSpellEth",
     harvestStyle: HarvestStyle.PASSIVE,
