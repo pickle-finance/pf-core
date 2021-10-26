@@ -1165,6 +1165,8 @@ export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar U3a",
   contract: "0xD38A7E64677d92D3966285fa3aD1dc68A02b7c33",
+  // The deposit token is actually rbn and weth, but the underlying token 
+  // in the strategy is the univ3 pool token. Kinda fuzzy here
   depositToken: {
     addr: "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a",
     name: "Uni V3 RBN/ETH",

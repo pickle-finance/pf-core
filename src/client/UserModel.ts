@@ -1,4 +1,5 @@
-import { Provider } from '@ethersproject/providers';
+import { Provider } from "@ethersproject/abstract-provider";
+import { Signer } from "@ethersproject/abstract-signer";
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import { BigNumber } from "@ethersproject/bignumber";
 import { ChainNetwork, Chains, PickleModelJson } from "..";
@@ -31,10 +32,10 @@ export interface IUserVote {
 export class UserModel {
     model: PickleModelJson.PickleModelJson;
     walletId: string;
-    constructor(model: PickleModelJson.PickleModelJson, walletId: string) {
+    constructor(model: PickleModelJson.PickleModelJson, walletId: string, rpcs: Map<ChainNetwork, Provider | Signer>) {
         this.model = model;
         this.walletId = walletId;
-        Chains.globalInitialize(new Map());
+        Chains.globalInitialize(rpcs);
     }
 
     async generateUserModel(): Promise<UserData> {
@@ -59,9 +60,17 @@ export class UserModel {
         return ret;
     }
 
+    isErc20Underlying(asset: JarDefinition) {
+        return asset.depositToken.style === undefined || 
+            asset.depositToken.style.erc20 === true;
+    }
+
     async getUserTokensSingleChain(chain: ChainNetwork) : Promise<UserTokenData[]> {
         const ret = [];
-        const chainAssets = JAR_DEFINITIONS.filter((x)=>x.chain===chain && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+        const chainAssets = JAR_DEFINITIONS.filter((x)=>x.chain===chain 
+            && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED
+            && this.isErc20Underlying(x));
+        
         const provider : MulticallProvider = this.multicallProviderFor(chain);
         const depositTokenBalancesPromise : Promise<BigNumber[]> = provider.all(
             chainAssets.map((x)=>{

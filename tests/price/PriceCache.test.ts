@@ -23,7 +23,7 @@ describe("PriceCache", () => {
       cgResolver,
     );
     expect(ret3.size).toBeGreaterThanOrEqual(3);
-  });
+  }, 7000);
 
   test("Second request, all are cached already", async () => {
     const pm: PriceCache = new PriceCache();
@@ -36,7 +36,7 @@ describe("PriceCache", () => {
     const keys2: string[] = ["weth"];
     const ret2: Map<string, number> = await pm.getPrices(keys2, cgResolver);
     expect(ret2.size).toBeGreaterThanOrEqual(2);
-  });
+  }, 7000);
 
   test("Return cached id data when asking for contracts", async () => {
     const pm: PriceCache = new PriceCache();
@@ -58,7 +58,7 @@ describe("PriceCache", () => {
     expect(ret1.get(contract2)).toBeDefined();
     expect(ret1.get(contract1)).toBe(4.52);
     expect(ret1.get(contract2)).toBe(100);
-  });
+  }, 7000);
 
   test("Return new data when asking for contracts if not all are in cache", async () => {
     const pm: PriceCache = new PriceCache();
@@ -79,5 +79,5 @@ describe("PriceCache", () => {
     expect(ret1.get(contract1)).toBeGreaterThan(0.9);
     expect(ret1.get(contract1)).toBeLessThan(1.1);
     expect(ret1.get(contract2)).toBeGreaterThan(200);
-  });
+  }, 7000);
 });

@@ -56,6 +56,8 @@ export async function readQueryFromGraph(
   query: string,
   url: string,
 ): Promise<any> {
+  if( url === undefined )
+    return undefined;
   const tst = await fetch(url, {
     method: "POST",
     body: JSON.stringify({ query }),
