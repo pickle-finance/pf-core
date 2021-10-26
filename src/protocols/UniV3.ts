@@ -1,13 +1,14 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";import { ethers, Contract } from "ethers";
-import v3PoolABI from '../Contracts/ABIs/univ3Pool.json';
-
-import univ3prices from '@thanpolas/univ3prices';
-import erc20Abi from '../Contracts/ABIs/erc20.json';
+import { ethers, Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
 import { ChainNetwork, Chains, PickleModel } from "..";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { JarDefinition } from "../model/PickleModelJson";
+import v3PoolABI from '../Contracts/ABIs/univ3Pool.json';
+import univ3prices from '@thanpolas/univ3prices';
+import erc20Abi from '../Contracts/ABIs/erc20.json';
+import fetch from "node-fetch";
 
+export const UniV3GraphCacheKey = "uniswap.mainnet.v3.graph.pair.data.cache.key";
 
 export interface UniV3PoolData {
   token: number,
@@ -35,7 +36,11 @@ export interface UniV3InfoValue {
   rewardName: string,
   nftNumber: number,
 }
-
+export interface UniV3GraphPairData {
+  id: number,
+  depositedToken0: number,
+  depositedToken1: number,
+}
   // UniV3 Incentives
   const uniV3Info: any = {
     // RBN-ETH
@@ -118,4 +123,54 @@ export const calculateUniV3Apy = async (poolTokenAddress: string, chain: ChainNe
   const apr =
     (emissionsPerSecond * data.token * ONE_YEAR_IN_SECONDS) / data.tvl;
   return { id: rewardName, apr: apr * 100 }
+};
+
+export async function getUniV3TokenPairData(model: PickleModel, jar: JarDefinition) : Promise<UniV3GraphPairData> {
+  let allGraphData = undefined;
+  if (model.getResourceCache().get(UniV3GraphCacheKey))
+    allGraphData = model.getResourceCache().get(UniV3GraphCacheKey);
+  else {
+    const result = await queryUniV3TokensFromGraph();
+    model.getResourceCache().set(UniV3GraphCacheKey, result);
+    allGraphData = result;
+  }
+  // TODO complete
+  const depositToken = jar.depositToken.addr;
+  if( uniV3Info[depositToken] ) {
+    const nftNumber = (uniV3Info[depositToken] as UniV3InfoValue).nftNumber;
+    const info = allGraphData.find((x)=>x.id === (""+nftNumber));
+    if( info ) {
+      return {
+        id: info.id,
+        depositedToken0: info.depositedToken0,
+        depositedToken1: info.depositedToken1,
+      }
+    }
+  }
+  return undefined;
+}
+
+export async function queryUniV3TokensFromGraph() {
+  const listOfInfos = Object.values(uniV3Info);
+  const toFind = listOfInfos.map((x) => ((x as UniV3InfoValue).nftNumber));
+  const toFindAsString = toFind.flat().join('\\", \\"');
+  const res = await fetch(
+    "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3",
+    {
+      credentials: "omit",
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0",
+        Accept: "*/*",
+        "Accept-Language": "en-US,en;q=0.5",
+        "Content-Type": "application/json",
+      },
+      referrer:
+        "https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3",
+      body: `{"query":"{\\n  positions(first: ${toFind.length.toString()}, orderDirection: desc, where: {id_in: [\\"${toFindAsString}\\"]}) {\\n    id\\n    depositedToken0\\n    depositedToken1\\n pool{id}\\n}\\n}\\n","variables":null}`,
+      method: "POST",
+      mode: "cors",
+    },
+  ).then((x) => x.json());
+  return res && res.data && res.data.positions ? res.data.positions : undefined;
 };

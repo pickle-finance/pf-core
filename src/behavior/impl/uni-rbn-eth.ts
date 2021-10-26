@@ -1,10 +1,9 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber, Contract, ethers } from "ethers";
-import { defaultAbiCoder, getAddress, Interface } from "ethers/lib/utils";
+import { BigNumber, Contract } from "ethers";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { AprNamePair, calculateUniV3Apy, getUniV3Info, IncentiveKey, UniV3InfoValue } from "../../protocols/UniV3";
+import { AprNamePair, calculateUniV3Apy, getUniV3Info, getUniV3TokenPairData, UniV3InfoValue } from "../../protocols/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import univ3StakerAbi from "../../Contracts/ABIs/univ3Staking.json";
 import { oneEParam } from "../../util/BnUtil";
@@ -15,14 +14,20 @@ export class Uni3RbnEth extends AbstractJarBehavior {
         definition: JarDefinition,
         model: PickleModel,
       ): Promise<number> {
-          const components : string[] = definition.depositToken.components;
-          let usd = 0;
-          for( let i = 0; i < components.length; i++ ) {
-            usd += (definition.depositToken.componentTokens[i] * model.priceOfSync(components[i]));
-          }
-          let perUnit = usd / definition.depositToken.totalSupply;
-          return perUnit;
-    }
+        const test = await getUniV3TokenPairData(model, definition);
+
+        // Let's override some lower-level data for univ3
+        // Since the NFT is really unique, let's make our underlying
+        // match us exactly. 
+        definition.depositToken.componentTokens[0] = test.depositedToken0;
+        definition.depositToken.componentTokens[1] = test.depositedToken1;
+        definition.depositToken.totalSupply = definition.details.tokenBalance;
+
+        const pJarUSD = (model.priceOfSync("rbn") * test.depositedToken0) + 
+          (model.priceOfSync("weth") * test.depositedToken1);
+        const perDepositToken = pJarUSD / definition.details.tokenBalance;
+        return perDepositToken;
+   }
 
     async getHarvestableUSD(_jar: JarDefinition, _model: PickleModel,
          _resolver: Signer | Provider): Promise<number> {

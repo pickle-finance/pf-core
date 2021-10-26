@@ -11,7 +11,7 @@ import { PickleModel } from "../../model/PickleModel";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateAbradabraApy } from "../../protocols/AbraCadabraUtil";
 import { Chains } from "../../chain/Chains";
-import { SushiArbPairManager, SushiEthPairManager } from "../../protocols/SushiSwapUtil";
+import { SushiArbPairManager } from "../../protocols/SushiSwapUtil";
 
 export class SpellEth extends AbstractJarBehavior {
   async getProjectedAprStats(
