@@ -41,22 +41,12 @@ const sushiPoolIdsArbitrum: PoolId = {
 };
 
 const SUSHI_ARB_PAIR_DATA_CACHE_KEY = "sushiswap.arb.pair.data.cache.key";
-const SUSHI_ARB_PAIR_GRAPH_FIELDS: string[] = [
-  "pair{id}",
-  "reserveUSD",
-  "volumeUSD",
-  "reserve0",
-  "reserve1",
-  "token0{id}",
-  "token1{id}",
-  "totalSupply",
-];
 export class SushiArbPairManager extends GenericSwapUtility {
   constructor() {
     super(
       SUSHI_ARB_PAIR_DATA_CACHE_KEY,
       "pair",
-      SUSHI_ARB_PAIR_GRAPH_FIELDS,
+      SUSHI_POLY_PAIR_GRAPH_FIELDS, //Same fields as Polygon
       AssetProtocol.SUSHISWAP_ARBITRUM,
       0.0025,
     );

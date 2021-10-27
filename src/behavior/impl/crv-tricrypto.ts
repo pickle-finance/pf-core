@@ -2,7 +2,7 @@ import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { ChainNetwork, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr, AssetAprComponent } from "../../model/PickleModelJson";
-import { CurveJar, getCurveRawStats, RawStatArbAPYs } from "./curve-jar";
+import { CurveJar, getCurveRawStats } from "./curve-jar";
 import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
 import { formatEther } from "ethers/lib/utils";
 import curvePoolAbi from "../../Contracts/ABIs/curve-pool.json";
