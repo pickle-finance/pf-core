@@ -163,7 +163,7 @@ export async function getProjectedConvexAprStats(
     const cvxApy = cvxValuePerYear / poolValue;
 
     const components: AssetAprComponent[] = [
-      createAprComponentImpl("LP", lpApy, false),
+      createAprComponentImpl("lp", lpApy, false),
       createAprComponentImpl("CRV", crvApy, true),
       createAprComponentImpl("CVX", cvxApy * 100, true),
     ];

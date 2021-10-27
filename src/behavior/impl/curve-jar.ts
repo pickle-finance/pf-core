@@ -54,10 +54,16 @@ export interface RawStatAPYs {
   aave: number;
 }
 
+export interface RawStatArbAPYs {
+  ["2pool"]: number;
+  tricrypto: number;
+  ren: number;
+}
+
 export async function getCurveRawStats(
   model: PickleModel,
   network: ChainNetwork,
-): Promise<RawStatAPYs> {
+): Promise<RawStatAPYs | RawStatArbAPYs> {
   const metadata = curveMetadataForChains.get(network);
   if (!metadata) return undefined;
 
