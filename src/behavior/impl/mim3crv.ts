@@ -45,12 +45,11 @@ export class Mim3Crv extends AbstractJarBehavior {
       model.priceOfSync('spell'),
       strategy.getHarvestable(),
     ]);
-    const harvestable = crvWallet
-      .add(pending[0])
-      .mul(crvPrice.toFixed())
-      .add(
-        cvxWallet.add(pending[1]).mul(cvxPrice.toFixed()).add(spellWallet.add(pending[2]).mul(spellPrice.toFixed())),
-      );
+    const harvestable = 
+      crvWallet.add(pending[0]).mul((crvPrice*1e4).toFixed()).div(1e4)
+      .add(cvxWallet.add(pending[1]).mul((cvxPrice*1e4).toFixed()).div(1e4)
+      .add(spellWallet.add(pending[2]).mul((spellPrice*1e4).toFixed()).div(1e4)),
+    );
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 }
