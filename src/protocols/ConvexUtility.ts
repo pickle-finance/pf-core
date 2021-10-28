@@ -1,5 +1,5 @@
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Signer } from "ethers";
+import { Signer, Contract as ethersContract } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { formatEther } from "ethers/lib/utils";
 import { PickleModel } from "..";
@@ -12,6 +12,7 @@ import {
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
 import fetch from "cross-fetch";
 import CrvRewardsABI from "../Contracts/ABIs/crv-rewards.json";
+import ExtraRewardsABI from "../Contracts/ABIs/extra-rewards.json";
 import { PoolInfo } from "./ProtocolUtil";
 import { createAprComponentImpl } from "../behavior/AbstractJarBehavior";
 
@@ -118,17 +119,9 @@ export async function getProjectedConvexAprStats(
 
   const cvxPool = convexPools[definition.depositToken.addr];
   if (curveAPY && multicallProvider) {
-    const lpApy = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
-    const crvApy = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
-    const addtlRewards = curveAPY[cvxPool.tokenName]
-      ? curveAPY[cvxPool.tokenName].additionalRewards
-      : undefined;
-    const addtlRewardApy =
-      addtlRewards && addtlRewards.length > 0 && addtlRewards[0] !== undefined
-        ? addtlRewards[0]
-        : 0;
-    const rewardApy = parseFloat(addtlRewardApy);
-
+    const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
+    const crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
+    
     const rewarder =
       cvxPool.rewarder ||
       (
@@ -139,10 +132,10 @@ export async function getProjectedConvexAprStats(
 
     const crvRewardsMC = new MulticallContract(rewarder, CrvRewardsABI);
 
-    const [crvReward, depositLocked, duration] = await multicallProvider.all([
-      crvRewardsMC.currentRewards(),
+    const [depositLocked, duration, extraRewardsAddress] = await multicallProvider.all([
       crvRewardsMC.totalSupply(),
       crvRewardsMC.duration(),
+      crvRewardsMC.extraRewards(0),
     ]);
 
     const poolValue =
@@ -150,7 +143,7 @@ export async function getProjectedConvexAprStats(
       model.priceOfSync(cvxPool.tokenPriceLookup);
 
     const crvRewardPerDuration =
-      (crvApy * poolValue) / (duration.toNumber() * model.priceOfSync("crv"));
+      (crvApr * poolValue) / (duration.toNumber() * model.priceOfSync("crv"));
     const cvxReward = await getCvxMint(
       crvRewardPerDuration * 100,
       model,
@@ -159,20 +152,28 @@ export async function getProjectedConvexAprStats(
     const cvxValuePerYear =
       (cvxReward * model.priceOfSync("cvx") * ONE_YEAR_SECONDS) /
       duration.toNumber();
+    const cvxApr = cvxValuePerYear / poolValue;
 
-    const cvxApy = cvxValuePerYear / poolValue;
+
+    // component 2
+    const extraRewardsContract = new ethersContract(extraRewardsAddress, ExtraRewardsABI, resolver);
+    const extraRewardAmount = +formatEther(await extraRewardsContract.currentRewards());
+    const extraRewardValuePerYear =
+        (extraRewardAmount * model.priceOfSync(cvxPool.rewardPriceLookup) * ONE_YEAR_SECONDS) /
+        duration.toNumber();
+    let extraRewardApr = extraRewardValuePerYear / poolValue;
+
+    
+    const isExtraCvx = cvxPool.rewardName === "cvx";  // extraReward token is CVX
+      if (isExtraCvx) extraRewardApr += cvxApr;
 
     const components: AssetAprComponent[] = [
-      createAprComponentImpl("lp", lpApy, false),
-      createAprComponentImpl("CRV", crvApy, true),
-      createAprComponentImpl("CVX", cvxApy * 100, true),
+      createAprComponentImpl("lp", lpApr, false),
+      createAprComponentImpl("crv", crvApr, true),
+      ...(isExtraCvx? []: [createAprComponentImpl("cvx", cvxApr * 100, true)]),
+      createAprComponentImpl(cvxPool.rewardName, extraRewardApr * 100, true),
     ];
-    const rewardToLower = cvxPool.rewardName.toLowerCase();
-    if (rewardToLower !== "cvx" && rewardToLower !== "crv") {
-      components.push(
-        createAprComponentImpl(cvxPool.rewardName, rewardApy, true),
-      );
-    }
+    
     return components;
   }
   return undefined;

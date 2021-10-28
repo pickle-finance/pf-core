@@ -2,7 +2,6 @@ import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { feiAbi } from "../../Contracts/ABIs/fei-reward.abi";
 import feiChefAbi from "../../Contracts/ABIs/feichef.json";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { PickleModel } from "../../model/PickleModel";
