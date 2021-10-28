@@ -45,6 +45,7 @@ export const ADDRESSES = new Map([
       }],
 ]);
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
+export const FICTIONAL_ADDRESS = "0x000FEED0BEEF000FEED0BEEF0000000000000000";
 
 export class PickleModel {
     private allAssets : PickleAsset[];
@@ -497,12 +498,22 @@ export class PickleModel {
 
         const balanceOfProm : Promise<BigNumber[]> =  multicallProvider.all<BigNumber[]>(
             harvestableJars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf()));
+
+        // Just do the want.balanceOf(strategy) but protect against non-erc20 deposit tokens
+        const strategyWantProm : Promise<BigNumber[]> =  multicallProvider.all<BigNumber[]>(
+            harvestableJars.map((oneJar) => {
+                const safe = getErc20SafeDepositTokenMulticall(oneJar);
+                if( safe )
+                    return safe;
+                return new MulticallContract(oneJar.depositToken.addr, erc20Abi).balanceOf(oneJar.details.strategyAddr);
+            }));
+
         // Load available as a group
         const availableProm : Promise<BigNumber[]> =  multicallProvider2.all<BigNumber[]>(
             harvestableJars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
 
-        const [balanceOf, available] = await Promise.all([
-            balanceOfProm, availableProm
+        const [balanceOf, available, strategyWant] = await Promise.all([
+            balanceOfProm, availableProm, strategyWantProm
         ]);
     
         const resolver = Chains.getResolver(chain);
@@ -511,7 +522,7 @@ export class PickleModel {
             try {
                 const harvestResolver : JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
                 harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
-                    balanceOf[i], available[i], resolver));
+                    balanceOf[i], available[i].add(strategyWant[i]), resolver));
             } catch( e ) {
                 console.log("Error loading harvest data for jar " + harvestableJars[i].id + ":  " + e);
             }
@@ -669,6 +680,22 @@ export class PickleModel {
     }
 }
 
+/**
+ * A safe call to get a zero return for non-erc20 calls when doing bulk multicalls
+ * @param jar 
+ * @returns 
+ */
+const getErc20SafeDepositTokenMulticall = (jar: JarDefinition) : Promise<any> => {
+    if( jar.depositToken === undefined || 
+        (jar.depositToken.style !== undefined 
+        && jar.depositToken.style.erc20 !== undefined 
+        && jar.depositToken.style.erc20 === false)) {
+        // We need a safe multicall 
+        const randomErc20Token : string = ExternalTokenModelSingleton.getTokens(jar.chain)[0].contractAddr;
+        return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(FICTIONAL_ADDRESS);
+    } 
+    return undefined;
+}
 
 const toThreeDec = function (param:number) {
     return Math.floor(param*1000)/1000;

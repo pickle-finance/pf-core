@@ -15,19 +15,18 @@ import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 
 export const FEI_MASTERCHEF = "0x9e1076cC0d19F9B0b8019F384B0a29E48Ee46f7f";
 export class FeiTribe extends AbstractJarBehavior {
-  private rewardAddress = "0x18305DaAe09Ea2F4D51fAa33318be5978D251aBd";
 
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const rewards = new ethers.Contract(this.rewardAddress, feiAbi, resolver);
+    const rewards = new ethers.Contract(FEI_MASTERCHEF, feiChefAbi, resolver);
     const [tribe, tribePrice] = await Promise.all([
-      rewards.earned(jar.details.strategyAddr),
+      rewards.pendingRewards(0, jar.details.strategyAddr),
       await model.priceOf("tribe-2"),
     ]);
-    const harvestable = tribe.mul(tribePrice.toFixed());
+    const harvestable = tribe.mul((1000*tribePrice).toFixed()).div(1000);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
