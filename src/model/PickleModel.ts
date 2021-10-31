@@ -200,7 +200,7 @@ export class PickleModel {
     initializeChains(chains: Map<ChainNetwork, Provider | Signer>) {
         const allChains : ChainNetwork[] = Chains.list();
         Chains.globalInitialize(chains);
-        this.configuredChains = allChains;
+        this.configuredChains = [ChainNetwork.Ethereum, ChainNetwork.Polygon, ChainNetwork.Arbitrum];
     }
 
     async ensurePriceCacheLoaded() : Promise<any> {
