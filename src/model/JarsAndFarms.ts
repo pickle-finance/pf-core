@@ -899,7 +899,7 @@ export const JAR_USDC: JarDefinition = {
   details: {
     decimals: 6,
     apiKey: "USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.NONE,
   },
   farm: {
     farmAddress: "0x9e1126c51c319A1d31d928DC498c9988C094e793",
@@ -924,7 +924,7 @@ export const JAR_lusdCRV: JarDefinition = {
   protocol: AssetProtocol.YEARN,
   details: {
     apiKey: "lusdCRV",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.NONE,
   },
   farm: {
     farmAddress: "0x2040c856d53d5CbB111c81D5A85ccc10829c5783",
@@ -949,7 +949,7 @@ export const JAR_fraxCRV: JarDefinition = {
   protocol: AssetProtocol.YEARN,
   details: {
     apiKey: "FRAXCRV",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.NONE,
   },
   farm: {
     farmAddress: "0xCAbdCB680fC0E477bbB0aC77b2a278cA54D0E6Ff",
@@ -974,7 +974,7 @@ export const JAR_CRV_IB: JarDefinition = {
   protocol: AssetProtocol.YEARN,
   details: {
     apiKey: "IBCRV",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.NONE,
   },
   farm: {
     farmAddress: "0x87B54048B60689EE81F48F8797e7FCF64fBf081b",

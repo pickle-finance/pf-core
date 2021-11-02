@@ -50,6 +50,7 @@ export enum HarvestStyle {
   ACTIVE = "active",
   PASSIVE = "passive",
   EARN_BEFORE_HARVEST = "earnBeforeHarvest",
+  NONE = 'none'
 }
 
 export enum AssetType {
