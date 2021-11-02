@@ -56,7 +56,7 @@ const pickleEthInfo = (assets: AssetDefinition): string => {
   const body =
     `\n` +
     `## Pickle.finance Contracts (Ethereum)\n\n` +
-    `PickleToken: [${addresses.pickle}](${url + addresses.pickle}))\n\n` +
+    `PickleToken: [${addresses.pickle}](${url + addresses.pickle})\n\n` +
     `Timelock (48 hours): [0xc2d82a3e2bae0a50f4aeb438285804354b467bc0](${url}0xc2d82a3e2bae0a50f4aeb438285804354b467bc0)\n\n` +
     `Timelock (24 hours): [0x0040E05CE9A5fc9C0aBF89889f7b60c2fC278416](${url}0x0040E05CE9A5fc9C0aBF89889f7b60c2fC278416)\n\n` +
     `Masterchef: [${addresses.masterChef}](${url + addresses.masterChef})\n\n` + // This is
@@ -89,7 +89,7 @@ const gaugesTable = (assets: AssetDefinition, chain: string): string => {
     assets.standaloneFarms
       .filter((farm) => farm.details.allocShare && farm.chain === chain) // chain check just in case a standalone farm gets added on other chains in the future
       .map((farm) => {
-        var row = `| ${farm.depositToken.name} | [${farm.contract}](${
+        const row = `| ${farm.depositToken.name} | [${farm.contract}](${
           url + farm.contract
         }) |\n`;
         return row;
@@ -98,7 +98,7 @@ const gaugesTable = (assets: AssetDefinition, chain: string): string => {
     assets.jars
       .filter((jar) => jar.chain === chain && jar.farm && jar.farm.farmAddress) // some permanently disabled farms missing farmAddress (BAC & MIC)
       .map((jar) => {
-        var row = `| ${jar.farm.farmDepositTokenName} | [${
+        const row = `| ${jar.farm.farmDepositTokenName} | [${
           jar.farm.farmAddress
         }](${url + jar.farm.farmAddress}) |\n`;
         return row;
@@ -114,7 +114,7 @@ const pickleJarsEth = (
   const url: string = Chains.get(ChainNetwork.Ethereum).explorer + "/address/";
   const body =
     `\n` +
-    contractsList(ChainNetwork.Ethereum) +
+    // contractsList(ChainNetwork.Ethereum) +
     jarsTableNoIndex(assets, ChainNetwork.Ethereum) +
     `\n` +
     `---\n\n` +
@@ -139,7 +139,10 @@ const contractsList = (chain: ChainNetwork) => {
     `## Pickle Jars Contracts (${chainName})\n\n` +
     Object.keys(addresses)
       .map((addressName) => {
-        var line = `${addressName}: [${addresses[addressName]}](${
+        const addressNameClean: string = addressName.split("_")
+          .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
+          .join(" ");
+        const line = `${addressNameClean}: [${addresses[addressName]}](${
           url + addresses[addressName]
         })\n\n`;
         return line;
@@ -158,7 +161,7 @@ const emissionsTable = (allocPoints: AllocPoints[]): string => {
     `| --- | --- | --- | --- |\n` +
     allocPoints
       .map((token, i) => {
-        var row = `| ${i ? chainsList : "Ethereum"} |  [${token.name}](${
+        const row = `| ${i ? chainsList : "Ethereum"} |  [${token.name}](${
           url + token.lpToken
         }) | ${token.allocPoints} | ${(
           (Number.parseInt(token.allocPoints) /
@@ -196,8 +199,7 @@ const getAllocPoints = async (): Promise<AllocPoints[]> => {
     const resps = await multiProvider.all(
       poolIds.map((id) => chefMulticall.poolInfo(id)),
     );
-    let ordered: AllocPoints[];
-    ordered = await Promise.all(
+    const ordered: AllocPoints[] = await Promise.all(
       resps
         .filter((resp) => resp.allocPoint != 0)
         .map(async (resp) => {
@@ -234,7 +236,7 @@ const jarsTable = (assets: AssetDefinition, chain: ChainNetwork) => {
   const body = assets.jars
     .filter((jar) => jar.chain === chain)
     .map((jar) => {
-      var row =
+      const row =
         `| ${jar.chefPID ? jar.chefPID : "-"} ` +
         `| ${jar.id} | [${jar.depositToken.name}](${
           // some old jars are registered in the masterchef contract by their wants
@@ -264,7 +266,7 @@ const jarsTableNoIndex = (assets: AssetDefinition, chain: ChainNetwork) => {
   const body = assets.jars
     .filter((jar) => jar.chain === chain)
     .map((jar) => {
-      var row =
+      const row =
         `| ${jar.id} | [${jar.depositToken.name}](${
           // some old jars are registered in the masterchef contract by their wants
           url + jar.depositToken.addr
