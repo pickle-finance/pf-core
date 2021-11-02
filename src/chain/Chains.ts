@@ -4,7 +4,7 @@ import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { setMulticallAddress } from "ethers-multicall";
 export const POLYGON_SECONDS_PER_BLOCK = 2;
-export const ARBITRUM_SECONDS_PER_BLOCK = 4;
+export const ARBITRUM_SECONDS_PER_BLOCK = 13;
 export const OKEX_SECONDS_PER_BLOCK = 3; // ??? is this right?
 export const ETH_SECONDS_PER_BLOCK = 13;
 export enum ChainNetwork {

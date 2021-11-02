@@ -1,12 +1,13 @@
 import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import { PickleModel } from "../..";
+import { Provider as MulticallProvider, Contract as MulticallContract } from "ethers-multicall";
+import { ChainNetwork, Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import mcdodoAbi from "../../Contracts/ABIs/mcdodo-rewards.json";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { formatEther } from "ethers/lib/utils";
-import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 
 export class ArbitrumHndEth extends AbstractJarBehavior {
@@ -70,29 +71,27 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const rewards = "0x06633cd8E46C3048621A517D6bb5f0A84b4919c6"; // HND-ETH
-    const DODO_PER_BLOCK = 0.2665;
-    const HND_PER_BLOCK = 1.599;
+    const multicallProvider = new MulticallProvider(Chains.getResolver(ChainNetwork.Arbitrum) as Provider, 42161);
+    const rewardsAddr = "0x06633cd8E46C3048621A517D6bb5f0A84b4919c6"; // HND-ETH
+    const mcDodoRewards = new MulticallContract(rewardsAddr, mcdodoAbi);
+    
+    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const [ hndInfo, dodoInfo, totalSupplyBN ] = await multicallProvider.all([
+      mcDodoRewards.rewardTokenInfos(0),
+      mcDodoRewards.rewardTokenInfos(1),
+      lpToken.balanceOf(rewardsAddr),
+    ]);
 
-    const lpToken = new ethers.Contract(
-      jar.depositToken.addr,
-      erc20Abi,
-      model.providerFor(jar.chain),
-    );
-    const totalSupplyBN = await lpToken.balanceOf(rewards);
+    const HND_PER_BLOCK = +formatEther(hndInfo.rewardPerBlock);
+    const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
     const totalSupply = +formatEther(totalSupplyBN);
-    const { pricePerToken } = await getLivePairDataFromContracts(
-      jar,
-      model,
-      18,
-    );
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr);
 
+    const blocksPerYear = ONE_YEAR_SECONDS / Chains.get(ChainNetwork.Arbitrum).secondsPerBlock;
     const hndValueRewardedPerYear =
-      ((await model.priceOf("hnd")) * HND_PER_BLOCK * ONE_YEAR_SECONDS) / 13.3;
-
+      (await model.priceOf("hnd")) * HND_PER_BLOCK * blocksPerYear;
     const dodoValueRewardedPerYear =
-      ((await model.priceOf("dodo")) * DODO_PER_BLOCK * ONE_YEAR_SECONDS) /
-      13.3;
+      (await model.priceOf("dodo")) * DODO_PER_BLOCK * blocksPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const hndAPY = hndValueRewardedPerYear / totalValueStaked;
