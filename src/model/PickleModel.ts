@@ -154,25 +154,21 @@ export class PickleModel {
         return this.toJson();
     }
     async loadJarAndFarmData() : Promise<void> {
-        await Promise.all([
-            this.ensurePriceCacheLoaded(),
-            this.loadStrategyData(),
-            this.loadRatiosData(),
-            this.loadJarTotalSupplyData(),
-            this.loadDepositTokenTotalSupplyData(),
-            this.loadJarBalanceData(),
-            this.ensureComponentTokensLoaded(),
-        ]);
-
+        // I've broken these out to do one at a time. It's slower, and 
+        // should not be pushed to production. Better for testing / debugging
+        await this.ensurePriceCacheLoaded();
+        await this.loadStrategyData();
+        await this.loadRatiosData();
+        await this.loadJarTotalSupplyData();
+        await this.loadDepositTokenTotalSupplyData();
+        await this.loadJarBalanceData();
+        await this.ensureComponentTokensLoaded(),
         await this.ensureDepositTokenPriceLoaded();
         await this.ensureFarmsBalanceLoaded();
-
-        await Promise.all([
-            this.loadGaugeAprData(),
-            this.ensureExternalAssetBalanceLoaded(),
-            this.ensureHarvestDataLoaded(),
-            this.loadApyComponents(),
-        ]);
+        await this.loadGaugeAprData();
+        await this.ensureExternalAssetBalanceLoaded();
+        await this.ensureHarvestDataLoaded();
+        await this.loadApyComponents();
     }
 
     toJson() : PickleModelJson {
@@ -200,7 +196,7 @@ export class PickleModel {
     initializeChains(chains: Map<ChainNetwork, Provider | Signer>) {
         const allChains : ChainNetwork[] = Chains.list();
         Chains.globalInitialize(chains);
-        this.configuredChains = [ChainNetwork.Ethereum, ChainNetwork.Polygon, ChainNetwork.Arbitrum];
+        this.configuredChains = [ChainNetwork.OKEx]; //allChains;
     }
 
     async ensurePriceCacheLoaded() : Promise<any> {
@@ -330,8 +326,8 @@ export class PickleModel {
                     return controllerContract.strategies(oneJar.depositToken.addr)
                 })
             );
-        } catch( error ) {
-            // TODO log
+        } catch(error) {
+            console.log("Error loading strategy addresses on chain: " + chain + "\n" + error);
         }
         for( let i = 0; strategyAddresses !== undefined && i < jars.length; i++ ) {
             if( jars[i].details === undefined ) {
@@ -354,8 +350,8 @@ export class PickleModel {
             strategyNames = await ethcallProvider2.all<string[]>(
                 withStrategyAddresses.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).getName())
             );
-        } catch( error ) {
-            // TODO
+        } catch(error) {
+            console.log("Error loading strategy names on chain: " + chain + "\n" + error);
         }
         for( let i = 0; strategyNames !== undefined && i < withStrategyAddresses.length; i++ ) {
             withStrategyAddresses[i].details.strategyName = strategyNames[i];
