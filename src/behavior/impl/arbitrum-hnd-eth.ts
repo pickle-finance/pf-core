@@ -71,7 +71,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const multicallProvider = new MulticallProvider(Chains.getResolver(ChainNetwork.Arbitrum) as Provider, 42161);
+    const multicallProvider = new MulticallProvider(model.providerFor(jar.chain));
     const rewardsAddr = "0x06633cd8E46C3048621A517D6bb5f0A84b4919c6"; // HND-ETH
     const mcDodoRewards = new MulticallContract(rewardsAddr, mcdodoAbi);
     
@@ -87,11 +87,11 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     const totalSupply = +formatEther(totalSupplyBN);
     const pricePerToken = model.priceOfSync(jar.depositToken.addr);
 
-    const blocksPerYear = ONE_YEAR_SECONDS / Chains.get(ChainNetwork.Arbitrum).secondsPerBlock;
+    const blocksPerYear = ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock;
     const hndValueRewardedPerYear =
-      (await model.priceOf("hnd")) * HND_PER_BLOCK * blocksPerYear;
+      (model.priceOfSync("hnd")) * HND_PER_BLOCK * blocksPerYear;
     const dodoValueRewardedPerYear =
-      (await model.priceOf("dodo")) * DODO_PER_BLOCK * blocksPerYear;
+      (model.priceOfSync("dodo")) * DODO_PER_BLOCK * blocksPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const hndAPY = hndValueRewardedPerYear / totalValueStaked;
