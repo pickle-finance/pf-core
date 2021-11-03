@@ -1,7 +1,7 @@
 import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { Provider as MulticallProvider, Contract as MulticallContract } from "ethers-multicall";
-import { ChainNetwork, Chains, PickleModel } from "../..";
+import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import mcdodoAbi from "../../Contracts/ABIs/mcdodo-rewards.json";
@@ -71,7 +71,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
+    const multicallProvider : MulticallProvider = model.multicallProviderFor(jar.chain);
     const rewardsAddr = "0x06633cd8E46C3048621A517D6bb5f0A84b4919c6"; // HND-ETH
     const mcDodoRewards = new MulticallContract(rewardsAddr, mcdodoAbi);
     

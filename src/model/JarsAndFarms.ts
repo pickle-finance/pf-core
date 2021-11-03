@@ -1831,7 +1831,7 @@ export const JAR_OKEX_BXH_USDT: JarDefinition = {
     link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["bxh", "okusdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.BXH,
   details: {
@@ -1856,7 +1856,7 @@ export const JAR_OKEX_ETHK_BTCK: JarDefinition = {
     link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["ethk", "btck"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.BXH,
   details: {
