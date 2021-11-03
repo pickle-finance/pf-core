@@ -156,19 +156,19 @@ export class PickleModel {
     async loadJarAndFarmData() : Promise<void> {
         // I've broken these out to do one at a time. It's slower, and 
         // should not be pushed to production. Better for testing / debugging
-        await this.ensurePriceCacheLoaded();
-        await this.loadStrategyData();
-        await this.loadRatiosData();
-        await this.loadJarTotalSupplyData();
-        await this.loadDepositTokenTotalSupplyData();
-        await this.loadJarBalanceData();
-        await this.ensureComponentTokensLoaded(),
-        await this.ensureDepositTokenPriceLoaded();
-        await this.ensureFarmsBalanceLoaded();
-        await this.loadGaugeAprData();
-        await this.ensureExternalAssetBalanceLoaded();
-        await this.ensureHarvestDataLoaded();
-        await this.loadApyComponents();
+        try { await this.ensurePriceCacheLoaded(); } catch (e) { console.log("Failed on ensurePriceCacheLoaded"); }
+        try { await this.loadStrategyData(); } catch (e) { console.log("Failed on loadStrategyData"); }
+        try { await this.loadRatiosData(); } catch (e) { console.log("Failed on loadRatiosData"); }
+        try { await this.loadJarTotalSupplyData(); } catch (e) { console.log("Failed on loadJarTotalSupplyData"); }
+        try { await this.loadDepositTokenTotalSupplyData(); } catch (e) { console.log("Failed on loadDepositTokenTotalSupplyDara"); }
+        try { await this.loadJarBalanceData(); } catch (e) { console.log("Failed on loadJarBalanceData"); }
+        try { await this.ensureComponentTokensLoaded(); } catch (e) { console.log("Failed on ensureComponentTokensLoaded"); }
+        try { await this.ensureDepositTokenPriceLoaded(); } catch (e) { console.log("Failed on ensureDepositTokenPriceLoaded"); }
+        try { await this.ensureFarmsBalanceLoaded(); } catch (e) { console.log("Failed on ensureFarmsBalanceLoaded"); }
+        try { await this.loadGaugeAprData(); } catch (e) { console.log("Failed on loadGuageAprData"); }
+        try { await this.ensureExternalAssetBalanceLoaded(); } catch (e) { console.log("Failed on ensureExternalAssetBalanceLoaded"); }
+        try { await this.ensureHarvestDataLoaded(); } catch (e) { console.log("Failed on ensureHarvestDataLoaded"); }
+        try { await this.loadApyComponents(); } catch (e) { console.log("Failed on loadApyComponents"); }
     }
 
     toJson() : PickleModelJson {
@@ -415,14 +415,14 @@ export class PickleModel {
             return;
 
         const ethcallProvider = this.multicallProviderFor(chain);
-        await ethcallProvider.init();
-
+        await ethcallProvider.init();  // error being raised by this
+        
         const supply : string[] = await ethcallProvider.all<string[]>(
             jars.map((oneJar) => 
                 oneJar.protocol === AssetProtocol.UNISWAP_V3 ? 
                 new MulticallContract(oneJar.depositToken.addr, univ3PoolAbi).liquidity() :
                 new MulticallContract(oneJar.depositToken.addr, erc20Abi).totalSupply())
-          );
+        );
         for( let i = 0; i < jars.length; i++ ) {
             jars[i].depositToken.totalSupply = 
             parseFloat(ethers.utils.formatUnits(supply[i], 
@@ -608,7 +608,7 @@ export class PickleModel {
         return Promise.all(this.configuredChains.map((x)=>this.ensureFarmsBalanceLoadedForProtocol(x)));
     }
 
-
+    
     async ensureExternalAssetBalanceLoaded() {
         // This needs to be separated out and unified, seriously. 
         const external : ExternalAssetDefinition[] = this.getExternalAssets();
@@ -617,7 +617,7 @@ export class PickleModel {
             if( behavior ) {
                 const bal = await behavior.getAssetHarvestData(external[i], this, null, null, null);
                 external[i].details.harvestStats = bal;
-
+                
                 const aprStats = await behavior.getProjectedAprStats(external[i], this);
                 external[i].aprStats = aprStats;
             }
