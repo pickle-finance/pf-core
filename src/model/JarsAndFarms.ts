@@ -1823,7 +1823,7 @@ JAR_DEFINITIONS.push(JAR_OKEX_ETHK_USDT);
 
 export const JAR_OKEX_BXH_USDT: JarDefinition = {
   type: AssetType.JAR,
-  id: "okexJar 2a",
+  id: "okexJar 2z",
   contract: "0x09c22bdc438b69bcc190efa8f8e3417277e1dd4f",
   depositToken: {
     addr: "0x04b2C23Ca7e29B71fd17655eb9Bd79953fA79faF",
@@ -1848,7 +1848,7 @@ JAR_DEFINITIONS.push(JAR_OKEX_BXH_USDT);
 
 export const JAR_OKEX_ETHK_BTCK: JarDefinition = {
   type: AssetType.JAR,
-  id: "okexJar 2b",
+  id: "okexJar 2y",
   contract: "0x2a956403816445553FdA5Cbfce2ac6c251454f6f",
   depositToken: {
     addr: "0x3799Fb39b7fA01E23338C1C3d652FB1AB6E7D5BC",
@@ -1879,7 +1879,7 @@ export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
     addr: "0x8009edebBBdeb4A3BB3003c79877fCd98ec7fB45",
     name: "JSWAP JF/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A",
-    components: ["jf", "okusdt"],
+    components: ["jswap", "okusdt"],
   },
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.OKEx,

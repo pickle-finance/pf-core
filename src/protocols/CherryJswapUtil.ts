@@ -71,12 +71,12 @@ export async function calculateJswapAPY(
 ) {
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
-  const poolId = jswapPoolIds[jar.depositToken.addr];
-  const multicallJswapchef = new MulticallContract(CHERRYCHEF, jswapchefAbi);
+  const poolId = jswapPoolIds[jar.depositToken.addr.toLowerCase()];
+  const multicallJswapchef = new MulticallContract(JSWAPCHEF, jswapchefAbi);
   const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
 
   const [jfPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await Promise.all([
+    await multicallProvider.all([
       multicallJswapchef.jfPerBlock(),
       multicallJswapchef.totalAllocPoint(),
       multicallJswapchef.poolInfo(poolId),
