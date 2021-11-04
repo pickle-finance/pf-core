@@ -323,12 +323,17 @@ export class PickleModel {
         await ethcallProvider.init();
         const controllerContract = new MulticallContract(controllerAddr, controllerAbi);
 
-        const strategyAddresses : string[] = await ethcallProvider.all<string[]>(
-            jars.map((oneJar) => {
-                return controllerContract.strategies(oneJar.depositToken.addr)
-            })
-        );
-        for( let i = 0; i < jars.length; i++ ) {
+        let strategyAddresses : string[] = undefined;
+        try {
+            strategyAddresses = await ethcallProvider.all<string[]>(
+                jars.map((oneJar) => {
+                    return controllerContract.strategies(oneJar.depositToken.addr)
+                })
+            );
+        } catch( error ) {
+            // TODO log
+        }
+        for( let i = 0; strategyAddresses !== undefined && i < jars.length; i++ ) {
             if( jars[i].details === undefined ) {
                 jars[i].details = {
                     apiKey: undefined,
@@ -344,10 +349,15 @@ export class PickleModel {
             && x.details.strategyAddr !== NULL_ADDRESS
             && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
 
-        const strategyNames : string[] = await ethcallProvider2.all<string[]>(
-            withStrategyAddresses.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).getName())
-        );
-        for( let i = 0; i < withStrategyAddresses.length; i++ ) {
+        let strategyNames : string[] = undefined;
+        try {
+            strategyNames = await ethcallProvider2.all<string[]>(
+                withStrategyAddresses.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).getName())
+            );
+        } catch( error ) {
+            // TODO
+        }
+        for( let i = 0; strategyNames !== undefined && i < withStrategyAddresses.length; i++ ) {
             withStrategyAddresses[i].details.strategyName = strategyNames[i];
         }
     }
@@ -359,11 +369,18 @@ export class PickleModel {
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();
 
-        const ratios : string[] = await ethcallProvider.all<string[]>(
-            jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
-          );
-        for( let i = 0; i < jars.length; i++ ) {
-            jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
+        let ratios : string[] = undefined;
+        try {
+            ratios = await ethcallProvider.all<string[]>(
+                jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
+            );
+        } catch( error ) {
+            // TODO print some shit
+        }
+        if( ratios !== undefined ) {
+            for( let i = 0; i < jars.length; i++ ) {
+                jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
+            }
         }
     }
 
