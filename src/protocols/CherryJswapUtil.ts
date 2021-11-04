@@ -6,7 +6,6 @@ import { JarDefinition } from "../model/PickleModelJson";
 import { PoolId } from "./ProtocolUtil";
 import cherryChefAbi from "../Contracts/ABIs/cherrychef.json";
 import jswapchefAbi from "../Contracts/ABIs/jswapchef.json";
-import { Contract } from "ethers";
 
 export const CHERRYCHEF = "0x8cddB4CD757048C4380ae6A69Db8cD5597442f7b";
 export const JSWAPCHEF = "0x83C35EA2C32293aFb24aeB62a14fFE920C2259ab";
