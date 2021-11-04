@@ -25,6 +25,7 @@ export enum AssetProtocol {
   TOKENPRICE = "tokenprice",
   CHERRYSWAP = "cherryswap_okex",
   BXH = "bxh_okex",
+  JSWAP = "jswap_okex",
 }
 // ADD_PROTOCOL
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
@@ -37,6 +38,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.DODOSWAP,
   AssetProtocol.CHERRYSWAP,
   AssetProtocol.BXH,
+  AssetProtocol.JSWAP,
 ];
 
 export enum AssetEnablement {

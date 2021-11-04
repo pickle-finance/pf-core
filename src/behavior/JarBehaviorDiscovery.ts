@@ -64,6 +64,9 @@ import {
   JAR_OKEX_OKT_USDT,
   JAR_OKEX_USDT_CHE,
   JAR_UNIV3_RBN_ETH,
+  JAR_OKEX_JSWAP_BTCK_USDT,
+  JAR_OKEX_JSWAP_ETHK_USDT,
+  JAR_OKEX_JSWAP_JF_USDT
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -123,6 +126,13 @@ import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
 import { CvxCrv } from './impl/cvxcrv';
 import { Uni3RbnEth } from "./impl/uni-rbn-eth";
+import { CherryCheOkt } from "./impl/cherry-che-okt";
+import { CherryCheUsdt } from "./impl/cherry-che-usdt";
+import { CherryEthkUsdt } from "./impl/cherry-ethk-usdt";
+import { CherryOktUsdt } from "./impl/cherry-okt-usdt";
+import { JswapBtckUsdt } from "./impl/jswap-btck-usdt";
+import { JswapEthkUsdt } from "./impl/jswap-ethk-usdt";
+import { JswapJfUsdt } from "./impl/jswap-jf-usdt";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -197,12 +207,13 @@ jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
 
 // OKEx
-jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new noOpJarBehavior());
-jarToBehavior.set(JAR_OKEX_USDT_CHE.id, new noOpJarBehavior());
-jarToBehavior.set(JAR_OKEX_OKT_USDT.id, new noOpJarBehavior());
-jarToBehavior.set(JAR_OKEX_ETHK_USDT.id, new noOpJarBehavior());
-jarToBehavior.set(JAR_OKEX_BXH_USDT.id, new noOpJarBehavior());
-jarToBehavior.set(JAR_OKEX_ETHK_BTCK.id, new noOpJarBehavior());
+jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());
+jarToBehavior.set(JAR_OKEX_USDT_CHE.id, new CherryCheUsdt());
+jarToBehavior.set(JAR_OKEX_OKT_USDT.id, new CherryOktUsdt());
+jarToBehavior.set(JAR_OKEX_ETHK_USDT.id, new CherryEthkUsdt());
+jarToBehavior.set(JAR_OKEX_JSWAP_JF_USDT.id, new JswapJfUsdt());
+jarToBehavior.set(JAR_OKEX_JSWAP_BTCK_USDT.id, new JswapBtckUsdt());
+jarToBehavior.set(JAR_OKEX_JSWAP_ETHK_USDT.id, new JswapEthkUsdt());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

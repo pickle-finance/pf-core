@@ -1871,6 +1871,80 @@ export const JAR_OKEX_ETHK_BTCK: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OKEX_ETHK_BTCK);
 
+export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2a",
+  contract: "0xd120c607911105bc99b510749d102dc63a20bbb4",
+  depositToken: {
+    addr: "0x8009edebBBdeb4A3BB3003c79877fCd98ec7fB45",
+    name: "JSWAP JF/USDT",
+    link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A",
+    components: ["jf", "okusdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.JSWAP,
+  details: {
+    apiKey: "JSWAP-JF-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pJSWAP JF/USDT",
+    farmDepositTokenName: "pJSWAP JF/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_JF_USDT);
+
+export const JAR_OKEX_JSWAP_BTCK_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2b",
+  contract: "0x5be52aDF0C54598F0fA6f433B398492748Ecd588",
+  depositToken: {
+    addr: "0x838a7a7f3e16117763c109d98c79ddcd69f6fd6e",
+    name: "JSWAP BTCK/USDT",
+    link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x54e4622DC504176b3BB432dCCAf504569699a7fF",
+    components: ["btck", "okusdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.JSWAP,
+  details: {
+    apiKey: "JSWAP-BTCK-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pJSWAP BTCK/USDT",
+    farmDepositTokenName: "pJSWAP BTCK/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_BTCK_USDT);
+
+export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2c",
+  contract: "0x668d30c30Ffb182964516f549528E06633B48295",
+  depositToken: {
+    addr: "0xeb02a695126b998e625394e43dfd26ca4a75ce2b",
+    name: "JSWAP ETHK/USDT",
+    link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C",
+    components: ["ethk", "okusdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.JSWAP,
+  details: {
+    apiKey: "JSWAP-ETHK-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pJSWAP ETHK/USDT",
+    farmDepositTokenName: "pJSWAP ETHK/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_ETHK_USDT);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
