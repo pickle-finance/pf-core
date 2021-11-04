@@ -53,7 +53,7 @@ describe("Coingecko and external token integration", () => {
     for (let i = 0; i < polyArr.length; i++) {
       expect(polyRet.get(polyArr[i])).toBeDefined();
     }
-  });
+  }, 8000);
 
   test("Simple gets", async () => {
     const daiEth = ExternalTokenModelSingleton.getToken(

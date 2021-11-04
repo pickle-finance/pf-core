@@ -17,7 +17,7 @@ describe("Testing coingecko", () => {
     expect(data).toBeDefined();
     expect(data.get("lqty")).toBeDefined();
     expect(data.get("lqty")).toBeGreaterThan(0);
-  });
+  }, 6000);
   test("Call get prices for single coin, gecko name", async () => {
     const lqtyStr: string[] = ["liquity"];
     const data: Map<string, number> = await getPrices(lqtyStr);

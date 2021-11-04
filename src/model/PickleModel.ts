@@ -16,6 +16,7 @@ import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import { JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 import { loadGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
+import { CoinMarketCapPriceResolver } from "../price/CoinMarketCapPriceResolver";
 
 export const ADDRESSES = new Map([
     [ChainNetwork.Ethereum, {
@@ -207,12 +208,18 @@ export class PickleModel {
     async ensurePriceCacheLoaded() : Promise<any> {
         if( this.prices && this.prices.getCache() && this.prices.getCache().size === 0 ) {
             const cgResolver = new CoinGeckoPriceResolver(ExternalTokenModelSingleton);
-            return Promise.all(
+            const cgPromises = Promise.all(
                 this.configuredChains.map((x)=>this.prices.getPrices(
                     ExternalTokenModelSingleton.getTokens(x).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId),
                     cgResolver
                 ))
             );
+            const cmcResolver = new CoinMarketCapPriceResolver(ExternalTokenModelSingleton);
+            const all = ExternalTokenModelSingleton.getAllTokens();
+            const filtered = all.filter(val => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP);
+            const cmcPromise = this.prices.getPrices(filtered.map(a => a.coingeckoId),cmcResolver);
+
+            return Promise.all([cgPromises, cmcPromise]);
         }
     }
 
@@ -313,9 +320,14 @@ export class PickleModel {
         const notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
         let prices : number[] = undefined;
         try {
-            prices = await Promise.all(notDisabled.map((x)=>{
+            prices = await Promise.all(notDisabled.map(async (x)=>{
                 const beh = jarBehaviorResolver.findAssetBehavior(x);
-                return beh ? beh.getDepositTokenPrice(x, this) : getDepositTokenPrice(x, this);
+                const prom = beh ? beh.getDepositTokenPrice(x, this) : getDepositTokenPrice(x, this);
+                try {
+                    return await prom;
+                } catch( error ) {
+                    this.logError("ensureDepositTokenPriceLoaded", error, x.details.apiKey);
+                }
             }));
         } catch ( error ) { this.logError("ensureDepositTokenPriceLoaded", error); }
         for( let i = 0; prices !== undefined && i < notDisabled.length; i++ ) {
@@ -685,8 +697,13 @@ export class PickleModel {
         try {
             aprStats = await Promise.all(
                 withBehaviors.map(async (x) => {
-                    return new JarBehaviorDiscovery().findAssetBehavior(x)
+                    const ret: Promise<AssetProjectedApr> = new JarBehaviorDiscovery().findAssetBehavior(x)
                             .getProjectedAprStats(x as JarDefinition, this);
+                    try {
+                        return await ret;
+                    } catch(error ) {
+                        this.logError("loadApyComponents", error, x.details.apiKey);
+                    }
                 })
             );
             } catch ( error ) { this.logError("loadApyComponents", error); }
@@ -742,9 +759,9 @@ export class PickleModel {
         };
     }
 
-    logError(where: string, error: any, chain?: ChainNetwork) {
+    logError(where: string, error: any, context?: any) {
         // TODO store somewhere?
-        console.log("ERROR: Failed at " + where + (chain !== undefined ? " on chain " + chain : "") + "\n" + error);
+        console.log("ERROR: Failed at " + where + (context !== undefined ? " [" + context + "]" : "") + "\n" + error);
     }
 }
 
