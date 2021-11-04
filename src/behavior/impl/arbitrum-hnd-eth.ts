@@ -71,7 +71,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const multicallProvider = new MulticallProvider(model.providerFor(jar.chain));
+    const multicallProvider = model.multicallProviderFor(jar.chain);
     const rewardsAddr = "0x06633cd8E46C3048621A517D6bb5f0A84b4919c6"; // HND-ETH
     const mcDodoRewards = new MulticallContract(rewardsAddr, mcdodoAbi);
     
