@@ -58,7 +58,7 @@ export class MimaticUSDC extends AbstractJarBehavior {
     );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
-      chefComponent,
+      this.createAprComponent(chefComponent.name, chefComponent.apr, chefComponent.compoundable),
     ]);
   }
 }
