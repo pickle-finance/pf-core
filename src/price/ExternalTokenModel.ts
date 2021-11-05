@@ -131,8 +131,8 @@ export class ExternalTokenModel {
     // OKEx
     this.addToken(ChainNetwork.OKEx,"btck", "oec-btc", "0x54e4622DC504176b3BB432dCCAf504569699a7fF".toLowerCase(),18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.OKEx,"bxh", "bxh", "0x145ad28a42bf334104610f7836d0945dffb6de63".toLowerCase(),18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.OKEx,"okusdc", "usdc", "0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85".toLowerCase(),6, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.OKEx,"okusdt", "usdt", "0x382bb369d343125bfb2117af9c149795c6c65c50".toLowerCase(),18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.OKEx,"usdc", "usdc", "0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85".toLowerCase(),6, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.OKEx,"usdt", "usdt", "0x382bb369d343125bfb2117af9c149795c6c65c50".toLowerCase(),18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.OKEx,"cherry", "cherryswap", "0x8179D97Eb6488860d816e3EcAFE694a4153F216c".toLowerCase(),18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.OKEx,"ethk", "oec-eth", "0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C".toLowerCase(),18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.OKEx,"wokt", "wrapped-okt", "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15".toLowerCase(),18, ExternalTokenFetchStyle.ID);
