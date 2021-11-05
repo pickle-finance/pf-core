@@ -40,7 +40,7 @@ export class OKExChain extends AbstractChain {
   constructor() {
       super(66, ChainNetwork.OKEx, 
         OKEX_SECONDS_PER_BLOCK,
-        'https://www.oklink.com/okexchain',
+        'https://oklink.com/okexchain',
         ['https://exchainrpc.okex.org']);
   }
 }
