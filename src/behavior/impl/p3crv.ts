@@ -152,8 +152,8 @@ export class PThreeCrv extends AbstractJarBehavior {
         curveRawStats ? curveRawStats.aave : 0,
         false,
       ),
-      this.createAprComponent("crv", crvAPY, true),
-      this.createAprComponent("matic", wmaticAPY, true),
+      this.createAprComponent("crv", crvAPY * 100, true),
+      this.createAprComponent("matic", wmaticAPY * 100, true),
     ]);
   }
 }

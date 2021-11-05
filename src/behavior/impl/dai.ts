@@ -103,7 +103,7 @@ export class DaiJar extends AbstractJarBehavior {
       (rawSupplyAPY * supplied - rawBorrowAPY * borrowed) / balance;
 
     return super.aprComponentsToProjectedApr([
-      super.createAprComponent("lp", rawAPY, false),
+      super.createAprComponent("lp", rawAPY * 100, false),
       super.createAprComponent("matic", maticAPR * 100, true),
     ]);
   }

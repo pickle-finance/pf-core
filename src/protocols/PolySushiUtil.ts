@@ -4,7 +4,8 @@ import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
 import { PickleModel } from "..";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import sushiMiniChefAbi from "../Contracts/ABIs/sushi-minichef.json";
-import { formatEther } from "ethers/lib/utils";
+import sushiComplexRewarderAbi from "../Contracts/ABIs/sushi-complex-rewarder.json";
+import { formatEther, defaultAbiCoder } from "ethers/lib/utils";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { getLivePairDataFromContracts } from "./GenericSwapUtil";
 import { SushiPolyPairManager } from "./SushiSwapUtil";
@@ -61,18 +62,17 @@ export async function calculatePolySushiAPY(
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;
 
   // Getting MATIC rewards
-  /*
+  const provider = model.providerFor(jar.chain);
+  const totalAllocPointCREncoded = await provider.getStorageAt(MATIC_COMPLEX_REWARDER, 5);
     const [
-        totalAllocPointCREncoded,
         poolInfoCR,
         maticPerSecondBN,
-    ] = await Promise.all([
-        provider.getStorageAt(MATIC_COMPLEX_REWARDER, 5),
-        new Contract(MATIC_COMPLEX_REWARDER, sushiComplexRewarderAbi, provider).poolInfo(poolId),
-        new Contract(MATIC_COMPLEX_REWARDER, sushiComplexRewarderAbi, provider).rewardPerSecond(),
+    ] = await multicallProvider.all([
+        new MulticallContract(MATIC_COMPLEX_REWARDER, sushiComplexRewarderAbi).poolInfo(poolId),
+        new MulticallContract(MATIC_COMPLEX_REWARDER, sushiComplexRewarderAbi).rewardPerSecond(),
     ]);
 
-    const totalAllocPointCR = ethers.utils.defaultAbiCoder.decode(
+    const totalAllocPointCR = defaultAbiCoder.decode(
         ["uint256"],
         totalAllocPointCREncoded,
     );
@@ -82,10 +82,10 @@ export async function calculatePolySushiAPY(
           poolInfoCR.allocPoint.toNumber()) /
         totalAllocPointCR[0].toNumber();
 
-//    const maticRewardsPerYear = maticRewardsPerSecond * (365 * 24 * 60 * 60);
-//    const maticValueRewardedPerYear = await model.priceOf("matic") * maticRewardsPerYear;
-//    const maticAPY = maticValueRewardedPerYear / totalValueStaked;
-*/
+   const maticRewardsPerYear = maticRewardsPerSecond * (365 * 24 * 60 * 60);
+   const maticValueRewardedPerYear = model.priceOfSync("matic") * maticRewardsPerYear;
+   const maticAPY = (maticValueRewardedPerYear / totalValueStaked) * 100;
+
 
   const lpApr: number = await new SushiPolyPairManager().calculateLpApr(
     model,
@@ -93,6 +93,7 @@ export async function calculatePolySushiAPY(
   );
   return [
     { name: "sushi", apr: sushiAPY, compoundable: true },
+    { name: "matic", apr: maticAPY, compoundable: true },
     { name: "lp", apr: lpApr, compoundable: false },
   ];
 }
