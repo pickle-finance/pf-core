@@ -2,6 +2,7 @@ import { AbstractChain } from "./AbstractChain";
 import { IChain } from "./IChain";
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
+import { ethers } from "exchain-ethers";
 import { setMulticallAddress } from "ethers-multicall";
 export const POLYGON_SECONDS_PER_BLOCK = 2;
 export const ARBITRUM_SECONDS_PER_BLOCK = 13;
@@ -42,6 +43,11 @@ export class OKExChain extends AbstractChain {
         OKEX_SECONDS_PER_BLOCK,
         'https://www.oklink.com/okexchain',
         ['https://exchainrpc.okex.org']);
+  }
+  getRandomWeb3Provider(): Provider {
+    const url: string =
+      this.rpcProviderUrls[~~(Math.random() * this.rpcProviderUrls.length)];
+    return new ethers.providers.JsonRpcProvider(url);
   }
 }
 
