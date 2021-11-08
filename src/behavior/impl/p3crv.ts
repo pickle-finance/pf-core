@@ -68,12 +68,12 @@ export class PThreeCrv extends AbstractJarBehavior {
       resolver,
     );
     const [matic, maticPrice, crv, crvPrice] = await Promise.all([
-      gauge.claimable_reward(
+      gauge.callStatic.claimable_reward_write(
         jar.details.strategyAddr,
         model.address("matic", ChainNetwork.Polygon),
       ),
       await model.priceOf("matic"),
-      gauge.claimable_reward(
+      gauge.callStatic.claimable_reward_write(
         jar.details.strategyAddr,
         model.address("crv", ChainNetwork.Polygon),
       ),

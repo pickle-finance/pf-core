@@ -110,6 +110,17 @@ export const curveThirdPartyGaugeAbi = [
     type: "function",
   },
   {
+    stateMutability: "nonpayable",
+    type: "function",
+    name: "claimable_reward_write",
+    inputs: [
+      { name: "_addr", type: "address" },
+      { name: "_token", type: "address" },
+    ],
+    outputs: [{ name:"", type: "uint256" }],
+    gas: "2067577"
+  },
+  {
     name: "claim_rewards",
     outputs: [],
     inputs: [],
