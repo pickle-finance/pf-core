@@ -5,7 +5,7 @@ import yearnRegistryAbi from "../Contracts/ABIs/yearn-registry.json";
 import fetch from "cross-fetch";
 import { ChainNetwork } from "../chain/Chains";
 
-export const YEARN_API = "https://vaults.finance/all";
+export const YEARN_API = "https://api.yearn.finance/v1/chains/1/vaults/all";
 const YEARN_REG_ADDR = "0x50c1a2ea0a861a967d9d0ffe2ae4012c2e053804";
 
 const YEARN_DATA_CACHE_KEY = "yearn.data.cache.key";
@@ -39,7 +39,7 @@ export async function calculateYearnAPY(
       (x) => x.address.toLowerCase() === vault.toLowerCase(),
     );
     if (vaultData) {
-      const apr = vaultData?.apy?.data?.netApy || 0;
+      const apr = vaultData?.apy?.net_apy || 0;
       return apr * 100;
     }
   }
