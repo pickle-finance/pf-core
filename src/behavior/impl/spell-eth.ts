@@ -11,7 +11,7 @@ import { PickleModel } from "../../model/PickleModel";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateAbradabraApy } from "../../protocols/AbraCadabraUtil";
 import { Chains } from "../../chain/Chains";
-import { SushiArbPairManager } from "../../protocols/SushiSwapUtil";
+import { SushiEthPairManager } from "../../protocols/SushiSwapUtil";
 
 export class SpellEth extends AbstractJarBehavior {
   async getProjectedAprStats(
@@ -21,7 +21,7 @@ export class SpellEth extends AbstractJarBehavior {
     const chainSigner = Chains.get(definition.chain).getProviderOrSigner();
     const [abraApr, lpApr] = await Promise.all([
       calculateAbradabraApy(definition,model,chainSigner),
-      new SushiArbPairManager().calculateLpApr(
+      new SushiEthPairManager().calculateLpApr(
           model, definition.depositToken.addr)
     ]);
 
