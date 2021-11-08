@@ -5,7 +5,7 @@ import yearnRegistryAbi from "../Contracts/ABIs/yearn-registry.json";
 import fetch from "cross-fetch";
 import { ChainNetwork } from "../chain/Chains";
 
-const YEARN_API = "https://vaults.finance/all";
+export const YEARN_API = "https://vaults.finance/all";
 const YEARN_REG_ADDR = "0x50c1a2ea0a861a967d9d0ffe2ae4012c2e053804";
 
 const YEARN_DATA_CACHE_KEY = "yearn.data.cache.key";
@@ -13,9 +13,12 @@ export async function getYearnData(model: PickleModel): Promise<any> {
   if (model.resourceCache.get(YEARN_DATA_CACHE_KEY))
     return model.resourceCache.get(YEARN_DATA_CACHE_KEY);
 
-  const result = await fetch(YEARN_API).then((x) => x.json());
+  const result = await loadYearnData();
   model.resourceCache.set(YEARN_DATA_CACHE_KEY, result);
   return result;
+}
+export async function loadYearnData(): Promise<any> {
+  return await fetch(YEARN_API).then((x) => x.json()).catch(()=>[]);
 }
 
 export async function calculateYearnAPY(

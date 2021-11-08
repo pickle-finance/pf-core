@@ -12,6 +12,7 @@ import {
   THIRTY_DAYS,
   THREE_DAYS,
 } from "../database/DatabaseUtil";
+import { loadYearnData } from "../protocols/YearnUtil";
 
 export interface PerformanceData {
   oneDay: number;
@@ -81,7 +82,6 @@ export async function getCurvePerformance(
 export async function getYearnPerformance(
   asset: JarDefinition,
 ): Promise<PerformanceData> {
-  const yearnApi = "https://vaults.finance/all";
   const provider = new ethers.providers.JsonRpcProvider(
     "https://nodes.mewapi.io/rpc/eth",
   );
@@ -95,15 +95,15 @@ export async function getYearnPerformance(
     asset.depositToken.addr.toLowerCase(),
     { gasLimit: 1000000 },
   );
-  const yearnData = await fetch(yearnApi).then((response) => response.json());
+  const yearnData = await loadYearnData();
   const vaultData = yearnData.find(
     (vault) => vault.address.toLowerCase() == vaultAddress.toLowerCase(),
   );
   return {
-    oneDay: vaultData.apy.data.netApy * 100,
-    threeDay: vaultData.apy.data.netApy * 100,
-    sevenDay: vaultData.apy.data.netApy * 100,
-    thirtyDay: vaultData.apy.data.netApy * 100,
+    oneDay: vaultData ? vaultData.apy.data.netApy * 100 : 0,
+    threeDay: vaultData ? vaultData.apy.data.netApy * 100: 0,
+    sevenDay: vaultData ? vaultData.apy.data.netApy * 100: 0,
+    thirtyDay: vaultData ? vaultData.apy.data.netApy * 100: 0,
   };
 }
 

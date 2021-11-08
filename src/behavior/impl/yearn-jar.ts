@@ -53,8 +53,12 @@ export class YearnJar extends AbstractJarBehavior {
       model,
       definition.depositToken.addr,
     );
-    return this.aprComponentsToProjectedApr([
-      this.createAprComponent("yearn", apr, false),
-    ]);
+    if( apr !== undefined ) {
+      return this.aprComponentsToProjectedApr([
+        this.createAprComponent("yearn", apr, false),
+      ]);
+    } else {
+      return this.aprComponentsToProjectedApr([]);
+    }
   }
 }
