@@ -969,7 +969,7 @@ export const JAR_CRV_IB: JarDefinition = {
     link: "https://curve.fi/ib/deposit",
     components: ["dai", "usdc", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.YEARN,
   details: {
