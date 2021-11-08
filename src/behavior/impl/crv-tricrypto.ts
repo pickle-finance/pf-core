@@ -70,7 +70,7 @@ export class CrvTricrypto extends CurveJar {
       resolver,
     );
     const [crv, crvPrice] = await Promise.all([
-      gauge.claimable_reward(
+      gauge.callStatic.claimable_reward_write(
         jar.details.strategyAddr,
         model.address("crv", ChainNetwork.Arbitrum),
       ),
