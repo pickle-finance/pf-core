@@ -1,9 +1,10 @@
-import { Signer } from "ethers";
+import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import { AssetProjectedApr, HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateYearnAPY } from "../../protocols/YearnUtil";
+import { calculateYearnAPY, getYearnData } from "../../protocols/YearnUtil";
+import YearnRegistryABI from '../../Contracts/ABIs/yearn-registry.json';
 import {
   JAR_CRV_IB,
   JAR_fraxCRV,
@@ -15,6 +16,25 @@ import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
 export class YearnJar extends AbstractJarBehavior {
   constructor() {
     super();
+  }
+
+  async getProtocolApy(definition:JarDefinition, model:PickleModel) : Promise<HistoricalYield> {
+    const yearnData = await getYearnData(model);
+    const yearnRegistry = new ethers.Contract('0x50c1a2ea0a861a967d9d0ffe2ae4012c2e053804', 
+    YearnRegistryABI, model.providerFor(definition.chain));
+    const vaultAddress = await yearnRegistry.latestVault(definition.depositToken.addr, {
+      gasLimit: 1000000,
+    });
+    const vaultData = yearnData.find((vault) => vault.address.toLowerCase() == vaultAddress.toLowerCase());
+    if( vaultData ) {
+      const v = vaultData ? Math.floor((vaultData.apy.net_apy * 100*100))/100 : 0;
+      return {
+        d1: v,
+        d3: v,
+        d7: v,
+        d30: v
+      };
+    }
   }
 
   async getDepositTokenPrice(

@@ -2,10 +2,34 @@ import { Contract as MulticallContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import CurvePoolABI from "../Contracts/ABIs/pool.json";
 import { ChainNetwork, PickleModel } from "..";
-import { JarDefinition } from "../model/PickleModelJson";
+import { HistoricalYield, JarDefinition } from "../model/PickleModelJson";
 import { BigNumber } from "ethers";
+import { fetch } from 'cross-fetch';
 
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
+
+const cacheKeyPrefix = "curve.data.cache.key.";
+
+// ADD_CHAIN
+export const curveApi = "https://stats.curve.fi/raw-stats/apys.json";
+export const curveApiPoly = "https://stats.curve.fi/raw-stats-polygon/apys.json";
+export const curveApiArbitrum = "https://stats.curve.fi/raw-stats-arbitrum/apys.json";
+export const apiUrls = new Map<string,string>();
+apiUrls.set(ChainNetwork.Ethereum, curveApi);
+apiUrls.set(ChainNetwork.Polygon, curveApiPoly);
+apiUrls.set(ChainNetwork.Arbitrum, curveApiArbitrum);
+
+
+// Map between our jar/farm 'api' keys used in our db and the names provided by curve api
+const apyMapping = {
+    "3poolCRV": "3pool",
+    renBTCCRV: "ren2",
+    sCRV: "susd",
+    steCRV: "steth",
+    lusdCRV: "lusd",
+    am3CRV: "aave",
+};
+
 export async function getCurveLpPriceData(
   tokenAddress: string,
   model: PickleModel,
@@ -58,4 +82,38 @@ export async function calculateCurveApyArbitrum(
   const crvRewardsAmount = crvPrice * 3500761; // Approximation of CRV emissions
   const crvAPY = crvRewardsAmount / totalStakedUsd;
   return crvAPY * 100;
+}
+
+
+export async function getCurvePerformance(
+  asset: JarDefinition,
+  model: PickleModel
+  ): Promise<HistoricalYield> {
+  
+  const curveData = await getCurveData(model, asset.chain);
+  if( curveData === undefined )
+    return undefined;
+    
+  const oneDayVal = curveData.apy.day[apyMapping[asset.details.apiKey]] * 100;
+  const thirtyDay = curveData.apy.month[apyMapping[asset.details.apiKey]] * 100;
+  return {
+    d1: oneDayVal,
+    d3: oneDayVal,
+    d7: oneDayVal,
+    d30: thirtyDay,
+  };
+}
+
+export async function getCurveData(model: PickleModel, chain: ChainNetwork): Promise<any> {
+  const key = cacheKeyPrefix + chain.toString();
+  if (model.resourceCache.get(key))
+    return model.resourceCache.get(key);
+
+  const url = apiUrls.get(chain);
+  if( url === undefined )
+    return undefined;
+
+  const result = await fetch(url).then((response) => response.json()).catch(()=>{});
+  model.resourceCache.set(key, result);
+  return result;
 }

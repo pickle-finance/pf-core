@@ -1,7 +1,7 @@
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { AssetAprComponent, JarDefinition } from "../../model/PickleModelJson";
+import { AssetAprComponent, HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
 import curveGaugeAbi from "../../Contracts/ABIs/curve-gauge.json";
 import poolAbi from "../../Contracts/ABIs/pool.json";
 import { Contract as MulticallContract } from "ethers-multicall";
@@ -12,6 +12,7 @@ import {
 } from "../../Contracts/ContractsImpl";
 import { PickleModel } from "../../model/PickleModel";
 import fetch from "cross-fetch";
+import { getCurvePerformance } from "../../protocols/CurveUtil";
 
 export const GAUGE_CONTROLLER_ADDR =
   "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB";
@@ -91,6 +92,9 @@ export abstract class CurveJar extends AbstractJarBehavior {
   constructor(gaugeAddress: string) {
     super();
     this.gaugeAddress = gaugeAddress;
+  }
+  async getProtocolApy(definition:JarDefinition, model:PickleModel) : Promise<HistoricalYield> {
+    return await getCurvePerformance(definition, model);
   }
 
   async getCurveCrvAPY(

@@ -4,15 +4,34 @@ import {
   AssetAprComponent,
   AssetProjectedApr,
   JarDefinition,
+  HistoricalYield,
+  SWAP_PROTOCOLS,
 } from "../model/PickleModelJson";
 import { JarBehavior, JarHarvestStats } from "./JarBehaviorResolver";
 import { PickleModel } from "../model/PickleModel";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
+import { GenericSwapUtility } from "../protocols/GenericSwapUtil";
+import { getSwapUtilityForProtocol } from "../protocols/ProtocolUtil";
 
 // TODO move these constants out to somewhere better
 export const ONE_YEAR_IN_SECONDS: number = 360 * 24 * 60 * 60;
 
 export abstract class AbstractJarBehavior implements JarBehavior {
+  isGenericSwapProtocol(protocol: string): boolean {
+    return SWAP_PROTOCOLS.filter((x) => x.toString() === protocol).length > 0;
+  }
+  
+  async getProtocolApy(definition:JarDefinition, _model:PickleModel) : Promise<HistoricalYield> {
+    if( this.isGenericSwapProtocol(definition.protocol)) {
+      const swap : GenericSwapUtility = getSwapUtilityForProtocol(definition);
+      if( swap !== undefined ) {
+        const ret = await swap.runThirtyDaysSingleJar(definition.depositToken.addr);
+        return ret;
+      }
+    }
+    return undefined;
+  }
+
   async getProjectedAprStats(
     _definition: JarDefinition,
     _model: PickleModel,

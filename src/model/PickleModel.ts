@@ -1,4 +1,4 @@
-import { AssetEnablement, AssetProjectedApr, AssetProtocol, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
+import { AssetEnablement, AssetProjectedApr, AssetProtocol, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, HistoricalYield, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
@@ -174,6 +174,7 @@ export class PickleModel {
             this.ensureExternalAssetBalanceLoaded(),
             this.ensureHarvestDataLoaded(),
             this.loadApyComponents(),
+            this.loadProtocolApr(),
         ]);
     }
 
@@ -728,6 +729,30 @@ export class PickleModel {
         return stats;
     }
 
+    async loadProtocolApr() {
+        const withBehaviors : JarDefinition[] = 
+            this.getJars().filter((x)=>new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined);
+        let historical: HistoricalYield[] = undefined;
+        try {
+            historical = await Promise.all(
+                withBehaviors.map(async (x) => {
+                    const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery().findAssetBehavior(x)
+                            .getProtocolApy(x as JarDefinition, this);
+                    try {
+                        return await ret;
+                    } catch(error ) {
+                        this.logError("loadProtocolApr", error, x.details.apiKey);
+                    }
+                })
+            );
+            } catch ( error ) { this.logError("loadApyComponents", error); 
+        }
+
+        for( let i = 0; historical !== undefined && i < withBehaviors.length; i++ ) {
+            if( historical[i] !== undefined )
+                withBehaviors[i].details.protocolApr = historical[i];
+        }
+    }
     loadPlatformData(): PlatformData {
         const farms : StandaloneFarmDefinition[] = this.getStandaloneFarms();
         let tvl = 0;

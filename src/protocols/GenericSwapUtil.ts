@@ -1,6 +1,6 @@
 import { PickleModel } from "..";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { AssetProtocol, PickleAsset } from "../model/PickleModelJson";
+import { AssetProtocol, HistoricalYield, PickleAsset } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
 
@@ -22,6 +22,54 @@ export abstract class GenericSwapUtility {
     this.queryFields = queryFields;
     this.protocol = protocol;
     this.lpFee = lpFee;
+  }
+
+  async runThirtyDaysSingleJar(depositToken: string) : Promise<HistoricalYield> {
+    const qFields = this.queryFields.join("\n");
+    // Better to request a few extra rows to avoid having to make an additional request
+    const numResults = 30;
+    const query = `{
+            pairDayDatas(first: ${numResults}, orderBy: date, orderDirection: desc, 
+            where: {
+                ${this.whereKey}: "${depositToken.toLowerCase()}"
+            }
+            ) {
+                ${qFields}
+            }
+        }`;
+    const resp = await readQueryFromGraph(
+      query,
+      protocolToSubgraphUrl.get(this.protocol),
+    );
+    const ret : IExtendedPairData[] = [];
+    if( resp && resp.data && resp.data.pairDayDatas ) {
+      for( let i = 0; i < resp.data.pairDayDatas.length; i++  ) {
+        ret.push(this.toExtendedPairData(resp.data.pairDayDatas[i]));
+      }
+    }
+    let r : number[] = [];
+    let totalApy = 0;
+    for (let i = 0; i < ret.length; i++) {
+      const volume = (ret[i].dailyVolumeUSD);
+      const poolReserve = (ret[i].reserveUSD);
+      let fees = volume * this.lpFee;
+      totalApy += (fees / poolReserve) * 365 * 100;
+      if( i === 1 || i === 3 || i === 7 || i === 30 ) {
+        r.push(totalApy);
+      }
+    }
+    if( r.length === 0 )
+      return undefined;
+    const d1 = r[0];
+    const d3 = r.length > 1 ? r[1] : d1;
+    const d7= r.length > 2 ? r[2] : d3;
+    const d30 = r.length > 3 ? r[3] : d7;
+    return {
+      d1: d1,
+      d3: d3,
+      d7: d7,
+      d30: d30
+    }
   }
 
   async runPairDataQueryOnce(allDepositTokens: string[]) {

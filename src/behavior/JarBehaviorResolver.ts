@@ -3,6 +3,7 @@ import { Provider } from "@ethersproject/providers";
 import {
   AssetProjectedApr,
   ExternalAssetDefinition,
+  HistoricalYield,
   JarDefinition,
   PickleAsset,
 } from "../model/PickleModelJson";
@@ -25,6 +26,8 @@ export interface ActiveJarHarvestStats extends JarHarvestStats {
 }
 
 export interface AssetBehavior<T extends PickleAsset> {
+  getProtocolApy(_definition:JarDefinition, _model:PickleModel) : Promise<HistoricalYield>;
+
   getProjectedAprStats(
     definition: T,
     model: PickleModel,

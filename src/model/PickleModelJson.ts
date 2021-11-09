@@ -110,7 +110,7 @@ export interface StandaloneFarmDefinition extends PickleAsset {
   farmNickname: string;
 }
 
-interface HistoricalAPY {
+export interface HistoricalYield {
   d1?: number;
   d3?: number;
   d7?: number;
@@ -126,7 +126,7 @@ export interface JarDetails extends AssetDetails {
   ratio?: number;
   totalSupply?: number;
   tokenBalance?: number;
-  historicalApy?: HistoricalAPY;
+  protocolApr?: HistoricalYield;
 }
 
 export interface AssetDetails {
@@ -142,7 +142,7 @@ export interface FarmDetails {
   picklePerBlock?: number;
   picklePerDay?: number;
   farmApyComponents?: AssetAprComponent[];
-  historicalApy?: HistoricalAPY;
+  historicalApr?: HistoricalYield;
 }
 
 export interface ExternalDetails extends AssetDetails {

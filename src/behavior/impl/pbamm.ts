@@ -10,6 +10,7 @@ import {
   AssetProjectedApr,
   PickleAsset,
   ExternalAssetDefinition,
+  HistoricalYield,
 } from "../../model/PickleModelJson";
 import { ExternalAssetBehavior, JarHarvestStats } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
@@ -22,6 +23,10 @@ const pBAMM = "0x54bC9113f1f55cdBDf221daf798dc73614f6D972";
 const pLQTY = "0x65B2532474f717D5A8ba38078B78106D56118bbb";
 
 export class PBammAsset implements ExternalAssetBehavior {
+  getProtocolApy(_definition: JarDefinition, _model: PickleModel): Promise<HistoricalYield> {
+    return undefined;
+  }
+
   async getProjectedAprStats(
     definition: ExternalAssetDefinition,
     model: PickleModel,
