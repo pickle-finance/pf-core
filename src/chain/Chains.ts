@@ -6,12 +6,14 @@ import { setMulticallAddress } from "ethers-multicall";
 export const POLYGON_SECONDS_PER_BLOCK = 2;
 export const ARBITRUM_SECONDS_PER_BLOCK = 13;
 export const OKEX_SECONDS_PER_BLOCK = 3; // ??? is this right?
+export const HARMONY_SECONDS_PER_BLOCK = 2; // ??? is this right?
 export const ETH_SECONDS_PER_BLOCK = 13;
 export enum ChainNetwork {
     Ethereum = 'eth',
     Polygon = 'polygon',
     OKEx = 'okex',
     Arbitrum = 'arbitrum',
+    Harmony = 'harmony',
     //Binance
 }
 
@@ -45,6 +47,14 @@ export class OKExChain extends AbstractChain {
   }
 }
 
+export class HarmonyChain extends AbstractChain {
+  constructor() {
+    super(1666600000, ChainNetwork.Harmony, 
+      HARMONY_SECONDS_PER_BLOCK,
+      'https://explorer.harmony.one/',
+      ['https://api.harmony.one'])
+  }
+}
 
 export class ArbitumChain extends AbstractChain {
   constructor() {
@@ -65,6 +75,7 @@ export class Chains {
         this.chainData.set(ChainNetwork.Polygon, new PolygonChain());
         this.chainData.set(ChainNetwork.Arbitrum, new ArbitumChain());
         this.chainData.set(ChainNetwork.OKEx, new OKExChain());
+        this.chainData.set(ChainNetwork.Harmony, new HarmonyChain());
     }
 
     static list() : ChainNetwork[] {

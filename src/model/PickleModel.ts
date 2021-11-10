@@ -18,6 +18,9 @@ import { loadGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { CoinMarketCapPriceResolver } from "../price/CoinMarketCapPriceResolver";
 
+export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
+export const FICTIONAL_ADDRESS = "0x000FEED0BEEF000FEED0BEEF0000000000000000";
+
 export const ADDRESSES = new Map([
     [ChainNetwork.Ethereum, {
         pickle: "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5",
@@ -44,9 +47,13 @@ export const ADDRESSES = new Map([
         controller: "0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4",
         minichef: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
       }],
+    [ChainNetwork.Harmony, {
+        pickle: NULL_ADDRESS,
+        masterChef: NULL_ADDRESS,
+        controller: "0xf4396dca6201e0ca120073acda087b53f7159e24",
+        minichef: NULL_ADDRESS,
+      }],
 ]);
-export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
-export const FICTIONAL_ADDRESS = "0x000FEED0BEEF000FEED0BEEF0000000000000000";
 
 export class PickleModel {
     private allAssets : PickleAsset[];

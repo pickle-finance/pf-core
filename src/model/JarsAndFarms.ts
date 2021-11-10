@@ -10,6 +10,8 @@ import {
   AssetProtocol,
 } from "./PickleModelJson";
 
+export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
+
 /**
  * Now the actual implementations
  */
@@ -1945,6 +1947,83 @@ export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_ETHK_USDT);
+
+// Harmony One
+
+export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "oneJar 1a",
+  contract: "0xce9075ab4158aa05447df12e5bf09d51e21516e9",
+  depositToken: {
+    addr: "0xc5B8129B411EF5f5BE22e74De6fE86C3b69e641d",
+    name: "SUSHI ETH/DAI",
+    link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/0xEf977d2f931C1978Db5F6747666fa1eACB0d0339",
+    components: ["1eth", "1dai"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Harmony,
+  protocol: AssetProtocol.SUSHISWAP_HARMONY,
+  details: {
+    apiKey: "HSLP-ETH-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSUSHI ETH/DAI",
+    farmDepositTokenName: "pSUSHI ETH/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ONE_SUSHI_ETH_DAI);
+
+export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "oneJar 1b",
+  contract: "0xbe6300c2ffc26f8c6cdd3a468867caf8bb01cfce",
+  depositToken: {
+    addr: "0x39bE7c95276954a6f7070F9BAa38db2123691Ed0",
+    name: "SUSHI WBTC/ETH",
+    link: "https://app.sushi.com/add/0x3095c7557bCb296ccc6e363DE01b760bA031F2d9/0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
+    components: ["1wbtc", "1eth"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Harmony,
+  protocol: AssetProtocol.SUSHISWAP_HARMONY,
+  details: {
+    apiKey: "HSLP-WBTC-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSUSHI WBTC/ETH",
+    farmDepositTokenName: "pSUSHI WBTC/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ONE_SUSHI_WBTC_ETH);
+
+export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "oneJar 1c",
+  contract: "0xab1a9bf446c77a9873023646147e36ea34279c72",
+  depositToken: {
+    addr: "0xeb049F1eD546F8efC3AD57f6c7D22F081CcC7375",
+    name: "SUSHI ETH/ONE",
+    link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/ETH",
+    components: ["1eth", "wone"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Harmony,
+  protocol: AssetProtocol.SUSHISWAP_HARMONY,
+  details: {
+    apiKey: "HSLP-ETH-ONE",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSUSHI ETH/ONE",
+    farmDepositTokenName: "pSUSHI ETH/ONE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ONE_SUSHI_ETH_ONE);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
