@@ -26,35 +26,36 @@ export abstract class HarmonySushiJar extends AbstractJarBehavior {
       resolver,
     );
     const sushiToken = new ethers.Contract(
-      model.address("sushi", ChainNetwork.Polygon),
+      model.address("sushi", ChainNetwork.Harmony),
       erc20Abi,
       resolver,
     );
-    const maticToken = new ethers.Contract(
-      model.address("matic", ChainNetwork.Polygon),
+    const oneToken = new ethers.Contract(
+      model.address("wone", ChainNetwork.Harmony),
       erc20Abi,
       resolver,
     );
 
-    const [walletSushi, walletMatic, sushiPrice, maticPrice]: [
+    const [walletSushi, walletOne, sushiPrice, onePrice]: [
       BigNumber,
       BigNumber,
       number,
       number,
     ] = await Promise.all([
       sushiToken.balanceOf(jar.details.strategyAddr),
-      maticToken.balanceOf(jar.details.strategyAddr),
+      oneToken.balanceOf(jar.details.strategyAddr),
       await model.priceOf("sushi"),
-      await model.priceOf("matic"),
+      await model.priceOf("wone"),
     ]);
+
     const res = await strategy.getHarvestable();
     const pendingSushi = res[0];
-    const pendingMatic = res[1];
+    const pendingOne = res[1];
 
     const harvestable = pendingSushi
       .add(walletSushi)
       .mul(sushiPrice.toFixed())
-      .add(pendingMatic.add(walletMatic).mul(maticPrice.toFixed()));
+      .add(pendingOne.add(walletOne).mul(onePrice.toFixed()));
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 

@@ -143,6 +143,8 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Harmony,"1eth","ethereum","0x6983D1E6DEf3690C4d616b13597A09e6193EA013".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Harmony,"1dai","dai","0xEf977d2f931C1978Db5F6747666fa1eACB0d0339".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Harmony,"1wbtc","wrapped-bitcoin","0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Harmony,"sushi","sushi","0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+
 
 
     // Make the reverse map to fascilitate contract lookups

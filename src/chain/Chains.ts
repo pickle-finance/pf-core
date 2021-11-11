@@ -86,6 +86,8 @@ export class Chains {
       // ADD_CHAIN 
       setMulticallAddress(66, "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa");
       setMulticallAddress(42161, '0x813715eF627B01f4931d8C6F8D2459F26E19137E');
+      setMulticallAddress(1666600000, '0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9');
+
 
       for(const key of Chains.list()) {
         const resolver = chains.get(key);
