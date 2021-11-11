@@ -79,7 +79,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Ethereum,"mslv","mirrored-ishares-silver-trust","0x9d1555d8cb3c846bb4f7d5b1b1080872c3166676".toLowerCase(),);
     this.addToken(ChainNetwork.Ethereum,"mbaba","mirrored-alibaba","0x56aa298a19c93c6801fdde870fa63ef75cc0af72".toLowerCase(),);
     this.addToken(ChainNetwork.Ethereum,"sushi","sushi","0x6b3595068778dd592e39a122f4f5a5cf09c90fe2".toLowerCase(),);
-    this.addToken(ChainNetwork.Ethereum,"fei","fei-protocol","0x956f47f50a910163d8bf957cf5846d573e7f87ca".toLowerCase(),);
+    this.addToken(ChainNetwork.Ethereum,"fei","fei-usd","0x956f47f50a910163d8bf957cf5846d573e7f87ca".toLowerCase(),);
     this.addToken(ChainNetwork.Ethereum,"tribe","tribe-2","0xc7283b66eb1eb5fb86327f08e1b5816b0720212b".toLowerCase(),);
     this.addToken(ChainNetwork.Ethereum,"lusd","liquity-usd","0x5f98805a4e8be255a32880fdec7f6728c6568ba0".toLowerCase(),);
     this.addToken(ChainNetwork.Ethereum,"frax","frax","0x853d955acef822db058eb8505911ed77f175b99e".toLowerCase(),);
