@@ -70,6 +70,36 @@ export class SushiArbPairManager extends GenericSwapUtility {
   }
 }
 
+const SUSHI_ONE_PAIR_DATA_CACHE_KEY = "sushiswap.one.pair.data.cache.key";
+export class SushiOnePairManager extends GenericSwapUtility {
+  constructor() {
+    super(
+      SUSHI_ONE_PAIR_DATA_CACHE_KEY,
+      "pair",
+      SUSHI_POLY_PAIR_GRAPH_FIELDS, //Same fields as Polygon
+      AssetProtocol.SUSHISWAP_HARMONY,
+      0.0025,
+    );
+  }
+
+  pairAddressFromDayData(dayData: any): string {
+    return dayData.pair.id;
+  }
+  toExtendedPairData(pair: any): IExtendedPairData {
+    return {
+      pairAddress: pair.id,
+      reserveUSD: pair.reserveUSD,
+      dailyVolumeUSD: pair.volumeUSD,
+      reserve0: pair.reserve0,
+      reserve1: pair.reserve1,
+      token0Id: pair.token0.id,
+      token1Id: pair.token1.id,
+      totalSupply: pair.totalSupply,
+      pricePerToken: pair.reserveUSD / pair.totalSupply,
+    };
+  }
+}
+
 const SUSHI_POLY_PAIR_DATA_CACHE_KEY = "sushiswap.poly.pair.data.cache.key";
 const SUSHI_POLY_PAIR_GRAPH_FIELDS: string[] = [
   "pair{id}",

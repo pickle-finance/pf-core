@@ -4,7 +4,7 @@ import { Provider as MulticallProvider, Contract as MulticallContract} from 'eth
 import { BigNumber } from "@ethersproject/bignumber";
 import { ChainNetwork, Chains, PickleModelJson } from "..";
 import { getUserJarSummary, IUserEarningsSummary } from "./UserEarnings";
-import { JAR_DEFINITIONS } from '../model/JarsAndFarms';
+import { JAR_DEFINITIONS, NULL_ADDRESS } from '../model/JarsAndFarms';
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import gaugeAbi from '../Contracts/ABIs/gauge.json';
 import gaugeProxyAbi from '../Contracts/ABIs/gauge-proxy.json';
@@ -52,15 +52,20 @@ export class UserModel {
     }
 
     async getUserTokens(): Promise<UserTokenData[]> {
-        const ret : UserTokenData[] = [];
-        const result = await Promise.all(Chains.list().map((x)=>this.getUserTokensSingleChain(x)));
-        for( let i = 0; i < result.length; i++ ) {
-            ret.push(...result[i]);
+        try {
+            const ret : UserTokenData[] = [];
+            const result = await Promise.all(Chains.list().map((x)=>this.getUserTokensSingleChain(x)));
+            for( let i = 0; i < result.length; i++ ) {
+                ret.push(...result[i]);
+            }
+            return ret;
+        } catch( err ) {
+            console.log("getUserTokens failed: " + err);
+            throw err;
         }
-        return ret;
     }
 
-    isErc20Underlying(asset: JarDefinition) {
+    isErc20Underlying(asset: JarDefinition) : boolean {
         return asset.depositToken.style === undefined || 
             asset.depositToken.style.erc20 === true;
     }
@@ -94,27 +99,33 @@ export class UserModel {
             picklePendingPromise = this.getPicklePendingEth(chain, chainAssets);
         } else {
             const chef = ADDRESSES.get(chain).minichef;
-            const poolLengthBN : BigNumber = await (new Contract(chef, minichefAbi, this.providerFor(chain))).poolLength();
-            const poolLength = parseFloat(poolLengthBN.toString());
-            const poolIds: number[] = Array.from(Array(poolLength).keys());
-            const multicallProvider = new MulticallProvider(this.providerFor(chain));
-            await multicallProvider.init();    
-            const miniChefMulticall : MulticallContract = new MulticallContract(chef, minichefAbi);
-            const lpTokens: string[] = await multicallProvider.all(
-                poolIds.map((id) => {
-                    return miniChefMulticall.lpToken(id);
-                })
-            );
-            const lpLower : string[] = lpTokens.map((x)=>x.toLowerCase());
-            stakedInFarmPromise = this.getStakedInFarmMinichef(chain, chainAssets, poolIds, lpLower);
-            picklePendingPromise = this.getPicklePendingMinichef(chain, chainAssets, poolIds, lpLower);
+            const skip : boolean = chef === null || chef === undefined || chef === NULL_ADDRESS;
+            if( skip ) {
+                stakedInFarmPromise = Promise.resolve(chainAssets.map(()=>(BigNumber.from(0))));
+                picklePendingPromise = Promise.resolve(chainAssets.map(()=>(BigNumber.from(0))));
+            } else {
+                const poolLengthBN : BigNumber = skip ? BigNumber.from(0) : await (new Contract(chef, minichefAbi, this.providerFor(chain))).poolLength();
+                const poolLength = parseFloat(poolLengthBN.toString());
+                const poolIds: number[] = Array.from(Array(poolLength).keys());
+                const multicallProvider = new MulticallProvider(this.providerFor(chain));
+                await multicallProvider.init();    
+                const miniChefMulticall : MulticallContract = new MulticallContract(chef, minichefAbi);
+                const lpTokens: string[] = await multicallProvider.all(
+                    poolIds.map((id) => {
+                        return miniChefMulticall.lpToken(id);
+                    })
+                );
+                const lpLower : string[] = lpTokens.map((x)=>x.toLowerCase());
+                stakedInFarmPromise = this.getStakedInFarmMinichef(chain, chainAssets, poolIds, lpLower);
+                picklePendingPromise = this.getPicklePendingMinichef(chain, chainAssets, poolIds, lpLower);
+            }
         }
 
         const [depositTokenBalances, pTokenBalances, stakedInFarm, picklePending] 
             = await Promise.all([depositTokenBalancesPromise, pTokenBalancesPromise, stakedInFarmPromise, picklePendingPromise]);
 
         for( let j = 0; j < chainAssets.length; j++ ) {
-            const toAdd ={
+            const toAdd = {
                 assetKey: chainAssets[j].details.apiKey,
                 depositTokenBalance: depositTokenBalances[j]?.toString() ||"0",
                 pAssetBalance: pTokenBalances[j]?.toString() || "0",
@@ -232,7 +243,12 @@ export class UserModel {
 
 
     async getUserEarningsSummary(): Promise<IUserEarningsSummary> {
-        return getUserJarSummary(this.walletId.toLowerCase(), this.model);
+        try {
+            return getUserJarSummary(this.walletId.toLowerCase(), this.model);
+        } catch(error ) {
+            console.log("Error in getUserEarningsSummary: " + error);
+            throw error;
+        }
     }
 
     normalizeIndexes(original: JarDefinition[], filtered: JarDefinition[], results: any[], def: any) : any[] {

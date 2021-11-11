@@ -64,7 +64,10 @@ import {
   JAR_UNIV3_RBN_ETH,
   JAR_OKEX_JSWAP_BTCK_USDT,
   JAR_OKEX_JSWAP_ETHK_USDT,
-  JAR_OKEX_JSWAP_JF_USDT
+  JAR_OKEX_JSWAP_JF_USDT,
+  JAR_ONE_SUSHI_ETH_DAI,
+  JAR_ONE_SUSHI_ETH_ONE,
+  JAR_ONE_SUSHI_WBTC_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -131,6 +134,9 @@ import { CherryOktUsdt } from "./impl/cherry-okt-usdt";
 import { JswapBtckUsdt } from "./impl/jswap-btck-usdt";
 import { JswapEthkUsdt } from "./impl/jswap-ethk-usdt";
 import { JswapJfUsdt } from "./impl/jswap-jf-usdt";
+import { HSlpEthDai } from "./impl/hslp-eth-dai";
+import { HSlpEthOne } from "./impl/hslp-eth-one";
+import { HSlpWbtcEth } from "./impl/hslp-wbtc-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -212,6 +218,12 @@ jarToBehavior.set(JAR_OKEX_ETHK_USDT.id, new CherryEthkUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_JF_USDT.id, new JswapJfUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_BTCK_USDT.id, new JswapBtckUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_ETHK_USDT.id, new JswapEthkUsdt());
+
+// Harmony
+jarToBehavior.set(JAR_ONE_SUSHI_ETH_DAI.id, new HSlpEthDai());
+jarToBehavior.set(JAR_ONE_SUSHI_ETH_ONE.id, new HSlpEthOne());
+jarToBehavior.set(JAR_ONE_SUSHI_WBTC_ETH.id, new HSlpWbtcEth());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class
