@@ -22,6 +22,8 @@ const jswapPoolIds: PoolId = {
   "0x838a7a7f3e16117763c109d98c79ddcd69f6fd6e": 0,
   "0xeb02a695126b998e625394e43dfd26ca4a75ce2b": 1,
   "0x8009edebbbdeb4a3bb3003c79877fcd98ec7fb45": 4,
+  "0xe9313b7dea9cbabd2df710c25bef44a748ab38a9": 29,
+  "0xa25e1c05c58ede088159cc3cd24f49445d0be4b2": 42
 };
 
 export async function calculateCherryAPY(

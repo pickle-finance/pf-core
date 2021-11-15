@@ -1948,6 +1948,56 @@ export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_ETHK_USDT);
 
+export const JAR_OKEX_JSWAP_USDT_DAIK: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2d",
+  contract: "0xb697e2cb609f19ccd3594964cea1a7e03cef47f2",
+  depositToken: {
+    addr: "0xE9313b7dea9cbaBd2df710C25bef44A748Ab38a9",
+    name: "JSWAP DAIK/USDT",
+    link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0x382bB369d343125BfB2117af9c149795C6C65C50",
+    components: ["daik", "usdt"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.JSWAP,
+  details: {
+    apiKey: "JSWAP-DAIK-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pJSWAP DAIK/USDT",
+    farmDepositTokenName: "pJSWAP DAIK/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_USDT_DAIK);
+
+export const JAR_OKEX_JSWAP_DAIK_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "okexJar 2e",
+  contract: "0x2e148f4848f79105a68444c49d078c6a6edcb26d",
+  depositToken: {
+    addr: "0xa25E1C05c58EDE088159cc3cD24f49445d0BE4b2",
+    name: "JSWAP DAIK/USDC",
+    link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85",
+    components: ["daik", "usdc"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.OKEx,
+  protocol: AssetProtocol.JSWAP,
+  details: {
+    apiKey: "JSWAP-DAIK-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+    farmNickname: "pJSWAP DAIK/USDC",
+    farmDepositTokenName: "pJSWAP DAIK/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OKEX_JSWAP_DAIK_USDC);
+
 // Harmony One
 
 export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
