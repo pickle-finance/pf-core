@@ -39,7 +39,7 @@ export async function calculateYearnAPY(
       (x) => x.address.toLowerCase() === vault.toLowerCase(),
     );
     if (vaultData) {
-      const apr = vaultData?.apy?.data?.netApy || 0;
+      const apr = vaultData?.apy?.net_apy || 0;
       return apr * 100;
     }
   }

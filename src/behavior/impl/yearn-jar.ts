@@ -27,7 +27,7 @@ export class YearnJar extends AbstractJarBehavior {
     });
     const vaultData = yearnData.find((vault) => vault.address.toLowerCase() == vaultAddress.toLowerCase());
     if( vaultData ) {
-      const v = vaultData ? Math.floor((vaultData.apy.data.netApy * 100*100))/100 : 0;
+      const v = vaultData ? Math.floor((vaultData.apy.net_apy * 100*100))/100 : 0;
       return {
         d1: v,
         d3: v,
