@@ -65,6 +65,8 @@ import {
   JAR_OKEX_JSWAP_BTCK_USDT,
   JAR_OKEX_JSWAP_ETHK_USDT,
   JAR_OKEX_JSWAP_JF_USDT,
+  JAR_OKEX_JSWAP_USDT_DAIK,
+  JAR_OKEX_JSWAP_DAIK_USDC,
   JAR_ONE_SUSHI_ETH_DAI,
   JAR_ONE_SUSHI_ETH_ONE,
   JAR_ONE_SUSHI_WBTC_ETH,
@@ -134,6 +136,8 @@ import { CherryOktUsdt } from "./impl/cherry-okt-usdt";
 import { JswapBtckUsdt } from "./impl/jswap-btck-usdt";
 import { JswapEthkUsdt } from "./impl/jswap-ethk-usdt";
 import { JswapJfUsdt } from "./impl/jswap-jf-usdt";
+import { JswapDaikkUsdc } from "./impl/jswap-daik-usdc";
+import { JswapDaikkUsdt } from "./impl/jswap-daik-usdt";
 import { HSlpEthDai } from "./impl/hslp-eth-dai";
 import { HSlpEthOne } from "./impl/hslp-eth-one";
 import { HSlpWbtcEth } from "./impl/hslp-wbtc-eth";
@@ -218,6 +222,8 @@ jarToBehavior.set(JAR_OKEX_ETHK_USDT.id, new CherryEthkUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_JF_USDT.id, new JswapJfUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_BTCK_USDT.id, new JswapBtckUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_ETHK_USDT.id, new JswapEthkUsdt());
+jarToBehavior.set(JAR_OKEX_JSWAP_DAIK_USDC.id, new JswapDaikkUsdc());
+jarToBehavior.set(JAR_OKEX_JSWAP_USDT_DAIK.id, new JswapDaikkUsdt());
 
 // Harmony
 jarToBehavior.set(JAR_ONE_SUSHI_ETH_DAI.id, new HSlpEthDai());
