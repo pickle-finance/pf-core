@@ -83,8 +83,14 @@ export class DaiJar extends AbstractJarBehavior {
       ])
     ).map((x) => parseFloat(ethers.utils.formatEther(x)));
 
-    const rawSupplyAPY = +pool["avg1DaysLiquidityRate"];
-    const rawBorrowAPY = +pool["avg1DaysVariableBorrowRate"];
+    let rawSupplyAPY = +pool["avg1DaysLiquidityRate"];
+    let rawBorrowAPY = +pool["avg1DaysVariableBorrowRate"];
+    if( isNaN(rawSupplyAPY)) {
+      rawSupplyAPY = +pool["avg7DaysLiquidityRate"];
+    }
+    if( isNaN(rawBorrowAPY)) {
+      rawBorrowAPY = +pool["avg7DaysLiquidityRate"];
+    }
 
     const supplyMaticAPR =
       (+pool.aEmissionPerSecond * 365 * 3600 * 24 * maticPrice) /
