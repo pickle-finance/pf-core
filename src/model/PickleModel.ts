@@ -722,16 +722,15 @@ export class PickleModel {
 
     cleanAprStats(stats: AssetProjectedApr) : AssetProjectedApr{
         if( stats ) {
-            stats.apr = toThreeDec(stats.apr);
-            stats.apy = toThreeDec(stats.apy);
             if( stats.components) {
                 for( let i = 0; i < stats.components.length; i++ ) {
-                    stats.components[i].apr = toThreeDec(stats.components[i].apr);
+                    stats.components[i].apr = toThreeDec(stats.components[i].apr ? stats.components[i].apr:0);
                     if( stats.components[i].maxApr)
-                        stats.components[i].maxApr = toThreeDec(stats.components[i].maxApr);
-                    
+                        stats.components[i].maxApr = toThreeDec(stats.components[i].maxApr ? stats.components[i].maxApr:0);
                 }
             }
+            stats.apr = toThreeDec(stats.apr ? stats.apr:0);
+            stats.apy = toThreeDec(stats.apy ? stats.apy:0);
         }
         return stats;
     }
