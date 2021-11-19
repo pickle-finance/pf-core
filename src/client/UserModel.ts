@@ -12,6 +12,7 @@ import minichefAbi from '../Contracts/ABIs/minichef.json';
 import { AssetEnablement, JarDefinition } from '../model/PickleModelJson';
 import { ADDRESSES } from '../model/PickleModel';
 import { Contract } from '@ethersproject/contracts';
+import { Dill, Dill__factory, FeeDistributor, FeeDistributor__factory } from "../Contracts/ContractsImpl";
 
 export interface UserTokenData {
     assetKey: string,
@@ -23,8 +24,16 @@ export interface UserTokenData {
 export interface UserData {
     tokens: UserTokenData[],
     earnings: IUserEarningsSummary,
-    votes: IUserVote[]
+    votes: IUserVote[],
+    dill: IUserDillStats,
 }
+
+export interface IUserDillStats {
+    pickleLocked: string,
+    lockEnd: string,
+    balance: string,
+    claimable: string,
+};
 export interface IUserVote {
     farmDepositToken: string,
     weight: string,
@@ -39,15 +48,17 @@ export class UserModel {
     }
 
     async generateUserModel(): Promise<UserData> {
-        const [tokens, earnings,votes] = await Promise.all([
+        const [tokens, earnings,votes, dill] = await Promise.all([
             this.getUserTokens(),
             this.getUserEarningsSummary(),
             this.getUserGaugeVotes(),
+            this.getUserDillStats(),
         ]);
         return {
             tokens: tokens,
             earnings: earnings,
             votes: votes,
+            dill: dill,
         }
     }
 
@@ -248,6 +259,33 @@ export class UserModel {
         } catch(error ) {
             console.log("Error in getUserEarningsSummary: " + error);
             throw error;
+        }
+    }
+
+    async getUserDillStats(): Promise<IUserDillStats> {
+        const provider : MulticallProvider = this.multicallProviderFor(ChainNetwork.Ethereum);
+        const dillContractAddr : string = ADDRESSES.get(ChainNetwork.Ethereum).dill;
+        const feeDistributorAddr : string = ADDRESSES.get(ChainNetwork.Ethereum).feeDistributor;
+        const dillContract : Dill = Dill__factory.connect(dillContractAddr, this.providerFor(ChainNetwork.Ethereum));
+        const feeDistributorContract : FeeDistributor = FeeDistributor__factory.connect(feeDistributorAddr, this.providerFor(ChainNetwork.Ethereum));
+
+        const [
+          lockStats,
+          balance,
+          userClaimable,
+        ] = await Promise.all([
+          dillContract.locked(this.walletId, { gasLimit: 1000000 }),
+          dillContract["balanceOf(address)"](this.walletId, { gasLimit: 1000000 }),
+          feeDistributorContract.callStatic["claim(address)"](this.walletId, {
+            gasLimit: 1000000,
+          }),
+        ]);
+
+        return {
+            pickleLocked: lockStats[0].toString(),
+            lockEnd: lockStats[1].toString(),
+            balance: balance.toString(),
+            claimable: userClaimable.toString(),
         }
     }
 
