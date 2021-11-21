@@ -42,7 +42,7 @@ export class Mim2Crv extends CurveJar {
           .balanceOf(jar.details.strategyAddr)
           .catch(() => BigNumber.from("0")),
         model.priceOfSync("spell"),
-        strategy.getHarvestable(),
+        strategy.getHarvestable().catch(() => BigNumber.from("0")),
       ]);
     const harvestable = spellWallet
       .add(pending)

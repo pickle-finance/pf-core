@@ -43,7 +43,7 @@ export class Mim3Crv extends AbstractJarBehavior {
       model.priceOfSync('crv'),
       model.priceOfSync('cvx'),
       model.priceOfSync('spell'),
-      strategy.getHarvestable(),
+      strategy.getHarvestable().catch(() => BigNumber.from("0")),
     ]);
     const harvestable = 
       crvWallet.add(pending[0]).mul((crvPrice*1e4).toFixed()).div(1e4)

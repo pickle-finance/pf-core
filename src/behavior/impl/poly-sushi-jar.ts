@@ -45,7 +45,7 @@ export abstract class PolySushiJar extends AbstractJarBehavior {
       await model.priceOf("sushi"),
       await model.priceOf("matic"),
     ]);
-    const res = await strategy.getHarvestable();
+    const res = await strategy.getHarvestable().catch(() => BigNumber.from("0"));
     const pendingSushi = res[0];
     const pendingMatic = res[1];
 

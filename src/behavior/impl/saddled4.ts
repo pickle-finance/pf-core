@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import communalFarmAbi from "../../Contracts/ABIs/communal_farm.json";
@@ -137,7 +137,7 @@ export class SaddleD4 extends AbstractJarBehavior {
       alcxBal,
       lqtyBal,
     ] = await Promise.all([
-      strategy.getHarvestable(),
+      strategy.getHarvestable().catch(() => BigNumber.from("0")),
       await model.priceOf("fxs"),
       await model.priceOf("tribe"),
       await model.priceOf("alcx"),

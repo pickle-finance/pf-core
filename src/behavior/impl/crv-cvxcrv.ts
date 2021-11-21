@@ -64,7 +64,7 @@ export class CurveCvxCrv extends AbstractJarBehavior {
       cvx.balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")),
       model.priceOfSync("crv"),
       model.priceOfSync("cvx"),
-      strategy.getHarvestable(),
+      strategy.getHarvestable().catch(() => BigNumber.from("0")),
     ]);
     const harvestable = crvWallet
       .add(pending[0])

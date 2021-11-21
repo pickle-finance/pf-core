@@ -57,37 +57,42 @@ export class SteCrv extends AbstractJarBehavior {
       convexStrategyAbi,
       resolver,
     );
-    const [
-      crvWallet,
-      cvxWallet,
-      ldoWallet,
-      crvPrice,
-      cvxPrice,
-      ldoPrice,
-      pending,
-    ]: [BigNumber, BigNumber, BigNumber, number, number, number, BigNumber[]] =
-      await Promise.all([
-        crv
-          .balanceOf(jar.details.strategyAddr)
-          .catch(() => BigNumber.from("0")),
-        cvx
-          .balanceOf(jar.details.strategyAddr)
-          .catch(() => BigNumber.from("0")),
-        lido
-          .balanceOf(jar.details.strategyAddr)
-          .catch(() => BigNumber.from("0")),
-        model.priceOfSync("crv"),
-        model.priceOfSync("cvx"),
-        model.priceOfSync("ldo"),
-        strategy.getHarvestable(),
-      ]);
-    
-      const crvRewards = crvWallet.add(pending[0]).mul((crvPrice*1e6).toFixed()).div(1e6);
-      const cvxRewards = cvxWallet.add(pending[1]).mul((cvxPrice*1e6).toFixed()).div(1e6);
-      const ldoRewards = ldoWallet.add(pending[2]).mul((ldoPrice*1e6).toFixed()).div(1e6);
-      const ethRewards = pending[3].mul((model.priceOfSync("weth")*1e6).toFixed()).div(1e6);
+    try {
+      const [
+        crvWallet,
+        cvxWallet,
+        ldoWallet,
+        crvPrice,
+        cvxPrice,
+        ldoPrice,
+        pending,
+      ]: [BigNumber, BigNumber, BigNumber, number, number, number, BigNumber[]] =
+        await Promise.all([
+          crv
+            .balanceOf(jar.details.strategyAddr)
+            .catch(() => BigNumber.from("0")),
+          cvx
+            .balanceOf(jar.details.strategyAddr)
+            .catch(() => BigNumber.from("0")),
+          lido
+            .balanceOf(jar.details.strategyAddr)
+            .catch(() => BigNumber.from("0")),
+          model.priceOfSync("crv"),
+          model.priceOfSync("cvx"),
+          model.priceOfSync("ldo"),
+          strategy.getHarvestable().catch(() => BigNumber.from("0")),
+        ]);
       
-      const total = crvRewards.add(cvxRewards).add(ldoRewards).add(ethRewards);
-      return parseFloat(ethers.utils.formatEther(total));
+        const crvRewards = crvWallet.add(pending[0]).mul((crvPrice*1e6).toFixed()).div(1e6);
+        const cvxRewards = cvxWallet.add(pending[1]).mul((cvxPrice*1e6).toFixed()).div(1e6);
+        const ldoRewards = ldoWallet.add(pending[2]).mul((ldoPrice*1e6).toFixed()).div(1e6);
+        const ethRewards = pending[3].mul((model.priceOfSync("weth")*1e6).toFixed()).div(1e6);
+        
+        const total = crvRewards.add(cvxRewards).add(ldoRewards).add(ethRewards);
+        return parseFloat(ethers.utils.formatEther(total));
+      } catch( error ) {
+        console.log("BIG ERROR: " + error);
+        return 0;
+      }
   }
 }

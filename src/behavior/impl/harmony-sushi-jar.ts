@@ -48,7 +48,7 @@ export abstract class HarmonySushiJar extends AbstractJarBehavior {
       await model.priceOf("wone"),
     ]);
 
-    const res = await strategy.getHarvestable();
+    const res = await strategy.getHarvestable().catch(() => BigNumber.from("0"));
     const pendingSushi = res[0];
     const pendingOne = res[1];
 

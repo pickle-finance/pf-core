@@ -33,7 +33,7 @@ export abstract class OkexJswapJar extends AbstractJarBehavior {
       jswapToken.balanceOf(jar.details.strategyAddr),
       await model.priceOf("jswap"),
     ]);
-    const pendingJswap = await strategy.getHarvestable();
+    const pendingJswap = await strategy.getHarvestable().catch(() => BigNumber.from("0"));
 
     const harvestable = pendingJswap
       .add(walletJswap)

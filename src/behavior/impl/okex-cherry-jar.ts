@@ -33,7 +33,7 @@ export abstract class OkexCherryJar extends AbstractJarBehavior {
       cherryToken.balanceOf(jar.details.strategyAddr),
       await model.priceOf("cherry"),
     ]);
-    const pendingCherry = await strategy.getHarvestable();
+    const pendingCherry = await strategy.getHarvestable().catch(() => BigNumber.from("0"));
 
     const harvestable = pendingCherry
       .add(walletCherry)
