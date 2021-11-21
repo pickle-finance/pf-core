@@ -8,7 +8,7 @@ import { PickleModel } from "./model/PickleModel";
 async function generateFullApi() {
   const map : Map<ChainNetwork, Provider | Signer> = new Map();
   map.set(ChainNetwork.Ethereum, new ethers.providers.InfuraProvider());
-  map.set(ChainNetwork.Polygon, new ethers.providers.JsonRpcProvider('https://matic-mainnet.chainstacklabs.com/'));
+  map.set(ChainNetwork.Polygon, new ethers.providers.JsonRpcProvider('https://polygon-rpc.com/'));
   
   const model : PickleModel = new PickleModel(ALL_ASSETS, map);
   const result = await model.generateFullApi();

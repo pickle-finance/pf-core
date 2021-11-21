@@ -80,7 +80,15 @@ export class SteCrv extends AbstractJarBehavior {
           model.priceOfSync("crv"),
           model.priceOfSync("cvx"),
           model.priceOfSync("ldo"),
-          strategy.getHarvestable().catch(() => BigNumber.from("0")),
+          strategy.getHarvestable().catch((err) => {
+            console.log("Big error: " + err);
+            return [
+              BigNumber.from("0"),
+              BigNumber.from("0"),
+              BigNumber.from("0"),
+              BigNumber.from("0"),
+            ];
+          }),
         ]);
       
         const crvRewards = crvWallet.add(pending[0]).mul((crvPrice*1e6).toFixed()).div(1e6);
