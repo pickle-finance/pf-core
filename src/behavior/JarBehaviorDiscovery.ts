@@ -54,6 +54,7 @@ import {
   JAR_ARBITRUM_SLP_MIM_ETH,
   JAR_ARBITRUM_SLP_SPELL_ETH,
   JAR_ARBITRUM_DODO_HND_ETH,
+  JAR_ARBITRUM_BAL_TRICRYPTO,
   JAR_CURVE_CVXCRVLP,
   JAR_POLY_SUSHI_WORK_USDC,
   JAR_CVXCRV,
@@ -125,6 +126,7 @@ import { Mim2Crv } from "./impl/mim2crv";
 import { ArbitrumMimEth } from "./impl/arbitrum-mim-eth";
 import { ArbitrumSpellEth } from "./impl/arbitrum-spell-eth";
 import { ArbitrumHndEth } from "./impl/arbitrum-hnd-eth";
+import { BalTricrypto } from "./impl/bal-tricrypto";
 import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
 import { CvxCrv } from './impl/cvxcrv';
@@ -213,6 +215,7 @@ jarToBehavior.set(JAR_ARBITRUM_SLP_SPELL_ETH.id, new ArbitrumSpellEth());
 jarToBehavior.set(JAR_ARBITRUM_MIM2CRV.id, new Mim2Crv());
 jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
+jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalTricrypto());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());

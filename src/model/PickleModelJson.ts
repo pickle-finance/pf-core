@@ -27,6 +27,7 @@ export enum AssetProtocol {
   CHERRYSWAP = "cherryswap_okex",
   BXH = "bxh_okex",
   JSWAP = "jswap_okex",
+  BALANCER_ARBITRUM = "balancer_arbitrum",
 }
 // ADD_PROTOCOL
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
