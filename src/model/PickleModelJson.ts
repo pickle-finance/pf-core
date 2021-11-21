@@ -26,9 +26,11 @@ export enum AssetProtocol {
   CHERRYSWAP = "cherryswap_okex",
   BXH = "bxh_okex",
   JSWAP = "jswap_okex",
-  SOLARSWAP = "solarswap_moonriver"
+  SOLARSWAP = "solarswap_moonriver",
+  BALANCER_ARBITRUM = "balancer_arbitrum",
 // ADD_PROTOCOL
 }
+
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.SUSHISWAP,
   AssetProtocol.SUSHISWAP_POLYGON,

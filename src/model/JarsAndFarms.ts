@@ -1713,6 +1713,31 @@ export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_CRV_TRICRYPTO);
 
+export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 4a",
+  contract: "0x0be790c83648c28ed285fee5e0bd79d1d57aae69",
+  depositToken: {
+    addr: "0x64541216bafffeec8ea535bb71fbc927831d0595",
+    name: "Balancer Tricrypto",
+    link: "https://arbitrum.balancer.fi/#/pool/0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002/invest",
+    components: ["usdc", "wbtc", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.BALANCER_ARBITRUM,
+  details: {
+    apiKey: "BalTricrypto",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "Balancer Tricrypto",
+    farmDepositTokenName: "Balancer Tricrypto",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_TRICRYPTO);
+
 
 
 // OKEx Chain

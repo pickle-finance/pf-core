@@ -28,6 +28,8 @@ const SUBGRAPH_URL_COMETH =
 const SUBGRAPH_URL_QUICKSWAP =
   "https://api.thegraph.com/subgraphs/name/sameepsi/quickswap06";
 const SUBGRAPH_URL_SOLARSWAP = "https://analytics.solarbeam.io/api/subgraph";
+const SUBGRAPH_URL_BALANCER_ARBITRUM =
+  "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-arbitrum-v2";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -47,6 +49,7 @@ export const protocolToSubgraphUrl: Map<string, string> = new Map([
   [AssetProtocol.COMETHSWAP, SUBGRAPH_URL_COMETH],
   [AssetProtocol.QUICKSWAP_POLYGON, SUBGRAPH_URL_QUICKSWAP], //TODO is this right?
   [AssetProtocol.SOLARSWAP, SUBGRAPH_URL_SOLARSWAP],
+  [AssetProtocol.BALANCER_ARBITRUM, SUBGRAPH_URL_BALANCER_ARBITRUM],
 ]);
 
 export async function readQueryFromPickleSubgraph(
