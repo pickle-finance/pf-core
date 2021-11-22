@@ -234,17 +234,22 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
   };
 };
 
-export const calculateBalPoolAPRs = async (depositToken: string, model: PickleModel) => {
+export const calculateBalPoolAPRs = async (depositToken: string, model: PickleModel): Promise<AssetAprComponent[]> => {
   const weeksLMResp = await fetch(balLMUrl);
   const weeksLMData = await weeksLMResp.json();
   const miningWeek = getCurrentLiquidityMiningWeek();
   let currentWeekData = weeksLMData[
     getWeek(miningWeek)
   ] as LiquidityMiningWeek;
-  if (!currentWeekData)
-    currentWeekData = weeksLMData[
-      getWeek(miningWeek - 1)
-    ] as LiquidityMiningWeek; // balLMUrl can take some time to include current week rewards
+  let n = 1;
+  while ( !currentWeekData && miningWeek - n >= 1 ) {
+  // balLMUrl can take some time to include current week rewards
+      currentWeekData = weeksLMData[ getWeek( miningWeek - n ) ] as LiquidityMiningWeek; 
+      n++;
+  }
+  if( !currentWeekData ) {
+      return [] as AssetAprComponent[]; 
+  }
   const miningRewards: LiquidityMiningPools = {};
   if (currentWeekData) {
     Object.assign(
