@@ -1176,7 +1176,7 @@ export const JAR_UNIV3_RBN_ETH: JarDefinition = {
     components: ["rbn", "weth"],
     style: {erc20: false}
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
