@@ -187,15 +187,15 @@ export class PickleModel {
 
     toJson() : PickleModelJson {
         const ret = {
-            tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
-            prices: Object.fromEntries(this.prices.getCache()),
-            dill: this.dillDetails,
+            tokens: null,
+            prices: null,
+            dill: null,
             assets: {
                 jars: this.getJars(),
                 standaloneFarms: this.getStandaloneFarms(),
                 external: this.getExternalAssets(),
             },
-            platform: this.platformData,
+            platform: null,
             timestamp: Date.now(),
         }
         return ret;
@@ -359,6 +359,7 @@ export class PickleModel {
                     return controllerContract.strategies(oneJar.depositToken.addr)
                 })
             );
+            console.log(controllerContract.address, jars)
         } catch(error) {
             this.logError("addJarStrategies: strategyAddresses", error, chain);
         }
