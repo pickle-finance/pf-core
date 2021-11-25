@@ -19,6 +19,7 @@ export enum ChainNetwork {
   OKEx = 'okex',
   Arbitrum = 'arbitrum',
   Harmony = 'harmony',
+  Moonriver = 'moonriver'
   // ADD_CHAIN 
   //Binance
 }
@@ -74,6 +75,16 @@ const rawChains : RawChain[] = [
           ],
           multicallAddress: "0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9"
       },
+      {
+        chainId: 1285,
+        network: "moonriver",
+        secondsPerBlock: 14,
+        explorer: "https://moonriver.moonscan.io",
+        rpcs: [
+            "https://rpc.moonriver.moonbeam.network"
+        ],
+        multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b"
+    },
       // ADD_CHAIN
   ];
 export class JsonChain extends AbstractChain {

@@ -144,7 +144,14 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Harmony,"1wbtc","wrapped-bitcoin","0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Harmony,"sushi","sushi","0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
 
-    // ADD_JAR
+    // Moonriver
+    this.addToken(ChainNetwork.Moonriver,"movr","moonriver","0x98878B06940aE243284CA214f92Bb71a2b032B8A".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver,"solar","solarbeam","0x6bd193ee6d2104f14f94e2ca6efefae561a4334b".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver,"eth","ethereum","0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver,"avax","avalanche-2","0x14a0243C333A5b238143068dC3A7323Ba4C30ECB".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver,"bnb","binancecoin","0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver,"busd","binance-usd","0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver,"usdc","usd-coin","0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
 
 
     // Make the reverse map to fascilitate contract lookups

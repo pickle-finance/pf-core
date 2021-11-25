@@ -21,12 +21,13 @@ const SUBGRAPH_URL_SUSHISWAP_POLYGON =
   "https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange";
 const SUBGRAPH_URL_SUSHISWAP_ARBITRUM =
   "https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange";
-const SUBGRAPH_URL_SUSHISWAP_HARMONY = 
+const SUBGRAPH_URL_SUSHISWAP_HARMONY =
   "https://sushi.graph.t.hmny.io/subgraphs/name/sushiswap/harmony-exchange";
 const SUBGRAPH_URL_COMETH =
   "https://api.thegraph.com/subgraphs/name/cometh-game/comethswap";
 const SUBGRAPH_URL_QUICKSWAP =
   "https://api.thegraph.com/subgraphs/name/sameepsi/quickswap06";
+const SUBGRAPH_URL_SOLARSWAP = "https://analytics.solarbeam.io/api/subgraph";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -45,6 +46,7 @@ export const protocolToSubgraphUrl: Map<string, string> = new Map([
   [AssetProtocol.SUSHISWAP_HARMONY, SUBGRAPH_URL_SUSHISWAP_HARMONY],
   [AssetProtocol.COMETHSWAP, SUBGRAPH_URL_COMETH],
   [AssetProtocol.QUICKSWAP_POLYGON, SUBGRAPH_URL_QUICKSWAP], //TODO is this right?
+  [AssetProtocol.SOLARSWAP, SUBGRAPH_URL_SOLARSWAP],
 ]);
 
 export async function readQueryFromPickleSubgraph(
@@ -65,8 +67,7 @@ export async function readQueryFromGraph(
   query: string,
   url: string,
 ): Promise<any> {
-  if( url === undefined )
-    return undefined;
+  if (url === undefined) return undefined;
   const tst = await fetch(url, {
     method: "POST",
     body: JSON.stringify({ query }),
