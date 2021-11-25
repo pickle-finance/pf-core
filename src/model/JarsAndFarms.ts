@@ -1548,12 +1548,12 @@ JAR_DEFINITIONS.push(JAR_QUICK_DINO_ETH);
 
 export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
   type: AssetType.JAR,
-  id: "polyJar 4e",
+  id: "polyJar 4c",
   contract: "0x1D35e4348826857eaFb22739d4e494C0337cb427",
   depositToken: {
     addr: "0x57602582eB5e82a197baE4E8b6B80E39abFC94EB",
     name: "Sushi PICKLE/DAI",
-    link: "https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
+    link: "https://app.sushi.com/add/0x2b88aD57897A8b496595925F43048301C37615Da/0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
     components: ["pickle", "dai"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -1727,7 +1727,7 @@ export const JAR_OKEX_OKT_CHE: JarDefinition = {
     link: "https://www.cherryswap.net/#/add/ETH/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
     components: ["wokt", "cherry"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.CHERRYSWAP,
   details: {
@@ -1753,7 +1753,7 @@ export const JAR_OKEX_USDT_CHE: JarDefinition = {
     link: "https://www.cherryswap.net/#/add/0x382bb369d343125bfb2117af9c149795c6c65c50/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
     components: ["usdt", "cherry"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.CHERRYSWAP,
   details: {
@@ -1779,7 +1779,7 @@ export const JAR_OKEX_OKT_USDT: JarDefinition = {
     link: "https://www.cherryswap.net/#/add/ETH/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["wokt", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.CHERRYSWAP,
   details: {
@@ -1806,7 +1806,7 @@ export const JAR_OKEX_ETHK_USDT: JarDefinition = {
     link: "https://www.cherryswap.net/#/add/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["ethk", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.CHERRYSWAP,
   details: {
@@ -1883,7 +1883,7 @@ export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A",
     components: ["jswap", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.JSWAP,
   details: {
@@ -1908,7 +1908,7 @@ export const JAR_OKEX_JSWAP_BTCK_USDT: JarDefinition = {
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x54e4622DC504176b3BB432dCCAf504569699a7fF",
     components: ["btck", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.JSWAP,
   details: {
@@ -1933,7 +1933,7 @@ export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C",
     components: ["ethk", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.JSWAP,
   details: {
@@ -1958,7 +1958,7 @@ export const JAR_OKEX_JSWAP_USDT_DAIK: JarDefinition = {
     link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0x382bB369d343125BfB2117af9c149795C6C65C50",
     components: ["daik", "usdt"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.JSWAP,
   details: {
@@ -1983,7 +1983,7 @@ export const JAR_OKEX_JSWAP_DAIK_USDC: JarDefinition = {
     link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85",
     components: ["daik", "usdc"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.JSWAP,
   details: {
