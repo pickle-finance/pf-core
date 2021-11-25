@@ -8,7 +8,7 @@ import { readQueryFromGraphProtocol } from "../graph/TheGraph";
 import { AssetAprComponent, AssetProtocol, HistoricalYield, JarDefinition } from "../model/PickleModelJson";
 
 const balLMUrl =
-  "https://raw.githubusercontent.com/balancer-labs/frontend-v2/cad6a786b65118e1b8d61be9555ee2a8391849e8/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
+  "https://raw.githubusercontent.com/balancer-labs/frontend-v2/master/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
 const balVaultAddr = "0xba12222222228d8ba445958a75a0704d566bf2c8";
 
 // Balancer stuff
@@ -44,39 +44,6 @@ type LiquidityMiningWeek = Array<{
   pools: LiquidityMiningPools;
 }>;
 
-const addresses = {
-  bal: "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8",
-  weth: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
-  pickle: "0x965772e0e9c84b6f359c8597c891108dcf1c5b1a",
-  usdc: "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
-  wbtc: "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
-};
-
-interface Token {
-  address: string;
-  priceId: string;//PriceIds;
-  decimals: number;
-}
-
-// prettier-ignore
-const pickle: Token = {
-  address: addresses.pickle,
-  priceId: "pickle",
-  decimals: 18,
-};
-const aeth: Token = { address: addresses.weth, priceId: "eth", decimals: 18 };
-const bal: Token = { address: addresses.bal, priceId: "bal", decimals: 18 };
-const usdc: Token = { address: addresses.usdc, priceId: "usdc", decimals: 6 };
-const wbtc: Token = { address: addresses.wbtc, priceId: "wbtc", decimals: 8 };
-
-interface PoolMap {
-  [key: string]: { a: Token; b: Token; c?: Token };
-}
-export const POOL_INFO: PoolMap = {
-  "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac": { a: pickle, b: aeth },
-  "0x64541216bafffeec8ea535bb71fbc927831d0595": { a: aeth, b: wbtc, c: usdc },
-};
-
 const balPoolIds: { [poolTokenAddress: string]: string } = {
   "0x64541216bafffeec8ea535bb71fbc927831d0595":
     "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // bal tricrypto
@@ -86,10 +53,8 @@ const balPoolIds: { [poolTokenAddress: string]: string } = {
 
 interface Tokens {
   [tokenAddres: string]: {
-    // id: string;
     decimals: number;
-    // price: number;
-    priceId: string;//PriceIds;
+    priceId: string;
   };
 }
 
@@ -122,9 +87,15 @@ interface GraphResponse {
   totalSwapFee: number;
 }
 
-export const queryTheGraph = async (poolAddress: string, blockNumber: number) => {
+export const queryTheGraph = async (
+  poolAddress: string,
+  blockNumber: number,
+) => {
   const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
-  const res = await readQueryFromGraphProtocol(query, AssetProtocol.BALANCER_ARBITRUM);
+  const res = await readQueryFromGraphProtocol(
+    query,
+    AssetProtocol.BALANCER_ARBITRUM,
+  );
   const poolData = res?.data?.pools[0];
   try {
     return {
@@ -138,10 +109,14 @@ export const queryTheGraph = async (poolAddress: string, blockNumber: number) =>
   }
 };
 
-export const getBalancerPoolDayAPY = async (poolAddress: string, model: PickleModel) => {
-  const arbBlocktime = 3;   // in block:{number:3142784}Chains.ts the value is set to 13
+export const getBalancerPoolDayAPY = async (
+  poolAddress: string,
+  model: PickleModel,
+) => {
+  // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
+  const arbBlocktime = 3; // in Chains.ts the value is set to 13
   const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = (await provider.getBlockNumber()) - 100;   // safety buffer of 100 blocks, the graph may not be up to date with the current block number. Sometimes it takes more than 1000 blocks!
+  const blockNum = (await provider.getBlockNumber()) - 100; // safety buffer, the graph can take more than 1000 blocks to update!
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / arbBlocktime);
   const currentPoolDayDate = await queryTheGraph(poolAddress, blockNum);
@@ -151,51 +126,45 @@ export const getBalancerPoolDayAPY = async (poolAddress: string, model: PickleMo
   );
   const lastDaySwapFee =
     currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
-  const apy =
-    (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
+  const apy = (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
 
   return { lp: apy };
 };
 
 export const getBalancerPerformance = async (
   asset: JarDefinition,
-  model: PickleModel
-  ): Promise<HistoricalYield> => {
-    const poolAddress = asset.depositToken.addr;
-    const arbBlocktime = 3;   // in block:{number:3142784}Chains.ts the value is set to 13
-    const provider = model.providerFor(ChainNetwork.Arbitrum);
-    const blockNum = (await provider.getBlockNumber()) - 100;   // safety buffer of 100 blocks, the graph may not be up to date with the current block number. Sometimes it takes more than 1000 blocks!
-    const secondsInDay = 60 * 60 * 24;
-    const blocksInDay = Math.round(secondsInDay / arbBlocktime);
-    const [
-      currentPoolDate,
-      d1PoolData,
-      d3PoolData,
-      d7PoolData,
-      d30PoolData,
-    ] = await Promise.all([
+  model: PickleModel,
+): Promise<HistoricalYield> => {
+  const poolAddress = asset.depositToken.addr;
+  const arbBlocktime = 3; // in Chains.ts the value is set to 13
+  const provider = model.providerFor(ChainNetwork.Arbitrum);
+  const blockNum = (await provider.getBlockNumber()) - 100; // safety buffer, the graph can take more than 1000 blocks to update!
+  const secondsInDay = 60 * 60 * 24;
+  const blocksInDay = Math.round(secondsInDay / arbBlocktime);
+  const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
+    await Promise.all([
       queryTheGraph(poolAddress, blockNum),
       queryTheGraph(poolAddress, blockNum - blocksInDay),
-      queryTheGraph(poolAddress, blockNum - blocksInDay*3),
-      queryTheGraph(poolAddress, blockNum - blocksInDay*7),
-      queryTheGraph(poolAddress, blockNum - blocksInDay*30),
+      queryTheGraph(poolAddress, blockNum - blocksInDay * 3),
+      queryTheGraph(poolAddress, blockNum - blocksInDay * 7),
+      queryTheGraph(poolAddress, blockNum - blocksInDay * 30),
     ]);
-    const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
-    const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
-    const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;
-    const d30SwapFee = currentPoolDate.totalSwapFee - d30PoolData.totalSwapFee;
-    const d1 = d1SwapFee / currentPoolDate.totalLiquidity * 365 * 100;
-    const d3 = d3SwapFee / currentPoolDate.totalLiquidity / 3 * 365 * 100;
-    const d7 = d7SwapFee / currentPoolDate.totalLiquidity / 7 * 365 * 100;
-    const d30 = d30SwapFee / currentPoolDate.totalLiquidity / 30 * 365 * 100;
+  const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
+  const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
+  const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;
+  const d30SwapFee = currentPoolDate.totalSwapFee - d30PoolData.totalSwapFee;
+  const d1 = (d1SwapFee / currentPoolDate.totalLiquidity) * 365 * 100;
+  const d3 = (d3SwapFee / currentPoolDate.totalLiquidity / 3) * 365 * 100;
+  const d7 = (d7SwapFee / currentPoolDate.totalLiquidity / 7) * 365 * 100;
+  const d30 = (d30SwapFee / currentPoolDate.totalLiquidity / 30) * 365 * 100;
 
-    return {
-      d1: d1,
-      d3: d3,
-      d7: d7,
-      d30: d30,
-    };
-}
+  return {
+    d1: d1,
+    d3: d3,
+    d7: d7,
+    d30: d30,
+  };
+};
 
 export const getPoolData = async (poolAddress: string, model: PickleModel) => {
   const provider = model.providerFor(ChainNetwork.Arbitrum);
@@ -217,7 +186,9 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
   });
   const poolContract = new Contract(poolAddress, erc20, provider);
   const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
-  const poolTokenTotalSupply = parseFloat(ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18)) // balancer LP tokens always have 18 decimals
+  const poolTokenTotalSupply = parseFloat(
+    ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
+  ); // balancer LP tokens always have 18 decimals
   const poolTotalBalanceUSD = filtered.reduce(
     (total: number, token: [string, number]) => {
       const tokenAddress = token[0].toLowerCase();
@@ -233,21 +204,24 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
   };
 };
 
-export const calculateBalPoolAPRs = async (depositToken: string, model: PickleModel): Promise<AssetAprComponent[]> => {
+export const calculateBalPoolAPRs = async (
+  depositToken: string,
+  model: PickleModel,
+): Promise<AssetAprComponent[]> => {
   const weeksLMResp = await fetch(balLMUrl);
   const weeksLMData = await weeksLMResp.json();
   const miningWeek = getCurrentLiquidityMiningWeek();
-  let currentWeekData = weeksLMData[
-    getWeek(miningWeek)
-  ] as LiquidityMiningWeek;
+  let currentWeekData = weeksLMData[getWeek(miningWeek)] as LiquidityMiningWeek;
   let n = 1;
-  while ( !currentWeekData && miningWeek - n >= 1 ) {
-  // balLMUrl can take some time to include current week rewards
-      currentWeekData = weeksLMData[ getWeek( miningWeek - n ) ] as LiquidityMiningWeek; 
-      n++;
+  while (!currentWeekData && miningWeek - n >= 1) {
+    // balLMUrl can take some time to include current week rewards
+    currentWeekData = weeksLMData[
+      getWeek(miningWeek - n)
+    ] as LiquidityMiningWeek;
+    n++;
   }
-  if( !currentWeekData ) {
-      return [] as AssetAprComponent[]; 
+  if (!currentWeekData) {
+    return [] as AssetAprComponent[];
   }
   const miningRewards: LiquidityMiningPools = {};
   if (currentWeekData) {
@@ -261,13 +235,16 @@ export const calculateBalPoolAPRs = async (depositToken: string, model: PickleMo
 
   const poolRewardsPerWeek =
     miningRewards[balPoolIds[depositToken.toLowerCase()]];
-  const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map((reward) => {
-    const rewardValue =
-      reward.amount * model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
-    const name = TOKENS[reward.tokenAddress.toLowerCase()].priceId;
-    const apr = rewardValue / 7 * 365 / totalPoolValue * 100;
-    return { name: name, apr: apr, compoundable: true, };
-  });
+  const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
+    (reward) => {
+      const rewardValue =
+        reward.amount *
+        model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
+      const name = TOKENS[reward.tokenAddress.toLowerCase()].priceId;
+      const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
+      return { name: name, apr: apr, compoundable: true };
+    },
+  );
 
   const lp: AssetAprComponent = {
     name: "lp",
@@ -279,4 +256,3 @@ export const calculateBalPoolAPRs = async (depositToken: string, model: PickleMo
 
   return poolAprComponents;
 };
-
