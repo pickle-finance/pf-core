@@ -54,6 +54,7 @@ export const ADDRESSES = new Map([
         controller: "0xf4396dca6201e0ca120073acda087b53f7159e24",
         minichef: NULL_ADDRESS,
       }],
+    // ADD_CHAIN
 ]);
 
 export class PickleModel {
@@ -616,9 +617,6 @@ export class PickleModel {
             }
             const tokenBalance = parseFloat(ethers.utils.formatUnits(tokens, dec));
             const valueBalance = tokenBalance * depositTokenPrice;
-            if( farms[i].details === undefined ) {
-                farms[i].details = {};
-            }
             farms[i].details.tokenBalance = tokenBalance;
             farms[i].details.valueBalance = valueBalance;
             farms[i].details.harvestStats = {

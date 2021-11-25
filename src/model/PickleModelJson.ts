@@ -5,7 +5,6 @@ import {
 } from "../behavior/JarBehaviorResolver";
 
 // TODO move these out i guess?
-// // ADD_PROTOCOL
 export enum AssetProtocol {
   UNISWAP = "uniswap",
   UNISWAP_V3 = "uniswap_v3",
@@ -27,8 +26,8 @@ export enum AssetProtocol {
   CHERRYSWAP = "cherryswap_okex",
   BXH = "bxh_okex",
   JSWAP = "jswap_okex",
-}
 // ADD_PROTOCOL
+}
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.SUSHISWAP,
   AssetProtocol.SUSHISWAP_POLYGON,
@@ -41,6 +40,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.CHERRYSWAP,
   AssetProtocol.BXH,
   AssetProtocol.JSWAP,
+// ADD_PROTOCOL
 ];
 
 export enum AssetEnablement {
@@ -132,7 +132,7 @@ export interface JarDetails extends AssetDetails {
 }
 
 export interface AssetDetails {
-  apiKey?: string;
+  apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
 export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}

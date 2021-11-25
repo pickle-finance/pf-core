@@ -10,7 +10,7 @@ const swap_abi = ["function balances(uint256) view returns(uint256)"];
 
 const cacheKeyPrefix = "curve.data.cache.key.";
 
-// ADD_CHAIN
+// ADD_CHAIN_PROTOCOL
 export const curveApi = "https://stats.curve.fi/raw-stats/apys.json";
 export const curveApiPoly = "https://stats.curve.fi/raw-stats-polygon/apys.json";
 export const curveApiArbitrum = "https://stats.curve.fi/raw-stats-arbitrum/apys.json";
@@ -113,7 +113,11 @@ export async function getCurveData(model: PickleModel, chain: ChainNetwork): Pro
   if( url === undefined )
     return undefined;
 
-  const result = await fetch(url).then((response) => response.json()).catch(()=>{});
-  model.resourceCache.set(key, result);
+  const result = await fetch(url).then((response) => response.json()).catch(()=>{return undefined});
+  if( !result ) {
+    model.resourceCache.delete(key);
+  } else {
+    model.resourceCache.set(key, result);
+  }
   return result;
 }

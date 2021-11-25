@@ -9,6 +9,7 @@ export abstract class AbstractChain implements IChain {
   explorer: string;
   rpcProviderUrls: string[];
   secondsPerBlock: number;
+  multicallAddress?: string;
   private preferredProvider: Provider;
   private signer: Signer;
   constructor(
@@ -17,12 +18,15 @@ export abstract class AbstractChain implements IChain {
     secondsPerBlock: number,
     explorer: string,
     rpcProviderUrls: string[],
+    multicallAddress?: string,
   ) {
     this.secondsPerBlock = secondsPerBlock;
     this.id = id;
     this.name = name;
     this.explorer = explorer;
     this.rpcProviderUrls = rpcProviderUrls;
+    if( multicallAddress )
+      this.multicallAddress = multicallAddress;
   }
   getRandomWeb3Provider(): Provider {
     const url: string =

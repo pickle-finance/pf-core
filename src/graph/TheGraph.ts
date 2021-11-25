@@ -2,7 +2,7 @@ import fetch from "cross-fetch";
 import { ChainNetwork } from "..";
 import { AssetProtocol } from "../model/PickleModelJson";
 
-// ADD_CHAIN
+// ADD_CHAIN_PROTOCOL
 const SUBGRAPH_URL_PICKLE_MAINNET =
   "https://api.thegraph.com/subgraphs/name/pickle-finance/pickle";
 const SUBGRAPH_URL_PICKLE_POLYGON =
@@ -28,7 +28,7 @@ const SUBGRAPH_URL_COMETH =
 const SUBGRAPH_URL_QUICKSWAP =
   "https://api.thegraph.com/subgraphs/name/sameepsi/quickswap06";
 
-// ADD_CHAIN
+// ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
   [ChainNetwork.Ethereum, SUBGRAPH_URL_PICKLE_MAINNET],
   [ChainNetwork.Polygon, SUBGRAPH_URL_PICKLE_POLYGON],

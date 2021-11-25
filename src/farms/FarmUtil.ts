@@ -25,7 +25,7 @@ export function secondsPerBlock(network: ChainNetwork) {
 }
 
 export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) {
-    // TODO ADD_CHAIN
+    // TODO ADD_CHAIN_STYLE
     if( chain === ChainNetwork.Ethereum) {
         const rawGaugeData = await loadGaugeDataEth();
         if( rawGaugeData && rawGaugeData.length > 0 ) {
@@ -65,9 +65,6 @@ function findStandaloneFarmForGauge(gauge:IRawGaugeData, model: PickleModel) : S
         (x)=>x.contract !== undefined && 
         x.contract.toLowerCase() === gauge.gaugeAddress.toLowerCase());
     if( matchingStandaloneFarms.length > 0 ) {
-        if( !matchingStandaloneFarms[0].details) {
-            matchingStandaloneFarms[0].details = {};
-        }
         return matchingStandaloneFarms[0];
     }
     return undefined;

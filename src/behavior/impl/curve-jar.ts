@@ -34,7 +34,7 @@ curveMetadataForChains.set(ChainNetwork.Arbitrum, {
   cacheKey: "curveJar.apr.rawstats.arbitrum.key",
   url: "https://stats.curve.fi/raw-stats-arbitrum/apys.json",
 });
-// ADD_CHAIN
+// ADD_CHAIN_PROTOCOL
 
 export interface RawStatAPYs {
   compound: number;

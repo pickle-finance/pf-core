@@ -41,9 +41,7 @@ export class ExternalToken implements IExternalToken {
 }
 
 export class ExternalTokenModel {
-  // ADD_CHAIN
   chainTokens: Map<ChainNetwork, Map<string, ExternalToken>> = new Map();
-
   contractToToken: Map<string, ExternalToken> = new Map();
   constructor() {
     const chains = Chains.list();
@@ -146,6 +144,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Harmony,"1wbtc","wrapped-bitcoin","0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Harmony,"sushi","sushi","0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
 
+    // ADD_JAR
 
 
     // Make the reverse map to fascilitate contract lookups
@@ -166,7 +165,7 @@ export class ExternalTokenModel {
     addr: string,
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
-  ) {
+  ) : void {
     this.chainTokens
       .get(chain)
       .set(id, new ExternalToken(chain, id, cgid, addr, dec, style));
