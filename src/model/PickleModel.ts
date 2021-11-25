@@ -54,6 +54,12 @@ export const ADDRESSES = new Map([
         controller: "0xf4396dca6201e0ca120073acda087b53f7159e24",
         minichef: NULL_ADDRESS,
       }],
+    [ChainNetwork.Moonriver, {
+        pickle: NULL_ADDRESS,
+        masterChef: NULL_ADDRESS,
+        controller: "0xc3f393fb40f8cc499c1fe7fa5781495dc6fac9e9",
+        minichef: NULL_ADDRESS,
+    }],
     // ADD_CHAIN
 ]);
 

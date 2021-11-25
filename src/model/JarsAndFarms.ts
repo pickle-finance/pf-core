@@ -2075,6 +2075,34 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ONE_SUSHI_ETH_ONE);
 
+// Moonriver
+
+export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1a",
+  contract: "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03",
+  depositToken: {
+    addr: "0x7eDA899b3522683636746a2f3a7814e6fFca75e1",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/ETH",
+    components: ["solar", "movr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-SOLAR-MOVR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR SOLAR/MOVR",
+    farmDepositTokenName: "pSOLAR SOLAR/MOVR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MOVR);
+
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
