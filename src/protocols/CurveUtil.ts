@@ -4,7 +4,7 @@ import CurvePoolABI from "../Contracts/ABIs/pool.json";
 import { ChainNetwork, PickleModel } from "..";
 import { HistoricalYield, JarDefinition } from "../model/PickleModelJson";
 import { BigNumber } from "ethers";
-import { fetch } from 'cross-fetch';
+import { fetch } from "cross-fetch";
 
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
 
@@ -12,22 +12,25 @@ const cacheKeyPrefix = "curve.data.cache.key.";
 
 // ADD_CHAIN_PROTOCOL
 export const curveApi = "https://stats.curve.fi/raw-stats/apys.json";
-export const curveApiPoly = "https://stats.curve.fi/raw-stats-polygon/apys.json";
-export const curveApiArbitrum = "https://stats.curve.fi/raw-stats-arbitrum/apys.json";
-export const apiUrls = new Map<string,string>();
+export const curveApiPoly =
+  "https://stats.curve.fi/raw-stats-polygon/apys.json";
+export const curveApiArbitrum =
+  "https://stats.curve.fi/raw-stats-arbitrum/apys.json";
+export const apiUrls = new Map<string, string>();
 apiUrls.set(ChainNetwork.Ethereum, curveApi);
 apiUrls.set(ChainNetwork.Polygon, curveApiPoly);
 apiUrls.set(ChainNetwork.Arbitrum, curveApiArbitrum);
 
-
 // Map between our jar/farm 'api' keys used in our db and the names provided by curve api
 const apyMapping = {
-    "3poolCRV": "3pool",
-    renBTCCRV: "ren2",
-    sCRV: "susd",
-    steCRV: "steth",
-    lusdCRV: "lusd",
-    am3CRV: "aave",
+  "3poolCRV": "3pool",
+  renBTCCRV: "ren2",
+  sCRV: "susd",
+  steCRV: "steth",
+  lusdCRV: "lusd",
+  am3CRV: "aave",
+  CrvTricrypto: "tricrypto",
+  // Mim2CRV: "",  //metapool
 };
 
 export async function getCurveLpPriceData(
@@ -84,37 +87,52 @@ export async function calculateCurveApyArbitrum(
   return crvAPY * 100;
 }
 
-
 export async function getCurvePerformance(
   asset: JarDefinition,
-  model: PickleModel
-  ): Promise<HistoricalYield> {
-  
+  model: PickleModel,
+): Promise<HistoricalYield> {
   const curveData = await getCurveData(model, asset.chain);
-  if( curveData === undefined )
-    return undefined;
-    
+  if (curveData === undefined) return undefined;
+
+  // Metapools APYs are not registered in Curve's API
+  const isMetapool = !apyMapping[asset.details.apiKey];
+
+  if (isMetapool)
+    return {
+      d1: 0,
+      d3: 0,
+      d7: 0,
+      d30: 0,
+    };
+
   const oneDayVal = curveData.apy.day[apyMapping[asset.details.apiKey]] * 100;
+  const weekVal = curveData.apy.week[apyMapping[asset.details.apiKey]] * 100;
   const thirtyDay = curveData.apy.month[apyMapping[asset.details.apiKey]] * 100;
+
   return {
     d1: oneDayVal,
     d3: oneDayVal,
-    d7: oneDayVal,
+    d7: weekVal,
     d30: thirtyDay,
   };
 }
 
-export async function getCurveData(model: PickleModel, chain: ChainNetwork): Promise<any> {
+export async function getCurveData(
+  model: PickleModel,
+  chain: ChainNetwork,
+): Promise<any> {
   const key = cacheKeyPrefix + chain.toString();
-  if (model.resourceCache.get(key))
-    return model.resourceCache.get(key);
+  if (model.resourceCache.get(key)) return model.resourceCache.get(key);
 
   const url = apiUrls.get(chain);
-  if( url === undefined )
-    return undefined;
+  if (url === undefined) return undefined;
 
-  const result = await fetch(url).then((response) => response.json()).catch(()=>{return undefined});
-  if( !result ) {
+  const result = await fetch(url)
+    .then((response) => response.json())
+    .catch(() => {
+      return undefined;
+    });
+  if (!result) {
     model.resourceCache.delete(key);
   } else {
     model.resourceCache.set(key, result);
