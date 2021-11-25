@@ -47,12 +47,12 @@ export abstract class GenericSwapUtility {
         ret.push(this.toExtendedPairData(resp.data.pairDayDatas[i]));
       }
     }
-    let r : number[] = [];
+    const r : number[] = [];
     let totalApy = 0;
     for (let i = 0; i < ret.length; i++) {
       const volume = (ret[i].dailyVolumeUSD);
       const poolReserve = (ret[i].reserveUSD);
-      let fees = volume * this.lpFee;
+      const fees = volume * this.lpFee;
       totalApy += (fees / poolReserve) * 365 * 100;
       if( i === 1 || i === 3 || i === 7 || i === 30 ) {
         r.push(totalApy);
