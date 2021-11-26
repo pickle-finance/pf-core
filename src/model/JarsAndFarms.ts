@@ -1167,14 +1167,14 @@ export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar U3a",
   contract: "0x506748d736b77f51c5b490e4aC6c26B8c3975b14",
-  // The deposit token is actually rbn and weth, but the underlying token 
+  // The deposit token is actually rbn and weth, but the underlying token
   // in the strategy is the univ3 pool token. Kinda fuzzy here
   depositToken: {
     addr: "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a",
     name: "UniV3 RBN/ETH",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6123b0049f904d730db3c36a31167d9d4121fa6b",
     components: ["rbn", "weth"],
-    style: {erc20: false}
+    style: { erc20: false }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
@@ -2126,7 +2126,6 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_DAI_USDC);
-
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

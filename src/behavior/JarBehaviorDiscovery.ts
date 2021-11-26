@@ -71,7 +71,8 @@ import {
   JAR_ONE_SUSHI_ETH_ONE,
   JAR_ONE_SUSHI_WBTC_ETH,
   JAR_MOVR_SOLAR_MOVR,
-  JAR_MOVR_SOLAR_DAI_USDC
+  JAR_MOVR_SOLAR_DAI_USDC,
+
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
