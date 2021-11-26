@@ -2127,6 +2127,383 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_DAI_USDC);
 
+export const JAR_MOVR_SOLAR_MOVR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1c",
+  contract: "0x8f32bd87ba00954b9f89296db90ff66183a5dbb1",
+  depositToken: {
+    addr: "0xe537f70a8b62204832b8ba91940b77d3f79aeb81",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["movr", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-MOVR-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR MOVR/USDC",
+    farmDepositTokenName: "pSOLAR MOVR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MOVR_USDC);
+
+export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1d",
+  contract: "0x746fd0fcB62dd739ED5e65b37953D5fab8cB3df6",
+  depositToken: {
+    addr: "0xdb66BE1005f5Fe1d2f486E75cE3C50B52535F886",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["solar", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-SOLAR-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR SOLAR/USDC",
+    farmDepositTokenName: "pSOLAR SOLAR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_SOLAR_USDC);
+
+export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1e",
+  contract: "0xfdd190C0a619Cc3e549FDDEa8bc02286a3699c56",
+  depositToken: {
+    addr: "0x2a44696DDc050f14429bd8a4A05c750C6582bF3b",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["usdt", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-USDT-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR USDT/USDC",
+    farmDepositTokenName: "pSOLAR USDT/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_USDT_USDC);
+
+export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1f",
+  contract: "0x7F58f167EC834775143Ac8A17BA3c4d6461F99db",
+  depositToken: {
+    addr: "0x384704557F73fBFAE6e9297FD1E6075FC340dbe5",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["busd", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-BUSD-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR BUSD/USDC",
+    farmDepositTokenName: "pSOLAR BUSD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BUSD_USDC);
+
+export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1g",
+  contract: "0x2189F95cff292889B5d1697ef964Ea47d988AB1f",
+  depositToken: {
+    addr: "0xA0D8DFB2CC9dFe6905eDd5B71c56BA92AD09A3dC",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["eth", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-ETH-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR ETH/USDC",
+    farmDepositTokenName: "pSOLAR ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_ETH_USDC);
+
+export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1h",
+  contract: "0xaA459A8B2ce9EF01cC76D2feeF78d4Aa2720969c",
+  depositToken: {
+    addr: "0xfb1d0D6141Fc3305C63f189E39Cc2f2F7E58f4c2",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["bnb", "busd"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-BNB-BUSD",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR BNB/BUSD",
+    farmDepositTokenName: "pSOLAR BNB/BUSD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BNB_BUSD);
+
+export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1i",
+  contract: "0x5395F1d5e40fA4C98dB6e7128b81cf16441F7F9A",
+  depositToken: {
+    addr: "0x83d7a3fc841038E8c8F46e6192BBcCA8b19Ee4e7",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["wbtc", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-WBTC-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR WBTC/USDC",
+    farmDepositTokenName: "pSOLAR WBTC/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_WBTC_USDC);
+
+export const JAR_MOVR_SOLAR_AVAX_MOVR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1j",
+  contract: "0x5c41e2Ba7f9A368e9ff83b849589699322Bb6a04",
+  depositToken: {
+    addr: "0xb9a61ac826196AbC69A3C66ad77c563D6C5bdD7b",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["avax", "movr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-AVAX-MOVR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR AVAX/MOVR",
+    farmDepositTokenName: "pSOLAR AVAX/MOVR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_AVAX_MOVR);
+
+export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1k",
+  contract: "0xB49c5e326C325bd3d630c17623e70fA8c605E5e1",
+  depositToken: {
+    addr: "0x55Ee073B38BF1069D5F1Ed0AA6858062bA42F5A9",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["mai", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-MAI-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR MAI/USDC",
+    farmDepositTokenName: "pSOLAR MAI/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MAI_USDC);
+
+export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1l",
+  contract: "0x826a9cD66A20Ff4c2dC7AAcfa3e413dfee6a71E4",
+  depositToken: {
+    addr: "0x9051fB701d6D880800e397e5B5d46FdDfAdc7056",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["mim", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-MIM-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR MIM/USDC",
+    farmDepositTokenName: "pSOLAR MIM/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MIM_USDC);
+
+export const JAR_MOVR_SOLAR_MOVR_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1m",
+  contract: "0x99865c1c45D111801A93342A3B61132d7B97b12D",
+  depositToken: {
+    addr: "0x1eebed8F28A6865a76D91189FD6FC45F4F774d67",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["movr", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-MOVR-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR MOVR/FTM",
+    farmDepositTokenName: "pSOLAR MOVR/FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MOVR_FTM);
+
+export const JAR_MOVR_SOLAR_MOVR_RIB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1n",
+  contract: "0x0D57bDF54741E52D8469ce96f86E28a463659951",
+  depositToken: {
+    addr: "0x0acDB54E610dAbC82b8FA454b21AD425ae460DF9",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["movr", "rib"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-MOVR-RIB",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR MOVR/RIB",
+    farmDepositTokenName: "pSOLAR MOVR/RIB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MOVR_RIB);
+
+export const JAR_MOVR_SOLAR_MOVR_RELAY: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1o",
+  contract: "0x7f59FD56e1b878505f14fD72d847EEE3605aeCAA",
+  depositToken: {
+    addr: "0x9e0d90ebB44c22303Ee3d331c0e4a19667012433",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["movr", "relay"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-MOVR-RELAY",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR MOVR/RELAY",
+    farmDepositTokenName: "pSOLAR MOVR/RELAY",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MOVR_RELAY);
+
+export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1p",
+  contract: "0x01B1B46f4a6Fe65fd3e0163e283F6dB9182A605b",
+  depositToken: {
+    addr: "0xf9b7495b833804e4d894fC5f7B39c10016e0a911",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["solar", "rib"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-SOLAR-RIB",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR SOLAR/RIB",
+    farmDepositTokenName: "pSOLAR SOLAR/RIB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_SOLAR_RIB);
+
+export const JAR_MOVR_SOLAR_PETS_SOLAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1q",
+  contract: "0xd22Fd1b3CefcD0A699F65AC35Ba51264CF6aa7EE",
+  depositToken: {
+    addr: "0x9f9a7a3f8F56AFB1a2059daE1E978165816cea44",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["pets", "solar"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-PETS-SOLAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR PETS/SOLAR",
+    farmDepositTokenName: "pSOLAR PETS/SOLAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_PETS_SOLAR);
+
+
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
