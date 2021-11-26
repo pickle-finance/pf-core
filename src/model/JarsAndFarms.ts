@@ -2102,6 +2102,31 @@ export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MOVR);
 
+export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1b",
+  contract: "0xE29C6d11D4153ac0d25e463919401EF02558627B",
+  depositToken: {
+    addr: "0xFE1b71BDAEE495dCA331D28F5779E87bd32FbE53",
+    name: "SOLAR SOLAR/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    components: ["dai", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-DAI-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR DAI/USDC",
+    farmDepositTokenName: "pSOLAR DAI/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_DAI_USDC);
+
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

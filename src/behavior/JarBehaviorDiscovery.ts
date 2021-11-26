@@ -70,7 +70,8 @@ import {
   JAR_ONE_SUSHI_ETH_DAI,
   JAR_ONE_SUSHI_ETH_ONE,
   JAR_ONE_SUSHI_WBTC_ETH,
-  JAR_MOVR_SOLAR_MOVR
+  JAR_MOVR_SOLAR_MOVR,
+  JAR_MOVR_SOLAR_DAI_USDC
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -143,6 +144,7 @@ import { HSlpEthDai } from "./impl/hslp-eth-dai";
 import { HSlpEthOne } from "./impl/hslp-eth-one";
 import { HSlpWbtcEth } from "./impl/hslp-wbtc-eth";
 import { SolarMovr } from "./impl/solar-movr";
+import { SolarDaiUsdc } from "./impl/solar-dai-usdc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -234,6 +236,7 @@ jarToBehavior.set(JAR_ONE_SUSHI_WBTC_ETH.id, new HSlpWbtcEth());
 
 // Moonriver
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR.id, new SolarMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_DAI_USDC.id, new SolarDaiUsdc());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

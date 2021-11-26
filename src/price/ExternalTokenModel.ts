@@ -152,6 +152,8 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Moonriver,"bnb","binancecoin","0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver,"busd","binance-usd","0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver,"usdc","usd-coin","0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
+    // the second "dai" field is the Coingecko price ID of that token
+    this.addToken(ChainNetwork.Moonriver,"dai","dai","0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844".toLowerCase(),18,ExternalTokenFetchStyle.ID,);
 
 
     // Make the reverse map to fascilitate contract lookups

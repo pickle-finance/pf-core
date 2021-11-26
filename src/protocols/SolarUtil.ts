@@ -10,6 +10,7 @@ import { PoolId } from "./ProtocolUtil";
 export const SOLAR_FARMS = "0xf03b75831397D4695a6b9dDdEEA0E578faa30907";
 export const solarPoolIds: PoolId = {
   "0x7eDA899b3522683636746a2f3a7814e6fFca75e1": 0,
+  "0xFE1b71BDAEE495dCA331D28F5779E87bd32FbE53": 8
 };
 
 export async function calculateSolarFarmsAPY(
