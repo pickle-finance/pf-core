@@ -72,6 +72,21 @@ import {
   JAR_ONE_SUSHI_WBTC_ETH,
   JAR_MOVR_SOLAR_MOVR,
   JAR_MOVR_SOLAR_DAI_USDC,
+  JAR_MOVR_SOLAR_MOVR_USDC,
+  JAR_MOVR_SOLAR_SOLAR_USDC,
+  JAR_MOVR_SOLAR_USDT_USDC,
+  JAR_MOVR_SOLAR_BUSD_USDC,
+  JAR_MOVR_SOLAR_ETH_USDC,
+  JAR_MOVR_SOLAR_BNB_BUSD,
+  JAR_MOVR_SOLAR_WBTC_USDC,
+  JAR_MOVR_SOLAR_AVAX_MOVR,
+  JAR_MOVR_SOLAR_MAI_USDC,
+  JAR_MOVR_SOLAR_MIM_USDC,
+  JAR_MOVR_SOLAR_MOVR_FTM,
+  JAR_MOVR_SOLAR_MOVR_RIB,
+  JAR_MOVR_SOLAR_MOVR_RELAY,
+  JAR_MOVR_SOLAR_SOLAR_RIB,
+  JAR_MOVR_SOLAR_PETS_SOLAR
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -146,6 +161,22 @@ import { HSlpEthOne } from "./impl/hslp-eth-one";
 import { HSlpWbtcEth } from "./impl/hslp-wbtc-eth";
 import { SolarMovr } from "./impl/solar-movr";
 import { SolarDaiUsdc } from "./impl/solar-dai-usdc";
+import { SolarMovrUsdc } from "./impl/solar-movr-usdc";
+import { SolarSolarUsdc } from "./impl/solar-solar-usdc";
+import { SolarUsdtUsdc } from "./impl/solar-usdt-usdc";
+import { SolarBusdUsdc } from "./impl/solar-busd-usdc";
+import { SolarEthUsdc } from "./impl/solar-eth-usdc";
+import { SolarBnbBusd } from "./impl/solar-bnb-busd";
+import { SolarWbtcUsdc } from "./impl/solar-wbtc-usdc";
+import { SolarAvaxMovr } from "./impl/solar-avax-movr";
+import { SolarMaiUsdc } from "./impl/solar-mai-usdc";
+import { SolarMimUsdc } from "./impl/solar-mim-usdc";
+import { SolarMovrFtm } from "./impl/solar-movr-ftm";
+import { SolarMovrRib } from "./impl/solar-movr-rib";
+import { SolarMovrRelay } from "./impl/solar-movr-relay";
+import { SolarSolarRib } from "./impl/solar-solar-rib";
+import { SolarPetsSolar } from "./impl/solar-pets-solar";
+
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -238,6 +269,21 @@ jarToBehavior.set(JAR_ONE_SUSHI_WBTC_ETH.id, new HSlpWbtcEth());
 // Moonriver
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR.id, new SolarMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_DAI_USDC.id, new SolarDaiUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_USDC.id, new SolarMovrUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_SOLAR_USDC.id, new SolarSolarUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_USDT_USDC.id, new SolarUsdtUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_BUSD_USDC.id, new SolarBusdUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_ETH_USDC.id, new SolarEthUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_BNB_BUSD.id, new SolarBnbBusd());
+jarToBehavior.set(JAR_MOVR_SOLAR_WBTC_USDC.id, new SolarWbtcUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_AVAX_MOVR.id, new SolarAvaxMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_MAI_USDC.id, new SolarMaiUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_MIM_USDC.id, new SolarMimUsdc());
+jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_FTM.id, new SolarMovrFtm());
+jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RIB.id, new SolarMovrRib());
+jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RELAY.id, new SolarMovrRelay());
+jarToBehavior.set(JAR_MOVR_SOLAR_SOLAR_RIB.id, new SolarSolarRib());
+jarToBehavior.set(JAR_MOVR_SOLAR_PETS_SOLAR.id, new SolarPetsSolar());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class
