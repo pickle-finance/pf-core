@@ -86,7 +86,7 @@ import {
   JAR_MOVR_SOLAR_MOVR_RIB,
   JAR_MOVR_SOLAR_MOVR_RELAY,
   JAR_MOVR_SOLAR_SOLAR_RIB,
-  JAR_MOVR_SOLAR_PETS_SOLAR
+  JAR_MOVR_SOLAR_PETS_MOVR
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -175,7 +175,7 @@ import { SolarMovrFtm } from "./impl/solar-movr-ftm";
 import { SolarMovrRib } from "./impl/solar-movr-rib";
 import { SolarMovrRelay } from "./impl/solar-movr-relay";
 import { SolarSolarRib } from "./impl/solar-solar-rib";
-import { SolarPetsSolar } from "./impl/solar-pets-solar";
+import { SolarPetsMovr } from "./impl/solar-pets-movr";
 
 
 export class noOpJarBehavior extends AbstractJarBehavior {
@@ -283,7 +283,7 @@ jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_FTM.id, new SolarMovrFtm());
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RIB.id, new SolarMovrRib());
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RELAY.id, new SolarMovrRelay());
 jarToBehavior.set(JAR_MOVR_SOLAR_SOLAR_RIB.id, new SolarSolarRib());
-jarToBehavior.set(JAR_MOVR_SOLAR_PETS_SOLAR.id, new SolarPetsSolar());
+jarToBehavior.set(JAR_MOVR_SOLAR_PETS_MOVR.id, new SolarPetsMovr());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

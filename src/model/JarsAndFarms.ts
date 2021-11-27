@@ -2477,32 +2477,31 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_SOLAR_RIB);
 
-export const JAR_MOVR_SOLAR_PETS_SOLAR: JarDefinition = {
+export const JAR_MOVR_SOLAR_PETS_MOVR: JarDefinition = {
   type: AssetType.JAR,
   id: "moonJar 1q",
   contract: "0xd22Fd1b3CefcD0A699F65AC35Ba51264CF6aa7EE",
   depositToken: {
     addr: "0x9f9a7a3f8F56AFB1a2059daE1E978165816cea44",
-    name: "SOLAR PETS/SOLAR",
-    link: "https://app.solarbeam.io/exchange/add/0x1e0F2A75Be02c025Bd84177765F89200c04337Da/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B",
-    components: ["pets", "solar"],
+    name: "SOLAR PETS/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x1e0F2A75Be02c025Bd84177765F89200c04337Da/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    components: ["pets", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
   details: {
-    apiKey: "SLP-PETS-SOLAR",
+    apiKey: "SLP-PETS-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
-    farmNickname: "pSOLAR PETS/SOLAR",
-    farmDepositTokenName: "pSOLAR PETS/SOLAR",
+    farmNickname: "pSOLAR PETS/MOVR",
+    farmDepositTokenName: "pSOLAR PETS/MOVR",
   },
 };
-JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_PETS_SOLAR);
 
-
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_PETS_MOVR);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

@@ -151,18 +151,17 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Moonriver, "avax", "avalanche-2", "0x14a0243C333A5b238143068dC3A7323Ba4C30ECB".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "bnb", "binancecoin", "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "busd", "binance-usd", "0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Moonriver, "usdc", "usd-coin", "0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver, "usdc", "usd-coin", "0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
     // the second "dai" field is the Coingecko price ID of that token
     this.addToken(ChainNetwork.Moonriver, "dai", "dai", "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Moonriver, "wbtc", "wrapped-bitcoin", "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver, "wbtc", "wrapped-bitcoin", "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(), 8, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "mai", "mimatic", "0x7f5a79576620C046a293F54FFCdbd8f2468174F1".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "mim", "magic-internet-money", "0x0caE51e1032e8461f4806e26332c030E34De3aDb".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "ftm", "fantom", "0xaD12daB5959f30b9fF3c2d6709f53C335dC39908".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "rib", "riverboat", "0xbD90A6125a84E5C512129D622a75CDDE176aDE5E".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "pets", "polkapet-world", "0x1e0F2A75Be02c025Bd84177765F89200c04337Da".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-
-
-
+    this.addToken(ChainNetwork.Moonriver, "relay", "relay-token", "0xad7f1844696652dda7959a49063bffccafafefe7".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver, "usdt", "tether", "0xb44a9b6905af7c801311e8f4e76932ee959c663c".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
