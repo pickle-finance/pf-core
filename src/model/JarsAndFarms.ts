@@ -2084,7 +2084,7 @@ export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
   depositToken: {
     addr: "0x7eDA899b3522683636746a2f3a7814e6fFca75e1",
     name: "SOLAR SOLAR/MOVR",
-    link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/ETH",
     components: ["solar", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
