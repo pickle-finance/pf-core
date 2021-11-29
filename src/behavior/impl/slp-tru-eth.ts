@@ -37,7 +37,7 @@ export class SlpTruEth extends SushiJar {
     ]);
 
     const sushiValue = res[0].mul(sushiPrice.toFixed());
-    const truValue = parseUnits(res[1].add(truWallet).toString(), 10).mul(
+    const truValue = parseUnits(res[1].add(truWallet).toString(), 8).mul(
       truPrice.toFixed(),
     );
     const harvestable = truValue.add(sushiValue);
