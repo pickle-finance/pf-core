@@ -31,11 +31,11 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
 
     const [walletSolar, solarPrice]: [BigNumber, number] = await Promise.all([
       solarToken.balanceOf(jar.details.strategyAddr),
-      await model.priceOf("jswap"),
+      await model.priceOf("solarbeam"),
     ]);
-    const pendingJswap = await strategy.getHarvestable().catch(() => BigNumber.from("0"));
+    const pendingSolar = await strategy.getHarvestable().catch(() => BigNumber.from("0"));
 
-    const harvestable = pendingJswap
+    const harvestable = pendingSolar
       .add(walletSolar)
       .mul(solarPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
@@ -55,7 +55,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
-      this.createAprComponent(chefComponent.name, chefComponent.apr, chefComponent.compoundable),
+      this.createAprComponent(chefComponent.name, chefComponent.apr, chefComponent.compoundable, 0.9),
     ]);
   }
 }

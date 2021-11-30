@@ -6,6 +6,7 @@ import { Contract as MulticallContract } from "ethers-multicall";
 import { Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
+import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
 export const SOLAR_FARMS = "0xf03b75831397D4695a6b9dDdEEA0E578faa30907";
 export const solarPoolIds: PoolId = {
@@ -51,7 +52,6 @@ export async function calculateSolarFarmsAPY(
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const rewardsPerBlock =
     (parseFloat(formatEther(solarPerBlockBN)) *
-      0.9 *
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
@@ -65,8 +65,6 @@ export async function calculateSolarFarmsAPY(
   const solarAPY = solarRewardedPerYear / totalValueStaked;
   return { name: "solar", apr: solarAPY * 100, compoundable: true };
 }
-
-import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
 const SOLARSWAP_PAIR_CACHE_KEY = "solarswap.pair.data.cache.key";
 
@@ -87,7 +85,7 @@ export class SolarswapPairManager extends GenericSwapUtility {
       "pairAddress",
       SOLARSWAP_QUERY_KEYS,
       AssetProtocol.SOLARSWAP,
-      0.005,
+      0.002,
     );
   }
   pairAddressFromDayData(dayData: any): string {

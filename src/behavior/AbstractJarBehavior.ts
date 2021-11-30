@@ -20,12 +20,17 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   isGenericSwapProtocol(protocol: string): boolean {
     return SWAP_PROTOCOLS.filter((x) => x.toString() === protocol).length > 0;
   }
-  
-  async getProtocolApy(definition:JarDefinition, _model:PickleModel) : Promise<HistoricalYield> {
-    if( this.isGenericSwapProtocol(definition.protocol)) {
-      const swap : GenericSwapUtility = getSwapUtilityForProtocol(definition);
-      if( swap !== undefined ) {
-        const ret = await swap.runThirtyDaysSingleJar(definition.depositToken.addr);
+
+  async getProtocolApy(
+    definition: JarDefinition,
+    _model: PickleModel,
+  ): Promise<HistoricalYield> {
+    if (this.isGenericSwapProtocol(definition.protocol)) {
+      const swap: GenericSwapUtility = getSwapUtilityForProtocol(definition);
+      if (swap !== undefined) {
+        const ret = await swap.runThirtyDaysSingleJar(
+          definition.depositToken.addr,
+        );
         return ret;
       }
     }
@@ -72,8 +77,9 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     id: string,
     aprPreFee: number,
     compoundable: boolean,
+    retainedPercent: number = 0.8,
   ): AssetAprComponent {
-    return createAprComponentImpl(id, aprPreFee, compoundable);
+    return createAprComponentImpl(id, aprPreFee, compoundable, retainedPercent);
   }
 
   async getAssetHarvestData(
@@ -150,10 +156,11 @@ export function createAprComponentImpl(
   id: string,
   aprPreFee: number,
   compoundable: boolean,
+  retainedPercent: number = 0.8,
 ): AssetAprComponent {
   return {
     name: id,
-    apr: compoundable ? aprPreFee * 0.8 : aprPreFee,
+    apr: compoundable ? aprPreFee * retainedPercent : aprPreFee,
     compoundable: compoundable,
   };
 }
