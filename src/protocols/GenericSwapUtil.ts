@@ -159,7 +159,7 @@ export abstract class GenericSwapUtility {
   ): Promise<IExtendedPairData> {
     const result: any = await this.getOrLoadAllPairDataIntoCache(model);
     if (result?.data?.pairDayDatas) {
-      for (let i = 0; i < result.data.pairDayDatas.length; i++) {
+      for (let i = 1; i < result.data.pairDayDatas.length; i++) {
         if (
           this.pairAddressFromDayData(result.data.pairDayDatas[i]).toLowerCase() ===
           pairToken.toLowerCase()
