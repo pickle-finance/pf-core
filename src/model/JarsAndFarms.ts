@@ -2462,7 +2462,7 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["solar", "rib"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
   details: {
