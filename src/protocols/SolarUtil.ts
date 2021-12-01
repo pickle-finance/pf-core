@@ -52,7 +52,7 @@ export async function calculateSolarFarmsAPY(
 
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
-  if (solarPoolIds[jar.depositToken.addr]) {
+  if (Number.isInteger(solarPoolIds[jar.depositToken.addr])) {
     const poolId = solarPoolIds[jar.depositToken.addr];
     const multicallSolarFarms = new MulticallContract(
       SOLAR_FARMS,
@@ -75,7 +75,7 @@ export async function calculateSolarFarmsAPY(
     rewardsPerYear =
       rewardsPerBlock *
       ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
-  } else if (solarPoolV2Ids[jar.depositToken.addr]) {
+  } else if (Number.isInteger(solarPoolV2Ids[jar.depositToken.addr])) {
     const poolId = solarPoolV2Ids[jar.depositToken.addr];
     const multicallSolarFarms = new MulticallContract(
       SOLAR_V2_FARMS,
