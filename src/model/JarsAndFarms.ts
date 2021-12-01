@@ -2558,7 +2558,7 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
   id: "moonJar 1t",
   contract: "0x59A08Cb313ad49E716CC073CC43656cb17b0fBAb",
   depositToken: {
-    addr: "0x59A08Cb313ad49E716CC073CC43656cb17b0fBAb",
+    addr: "0xBe2aBe58eDAae96B4303F194d2fAD5233BaD3d87",
     name: "SOLAR BNB/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
     components: ["bnb", "movr"],
@@ -2577,6 +2577,31 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BNB_MOVR);
+
+export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1u",
+  contract: "0x986080e8e9968E1dA5AB14473b1884b5A7342EC2",
+  depositToken: {
+    addr: "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888",
+    name: "SOLAR ETH/MOVR",
+    link: "https://app.solarbeam.io/exchange/add/0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C/ETH",
+    components: ["eth", "movr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARSWAP,
+  details: {
+    apiKey: "SLP-ETH-MOVR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR ETH/MOVR",
+    farmDepositTokenName: "pSOLAR ETH/MOVR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_ETH_MOVR);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

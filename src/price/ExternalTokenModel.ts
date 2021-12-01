@@ -162,7 +162,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Moonriver, "pets", "polkapet-world", "0x1e0F2A75Be02c025Bd84177765F89200c04337Da".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "relay", "relay-token", "0xad7f1844696652dda7959a49063bffccafafefe7".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "usdt", "tether", "0xb44a9b6905af7c801311e8f4e76932ee959c663c".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Moonriver, "frax", "frax", "0x1A93B23281CC1CDE4C4741353F3064709A16197d".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonriver, "frax", "frax", "0x1A93B23281CC1CDE4C4741353F3064709A16197d".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
