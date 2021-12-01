@@ -77,7 +77,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     id: string,
     aprPreFee: number,
     compoundable: boolean,
-    retainedPercent: number = 0.8,
+    retainedPercent = 0.8,
   ): AssetAprComponent {
     return createAprComponentImpl(id, aprPreFee, compoundable, retainedPercent);
   }
@@ -156,7 +156,7 @@ export function createAprComponentImpl(
   id: string,
   aprPreFee: number,
   compoundable: boolean,
-  retainedPercent: number = 0.8,
+  retainedPercent = 0.8,
 ): AssetAprComponent {
   return {
     name: id,
@@ -166,6 +166,6 @@ export function createAprComponentImpl(
 }
 
 // TODO move to math utility or something?
-export function getCompoundingAPY(apr: number) {
+export function getCompoundingAPY(apr: number): number {
   return 100 * (Math.pow(1 + apr / 365, 365) - 1);
 }

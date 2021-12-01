@@ -80,7 +80,7 @@ export abstract class GenericSwapUtility {
     const qFields = this.queryFields.join("\n");
     // Better to request a few extra rows to avoid having to make an additional request
     const numResults =
-      allDepositTokens.length < 10 ? 10 : allDepositTokens.length;
+      allDepositTokens.length < 10 ? 20 : 2*allDepositTokens.length;
     const query = `{
             pairDayDatas(first: ${numResults}, orderBy: date, orderDirection: desc, 
             where: {
@@ -96,19 +96,19 @@ export abstract class GenericSwapUtility {
     );
   }
 
+  // Find any pairs that don't have two unique results
   findMissingPairDayDatas(allDepositTokens: string[], result: any): string[] {
     const missing: string[] = [];
-    if (!result || !result.data || !result.data.pairDayDatas)
+    if (!result ) //|| !result.data || !result.data.pairDayDatas)
       return allDepositTokens;
 
     for (let i = 0; i < allDepositTokens.length; i++) {
+      const matchesToken: any[] = result.filter((x) => 
+        this.pairAddressFromDayData(x) === allDepositTokens[i].toLowerCase());
+      const uniqueItems: any[] = [...new Set(matchesToken)];
       let found = false;
-      for (let j = 0; j < result.data.pairDayDatas.length; j++) {
-        const t1 = this.pairAddressFromDayData(result.data.pairDayDatas[j]);
-        const t2 = allDepositTokens[i].toLowerCase();
-        if (t1 === t2) {
-          found = true;
-        }
+      if( uniqueItems.length > 1 ) {
+        found = true;
       }
       if (!found) {
         missing.push(allDepositTokens[i]);
@@ -135,7 +135,7 @@ export abstract class GenericSwapUtility {
       if (!result && tmp && tmp.data && tmp.data.pairDayDatas) {
         result = tmp.data.pairDayDatas;
       } else if (result && tmp?.data?.pairDayDatas) {
-        result = result.concat(tmp.data.pairDayDatas);
+        result = [...new Set(result.concat(tmp.data.pairDayDatas))];
       }
       missing = this.findMissingPairDayDatas(allDepositTokens, result);
     }
@@ -157,22 +157,15 @@ export abstract class GenericSwapUtility {
   ): Promise<IExtendedPairData> {
     const result: any = await this.getOrLoadAllPairDataIntoCache(model);
     if (result) {
-      for (let i = 0; i < result.length; i++) {
-        if (
-          this.pairAddressFromDayData(result[i]).toLowerCase() ===
-            pairToken.toLowerCase() &&
-          this.pairAddressFromDayData(result[i + 1]).toLowerCase() ===
-            pairToken.toLowerCase()
-        ) {
-          return this.toExtendedPairData(result[i + 1]);
-        } else if (
-          this.pairAddressFromDayData(result[i]).toLowerCase() ===
-          pairToken.toLowerCase()
-        ) {
-          return this.toExtendedPairData(result[i]);
-        }
+      const matchesPair = result.filter((x)=>pairToken.toLowerCase() === this.pairAddressFromDayData(x).toLowerCase());
+      if( matchesPair.length > 1 ) {
+        return this.toExtendedPairData(matchesPair[1]);
+      }
+      if( matchesPair.length == 1 ) {
+        return this.toExtendedPairData(matchesPair[0]);
       }
     }
+    console.log("Unable to find " + pairToken);
     return undefined;
   }
 

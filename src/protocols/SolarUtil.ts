@@ -70,6 +70,7 @@ const SOLARSWAP_PAIR_CACHE_KEY = "solarswap.pair.data.cache.key";
 
 const SOLARSWAP_QUERY_KEYS: string[] = [
   "pairAddress",
+  "date",
   "reserveUSD",
   "dailyVolumeUSD",
   "reserve0",

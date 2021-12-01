@@ -4,6 +4,7 @@ import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 const COMETH_PAIR_DATA_CACHE_KEY = "comethswap.pair.data.cache.key";
 const COMETH_PAIR_GRAPH_FIELDS: string[] = [
   "pairAddress",
+  "date",
   "reserveUSD",
   "dailyVolumeUSD",
   "reserve0",

@@ -5,6 +5,7 @@ import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 const UNI_PAIR_DATA_CACHE_KEY = "uniswap.pair.data.cache.key";
 const UNI_PAIR_GRAPH_FIELDS: string[] = [
   "pairAddress",
+  "date",
   "reserveUSD",
   "dailyVolumeUSD",
   "reserve0",

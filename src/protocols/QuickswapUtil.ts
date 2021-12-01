@@ -5,6 +5,7 @@ const QUICKSWAP_PAIR_CACHE_KEY = "quickswap.pair.data.cache.key";
 
 const QUICKSWAP_QUERY_KEYS: string[] = [
   "pairAddress",
+  "date",
   "reserveUSD",
   "dailyVolumeUSD",
   "reserve0",

@@ -103,6 +103,7 @@ export class SushiOnePairManager extends GenericSwapUtility {
 const SUSHI_POLY_PAIR_DATA_CACHE_KEY = "sushiswap.poly.pair.data.cache.key";
 const SUSHI_POLY_PAIR_GRAPH_FIELDS: string[] = [
   "pair{id}",
+  "date",
   "reserveUSD",
   "volumeUSD",
   "reserve0",
@@ -143,6 +144,7 @@ export class SushiPolyPairManager extends GenericSwapUtility {
 const SUSHI_ETH_PAIR_DATA_CACHE_KEY = "sushiswap.eth.pair.data.cache.key";
 const SUSHI_ETH_PAIR_GRAPH_FIELDS: string[] = [
   "pairAddress",
+  "date",
   "reserveUSD",
   "dailyVolumeUSD",
   "reserve0",
