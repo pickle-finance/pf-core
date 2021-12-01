@@ -86,8 +86,11 @@ import {
   JAR_MOVR_SOLAR_MOVR_RIB,
   JAR_MOVR_SOLAR_MOVR_RELAY,
   JAR_MOVR_SOLAR_SOLAR_RIB,
-  JAR_MOVR_SOLAR_PETS_MOVR
-
+  JAR_MOVR_SOLAR_PETS_MOVR,
+  JAR_MOVR_SOLAR_FRAX_MOVR,
+  JAR_MOVR_SOLAR_MIM_MOVR,
+  JAR_MOVR_SOLAR_BNB_MOVR,
+  JAR_MOVR_SOLAR_ETH_MOVR,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -145,7 +148,7 @@ import { ArbitrumSpellEth } from "./impl/arbitrum-spell-eth";
 import { ArbitrumHndEth } from "./impl/arbitrum-hnd-eth";
 import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
-import { CvxCrv } from './impl/cvxcrv';
+import { CvxCrv } from "./impl/cvxcrv";
 import { Uni3RbnEth } from "./impl/uni-rbn-eth";
 import { CherryCheOkt } from "./impl/cherry-che-okt";
 import { CherryCheUsdt } from "./impl/cherry-che-usdt";
@@ -176,7 +179,10 @@ import { SolarMovrRib } from "./impl/solar-movr-rib";
 import { SolarMovrRelay } from "./impl/solar-movr-relay";
 import { SolarSolarRib } from "./impl/solar-solar-rib";
 import { SolarPetsMovr } from "./impl/solar-pets-movr";
-
+import { SolarFraxMovr } from "./impl/solar-frax-movr";
+import { SolarMimMovr } from "./impl/solar-mim-movr";
+import { SolarBnbMovr } from "./impl/solar-bnb-movr";
+import { SolarEthMovr } from "./impl/solar-eth-movr";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -284,6 +290,10 @@ jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RIB.id, new SolarMovrRib());
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RELAY.id, new SolarMovrRelay());
 jarToBehavior.set(JAR_MOVR_SOLAR_SOLAR_RIB.id, new SolarSolarRib());
 jarToBehavior.set(JAR_MOVR_SOLAR_PETS_MOVR.id, new SolarPetsMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_ETH_MOVR.id, new SolarEthMovr());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

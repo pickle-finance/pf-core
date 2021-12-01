@@ -422,6 +422,7 @@ const _abi = [
     inputs: [],
     stateMutability: "view",
     type: "function",
+    gas: "1841",
   },
   {
     name: "supply",
@@ -434,6 +435,7 @@ const _abi = [
     inputs: [],
     stateMutability: "view",
     type: "function",
+    gas: "1871",
   },
   {
     name: "locked",
@@ -455,6 +457,7 @@ const _abi = [
     ],
     stateMutability: "view",
     type: "function",
+    gas: "3359",
   },
   {
     name: "epoch",
