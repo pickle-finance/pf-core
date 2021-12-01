@@ -86,7 +86,10 @@ import {
   JAR_MOVR_SOLAR_MOVR_RIB,
   JAR_MOVR_SOLAR_MOVR_RELAY,
   JAR_MOVR_SOLAR_SOLAR_RIB,
-  JAR_MOVR_SOLAR_PETS_MOVR
+  JAR_MOVR_SOLAR_PETS_MOVR,
+  JAR_MOVR_SOLAR_FRAX_MOVR,
+  JAR_MOVR_SOLAR_MIM_MOVR,
+  JAR_MOVR_SOLAR_BNB_MOVR
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -176,7 +179,9 @@ import { SolarMovrRib } from "./impl/solar-movr-rib";
 import { SolarMovrRelay } from "./impl/solar-movr-relay";
 import { SolarSolarRib } from "./impl/solar-solar-rib";
 import { SolarPetsMovr } from "./impl/solar-pets-movr";
-
+import { SolarFraxMovr } from "./impl/solar-frax-movr";
+import { SolarMimMovr } from "./impl/solar-mim-movr";
+import { SolarBnbMovr } from "./impl/solar-bnb-movr";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -284,6 +289,9 @@ jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RIB.id, new SolarMovrRib());
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR_RELAY.id, new SolarMovrRelay());
 jarToBehavior.set(JAR_MOVR_SOLAR_SOLAR_RIB.id, new SolarSolarRib());
 jarToBehavior.set(JAR_MOVR_SOLAR_PETS_MOVR.id, new SolarPetsMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class
