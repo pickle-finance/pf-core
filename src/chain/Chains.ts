@@ -4,7 +4,7 @@ import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { setMulticallAddress } from "ethers-multicall";
 
-interface RawChain {
+export interface RawChain {
   chainId: number,
   network: string,
   secondsPerBlock: number,
@@ -12,6 +12,7 @@ interface RawChain {
   explorer: string,
   rpcs: string[],
   multicallAddress?: string,
+  defaultPerformanceFee: number,
 }
 
 export enum ChainNetwork {
@@ -33,7 +34,8 @@ const rawChains : RawChain[] = [
           explorer: "https://etherscan.io",
           rpcs: [
               "https://cloudflare-eth.com/"
-          ]
+          ],
+          defaultPerformanceFee: 0.2,
       },
       {
           chainId: 137,
@@ -46,7 +48,8 @@ const rawChains : RawChain[] = [
               "https://rpc-mainnet.maticvigil.com",
               "https://matic-mainnet.chainstacklabs.com/",
               "https://rpc-mainnet.matic.network"
-          ]
+          ],
+          defaultPerformanceFee: 0.2,
       },
       {
           chainId: 66,
@@ -57,7 +60,8 @@ const rawChains : RawChain[] = [
           rpcs: [
               "https://exchainrpc.okex.org"
           ],
-          multicallAddress: "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa"
+          multicallAddress: "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa",
+          defaultPerformanceFee: 0.1,
       },
       {
           chainId: 42161,
@@ -68,7 +72,8 @@ const rawChains : RawChain[] = [
           rpcs: [
               "https://arb1.arbitrum.io/rpc"
           ],
-          multicallAddress: "0x813715eF627B01f4931d8C6F8D2459F26E19137E"
+          multicallAddress: "0x813715eF627B01f4931d8C6F8D2459F26E19137E",
+          defaultPerformanceFee: 0.2,
       },
       {
           chainId: 1666600000,
@@ -79,7 +84,8 @@ const rawChains : RawChain[] = [
           rpcs: [
               "https://api.harmony.one"
           ],
-          multicallAddress: "0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9"
+          multicallAddress: "0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9",
+          defaultPerformanceFee: 0.1,
       },
       {
         chainId: 1285,
@@ -90,13 +96,14 @@ const rawChains : RawChain[] = [
         rpcs: [
             "https://rpc.moonriver.moonbeam.network"
         ],
-        multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b"
+        multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
+        defaultPerformanceFee: 0.1,
     },
       // ADD_CHAIN
   ];
 export class JsonChain extends AbstractChain {
   constructor(raw: RawChain ) {
-    super(raw.chainId, raw.network, raw.secondsPerBlock, raw.explorer, raw.rpcs, raw.multicallAddress);
+    super(raw);
   }
 }
 export class Chains {
