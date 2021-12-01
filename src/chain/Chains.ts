@@ -8,6 +8,7 @@ interface RawChain {
   chainId: number,
   network: string,
   secondsPerBlock: number,
+  gasToken: string,
   explorer: string,
   rpcs: string[],
   multicallAddress?: string,
@@ -28,6 +29,7 @@ const rawChains : RawChain[] = [
           chainId: 1,
           network: "eth",
           secondsPerBlock: 13,
+          gasToken: 'ethereum',
           explorer: "https://etherscan.io",
           rpcs: [
               "https://cloudflare-eth.com/"
@@ -37,6 +39,7 @@ const rawChains : RawChain[] = [
           chainId: 137,
           network: "polygon",
           secondsPerBlock: 2,
+          gasToken: 'matic-network',
           explorer: "https://polygonscan.com",
           rpcs: [
               "https://polygon-rpc.com",
@@ -49,6 +52,7 @@ const rawChains : RawChain[] = [
           chainId: 66,
           network: "okex",
           secondsPerBlock: 3,
+          gasToken: 'oec-token',
           explorer: "https://oklink.com/okexchain",
           rpcs: [
               "https://exchainrpc.okex.org"
@@ -59,6 +63,7 @@ const rawChains : RawChain[] = [
           chainId: 42161,
           network: "arbitrum",
           secondsPerBlock: 13,
+          gasToken: 'ethereum',
           explorer: "https://arbiscan.io",
           rpcs: [
               "https://arb1.arbitrum.io/rpc"
@@ -69,6 +74,7 @@ const rawChains : RawChain[] = [
           chainId: 1666600000,
           network: "harmony",
           secondsPerBlock: 2,
+          gasToken: 'harmony',
           explorer: "https://explorer.harmony.one/",
           rpcs: [
               "https://api.harmony.one"
@@ -79,6 +85,7 @@ const rawChains : RawChain[] = [
         chainId: 1285,
         network: "moonriver",
         secondsPerBlock: 14,
+        gasToken: 'moonriver',
         explorer: "https://moonriver.moonscan.io",
         rpcs: [
             "https://rpc.moonriver.moonbeam.network"
