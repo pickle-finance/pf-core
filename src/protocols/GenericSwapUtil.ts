@@ -161,7 +161,8 @@ export abstract class GenericSwapUtility {
         if (
           this.pairAddressFromDayData(result[i]).toLowerCase() ===
             pairToken.toLowerCase() &&
-          this.pairAddressFromDayData(result[i + 1]).toLowerCase()
+          this.pairAddressFromDayData(result[i + 1]).toLowerCase() ===
+            pairToken.toLowerCase()
         ) {
           return this.toExtendedPairData(result[i + 1]);
         } else if (
