@@ -2337,7 +2337,7 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x7f5a79576620C046a293F54FFCdbd8f2468174F1/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mai", "usdc"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
   details: {
