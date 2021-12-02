@@ -36,13 +36,14 @@ export class SlpTruEth extends SushiJar {
       await model.priceOf("sushi"),
     ]);
 
-    const sushiValue = res[0].mul(sushiPrice.toFixed());
-    const truValue = parseUnits(res[1].add(truWallet).toString(), 8).mul(
-      truPrice.toFixed(),
-    );
-    const harvestable = truValue.add(sushiValue);
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    const sushiTokensValBN : BigNumber = res[0].mul((100*sushiPrice).toFixed()).div(100);
+    const sushiTokenVal = parseFloat(ethers.utils.formatEther(sushiTokensValBN));
+    const truTokensValBN = res[1].add(truWallet).mul((1000*truPrice).toFixed()).div(1000);
+    const truTokensVal = parseFloat(ethers.utils.formatUnits(truTokensValBN, 8));
+    const ret = sushiTokenVal + truTokensVal;
+    return ret;
   }
+  
   async getProjectedAprStats(
     definition: JarDefinition,
     model: PickleModel,
