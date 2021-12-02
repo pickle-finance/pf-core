@@ -2,7 +2,6 @@ import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { parseUnits } from "ethers/lib/utils";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import { PickleModel } from "../../model/PickleModel";
 import { SushiJar } from "./sushi-jar";

@@ -91,9 +91,11 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     // Check if it's a normal jar
     const jar : JarDefinition = findJarForGauge(gauge, model);
     if( jar !== undefined ) {
+        const rewardPerYear : number = gauge.allocPoint === 0 ? 0 : gauge.rewardRatePerYear*100;
         const c : AssetAprComponent = createAprRange(jar.details.ratio, 
             jar.depositToken.price, 
-            gauge.rewardRatePerYear*100, model.priceOfSync("pickle"), 
+            rewardPerYear, 
+            model.priceOfSync("pickle"), 
             jar.details.decimals ? jar.details.decimals : 18);
         if( c && c.apr ) {
             jar.farm.details.farmApyComponents = [c];
@@ -101,7 +103,9 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
         jar.farm.details.allocShare = gauge.allocPoint;
         jar.farm.details.picklePerDay = gauge.poolPicklesPerYear/360;
         jar.farm.details.picklePerBlock = (gauge.poolPicklesPerYear/ONE_YEAR_IN_SECONDS) * secondsPerBlock(ChainNetwork.Ethereum) ;
-        
+        if( jar.farm.details.allocShare === 0 ) {
+            jar.farm.details.farmApyComponents = [];
+        }
         return;
     }
 
@@ -225,17 +229,17 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
         (+gaugeRewardRates[idx].toString() / +derivedSupplies[idx].toString()) * ONE_YEAR_IN_SECONDS
         : Number.POSITIVE_INFINITY;
     
-    const alloc = +gaugeWeights[idx].toString() / +totalWeight.toString() || 0;
-    const ret : IRawGaugeData = {
-        allocPoint: alloc,
-        token: token,
-        gaugeAddress: gaugeAddresses[idx],
-        rewardRate: +gaugeRewardRates[idx].toString(),
-        rewardRatePerYear: rrpy,
-        poolPicklesPerYear: alloc * parseFloat(ethers.utils.formatEther(ppb)) 
-                * ONE_YEAR_IN_SECONDS / secondsPerBlock(ChainNetwork.Ethereum),
-      };
-    return ret;
+        const alloc = +gaugeWeights[idx].toString() / +totalWeight.toString() || 0;
+        const ret : IRawGaugeData = {
+            allocPoint: alloc,
+            token: token,
+            gaugeAddress: gaugeAddresses[idx],
+            rewardRate: +gaugeRewardRates[idx].toString(),
+            rewardRatePerYear: rrpy,
+            poolPicklesPerYear: alloc * parseFloat(ethers.utils.formatEther(ppb)) 
+                    * ONE_YEAR_IN_SECONDS / secondsPerBlock(ChainNetwork.Ethereum),
+        };
+        return ret;
     });
     
     return gauges;
