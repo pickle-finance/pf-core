@@ -2134,7 +2134,7 @@ export const JAR_MOVR_SOLAR_MOVR_USDC: JarDefinition = {
   depositToken: {
     addr: "0xe537f70a8b62204832b8ba91940b77d3f79aeb81",
     name: "SOLAR MOVR/USDC",
-    link: "https://app.solarbeam.io/exchange/add/0x98878B06940aE243284CA214f92Bb71a2b032B8A/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
+    link: "https://app.solarbeam.io/exchange/add/ETH/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["movr", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2309,7 +2309,7 @@ export const JAR_MOVR_SOLAR_AVAX_MOVR: JarDefinition = {
   depositToken: {
     addr: "0xb9a61ac826196AbC69A3C66ad77c563D6C5bdD7b",
     name: "SOLAR AVAX/MOVR",
-    link: "https://app.solarbeam.io/exchange/add/0x14a0243C333A5b238143068dC3A7323Ba4C30ECB/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    link: "https://app.solarbeam.io/exchange/add/0x14a0243C333A5b238143068dC3A7323Ba4C30ECB/ETH",
     components: ["avax", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2384,10 +2384,10 @@ export const JAR_MOVR_SOLAR_MOVR_FTM: JarDefinition = {
   depositToken: {
     addr: "0x1eebed8F28A6865a76D91189FD6FC45F4F774d67",
     name: "SOLAR MOVR/FTM",
-    link: "https://app.solarbeam.io/exchange/add/0x98878B06940aE243284CA214f92Bb71a2b032B8A/0xaD12daB5959f30b9fF3c2d6709f53C335dC39908",
+    link: "https://app.solarbeam.io/exchange/add/ETH/0xaD12daB5959f30b9fF3c2d6709f53C335dC39908",
     components: ["movr", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
   details: {
@@ -2409,7 +2409,7 @@ export const JAR_MOVR_SOLAR_MOVR_RIB: JarDefinition = {
   depositToken: {
     addr: "0x0acDB54E610dAbC82b8FA454b21AD425ae460DF9",
     name: "SOLAR MOVR/RIB",
-    link: "https://app.solarbeam.io/exchange/add/0x98878B06940aE243284CA214f92Bb71a2b032B8A/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
+    link: "https://app.solarbeam.io/exchange/add/ETH/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["movr", "rib"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2434,7 +2434,7 @@ export const JAR_MOVR_SOLAR_MOVR_RELAY: JarDefinition = {
   depositToken: {
     addr: "0x9e0d90ebB44c22303Ee3d331c0e4a19667012433",
     name: "SOLAR MOVR/RELAY",
-    link: "https://app.solarbeam.io/exchange/add/0x98878B06940aE243284CA214f92Bb71a2b032B8A/0xAd7F1844696652ddA7959a49063BfFccafafEfe7",
+    link: "https://app.solarbeam.io/exchange/add/ETH/0xAd7F1844696652ddA7959a49063BfFccafafEfe7",
     components: ["movr", "relay"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2484,7 +2484,7 @@ export const JAR_MOVR_SOLAR_PETS_MOVR: JarDefinition = {
   depositToken: {
     addr: "0x9f9a7a3f8F56AFB1a2059daE1E978165816cea44",
     name: "SOLAR PETS/MOVR",
-    link: "https://app.solarbeam.io/exchange/add/0x1e0F2A75Be02c025Bd84177765F89200c04337Da/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    link: "https://app.solarbeam.io/exchange/add/0x1e0F2A75Be02c025Bd84177765F89200c04337Da/ETH",
     components: ["pets", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2510,7 +2510,7 @@ export const JAR_MOVR_SOLAR_FRAX_MOVR: JarDefinition = {
   depositToken: {
     addr: "0x2cc54b4A3878e36E1C754871438113C1117a3ad7",
     name: "SOLAR FRAX/MOVR",
-    link: "https://app.solarbeam.io/exchange/add/0x1A93B23281CC1CDE4C4741353F3064709A16197d/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    link: "https://app.solarbeam.io/exchange/add/0x1A93B23281CC1CDE4C4741353F3064709A16197d/ETH",
     components: ["frax", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2535,7 +2535,7 @@ export const JAR_MOVR_SOLAR_MIM_MOVR: JarDefinition = {
   depositToken: {
     addr: "0x9432B25fBD8a37e5A1300e36a96BD14E1E6f5c90",
     name: "SOLAR MIM/MOVR",
-    link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/ETH",
     components: ["mim", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2560,7 +2560,7 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
   depositToken: {
     addr: "0xBe2aBe58eDAae96B4303F194d2fAD5233BaD3d87",
     name: "SOLAR BNB/MOVR",
-    link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/0x98878B06940aE243284CA214f92Bb71a2b032B8A",
+    link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/ETH",
     components: ["bnb", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -2580,7 +2580,7 @@ JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BNB_MOVR);
 
 export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
   type: AssetType.JAR,
-  id: "moonJar 1u",
+  id: "moonJar 1p",
   contract: "0x986080e8e9968E1dA5AB14473b1884b5A7342EC2",
   depositToken: {
     addr: "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888",
