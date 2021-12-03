@@ -12,7 +12,7 @@ import {
   ExternalAssetDefinition,
   HistoricalYield,
 } from "../../model/PickleModelJson";
-import { ExternalAssetBehavior, JarHarvestStats } from "../JarBehaviorResolver";
+import { ExternalAssetBehavior, ICustomHarvester, JarHarvestStats } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import stabilityPool from "../../Contracts/ABIs/stability-pool.json";
 import { formatEther } from "ethers/lib/utils";
@@ -23,6 +23,9 @@ const pBAMM = "0x54bC9113f1f55cdBDf221daf798dc73614f6D972";
 const pLQTY = "0x65B2532474f717D5A8ba38078B78106D56118bbb";
 
 export class PBammAsset implements ExternalAssetBehavior {
+  getCustomHarvester(_definition: ExternalAssetDefinition, _model: PickleModel, _signer: Signer, _properties: any): ICustomHarvester {
+    return undefined;
+  }
   getProtocolApy(_definition: JarDefinition, _model: PickleModel): Promise<HistoricalYield> {
     return undefined;
   }

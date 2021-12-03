@@ -17,7 +17,7 @@ import { getSwapUtilityForProtocol } from "../protocols/ProtocolUtil";
 export const ONE_YEAR_IN_SECONDS: number = 360 * 24 * 60 * 60;
 
 export abstract class AbstractJarBehavior implements JarBehavior {
-  getCustomHarvester(_definition: JarDefinition, _model: PickleModel, _signer: ethers.Signer,_properties: unknown): Promise<ICustomHarvester | undefined> {
+  getCustomHarvester(_definition: JarDefinition, _model: PickleModel, _signer: ethers.Signer,_properties: unknown): ICustomHarvester | undefined {
     return undefined;
   }
   

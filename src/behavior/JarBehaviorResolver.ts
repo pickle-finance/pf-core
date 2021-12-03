@@ -47,7 +47,7 @@ export interface AssetBehavior<T extends PickleAsset> {
     definition: T, 
     model: PickleModel,
     signer: Signer, 
-    properties: any) : Promise<ICustomHarvester|undefined>;
+    properties: any) : ICustomHarvester|undefined;
 }
 
 export type JarBehavior = AssetBehavior<JarDefinition>;
