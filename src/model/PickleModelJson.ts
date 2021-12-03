@@ -58,6 +58,7 @@ export enum HarvestStyle {
   ACTIVE = "active",
   PASSIVE = "passive",
   EARN_BEFORE_HARVEST = "earnBeforeHarvest",
+  CUSTOM = "custom",
   NONE = 'none'
 }
 

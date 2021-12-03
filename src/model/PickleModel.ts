@@ -81,6 +81,17 @@ export class PickleModel {
         this.resourceCache = new Map<string,any>();
     }
 
+    static fromJson(json: PickleModelJson, chains: Map<ChainNetwork, Provider|Signer>) : PickleModel {
+        const allAssets = json.assets.external.concat(json.assets.jars).concat(json.assets.standaloneFarms);
+        const model : PickleModel = new PickleModel(allAssets, chains);
+        model.setPrices(json.prices);
+        return model;
+    }
+
+    setPrices(prices: any) : void {
+        this.prices = new PriceCache(prices);
+    }
+
     getJars() : JarDefinition[] {
         const arr : PickleAsset[] = this.allAssets.filter((x)=>x.type===AssetType.JAR);
         return arr as JarDefinition[];

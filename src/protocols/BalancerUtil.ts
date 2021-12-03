@@ -2,11 +2,10 @@ import { differenceInWeeks } from "date-fns";
 import { BigNumber, Contract, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20 from "../Contracts/ABIs/erc20.json";
-import { ChainNetwork, Chains, PickleModel } from "..";
+import { ChainNetwork, PickleModel } from "..";
 import fetch from "cross-fetch";
-import { protocolToSubgraphUrl, readQueryFromGraphProtocol } from "../graph/TheGraph";
+import { readQueryFromGraphProtocol } from "../graph/TheGraph";
 import { AssetAprComponent, AssetProtocol, HistoricalYield, JarDefinition } from "../model/PickleModelJson";
-import { GenericSwapUtility } from "./GenericSwapUtil";
 
 const balLMUrl =
   "https://raw.githubusercontent.com/balancer-labs/frontend-v2/cad6a786b65118e1b8d61be9555ee2a8391849e8/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";

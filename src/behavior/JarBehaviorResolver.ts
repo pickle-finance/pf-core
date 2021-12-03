@@ -1,5 +1,5 @@
 import { BigNumber, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { Provider, TransactionResponse } from '@ethersproject/abstract-provider';
 import {
   AssetProjectedApr,
   ExternalAssetDefinition,
@@ -42,6 +42,26 @@ export interface AssetBehavior<T extends PickleAsset> {
     available: BigNumber,
     resolver: Signer | Provider,
   ): Promise<JarHarvestStats>;
+
+  getCustomHarvester(
+    definition: T, 
+    model: PickleModel,
+    signer: Signer, 
+    properties: any) : Promise<ICustomHarvester|undefined>;
 }
+
 export type JarBehavior = AssetBehavior<JarDefinition>;
 export type ExternalAssetBehavior = AssetBehavior<ExternalAssetDefinition>;
+
+// Duplicate of interface in tsuke. 
+export interface PfCoreGasFlags {
+  gasPrice?: number;
+  gasLimit?: BigNumber;
+  maxFeePerGas?: number;
+  maxPriorityFeePerGas?: BigNumber;
+}
+
+
+export interface ICustomHarvester {
+  harvest(flags: PfCoreGasFlags) : Promise<TransactionResponse | undefined>;
+}

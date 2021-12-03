@@ -7,7 +7,7 @@ import {
   HistoricalYield,
   SWAP_PROTOCOLS,
 } from "../model/PickleModelJson";
-import { JarBehavior, JarHarvestStats } from "./JarBehaviorResolver";
+import { ICustomHarvester, JarBehavior, JarHarvestStats } from "./JarBehaviorResolver";
 import { PickleModel } from "../model/PickleModel";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { GenericSwapUtility } from "../protocols/GenericSwapUtil";
@@ -17,6 +17,10 @@ import { getSwapUtilityForProtocol } from "../protocols/ProtocolUtil";
 export const ONE_YEAR_IN_SECONDS: number = 360 * 24 * 60 * 60;
 
 export abstract class AbstractJarBehavior implements JarBehavior {
+  getCustomHarvester(_definition: JarDefinition, _model: PickleModel, _signer: ethers.Signer,_properties: unknown): Promise<ICustomHarvester | undefined> {
+    return undefined;
+  }
+  
   isGenericSwapProtocol(protocol: string): boolean {
     return SWAP_PROTOCOLS.filter((x) => x.toString() === protocol).length > 0;
   }

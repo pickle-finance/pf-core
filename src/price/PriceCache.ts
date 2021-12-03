@@ -2,7 +2,11 @@ import { IPriceResolver } from "./IPriceResolver";
 
 export class PriceCache {
   private cache: Map<string, number> = new Map<string, number>();
-
+  constructor(prices?: any) {
+    if( prices ) {
+      this.cache = new Map(Object.entries(prices));
+    }
+  }
   get(id: string): number {
     return this.cache.get(id);
   }

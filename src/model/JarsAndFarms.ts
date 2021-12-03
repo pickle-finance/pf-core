@@ -1728,7 +1728,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
   protocol: AssetProtocol.BALANCER_ARBITRUM,
   details: {
     apiKey: "BalTricrypto",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
