@@ -185,7 +185,10 @@ export class BalancerTokenClaim {
       // Ignore distributions managed by the old contract (not MerkleOrchard).
       if (parseInt(week) < this.tokenClaimInfo.weekStart) continue;
 
-      claimsByWeek[week] = await this.fetchFromIpfs(hash);
+      const c1 = await this.fetchFromIpfs(hash);
+      if( c1 ) {
+        claimsByWeek[week] = c1;
+      }
     }
 
     return claimsByWeek;
@@ -202,7 +205,12 @@ export class BalancerTokenClaim {
     const url = `https://ipfs.io/ipfs/${hash}`;
     const res = await fetch(url);
 
-    return await res.json();
+    try {
+      const ret = await res.json();
+      return ret;
+    } catch(error) {
+      console.log("Impossible: " + error);
+    }
   };
 
   private generateMerkleTree = (week: string): MerkleTree => {

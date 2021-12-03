@@ -13,7 +13,7 @@ import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/E
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
-import { JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
+import { AssetBehavior, JarBehavior, JarHarvestStats } from "../behavior/JarBehaviorResolver";
 import { loadGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { CoinMarketCapPriceResolver } from "../price/CoinMarketCapPriceResolver";
@@ -92,6 +92,15 @@ export class PickleModel {
         this.prices = new PriceCache(prices);
     }
 
+    getHarvesterForAsset(definition: PickleAsset, signer: Signer, properties: any) {
+        const beh : AssetBehavior<PickleAsset> = new JarBehaviorDiscovery().findAssetBehavior(definition);
+        if( beh ) {
+            const ret = beh.getCustomHarvester(definition, this, signer, properties);
+            if( ret ) 
+                return ret;
+        }
+        return undefined;
+    }
     getJars() : JarDefinition[] {
         const arr : PickleAsset[] = this.allAssets.filter((x)=>x.type===AssetType.JAR);
         return arr as JarDefinition[];
