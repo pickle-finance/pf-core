@@ -101,6 +101,7 @@ export interface PickleAsset {
   protocol: string;
   aprStats?: AssetProjectedApr;
   details: AssetDetails;
+  tags?: string;
 }
 
 export interface ExternalAssetDefinition extends PickleAsset {

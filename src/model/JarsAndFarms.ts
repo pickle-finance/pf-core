@@ -16,25 +16,6 @@ export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
  * Now the actual implementations
  */
 export const STANDALONE_FARM_DEFINITIONS: StandaloneFarmDefinition[] = [];
-export const FARM_SUSHI_PICKLE_ETH: StandaloneFarmDefinition = {
-  type: AssetType.STANDALONE_FARM,
-  id: "Sushi Pickle/Eth",
-  farmNickname: "SushiSwap MasterChefv2",
-  contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
-  depositToken: {
-    addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
-    name: "Sushi PICKLE/ETH",
-    link: "https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH",
-    components: ["pickle", "weth"],
-  },
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Ethereum,
-  protocol: AssetProtocol.SUSHISWAP,
-  details: {
-    apiKey: "sushi-pickle-eth",
-  },
-};
-STANDALONE_FARM_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
 
 export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   type: AssetType.STANDALONE_FARM,
@@ -53,6 +34,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   details: {
     apiKey: "pickle-eth",
   },
+  tags: "pool2",
 };
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
@@ -1563,6 +1545,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
     apiKey: "PSLP-PICKLE",
     harvestStyle: HarvestStyle.PASSIVE,
   },
+  tags: "pool2",
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
@@ -2650,6 +2633,26 @@ export const ASSET_PBAMM: ExternalAssetDefinition = {
   },
 };
 EXTERNAL_DEFINITIONS.push(ASSET_PBAMM);
+
+export const FARM_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
+  type: AssetType.EXTERNAL,
+  id: "Sushi Pickle/Eth",
+  contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
+  depositToken: {
+    addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
+    name: "Sushi PICKLE/ETH",
+    link: "https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH",
+    components: ["pickle", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "sushi-pickle-eth",
+  },
+  tags: "pool2",
+};
+EXTERNAL_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
 
 export const ALL_ASSETS: PickleAsset[] = []
   .concat(JAR_DEFINITIONS)
