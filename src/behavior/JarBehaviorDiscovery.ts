@@ -58,6 +58,7 @@ import {
   JAR_CURVE_CVXCRVLP,
   JAR_POLY_SUSHI_WORK_USDC,
   JAR_CVXCRV,
+  JAR_CURVE_CRVETHLP,
   JAR_OKEX_ETHK_USDT,
   JAR_OKEX_OKT_CHE,
   JAR_OKEX_OKT_USDT,
@@ -185,6 +186,7 @@ import { SolarFraxMovr } from "./impl/solar-frax-movr";
 import { SolarMimMovr } from "./impl/solar-mim-movr";
 import { SolarBnbMovr } from "./impl/solar-bnb-movr";
 import { SolarEthMovr } from "./impl/solar-eth-movr";
+import { CurveCrvEth } from "./impl/crv-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -233,6 +235,7 @@ jarToBehavior.set(JAR_UNI_RLY_ETH.id, new RlyEth());
 jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
 jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
+jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth)
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
