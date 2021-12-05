@@ -2,7 +2,7 @@ import { Contract as MulticallContract } from "ethers-multicall";
 import { Signer, Contract as ethersContract } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { formatEther } from "ethers/lib/utils";
-import { PickleModel } from "..";
+import { JarBehaviorDiscovery, PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { Chains } from "../chain/Chains";
 import {
@@ -48,6 +48,13 @@ const convexPools: PoolInfo = {
     rewardPriceLookup: "3crv",
     rewarder: "0x3Fe65692bfCD0e6CF84cB1E7d24108E434A7587e",
   },
+  "0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d": {
+    poolId: 61,
+    tokenName: "crveth",
+    rewardName: "",
+    tokenPriceLookup: "crveth",
+    rewardPriceLookup: "",
+  },
 };
 
 export async function getCvxMint(
@@ -88,6 +95,7 @@ export async function getCvxMint(
 }
 
 export async function getProjectedConvexAprStats(
+  this: any,
   definition: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
@@ -121,7 +129,7 @@ export async function getProjectedConvexAprStats(
   if (curveAPY && multicallProvider) {
     const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
     const crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
-    
+
     const rewarder =
       cvxPool.rewarder ||
       (
@@ -132,15 +140,19 @@ export async function getProjectedConvexAprStats(
 
     const crvRewardsMC = new MulticallContract(rewarder, CrvRewardsABI);
 
-    const [depositLocked, duration, extraRewardsAddress] = await multicallProvider.all([
-      crvRewardsMC.totalSupply(),
-      crvRewardsMC.duration(),
-      crvRewardsMC.extraRewards(0),
-    ]);
+    const [depositLocked, duration, extraRewardsAddress] =
+      await multicallProvider.all([
+        crvRewardsMC.totalSupply(),
+        crvRewardsMC.duration(),
+        crvRewardsMC.extraRewards(0),
+      ]);
 
     const poolValue =
       parseFloat(formatEther(depositLocked)) *
-      model.priceOfSync(cvxPool.tokenPriceLookup);
+      (model.priceOfSync(cvxPool.tokenPriceLookup) ||
+        (await new JarBehaviorDiscovery()
+          .findAssetBehavior(definition)
+          .getDepositTokenPrice(definition, model)));
 
     const crvRewardPerDuration =
       (crvApr * poolValue) / (duration.toNumber() * model.priceOfSync("crv"));
@@ -154,26 +166,42 @@ export async function getProjectedConvexAprStats(
       duration.toNumber();
     const cvxApr = cvxValuePerYear / poolValue;
 
-
     // component 2
-    const extraRewardsContract = new ethersContract(extraRewardsAddress, ExtraRewardsABI, resolver);
-    const extraRewardAmount = +formatEther(await extraRewardsContract.currentRewards());
+    const extraRewardsContract = new ethersContract(
+      extraRewardsAddress,
+      ExtraRewardsABI,
+      resolver,
+    );
+    const extraRewardAmount = +formatEther(
+      await extraRewardsContract.currentRewards(),
+    );
     const extraRewardValuePerYear =
-        (extraRewardAmount * model.priceOfSync(cvxPool.rewardPriceLookup) * ONE_YEAR_SECONDS) /
-        duration.toNumber();
+      (extraRewardAmount *
+        (model.priceOfSync(cvxPool.rewardPriceLookup) || 0) *
+        ONE_YEAR_SECONDS) /
+      duration.toNumber();
     let extraRewardApr = extraRewardValuePerYear / poolValue;
 
-    
-    const isExtraCvx = cvxPool.rewardName === "cvx";  // extraReward token is CVX
-      if (isExtraCvx) extraRewardApr += cvxApr;
+    const isExtraCvx = cvxPool.rewardName === "cvx"; // extraReward token is CVX
+    if (isExtraCvx) extraRewardApr += cvxApr;
 
     const components: AssetAprComponent[] = [
       createAprComponentImpl("lp", lpApr, false),
       createAprComponentImpl("crv", crvApr, true),
-      ...(isExtraCvx? []: [createAprComponentImpl("cvx", cvxApr * 100, true)]),
-      createAprComponentImpl(cvxPool.rewardName, extraRewardApr * 100, true),
+      ...(isExtraCvx
+        ? []
+        : [createAprComponentImpl("cvx", cvxApr * 100, true)]),
+      ...(cvxPool.rewardName
+        ? [
+            createAprComponentImpl(
+              cvxPool.rewardName,
+              extraRewardApr * 100,
+              true,
+            ),
+          ]
+        : []),
     ];
-    
+
     return components;
   }
   return undefined;
