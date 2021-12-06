@@ -2659,7 +2659,7 @@ export const ASSET_PBAMM: ExternalAssetDefinition = {
 };
 EXTERNAL_DEFINITIONS.push(ASSET_PBAMM);
 
-export const FARM_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
+export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   type: AssetType.EXTERNAL,
   id: "Sushi Pickle/Eth",
   contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
@@ -2677,7 +2677,7 @@ export const FARM_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   },
   tags: "pool2",
 };
-EXTERNAL_DEFINITIONS.push(FARM_SUSHI_PICKLE_ETH);
+EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
 
 export const ALL_ASSETS: PickleAsset[] = []
   .concat(JAR_DEFINITIONS)

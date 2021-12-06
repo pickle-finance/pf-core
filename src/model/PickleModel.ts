@@ -701,24 +701,18 @@ export class PickleModel {
     }
 
     
-    async ensureExternalAssetBalanceLoaded() {
+    async ensureExternalAssetBalanceLoaded() : Promise<void> {
         // This needs to be separated out and unified, seriously. 
         let external : ExternalAssetDefinition[] = undefined;
         try { external = this.getExternalAssets(); } catch ( error ) {this.logError("ensureExternalAssetBalanceLoaded", error); }
         for( let i = 0; external !== undefined && i < external.length; i++ ) {
             const behavior = new JarBehaviorDiscovery().findAssetBehavior(external[i]);
             if( behavior ) {
-                let bal = undefined;
+                let bal : JarHarvestStats = undefined;
                 try {
-                    bal = await behavior.getAssetHarvestData(external[i], this, null, null, null);
+                    bal = await behavior.getAssetHarvestData(external[i], this, null, null, this.providerFor(external[i].chain));
                 } catch ( error ) { this.logError("ensureExternalAssetBalanceLoaded: bal", error); }
                 if ( bal !== undefined) { external[i].details.harvestStats = bal; }
-                
-                let aprStats = undefined;
-                try {
-                    aprStats = await behavior.getProjectedAprStats(external[i], this);
-                } catch ( error ) { this.logError("ensureExternalAssetBalanceLoaded: bal", error); }
-                if ( aprStats !== undefined ) { external[i].aprStats = aprStats; }
             }
         }
     }

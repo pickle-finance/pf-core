@@ -93,6 +93,7 @@ import {
   JAR_MOVR_SOLAR_MIM_MOVR,
   JAR_MOVR_SOLAR_BNB_MOVR,
   JAR_MOVR_SOLAR_ETH_MOVR,
+  EXTERNAL_SUSHI_PICKLE_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -187,6 +188,7 @@ import { SolarMimMovr } from "./impl/solar-mim-movr";
 import { SolarBnbMovr } from "./impl/solar-bnb-movr";
 import { SolarEthMovr } from "./impl/solar-eth-movr";
 import { CurveCrvEth } from "./impl/crv-eth";
+import { MainnetSushiPickleEth } from "./impl/MainnetSushiPickleEth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -302,6 +304,7 @@ jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_ETH_MOVR.id, new SolarEthMovr());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
+jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
 // ADD_ASSET token behavior class
 
 // Yet to convert

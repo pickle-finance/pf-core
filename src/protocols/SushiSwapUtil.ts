@@ -32,6 +32,7 @@ const sushiPoolIds: PoolId = {
 const sushiPoolV2Ids: PoolId = {
   "0xC3f279090a47e80990Fe3a9c30d24Cb117EF91a8": 0,
   "0x05767d9EF41dC40689678fFca0608878fb3dE906": 1,
+  "0x269db91fc3c7fcc275c2e6f22e5552504512811c": 3,
   "0xfCEAAf9792139BF714a694f868A215493461446D": 8,
 };
 
@@ -233,7 +234,10 @@ export async function calculateMCv2SushiRewards(
   const multicallProvider = model.multicallProviderFor(chain);
   await multicallProvider.init();
 
-  const poolId = sushiPoolV2Ids[lpTokenAddress];
+  let poolId = sushiPoolV2Ids[lpTokenAddress];
+  if( poolId === undefined )
+    poolId = sushiPoolV2Ids[lpTokenAddress.toLowerCase()];
+
   const multicallMasterChefV2 = new MulticallContract(
     MASTERCHEFV2_ADDR,
     masterChefV2Abi,
