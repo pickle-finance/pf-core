@@ -5,11 +5,18 @@ import erc20 from "../Contracts/ABIs/erc20.json";
 import { ChainNetwork, PickleModel } from "..";
 import fetch from "cross-fetch";
 import { readQueryFromGraphProtocol } from "../graph/TheGraph";
-import { AssetAprComponent, AssetProtocol, HistoricalYield, JarDefinition } from "../model/PickleModelJson";
+import {
+  AssetAprComponent,
+  AssetProtocol,
+  HistoricalYield,
+  JarDefinition,
+} from "../model/PickleModelJson";
+import { Contract as MulticallContract } from "ethers-multicall";
+// import { ARBITRUM_SECONDS_PER_BLOCK } from "../chain/Chains";
 
 const balLMUrl =
   "https://raw.githubusercontent.com/balancer-labs/frontend-v2/master/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
-const balVaultAddr = "0xba12222222228d8ba445958a75a0704d566bf2c8";
+const balVaultAddr = "0xBA12222222228d8Ba445958a75a0704d566BF2C8";
 
 // Balancer stuff
 function toUtcTime(date: Date) {
@@ -87,6 +94,12 @@ interface GraphResponse {
   totalSwapFee: number;
 }
 
+export interface PoolData {
+  pricePerToken: number;
+  totalPoolValue: number;
+  totalSupply: number;
+}
+
 export const queryTheGraph = async (
   poolAddress: string,
   blockNumber: number,
@@ -138,7 +151,7 @@ export const getBalancerPerformance = async (
   const poolAddress = asset.depositToken.addr;
   const arbBlocktime = 3; // in Chains.ts the value is set to 13
   const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = (await provider.getBlockNumber()) - 100; // safety buffer, the graph can take more than 1000 blocks to update!
+  const blockNum = (await provider.getBlockNumber()) - 100; // safety buffer, the graph can sometimes take more than 1000 blocks to update!
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / arbBlocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
@@ -166,11 +179,24 @@ export const getBalancerPerformance = async (
   };
 };
 
-export const getPoolData = async (poolAddress: string, model: PickleModel) => {
-  const provider = model.providerFor(ChainNetwork.Arbitrum);
+export const getPoolData = async (/* poolAddress */jar: JarDefinition, model: PickleModel): Promise<PoolData> => {
+  const provider = model.providerFor(jar.chain);
+  // const multicallProvider = model.multicallProviderFor(jar.chain);
   const balVaultContract = new Contract(balVaultAddr, balVaultABI, provider);
+  // const balVaultMulticall = new MulticallContract(balVaultAddr, balVaultABI);
+  // const poolMulticall = new MulticallContract(jar.depositToken.addr, erc20);
+
+  // const [
+  //   poolTokensResp,
+  //   poolTokenTotalSupplyBN,
+  // ] = await multicallProvider.all([
+  //   balVaultMulticall.getPoolTokens(
+  //     balPoolIds[jar.depositToken.addr.toLowerCase()],
+  //   ),
+  //   poolMulticall.totalSupply(),
+  // ])
   const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
-    balPoolIds[poolAddress.toLowerCase()],
+    balPoolIds[jar.depositToken.addr.toLowerCase()],
   );
   const { tokens, balances } = poolTokensResp;
   const filtered = tokens.map((tokenAddr: string, i: number) => {
@@ -184,7 +210,7 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
       ),
     ];
   });
-  const poolContract = new Contract(poolAddress, erc20, provider);
+  const poolContract = new Contract(jar.depositToken.addr, erc20, provider);
   const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
   const poolTokenTotalSupply = parseFloat(
     ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
@@ -207,6 +233,7 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
 export const calculateBalPoolAPRs = async (
   depositToken: string,
   model: PickleModel,
+  poolData: PoolData,
 ): Promise<AssetAprComponent[]> => {
   const weeksLMResp = await fetch(balLMUrl);
   const weeksLMData = await weeksLMResp.json();
@@ -231,7 +258,7 @@ export const calculateBalPoolAPRs = async (
     );
   }
 
-  const { totalPoolValue } = await getPoolData(depositToken, model);
+  const { totalPoolValue } = poolData;
 
   const poolRewardsPerWeek =
     miningRewards[balPoolIds[depositToken.toLowerCase()]];
