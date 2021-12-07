@@ -17,5 +17,5 @@
     "noUnusedParameters": true,
     "strictNullChecks": false
   },
-  "include": ["src"]
+  "include": ["src/**/*", "src/**/*.json"]
 }
