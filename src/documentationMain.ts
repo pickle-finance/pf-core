@@ -1,14 +1,21 @@
-function getDocs(language: string) {
-  const msg = "hello";
-  const translated = getTranslation(msg, language);
-  return {
-    msg: translated,
-  }
-}
+import { I18n } from 'i18n';
+import * as path from 'path';
 
-function getTranslation(msg: string, language: string) {
-  // TODO get the translation here. This is obviously stub garbage
-  return language + "_" + msg; 
+function getDocs(language: string) {
+    const i18nInstance = new I18n();
+    const t1 = path.join(__dirname, '/locales');
+    console.log("Path is: " + t1);
+    const anyObject : any = {};
+    i18nInstance.configure({
+      locales: ['en', 'de'],
+      directory: path.join(__dirname, '/locales'),
+      register: anyObject,
+    })
+    anyObject.setLocale(language);
+    const ret = anyObject.__('Hello');
+    return {
+      msg: ret,
+    }
 }
 
 console.log(JSON.stringify(getDocs("en")));
