@@ -128,6 +128,14 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Arbitrum, "pickle","pickle-finance","0x965772e0E9c84b6f359c8597C891108DcF1c5B1A".toLowerCase(),18,ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Arbitrum, "bal","balancer","0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8".toLowerCase(),18,ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Arbitrum, "usdc","usd-coin","0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),6,ExternalTokenFetchStyle.ID);
+    this.addToken(
+      ChainNetwork.Arbitrum,
+      "usdc",
+      "usd-coin",
+      "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // OKEx
     this.addToken(ChainNetwork.OKEx, "btck", "oec-btc", "0x54e4622DC504176b3BB432dCCAf504569699a7fF".toLowerCase(), 18, ExternalTokenFetchStyle.ID);

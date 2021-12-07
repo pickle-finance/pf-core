@@ -215,14 +215,14 @@ export class PickleModel {
 
     toJson() : PickleModelJson {
         const ret = {
-            tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
-            prices: Object.fromEntries(this.prices.getCache()),
-            dill: this.dillDetails,
             assets: {
                 jars: this.getJars(),
                 standaloneFarms: this.getStandaloneFarms(),
                 external: this.getExternalAssets(),
             },
+            tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
+            prices: Object.fromEntries(this.prices.getCache()),
+            dill: this.dillDetails,
             platform: this.platformData,
             timestamp: Date.now(),
         }

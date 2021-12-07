@@ -1696,6 +1696,31 @@ export const JAR_ARBITRUM_DODO_HND_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_DODO_HND_ETH);
 
+export const JAR_ARBITRUM_DODO_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 3b",
+  contract: "0x0A9eD9B39613850819a5f80857395bFeA434c22A",
+  depositToken: {
+    addr: "0x6a58c68FF5C4e4D90EB6561449CC74A64F818dA5",
+    name: "Dodo DODO/USDC",
+    link: "https://app.dodoex.io/liquidity?network=arbitrum&poolAddress=0x6a58c68ff5c4e4d90eb6561449cc74a64f818da5",
+    components: ["dodo", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.DODOSWAP,
+  details: {
+    apiKey: "DodoUsdc",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pDodo DODO/USDC",
+    farmDepositTokenName: "pDodo DODO/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_DODO_USDC);
+
 export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition = {
   type: AssetType.JAR,
   id: "arbJar 2b",
