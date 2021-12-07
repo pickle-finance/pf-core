@@ -54,6 +54,7 @@ import {
   JAR_ARBITRUM_SLP_MIM_ETH,
   JAR_ARBITRUM_SLP_SPELL_ETH,
   JAR_ARBITRUM_DODO_HND_ETH,
+  JAR_ARBITRUM_DODO_USDC,
   JAR_ARBITRUM_BAL_TRICRYPTO,
   JAR_CURVE_CVXCRVLP,
   JAR_POLY_SUSHI_WORK_USDC,
@@ -189,6 +190,7 @@ import { SolarBnbMovr } from "./impl/solar-bnb-movr";
 import { SolarEthMovr } from "./impl/solar-eth-movr";
 import { CurveCrvEth } from "./impl/crv-eth";
 import { MainnetSushiPickleEth } from "./impl/MainnetSushiPickleEth";
+import { ArbitrumDodoUsdc } from "./impl/arbitrum-dodo-usdc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -262,6 +264,7 @@ jarToBehavior.set(JAR_ARBITRUM_SLP_SPELL_ETH.id, new ArbitrumSpellEth());
 jarToBehavior.set(JAR_ARBITRUM_MIM2CRV.id, new Mim2Crv());
 jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
+jarToBehavior.set(JAR_ARBITRUM_DODO_USDC.id, new ArbitrumDodoUsdc());
 jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalTricrypto());
 
 // OKEx
