@@ -3,8 +3,6 @@ import * as path from 'path';
 
 function getDocs(language: string) {
     const i18nInstance = new I18n();
-    const t1 = path.join(__dirname, '/locales');
-    console.log("Path is: " + t1);
     const anyObject : any = {};
     i18nInstance.configure({
       locales: ['en', 'de'],
