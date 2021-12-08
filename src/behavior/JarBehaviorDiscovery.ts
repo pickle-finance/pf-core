@@ -98,7 +98,9 @@ import {
   JAR_CRO_VVS_CRO_USDT,
   JAR_CRO_VVS_CRO_VVS,
   JAR_CRO_VVS_VVS_USDC,
-  JAR_CRO_VVS_VVS_USDT
+  JAR_CRO_VVS_VVS_USDT,
+  JAR_CRO_VVS_USDC_USDT,
+  JAR_CRO_VVS_CRO_BTC
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -200,6 +202,8 @@ import { VVSCroUsdt } from "./impl/vvs-cro-usdt";
 import { VVSCroVVS } from "./impl/vvs-cro-vvs";
 import { VVSVVSUsdc } from "./impl/vvs-vvs-usdc";
 import { VVSVVSUsdt } from "./impl/vvs-vvs-usdt";
+import { VVSCroBtc } from "./impl/vvs-cro-btc";
+import { VVSUsdcUsdt } from "./impl/vvs-usdc-usdt";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -321,6 +325,8 @@ jarToBehavior.set(JAR_CRO_VVS_CRO_USDT.id, new VVSCroUsdt());
 jarToBehavior.set(JAR_CRO_VVS_CRO_VVS.id, new VVSCroVVS());
 jarToBehavior.set(JAR_CRO_VVS_VVS_USDC.id, new VVSVVSUsdc());
 jarToBehavior.set(JAR_CRO_VVS_VVS_USDT.id, new VVSVVSUsdt());
+jarToBehavior.set(JAR_CRO_VVS_CRO_BTC.id, new VVSCroBtc());
+jarToBehavior.set(JAR_CRO_VVS_USDC_USDT.id, new VVSUsdcUsdt());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

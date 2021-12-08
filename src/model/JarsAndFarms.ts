@@ -2805,6 +2805,56 @@ export const JAR_CRO_VVS_CRO_VVS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_VVS);
 
+export const JAR_CRO_VVS_CRO_BTC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1j",
+  contract: "0xb289Bedd68F6b3cFd221C63C0f56BC0cc9430473",
+  depositToken: {
+    addr: "0x8F09fFf247B8fDB80461E5Cf5E82dD1aE2EBd6d7",
+    name: "VVS CRO/BTC",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x062E66477Faf219F25D27dCED647BF57C3107d52",
+    components: ["cro", "btc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-BTC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/BTC",
+    farmDepositTokenName: "pVVS CRO/BTC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_BTC);
+
+export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1k",
+  contract: "0x40F80625feA504Fb32eD0e6e7450A77fFF114585",
+  depositToken: {
+    addr: "0x39cC0E14795A8e6e9D02A21091b81FE0d61D82f9",
+    name: "VVS CRO/VVS",
+    link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x66e428c3f67a68878562e79A0234c1F83c208770",
+    components: ["usdc", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-USDC-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS USDC/USDT",
+    farmDepositTokenName: "pVVS USDC/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_USDC_USDT);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
