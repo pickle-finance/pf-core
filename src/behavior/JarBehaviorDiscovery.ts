@@ -89,7 +89,16 @@ import {
   JAR_MOVR_SOLAR_PETS_MOVR,
   JAR_MOVR_SOLAR_FRAX_MOVR,
   JAR_MOVR_SOLAR_MIM_MOVR,
-  JAR_MOVR_SOLAR_BNB_MOVR
+  JAR_MOVR_SOLAR_BNB_MOVR,
+  JAR_CRO_VVS_CRO_BIFI,
+  JAR_CRO_VVS_CRO_DAI,
+  JAR_CRO_VVS_CRO_ETH,
+  JAR_CRO_VVS_CRO_SHIB,
+  JAR_CRO_VVS_CRO_USDC,
+  JAR_CRO_VVS_CRO_USDT,
+  JAR_CRO_VVS_CRO_VVS,
+  JAR_CRO_VVS_VVS_USDC,
+  JAR_CRO_VVS_VVS_USDT
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -182,6 +191,15 @@ import { SolarPetsMovr } from "./impl/solar-pets-movr";
 import { SolarFraxMovr } from "./impl/solar-frax-movr";
 import { SolarMimMovr } from "./impl/solar-mim-movr";
 import { SolarBnbMovr } from "./impl/solar-bnb-movr";
+import { VVSCroBifi } from "./impl/vvs-cro-bifi";
+import { VVSCroDai } from "./impl/vvs-cro-dai";
+import { VVSCroEth } from "./impl/vvs-cro-eth";
+import { VVSCroShib } from "./impl/vvs-cro-shib";
+import { VVSCroUsdc } from "./impl/vvs-cro-usdc";
+import { VVSCroUsdt } from "./impl/vvs-cro-usdt";
+import { VVSCroVVS } from "./impl/vvs-cro-vvs";
+import { VVSVVSUsdc } from "./impl/vvs-vvs-usdc";
+import { VVSVVSUsdt } from "./impl/vvs-vvs-usdt";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -292,6 +310,17 @@ jarToBehavior.set(JAR_MOVR_SOLAR_PETS_MOVR.id, new SolarPetsMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
+
+// Cronos
+jarToBehavior.set(JAR_CRO_VVS_CRO_BIFI.id, new VVSCroBifi());
+jarToBehavior.set(JAR_CRO_VVS_CRO_DAI.id, new VVSCroDai());
+jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VVSCroEth());
+jarToBehavior.set(JAR_CRO_VVS_CRO_SHIB.id, new VVSCroShib());
+jarToBehavior.set(JAR_CRO_VVS_CRO_USDC.id, new VVSCroUsdc());
+jarToBehavior.set(JAR_CRO_VVS_CRO_USDT.id, new VVSCroUsdt());
+jarToBehavior.set(JAR_CRO_VVS_CRO_VVS.id, new VVSCroVVS());
+jarToBehavior.set(JAR_CRO_VVS_VVS_USDC.id, new VVSVVSUsdc());
+jarToBehavior.set(JAR_CRO_VVS_VVS_USDT.id, new VVSVVSUsdt());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 // ADD_ASSET token behavior class

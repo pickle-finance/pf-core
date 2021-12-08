@@ -2578,6 +2578,233 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BNB_MOVR);
 
+// Cronos
+
+export const JAR_CRO_VVS_CRO_BIFI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1a",
+  contract: "0xF125357f05c75F9beEA0Cc721D7a2A0eA03aaa63",
+  depositToken: {
+    addr: "0x1803E360393A472beC6E1A688BDF7048d3076b1A",
+    name: "VVS CRO/BIFI",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xe6801928061CDbE32AC5AD0634427E140EFd05F9",
+    components: ["cro", "bifi"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-BIFI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/BIFI",
+    farmDepositTokenName: "pVVS CRO/BIFI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_BIFI);
+
+export const JAR_CRO_VVS_CRO_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1b",
+  contract: "0x4Dc96fe980B2D14C7A74FCCf5E83DC6943dF8380",
+  depositToken: {
+    addr: "0x3Eb9FF92e19b73235A393000C176c8bb150F1B20",
+    name: "VVS CRO/DAI",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xF2001B145b43032AAF5Ee2884e456CCd805F677D",
+    components: ["cro", "dai"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/DAI",
+    farmDepositTokenName: "pVVS CRO/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_DAI);
+
+export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1c",
+  contract: "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03",
+  depositToken: {
+    addr: "0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9",
+    name: "VVS CRO/ETH",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
+    components: ["cro", "eth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/ETH",
+    farmDepositTokenName: "pVVS CRO/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_ETH);
+
+export const JAR_CRO_VVS_CRO_SHIB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1d",
+  contract: "0x5a10B857Fb05Ce8E71440CA063AEb504AeDE5535",
+  depositToken: {
+    addr: "0xc9eA98736dbC94FAA91AbF9F4aD1eb41e7fb40f4",
+    name: "VVS CRO/SHIB",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xbED48612BC69fA1CaB67052b42a95FB30C1bcFee",
+    components: ["cro", "shib"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-SHIB",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/SHIB",
+    farmDepositTokenName: "pVVS CRO/SHIB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_SHIB);
+
+export const JAR_CRO_VVS_CRO_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1e",
+  contract: "0x795f9EE745Ed4a3d3597304C494b95B31894849F",
+  depositToken: {
+    addr: "0xe61Db569E231B3f5530168Aa2C9D50246525b6d6",
+    name: "VVS CRO/USDC",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59",
+    components: ["cro", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/USDC",
+    farmDepositTokenName: "pVVS CRO/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_USDC);
+
+export const JAR_CRO_VVS_CRO_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1f",
+  contract: "0x4349b140F40e857ffC9981536e627Bca54976e56",
+  depositToken: {
+    addr: "0x3d2180DB9E1B909f35C398BC39EF36108C0FC8c3",
+    name: "VVS CRO/USDT",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x66e428c3f67a68878562e79A0234c1F83c208770",
+    components: ["cro", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/USDT",
+    farmDepositTokenName: "pVVS CRO/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_USDT);
+
+export const JAR_CRO_VVS_VVS_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1g",
+  contract: "0xc52C3aA6EC7EB406E3685e822AEE18FF2B03d3E4",
+  depositToken: {
+    addr: "0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1",
+    name: "VVS VVS/USDC",
+    link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59",
+    components: ["vvs", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-VVS-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS VVS/USDC",
+    farmDepositTokenName: "pVVS VVS/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_USDC);
+
+export const JAR_CRO_VVS_VVS_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1h",
+  contract: "0x32645B27007167E6089ACD2d7D5d6484797b4B68",
+  depositToken: {
+    addr: "0x280aCAD550B2d3Ba63C8cbff51b503Ea41a1c61B",
+    name: "VVS VVS/USDT",
+    link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0x66e428c3f67a68878562e79A0234c1F83c208770",
+    components: ["vvs", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-VVS-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS VVS/USDT",
+    farmDepositTokenName: "pVVS VVS/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_USDT);
+
+export const JAR_CRO_VVS_CRO_VVS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1i",
+  contract: "0x5F5572fa2EFd7d9a2eccfC6bA4a1b4b8942bDd77",
+  depositToken: {
+    addr: "0xbf62c67eA509E86F07c8c69d0286C0636C50270b",
+    name: "VVS CRO/VVS",
+    link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03",
+    components: ["cro", "vvs"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVSSWAP,
+  details: {
+    apiKey: "VVSLP-CRO-VVS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/VVS",
+    farmDepositTokenName: "pVVS CRO/VVS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_VVS);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

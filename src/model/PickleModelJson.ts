@@ -26,8 +26,9 @@ export enum AssetProtocol {
   CHERRYSWAP = "cherryswap_okex",
   BXH = "bxh_okex",
   JSWAP = "jswap_okex",
-  SOLARSWAP = "solarswap_moonriver"
-// ADD_PROTOCOL
+  SOLARSWAP = "solarswap_moonriver",
+  VVSSWAP = "vvs_cronos"
+  // ADD_PROTOCOL
 }
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.SUSHISWAP,
@@ -42,7 +43,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.BXH,
   AssetProtocol.JSWAP,
   AssetProtocol.SOLARSWAP
-// ADD_PROTOCOL
+  // ADD_PROTOCOL
 ];
 
 export enum AssetEnablement {
@@ -137,7 +138,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
 
 export interface FarmDetails {
   allocShare?: number;

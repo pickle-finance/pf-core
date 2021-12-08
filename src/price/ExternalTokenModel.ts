@@ -164,6 +164,16 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Moonriver, "usdt", "tether", "0xb44a9b6905af7c801311e8f4e76932ee959c663c".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Moonriver, "frax", "frax", "0x1A93B23281CC1CDE4C4741353F3064709A16197d".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
 
+    //Cronos
+    this.addToken(ChainNetwork.Cronos, "cro", "crypto-com-chain", "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "vvs", "vvs-finance", "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "btc", "wrapped-bitcoin", "0x062E66477Faf219F25D27dCED647BF57C3107d52".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "eth", "weth", "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "dai", "dai", "0xF2001B145b43032AAF5Ee2884e456CCd805F677D".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "shib", "shiba-inu", "0xbED48612BC69fA1CaB67052b42a95FB30C1bcFee".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "usdc", "usdc", "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "usdt", "tether", "0x66e428c3f67a68878562e79A0234c1F83c208770".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
     const allTokenList: ExternalToken[] = [];
