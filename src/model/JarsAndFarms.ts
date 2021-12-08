@@ -2661,6 +2661,31 @@ export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_ETH_MOVR);
 
+export const JAR_CRONOS_VVS_CRO_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1a",
+  contract: "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03",
+  depositToken: {
+    addr: "0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9",
+    name: "VVS CRO/ETH",
+    link: "https://vvs.finance/add/CRO/0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
+    components: ["cro", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS_CRONOS,
+  details: {
+    apiKey: "VLP-CRO-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/ETH",
+    farmDepositTokenName: "pVVS CRO/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRONOS_VVS_CRO_ETH);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

@@ -28,6 +28,7 @@ export enum AssetProtocol {
   JSWAP = "jswap_okex",
   SOLARSWAP = "solarswap_moonriver",
   BALANCER_ARBITRUM = "balancer_arbitrum",
+  VVS_CRONOS = "vvs_cronos",
 // ADD_PROTOCOL
 }
 
@@ -43,7 +44,8 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.CHERRYSWAP,
   AssetProtocol.BXH,
   AssetProtocol.JSWAP,
-  AssetProtocol.SOLARSWAP
+  AssetProtocol.SOLARSWAP,
+  AssetProtocol.VVS_CRONOS
 // ADD_PROTOCOL
 ];
 

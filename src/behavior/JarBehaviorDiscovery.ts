@@ -95,6 +95,7 @@ import {
   JAR_MOVR_SOLAR_BNB_MOVR,
   JAR_MOVR_SOLAR_ETH_MOVR,
   EXTERNAL_SUSHI_PICKLE_ETH,
+  JAR_CRONOS_VVS_CRO_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -191,6 +192,7 @@ import { SolarEthMovr } from "./impl/solar-eth-movr";
 import { CurveCrvEth } from "./impl/crv-eth";
 import { MainnetSushiPickleEth } from "./impl/MainnetSushiPickleEth";
 import { ArbitrumDodoUsdc } from "./impl/arbitrum-dodo-usdc";
+import { VvsCroEth } from "./impl/vvs-cro-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -305,6 +307,9 @@ jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_ETH_MOVR.id, new SolarEthMovr());
+
+// Cronos
+jarToBehavior.set(JAR_CRONOS_VVS_CRO_ETH.id, new VvsCroEth());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
