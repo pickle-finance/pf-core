@@ -1,20 +1,7 @@
-import { I18n } from 'i18n';
-import * as path from 'path';
-
+import { A_TEST_JAR_DOCUMENTATION, documentationAssetDefinitionToResult } from './docModel/documentationInterfaces';
 function getDocs(language: string) {
-    const i18nInstance = new I18n();
-    const anyObject : any = {};
-    i18nInstance.configure({
-      locales: ['en', 'de'],
-      directory: path.join(__dirname, '/locales'),
-      register: anyObject,
-    })
-    anyObject.setLocale(language);
-    const ret = anyObject.__('Hello');
-    return {
-      msg: ret,
-    }
+  return documentationAssetDefinitionToResult(language, A_TEST_JAR_DOCUMENTATION);
 }
 
-console.log(JSON.stringify(getDocs("en")));
-console.log(JSON.stringify(getDocs("de")));
+console.log(JSON.stringify(getDocs("en"), null, 2));
+console.log(JSON.stringify(getDocs("de"), null, 2));

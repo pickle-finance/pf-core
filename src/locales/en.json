@@ -1,3 +1,11 @@
 {
-    "Hello": "Hello"
+    "Hello": "Hello",
+    "social.key.discord": "<a href='{{{url}}}'>Discord</a>",
+    "social.key.telegram": "<a href='{{{url}}}'>Telegram</a>",
+    "obtain.pool.twotoken": "Deposit {{token1}} and {{token2}} at a 50-50 rate in {{protocol}}'s <a href='{{{link}}}'>{{token1}}/{{token2}}</a> pool.",
+    "obtain.pool.zapper": "Zap using Zapper's <a href='{{{poolUrl}}}'>{{poolName}}</a> pool.",
+    "risk.smart.contract": "Smart contract issues with {{protocol}}",
+    "risk.maintain.peg": "{{token}} may fail to maintain it's peg to {{target}}",
+    "FEI-TRIBE.desc": "An english description of fei-tribe"
+
 }
