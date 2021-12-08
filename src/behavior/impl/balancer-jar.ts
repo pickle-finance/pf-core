@@ -38,9 +38,17 @@ export abstract class BalancerJar extends AbstractJarBehavior {
     await manager.fetchData();
     return manager.claimableAmountUsd;
   }
-  getCustomHarvester(jar: JarDefinition, model: PickleModel, signer: ethers.Signer, _properties: unknown): ICustomHarvester | undefined {
+  
+  getCustomHarvester(jar: JarDefinition, model: PickleModel, signer: ethers.Signer, properties:  {[key: string]: string}): ICustomHarvester | undefined {
+    if( properties && properties.action === 'harvest') {
+      return this.customHarvestRunner(jar, model, signer);
+    }
+    return undefined;
+  }
+
+  customHarvestRunner(jar: JarDefinition, model: PickleModel, signer: ethers.Signer): ICustomHarvester | undefined {
     return {
-      async harvest(flags: PfCoreGasFlags) : Promise<TransactionResponse> {
+      async run(flags: PfCoreGasFlags) : Promise<TransactionResponse> {
         const prices: Prices = {
           bal: model.priceOfSync("bal"),
           pickle: model.priceOfSync("pickle"),

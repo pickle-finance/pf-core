@@ -63,5 +63,5 @@ export interface PfCoreGasFlags {
 
 
 export interface ICustomHarvester {
-  harvest(flags: PfCoreGasFlags) : Promise<TransactionResponse | undefined>;
+  run(flags: PfCoreGasFlags) : Promise<TransactionResponse | undefined>;
 }
