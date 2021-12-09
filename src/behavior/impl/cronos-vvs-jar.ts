@@ -1,11 +1,18 @@
 import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { AssetAprComponent, AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import {
+  AssetAprComponent,
+  AssetProjectedApr,
+  JarDefinition,
+} from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateVvsFarmsAPY, VvsswapPairManager } from "../../protocols/VvsUtil";
+import {
+  calculateVvsFarmsAPY,
+  VvsswapPairManager,
+} from "../../protocols/VvsUtil";
 import { vvsPoolIds, VVS_FARMS } from "../../protocols/VvsUtil";
 import vvsFarmsAbi from "../../Contracts/ABIs/vvs-farms.json";
 
@@ -36,9 +43,11 @@ export abstract class CronosVvsJar extends AbstractJarBehavior {
       await model.priceOf("vvs"),
     ]);
 
-  const poolId = vvsPoolIds[jar.depositToken.addr];
-  const vvsFarms = new ethers.Contract(VVS_FARMS, vvsFarmsAbi);
-    const pendingVvs = await vvsFarms.pendingVVS(poolId, jar.details.strategyAddr).catch(() => BigNumber.from("0"));
+    const poolId = vvsPoolIds[jar.depositToken.addr];
+    const vvsFarms = new ethers.Contract(VVS_FARMS, vvsFarmsAbi, resolver);
+    const pendingVvs = await vvsFarms
+      .pendingVVS(poolId, jar.details.strategyAddr)
+      .catch(() => BigNumber.from("0"));
 
     const harvestable = pendingVvs
       .add(walletVvs)
@@ -51,17 +60,23 @@ export abstract class CronosVvsJar extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
+    const chefComponent: AssetAprComponent = await calculateVvsFarmsAPY(
+      definition,
+      model,
+    );
 
-    const chefComponent: AssetAprComponent =
-    await calculateVvsFarmsAPY(definition, model);
-    
     const lpApr: number = await new VvsswapPairManager().calculateLpApr(
       model,
       definition.depositToken.addr,
     );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
-      this.createAprComponent(chefComponent.name, chefComponent.apr, chefComponent.compoundable, 0.9),
+      this.createAprComponent(
+        chefComponent.name,
+        chefComponent.apr,
+        chefComponent.compoundable,
+        0.9,
+      ),
     ]);
   }
 }
