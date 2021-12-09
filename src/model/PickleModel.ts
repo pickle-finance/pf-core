@@ -60,6 +60,12 @@ export const ADDRESSES = new Map([
         controller: "0xc3f393fb40f8cc499c1fe7fa5781495dc6fac9e9",
         minichef: NULL_ADDRESS,
     }],
+    [ChainNetwork.Cronos, {
+        pickle: NULL_ADDRESS,
+        masterChef: NULL_ADDRESS,
+        controller: "0xFa3Ad976c0bdeAdDe81482F5Fa8191aE1e7d84C0",
+        minichef: NULL_ADDRESS,
+    }],
     // ADD_CHAIN
 ]);
 
@@ -215,15 +221,15 @@ export class PickleModel {
 
     toJson() : PickleModelJson {
         const ret = {
+            tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
+            prices: Object.fromEntries(this.prices.getCache()),
+            dill: this.dillDetails,
+            platform: this.platformData,
             assets: {
                 jars: this.getJars(),
                 standaloneFarms: this.getStandaloneFarms(),
                 external: this.getExternalAssets(),
             },
-            tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
-            prices: Object.fromEntries(this.prices.getCache()),
-            dill: this.dillDetails,
-            platform: this.platformData,
             timestamp: Date.now(),
         }
         return ret;

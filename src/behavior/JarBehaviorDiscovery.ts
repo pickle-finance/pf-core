@@ -95,6 +95,17 @@ import {
   JAR_MOVR_SOLAR_BNB_MOVR,
   JAR_MOVR_SOLAR_ETH_MOVR,
   EXTERNAL_SUSHI_PICKLE_ETH,
+  JAR_CRO_VVS_CRO_BIFI,
+  JAR_CRO_VVS_CRO_DAI,
+  JAR_CRO_VVS_CRO_ETH,
+  JAR_CRO_VVS_CRO_SHIB,
+  JAR_CRO_VVS_CRO_USDC,
+  JAR_CRO_VVS_CRO_USDT,
+  JAR_CRO_VVS_CRO_VVS,
+  JAR_CRO_VVS_VVS_USDC,
+  JAR_CRO_VVS_VVS_USDT,
+  JAR_CRO_VVS_USDC_USDT,
+  JAR_CRO_VVS_CRO_BTC
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -191,6 +202,17 @@ import { SolarEthMovr } from "./impl/solar-eth-movr";
 import { CurveCrvEth } from "./impl/crv-eth";
 import { MainnetSushiPickleEth } from "./impl/MainnetSushiPickleEth";
 import { ArbitrumDodoUsdc } from "./impl/arbitrum-dodo-usdc";
+import { VvsCroBifi } from "./impl/vvs-cro-bifi";
+import { VvsCroDai } from "./impl/vvs-cro-dai";
+import { VvsCroEth } from "./impl/vvs-cro-eth";
+import { VvsCroShib } from "./impl/vvs-cro-shib";
+import { VvsCroUsdc } from "./impl/vvs-cro-usdc";
+import { VvsCroUsdt } from "./impl/vvs-cro-usdt";
+import { VvsCroVvs } from "./impl/vvs-cro-vvs";
+import { VvsVvsUsdc } from "./impl/vvs-vvs-usdc";
+import { VvsVvsUsdt } from "./impl/vvs-vvs-usdt";
+import { VvsCroBtc } from "./impl/vvs-cro-btc";
+import { VvsUsdcUsdt } from "./impl/vvs-usdc-usdt";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -305,6 +327,20 @@ jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_ETH_MOVR.id, new SolarEthMovr());
+
+// Cronos
+jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
+jarToBehavior.set(JAR_CRO_VVS_CRO_BIFI.id, new VvsCroBifi());
+jarToBehavior.set(JAR_CRO_VVS_CRO_DAI.id, new VvsCroDai());
+jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
+jarToBehavior.set(JAR_CRO_VVS_CRO_SHIB.id, new VvsCroShib());
+jarToBehavior.set(JAR_CRO_VVS_CRO_USDC.id, new VvsCroUsdc());
+jarToBehavior.set(JAR_CRO_VVS_CRO_USDT.id, new VvsCroUsdt());
+jarToBehavior.set(JAR_CRO_VVS_CRO_VVS.id, new VvsCroVvs());
+jarToBehavior.set(JAR_CRO_VVS_VVS_USDC.id, new VvsVvsUsdc());
+jarToBehavior.set(JAR_CRO_VVS_VVS_USDT.id, new VvsVvsUsdt());
+jarToBehavior.set(JAR_CRO_VVS_CRO_BTC.id, new VvsCroBtc());
+jarToBehavior.set(JAR_CRO_VVS_USDC_USDT.id, new VvsUsdcUsdt());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
