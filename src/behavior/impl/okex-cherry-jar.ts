@@ -37,7 +37,7 @@ export abstract class OkexCherryJar extends AbstractJarBehavior {
 
     const harvestable = pendingCherry
       .add(walletCherry)
-      .mul(cherryPrice.toFixed());
+      .mul((cherryPrice*10000).toFixed()).div(10000);
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
