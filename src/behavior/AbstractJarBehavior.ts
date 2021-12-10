@@ -1,5 +1,6 @@
 import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
+import erc20Abi from "../Contracts/ABIs/erc20.json";
 import {
   AssetAprComponent,
   AssetProjectedApr,
@@ -124,6 +125,48 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number>;
+
+  async getHarvestableUSDDefaultImplementation(
+    jar: JarDefinition,
+    model: PickleModel,
+    resolver: Signer | Provider,
+    rewardTokens: string[],
+    strategyAbi: any,
+  ): Promise<number> {
+
+    const rewardContracts: ethers.Contract[] = rewardTokens.map((x)=> 
+      new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver));
+    const strategyContract = new ethers.Contract(jar.details.strategyAddr, strategyAbi, resolver);
+
+    const promises: Promise<any>[] = [];
+    for( let i = 0; i < rewardTokens.length; i++ ) {
+      promises.push(rewardContracts[i].balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")));
+    }
+    promises.push(strategyContract.getHarvestable().catch(() => BigNumber.from("0")));
+
+    const results: any[] = await Promise.all(promises);
+    const walletBalances = results.slice(0,results.length-1);
+    const strategyHarvestables: BigNumber[] = results[results.length-1];
+    const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
+    
+    const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 
+      tokenPrice: number, tokenDecimals: number) : number => {
+      const tokens = harvestable.add(wallet);
+      const log = Math.log(10) / Math.log(tokenPrice);
+      const precisionAdjust = log > 4 ? 0 : 4 - log;
+      const precisionAsNumber = Math.pow(10, precisionAdjust);
+      const tokenPriceWithPrecision = (tokenPrice * precisionAsNumber).toFixed();
+      const resultBN = tokens.mul(tokenPriceWithPrecision).div(precisionAsNumber);
+      return parseFloat(ethers.utils.formatUnits(resultBN, tokenDecimals));
+    };
+    
+    let runningTotal = 0;
+    for( let i = 0; i < rewardTokens.length; i++ ) {
+      runningTotal += (oneRewardSubtotal(strategyHarvestables[i], walletBalances[i], rewardTokenPrices[i], model.tokenDecimals(rewardTokens[i], jar.chain)));
+    }
+    return runningTotal;
+  }
+
 }
 
 /**

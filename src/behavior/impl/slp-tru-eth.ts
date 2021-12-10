@@ -40,6 +40,10 @@ export class SlpTruEth extends SushiJar {
     const truTokensValBN = res[1].add(truWallet).mul((1000*truPrice).toFixed()).div(1000);
     const truTokensVal = parseFloat(ethers.utils.formatUnits(truTokensValBN, 8));
     const ret = sushiTokenVal + truTokensVal;
+
+
+    const ret2 = await this.getHarvestableUSDDefaultImplementation(jar, model, resolver, ["sushi","tru"], multiSushiStrategyAbi);
+
     return ret;
   }
   
