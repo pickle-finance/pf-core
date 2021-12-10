@@ -153,7 +153,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       tokenPrice: number, tokenDecimals: number) : number => {
       const tokens = harvestable.add(wallet);
       const log = Math.log(10) / Math.log(tokenPrice);
-      const precisionAdjust = log > 4 ? 0 : 4 - log;
+      const precisionAdjust = log > 4 ? 0 : 5 - Math.floor(log);
       const precisionAsNumber = Math.pow(10, precisionAdjust);
       const tokenPriceWithPrecision = (tokenPrice * precisionAsNumber).toFixed();
       const resultBN = tokens.mul(tokenPriceWithPrecision).div(precisionAsNumber);

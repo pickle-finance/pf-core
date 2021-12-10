@@ -1,6 +1,5 @@
 import { JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 import { ConvexDualReward } from "./convex-dual-reward";
 import { BigNumber, ethers } from "ethers";
 import { Provider } from "@ethersproject/providers";

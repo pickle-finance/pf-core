@@ -5,7 +5,6 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
 export class ConvexDualReward extends AbstractJarBehavior {
   constructor() {
