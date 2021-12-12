@@ -30,12 +30,10 @@ export async function calculateTriFarmsAPY(
       multicallTriFarms.poolInfo(poolId),
       lpToken.balanceOf(TRI_FARMS),
     ]);
-    console.log({multicallProvider, triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN})
 
   const rewardsPerBlock =
     (parseFloat(formatEther(triPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
-
   const rewardsPerYear =
     rewardsPerBlock *
     ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
@@ -47,6 +45,7 @@ export async function calculateTriFarmsAPY(
   const triRewardedPerYear = (await model.priceOf("tri")) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const triAPY = triRewardedPerYear / totalValueStaked;
+
   return { name: "tri", apr: triAPY * 100, compoundable: true };
 }
 

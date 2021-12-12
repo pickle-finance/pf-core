@@ -193,7 +193,7 @@ export class ExternalTokenModel {
 
     // Aurora
     this.addToken(ChainNetwork.Aurora, "tri", "trisolaris", "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x84b123875F0F36B966d0B6Ca14b31121bd9676AD", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]);
-    this.addToken(ChainNetwork.Aurora, "near", "near", "0x6FaF3062A457fFE8D9E2F1017974905802E21C01".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Aurora, "near", "near", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d".toLowerCase(), 24, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Aurora, "usdc", "usd-coin", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
 
 

@@ -104,7 +104,7 @@ const rawChains: RawChain[] = [
   {
     chainId: 1313161554,
     network: "aurora",
-    secondsPerBlock: 1.1,
+    secondsPerBlock: 1,
     gasToken: "eth",
     explorer: "https://explorer.mainnet.aurora.dev/",
     rpcs: ["https://mainnet.aurora.dev"],

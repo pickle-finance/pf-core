@@ -56,7 +56,7 @@ export class PriceCache {
     ]);
     return this.cache;
   }
-
+  
   areAllCached(tokens: string[]): boolean {
     for (const s of tokens) {
       if (this.cache.get(s) === undefined) {

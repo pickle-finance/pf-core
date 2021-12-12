@@ -36,7 +36,6 @@ export abstract class AuroraTriJar extends AbstractJarBehavior {
       triToken.balanceOf(jar.details.strategyAddr),
       await model.priceOf("tri"),
     ]);
-    console.log({walletTri, triPrice})
 
     const poolId = triPoolIds[jar.depositToken.addr];
     const triFarms = new ethers.Contract(TRI_FARMS, triFarmsAbi, resolver);

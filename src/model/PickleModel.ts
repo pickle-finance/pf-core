@@ -272,7 +272,7 @@ export class PickleModel {
             const swapResolver = new SwapPriceResolver(ExternalTokenModelSingleton)
             const swapPromises = Promise.all(
                 this.configuredChains.map((chain) => 
-                    this.prices.getPrices(swapFiltered.map(a => a.coingeckoId), swapResolver, chain)
+                    this.prices.getPrices(swapFiltered.filter(x=> x.chain === chain).map(a => a.coingeckoId), swapResolver, chain)
                 )
             )
 

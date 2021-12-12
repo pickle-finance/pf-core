@@ -135,7 +135,6 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
 
     if (missingIds.length > 0) {
       const missingPrices = (await this.fetchPricesBySearchId(missingIds)) || new Map<string, number>();
-      console.log({missingIds, withAliases, chain})
       const missingPairPrices = (await this.fetchPricesBySwapPairs(withAliases.filter(x => x.swapPairs.length > 0), chain)) || new Map<string, number>();
       const mergedPrices = new Map([...missingPrices, ...missingPairPrices]);
       for (const oneAsset of withAliases) {
