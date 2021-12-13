@@ -11,7 +11,6 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
-import { Contract as MulticallContract } from "ethers-multicall";
 // import { ARBITRUM_SECONDS_PER_BLOCK } from "../chain/Chains";
 
 const balLMUrl =
@@ -104,6 +103,7 @@ export const queryTheGraph = async (
   poolAddress: string,
   blockNumber: number,
 ) => {
+  blockNumber -= 300; // safety buffer, the graph can take more than 1000 blocks to update!
   const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
   const res = await readQueryFromGraphProtocol(
     query,
@@ -118,7 +118,7 @@ export const queryTheGraph = async (
     } as GraphResponse;
   } catch (error) {
     console.log(error);
-    console.log(poolData);
+    console.log(res);
   }
 };
 
@@ -129,7 +129,7 @@ export const getBalancerPoolDayAPY = async (
   // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
   const arbBlocktime = 3; // in Chains.ts the value is set to 13
   const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = (await provider.getBlockNumber()) - 100; // safety buffer, the graph can take more than 1000 blocks to update!
+  const blockNum = await provider.getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / arbBlocktime);
   const currentPoolDayDate = await queryTheGraph(poolAddress, blockNum);
@@ -151,7 +151,7 @@ export const getBalancerPerformance = async (
   const poolAddress = asset.depositToken.addr;
   const arbBlocktime = 3; // in Chains.ts the value is set to 13
   const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = (await provider.getBlockNumber()) - 100; // safety buffer, the graph can sometimes take more than 1000 blocks to update!
+  const blockNum = await provider.getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / arbBlocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
@@ -179,22 +179,12 @@ export const getBalancerPerformance = async (
   };
 };
 
-export const getPoolData = async (/* poolAddress */jar: JarDefinition, model: PickleModel): Promise<PoolData> => {
+export const getPoolData = async (
+  jar: JarDefinition,
+  model: PickleModel,
+): Promise<PoolData> => {
   const provider = model.providerFor(jar.chain);
-  // const multicallProvider = model.multicallProviderFor(jar.chain);
   const balVaultContract = new Contract(balVaultAddr, balVaultABI, provider);
-  // const balVaultMulticall = new MulticallContract(balVaultAddr, balVaultABI);
-  // const poolMulticall = new MulticallContract(jar.depositToken.addr, erc20);
-
-  // const [
-  //   poolTokensResp,
-  //   poolTokenTotalSupplyBN,
-  // ] = await multicallProvider.all([
-  //   balVaultMulticall.getPoolTokens(
-  //     balPoolIds[jar.depositToken.addr.toLowerCase()],
-  //   ),
-  //   poolMulticall.totalSupply(),
-  // ])
   const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
     balPoolIds[jar.depositToken.addr.toLowerCase()],
   );

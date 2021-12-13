@@ -8,11 +8,8 @@ import { PickleModel } from "../../model/PickleModel";
 import { getCurveRawStats } from "./curve-jar";
 import { Contract as MulticallContract } from "ethers-multicall";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import fetch from "cross-fetch";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
-import { VvsCroBifi } from "./vvs-cro-bifi";
-import crvStreamerAbi from "../../Contracts/ABIs/crv-reward-streamer.json";
 
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
 const crv_streamer_abi = [
@@ -143,50 +140,13 @@ export class PThreeCrv extends AbstractJarBehavior {
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
-    // const now = Date.now() / 1000;
-    const statsAave = await (
-      await fetch(
-        `https://aave-api-v2.aave.com/data/markets-data/0xd05e3e715d945b59290df0ae8ef85c1bdb684744`,
-      )
-    ).json();
-
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-    // const swap = new MulticallContract(
-    //   aaveContracts.swap_address,
-    //   aaveContracts.swap_abi,
-    // );
-
-    const aaveApys: number[] = [];
-    aaveContracts.underlying_coins.map(async (coinAddress) => {
-      const coinData = statsAave.reserves.find(
-        ({ underlyingAsset }: { underlyingAsset: string }) =>
-          underlyingAsset === coinAddress,
-      );
-      aaveApys.push(coinData.aIncentivesAPY);
-    });
 
     const [
-      // balance0,
-      // balance1,
-      // balance2,
-      // lpSupply,
       lpBalance, // Balance staked in gauge
     ] = await multicallProvider.all([
-      // swap.balances(0),
-      // swap.balances(1),
-      // swap.balances(2),
-      // lpToken.totalSupply(),
       lpToken.balanceOf(aaveContracts.gauge_address),
     ]);
-    // const scaledBalance0 = balance0 / aaveContracts.coin_precisions[0];
-    // const scaledBalance1 = balance1 / aaveContracts.coin_precisions[1];
-    // const scaledBalance2 = balance2 / aaveContracts.coin_precisions[2];
-
-    // const totalBalance = scaledBalance0 + scaledBalance1 + scaledBalance2;
-    // const aaveAPY =
-    //   aaveApys[0] * (scaledBalance0 / totalBalance) +
-    //   aaveApys[1] * (scaledBalance1 / totalBalance) +
-    //   aaveApys[2] * (scaledBalance2 / totalBalance);
 
     const yearlyRewards = await this.getRewardsAprs(jar, model);
     const rewardsAprComponents = yearlyRewards.map( reward => {
@@ -194,11 +154,17 @@ export class PThreeCrv extends AbstractJarBehavior {
       return this.createAprComponent(reward.id, apr * 100, true);
     })
 
-    // const wmaticRewardsAmount = (await model.priceOf("matic")) * 1042784 * 6; // Multiplied by 6 to annualize the rewards
-    // const crvRewardsAmount = (await model.priceOf("crv")) * 796812 * 6;
+    // TODO: matic rewards calculation is inaccurate and should be fixed ... sometime
+    let isMaticRewardsRetrieved = false;
+    yearlyRewards.forEach(x => {
+      if (x.id === "matic") isMaticRewardsRetrieved = true;
+    })
 
-    // const wmaticAPY = wmaticRewardsAmount / +formatEther(lpBalance);
-    // const crvAPY = crvRewardsAmount / +formatEther(lpBalance);
+    if (!isMaticRewardsRetrieved) {
+      const wmaticRewardsAmount = (await model.priceOf("matic")) * 413666 * 6; // Reward rate is reverse engineered, not sure how long it will last correct!
+      const wmaticAPY = wmaticRewardsAmount / +formatEther(lpBalance);
+      rewardsAprComponents.push(this.createAprComponent("matic", wmaticAPY*100, true));
+    }
 
     const curveRawStats: any = await getCurveRawStats(model, jar.chain);
 
@@ -208,23 +174,15 @@ export class PThreeCrv extends AbstractJarBehavior {
         curveRawStats ? curveRawStats.aave : 0,
         false,
       ),
-      // this.createAprComponent("crv", crvAPY * 100, true),
-      // this.createAprComponent("matic", wmaticAPY * 100, true),
       ...rewardsAprComponents,
     ]);
   }
 
   async getRewardsAprs(jar: JarDefinition, model: PickleModel) {
-    const rewardStreamerMulti = new MulticallContract(
-      aaveContracts.rewards[0].stream,
-      crv_streamer_abi,
-    );
-    
-
     const yearlyRewards = (await Promise.all(
       aaveContracts.rewards.map(async (reward) => {
-        var rewardRate: number;
-        var periodFinish: number;
+        let rewardRate: number;
+        let periodFinish: number;
         const price = model.priceOfSync(reward.token);
         if (reward.id === "crv"){
           const rewardStreamer = new Contract(
