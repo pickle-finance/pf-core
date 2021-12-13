@@ -23,6 +23,7 @@ export enum ChainNetwork {
   Harmony = "harmony",
   Moonriver = "moonriver",
   Cronos = "cronos",
+  Aurora = "aurora"
   // ADD_CHAIN
   //Binance
 }
@@ -98,6 +99,16 @@ const rawChains: RawChain[] = [
     explorer: "https://cronos.crypto.org/explorer",
     rpcs: ["https://evm-cronos.crypto.org"],
     multicallAddress: "0x0fA4d452693F2f45D28c4EC4d20b236C4010dA74",
+    defaultPerformanceFee: 0.1,
+  },
+  {
+    chainId: 1313161554,
+    network: "aurora",
+    secondsPerBlock: 1,
+    gasToken: "eth",
+    explorer: "https://explorer.mainnet.aurora.dev/",
+    rpcs: ["https://mainnet.aurora.dev"],
+    multicallAddress: "0x60Ad579Fb20c8896b7b98E800cBA9e196E6eaA44",
     defaultPerformanceFee: 0.1,
   },
   // ADD_CHAIN

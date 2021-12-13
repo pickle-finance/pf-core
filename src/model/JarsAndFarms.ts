@@ -2937,6 +2937,31 @@ export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_ETH);
 
+export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1a",
+  contract: "0xbD59171dA1c3a2624D60421bcb6c3c3270111656",
+  depositToken: {
+    addr: "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
+    name: "TRI NEAR/USDC",
+    link: "https://www.trisolaris.io/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["near", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-NEAR-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP NEAR/USDC",
+    farmDepositTokenName: "pTLP NEAR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_USDC);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

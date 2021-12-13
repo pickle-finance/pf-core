@@ -1,3 +1,4 @@
+import { ChainNetwork } from "../chain/Chains";
 import { IPriceResolver } from "./IPriceResolver";
 
 export class PriceCache {
@@ -37,6 +38,7 @@ export class PriceCache {
   async getPrices(
     tokens: string[],
     resolver: IPriceResolver,
+    chain: ChainNetwork | null = null
   ): Promise<Map<string, number>> {
     if (resolver === undefined) {
       return undefined;
@@ -45,7 +47,8 @@ export class PriceCache {
     if (fromCache !== null && fromCache !== undefined) {
       return fromCache;
     }
-    const tmp: Map<string, number> = await resolver.getOrResolve(tokens, this);
+    const tmp: Map<string, number> = await resolver.getOrResolve(tokens, this, chain);
+
     if (tmp === undefined || tmp === null) return undefined;
     this.cache = new Map([
       ...Array.from(this.cache.entries()),
@@ -53,7 +56,7 @@ export class PriceCache {
     ]);
     return this.cache;
   }
-
+  
   areAllCached(tokens: string[]): boolean {
     for (const s of tokens) {
       if (this.cache.get(s) === undefined) {

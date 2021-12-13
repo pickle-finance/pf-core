@@ -1,3 +1,4 @@
+import { ChainNetwork } from "../chain/Chains";
 import { PriceCache } from "./PriceCache";
 
 export interface IPriceComponents {
@@ -30,6 +31,7 @@ export interface IPriceResolver {
   getOrResolve(
     ids: string[],
     cache: PriceCache,
+    chain: ChainNetwork | null
   ): Promise<Map<string, number>> | null;
 
   /**
@@ -41,5 +43,6 @@ export interface IPriceResolver {
   getPriceComponents(
     ids: string[],
     cache: PriceCache,
+    chain: ChainNetwork
   ): Promise<Map<string, IPriceComponents>>;
 }

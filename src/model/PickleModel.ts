@@ -17,6 +17,7 @@ import { AssetBehavior, JarBehavior, JarHarvestStats } from "../behavior/JarBeha
 import { loadGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { CoinMarketCapPriceResolver } from "../price/CoinMarketCapPriceResolver";
+import { SwapPriceResolver } from "../price/SwapPriceResolver";
 
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const FICTIONAL_ADDRESS = "0x000FEED0BEEF000FEED0BEEF0000000000000000";
@@ -66,6 +67,13 @@ export const ADDRESSES = new Map([
         controller: "0xFa3Ad976c0bdeAdDe81482F5Fa8191aE1e7d84C0",
         minichef: NULL_ADDRESS,
     }],
+    [ChainNetwork.Aurora, {
+        pickle: NULL_ADDRESS,
+        masterChef: NULL_ADDRESS,
+        controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
+        minichef: NULL_ADDRESS,
+    }],
+
     // ADD_CHAIN
 ]);
 
@@ -259,9 +267,16 @@ export class PickleModel {
             const cmcResolver = new CoinMarketCapPriceResolver(ExternalTokenModelSingleton);
             const all = ExternalTokenModelSingleton.getAllTokens();
             const filtered = all.filter(val => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP);
-            const cmcPromise = this.prices.getPrices(filtered.map(a => a.coingeckoId),cmcResolver);
+            const cmcPromise = this.prices.getPrices(filtered.map(a => a.coingeckoId), cmcResolver);
+            const swapFiltered = all.filter(val => val.fetchType=== ExternalTokenFetchStyle.SWAP_PAIRS)
+            const swapResolver = new SwapPriceResolver(ExternalTokenModelSingleton)
+            const swapPromises = Promise.all(
+                this.configuredChains.map((chain) => 
+                    this.prices.getPrices(swapFiltered.filter(x=> x.chain === chain).map(a => a.coingeckoId), swapResolver, chain)
+                )
+            )
 
-            return Promise.all([cgPromises, cmcPromise]);
+            return Promise.all([cgPromises, cmcPromise, swapPromises]);
         }
     }
 

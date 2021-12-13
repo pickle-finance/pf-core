@@ -7,6 +7,7 @@ export enum ExternalTokenFetchStyle {
   BOTH = 3,
   NONE = 4,
   COIN_MARKET_CAP = 5,
+  SWAP_PAIRS = 6,
 }
 export class ExternalToken implements IExternalToken {
   chain: ChainNetwork;
@@ -15,6 +16,7 @@ export class ExternalToken implements IExternalToken {
   decimals: number;
   coingeckoId?: string;
   fetchType?: ExternalTokenFetchStyle;
+  swapPairs?: string[];
   constructor(
     chain: ChainNetwork,
     id: string,
@@ -22,6 +24,7 @@ export class ExternalToken implements IExternalToken {
     addr: string,
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
+    swapPairs: string[] = []
   ) {
     this.chain = chain;
     this.id = id;
@@ -29,6 +32,7 @@ export class ExternalToken implements IExternalToken {
     this.contractAddr = addr;
     this.decimals = dec;
     this.fetchType = style;
+    this.swapPairs = swapPairs
   }
   toOutputFormat(): IExternalToken {
     return {
@@ -183,9 +187,15 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Cronos, "eth", "weth", "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Cronos, "dai", "dai", "0xF2001B145b43032AAF5Ee2884e456CCd805F677D".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Cronos, "shib", "shiba-inu", "0xbED48612BC69fA1CaB67052b42a95FB30C1bcFee".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Cronos, "usdc", "usdc", "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Cronos, "usdc", "usd-coin", "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Cronos, "usdt", "tether", "0x66e428c3f67a68878562e79A0234c1F83c208770".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Cronos, "bifi", "beefy-finance", "0xe6801928061CDbE32AC5AD0634427E140EFd05F9".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+
+    // Aurora
+    this.addToken(ChainNetwork.Aurora, "tri", "trisolaris", "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x84b123875F0F36B966d0B6Ca14b31121bd9676AD", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]);
+    this.addToken(ChainNetwork.Aurora, "near", "near", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d".toLowerCase(), 24, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Aurora, "usdc", "usd-coin", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
@@ -205,10 +215,11 @@ export class ExternalTokenModel {
     addr: string,
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
+    swapPairs: string[] = []
   ): void {
     this.chainTokens
       .get(chain)
-      .set(id, new ExternalToken(chain, id, cgid, addr, dec, style));
+      .set(id, new ExternalToken(chain, id, cgid, addr, dec, style, swapPairs));
   }
 
   mapForChain(chain: ChainNetwork): Map<string, ExternalToken> {

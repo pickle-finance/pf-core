@@ -1,11 +1,13 @@
+import { ChainNetwork } from "..";
 import { ExternalToken, ExternalTokenModel } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
 import { PriceCache } from "./PriceCache";
 
-interface NeedleAliases {
+export interface NeedleAliases {
   needle: string;
   cgId: string;
   aliases: string[];
+  swapPairs?: string[];
 }
 
 /**
@@ -51,7 +53,7 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
           aliases.push(value.coingeckoId);
           aliases.push(value.contractAddr);
         });
-        return { needle: needle, cgId: tmp[0].coingeckoId, aliases: aliases };
+        return { needle: needle, cgId: tmp[0].coingeckoId, aliases: aliases , swapPairs: tmp[0].swapPairs};
       }
     }
     return undefined;
@@ -106,6 +108,7 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
   async getOrResolve(
     ids: string[],
     cache: PriceCache,
+    chain: string,
   ): Promise<Map<string, number>> {
     const withAliases: NeedleAliases[] = this.findAliases(ids);
     const fromCache: Map<string, number> = this.getFromCache2(
@@ -131,13 +134,15 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     }
 
     if (missingIds.length > 0) {
-      const missingPrices = await this.fetchPricesBySearchId(missingIds);
+      const missingPrices = (await this.fetchPricesBySearchId(missingIds)) || new Map<string, number>();
+      const missingPairPrices = (await this.fetchPricesBySwapPairs(withAliases.filter(x => x.swapPairs.length > 0), chain)) || new Map<string, number>();
+      const mergedPrices = new Map([...missingPrices, ...missingPairPrices]);
       for (const oneAsset of withAliases) {
-        if (missingPrices.has(oneAsset.cgId)) {
-          const price = missingPrices.get(oneAsset.cgId);
+        if (mergedPrices.has(oneAsset.cgId)) {
+          const price = mergedPrices.get(oneAsset.cgId);
           if (price !== undefined) {
             this.addToCollector(oneAsset, price, collector);
-          }
+          } 
         }
       }
     }
@@ -167,10 +172,16 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     }
   }
 
-protected abstract fetchPricesBySearchId(
+  protected abstract fetchPricesBySearchId(
     searchNames: string[],
   ): Promise<Map<string, number>>;
 
+  protected fetchPricesBySwapPairs(
+    _searchNeedles: NeedleAliases[],
+    _chain: string,
+  ): Promise<Map<string, number>> {
+    return null;
+  };
 
   protected abstract fetchPricesByContracts(
     contractIds: string[],
@@ -185,8 +196,9 @@ protected abstract fetchPricesBySearchId(
   async getPriceComponents(
     ids: string[],
     cache: PriceCache,
+    chain: ChainNetwork
   ): Promise<Map<string, IPriceComponents>> {
-    const prices: Map<string, number> = await this.getOrResolve(ids, cache);
+    const prices: Map<string, number> = await this.getOrResolve(ids, cache, chain);
     const ret: Map<string, IPriceComponents> = new Map<
       string,
       IPriceComponents
