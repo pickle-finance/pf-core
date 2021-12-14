@@ -6,10 +6,11 @@ import { ChainNetwork, PickleModel } from "..";
 import fetch from "cross-fetch";
 import { readQueryFromGraphProtocol } from "../graph/TheGraph";
 import { AssetAprComponent, AssetProtocol, HistoricalYield, JarDefinition } from "../model/PickleModelJson";
+// import { ARBITRUM_SECONDS_PER_BLOCK } from "../chain/Chains";
 
 const balLMUrl =
-  "https://raw.githubusercontent.com/balancer-labs/frontend-v2/cad6a786b65118e1b8d61be9555ee2a8391849e8/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
-const balVaultAddr = "0xba12222222228d8ba445958a75a0704d566bf2c8";
+  "https://raw.githubusercontent.com/balancer-labs/frontend-v2/master/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
+const balVaultAddr = "0xBA12222222228d8Ba445958a75a0704d566BF2C8";
 
 // Balancer stuff
 function toUtcTime(date: Date) {
@@ -44,39 +45,6 @@ type LiquidityMiningWeek = Array<{
   pools: LiquidityMiningPools;
 }>;
 
-const addresses = {
-  bal: "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8",
-  weth: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
-  pickle: "0x965772e0e9c84b6f359c8597c891108dcf1c5b1a",
-  usdc: "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8",
-  wbtc: "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f",
-};
-
-interface Token {
-  address: string;
-  priceId: string;//PriceIds;
-  decimals: number;
-}
-
-// prettier-ignore
-const pickle: Token = {
-  address: addresses.pickle,
-  priceId: "pickle",
-  decimals: 18,
-};
-const aeth: Token = { address: addresses.weth, priceId: "eth", decimals: 18 };
-const bal: Token = { address: addresses.bal, priceId: "bal", decimals: 18 };
-const usdc: Token = { address: addresses.usdc, priceId: "usdc", decimals: 6 };
-const wbtc: Token = { address: addresses.wbtc, priceId: "wbtc", decimals: 8 };
-
-interface PoolMap {
-  [key: string]: { a: Token; b: Token; c?: Token };
-}
-export const POOL_INFO: PoolMap = {
-  "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac": { a: pickle, b: aeth },
-  "0x64541216bafffeec8ea535bb71fbc927831d0595": { a: aeth, b: wbtc, c: usdc },
-};
-
 const balPoolIds: { [poolTokenAddress: string]: string } = {
   "0x64541216bafffeec8ea535bb71fbc927831d0595":
     "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // bal tricrypto
@@ -86,10 +54,8 @@ const balPoolIds: { [poolTokenAddress: string]: string } = {
 
 interface Tokens {
   [tokenAddres: string]: {
-    // id: string;
     decimals: number;
-    // price: number;
-    priceId: string;//PriceIds;
+    priceId: string;
   };
 }
 
@@ -122,7 +88,17 @@ interface GraphResponse {
   totalSwapFee: number;
 }
 
-export const queryTheGraph = async (poolAddress: string, blockNumber: number) => {
+export interface PoolData {
+  pricePerToken: number;
+  totalPoolValue: number;
+  totalSupply: number;
+}
+
+export const queryTheGraph = async (
+  poolAddress: string,
+  blockNumber: number,
+) => {
+  blockNumber -= 300; // safety buffer, the graph can take more than 1000 blocks to update!
   const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
   const res = await readQueryFromGraphProtocol(query, AssetProtocol.BALANCER_ARBITRUM);
   const poolData = res?.data?.pools[0];
@@ -134,14 +110,15 @@ export const queryTheGraph = async (poolAddress: string, blockNumber: number) =>
     } as GraphResponse;
   } catch (error) {
     console.log(error);
-    console.log(poolData);
+    console.log(res);
   }
 };
 
 export const getBalancerPoolDayAPY = async (poolAddress: string, model: PickleModel) => {
-  const arbBlocktime = 3;   // in block:{number:3142784}Chains.ts the value is set to 13
+  // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
+  const arbBlocktime = 3; // in Chains.ts the value is set to 13
   const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = (await provider.getBlockNumber()) - 100;   // safety buffer of 100 blocks, the graph may not be up to date with the current block number. Sometimes it takes more than 1000 blocks!
+  const blockNum = await provider.getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / arbBlocktime);
   const currentPoolDayDate = await queryTheGraph(poolAddress, blockNum);
@@ -162,9 +139,9 @@ export const getBalancerPerformance = async (
   model: PickleModel
   ): Promise<HistoricalYield> => {
     const poolAddress = asset.depositToken.addr;
-    const arbBlocktime = 3;   // in block:{number:3142784}Chains.ts the value is set to 13
-    const provider = model.providerFor(ChainNetwork.Arbitrum);
-    const blockNum = (await provider.getBlockNumber()) - 100;   // safety buffer of 100 blocks, the graph may not be up to date with the current block number. Sometimes it takes more than 1000 blocks!
+    const arbBlocktime = 3;   // in Chains.ts the value is set to 13
+    const provider = model.providerFor(asset.chain);
+    const blockNum = await provider.getBlockNumber();
     const secondsInDay = 60 * 60 * 24;
     const blocksInDay = Math.round(secondsInDay / arbBlocktime);
     const [
@@ -197,11 +174,11 @@ export const getBalancerPerformance = async (
     };
 }
 
-export const getPoolData = async (poolAddress: string, model: PickleModel) => {
-  const provider = model.providerFor(ChainNetwork.Arbitrum);
+export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
+  const provider = model.providerFor(jar.chain);
   const balVaultContract = new Contract(balVaultAddr, balVaultABI, provider);
   const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
-    balPoolIds[poolAddress.toLowerCase()],
+    balPoolIds[jar.depositToken.addr.toLowerCase()],
   );
   const { tokens, balances } = poolTokensResp;
   const filtered = tokens.map((tokenAddr: string, i: number) => {
@@ -215,7 +192,7 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
       ),
     ];
   });
-  const poolContract = new Contract(poolAddress, erc20, provider);
+  const poolContract = new Contract(jar.depositToken.addr, erc20, provider);
   const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
   const poolTokenTotalSupply = parseFloat(ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18)) // balancer LP tokens always have 18 decimals
   const poolTotalBalanceUSD = filtered.reduce(
@@ -233,7 +210,7 @@ export const getPoolData = async (poolAddress: string, model: PickleModel) => {
   };
 };
 
-export const calculateBalPoolAPRs = async (depositToken: string, model: PickleModel): Promise<AssetAprComponent[]> => {
+export const calculateBalPoolAPRs = async (depositToken: string, model: PickleModel, poolData: PoolData): Promise<AssetAprComponent[]> => {
   const weeksLMResp = await fetch(balLMUrl);
   const weeksLMData = await weeksLMResp.json();
   const miningWeek = getCurrentLiquidityMiningWeek();
@@ -257,7 +234,7 @@ export const calculateBalPoolAPRs = async (depositToken: string, model: PickleMo
     );
   }
 
-  const { totalPoolValue } = await getPoolData(depositToken, model);
+  const { totalPoolValue } = poolData;
 
   const poolRewardsPerWeek =
     miningRewards[balPoolIds[depositToken.toLowerCase()]];

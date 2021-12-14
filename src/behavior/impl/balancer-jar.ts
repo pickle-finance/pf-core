@@ -11,12 +11,7 @@ import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
 
 
 export abstract class BalancerJar extends AbstractJarBehavior {
-  readonly vaultAddress: string;
-
-  constructor(vaultAddress: string) {
-    super();
-    this.vaultAddress = vaultAddress;
-  }
+  
   async getProtocolApy(
     definition: JarDefinition,
     model: PickleModel,
@@ -29,11 +24,11 @@ export abstract class BalancerJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-      const strategyAddr = jar.details.strategyAddr;
-      const prices: Prices = {
-          bal: model.priceOfSync("bal"),
-          pickle: model.priceOfSync("pickle"),
-      }
+    const strategyAddr = jar.details.strategyAddr;
+    const prices: Prices = {
+      bal: model.priceOfSync("bal"),
+      pickle: model.priceOfSync("pickle"),
+    };
     const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
     await manager.fetchData();
     return manager.claimableAmountUsd;
