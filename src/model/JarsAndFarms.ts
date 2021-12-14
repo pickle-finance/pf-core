@@ -2638,7 +2638,7 @@ JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BNB_MOVR);
 
 export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
   type: AssetType.JAR,
-  id: "moonJar 1p",
+  id: "moonJar 1u",
   contract: "0x986080e8e9968E1dA5AB14473b1884b5A7342EC2",
   depositToken: {
     addr: "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888",
@@ -3139,17 +3139,17 @@ JAR_DEFINITIONS.push(JAR_AURORA_TRI_AURORA_ETH);
 
 export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   type: AssetType.JAR,
-  id: "nearJar 1f",
+  id: "nearJar 2a",
   contract: "0xcf59208abbAE8457F39f961eAb6293bdef1E5F1e",
   depositToken: {
-    addr: "0x2F65608b25Bb1d14FC5589c221ae03842BAEb94F",
+    addr: "0xA188D79D6bdbc1120a662DE9eB72384E238AF104",
     name: "PAD BTC/NEAR",
     link: "https://dex.nearpad.io/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["btc", "near"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.TRISOLARIS,
+  protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "NLP-BTC/NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
