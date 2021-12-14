@@ -2638,7 +2638,7 @@ JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BNB_MOVR);
 
 export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
   type: AssetType.JAR,
-  id: "moonJar 1p",
+  id: "moonJar 1u",
   contract: "0x986080e8e9968E1dA5AB14473b1884b5A7342EC2",
   depositToken: {
     addr: "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888",
