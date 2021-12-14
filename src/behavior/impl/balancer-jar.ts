@@ -1,6 +1,6 @@
 import { Provider, TransactionResponse } from "@ethersproject/providers";
 import { BigNumber, ContractTransaction, ethers, Signer } from "ethers";
-import strategyAbi from '../../Contracts/ABIs/strategy.json';
+import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import { PickleModel } from "../..";
 import { HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
 import { getBalancerPerformance } from "../../protocols/BalancerUtil";
@@ -9,9 +9,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
 
-
 export abstract class BalancerJar extends AbstractJarBehavior {
-  
   async getProtocolApy(
     definition: JarDefinition,
     model: PickleModel,
@@ -33,33 +31,51 @@ export abstract class BalancerJar extends AbstractJarBehavior {
     await manager.fetchData();
     return manager.claimableAmountUsd;
   }
-  
-  getCustomHarvester(jar: JarDefinition, model: PickleModel, signer: ethers.Signer, properties:  {[key: string]: string}): ICustomHarvester | undefined {
-    if( properties && properties.action === 'harvest') {
+
+  getCustomHarvester(
+    jar: JarDefinition,
+    model: PickleModel,
+    signer: ethers.Signer,
+    properties: { [key: string]: string },
+  ): ICustomHarvester | undefined {
+    if (properties && properties.action === "harvest") {
       return this.customHarvestRunner(jar, model, signer);
     }
     return undefined;
   }
 
-  customHarvestRunner(jar: JarDefinition, model: PickleModel, signer: ethers.Signer): ICustomHarvester | undefined {
+  customHarvestRunner(
+    jar: JarDefinition,
+    model: PickleModel,
+    signer: ethers.Signer,
+  ): ICustomHarvester | undefined {
     return {
-      async estimateGasToRun(): Promise<BigNumber|undefined> {
-        const strategy = new ethers.Contract(jar.details.strategyAddr as string, strategyAbi, signer);
+      async estimateGasToRun(): Promise<BigNumber | undefined> {
+        const strategy = new ethers.Contract(
+          jar.details.strategyAddr as string,
+          strategyAbi,
+          signer,
+        );
         return strategy.estimateGas.harvest();
       },
-      async run(flags: PfCoreGasFlags) : Promise<TransactionResponse> {
+      async run(flags: PfCoreGasFlags): Promise<TransactionResponse> {
         const prices: Prices = {
           bal: model.priceOfSync("bal"),
           pickle: model.priceOfSync("pickle"),
-        }
+        };
         const strategyAddr = jar.details.strategyAddr;
         const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
         await manager.fetchData();
-        const claimTransaction : ContractTransaction = await manager.claimDistributions();
+        const claimTransaction: ContractTransaction =
+          await manager.claimDistributions();
         await claimTransaction.wait(3);
-        const strategy = new ethers.Contract(jar.details.strategyAddr as string, strategyAbi, signer);
+        const strategy = new ethers.Contract(
+          jar.details.strategyAddr as string,
+          strategyAbi,
+          signer,
+        );
         return strategy.harvest(flags);
-      }
+      },
     };
   }
 }

@@ -5,7 +5,12 @@ import erc20 from "../Contracts/ABIs/erc20.json";
 import { ChainNetwork, PickleModel } from "..";
 import fetch from "cross-fetch";
 import { readQueryFromGraphProtocol } from "../graph/TheGraph";
-import { AssetAprComponent, AssetProtocol, HistoricalYield, JarDefinition } from "../model/PickleModelJson";
+import {
+  AssetAprComponent,
+  AssetProtocol,
+  HistoricalYield,
+  JarDefinition,
+} from "../model/PickleModelJson";
 // import { ARBITRUM_SECONDS_PER_BLOCK } from "../chain/Chains";
 
 const balLMUrl =
@@ -100,7 +105,10 @@ export const queryTheGraph = async (
 ) => {
   blockNumber -= 300; // safety buffer, the graph can take more than 1000 blocks to update!
   const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
-  const res = await readQueryFromGraphProtocol(query, AssetProtocol.BALANCER_ARBITRUM);
+  const res = await readQueryFromGraphProtocol(
+    query,
+    AssetProtocol.BALANCER_ARBITRUM,
+  );
   const poolData = res?.data?.pools[0];
   try {
     return {
@@ -114,7 +122,10 @@ export const queryTheGraph = async (
   }
 };
 
-export const getBalancerPoolDayAPY = async (poolAddress: string, model: PickleModel) => {
+export const getBalancerPoolDayAPY = async (
+  poolAddress: string,
+  model: PickleModel,
+) => {
   // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
   const arbBlocktime = 3; // in Chains.ts the value is set to 13
   const provider = model.providerFor(ChainNetwork.Arbitrum);
@@ -128,51 +139,45 @@ export const getBalancerPoolDayAPY = async (poolAddress: string, model: PickleMo
   );
   const lastDaySwapFee =
     currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
-  const apy =
-    (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
+  const apy = (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
 
   return { lp: apy };
 };
 
 export const getBalancerPerformance = async (
   asset: JarDefinition,
-  model: PickleModel
-  ): Promise<HistoricalYield> => {
-    const poolAddress = asset.depositToken.addr;
-    const arbBlocktime = 3;   // in Chains.ts the value is set to 13
-    const provider = model.providerFor(asset.chain);
-    const blockNum = await provider.getBlockNumber();
-    const secondsInDay = 60 * 60 * 24;
-    const blocksInDay = Math.round(secondsInDay / arbBlocktime);
-    const [
-      currentPoolDate,
-      d1PoolData,
-      d3PoolData,
-      d7PoolData,
-      d30PoolData,
-    ] = await Promise.all([
+  model: PickleModel,
+): Promise<HistoricalYield> => {
+  const poolAddress = asset.depositToken.addr;
+  const arbBlocktime = 3; // in Chains.ts the value is set to 13
+  const provider = model.providerFor(asset.chain);
+  const blockNum = await provider.getBlockNumber();
+  const secondsInDay = 60 * 60 * 24;
+  const blocksInDay = Math.round(secondsInDay / arbBlocktime);
+  const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
+    await Promise.all([
       queryTheGraph(poolAddress, blockNum),
       queryTheGraph(poolAddress, blockNum - blocksInDay),
-      queryTheGraph(poolAddress, blockNum - blocksInDay*3),
-      queryTheGraph(poolAddress, blockNum - blocksInDay*7),
-      queryTheGraph(poolAddress, blockNum - blocksInDay*30),
+      queryTheGraph(poolAddress, blockNum - blocksInDay * 3),
+      queryTheGraph(poolAddress, blockNum - blocksInDay * 7),
+      queryTheGraph(poolAddress, blockNum - blocksInDay * 30),
     ]);
-    const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
-    const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
-    const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;
-    const d30SwapFee = currentPoolDate.totalSwapFee - d30PoolData.totalSwapFee;
-    const d1 = d1SwapFee / currentPoolDate.totalLiquidity * 365 * 100;
-    const d3 = d3SwapFee / currentPoolDate.totalLiquidity / 3 * 365 * 100;
-    const d7 = d7SwapFee / currentPoolDate.totalLiquidity / 7 * 365 * 100;
-    const d30 = d30SwapFee / currentPoolDate.totalLiquidity / 30 * 365 * 100;
+  const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
+  const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
+  const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;
+  const d30SwapFee = currentPoolDate.totalSwapFee - d30PoolData.totalSwapFee;
+  const d1 = (d1SwapFee / currentPoolDate.totalLiquidity) * 365 * 100;
+  const d3 = (d3SwapFee / currentPoolDate.totalLiquidity / 3) * 365 * 100;
+  const d7 = (d7SwapFee / currentPoolDate.totalLiquidity / 7) * 365 * 100;
+  const d30 = (d30SwapFee / currentPoolDate.totalLiquidity / 30) * 365 * 100;
 
-    return {
-      d1: d1,
-      d3: d3,
-      d7: d7,
-      d30: d30,
-    };
-}
+  return {
+    d1: d1,
+    d3: d3,
+    d7: d7,
+    d30: d30,
+  };
+};
 
 export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
   const provider = model.providerFor(jar.chain);
@@ -194,7 +199,9 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
   });
   const poolContract = new Contract(jar.depositToken.addr, erc20, provider);
   const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
-  const poolTokenTotalSupply = parseFloat(ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18)) // balancer LP tokens always have 18 decimals
+  const poolTokenTotalSupply = parseFloat(
+    ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
+  ); // balancer LP tokens always have 18 decimals
   const poolTotalBalanceUSD = filtered.reduce(
     (total: number, token: [string, number]) => {
       const tokenAddress = token[0].toLowerCase();
@@ -210,21 +217,25 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
   };
 };
 
-export const calculateBalPoolAPRs = async (depositToken: string, model: PickleModel, poolData: PoolData): Promise<AssetAprComponent[]> => {
+export const calculateBalPoolAPRs = async (
+  depositToken: string,
+  model: PickleModel,
+  poolData: PoolData,
+): Promise<AssetAprComponent[]> => {
   const weeksLMResp = await fetch(balLMUrl);
   const weeksLMData = await weeksLMResp.json();
   const miningWeek = getCurrentLiquidityMiningWeek();
-  let currentWeekData = weeksLMData[
-    getWeek(miningWeek)
-  ] as LiquidityMiningWeek;
+  let currentWeekData = weeksLMData[getWeek(miningWeek)] as LiquidityMiningWeek;
   let n = 1;
-  while ( !currentWeekData && miningWeek - n >= 1 ) {
-  // balLMUrl can take some time to include current week rewards
-      currentWeekData = weeksLMData[ getWeek( miningWeek - n ) ] as LiquidityMiningWeek; 
-      n++;
+  while (!currentWeekData && miningWeek - n >= 1) {
+    // balLMUrl can take some time to include current week rewards
+    currentWeekData = weeksLMData[
+      getWeek(miningWeek - n)
+    ] as LiquidityMiningWeek;
+    n++;
   }
-  if( !currentWeekData ) {
-      return [] as AssetAprComponent[]; 
+  if (!currentWeekData) {
+    return [] as AssetAprComponent[];
   }
   const miningRewards: LiquidityMiningPools = {};
   if (currentWeekData) {
@@ -238,13 +249,16 @@ export const calculateBalPoolAPRs = async (depositToken: string, model: PickleMo
 
   const poolRewardsPerWeek =
     miningRewards[balPoolIds[depositToken.toLowerCase()]];
-  const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map((reward) => {
-    const rewardValue =
-      reward.amount * model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
-    const name = TOKENS[reward.tokenAddress.toLowerCase()].priceId;
-    const apr = rewardValue / 7 * 365 / totalPoolValue * 100;
-    return { name: name, apr: apr, compoundable: true, };
-  });
+  const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
+    (reward) => {
+      const rewardValue =
+        reward.amount *
+        model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
+      const name = TOKENS[reward.tokenAddress.toLowerCase()].priceId;
+      const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
+      return { name: name, apr: apr, compoundable: true };
+    },
+  );
 
   const lp: AssetAprComponent = {
     name: "lp",
@@ -256,4 +270,3 @@ export const calculateBalPoolAPRs = async (depositToken: string, model: PickleMo
 
   return poolAprComponents;
 };
-
