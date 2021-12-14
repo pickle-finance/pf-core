@@ -165,7 +165,7 @@ export abstract class GenericSwapUtility {
         return this.toExtendedPairData(matchesPair[0]);
       }
     }
-    console.log("Unable to find " + pairToken);
+    //console.log("Unable to find " + pairToken);
     return undefined;
   }
 

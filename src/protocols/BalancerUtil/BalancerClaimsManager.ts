@@ -32,16 +32,20 @@ export class BalancerClaimsManager {
 
   // not needed for pfcore (UI and Tsuke need it)
   claimDistributions = async (): Promise<ContractTransaction> => {
+    console.log("Claiming distributions");
     const merkleOrchard = MerkleOrchardFactory.connect(
       merkleOrchardAddress,
       this.signer,
     );
+    console.log("Connected");
 
-    return merkleOrchard.claimDistributions(
+    const ret : ContractTransaction = await merkleOrchard.claimDistributions(
       this.address,
       this.claims,
       this.tokens,
     );
+    console.log("Distributions claimed: " + ret.hash);
+    return ret;
   };
 
   get claimableAmounts(): ClaimableAmounts {

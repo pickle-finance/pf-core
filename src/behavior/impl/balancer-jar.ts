@@ -59,22 +59,29 @@ export abstract class BalancerJar extends AbstractJarBehavior {
         return strategy.estimateGas.harvest();
       },
       async run(flags: PfCoreGasFlags): Promise<TransactionResponse> {
+        console.log("[" + jar.details.apiKey + "] - Harvesting a balancer jar");
         const prices: Prices = {
           bal: model.priceOfSync("bal"),
           pickle: model.priceOfSync("pickle"),
         };
         const strategyAddr = jar.details.strategyAddr;
+        console.log("[" + jar.details.apiKey + "] - Fetching claim data");
         const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
         await manager.fetchData();
+        console.log("[" + jar.details.apiKey + "] - About to claim distributions");
         const claimTransaction: ContractTransaction =
-          await manager.claimDistributions();
+        await manager.claimDistributions();
+        console.log("[" + jar.details.apiKey + "] - Waiting for claim to verify");
         await claimTransaction.wait(3);
         const strategy = new ethers.Contract(
           jar.details.strategyAddr as string,
           strategyAbi,
           signer,
         );
-        return strategy.harvest(flags);
+        console.log("[" + jar.details.apiKey + "] - Calling harvest");
+        const ret = strategy.harvest(flags);
+        console.log("[" + jar.details.apiKey + "] - harvest called, returning result");
+        return ret;
       },
     };
   }
