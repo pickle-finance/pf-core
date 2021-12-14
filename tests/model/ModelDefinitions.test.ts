@@ -17,12 +17,27 @@ describe("Testing defined model", () => {
     expect(err.length).toBe(0);
   });
 
+
+  const DUPLICATE_CONTRACT_EXCEPTIONS = {
+    "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03": 2
+  };
+
   test("Ensure no duplicate contracts", async () => {
+    const duplicateContractsFound = {};
     const err = [];
     const tmp = [];
     for (let i = 0; i < ALL_ASSETS.length; i++) {
       if (tmp.includes(ALL_ASSETS[i].contract)) {
-        err.push("Duplicate ID: " + ALL_ASSETS[i].contract);
+        const allowDuplicateCount = DUPLICATE_CONTRACT_EXCEPTIONS[ALL_ASSETS[i].contract];
+        if( allowDuplicateCount !== undefined ) {
+          const currentCount = duplicateContractsFound[ALL_ASSETS[i].contract] ? duplicateContractsFound[ALL_ASSETS[i].contract] : 0;
+          duplicateContractsFound[ALL_ASSETS[i].contract] = currentCount + 1;
+          if( duplicateContractsFound[ALL_ASSETS[i].contract] > DUPLICATE_CONTRACT_EXCEPTIONS[ALL_ASSETS[i].contract]) {
+            err.push("Duplicate Contract address: " + ALL_ASSETS[i].contract);
+          }
+        } else {
+          err.push("Duplicate Contract address: " + ALL_ASSETS[i].contract);
+        }
       }
       tmp.push(ALL_ASSETS[i].contract);
     }
