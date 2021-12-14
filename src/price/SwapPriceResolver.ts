@@ -1,10 +1,6 @@
 import { AbstractPriceResolver, NeedleAliases } from "./AbstractPriceResolver";
 import { IPriceResolver } from "./IPriceResolver";
 import { ChainNetwork, Chains } from "../chain/Chains";
-import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
 import { ethers, Contract, BigNumber } from "ethers";
 import v2PoolABI from "../Contracts/ABIs/uniswapv2-pair.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
