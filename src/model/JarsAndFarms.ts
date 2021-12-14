@@ -2962,6 +2962,131 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_USDC);
 
+export const JAR_AURORA_TRI_NEAR_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1b",
+  contract: "0xF623c32828B40c89D5cf114A7186c6B8b25De4Ed",
+  depositToken: {
+    addr: "0x63da4DB6Ef4e7C62168aB03982399F9588fCd198",
+    name: "TRI NEAR/ETH",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/ETH",
+    components: ["near", "eth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-NEAR-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP NEAR/ETH",
+    farmDepositTokenName: "pTLP NEAR/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_ETH);
+
+export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1c",
+  contract: "0xfc258cF7f1bf3739A04992D1c790aF20d60f44E9",
+  depositToken: {
+    addr: "0x03B666f3488a7992b2385B12dF7f35156d7b29cD",
+    name: "TRI NEAR/USDT",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
+    components: ["near", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-NEAR-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP NEAR/USDT",
+    farmDepositTokenName: "pTLP NEAR/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_USDT);
+
+export const JAR_AURORA_TRI_NEAR_TRI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1d",
+  contract: "0x1E686d65031Ac75754Cd6AeAb5B71ac2257c6a9D",
+  depositToken: {
+    addr: "0x84b123875F0F36B966d0B6Ca14b31121bd9676AD",
+    name: "TRI NEAR/TRI",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
+    components: ["near", "tri"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-NEAR-TRI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP NEAR/TRI",
+    farmDepositTokenName: "pTLP NEAR/TRI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_TRI);
+
+export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1e",
+  contract: "0x023d4874f30292b24512b969dC8dc8A3227d2012",
+  depositToken: {
+    addr: "0x2fe064B6c7D274082aa5d2624709bC9AE7D16C77",
+    name: "TRI USDT/USDC",
+    link: "https://www.trisolaris.io/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
+    components: ["usdt", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-USDT/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP USDT/USDC",
+    farmDepositTokenName: "pTLP USDT/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT_USDC);
+
+export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1f",
+  contract: "0xF49803dB604E118f3aFCF44beB0012f3c6684F05",
+  depositToken: {
+    addr: "0xbc8A244e8fb683ec1Fd6f88F3cc6E565082174Eb",
+    name: "TRI BTC/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["btc", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-BTC/NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP BTC/NEAR",
+    farmDepositTokenName: "pTLP BTC/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_BTC_NEAR);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
