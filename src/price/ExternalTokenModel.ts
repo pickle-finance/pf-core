@@ -195,9 +195,11 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "tri", "trisolaris", "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x84b123875F0F36B966d0B6Ca14b31121bd9676AD", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]);
     this.addToken(ChainNetwork.Aurora, "near", "near", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d".toLowerCase(), 24, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Aurora, "usdc", "usd-coin", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Aurora, "eth", "ethereum", "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "eth", "ethereum", "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "usdt", "tether", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "btc", "wrapped-bitcoin", "0xF4eB217Ba2454613b15dBdea6e5f22276410e89e".toLowerCase(), 8, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "aurora", "aurora-near", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

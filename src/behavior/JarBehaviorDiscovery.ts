@@ -111,7 +111,9 @@ import {
   JAR_AURORA_TRI_NEAR_USDT,
   JAR_AURORA_TRI_NEAR_TRI,
   JAR_AURORA_TRI_USDT_USDC,
-  JAR_AURORA_TRI_BTC_NEAR
+  JAR_AURORA_TRI_BTC_NEAR,
+  JAR_AURORA_TRI_AURORA_ETH,
+  JAR_AURORA_TRI_LP
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -225,6 +227,8 @@ import { TriNearUsdt } from "./impl/aurora-tri-near-usdt";
 import { TriNear } from "./impl/aurora-tri-near";
 import { TriUsdtUsdc } from "./impl/aurora-tri-usdt-usdc";
 import { TriBtcNear } from "./impl/aurora-tri-btc-near";
+import { TriAuroraEth } from "./impl/aurora-tri-aurora-eth";
+import { TriAuroraLp } from "./impl/aurora-tri-lp";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -361,6 +365,8 @@ jarToBehavior.set(JAR_AURORA_TRI_NEAR_USDT.id, new TriNearUsdt());
 jarToBehavior.set(JAR_AURORA_TRI_NEAR_TRI.id, new TriNear());
 jarToBehavior.set(JAR_AURORA_TRI_USDT_USDC.id, new TriUsdtUsdc());
 jarToBehavior.set(JAR_AURORA_TRI_BTC_NEAR.id, new TriBtcNear());
+jarToBehavior.set(JAR_AURORA_TRI_AURORA_ETH.id, new TriAuroraEth());
+jarToBehavior.set(JAR_AURORA_TRI_LP.id, new TriAuroraLp());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
