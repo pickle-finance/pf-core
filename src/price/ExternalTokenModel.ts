@@ -129,9 +129,9 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Arbitrum, "2crv", "2crv", "0xbf7e49483881c76487b0989cd7d9a8239b20ca41".toLowerCase(), 18, ExternalTokenFetchStyle.NONE,);
     this.addToken(ChainNetwork.Arbitrum, "dodo", "dodo", "0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Arbitrum, "hnd", "hundred-finance", "0x10010078a54396f62c96df8532dc2b4847d47ed3".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "pickle","pickle-finance","0x965772e0E9c84b6f359c8597C891108DcF1c5B1A".toLowerCase(),18,ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "bal","balancer","0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8".toLowerCase(),18,ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "usdc","usd-coin","0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),6,ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Arbitrum, "pickle", "pickle-finance", "0x965772e0E9c84b6f359c8597C891108DcF1c5B1A".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Arbitrum, "bal", "balancer", "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Arbitrum, "usdc", "usd-coin", "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
     this.addToken(
       ChainNetwork.Arbitrum,
       "usdc",
@@ -197,6 +197,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "usdc", "usd-coin", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Aurora, "eth", "ethereum", "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "usdt", "tether", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "btc", "wrapped-bitcoin", "0xF4eB217Ba2454613b15dBdea6e5f22276410e89e".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
