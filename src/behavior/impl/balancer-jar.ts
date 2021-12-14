@@ -1,5 +1,5 @@
 import { Provider, TransactionResponse } from "@ethersproject/providers";
-import { ContractTransaction, ethers, Signer } from "ethers";
+import { BigNumber, ContractTransaction, ethers, Signer } from "ethers";
 import strategyAbi from '../../Contracts/ABIs/strategy.json';
 import { PickleModel } from "../..";
 import { HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
@@ -48,6 +48,10 @@ export abstract class BalancerJar extends AbstractJarBehavior {
 
   customHarvestRunner(jar: JarDefinition, model: PickleModel, signer: ethers.Signer): ICustomHarvester | undefined {
     return {
+      async estimateGasToRun(): Promise<BigNumber|undefined> {
+        const strategy = new ethers.Contract(jar.details.strategyAddr as string, strategyAbi, signer);
+        return strategy.estimateGas.harvest();
+      },
       async run(flags: PfCoreGasFlags) : Promise<TransactionResponse> {
         const prices: Prices = {
           bal: model.priceOfSync("bal"),

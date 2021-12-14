@@ -61,7 +61,7 @@ export interface PfCoreGasFlags {
   maxPriorityFeePerGas?: BigNumber;
 }
 
-
 export interface ICustomHarvester {
+  estimateGasToRun(): Promise<BigNumber|undefined>;
   run(flags: PfCoreGasFlags) : Promise<TransactionResponse | undefined>;
 }
