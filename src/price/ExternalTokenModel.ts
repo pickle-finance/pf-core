@@ -197,7 +197,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "usdc", "usd-coin", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Aurora, "eth", "ethereum", "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "usdt", "tether", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Aurora, "btc", "wrapped-bitcoin", "0xF4eB217Ba2454613b15dBdea6e5f22276410e89e".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "btc", "wrapped-bitcoin", "0xF4eB217Ba2454613b15dBdea6e5f22276410e89e".toLowerCase(), 8, ExternalTokenFetchStyle.ID);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
