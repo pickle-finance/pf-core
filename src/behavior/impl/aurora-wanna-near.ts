@@ -1,7 +1,7 @@
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
-import { AuroraPadJar } from "./aurora-nearpad-jar";
+import { AuroraWannaJar } from "./aurora-wanna-jar";
 
-export class PadNearBtc extends AuroraPadJar {
+export class WannaNear extends AuroraWannaJar {
   constructor() {
     super(sushiStrategyAbi);
   }

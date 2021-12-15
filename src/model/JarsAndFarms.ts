@@ -3137,9 +3137,34 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_AURORA_ETH);
 
-export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
+export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",
+  contract: "0x4550B283D30F96a8B56Fe16EB576f6d5033adDF7",
+  depositToken: {
+    addr: "0xbf9Eef63139b67fd0ABf22bD5504ACB0519a4212",
+    name: "WANNA WANNA/NEAR",
+    link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["wanna", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "WLP-WANNA-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pWLP WANNA/NEAR",
+    farmDepositTokenName: "pWLP WANNA/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_WANNA_NEAR);
+
+export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3a",
   contract: "0xcf59208abbAE8457F39f961eAb6293bdef1E5F1e",
   depositToken: {
     addr: "0xA188D79D6bdbc1120a662DE9eB72384E238AF104",
@@ -3161,6 +3186,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_PAD_BTC_NEAR);
+
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

@@ -31,6 +31,7 @@ export enum AssetProtocol {
   VVS_CRONOS = "vvs_cronos",
   TRISOLARIS = "trisolaris",
   NEARPAD = "nearpad",
+  WANNASWAP = "wannaswap",
 // ADD_PROTOCOL
 }
 
