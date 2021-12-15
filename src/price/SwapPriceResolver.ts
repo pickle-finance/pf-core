@@ -40,7 +40,14 @@ export class SwapPriceResolver
         // If we're at the last pair, stablecoin is numerator
         // Price is ratio of USD/token
         if (i === pairReserves.length - 1) {
-          denomToken = numeratorToken;
+          const tokens = Object.keys(pairReserves[i]);
+          // if only 1 swap pair, then the denomintor is the target token, and contained in the alias
+          denomToken =
+            numeratorToken ||
+            alias.aliases.find(
+              (x) =>
+                x.toLowerCase() === tokens[0] || x.toLowerCase() === tokens[1],
+            );
           numeratorToken = Object.keys(pairReserves[i]).filter(
             (x) => x != denomToken,
           )[0];

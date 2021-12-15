@@ -9,14 +9,9 @@ import {
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
-import {
-  calculateTriFarmsAPY,
-  TriswapPairManager,
-} from "../../protocols/TrisolarisUtil";
-import { triPoolIds, TRI_FARMS } from "../../protocols/TrisolarisUtil";
-import triFarmsAbi from "../../Contracts/ABIs/tri-farms.json";
+import { calculateTriFarmsAPY } from "../../protocols/TrisolarisUtil";
 
-export abstract class AuroraTriJar extends AbstractJarBehavior {
+export abstract class AuroraTriDualJar extends AbstractJarBehavior {
   strategyAbi: any;
   constructor(strategyAbi: any) {
     super();
@@ -27,26 +22,48 @@ export abstract class AuroraTriJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
+    const strategy = new ethers.Contract(
+      jar.details.strategyAddr,
+      this.strategyAbi,
+      resolver,
+    );
+
     const triToken = new ethers.Contract(
       model.address("tri", ChainNetwork.Aurora),
       erc20Abi,
       resolver,
     );
-    const [walletTri, triPrice]: [BigNumber, number] = await Promise.all([
+
+    const auroraToken = new ethers.Contract(
+      model.address("aurora", ChainNetwork.Aurora),
+      erc20Abi,
+      resolver,
+    );
+
+    const [walletTri, walletAurora, triPrice, auroraPrice]: [
+      BigNumber,
+      BigNumber,
+      number,
+      number,
+    ] = await Promise.all([
       triToken.balanceOf(jar.details.strategyAddr),
+      auroraToken.balanceOf(jar.details.strategyAddr),
       await model.priceOf("tri"),
+      await model.priceOf("aurora"),
     ]);
 
-    const poolId = triPoolIds[jar.depositToken.addr];
-    const triFarms = new ethers.Contract(TRI_FARMS, triFarmsAbi, resolver);
-    const pendingTri = await triFarms
-      .pendingTri(poolId, jar.details.strategyAddr)
-      .catch(() => BigNumber.from("0"));
+    const res = await strategy.getHarvestable();
+    const pendingTri = res[0];
+    const pendingAurora = res[1];
 
     const harvestable = pendingTri
       .add(walletTri)
       .mul((triPrice * 1e18).toFixed())
+      .div((1e18).toFixed())
+      .add(pendingAurora.add(walletAurora))
+      .mul((auroraPrice * 1e18).toFixed())
       .div((1e18).toFixed());
+
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 

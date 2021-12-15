@@ -30,6 +30,8 @@ export enum AssetProtocol {
   BALANCER_ARBITRUM = "balancer_arbitrum",
   VVS_CRONOS = "vvs_cronos",
   TRISOLARIS = "trisolaris",
+  NEARPAD = "nearpad",
+  WANNASWAP = "wannaswap",
 // ADD_PROTOCOL
 }
 
@@ -47,7 +49,8 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.JSWAP,
   AssetProtocol.SOLARSWAP,
   AssetProtocol.VVS_CRONOS,
-  AssetProtocol.TRISOLARIS
+  AssetProtocol.TRISOLARIS,
+  AssetProtocol.NEARPAD
 // ADD_PROTOCOL
 ];
 
