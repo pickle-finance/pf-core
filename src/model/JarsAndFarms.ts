@@ -3090,7 +3090,7 @@ JAR_DEFINITIONS.push(JAR_AURORA_TRI_BTC_NEAR);
 export const JAR_AURORA_TRI_LP: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 1g",
-  contract: "0xF49803dB604E118f3aFCF44beB0012f3c6684F05",
+  contract: "0x6494DcFa6Af36cE89A990Ca13911365f006898ae",
   depositToken: {
     addr: "0xd1654a7713617d41A8C9530Fb9B948d00e162194",
     name: "TRI AURORA/TRI",
