@@ -3149,7 +3149,7 @@ export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.NEARPAD,
+  protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-WANNA-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3174,7 +3174,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.NEARPAD,
+  protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "NLP-BTC/NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
