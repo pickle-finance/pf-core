@@ -7,7 +7,7 @@ import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
 import erc20Abi from '../Contracts/ABIs/erc20.json';
 import univ3PoolAbi from "../Contracts/ABIs/univ3Pool.json";
-import { ChainNetwork, Chains } from "../chain/Chains";
+import { ChainNetwork, Chains, RAW_CHAIN_BUNDLED_DEF } from "../chain/Chains";
 import { PriceCache } from "../price/PriceCache";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
@@ -229,6 +229,7 @@ export class PickleModel {
 
     toJson() : PickleModelJson {
         const ret = {
+            chains: RAW_CHAIN_BUNDLED_DEF,
             tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
             prices: Object.fromEntries(this.prices.getCache()),
             dill: this.dillDetails,
