@@ -81,7 +81,7 @@ export class SteCrv extends AbstractJarBehavior {
           model.priceOfSync("cvx"),
           model.priceOfSync("ldo"),
           strategy.getHarvestable().catch((err) => {
-            console.log("Big error: " + err);
+            console.log("Error in crv-stecrv: " + err);
             return [
               BigNumber.from("0"),
               BigNumber.from("0"),
@@ -99,7 +99,7 @@ export class SteCrv extends AbstractJarBehavior {
         const total = crvRewards.add(cvxRewards).add(ldoRewards).add(ethRewards);
         return parseFloat(ethers.utils.formatEther(total));
       } catch( error ) {
-        console.log("BIG ERROR: " + error);
+        console.log("Error in crv-stecrv: " + error);
         return 0;
       }
   }

@@ -2,24 +2,20 @@ import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import {
-  AssetAprComponent,
   AssetProjectedApr,
   JarDefinition,
 } from "../../model/PickleModelJson";
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
-import {
-  calculateTriFarmsAPY,
-  TriswapPairManager,
-} from "../../protocols/TrisolarisUtil";
+import { calculateTriFarmsAPY } from "../../protocols/TrisolarisUtil";
 import { triPoolIds, TRI_FARMS } from "../../protocols/TrisolarisUtil";
 import triFarmsAbi from "../../Contracts/ABIs/tri-farms.json";
+import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
-export abstract class AuroraTriJar extends AbstractJarBehavior {
+export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
-    super();
+    super(5,1);
     this.strategyAbi = strategyAbi;
   }
   async getHarvestableUSD(

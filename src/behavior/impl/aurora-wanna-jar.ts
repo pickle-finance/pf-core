@@ -2,7 +2,6 @@ import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import {
@@ -11,11 +10,12 @@ import {
   WANNA_FARMS,
 } from "../../protocols/WannaUtil";
 import wannaChefAbi from "../../Contracts/ABIs/wanna-farms.json";
+import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
-export abstract class AuroraWannaJar extends AbstractJarBehavior {
+export abstract class AuroraWannaJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
-    super();
+    super(5,1);
     this.strategyAbi = strategyAbi;
   }
   async getHarvestableUSD(

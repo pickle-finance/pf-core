@@ -3,6 +3,6 @@ import { AuroraTriDualJar } from "./aurora-tri-dual-jar";
 
 export class TriAuroraEth extends AuroraTriDualJar {
   constructor() {
-    super(multiSushiStrategyAbi);
+    super(multiSushiStrategyAbi, 6, 2);
   }
 }

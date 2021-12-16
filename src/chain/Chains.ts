@@ -27,7 +27,7 @@ export enum ChainNetwork {
   // ADD_CHAIN
   //Binance
 }
-const rawChains: RawChain[] = [
+export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1,
     network: "eth",
@@ -56,7 +56,7 @@ const rawChains: RawChain[] = [
     network: "okex",
     secondsPerBlock: 3,
     gasToken: "oec-token",
-    explorer: "https://oklink.com/okexchain",
+    explorer: "https://www.oklink.com/en/oec",
     rpcs: ["https://exchainrpc.okex.org"],
     multicallAddress: "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa",
     defaultPerformanceFee: 0.1,
@@ -119,34 +119,37 @@ export class JsonChain extends AbstractChain {
   }
 }
 export class Chains {
-  private static singleton: Chains = new Chains();
+  private static singleton: Chains = new Chains(RAW_CHAIN_BUNDLED_DEF);
+  public static overrideSingleton(raw: RawChain[]): void {
+    Chains.singleton = new Chains(raw);
+  }
 
-  chainData: Map<ChainNetwork, AbstractChain> = new Map<
-    ChainNetwork,
-    AbstractChain
-  >();
-  private constructor() {
-    Chains.singleton = this;
+  chainMap: Map<ChainNetwork, AbstractChain> = 
+    new Map<ChainNetwork, AbstractChain>();
+  rawData: RawChain[];
+
+  private constructor(chainData: RawChain[]) {
+    this.rawData = chainData;
     for (const i in ChainNetwork) {
-      const foundRawChain = rawChains.find(
+      const foundRawChain = chainData.find(
         (x) => x.network === ChainNetwork[i],
       );
       if (foundRawChain) {
-        this.chainData.set(ChainNetwork[i], new JsonChain(foundRawChain));
+        this.chainMap.set(ChainNetwork[i], new JsonChain(foundRawChain));
       }
     }
   }
 
   static list(): ChainNetwork[] {
-    return [...Chains.singleton.chainData.keys()];
+    return [...Chains.singleton.chainMap.keys()];
   }
 
   static globalInitialize(chains: Map<ChainNetwork, Provider | Signer>): void {
-    for (let i = 0; i < rawChains.length; i++) {
-      if (rawChains[i].multicallAddress) {
+    for (let i = 0; i < this.singleton.rawData.length; i++) {
+      if (Chains.singleton.rawData[i].multicallAddress) {
         setMulticallAddress(
-          rawChains[i].chainId,
-          rawChains[i].multicallAddress,
+          Chains.singleton.rawData[i].chainId,
+          Chains.singleton.rawData[i].multicallAddress,
         );
       }
     }
@@ -170,21 +173,21 @@ export class Chains {
   }
 
   static get(network: ChainNetwork): IChain {
-    const chain = Chains.singleton.chainData.get(network);
+    const chain = Chains.singleton.chainMap.get(network);
     if (!chain) {
       throw new Error(`${network} is not a supported chain`);
     }
     return chain;
   }
   static fromId(id: number): IChain {
-    for (const [key, value] of Chains.singleton.chainData) {
+    for (const [key, value] of Chains.singleton.chainMap) {
       if (value.id === id) return value;
     }
     throw new Error(`Chain ${id} is not a supported chain`);
   }
 
   static getResolver(network: ChainNetwork): Provider | Signer {
-    const chain = Chains.singleton.chainData.get(network);
+    const chain = Chains.singleton.chainMap.get(network);
     if (!chain) {
       throw new Error(`${network} is not a supported chain`);
     }
