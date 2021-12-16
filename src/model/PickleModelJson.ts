@@ -50,7 +50,8 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.SOLARSWAP,
   AssetProtocol.VVS_CRONOS,
   AssetProtocol.TRISOLARIS,
-  AssetProtocol.NEARPAD
+  AssetProtocol.NEARPAD,
+  AssetProtocol.WANNASWAP,
 // ADD_PROTOCOL
 ];
 
