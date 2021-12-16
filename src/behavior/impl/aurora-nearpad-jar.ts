@@ -5,16 +5,16 @@ import {
   AssetProjectedApr,
   JarDefinition,
 } from "../../model/PickleModelJson";
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import { calculatePadFarmsAPY, padPoolIds, PAD_FARMS } from "../../protocols/NearpadUtil";
 import sushiChefAbi from "../../Contracts/ABIs/sushi-chef.json";
+import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
-export abstract class AuroraPadJar extends AbstractJarBehavior {
+export abstract class AuroraPadJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
-    super();
+    super(5,1);
     this.strategyAbi = strategyAbi;
   }
   async getHarvestableUSD(

@@ -2952,7 +2952,7 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-NEAR-USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -2977,7 +2977,7 @@ export const JAR_AURORA_TRI_NEAR_ETH: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-NEAR-ETH",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3002,7 +3002,7 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-NEAR-USDT",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3027,7 +3027,7 @@ export const JAR_AURORA_TRI_NEAR_TRI: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-NEAR-TRI",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3052,7 +3052,7 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-USDT/USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3077,7 +3077,7 @@ export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-BTC/NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3102,7 +3102,7 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-AURORA/TRI",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3127,7 +3127,7 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TLP-AURORA/ETH",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3152,7 +3152,7 @@ export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "WLP-WANNA-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3177,7 +3177,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "NLP-BTC/NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
