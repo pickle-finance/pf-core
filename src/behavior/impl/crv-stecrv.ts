@@ -94,9 +94,8 @@ export class SteCrv extends AbstractJarBehavior {
         const crvRewards = crvWallet.add(pending[0]).mul((crvPrice*1e6).toFixed()).div(1e6);
         const cvxRewards = cvxWallet.add(pending[1]).mul((cvxPrice*1e6).toFixed()).div(1e6);
         const ldoRewards = ldoWallet.add(pending[2]).mul((ldoPrice*1e6).toFixed()).div(1e6);
-        const ethRewards = pending[3].mul((model.priceOfSync("weth")*1e6).toFixed()).div(1e6);
-        
-        const total = crvRewards.add(cvxRewards).add(ldoRewards).add(ethRewards);
+
+        const total = crvRewards.add(cvxRewards).add(ldoRewards);
         return parseFloat(ethers.utils.formatEther(total));
       } catch( error ) {
         console.log("Error in crv-stecrv: " + error);
