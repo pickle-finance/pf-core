@@ -115,7 +115,17 @@ import {
   JAR_AURORA_TRI_AURORA_ETH,
   JAR_AURORA_TRI_LP,
   JAR_AURORA_PAD_BTC_NEAR,
-  JAR_AURORA_WANNA_NEAR
+  JAR_AURORA_WANNA_NEAR,
+  JAR_AURORA_WANNA_NEAR_DAI,
+  JAR_AURORA_WANNA_NEAR_ETH,
+  JAR_AURORA_WANNA_USDC_NEAR,
+  JAR_AURORA_WANNA_USDT_NEAR,
+  JAR_AURORA_WANNA_USDT_USDC,
+  JAR_AURORA_WANNA_USDT_WANNA,
+  JAR_AURORA_WANNA_WANNA_USDC,
+  JAR_AURORA_WANNA_AURORA_NEAR,
+  JAR_AURORA_WANNA_ETH_BTC,
+  JAR_AURORA_WANNA_NEAR_BTC
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -233,6 +243,16 @@ import { TriAuroraEth } from "./impl/aurora-tri-aurora-eth";
 import { TriAuroraLp } from "./impl/aurora-tri-lp";
 import { PadNearBtc } from "./impl/aurora-nearpad-near-btc";
 import { WannaNear } from "./impl/aurora-wanna-near";
+import { WannaNearDai } from "./impl/aurora-wanna-near-dai";
+import { WannaNearEth } from "./impl/aurora-wanna-near-eth";
+import { WannaUsdcNear } from "./impl/aurora-wanna-usdc-near";
+import { WannaUsdtNear } from "./impl/aurora-wanna-usdt-near";
+import { WannaUsdtUsdc } from "./impl/aurora-wanna-usdt-usdc";
+import { WannaUsdtWanna } from "./impl/aurora-wanna-usdt-wanna";
+import { WannaWannaUsdc } from "./impl/aurora-wanna-wanna-usdc";
+import { WannaAuroraNear } from "./impl/aurora-wanna-aurora-near";
+import { WannaEthBtc } from "./impl/aurora-wanna-eth-btc";
+import { WannaNearBtc } from "./impl/aurora-wanna-near-btc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -373,6 +393,16 @@ jarToBehavior.set(JAR_AURORA_TRI_AURORA_ETH.id, new TriAuroraEth());
 jarToBehavior.set(JAR_AURORA_TRI_LP.id, new TriAuroraLp());
 jarToBehavior.set(JAR_AURORA_PAD_BTC_NEAR.id, new PadNearBtc());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR.id, new WannaNear());
+jarToBehavior.set(JAR_AURORA_WANNA_NEAR_DAI.id, new WannaNearDai());
+jarToBehavior.set(JAR_AURORA_WANNA_NEAR_ETH.id, new WannaNearEth());
+jarToBehavior.set(JAR_AURORA_WANNA_USDC_NEAR.id, new WannaUsdcNear());
+jarToBehavior.set(JAR_AURORA_WANNA_USDT_NEAR.id, new WannaUsdtNear());
+jarToBehavior.set(JAR_AURORA_WANNA_USDT_USDC.id, new WannaUsdtUsdc());
+jarToBehavior.set(JAR_AURORA_WANNA_USDT_WANNA.id, new WannaUsdtWanna());
+jarToBehavior.set(JAR_AURORA_WANNA_WANNA_USDC.id, new WannaWannaUsdc());
+jarToBehavior.set(JAR_AURORA_WANNA_AURORA_NEAR.id, new WannaAuroraNear());
+jarToBehavior.set(JAR_AURORA_WANNA_ETH_BTC.id, new WannaEthBtc());
+jarToBehavior.set(JAR_AURORA_WANNA_NEAR_BTC.id, new WannaNearBtc());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

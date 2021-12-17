@@ -23,12 +23,12 @@ export enum AssetProtocol {
   COMPOUND = "compound",
   BPROTOCOL = "bprotocol",
   TOKENPRICE = "tokenprice",
-  CHERRYSWAP = "cherryswap_okex",
-  BXH = "bxh_okex",
-  JSWAP = "jswap_okex",
-  SOLARSWAP = "solarswap_moonriver",
+  CHERRYSWAP = "cherryswap",
+  BXH = "bxh",
+  JSWAP = "jswap",
+  SOLARSWAP = "solarswap",
   BALANCER_ARBITRUM = "balancer_arbitrum",
-  VVS_CRONOS = "vvs_cronos",
+  VVS_CRONOS = "vvs",
   TRISOLARIS = "trisolaris",
   NEARPAD = "nearpad",
   WANNASWAP = "wannaswap",
@@ -50,7 +50,8 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.SOLARSWAP,
   AssetProtocol.VVS_CRONOS,
   AssetProtocol.TRISOLARIS,
-  AssetProtocol.NEARPAD
+  AssetProtocol.NEARPAD,
+  AssetProtocol.WANNASWAP,
 // ADD_PROTOCOL
 ];
 
