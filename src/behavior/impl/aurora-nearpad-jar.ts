@@ -23,13 +23,13 @@ export abstract class AuroraPadJar extends AuroraMultistepHarvestJar {
     resolver: Signer | Provider,
   ): Promise<number> {
     const padToken = new ethers.Contract(
-      model.address("nearpad", ChainNetwork.Aurora),
+      model.address("pad", ChainNetwork.Aurora),
       erc20Abi,
       resolver,
     );
     const [walletPad, padPrice]: [BigNumber, number] = await Promise.all([
       padToken.balanceOf(jar.details.strategyAddr),
-      await model.priceOf("nearpad"),
+      await model.priceOf("pad"),
     ]);
 
     const poolId = padPoolIds[jar.depositToken.addr];

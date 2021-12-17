@@ -20,6 +20,11 @@ export const PAD_FARMS = "0x2aeF68F92cfBAFA4b542F60044c7596e65612D20";
 
 export const padPoolIds: PoolId = {
   "0xA188D79D6bdbc1120a662DE9eB72384E238AF104": 13,
+  "0x1FD6CBBFC0363AA394bd77FC74F64009BF54A7e9": 0,
+  "0x73155e476D6b857fE7722AEfeBAD50F9F8bd0b38": 1,
+  "0x63b4a0538CE8D90876B201af1020d13308a8B253": 3,
+  "0xc374776Cf5C497Adeef6b505588b00cB298531FD": 5,
+  "0xB53bC2537e641C37c7B7A8D33aba1B30283CDA2f": 14
 };
 
 export async function calculatePadFarmsAPY(
@@ -52,7 +57,7 @@ export async function calculatePadFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const padRewardedPerYear = (await model.priceOf("nearpad")) * rewardsPerYear;
+  const padRewardedPerYear = (await model.priceOf("pad")) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const padAPY = padRewardedPerYear / totalValueStaked;
 
