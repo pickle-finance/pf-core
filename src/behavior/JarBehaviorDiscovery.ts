@@ -114,7 +114,6 @@ import {
   JAR_AURORA_TRI_BTC_NEAR,
   JAR_AURORA_TRI_AURORA_ETH,
   JAR_AURORA_TRI_LP,
-  JAR_AURORA_PAD_BTC_NEAR,
   JAR_AURORA_WANNA_NEAR,
   JAR_AURORA_WANNA_NEAR_DAI,
   JAR_AURORA_WANNA_NEAR_ETH,
@@ -125,7 +124,13 @@ import {
   JAR_AURORA_WANNA_WANNA_USDC,
   JAR_AURORA_WANNA_AURORA_NEAR,
   JAR_AURORA_WANNA_ETH_BTC,
-  JAR_AURORA_WANNA_NEAR_BTC
+  JAR_AURORA_WANNA_NEAR_BTC,
+  JAR_AURORA_PAD_BTC_NEAR,
+  JAR_AURORA_PAD_PAD_USDT,
+  JAR_AURORA_PAD_PAD_USDC,
+  JAR_AURORA_PAD_PAD_ETH,
+  JAR_AURORA_PAD_PAD_NEAR,
+  JAR_AURORA_PAD_PAD_FRAX,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -253,6 +258,11 @@ import { WannaWannaUsdc } from "./impl/aurora-wanna-wanna-usdc";
 import { WannaAuroraNear } from "./impl/aurora-wanna-aurora-near";
 import { WannaEthBtc } from "./impl/aurora-wanna-eth-btc";
 import { WannaNearBtc } from "./impl/aurora-wanna-near-btc";
+import { PadPadUsdt } from "./impl/aurora-nearpad-pad-usdt";
+import { PadPadUsdc } from "./impl/aurora-nearpad-pad-usdc";
+import { PadPadEth } from "./impl/aurora-nearpad-pad-eth";
+import { PadPadNear } from "./impl/aurora-nearpad-pad-near";
+import { PadPadFrax } from "./impl/aurora-nearpad-pad-frax";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -403,6 +413,12 @@ jarToBehavior.set(JAR_AURORA_WANNA_WANNA_USDC.id, new WannaWannaUsdc());
 jarToBehavior.set(JAR_AURORA_WANNA_AURORA_NEAR.id, new WannaAuroraNear());
 jarToBehavior.set(JAR_AURORA_WANNA_ETH_BTC.id, new WannaEthBtc());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR_BTC.id, new WannaNearBtc());
+jarToBehavior.set(JAR_AURORA_PAD_BTC_NEAR.id, new PadNearBtc());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_USDT.id, new PadPadUsdt());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_USDC.id, new PadPadUsdc());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_ETH.id, new PadPadEth());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_NEAR.id, new PadPadNear());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_FRAX.id, new PadPadFrax());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

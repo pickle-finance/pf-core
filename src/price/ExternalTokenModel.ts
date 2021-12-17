@@ -201,6 +201,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "nearpad", "nearpad", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "wanna", "wanna", "0x7faA64Faf54750a2E3eE621166635fEAF406Ab22".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x523faE29D7ff6FD38842c8F271eDf2ebd3150435"]);
     this.addToken(ChainNetwork.Aurora, "dai", "dai", "0xe3520349F477A5F6EB06107066048508498A291b".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "pad", "nearpad", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     // WANNA-USDC pair
 
     // Make the reverse map to fascilitate contract lookups
