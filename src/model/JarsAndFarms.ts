@@ -3177,7 +3177,7 @@ export const JAR_AURORA_WANNA_AURORA_NEAR: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-AURORA-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3202,7 +3202,7 @@ export const JAR_AURORA_WANNA_ETH_BTC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-ETH-BTC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3227,7 +3227,7 @@ export const JAR_AURORA_WANNA_NEAR_BTC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-NEAR-BTC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3252,7 +3252,7 @@ export const JAR_AURORA_WANNA_NEAR_DAI: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-NEAR-DAI",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3277,7 +3277,7 @@ export const JAR_AURORA_WANNA_NEAR_ETH: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-NEAR-ETH",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3302,7 +3302,7 @@ export const JAR_AURORA_WANNA_USDC_NEAR: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDC-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3327,7 +3327,7 @@ export const JAR_AURORA_WANNA_USDT_NEAR: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDT-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3352,7 +3352,7 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDT-USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3377,7 +3377,7 @@ export const JAR_AURORA_WANNA_WANNA_USDC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-WANNA-USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3393,7 +3393,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   contract: "0xECDA075c31c20449f89Dc4467CF70d5F98e657D2",
   depositToken: {
     addr: "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940",
-    name: "WANNA WANNA/NEAR",
+    name: "WANNA USDT/WANNA",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22",
     components: ["usdt", "wanna"],
   },
@@ -3402,7 +3402,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDT-WANNA",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3424,7 +3424,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.WANNASWAP,
+  protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "NLP-BTC/NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
@@ -3436,6 +3436,131 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_PAD_BTC_NEAR);
+
+export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3b",
+  contract: "0x86950b9668804154BD385AE0E228099c4375fEEA",
+  depositToken: {
+    addr: "0x1FD6CBBFC0363AA394bd77FC74F64009BF54A7e9",
+    name: "PAD PAD/USDT",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
+    components: ["pad", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD/USDT",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP PAD/USDT",
+    farmDepositTokenName: "pNLP PAD/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_USDT);
+
+export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3c",
+  contract: "0x4D2FE5BcC9d3d252383D32E1ffF3B3C279eB4E85",
+  depositToken: {
+    addr: "0x73155e476D6b857fE7722AEfeBAD50F9F8bd0b38",
+    name: "PAD PAD/USDC",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
+    components: ["pad", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD/USDC",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP PAD/USDC",
+    farmDepositTokenName: "pNLP PAD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_USDC);
+
+export const JAR_AURORA_PAD_PAD_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3d",
+  contract: "0x4F83d6ae3401f6859B579D840a5E38862a889282",
+  depositToken: {
+    addr: "0x63b4a0538CE8D90876B201af1020d13308a8B253",
+    name: "PAD PAD/ETH",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
+    components: ["pad", "eth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD/ETH",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP PAD/ETH",
+    farmDepositTokenName: "pNLP PAD/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_ETH);
+
+export const JAR_AURORA_PAD_PAD_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3e",
+  contract: "0x6401Ded5D808eE824791dBfc23aA8769b585EB37",
+  depositToken: {
+    addr: "0xc374776Cf5C497Adeef6b505588b00cB298531FD",
+    name: "PAD PAD/NEAR",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["pad", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD/NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP PAD/NEAR",
+    farmDepositTokenName: "pNLP PAD/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_NEAR);
+
+export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3f",
+  contract: "0xc773eF9aE52fF43031DD2Db439966ef4cb55bd79",
+  depositToken: {
+    addr: "0xB53bC2537e641C37c7B7A8D33aba1B30283CDA2f",
+    name: "PAD PAD/FRAX",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2",
+    components: ["pad", "frax"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD/FRAX",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP PAD/FRAX",
+    farmDepositTokenName: "pNLP PAD/FRAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_FRAX);
 
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
