@@ -3177,7 +3177,7 @@ export const JAR_AURORA_WANNA_AURORA_NEAR: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-AURORA-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3202,7 +3202,7 @@ export const JAR_AURORA_WANNA_ETH_BTC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-ETH-BTC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3227,7 +3227,7 @@ export const JAR_AURORA_WANNA_NEAR_BTC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-NEAR-BTC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3252,7 +3252,7 @@ export const JAR_AURORA_WANNA_NEAR_DAI: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-NEAR-DAI",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3277,7 +3277,7 @@ export const JAR_AURORA_WANNA_NEAR_ETH: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-NEAR-ETH",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3302,7 +3302,7 @@ export const JAR_AURORA_WANNA_USDC_NEAR: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDC-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3327,7 +3327,7 @@ export const JAR_AURORA_WANNA_USDT_NEAR: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDT-NEAR",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3352,7 +3352,7 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDT-USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3377,7 +3377,7 @@ export const JAR_AURORA_WANNA_WANNA_USDC: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-WANNA-USDC",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3393,7 +3393,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   contract: "0xECDA075c31c20449f89Dc4467CF70d5F98e657D2",
   depositToken: {
     addr: "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940",
-    name: "WANNA WANNA/NEAR",
+    name: "WANNA USDT/WANNA",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22",
     components: ["usdt", "wanna"],
   },
@@ -3402,7 +3402,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   protocol: AssetProtocol.WANNASWAP,
   details: {
     apiKey: "WLP-USDT-WANNA",
-    harvestStyle: HarvestStyle.PASSIVE,
+    harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -3424,7 +3424,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.WANNASWAP,
+  protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "NLP-BTC/NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
