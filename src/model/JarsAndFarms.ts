@@ -3094,7 +3094,7 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
   depositToken: {
     addr: "0xd1654a7713617d41A8C9530Fb9B948d00e162194",
     name: "TRI AURORA/TRI",
-    link: "https://www.trisolaris.io/#/add/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
     components: ["aurora", "tri"],
   },
   enablement: AssetEnablement.ENABLED,
