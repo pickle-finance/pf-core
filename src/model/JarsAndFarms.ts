@@ -246,7 +246,7 @@ export const JAR_LQTY: JarDefinition = {
   contract: "0x65B2532474f717D5A8ba38078B78106D56118bbb",
   depositToken: {
     addr: "0x6DEA81C8171D0bA574754EF6F8b412F2Ed88c54D",
-    name: "UniV2 LQTY",
+    name: "LQTY",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d",
   },
   enablement: AssetEnablement.ENABLED,
@@ -258,8 +258,8 @@ export const JAR_LQTY: JarDefinition = {
   },
   farm: {
     farmAddress: "0xA7BC844a76e727Ec5250f3849148c21F4b43CeEA",
-    farmNickname: "pUniV2 LQTY",
-    farmDepositTokenName: "pUniV2 LQTY",
+    farmNickname: "pLQTY",
+    farmDepositTokenName: "pLQTY",
   },
 };
 JAR_DEFINITIONS.push(JAR_LQTY);
