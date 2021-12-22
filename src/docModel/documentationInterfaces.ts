@@ -101,8 +101,7 @@ export function documentationAssetDefinitionToResult(
       }
     } else if (k === OBTAIN_KEY_MULTITOKEN_POOL) {
       properties = properties ? properties : {};
-      def.apiKey === "IS3USD" ? console.log(properties): 0;
-      properties.protocol = properties.protocol ? properties.protocol : asset.protocol ? asset.protocol : 'test';
+      properties.protocol = properties.protocol ? properties.protocol : asset.protocol;
       properties.link = properties.link ? properties.link : asset.depositToken.link;
       properties.tokens = properties.tokens ? properties.tokens : 
         asset.depositToken.components ? asset.depositToken.components.join("/") : "unknown";
