@@ -1092,5 +1092,68 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
     ],
+  }, {
+    apiKey: "ArbitrumSlpMimEth",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/wcsUNxYrFM" },
+      },
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Arbitrum" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "MIM", target: "$1" } },
+    ],
+  }, {
+    apiKey: "ArbitrumSlpSpellEth",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/wcsUNxYrFM" },
+      },
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Arbitrum" } },
+    ],
+  }, {
+    apiKey: "Mim2CRV",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/uAwvZfs9qU" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/convexEthChat"}
+      }
+    ],
+    obtain: [
+      { 
+        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        properties: {
+          tokens: "USDC, USDT, MIM",
+          poolName: "Mim2CRV",
+          poolUrl: "https://arbitrum.curve.fi/factory/0/deposit",
+        }
+      }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Curve" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Abracadabra" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Arbitrum" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "MIM", target: "$1" } },
+    ],
   },
 ]
