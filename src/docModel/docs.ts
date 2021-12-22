@@ -650,7 +650,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "FEI" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "FEI", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "FEI", target: "$1" } },
     ],
   }, {
     apiKey: "ALCX-ETH",
@@ -839,7 +839,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
     ],
   }, {
     apiKey: "COMETH-PICKLE",
@@ -923,9 +923,9 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Curve" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "AAVE" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "DAI", target: "$1" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "DAI", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
     ],
   }, {
     apiKey: "PSLP-USDT",
@@ -945,7 +945,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
     ],
   }, {
     apiKey: "PSLP-MATIC",
@@ -1026,7 +1026,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
     ],
   }, {
-    apiKey: "IS3UD",
+    apiKey: "IS3USD",
     social: [
       {
         key: SOCIAL_KEY_DISCORD,
@@ -1043,15 +1043,16 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
           tokens: "USDC, USDT, DAI",
           poolName: "IS3USD",
           poolUrl: "https://app.iron.finance/swap/pools/is3usd/deposit"
-        } }
+        } 
+      }
     ],
     risks: [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Iron Finance" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "DAI", target: "$1" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "DAI", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
     ],
   }, {
     apiKey: "DINO-USDC",
@@ -1071,7 +1072,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
     ],
   }, {
     apiKey: "DINO-WETH",
@@ -1107,7 +1108,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Arbitrum" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "MIM", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "MIM", target: "$1" } },
     ],
   }, {
     apiKey: "ArbitrumSlpSpellEth",
@@ -1151,9 +1152,9 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Abracadabra" } },
       { key: RISK_PROTOCOL, properties: { protocol: "Arbitrum" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
-      { key: RISK_MAINTAIN_PEG, properties: { protocol: "MIM", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "MIM", target: "$1" } },
     ],
   },
 ]
