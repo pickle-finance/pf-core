@@ -9,6 +9,7 @@ import {
   SOCIAL_KEY_TELEGRAM,
   SOCIAL_KEY_TWITTER,
   OBTAIN_KEY_ONETOKEN_POOL,
+  RISK_PROTOCOL,
 } from "./documentationInterfaces";
 
 export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
@@ -444,7 +445,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
         properties: {
           tokens: "USDC/USDT/DAI/MIM",
           poolName: "MIM",
-          poolUrl: "https://www.curve.fi/susdv2/deposit)[MIM3CRV](https://curve.fi/mim",
+          poolUrl: "https://www.curve.fi/susdv2/deposit",
         }
       }, 
       { 
@@ -819,6 +820,277 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     risks: [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Yearn" } },
+    ],
+  }, {
+    apiKey: "COMETH-USDC",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/mcXn2R2QRx" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/cometh_io"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL},
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+    ],
+  }, {
+    apiKey: "COMETH-PICKLE",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/mcXn2R2QRx" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/cometh_io"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL},
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "COMETH-MATIC",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/mcXn2R2QRx" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/cometh_io"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL },
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "DAI",
+    obtain: [
+      { 
+        key: OBTAIN_KEY_ONETOKEN_POOL,
+        properties: {
+          token: "DAI", 
+          protocol: "Polygon",
+          link: "",
+          poolName: "polyJar 2a"
+        }
+      },
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "AAVE" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "am3CRV",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/mcXn2R2QRx" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/cometh_io"}
+      }
+    ],
+    obtain: [
+      { 
+        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        properties: {
+          tokens: "DAI, USDC, USDT", 
+          poolName: "am3CRV",
+          poolUrl: "https://polygon.curve.fi/aave/deposit",
+        }
+      },
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Curve" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "AAVE" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "DAI", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+    ],
+  }, {
+    apiKey: "PSLP-USDT",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.com/invite/6PNv2nF" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/yearnfinance"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+    ],
+  }, {
+    apiKey: "PSLP-MATIC",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.com/invite/6PNv2nF" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/yearnfinance"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "PSLP-PICKLE",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.com/invite/6PNv2nF" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/yearnfinance"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "QLP-MIMATIC",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/mQq55j65xJ" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/QiDaoProtocol"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Quickswap" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Qi Dao" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "QLP-QI",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/mQq55j65xJ" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/QiDaoProtocol"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Quickswap" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Qi Dao" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+    ],
+  }, {
+    apiKey: "IS3UD",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.com/invite/RtA37hgGrK" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/QiDaoProtocol"}
+      }
+    ],
+    obtain: [
+      { 
+        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        properties: {
+          tokens: "USDC, USDT, DAI",
+          poolName: "IS3USD",
+          poolUrl: "https://app.iron.finance/swap/pools/is3usd/deposit"
+        } }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Iron Finance" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "DAI", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDT", target: "$1" } },
+    ],
+  }, {
+    apiKey: "DINO-USDC",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/MMcNJJQy4y" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/DinoSwapOfficial"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
+      { key: RISK_MAINTAIN_PEG, properties: { protocol: "USDC", target: "$1" } },
+    ],
+  }, {
+    apiKey: "DINO-WETH",
+    social: [
+      {
+        key: SOCIAL_KEY_DISCORD,
+        properties: { url: "https://discord.gg/MMcNJJQy4y" },
+      }, {
+        key: SOCIAL_KEY_TELEGRAM,
+        properties: { url: "https://t.me/DinoSwapOfficial"}
+      }
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_TWOTOKEN_POOL }
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
+      { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
     ],
   },
 ]

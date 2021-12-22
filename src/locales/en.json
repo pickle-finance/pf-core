@@ -7,8 +7,9 @@
     "obtain.pool.multitoken": "Deposit any of {{tokens}} in {{protocol}}'s <a href='{{{link}}}'>{{poolName}}</a> pool.",
     "obtain.pool.onetoken": "Deposit {{token}} in {{protocol}}'s <a href='{{{link}}}'>{{poolName}}</a> pool.",
     "obtain.pool.zapper": "Zap using Zapper's <a href='{{{poolUrl}}}'>{{poolName}}</a> pool.",
-    "risk.smart.contract": "Smart contract issues with {{protocol}}",
-    "risk.maintain.peg": "{{token}} may fail to maintain it's peg to {{target}}",
+    "risk.smart.contract": "Smart contract issues with {{protocol}}.",
+    "risk.protocol": "Problems with the {{protocol}} network.",
+    "risk.maintain.peg": "{{token}} may fail to maintain it's peg to {{target}}.",
 
     "sCRV.desc": "A Curve strategy for [sUSDv2 pool](https://www.curve.fi/susdv2/deposit) (sUSDv2 pool employs a basket of 4 stablecoins to peg to US$1 and the switching between them to be stable at $1, learn more about [sUSD](https://docs.synthetix.io/litepaper)). CRV reward is reinvested for more LP.",
     "renBTCCRV.desc": "A Curve strategy for[ renBTC pool](https://www.curve.fi/ren/deposit) (renBTC pool employs a basket of renBTC and WBTC to peg to 1BTC. Learn more about[ renVM](https://github.com/renproject/ren/wiki#tldr) and[ WBTC](https://wbtc.network)). CRV reward is reinvested for more LP.",

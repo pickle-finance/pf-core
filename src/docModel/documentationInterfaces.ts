@@ -46,32 +46,26 @@ export const OBTAIN_KEY_ZAPPER = "obtain.pool.zapper";
 
 export const RISK_SMART_CONTRACT = "risk.smart.contract";
 export const RISK_MAINTAIN_PEG = "risk.maintain.peg";
+export const RISK_PROTOCOL = "risk.protocol";
 
 export const A_TEST_JAR_DOCUMENTATION: AssetDocumentationDefinition = {
-  apiKey: "USDC",
+  apiKey: "COMETH-USDC",
   social: [
     {
       key: SOCIAL_KEY_DISCORD,
-      properties: { url: "https://discord.com/invite/6PNv2nF" },
+      properties: { url: "(https://discord.gg/mcXn2R2QRx" },
     }, {
       key: SOCIAL_KEY_TELEGRAM,
-      properties: { url: "https://t.me/yearnfinance"}
+      properties: { url: "https://t.me/cometh_io"}
     }
   ],
   obtain: [
-    { 
-      key: OBTAIN_KEY_ONETOKEN_POOL,
-      properties: {
-        token: "USDC", 
-        protocol: "Yearn",
-        link: "",
-        poolName: "pJar Y-1"
-      }
-    },
+    { key: OBTAIN_KEY_TWOTOKEN_POOL},
   ],
   risks: [
     { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-    { key: RISK_SMART_CONTRACT, properties: { protocol: "Yearn" } },
+    { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
+    { key: RISK_PROTOCOL, properties: { protocol: "Polygon" } },
   ],
 }
 
