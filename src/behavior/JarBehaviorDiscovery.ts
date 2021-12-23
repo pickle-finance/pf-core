@@ -130,7 +130,9 @@ import {
   JAR_AURORA_PAD_PAD_USDC,
   JAR_AURORA_PAD_PAD_ETH,
   JAR_AURORA_PAD_PAD_NEAR,
-  JAR_AURORA_PAD_PAD_FRAX
+  JAR_AURORA_PAD_PAD_FRAX,
+  JAR_ARBITRUM_SLP_GOHM_ETH,
+  JAR_ARBITRUM_SLP_MAGIC_ETH
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -263,6 +265,8 @@ import { PadPadUsdc } from "./impl/aurora-nearpad-pad-usdc";
 import { PadPadEth } from "./impl/aurora-nearpad-pad-eth";
 import { PadPadNear } from "./impl/aurora-nearpad-pad-near";
 import { PadPadFrax } from "./impl/aurora-nearpad-pad-frax";
+import { ArbitrumGohmEth } from "./impl/arbitrum-gohm-eth";
+import { ArbitrumMagicEth } from "./impl/arbitrum-magic-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -338,6 +342,8 @@ jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
 jarToBehavior.set(JAR_ARBITRUM_DODO_USDC.id, new ArbitrumDodoUsdc());
 jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalTricrypto());
+jarToBehavior.set(JAR_ARBITRUM_SLP_GOHM_ETH.id, new ArbitrumGohmEth());
+jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());
