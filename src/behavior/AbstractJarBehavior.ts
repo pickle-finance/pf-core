@@ -147,7 +147,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const results: any[] = await Promise.all(promises);
     const walletBalances = results.slice(0,results.length-1);
     const tmpStrategyHarvestables = results[results.length-1];
-    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables ? [] : [].concat(tmpStrategyHarvestables);
+    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables ? [].concat(tmpStrategyHarvestables): [];
     const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
     
     const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 

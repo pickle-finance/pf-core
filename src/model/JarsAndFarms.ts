@@ -1671,6 +1671,56 @@ export const JAR_ARBITRUM_MIM2CRV: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
 
+export const JAR_ARBITRUM_SLP_GOHM_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 1d",
+  contract: "0x6779EB2838f44300CB6025d17DEB9F2E27CC9540",
+  depositToken: {
+    addr: "0xaa5bD49f2162ffdC15634c87A77AC67bD51C6a6D",
+    name: "Sushi GOHM/ETH",
+    link: "https://app.sushi.com/add/0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1/ETH",
+    components: ["gohm", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
+  details: {
+    apiKey: "ArbitrumSlpGohmEth",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pSushi GOHM/ETH",
+    farmDepositTokenName: "pSushi GOHM/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_SLP_GOHM_ETH);
+
+export const JAR_ARBITRUM_SLP_MAGIC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 1e",
+  contract: "0xEcAf3149fdA215E46e792C65dc0aB7399C2eA78B",
+  depositToken: {
+    addr: "0xB7E50106A5bd3Cf21AF210A755F9C8740890A8c9",
+    name: "Sushi MAGIC/ETH",
+    link: "https://app.sushi.com/add/0x539bde0d7dbd336b79148aa742883198bbf60342/ETH",
+    components: ["magic", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
+  details: {
+    apiKey: "ArbitrumSlpMagicEth",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pSushi MAGIC/ETH",
+    farmDepositTokenName: "pSushi MAGIC/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_SLP_MAGIC_ETH);
+
 export const JAR_ARBITRUM_DODO_HND_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "arbJar 3a",

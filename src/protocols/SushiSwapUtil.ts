@@ -39,6 +39,8 @@ const sushiPoolV2Ids: PoolId = {
 const sushiPoolIdsArbitrum: PoolId = {
   "0xb6DD51D5425861C808Fd60827Ab6CFBfFE604959": 9,
   "0x8f93Eaae544e8f5EB077A1e09C1554067d9e2CA8": 11,
+  "0xaa5bD49f2162ffdC15634c87A77AC67bD51C6a6D": 12,
+  "0xB7E50106A5bd3Cf21AF210A755F9C8740890A8c9": 13,
 };
 
 const SUSHI_ARB_PAIR_DATA_CACHE_KEY = "sushiswap.arb.pair.data.cache.key";
@@ -235,7 +237,7 @@ export async function calculateMCv2SushiRewards(
   await multicallProvider.init();
 
   let poolId = sushiPoolV2Ids[lpTokenAddress];
-  if( poolId === undefined )
+  if (poolId === undefined)
     poolId = sushiPoolV2Ids[lpTokenAddress.toLowerCase()];
 
   const multicallMasterChefV2 = new MulticallContract(
@@ -381,12 +383,9 @@ export async function calculateMCv2ApyArbitrum(
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const pricePerToken = jar.depositToken.price;
 
-  let rewardsPerYear = 0;
-  if (rewardToken === "spell") {
-    const tokenPerSecondBN = await rewarder.rewardPerSecond();
-    rewardsPerYear =
-      parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
-  }
+  const tokenPerSecondBN = await rewarder.rewardPerSecond();
+  const rewardsPerYear =
+    parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
 
   const valueRewardedPerYear = model.priceOfSync(rewardToken) * rewardsPerYear;
 

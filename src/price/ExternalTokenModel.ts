@@ -140,6 +140,9 @@ export class ExternalTokenModel {
       6,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(ChainNetwork.Arbitrum, "gohm", "governance-ohm", "0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Arbitrum, "magic", "magic", "0x539bde0d7dbd336b79148aa742883198bbf60342".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    
 
     // OKEx
     this.addToken(ChainNetwork.OKEx, "btck", "oec-btc", "0x54e4622DC504176b3BB432dCCAf504569699a7fF".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
