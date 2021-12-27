@@ -824,7 +824,7 @@ export const JAR_SUSHI_CVX_ETH: JarDefinition = {
     link: "https://app.sushi.com/add/0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b/ETH",
     components: ["cvx", "weth"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
