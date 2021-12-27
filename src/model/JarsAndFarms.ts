@@ -1143,6 +1143,32 @@ export const JAR_CURVE_CRVETHLP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CURVE_CRVETHLP);
 
+
+export const JAR_CURVE_CVXETHLP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0h",
+  contract: "0xc97f3fd224d90609831a2B74b46642aC43afE5ee",
+  depositToken: {
+    addr: "0x3A283D9c08E8b55966afb64C515f5143cf907611",
+    name: "Curve CVX/ETH",
+    link: "https://curve.fi/cvxeth/deposit",
+    components: ["cvx", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: "CURVECVXETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x941c42350239B463B80795Fb78Be7817659B8bd0",
+    farmNickname: "pCurve CVX/ETH",
+    farmDepositTokenName: "pCurve CVX/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CURVE_CVXETHLP);
+
 export const JAR_SUSHI_ETH_TRU: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar 0.99t",

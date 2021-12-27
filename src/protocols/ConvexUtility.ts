@@ -55,6 +55,13 @@ const convexPools: PoolInfo = {
     tokenPriceLookup: "crveth",
     rewardPriceLookup: "",
   },
+  "0x3A283D9c08E8b55966afb64C515f5143cf907611": {
+    poolId: 64,
+    tokenName: "cvxeth",
+    rewardName: "cvx",
+    tokenPriceLookup: "cvxeth",
+    rewardPriceLookup: "cvx",
+  },
 };
 
 export async function getCvxMint(
