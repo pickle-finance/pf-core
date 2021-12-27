@@ -132,7 +132,8 @@ import {
   JAR_AURORA_PAD_PAD_NEAR,
   JAR_AURORA_PAD_PAD_FRAX,
   JAR_ARBITRUM_SLP_GOHM_ETH,
-  JAR_ARBITRUM_SLP_MAGIC_ETH
+  JAR_ARBITRUM_SLP_MAGIC_ETH,
+  JAR_CURVE_CVXETHLP
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -267,6 +268,7 @@ import { PadPadNear } from "./impl/aurora-nearpad-pad-near";
 import { PadPadFrax } from "./impl/aurora-nearpad-pad-frax";
 import { ArbitrumGohmEth } from "./impl/arbitrum-gohm-eth";
 import { ArbitrumMagicEth } from "./impl/arbitrum-magic-eth";
+import { CurveCvxEth } from "./impl/cvx-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -316,6 +318,7 @@ jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
 jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
 jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth)
+jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth)
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
