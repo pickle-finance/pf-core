@@ -58,9 +58,9 @@ const convexPools: PoolInfo = {
   "0x3A283D9c08E8b55966afb64C515f5143cf907611": {
     poolId: 64,
     tokenName: "cvxeth",
-    rewardName: "",
+    rewardName: "cvx",
     tokenPriceLookup: "cvxeth",
-    rewardPriceLookup: "",
+    rewardPriceLookup: "cvx",
   },
 };
 
