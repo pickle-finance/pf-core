@@ -23,12 +23,12 @@ export const TRI_FARMS = "0x1f1Ed214bef5E83D8f5d0eB5D7011EB965D0D79B";
 export const TRI_V2_FARMS = "0x3838956710bcc9D122Dd23863a0549ca8D5675D6";
 
 export const triPoolIds: PoolId = {
-  "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0": 1,
   "0x63da4DB6Ef4e7C62168aB03982399F9588fCd198": 0,
+  "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0": 1,
   "0x03B666f3488a7992b2385B12dF7f35156d7b29cD": 2,
-  "0x84b123875F0F36B966d0B6Ca14b31121bd9676AD": 5,
   "0x2fe064B6c7D274082aa5d2624709bC9AE7D16C77": 3,
   "0xbc8A244e8fb683ec1Fd6f88F3cc6E565082174Eb": 4,
+  "0x84b123875F0F36B966d0B6Ca14b31121bd9676AD": 5,
 };
 
 export const triPoolV2Ids = {
@@ -40,6 +40,14 @@ export const triPoolV2Ids = {
     poolId: 1,
     rewarder: "0x78EdEeFdF8c3ad827228d07018578E89Cf159Df1",
   },
+  "0x436C525D536adC447c7775575f88D357634734C1": {
+    poolId: 2,
+    rewarder: ""
+  },
+  "0xa9eded3E339b9cd92bB6DEF5c5379d678131fF90": {
+    poolId: 3,
+    rewarder: ""
+  }
 };
 
 export async function calculateTriFarmsAPY(

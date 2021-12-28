@@ -3213,6 +3213,56 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_AURORA_ETH);
 
+export const JAR_AURORA_TRI_NEAR_LUNA: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1i",
+  contract: "0x59384A541cEF5f604d39C5AaF0CD98170EEb15D2",
+  depositToken: {
+    addr: "0xdF8CbF89ad9b7dAFdd3e37acEc539eEcC8c47914",
+    name: "TRI NEAR/LUNA",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
+    components: ["near", "luna"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-NEAR/LUNA",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTLP NEAR/LUNA",
+    farmDepositTokenName: "pTLP NEAR/LUNA",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_LUNA);
+
+export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1j",
+  contract: "0xC7201D4BA106F524AafBB93aBeac648016E17A06",
+  depositToken: {
+    addr: "0xa9eded3E339b9cd92bB6DEF5c5379d678131fF90",
+    name: "TRI UST/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["ust", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-UST/NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTLP UST/NEAR",
+    farmDepositTokenName: "pTLP UST/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_UST_NEAR);
+
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",
@@ -3487,6 +3537,56 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_WANNA_USDT_WANNA);
+
+export const JAR_AURORA_WANNA_NEAR_LUNA: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 2l",
+  contract: "0x6C33317A6486ce6Ea564F6618BC2834B8ef63b8C",
+  depositToken: {
+    addr: "0x24f6c59747e4AcEB3DBA365df77D68c2A3aA4fB1",
+    name: "WANNA NEAR/LUNA",
+    link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
+    components: ["near", "luna"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.WANNASWAP,
+  details: {
+    apiKey: "WLP-NEAR-LUNA",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pWLP NEAR/LUNA",
+    farmDepositTokenName: "pWLP NEAR/LUNA",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_WANNA_NEAR_LUNA);
+
+export const JAR_AURORA_WANNA_UST_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 2m",
+  contract: "0x9C319e32422Ce850090D5C3E54e0475D2Fc4BdaA",
+  depositToken: {
+    addr: "0x436C525D536adC447c7775575f88D357634734C1",
+    name: "WANNA UST/NEAR",
+    link: "https://wannaswap.finance/exchange/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["ust", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.WANNASWAP,
+  details: {
+    apiKey: "WLP-UST-NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pWLP UST/NEAR",
+    farmDepositTokenName: "pWLP UST/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_WANNA_UST_NEAR);
 
 export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   type: AssetType.JAR,

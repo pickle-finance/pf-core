@@ -142,7 +142,7 @@ export class ExternalTokenModel {
     );
     this.addToken(ChainNetwork.Arbitrum, "gohm", "governance-ohm", "0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Arbitrum, "magic", "magic", "0x539bde0d7dbd336b79148aa742883198bbf60342".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    
+
 
     // OKEx
     this.addToken(ChainNetwork.OKEx, "btck", "oec-btc", "0x54e4622DC504176b3BB432dCCAf504569699a7fF".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
@@ -206,6 +206,8 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "dai", "dai", "0xe3520349F477A5F6EB06107066048508498A291b".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "frax", "frax", "0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "rose", "rose", "0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707"]);
+    this.addToken(ChainNetwork.Aurora, "luna", "terra-luna", "0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "ust", "terrausd", "0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
