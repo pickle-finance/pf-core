@@ -1,4 +1,3 @@
-import { checkProperties } from "ethers/lib/utils";
 import { I18n } from "i18n";
 import path from "path";
 import { ALL_ASSETS } from "../model/JarsAndFarms";
@@ -33,6 +32,13 @@ export interface AssetDocumentationResult {
   social?: string[];
   obtain: string[];
   risks: string[];
+}
+
+
+export enum DocsFormat {
+  HTML = "html",
+  MD = "markdown",
+  PLAIN = "plain",
 }
 
 export const SOCIAL_KEY_DISCORD = "social.key.discord";
@@ -71,6 +77,7 @@ export const A_TEST_JAR_DOCUMENTATION: AssetDocumentationDefinition = {
 
 export function documentationAssetDefinitionToResult(
   language: string,
+  format: DocsFormat,
   def: AssetDocumentationDefinition,
 ): AssetDocumentationResult {
   const asset: PickleAsset = ALL_ASSETS.find(
@@ -80,7 +87,7 @@ export function documentationAssetDefinitionToResult(
   for (let i = 0; def.social && i < def.social.length; i++) {
     const k = def.social[i].key;
     const properties = def.social[i].properties;
-    const asStr = translateSingleString(language, k, properties);
+    const asStr = translateSingleString(language, k, properties, format);
     socialOutputArr.push(asStr);
   }
   const obtainOutputArr = [];
@@ -109,20 +116,20 @@ export function documentationAssetDefinitionToResult(
       console.log(asset.depositToken.components[0]);
     }
 
-    const asStr = translateSingleString(language, k, properties);
+    const asStr = translateSingleString(language, k, properties, format);
     obtainOutputArr.push(asStr);
   }
   const riskOutputArr = [];
   for (let i = 0; def.risks && i < def.risks.length; i++) {
     const k = def.risks[i].key;
     const properties = def.risks[i].properties;
-    const asStr = translateSingleString(language, k, properties);
+    const asStr = translateSingleString(language, k, properties, format);
     riskOutputArr.push(asStr);
   }
   const descriptionKey = def.descriptionKey
     ? def.descriptionKey
     : def.apiKey + ".desc";
-  const description = translateSingleString(language, descriptionKey, {});
+  const description = translateSingleString(language, descriptionKey, {}, format);
   return {
     apiKey: def.apiKey,
     description: description,
@@ -136,6 +143,7 @@ export function translateSingleString(
   language: string,
   key: string,
   properties: { [key: string]: string },
+  format: DocsFormat,
 ): string {
   const i18nInstance = new I18n();
   const anyObject: any = {};

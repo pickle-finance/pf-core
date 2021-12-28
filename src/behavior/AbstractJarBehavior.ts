@@ -142,7 +142,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     for( let i = 0; i < rewardTokens.length; i++ ) {
       promises.push(rewardContracts[i].balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")));
     }
-    promises.push(strategyContract.getHarvestable().catch(() => BigNumber.from("0")));
+    promises.push(strategyContract.getHarvestable().catch(() => new Array(rewardTokens.length).fill(BigNumber.from("0"))));
 
     const results: any[] = await Promise.all(promises);
     const walletBalances = results.slice(0,results.length-1);
