@@ -113,6 +113,7 @@ export function documentationAssetDefinitionToResult(
       properties.tokens = properties.tokens ? properties.tokens : 
         asset.depositToken.components ? asset.depositToken.components.join("/") : "unknown";
     } else if (k === OBTAIN_KEY_ONETOKEN_POOL) {
+      // Why are we logging here? TODO
       console.log(asset.depositToken.components[0]);
     }
 
@@ -186,6 +187,5 @@ export function toFormat(str: string, format: DocsFormat): string {
     }
   }
   const myRet = arr.join("");
-  console.log(str + "\n" + myRet + "\n\n");
   return myRet;
 }
