@@ -1,4 +1,4 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
@@ -10,8 +10,11 @@ import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 
 export class ArbitrumDodoUsdc extends AbstractJarBehavior {
+  protected strategyAbi: any;
+
   constructor() {
     super();
+    this.strategyAbi = strategyABI;
   }
 
   async getDepositTokenPrice(
@@ -26,31 +29,8 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      strategyABI,
-      resolver,
-    );
-    const dodoToken = new ethers.Contract(
-      model.address("dodo", jar.chain),
-      erc20Abi,
-      resolver,
-    );
-    const [res, dodoWallet, dodoPrice]: [
-      BigNumber,
-      BigNumber,
-      number,
-    ] = await Promise.all([
-      strategy.getHarvestable().catch(() => BigNumber.from("0")),
-      dodoToken
-        .balanceOf(jar.details.strategyAddr)
-        .catch(() => BigNumber.from("0")),
-      model.priceOfSync("dodo"),
-    ]);
-
-    const harvestable = res.add(dodoWallet).mul(dodoPrice.toFixed());
-    
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["dodo"], this.strategyAbi);
   }
 
   async getProjectedAprStats(

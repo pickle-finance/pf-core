@@ -1,11 +1,10 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
 } from "../AbstractJarBehavior";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { PickleModel } from "../../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
@@ -30,24 +29,8 @@ export abstract class ComethJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      this.strategyAbi,
-      resolver,
-    );
-    const mustToken = new ethers.Contract(
-      model.addr("must"),
-      erc20Abi,
-      resolver,
-    );
-    const [must, wallet, mustPrice]: [BigNumber, BigNumber, number] =
-      await Promise.all([
-        strategy.getHarvestable().catch(() => BigNumber.from("0")),
-        mustToken.balanceOf(jar.details.strategyAddr),
-        await model.priceOf("must"),
-      ]);
-    const harvestable = must.add(wallet).mul(mustPrice.toFixed());
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["must"], this.strategyAbi);
   }
 
   async getProjectedAprStats(

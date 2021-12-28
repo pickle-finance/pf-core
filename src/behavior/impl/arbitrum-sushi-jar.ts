@@ -1,8 +1,6 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
@@ -14,10 +12,12 @@ import {
 
 export abstract class ArbitrumSushiJar extends AbstractJarBehavior {
   protected rewardToken: string;
+  protected strategyAbi: any;
 
   constructor(rewardToken: string) {
     super();
     this.rewardToken = rewardToken;
+    this.strategyAbi = multiSushiStrategyAbi;
   }
   async getHarvestableUSD(
     jar: JarDefinition,
@@ -29,7 +29,7 @@ export abstract class ArbitrumSushiJar extends AbstractJarBehavior {
       model,
       resolver,
       ["sushi", this.rewardToken],
-      multiSushiStrategyAbi,
+      this.strategyAbi,
     );
   }
 

@@ -1,4 +1,4 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { Provider as MulticallProvider, Contract as MulticallContract } from "ethers-multicall";
 import { Chains, PickleModel } from "../..";
@@ -11,8 +11,11 @@ import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 
 export class ArbitrumHndEth extends AbstractJarBehavior {
+  protected strategyAbi: any;
+  
   constructor() {
     super();
+    this.strategyAbi = multiSushiStrategyAbi;
   }
 
   async getDepositTokenPrice(
@@ -27,44 +30,8 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      multiSushiStrategyAbi,
-      resolver,
-    );
-    const dodoToken = new ethers.Contract(
-      model.address("dodo", jar.chain),
-      erc20Abi,
-      resolver,
-    );
-    const hndToken = new ethers.Contract(
-      model.address("hnd", jar.chain),
-      erc20Abi,
-      resolver,
-    );
-    const [res, dodoWallet, hndWallet, dodoPrice, hndPrice]: [
-      BigNumber[],
-      BigNumber,
-      BigNumber,
-      number,
-      number,
-    ] = await Promise.all([
-      strategy.getHarvestable().catch(() => BigNumber.from("0")),
-      dodoToken
-        .balanceOf(jar.details.strategyAddr)
-        .catch(() => BigNumber.from("0")),
-      hndToken
-        .balanceOf(jar.details.strategyAddr)
-        .catch(() => BigNumber.from("0")),
-      model.priceOfSync("dodo"),
-      model.priceOfSync("hnd"),
-    ]);
-
-    const dodoValue = res[0].add(dodoWallet).mul(dodoPrice.toFixed());
-    const hndValue = res[1].add(hndWallet).mul(hndPrice.toFixed());
-    const harvestable = dodoValue.add(hndValue);
-
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["hnd","dodo"], this.strategyAbi);
   }
 
   async getProjectedAprStats(
