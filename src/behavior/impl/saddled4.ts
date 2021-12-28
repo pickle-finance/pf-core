@@ -1,6 +1,5 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import communalFarmAbi from "../../Contracts/ABIs/communal_farm.json";
 import swapFlashLoanAbi from "../../Contracts/ABIs/swapflashloan.json";
 import { saddleStrategyAbi } from "../../Contracts/ABIs/saddle-strategy.abi";
@@ -14,8 +13,11 @@ import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility"
 
 export const COMMUNAL_FARM = "0x0639076265e9f88542C91DCdEda65127974A5CA5";
 export class SaddleD4 extends AbstractJarBehavior {
+  protected strategyAbi: any;
+
   constructor() {
     super();
+    this.strategyAbi = saddleStrategyAbi;
   }
 
   async getDepositTokenPrice(
@@ -104,55 +106,7 @@ export class SaddleD4 extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      saddleStrategyAbi,
-      resolver,
-    );
-    const fxsToken = new ethers.Contract(model.addr("fxs"), erc20Abi, resolver);
-    const tribeToken = new ethers.Contract(
-      model.addr("tribe"),
-      erc20Abi,
-      resolver,
-    );
-    const alcxToken = new ethers.Contract(
-      model.addr("alcx"),
-      erc20Abi,
-      resolver,
-    );
-    const lqtyToken = new ethers.Contract(
-      model.addr("lqty"),
-      erc20Abi,
-      resolver,
-    );
-
-    const [
-      harvestableArr,
-      fxsPrice,
-      tribePrice,
-      alcxPrice,
-      lqtyPrice,
-      fxsBal,
-      tribeBal,
-      alcxBal,
-      lqtyBal,
-    ] = await Promise.all([
-      strategy.getHarvestable().catch(() => BigNumber.from("0")),
-      await model.priceOf("fxs"),
-      await model.priceOf("tribe"),
-      await model.priceOf("alcx"),
-      await model.priceOf("lqty"),
-      fxsToken.balanceOf(jar.details.strategyAddr),
-      tribeToken.balanceOf(jar.details.strategyAddr),
-      alcxToken.balanceOf(jar.details.strategyAddr),
-      lqtyToken.balanceOf(jar.details.strategyAddr),
-    ]);
-    const harvestable = harvestableArr[0]
-      .add(fxsBal)
-      .mul(fxsPrice.toFixed())
-      .add(harvestableArr[1].add(tribeBal).mul(tribePrice.toFixed()))
-      .add(harvestableArr[2].add(alcxBal).mul(alcxPrice.toFixed()))
-      .add(harvestableArr[3].add(lqtyBal).mul(lqtyPrice.toFixed()));
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["fxs", "tribe", "alcx", "lqty"], this.strategyAbi);
   }
 }

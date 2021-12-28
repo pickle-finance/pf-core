@@ -1,18 +1,20 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
 import { convexStrategyAbi } from "../../Contracts/ABIs/convex-strategy.abi";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
 export const lidoAddress = "0x5a98fcbea516cf06857215779fd812ca3bef1b32";
 
 export class SteCrv extends AbstractJarBehavior {
+  protected strategyAbi: any;
+
   constructor() {
     super();
+    this.strategyAbi = convexStrategyAbi;
   }
   async getDepositTokenPrice(
     asset: JarDefinition,
@@ -41,65 +43,7 @@ export class SteCrv extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const crv = new ethers.Contract(
-      model.address("crv", jar.chain),
-      erc20Abi,
-      resolver,
-    );
-    const lido = new ethers.Contract(lidoAddress, erc20Abi, resolver);
-    const cvx = new ethers.Contract(
-      model.address("cvx", jar.chain),
-      erc20Abi,
-      resolver,
-    );
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      convexStrategyAbi,
-      resolver,
-    );
-    try {
-      const [
-        crvWallet,
-        cvxWallet,
-        ldoWallet,
-        crvPrice,
-        cvxPrice,
-        ldoPrice,
-        pending,
-      ]: [BigNumber, BigNumber, BigNumber, number, number, number, BigNumber[]] =
-        await Promise.all([
-          crv
-            .balanceOf(jar.details.strategyAddr)
-            .catch(() => BigNumber.from("0")),
-          cvx
-            .balanceOf(jar.details.strategyAddr)
-            .catch(() => BigNumber.from("0")),
-          lido
-            .balanceOf(jar.details.strategyAddr)
-            .catch(() => BigNumber.from("0")),
-          model.priceOfSync("crv"),
-          model.priceOfSync("cvx"),
-          model.priceOfSync("ldo"),
-          strategy.getHarvestable().catch((err) => {
-            console.log("Error in crv-stecrv: " + err);
-            return [
-              BigNumber.from("0"),
-              BigNumber.from("0"),
-              BigNumber.from("0"),
-              BigNumber.from("0"),
-            ];
-          }),
-        ]);
-      
-        const crvRewards = crvWallet.add(pending[0]).mul((crvPrice*1e6).toFixed()).div(1e6);
-        const cvxRewards = cvxWallet.add(pending[1]).mul((cvxPrice*1e6).toFixed()).div(1e6);
-        const ldoRewards = ldoWallet.add(pending[2]).mul((ldoPrice*1e6).toFixed()).div(1e6);
-
-        const total = crvRewards.add(cvxRewards).add(ldoRewards);
-        return parseFloat(ethers.utils.formatEther(total));
-      } catch( error ) {
-        console.log("Error in crv-stecrv: " + error);
-        return 0;
-      }
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["crv", "cvx", "ldo"], this.strategyAbi);
   }
 }

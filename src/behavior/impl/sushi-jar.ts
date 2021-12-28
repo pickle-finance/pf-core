@@ -1,6 +1,5 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import {
   AssetAprComponent,
   AssetProjectedApr,
@@ -8,7 +7,7 @@ import {
   PickleAsset,
 } from "../../model/PickleModelJson";
 import { AbstractJarBehavior, aprComponentsToProjectedAprImpl, createAprComponentImpl } from "../AbstractJarBehavior";
-import { ChainNetwork, Chains } from "../../chain/Chains";
+import { Chains } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateMCv2SushiRewards,
@@ -28,24 +27,8 @@ export abstract class SushiJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      this.strategyAbi,
-      resolver,
-    );
-    const sushiToken = new ethers.Contract(
-      model.address("sushi", ChainNetwork.Ethereum),
-      erc20Abi,
-      resolver,
-    );
-    const [sushi, wallet, sushiPrice]: [BigNumber, BigNumber, number] =
-      await Promise.all([
-        strategy.getHarvestable().catch(() => BigNumber.from("0")),
-        sushiToken.balanceOf(jar.details.strategyAddr),
-        await model.priceOf("sushi"),
-      ]);
-    const harvestable = sushi.add(wallet).mul(sushiPrice.toFixed());
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["sushi"], this.strategyAbi);
   }
 
   async getProjectedAprStats(
