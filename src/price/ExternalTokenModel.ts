@@ -205,8 +205,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "wanna", "wanna", "0x7faA64Faf54750a2E3eE621166635fEAF406Ab22".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x523faE29D7ff6FD38842c8F271eDf2ebd3150435"]);
     this.addToken(ChainNetwork.Aurora, "dai", "dai", "0xe3520349F477A5F6EB06107066048508498A291b".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "frax", "frax", "0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    
-    // WANNA-USDC pair
+    this.addToken(ChainNetwork.Aurora, "rose", "rose", "0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707"]);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

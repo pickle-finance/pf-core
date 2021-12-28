@@ -3638,6 +3638,56 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_FRAX);
 
+export const JAR_AURORA_PAD_ROSE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4a",
+  contract: "0x13B2e3a0Af367b061Ae66A74E8C9FC9E1129006f",
+  depositToken: {
+    addr: "0xC6C3cc84EabD4643C382C988fA2830657fc70a6B",
+    name: "PAD PAD/ROSE",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    components: ["pad", "rose"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "NLP-PAD/ROSE",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP PAD/ROSE",
+    farmDepositTokenName: "pNLP PAD/ROSE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_ROSE);
+
+
+export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4b",
+  contract: "0xb42e32fE70aA4d6908EA76899586cd18f0177157",
+  depositToken: {
+    addr: "0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707",
+    name: "PAD FRAX/ROSE",
+    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    components: ["frax", "rose"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "NLP-FRAX/ROSE",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP FRAX/ROSE",
+    farmDepositTokenName: "pNLP FRAX/ROSE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_FRAX);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

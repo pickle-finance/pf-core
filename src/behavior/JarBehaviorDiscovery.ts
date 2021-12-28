@@ -133,7 +133,8 @@ import {
   JAR_AURORA_PAD_PAD_FRAX,
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
-  JAR_CURVE_CVXETHLP
+  JAR_CURVE_CVXETHLP,
+  JAR_AURORA_ROSE_FRAX
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -269,6 +270,7 @@ import { PadPadFrax } from "./impl/aurora-nearpad-pad-frax";
 import { ArbitrumGohmEth } from "./impl/arbitrum-gohm-eth";
 import { ArbitrumMagicEth } from "./impl/arbitrum-magic-eth";
 import { CurveCvxEth } from "./impl/cvx-eth";
+import { PadRoseFrax } from "./impl/rose-frax";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -428,6 +430,7 @@ jarToBehavior.set(JAR_AURORA_PAD_PAD_USDC.id, new PadPadUsdc());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_ETH.id, new PadPadEth());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_NEAR.id, new PadPadNear());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_FRAX.id, new PadPadFrax());
+jarToBehavior.set(JAR_AURORA_ROSE_FRAX.id, new PadRoseFrax());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

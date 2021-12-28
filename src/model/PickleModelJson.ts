@@ -32,6 +32,7 @@ export enum AssetProtocol {
   TRISOLARIS = "trisolaris",
   NEARPAD = "nearpad",
   WANNASWAP = "wannaswap",
+  ROSE = "rose",
 // ADD_PROTOCOL
 }
 
@@ -52,6 +53,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.TRISOLARIS,
   AssetProtocol.NEARPAD,
   AssetProtocol.WANNASWAP,
+  AssetProtocol.ROSE,
 // ADD_PROTOCOL
 ];
 
