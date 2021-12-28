@@ -68,10 +68,10 @@ export const ADDRESSES = new Map([
         minichef: NULL_ADDRESS,
     }],
     [ChainNetwork.Aurora, {
-        pickle: NULL_ADDRESS,
-        masterChef: NULL_ADDRESS,
+        pickle: "0x291c8fceaca3342b29cc36171deb98106f712c66",
+        masterChef: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
         controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
-        minichef: NULL_ADDRESS,
+        minichef: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     }],
 
     // ADD_CHAIN
