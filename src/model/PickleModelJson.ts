@@ -202,7 +202,7 @@ export interface PickleModelJson {
   };
   dill: DillDetails;
   tokens: IExternalToken[];
-  prices: any;
+  prices: {[key: string]: number};
   platform: PlatformData;
   timestamp: number;
 }
