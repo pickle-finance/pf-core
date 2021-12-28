@@ -106,7 +106,7 @@ export interface PickleAsset {
   depositToken: DepositToken;
   enablement: AssetEnablement;
   chain: ChainNetwork;
-  protocol: string;
+  protocol: AssetProtocol;
   aprStats?: AssetProjectedApr;
   details: AssetDetails;
   tags?: string;
