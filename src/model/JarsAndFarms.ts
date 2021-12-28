@@ -3031,7 +3031,7 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP NEAR/USDC",
     farmDepositTokenName: "pTLP NEAR/USDC",
   },
@@ -3056,7 +3056,7 @@ export const JAR_AURORA_TRI_NEAR_ETH: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP NEAR/ETH",
     farmDepositTokenName: "pTLP NEAR/ETH",
   },
@@ -3081,7 +3081,7 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP NEAR/USDT",
     farmDepositTokenName: "pTLP NEAR/USDT",
   },
@@ -3106,7 +3106,7 @@ export const JAR_AURORA_TRI_NEAR_TRI: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP NEAR/TRI",
     farmDepositTokenName: "pTLP NEAR/TRI",
   },
@@ -3131,7 +3131,7 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP USDT/USDC",
     farmDepositTokenName: "pTLP USDT/USDC",
   },
@@ -3156,7 +3156,7 @@ export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP BTC/NEAR",
     farmDepositTokenName: "pTLP BTC/NEAR",
   },
@@ -3181,7 +3181,7 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP AURORA/TRI",
     farmDepositTokenName: "pTLP AURORA/TRI",
   },
@@ -3206,7 +3206,7 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP AURORA/ETH",
     farmDepositTokenName: "pTLP AURORA/ETH",
   },
@@ -3231,7 +3231,7 @@ export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP WANNA/NEAR",
     farmDepositTokenName: "pWLP WANNA/NEAR",
   },
@@ -3256,7 +3256,7 @@ export const JAR_AURORA_WANNA_AURORA_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP AURORA/NEAR",
     farmDepositTokenName: "pWLP AURORA/NEAR",
   },
@@ -3281,7 +3281,7 @@ export const JAR_AURORA_WANNA_ETH_BTC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP ETH/BTC",
     farmDepositTokenName: "pWLP ETH/BTC",
   },
@@ -3306,7 +3306,7 @@ export const JAR_AURORA_WANNA_NEAR_BTC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP NEAR/BTC",
     farmDepositTokenName: "pWLP NEAR/BTC",
   },
@@ -3331,7 +3331,7 @@ export const JAR_AURORA_WANNA_NEAR_DAI: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP NEAR/DAI",
     farmDepositTokenName: "pWLP NEAR/DAI",
   },
@@ -3356,7 +3356,7 @@ export const JAR_AURORA_WANNA_NEAR_ETH: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP NEAR/ETH",
     farmDepositTokenName: "pWLP NEAR/ETH",
   },
@@ -3381,7 +3381,7 @@ export const JAR_AURORA_WANNA_USDC_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP USDC/NEAR",
     farmDepositTokenName: "pWLP USDC/NEAR",
   },
@@ -3406,7 +3406,7 @@ export const JAR_AURORA_WANNA_USDT_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP USDT/NEAR",
     farmDepositTokenName: "pWLP USDT/NEAR",
   },
@@ -3431,7 +3431,7 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP USDT/USDC",
     farmDepositTokenName: "pWLP USDT/USDC",
   },
@@ -3456,7 +3456,7 @@ export const JAR_AURORA_WANNA_WANNA_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP WANNA/USDC",
     farmDepositTokenName: "pWLP WANNA/USDC",
   },
@@ -3481,7 +3481,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pWLP USDT/WANNA",
     farmDepositTokenName: "pWLP USDT/WANNA",
   },
@@ -3506,7 +3506,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pNLP BTC/NEAR",
     farmDepositTokenName: "pNLP BTC/NEAR",
   },
@@ -3531,7 +3531,7 @@ export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pNLP PAD/USDT",
     farmDepositTokenName: "pNLP PAD/USDT",
   },
@@ -3556,7 +3556,7 @@ export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pNLP PAD/USDC",
     farmDepositTokenName: "pNLP PAD/USDC",
   },
@@ -3581,7 +3581,7 @@ export const JAR_AURORA_PAD_PAD_ETH: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pNLP PAD/ETH",
     farmDepositTokenName: "pNLP PAD/ETH",
   },
@@ -3606,7 +3606,7 @@ export const JAR_AURORA_PAD_PAD_NEAR: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pNLP PAD/NEAR",
     farmDepositTokenName: "pNLP PAD/NEAR",
   },
@@ -3631,7 +3631,7 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pNLP PAD/FRAX",
     farmDepositTokenName: "pNLP PAD/FRAX",
   },
