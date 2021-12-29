@@ -130,6 +130,7 @@ import {
   JAR_AURORA_WANNA_NEAR_BTC,
   JAR_AURORA_WANNA_NEAR_LUNA,
   JAR_AURORA_WANNA_UST_NEAR,
+  JAR_AURORA_WANNA_WANNA_AURORA,
   JAR_AURORA_PAD_PAD_USDT,
   JAR_AURORA_PAD_PAD_USDC,
   JAR_AURORA_PAD_PAD_ETH,
@@ -270,6 +271,7 @@ import { WannaEthBtc } from "./impl/aurora-wanna-eth-btc";
 import { WannaNearBtc } from "./impl/aurora-wanna-near-btc";
 import { WannaNearLuna } from "./impl/aurora-wanna-near-luna";
 import { WannaUstNear } from "./impl/aurora-wanna-ust-near";
+import { WannaWannaAurora } from "./impl/aurora-wanna-wanna-aurora";
 import { PadPadUsdt } from "./impl/aurora-nearpad-pad-usdt";
 import { PadPadUsdc } from "./impl/aurora-nearpad-pad-usdc";
 import { PadPadEth } from "./impl/aurora-nearpad-pad-eth";
@@ -435,6 +437,7 @@ jarToBehavior.set(JAR_AURORA_WANNA_ETH_BTC.id, new WannaEthBtc());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR_BTC.id, new WannaNearBtc());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR_LUNA.id, new WannaNearLuna());
 jarToBehavior.set(JAR_AURORA_WANNA_UST_NEAR.id, new WannaUstNear());
+jarToBehavior.set(JAR_AURORA_WANNA_WANNA_AURORA.id, new WannaWannaAurora());
 jarToBehavior.set(JAR_AURORA_PAD_BTC_NEAR.id, new PadNearBtc());
 jarToBehavior.set(JAR_AURORA_PAD_BTC_NEAR.id, new PadNearBtc());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_USDT.id, new PadPadUsdt());
