@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers, Signer } from "ethers";
+import { Contract, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
@@ -32,20 +32,15 @@ export class Is3Usd extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const ironchef = new ethers.Contract(
-      "0x1fd1259fa8cdc60c6e8c86cfa592ca1b8403dfad",
-      ironchefAbi,
+    return this.getHarvestableUSDMasterchefImplementation(
+      jar,
+      model,
       resolver,
+      ["ice"],
+      "0x1fd1259fa8cdc60c6e8c86cfa592ca1b8403dfad",
+      "pendingReward",
+      0,
     );
-    const [ice, icePrice] = await Promise.all([
-      ironchef.pendingReward(0, jar.details.strategyAddr),
-      await model.priceOf("iron-finance"),
-    ]);
-
-    const harvestable = ice
-      .mul(BigNumber.from((icePrice * 1e18).toFixed()))
-      .div((1e18).toFixed());
-    return parseFloat(ethers.utils.formatEther(harvestable));
   }
   async getProjectedAprStats(
     jar: JarDefinition,

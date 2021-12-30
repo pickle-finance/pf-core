@@ -1,8 +1,7 @@
-import { ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { rallyChefAbi } from "../../Contracts/ABIs/rally-chef.abi";
 import rallyRewardPoolsAbi from "../../Contracts/ABIs/rally-reward-pools.json";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { PickleModel } from "../../model/PickleModel";
@@ -24,28 +23,15 @@ export class RlyEth extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const rallyChef = new ethers.Contract(
-      "0x9CF178df8DDb65B9ea7d4C2f5d1610eB82927230", // rallyChef addy
-      rallyChefAbi,
+    return this.getHarvestableUSDMasterchefImplementation(
+      jar,
+      model,
       resolver,
+      ["rly"],
+      "0x9CF178df8DDb65B9ea7d4C2f5d1610eB82927230",
+      "pendingRally",
+      0,
     );
-
-    const rlyToken = new ethers.Contract(
-      model.address("rly", jar.chain),
-      erc20Abi,
-      resolver,
-    );
-    const [rly, rlyPrice, rlyBal] = await Promise.all([
-      rallyChef.pendingRally(0, jar.details.strategyAddr),
-      model.priceOfSync("rly"),
-      rlyToken.balanceOf(jar.details.strategyAddr),
-    ]);
-
-    const rlyDecimals = model.tokenDecimals("rly", jar.chain);
-    const harvestable = parseFloat(
-      ethers.utils.formatUnits(rly.add(rlyBal), rlyDecimals),
-    );
-    return harvestable * rlyPrice;
   }
 
   async getProjectedAprStats(
