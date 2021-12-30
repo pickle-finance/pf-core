@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
@@ -20,13 +20,15 @@ export class FeiTribe extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const rewards = new ethers.Contract(FEI_MASTERCHEF, feiChefAbi, resolver);
-    const [tribe, tribePrice] = await Promise.all([
-      rewards.pendingRewards(0, jar.details.strategyAddr),
-      await model.priceOf("tribe-2"),
-    ]);
-    const harvestable = tribe.mul((1000*tribePrice).toFixed()).div(1000);
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDMasterchefImplementation(
+      jar,
+      model,
+      resolver,
+      ["tribe"],
+      FEI_MASTERCHEF,
+      "pendingRewards",
+      0,
+    );
   }
 
   async getProjectedAprStats(

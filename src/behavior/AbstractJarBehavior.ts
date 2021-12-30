@@ -168,6 +168,62 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     return runningTotal;
   }
 
+  async getHarvestableUSDMasterchefImplementation(
+    jar: JarDefinition,
+    model: PickleModel,
+    resolver: Signer | Provider,
+    rewardTokens: string[],
+    masterchefAddr: string,
+    rewardsFuncName: string,
+    poolId: number,
+  ): Promise<number> {
+    const mcAbi = [
+      {
+        inputs: [
+          { internalType: "uint256", name: "_pid", type: "uint256" },
+          { internalType: "address", name: "_user", type: "address" },
+        ],
+        name: rewardsFuncName,
+        outputs: [{ internalType: "uint256", name: "pending", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      }
+    ];
+
+    const rewardContracts: ethers.Contract[] = rewardTokens.map((x)=> 
+      new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver));
+    const mcContract = new ethers.Contract(masterchefAddr, mcAbi, resolver);
+
+    const promises: Promise<any>[] = [];
+    for( let i = 0; i < rewardTokens.length; i++ ) {
+      promises.push(rewardContracts[i].balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")));
+    }
+    promises.push(mcContract.callStatic[rewardsFuncName](poolId, jar.details.strategyAddr).catch(() => BigNumber.from("0")));
+
+    const results: any[] = await Promise.all(promises);
+    const walletBalances = results.slice(0,results.length-1);
+    const tmpMCHarvestables = results[results.length-1];
+    const masterchefHarvestables: BigNumber[] = tmpMCHarvestables ? [].concat(tmpMCHarvestables): [];
+    const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
+    
+    const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 
+      tokenPrice: number, tokenDecimals: number) : number => {
+      const tokens = harvestable.add(wallet);
+      const log = Math.log(tokenPrice) / Math.log(10);
+      const precisionAdjust = log > 4 ? 0 : 5 - Math.floor(log);
+      const precisionAsNumber = Math.pow(10, precisionAdjust);
+      const tokenPriceWithPrecision = (tokenPrice * precisionAsNumber).toFixed();
+      const resultBN = tokens.mul(tokenPriceWithPrecision).div(precisionAsNumber);
+      return parseFloat(ethers.utils.formatUnits(resultBN, tokenDecimals));
+    };
+    
+    let runningTotal = 0;
+    for( let i = 0; i < rewardTokens.length; i++ ) {
+      runningTotal += (oneRewardSubtotal(masterchefHarvestables[i], walletBalances[i], rewardTokenPrices[i], model.tokenDecimals(rewardTokens[i], jar.chain)));
+    }
+    return runningTotal;
+  }
+
 }
 
 /**
