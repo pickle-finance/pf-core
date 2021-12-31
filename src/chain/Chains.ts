@@ -6,7 +6,8 @@ import { setMulticallAddress } from "ethers-multicall";
 
 export interface RawChain {
   chainId: number;
-  network: string;
+  network: string; // This must never change once created
+  networkVisible: string; // This can change as we wish
   secondsPerBlock: number;
   gasToken: string;
   explorer: string;
@@ -31,6 +32,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1,
     network: "eth",
+    networkVisible: "Ethereum",
     secondsPerBlock: 13,
     gasToken: "ethereum",
     explorer: "https://etherscan.io",
@@ -40,6 +42,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 137,
     network: "polygon",
+    networkVisible: "Polygon",
     secondsPerBlock: 2,
     gasToken: "matic-network",
     explorer: "https://polygonscan.com",
@@ -54,6 +57,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 66,
     network: "okex",
+    networkVisible: "OEC",
     secondsPerBlock: 3,
     gasToken: "oec-token",
     explorer: "https://www.oklink.com/en/oec",
@@ -64,6 +68,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 42161,
     network: "arbitrum",
+    networkVisible: "Arbitrum",
     secondsPerBlock: 13,
     gasToken: "ethereum",
     explorer: "https://arbiscan.io",
@@ -74,6 +79,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1666600000,
     network: "harmony",
+    networkVisible: "Harmony ONE",
     secondsPerBlock: 2,
     gasToken: "harmony",
     explorer: "https://explorer.harmony.one",
@@ -84,6 +90,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1285,
     network: "moonriver",
+    networkVisible: "Moonriver",
     secondsPerBlock: 14,
     gasToken: "moonriver",
     explorer: "https://moonriver.moonscan.io",
@@ -94,6 +101,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 25,
     network: "cronos",
+    networkVisible: "Cronos",
     secondsPerBlock: 5.5,
     gasToken: "cro",
     explorer: "https://cronos.crypto.org/explorer",
@@ -104,6 +112,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1313161554,
     network: "aurora",
+    networkVisible: "Aurora",
     secondsPerBlock: 1,
     gasToken: "eth",
     explorer: "https://explorer.mainnet.aurora.dev/",
