@@ -1,6 +1,6 @@
 import { ChainNetwork, IChain } from "..";
 import { Chains } from "../chain/Chains";
-import { ADDRESSES, PickleModel } from "../model/PickleModel";
+import { ADDRESSES, NULL_ADDRESS, PickleModel } from "../model/PickleModel";
 import { Provider } from '@ethersproject/providers';
 import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
 import MasterchefAbi from '../Contracts/ABIs/masterchef.json';
@@ -36,10 +36,12 @@ export async function loadGaugeAprData(model: PickleModel, chain: ChainNetwork) 
     } else {
         // All other chains use minichef currently
         const minichefAddr : string = minichefAddressForChain(chain);
-        const rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
-        if( rawGaugeData && rawGaugeData.length > 0 ) {
-            for( let i = 0; i < rawGaugeData.length; i++ ) {
-                setAssetGaugeAprMinichef(rawGaugeData[i], model, secondsPerBlock(chain));
+        if( minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS ) {
+            const rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
+            if( rawGaugeData && rawGaugeData.length > 0 ) {
+                for( let i = 0; i < rawGaugeData.length; i++ ) {
+                    setAssetGaugeAprMinichef(rawGaugeData[i], model, secondsPerBlock(chain));
+                }
             }
         }
     }

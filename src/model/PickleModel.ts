@@ -553,6 +553,7 @@ export class PickleModel {
         const jarV1 : JarDefinition[] = jars.filter((x)=>x.protocol !== AssetProtocol.UNISWAP_V3);
         await Promise.all([
             this.loadHarvestDataJarAbi(jarV1, chain),
+            // TODO this shouldn't just be univ3 jars. Any custom harvesters
             this.loadHarvestDataCustom(univ3Jars, chain),
         ]);
     }
