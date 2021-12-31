@@ -150,17 +150,6 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables ? [].concat(tmpStrategyHarvestables): [];
     const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
     
-    const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 
-      tokenPrice: number, tokenDecimals: number) : number => {
-      const tokens = harvestable.add(wallet);
-      const log = Math.log(tokenPrice) / Math.log(10);
-      const precisionAdjust = log > 4 ? 0 : 5 - Math.floor(log);
-      const precisionAsNumber = Math.pow(10, precisionAdjust);
-      const tokenPriceWithPrecision = (tokenPrice * precisionAsNumber).toFixed();
-      const resultBN = tokens.mul(tokenPriceWithPrecision).div(precisionAsNumber);
-      return parseFloat(ethers.utils.formatUnits(resultBN, tokenDecimals));
-    };
-    
     let runningTotal = 0;
     for( let i = 0; i < rewardTokens.length; i++ ) {
       runningTotal += (oneRewardSubtotal(strategyHarvestables[i], walletBalances[i], rewardTokenPrices[i], model.tokenDecimals(rewardTokens[i], jar.chain)));
@@ -206,16 +195,6 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const masterchefHarvestables: BigNumber[] = tmpMCHarvestables ? [].concat(tmpMCHarvestables): [];
     const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
     
-    const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 
-      tokenPrice: number, tokenDecimals: number) : number => {
-      const tokens = harvestable.add(wallet);
-      const log = Math.log(tokenPrice) / Math.log(10);
-      const precisionAdjust = log > 4 ? 0 : 5 - Math.floor(log);
-      const precisionAsNumber = Math.pow(10, precisionAdjust);
-      const tokenPriceWithPrecision = (tokenPrice * precisionAsNumber).toFixed();
-      const resultBN = tokens.mul(tokenPriceWithPrecision).div(precisionAsNumber);
-      return parseFloat(ethers.utils.formatUnits(resultBN, tokenDecimals));
-    };
     
     let runningTotal = 0;
     for( let i = 0; i < rewardTokens.length; i++ ) {
@@ -225,6 +204,17 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   }
 
 }
+
+const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 
+  tokenPrice: number, tokenDecimals: number) : number => {
+  const tokens = harvestable.add(wallet);
+  const log = Math.log(tokenPrice) / Math.log(10);
+  const precisionAdjust = log > 4 ? 0 : 5 - Math.floor(log);
+  const precisionAsNumber = Math.pow(10, precisionAdjust);
+  const tokenPriceWithPrecision = (tokenPrice * precisionAsNumber).toFixed();
+  const resultBN = tokens.mul(tokenPriceWithPrecision).div(precisionAsNumber);
+  return parseFloat(ethers.utils.formatUnits(resultBN, tokenDecimals));
+};
 
 /**
  * All apr components should arrive with percentages as apr values,
