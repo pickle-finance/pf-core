@@ -56,10 +56,11 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
 ];
 
 export enum AssetEnablement {
+  DEV = "dev",
+  ENABLED = "enabled",
+  WITHDRAW_ONLY = "withdraw_only",
   DISABLED = "disabled",
   PERMANENTLY_DISABLED = "permanently_disabled",
-  ENABLED = "enabled",
-  DEV = "dev",
 }
 
 export enum HarvestStyle {
