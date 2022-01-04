@@ -699,7 +699,7 @@ export const JAR_UNIV2_FEI_TRIBE: JarDefinition = {
     link: "https://app.uniswap.org/#/add/v2/0x956f47f50a910163d8bf957cf5846d573e7f87ca/0xc7283b66eb1eb5fb86327f08e1b5816b0720212b",
     components: ["fei", "tribe"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
