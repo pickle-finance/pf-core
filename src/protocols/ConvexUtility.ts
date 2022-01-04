@@ -1,5 +1,5 @@
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Signer, Contract as ethersContract } from "ethers";
+import { Signer, Contract as ethersContract, BigNumber } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { formatEther } from "ethers/lib/utils";
 import { JarBehaviorDiscovery, PickleModel } from "..";
@@ -15,6 +15,7 @@ import CrvRewardsABI from "../Contracts/ABIs/crv-rewards.json";
 import ExtraRewardsABI from "../Contracts/ABIs/extra-rewards.json";
 import { PoolInfo } from "./ProtocolUtil";
 import { createAprComponentImpl } from "../behavior/AbstractJarBehavior";
+import { JAR_CVXCRV } from "../model/JarsAndFarms";
 
 const CVX_BOOSTER = "0xF403C135812408BFbE8713b5A23a04b3D48AAE31";
 
@@ -135,7 +136,7 @@ export async function getProjectedConvexAprStats(
   const cvxPool = convexPools[definition.depositToken.addr];
   if (curveAPY && multicallProvider) {
     const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
-    const crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
+    let crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
 
     const rewarder =
       cvxPool.rewarder ||
@@ -147,11 +148,12 @@ export async function getProjectedConvexAprStats(
 
     const crvRewardsMC = new MulticallContract(rewarder, CrvRewardsABI);
 
-    const [depositLocked, duration, extraRewardsAddress] =
+    const [depositLocked, duration, extraRewardsAddress, mcRewardRate]: [BigNumber, BigNumber, string, BigNumber] =
       await multicallProvider.all([
         crvRewardsMC.totalSupply(),
         crvRewardsMC.duration(),
         crvRewardsMC.extraRewards(0),
+        crvRewardsMC.rewardRate(),
       ]);
 
     const poolValue =
@@ -161,8 +163,13 @@ export async function getProjectedConvexAprStats(
           .findAssetBehavior(definition)
           .getDepositTokenPrice(definition, model)));
 
-    const crvRewardPerDuration =
-      (crvApr * poolValue) / (duration.toNumber() * model.priceOfSync("crv"));
+    const isCvxCrvStaker = JAR_CVXCRV.details.apiKey === definition.details.apiKey;
+    if( isCvxCrvStaker ) {
+      const rewardRateUSD = model.priceOfSync("crv") * mcRewardRate.div(1e10).toNumber() / 1e8;
+      crvApr = rewardRateUSD * (ONE_YEAR_SECONDS/poolValue) * 100;
+    }
+    const crvRewardPerDuration = (crvApr * poolValue) / (duration.toNumber() * model.priceOfSync("crv"));
+      
     const cvxReward = await getCvxMint(
       crvRewardPerDuration * 100,
       model,
@@ -193,7 +200,7 @@ export async function getProjectedConvexAprStats(
     if (isExtraCvx) extraRewardApr += cvxApr;
 
     const components: AssetAprComponent[] = [
-      createAprComponentImpl("lp", lpApr, false),
+      ...(isCvxCrvStaker ? [] : [createAprComponentImpl("lp", lpApr, false)]),
       createAprComponentImpl("crv", crvApr, true),
       ...(isExtraCvx
         ? []
