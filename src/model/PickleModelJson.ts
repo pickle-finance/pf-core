@@ -1,4 +1,4 @@
-import { ChainNetwork } from "../chain/Chains";
+import { ChainNetwork, RawChain } from "../chain/Chains";
 import {
   ActiveJarHarvestStats,
   JarHarvestStats,
@@ -205,6 +205,7 @@ export interface PickleModelJson {
   tokens: IExternalToken[];
   prices: {[key: string]: number};
   platform: PlatformData;
+  chains: RawChain[];
   timestamp: number;
 }
 

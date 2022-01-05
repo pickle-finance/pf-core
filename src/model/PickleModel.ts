@@ -228,7 +228,7 @@ export class PickleModel {
     }
 
     toJson() : PickleModelJson {
-        const ret = {
+        const ret : PickleModelJson = {
             chains: RAW_CHAIN_BUNDLED_DEF,
             tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
             prices: Object.fromEntries(this.prices.getCache()),
