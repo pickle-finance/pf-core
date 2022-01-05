@@ -55,6 +55,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.NEARPAD,
   AssetProtocol.WANNASWAP,
   AssetProtocol.ROSE,
+  AssetProtocol.AURORASWAP,
   // ADD_PROTOCOL
 ];
 

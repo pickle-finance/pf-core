@@ -53,7 +53,7 @@ export async function calculateBrlFarmsAPY(
 
   const [brlPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
     await multicallProvider.all([
-      multicallBrlFarms.brlPerBlock(),
+      multicallBrlFarms.BRLPerBlock(),
       multicallBrlFarms.totalAllocPoint(),
       multicallBrlFarms.poolInfo(poolId),
       lpToken.balanceOf(BRL_FARMS),

@@ -208,9 +208,11 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "rose", "rose", "0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707"]);
     this.addToken(ChainNetwork.Aurora, "luna", "terra-luna", "0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "ust", "terrausd", "0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Aurora, "brl", "borealis", "0x12c87331f086c3C926248f964f8702C0842Fd77F", ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Aurora, "avax", "avalanche-2", "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844", ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Aurora, "matic", "matic-network", "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8", ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "brl", "borealis", "0x12c87331f086c3C926248f964f8702C0842Fd77F".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "avax", "avalanche-2", "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "matic", "matic-network", "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "bnb", "binancecoin", "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Aurora, "busd", "binance-usd", "0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
