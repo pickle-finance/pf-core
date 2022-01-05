@@ -138,7 +138,6 @@ import {
   JAR_AURORA_PAD_PAD_FRAX,
   JAR_AURORA_BRL_AURORA_NEAR,
   JAR_AURORA_BRL_AVAX_NEAR,
-  JAR_AURORA_BRL_BNB_NEAR,
   JAR_AURORA_BRL_BRL_AURORA,
   JAR_AURORA_BRL_BRL_ETH,
   JAR_AURORA_BRL_BRL_NEAR,
@@ -299,7 +298,6 @@ import { CurveCvxEth } from "./impl/cvx-eth";
 import { PadRoseFrax } from "./impl/rose-frax";
 import { BrlAuroraNear } from "./impl/aurora-brl-aurora-near";
 import { BrlAvaxNear } from "./impl/aurora-brl-avax-near";
-import { BrlBnbNear } from "./impl/aurora-brl-bnb-near";
 import { BrlBrlAurora } from "./impl/aurora-brl-brl-aurora";
 import { BrlBrlEth } from "./impl/aurora-brl-brl-eth";
 import { BrlBrlNear } from "./impl/aurora-brl-brl-near";
@@ -480,7 +478,6 @@ jarToBehavior.set(JAR_AURORA_PAD_PAD_FRAX.id, new PadPadFrax());
 jarToBehavior.set(JAR_AURORA_ROSE_FRAX.id, new PadRoseFrax());
 jarToBehavior.set(JAR_AURORA_BRL_AURORA_NEAR.id, new BrlAuroraNear());
 jarToBehavior.set(JAR_AURORA_BRL_AVAX_NEAR.id, new BrlAvaxNear());
-jarToBehavior.set(JAR_AURORA_BRL_BNB_NEAR.id, new BrlBnbNear());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_AURORA.id, new BrlBrlAurora());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_ETH.id, new BrlBrlEth());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_NEAR.id, new BrlBrlNear());

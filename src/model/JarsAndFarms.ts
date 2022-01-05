@@ -3864,31 +3864,6 @@ export const JAR_AURORA_BRL_AVAX_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_AVAX_NEAR);
 
-export const JAR_AURORA_BRL_BNB_NEAR: JarDefinition = {
-  type: AssetType.JAR,
-  id: "nearJar 5c",
-  contract: "0xc59E6d6255Ab259dab8510EBA04C90A1A21Cf9EB",
-  depositToken: {
-    addr: "0x314ab6AaeE15424ea8De07e2007646EcF3772357",
-    name: "BRL BNB/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
-    components: ["bnb", "near"],
-  },
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.AURORASWAP,
-  details: {
-    apiKey: "ALP-BNB/NEAR",
-    harvestStyle: HarvestStyle.CUSTOM,
-  },
-  farm: {
-    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
-    farmNickname: "pALP BNB/NEAR",
-    farmDepositTokenName: "pALP BNB/NEAR",
-  },
-};
-JAR_DEFINITIONS.push(JAR_AURORA_BRL_BNB_NEAR);
-
 export const JAR_AURORA_BRL_BRL_AURORA: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 5d",
