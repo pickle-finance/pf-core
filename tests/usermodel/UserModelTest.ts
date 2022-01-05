@@ -16,6 +16,6 @@ describe("Testing user model", () => {
       "0x9d074e37d408542fd38be78848e8814afb38db17", map);
     const earnings = await userModel.generateUserModel();
     expect(earnings).toBeDefined();
-  }, 10000);
+  }, 15000);
 
 });

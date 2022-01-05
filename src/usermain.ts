@@ -11,7 +11,6 @@ async function generateUserData(walletId: string) {
   ).then((response) => response.json());
   const map : Map<ChainNetwork, Provider | Signer> = new Map();
   map.set(ChainNetwork.Ethereum, new ethers.providers.InfuraProvider());
-  map.set(ChainNetwork.Polygon, new ethers.providers.JsonRpcProvider('https://matic-mainnet.chainstacklabs.com/'));
   const userModel : UserModel = new UserModel(core as PickleModelJson.PickleModelJson, walletId, map);
   const earnings = await userModel.generateUserModel();
   if( earnings) {
