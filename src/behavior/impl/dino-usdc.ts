@@ -1,9 +1,7 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { dinoRewardAbi } from "../../Contracts/ABIs/dino-reward.abi";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateFossilFarmsAPY,
@@ -18,27 +16,15 @@ export class DinoUsdc extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    const rewards = new ethers.Contract(FOSSIL_FARMS, dinoRewardAbi, resolver);
-    const dinoToken = new ethers.Contract(
-      model.addr("dino"),
-      erc20Abi,
+    return this.getHarvestableUSDMasterchefImplementation(
+      jar,
+      model,
       resolver,
+      ["dino"],
+      FOSSIL_FARMS,
+      "pendingDino",
+      dinoPoolIds[jar.depositToken.addr],
     );
-
-    const [dino, dinoPrice, dinoBal] = await Promise.all([
-      rewards.pendingDino(
-        dinoPoolIds[jar.depositToken.addr],
-        jar.details.strategyAddr,
-      ),
-      model.priceOfSync("dinoswap"),
-      dinoToken.balanceOf(jar.details.strategyAddr),
-    ]);
-
-    const harvestable = dino
-      .add(dinoBal)
-      .mul(BigNumber.from((dinoPrice * 1e10).toFixed()))
-      .div((1e10).toFixed());
-    return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
   async getProjectedAprStats(

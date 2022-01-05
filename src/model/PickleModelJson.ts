@@ -1,4 +1,4 @@
-import { ChainNetwork } from "../chain/Chains";
+import { ChainNetwork, RawChain } from "../chain/Chains";
 import {
   ActiveJarHarvestStats,
   JarHarvestStats,
@@ -60,10 +60,11 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
 ];
 
 export enum AssetEnablement {
+  DEV = "dev",
+  ENABLED = "enabled",
+  WITHDRAW_ONLY = "withdraw_only",
   DISABLED = "disabled",
   PERMANENTLY_DISABLED = "permanently_disabled",
-  ENABLED = "enabled",
-  DEV = "dev",
 }
 
 export enum HarvestStyle {
@@ -208,6 +209,7 @@ export interface PickleModelJson {
   tokens: IExternalToken[];
   prices: { [key: string]: number };
   platform: PlatformData;
+  chains: RawChain[];
   timestamp: number;
 }
 

@@ -63,8 +63,7 @@ export async function calculateTriFarmsAPY(
     totalAllocPointBN,
     poolInfo,
     totalSupplyBN,
-    auroraAPY = 0,
-    rewardsPerYear;
+    auroraAPY = 0;
   if (Number.isInteger(triPoolIds[jar.depositToken.addr])) {
     const poolId = triPoolIds[jar.depositToken.addr];
     const multicallTriFarms = new MulticallContract(TRI_FARMS, triFarmsAbi);
@@ -117,7 +116,7 @@ export async function calculateTriFarmsAPY(
   const rewardsPerBlock =
     (parseFloat(formatEther(triPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
-  rewardsPerYear =
+  const rewardsPerYear =
     rewardsPerBlock *
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 

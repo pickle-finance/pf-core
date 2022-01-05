@@ -15,7 +15,7 @@ export class SlpTruEth extends SushiJar {
     resolver: Signer | Provider,
   ): Promise<number> {
     return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-        ["sushi","tru"], multiSushiStrategyAbi);
+        ["sushi","tru"], this.strategyAbi);
   }
   
   async getProjectedAprStats(

@@ -1,15 +1,18 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import { ChainNetwork, PickleModel } from "../..";
+import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import { CurveJar } from "./curve-jar";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import { calculateAbracadabraApyArbitrum } from "../../protocols/AbraCadabraUtil";
 
 export class Mim2Crv extends CurveJar {
+  protected strategyAbi: any;
+
   constructor() {
     super("0x97E2768e8E73511cA874545DC5Ff8067eB19B787");
+    this.strategyAbi = strategyAbi;
+
   }
 
   async getDepositTokenPrice(
@@ -24,31 +27,10 @@ export class Mim2Crv extends CurveJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    _resolver: Signer | Provider,
+    resolver: Signer | Provider,
   ): Promise<number> {
-    const spell = new ethers.Contract(
-      model.address("spell", ChainNetwork.Arbitrum),
-      erc20Abi,
-      model.providerFor(jar.chain),
-    );
-    const strategy = new ethers.Contract(
-      jar.details.strategyAddr,
-      strategyAbi,
-      model.providerFor(jar.chain),
-    );
-    const [spellWallet, spellPrice, pending]: [BigNumber, number, BigNumber] =
-      await Promise.all([
-        spell
-          .balanceOf(jar.details.strategyAddr)
-          .catch(() => BigNumber.from("0")),
-        model.priceOfSync("spell"),
-        strategy.getHarvestable().catch(() => BigNumber.from("0")),
-      ]);
-    const harvestable = spellWallet
-      .add(pending)
-      .mul((spellPrice * 1e6).toFixed())
-      .div(1e6);
-    return parseFloat(ethers.utils.formatEther(harvestable));
+    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
+      ["spell"], this.strategyAbi);
   }
 
   async getProjectedAprStats(
