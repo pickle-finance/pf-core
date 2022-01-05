@@ -136,6 +136,22 @@ import {
   JAR_AURORA_PAD_PAD_ETH,
   JAR_AURORA_PAD_PAD_NEAR,
   JAR_AURORA_PAD_PAD_FRAX,
+  JAR_AURORA_BRL_AURORA_NEAR,
+  JAR_AURORA_BRL_AVAX_NEAR,
+  JAR_AURORA_BRL_BNB_NEAR,
+  JAR_AURORA_BRL_BRL_AURORA,
+  JAR_AURORA_BRL_BRL_ETH,
+  JAR_AURORA_BRL_BRL_NEAR,
+  JAR_AURORA_BRL_BUSD_NEAR,
+  JAR_AURORA_BRL_ETH_BTC,
+  JAR_AURORA_BRL_MATIC_NEAR,
+  JAR_AURORA_BRL_NEAR_BTC,
+  JAR_AURORA_BRL_NEAR_ETH,
+  JAR_AURORA_BRL_NEAR_LUNA,
+  JAR_AURORA_BRL_USDC_NEAR,
+  JAR_AURORA_BRL_USDT_NEAR,
+  JAR_AURORA_BRL_USDT_USDC,
+  JAR_AURORA_BRL_UST_NEAR,
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
@@ -281,6 +297,22 @@ import { ArbitrumGohmEth } from "./impl/arbitrum-gohm-eth";
 import { ArbitrumMagicEth } from "./impl/arbitrum-magic-eth";
 import { CurveCvxEth } from "./impl/cvx-eth";
 import { PadRoseFrax } from "./impl/rose-frax";
+import { BrlAuroraNear } from "./impl/aurora-brl-aurora-near";
+import { BrlAvaxNear } from "./impl/aurora-brl-avax-near";
+import { BrlBnbNear } from "./impl/aurora-brl-bnb-near";
+import { BrlBrlAurora } from "./impl/aurora-brl-brl-aurora";
+import { BrlBrlEth } from "./impl/aurora-brl-brl-eth";
+import { BrlBrlNear } from "./impl/aurora-brl-brl-near";
+import { BrlBusdNear } from "./impl/aurora-brl-busd-near";
+import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
+import { BrlMaticNear } from "./impl/aurora-brl-matic-near";
+import { BrlNearBtc } from "./impl/aurora-brl-near-btc";
+import { BrlBusdEth } from "./impl/aurora-brl-busd-eth";
+import { BrlNearLuna } from "./impl/aurora-brl-near-luna";
+import { BrlUsdcNear } from "./impl/aurora-brl-usdc-near";
+import { BrlUsdtNear } from "./impl/aurora-brl-usdt-near";
+import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
+import { BrlUstNear } from "./impl/aurora-brl-ust-near";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -446,6 +478,23 @@ jarToBehavior.set(JAR_AURORA_PAD_PAD_ETH.id, new PadPadEth());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_NEAR.id, new PadPadNear());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_FRAX.id, new PadPadFrax());
 jarToBehavior.set(JAR_AURORA_ROSE_FRAX.id, new PadRoseFrax());
+jarToBehavior.set(JAR_AURORA_BRL_AURORA_NEAR.id, new BrlAuroraNear());
+jarToBehavior.set(JAR_AURORA_BRL_AVAX_NEAR.id, new BrlAvaxNear());
+jarToBehavior.set(JAR_AURORA_BRL_BNB_NEAR.id, new BrlABnbNear());
+jarToBehavior.set(JAR_AURORA_BRL_BRL_AURORA.id, new BrlBrlAurora());
+jarToBehavior.set(JAR_AURORA_BRL_BRL_ETH.id, new BrlBrlEth());
+jarToBehavior.set(JAR_AURORA_BRL_BRL_NEAR.id, new BrlBrlnear());
+jarToBehavior.set(JAR_AURORA_BRL_BUSD_NEAR.id, new BrlBusdNear());
+jarToBehavior.set(JAR_AURORA_BRL_ETH_BTC.id, new BrlEthBtc());
+jarToBehavior.set(JAR_AURORA_BRL_MATIC_NEAR.id, new BrlMaticNear());
+jarToBehavior.set(JAR_AURORA_BRL_NEAR_BTC.id, new BrlNearBtc());
+jarToBehavior.set(JAR_AURORA_BRL_NEAR_ETH.id, new BrlNearEth());
+jarToBehavior.set(JAR_AURORA_BRL_NEAR_LUNA.id, new BrlNearLuna());
+jarToBehavior.set(JAR_AURORA_BRL_USDC_NEAR.id, new BrlUsdcNear());
+jarToBehavior.set(JAR_AURORA_BRL_USDT_NEAR.id, new BrlUsdtNear());
+jarToBehavior.set(JAR_AURORA_BRL_USDT_USDC.id, new BrlUsdtUsdc());
+jarToBehavior.set(JAR_AURORA_BRL_UST_NEAR.id, new BrlUstNear());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

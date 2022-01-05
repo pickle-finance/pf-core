@@ -33,7 +33,8 @@ export enum AssetProtocol {
   NEARPAD = "nearpad",
   WANNASWAP = "wannaswap",
   ROSE = "rose",
-// ADD_PROTOCOL
+  AURORASWAP = "auroraswap",
+  // ADD_PROTOCOL
 }
 
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
@@ -54,7 +55,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.NEARPAD,
   AssetProtocol.WANNASWAP,
   AssetProtocol.ROSE,
-// ADD_PROTOCOL
+  // ADD_PROTOCOL
 ];
 
 export enum AssetEnablement {
@@ -151,7 +152,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
 
 export interface FarmDetails {
   allocShare?: number;
@@ -204,7 +205,7 @@ export interface PickleModelJson {
   };
   dill: DillDetails;
   tokens: IExternalToken[];
-  prices: {[key: string]: number};
+  prices: { [key: string]: number };
   platform: PlatformData;
   timestamp: number;
 }
