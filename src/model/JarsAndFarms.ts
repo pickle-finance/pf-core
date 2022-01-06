@@ -3821,7 +3821,7 @@ export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x84567E7511E0d97DE676d236AEa7aE688221799e",
     name: "BRL AURORA/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["aurora", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3846,7 +3846,7 @@ export const JAR_AURORA_BRL_AVAX_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x8F6e13B3D28B09535EB82BE539c1E4802B0c25B7",
     name: "BRL AVAX/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["avax", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3871,7 +3871,7 @@ export const JAR_AURORA_BRL_BRL_AURORA: JarDefinition = {
   depositToken: {
     addr: "0xDB0363ee28a5B40BDc2f4701e399c63E00f91Aa8",
     name: "BRL BRL/AURORA",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79",
     components: ["brl", "aurora"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3896,7 +3896,7 @@ export const JAR_AURORA_BRL_BRL_ETH: JarDefinition = {
   depositToken: {
     addr: "0xEfCF518CA36DC3362F539965807b42A77DC26Be0",
     name: "BRL BRL/ETH",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["brl", "eth"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3921,7 +3921,7 @@ export const JAR_AURORA_BRL_BRL_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x5BdAC608cd38C5C8738f5bE20813194A3150d4Ff",
     name: "BRL BRL/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["brl", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3946,7 +3946,7 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x1C393468D95ADF8960E64939bCDd6eE602DE221C",
     name: "BRL BUSD/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["busd", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3971,7 +3971,7 @@ export const JAR_AURORA_BRL_ETH_BTC: JarDefinition = {
   depositToken: {
     addr: "0xcb8584360Dc7A4eAC4878b48fB857AA794E46Fa8",
     name: "BRL ETH/BTC",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["eth", "btc"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -3996,7 +3996,7 @@ export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x8298B8C863c2213B9698A08de009cC0aB0F87FEe",
     name: "BRL MATIC/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["matic", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4021,7 +4021,7 @@ export const JAR_AURORA_BRL_NEAR_BTC: JarDefinition = {
   depositToken: {
     addr: "0xe11A3f2BAB372d88D133b64487D1772847Eec4eA",
     name: "BRL NEAR/BTC",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["near", "btc"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4046,7 +4046,7 @@ export const JAR_AURORA_BRL_NEAR_ETH: JarDefinition = {
   depositToken: {
     addr: "0xc57eCc341aE4df32442Cf80F34f41Dc1782fE067",
     name: "BRL NEAR/ETH",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["near", "eth"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4071,7 +4071,7 @@ export const JAR_AURORA_BRL_NEAR_LUNA: JarDefinition = {
   depositToken: {
     addr: "0x388D5EE199aC8dAD049B161b57487271Cd787941",
     name: "BRL NEAR/LUNA",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4096,7 +4096,7 @@ export const JAR_AURORA_BRL_USDC_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x480A68bA97d70495e80e11e05D59f6C659749F27",
     name: "BRL USDC/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdc", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4121,7 +4121,7 @@ export const JAR_AURORA_BRL_USDT_NEAR: JarDefinition = {
   depositToken: {
     addr: "0xF3DE9dc38f62608179c45fE8943a0cA34Ba9CEfc",
     name: "BRL USDT/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdt", "near"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4146,7 +4146,7 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
   depositToken: {
     addr: "0xEc538fAfaFcBB625C394c35b11252cef732368cd",
     name: "BRL USDT/USDC",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4171,7 +4171,7 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
   depositToken: {
     addr: "0x729dB9dB6d3cA82EF7e4c886C352749758BaD0eb",
     name: "BRL UST/NEAR",
-    link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
+    link: "https://swap.auroraswap.finance/#/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
   },
   enablement: AssetEnablement.ENABLED,
