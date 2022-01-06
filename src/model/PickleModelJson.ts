@@ -96,6 +96,7 @@ export interface DepositToken {
   totalSupply?: number;
   components?: string[];
   componentTokens?: number[];
+  componentAddresses?: string[];
   style?: DepositTokenStyle,
   price?: number;
 }
