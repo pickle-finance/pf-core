@@ -1632,7 +1632,7 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
     componentAddresses: ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" ],
     style: { erc20: false }
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
