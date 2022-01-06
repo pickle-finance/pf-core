@@ -9,7 +9,7 @@ import triv2FarmsAbi from "../Contracts/ABIs/triv2-farms.json";
 import sushiComplexRewarderAbi from "../Contracts/ABIs/sushi-complex-rewarder.json";
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Chains } from "../chain/Chains";
+import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
@@ -146,6 +146,7 @@ export class TriswapPairManager extends GenericSwapUtility {
       "pairAddress",
       TRI_QUERY_KEYS,
       AssetProtocol.TRISOLARIS,
+      ChainNetwork.Aurora,
       0.002,
     );
   }

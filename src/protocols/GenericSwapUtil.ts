@@ -1,4 +1,4 @@
-import { PickleModel } from "..";
+import { ChainNetwork, PickleModel } from "..";
 import { Contract as MulticallContract } from "ethers-multicall";
 import {
   AssetProtocol,
@@ -6,25 +6,28 @@ import {
   PickleAsset,
 } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
-import { protocolToSubgraphUrl, readQueryFromGraph } from "../graph/TheGraph";
+import { graphUrlFromDetails, readQueryFromGraph } from "../graph/TheGraph";
 
 export abstract class GenericSwapUtility {
   cacheKey: string;
   whereKey: string;
   queryFields: string[];
   protocol: AssetProtocol;
+  chain: ChainNetwork;
   lpFee: number;
   constructor(
     cacheKey: string,
     whereKey: string,
     queryFields: string[],
     protocol: AssetProtocol,
+    chain: ChainNetwork,
     lpFee: number,
   ) {
     this.cacheKey = cacheKey;
     this.whereKey = whereKey;
     this.queryFields = queryFields;
     this.protocol = protocol;
+    this.chain = chain;
     this.lpFee = lpFee;
   }
 
@@ -42,8 +45,7 @@ export abstract class GenericSwapUtility {
             }
         }`;
     const resp = await readQueryFromGraph(
-      query,
-      protocolToSubgraphUrl.get(this.protocol),
+      query, graphUrlFromDetails(this.protocol, this.chain),
     );
     const ret: IExtendedPairData[] = [];
     if (resp && resp.data && resp.data.pairDayDatas) {
@@ -91,8 +93,7 @@ export abstract class GenericSwapUtility {
             }
         }`;
     return await readQueryFromGraph(
-      query,
-      protocolToSubgraphUrl.get(this.protocol),
+      query, graphUrlFromDetails(this.protocol, this.chain),
     );
   }
 

@@ -11,7 +11,7 @@ import {
 import { ExternalAssetBehavior, ICustomHarvester, JarHarvestStats } from "../JarBehaviorResolver";
 import { chefV2AprStatsStatic } from "./sushi-jar";
 import { GenericSwapUtility } from "../../protocols/GenericSwapUtil";
-import { getSwapUtilityForProtocol } from "../../protocols/ProtocolUtil";
+import { getSwapUtilityForAsset } from "../../protocols/ProtocolUtil";
 import { getDepositTokenPrice } from "../../price/DepositTokenPriceUtility";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { Contract } from "ethers";
@@ -21,7 +21,7 @@ export class MainnetSushiPickleEth implements ExternalAssetBehavior {
     return undefined;
   }
   async getProtocolApy(definition: JarDefinition, _model: PickleModel): Promise<HistoricalYield> {
-    const swap: GenericSwapUtility = getSwapUtilityForProtocol(definition);
+    const swap: GenericSwapUtility = getSwapUtilityForAsset(definition);
     if (swap !== undefined) {
       const ret = await swap.runThirtyDaysSingleJar(
         definition.depositToken.addr,

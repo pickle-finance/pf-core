@@ -4,7 +4,7 @@ import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20 from "../Contracts/ABIs/erc20.json";
 import { ChainNetwork, PickleModel } from "..";
 import fetch from "cross-fetch";
-import { readQueryFromGraphProtocol } from "../graph/TheGraph";
+import { readQueryFromGraphDetails } from "../graph/TheGraph";
 import {
   AssetAprComponent,
   AssetProtocol,
@@ -102,12 +102,13 @@ export interface PoolData {
 export const queryTheGraph = async (
   poolAddress: string,
   blockNumber: number,
-) => {
+): Promise<GraphResponse> => {
   blockNumber -= 300; // safety buffer, the graph can take more than 1000 blocks to update!
   const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
-  const res = await readQueryFromGraphProtocol(
+  const res = await readQueryFromGraphDetails(
     query,
-    AssetProtocol.BALANCER_ARBITRUM,
+    AssetProtocol.BALANCER,
+    ChainNetwork.Arbitrum,
   );
   const poolData = res?.data?.pools[0];
   try {

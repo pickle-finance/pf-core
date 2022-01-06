@@ -1,3 +1,4 @@
+import { ChainNetwork } from "..";
 import { AssetProtocol } from "../model/PickleModelJson";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
@@ -20,6 +21,7 @@ export class ComethPairManager extends GenericSwapUtility {
       "pairAddress",
       COMETH_PAIR_GRAPH_FIELDS,
       AssetProtocol.COMETHSWAP,
+      ChainNetwork.Polygon,
       0.005,
     );
   }

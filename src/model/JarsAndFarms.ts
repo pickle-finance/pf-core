@@ -251,7 +251,7 @@ export const JAR_LQTY: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
-  protocol: AssetProtocol.TOKENPRICE,
+  protocol: AssetProtocol.LQTY,
   details: {
     apiKey: "LQTY",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1315,7 +1315,7 @@ export const JAR_AAVEDAI: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.AAVE_POLYGON,
+  protocol: AssetProtocol.AAVE,
   details: {
     apiKey: "DAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1365,7 +1365,7 @@ export const JAR_POLY_SUSHI_ETH_USDT: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.SUSHISWAP_POLYGON,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "PSLP-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1390,7 +1390,7 @@ export const JAR_POLY_SUSHI_MATIC_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.SUSHISWAP_POLYGON,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "PSLP-MATIC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1415,7 +1415,7 @@ export const JAR_QUICKmiMATICUSDC_old: JarDefinition = {
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP_POLYGON,
+  protocol: AssetProtocol.QUICKSWAP,
   details: {
     apiKey: undefined,
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1440,7 +1440,7 @@ export const JAR_QUICK_MIMATIC_USDC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP_POLYGON,
+  protocol: AssetProtocol.QUICKSWAP,
   details: {
     apiKey: "QLP-MIMATIC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1465,7 +1465,7 @@ export const JAR_QUICK_QI_MIMATIC: JarDefinition = {
   },
   enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP_POLYGON,
+  protocol: AssetProtocol.QUICKSWAP,
   details: {
     apiKey: "QLP-QI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1491,7 +1491,7 @@ export const JAR_QUICK_QI_MATIC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP_POLYGON,
+  protocol: AssetProtocol.QUICKSWAP,
   details: {
     apiKey: "QLP-QIMATIC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1516,7 +1516,7 @@ export const JAR_IRON3USD: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.IRON_POLYGON,
+  protocol: AssetProtocol.IRON,
   details: {
     apiKey: "IS3USD",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1541,7 +1541,7 @@ export const JAR_SUSHI_DINO_USDC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.SUSHISWAP_POLYGON,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "DINO-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1566,7 +1566,7 @@ export const JAR_QUICK_DINO_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP_POLYGON,
+  protocol: AssetProtocol.QUICKSWAP,
   details: {
     apiKey: "DINO-WETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1591,7 +1591,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP_POLYGON,
+  protocol: AssetProtocol.QUICKSWAP,
   details: {
     apiKey: "PSLP-PICKLE",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1612,7 +1612,7 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.SUSHISWAP_POLYGON,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "PSLP-WORK",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1663,7 +1663,7 @@ export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "ArbitrumSlpMimEth",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1688,7 +1688,7 @@ export const JAR_ARBITRUM_SLP_SPELL_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "ArbitrumSlpSpellEth",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1738,7 +1738,7 @@ export const JAR_ARBITRUM_SLP_GOHM_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "ArbitrumSlpGohmEth",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1763,7 +1763,7 @@ export const JAR_ARBITRUM_SLP_MAGIC_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.SUSHISWAP_ARBITRUM,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "ArbitrumSlpMagicEth",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1863,7 +1863,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
-  protocol: AssetProtocol.BALANCER_ARBITRUM,
+  protocol: AssetProtocol.BALANCER,
   details: {
     apiKey: "BalTricrypto",
     harvestStyle: HarvestStyle.CUSTOM,
@@ -2175,7 +2175,7 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
   },
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Harmony,
-  protocol: AssetProtocol.SUSHISWAP_HARMONY,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "HSLP-ETH-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2200,7 +2200,7 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Harmony,
-  protocol: AssetProtocol.SUSHISWAP_HARMONY,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "HSLP-WBTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2225,7 +2225,7 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
   },
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Harmony,
-  protocol: AssetProtocol.SUSHISWAP_HARMONY,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "HSLP-ETH-ONE",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2779,7 +2779,7 @@ export const JAR_CRO_VVS_CRO_BIFI: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-BIFI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2804,7 +2804,7 @@ export const JAR_CRO_VVS_CRO_DAI: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2829,7 +2829,7 @@ export const JAR_CRO_VVS_CRO_SHIB: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-SHIB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2854,7 +2854,7 @@ export const JAR_CRO_VVS_CRO_USDC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2879,7 +2879,7 @@ export const JAR_CRO_VVS_CRO_USDT: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2904,7 +2904,7 @@ export const JAR_CRO_VVS_VVS_USDC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-VVS-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2929,7 +2929,7 @@ export const JAR_CRO_VVS_VVS_USDT: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-VVS-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2954,7 +2954,7 @@ export const JAR_CRO_VVS_CRO_VVS: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-VVS",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2979,7 +2979,7 @@ export const JAR_CRO_VVS_CRO_BTC: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-BTC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3004,7 +3004,7 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-USDC-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3029,7 +3029,7 @@ export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
-  protocol: AssetProtocol.VVS_CRONOS,
+  protocol: AssetProtocol.VVS,
   details: {
     apiKey: "VLP-CRO-ETH",
     harvestStyle: HarvestStyle.PASSIVE,

@@ -4,7 +4,7 @@ import solarFarmsAbi from "../Contracts/ABIs/solar-farms.json";
 import solarFarmsV2Abi from "../Contracts/ABIs/solarv2-farms.json";
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Chains } from "../chain/Chains";
+import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
@@ -128,6 +128,7 @@ export class SolarswapPairManager extends GenericSwapUtility {
       "pairAddress",
       SOLARSWAP_QUERY_KEYS,
       AssetProtocol.SOLARSWAP,
+      ChainNetwork.Moonriver,
       0.002,
     );
   }

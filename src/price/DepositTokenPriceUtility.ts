@@ -82,8 +82,6 @@ export async function getDepositTokenPrice(
   const depTokenAddr = asset.depositToken.addr;
   const checkCache = model.priceOfSync(depTokenAddr);
   if (checkCache) return checkCache;
-  if (asset.protocol === AssetProtocol.TOKENPRICE)
-    return model.priceOfSync(depTokenAddr);
 
   // Next check if its a common swap utility
   const isSwapUtil: boolean = isGenericSwapProtocol(asset.protocol);
