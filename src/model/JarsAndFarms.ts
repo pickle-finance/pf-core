@@ -1620,6 +1620,35 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_WORK_USDC);
 
+export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar U3a",
+  contract: "0xb409FfdAA37f8B98766E5b11D183acCfC7Ca6822",
+  depositToken: {
+    addr: "0x45dDa9cb7c25131DF268515131f647d726f50608",
+    name: "UniV3 USDC/ETH",
+    link: "https://app.uniswap.org/#/add/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/500",
+    components: ["usdc", "weth"],
+    componentAddresses: ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48", "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" ],
+    style: { erc20: false }
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xbc4276e2006BE22fAA59050Fc709850F4c7360E3",
+    apiKey: "UNIV3-USDC-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /*
+  farm: {
+    farmAddress: "TODO",
+    farmNickname: "pUNIv3 RBN/ETH",
+    farmDepositTokenName: "pUNIv3 RBN/ETH",
+  },*/
+};
+JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_ETH);
+
 // Arbitrum
 
 export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition = {
