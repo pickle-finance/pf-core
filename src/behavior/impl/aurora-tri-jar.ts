@@ -1,18 +1,15 @@
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import {
-  AssetProjectedApr,
-  JarDefinition,
-} from "../../model/PickleModelJson";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateTriFarmsAPY } from "../../protocols/TrisolarisUtil";
+import { calculateTriFarmsAPY, triPoolV2Ids } from "../../protocols/TrisolarisUtil";
 import { triPoolIds, TRI_FARMS } from "../../protocols/TrisolarisUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
 export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
-    super(5,1);
+    super(5, 1);
     this.strategyAbi = strategyAbi;
   }
   async getHarvestableUSD(
@@ -27,7 +24,7 @@ export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
       ["tri"],
       TRI_FARMS,
       "pendingTri",
-      triPoolIds[jar.depositToken.addr],
+      triPoolIds[jar.depositToken.addr] || triPoolV2Ids[jar.depositToken.addr],
     );
   }
 

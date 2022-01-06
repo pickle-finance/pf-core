@@ -42,12 +42,12 @@ export const triPoolV2Ids = {
   },
   "0xdF8CbF89ad9b7dAFdd3e37acEc539eEcC8c47914": {
     poolId: 2,
-    rewarder: ""
+    rewarder: "",
   },
   "0xa9eded3E339b9cd92bB6DEF5c5379d678131fF90": {
     poolId: 3,
-    rewarder: ""
-  }
+    rewarder: "",
+  },
 };
 
 export async function calculateTriFarmsAPY(
@@ -93,24 +93,29 @@ export async function calculateTriFarmsAPY(
         lpToken.balanceOf(TRI_V2_FARMS),
       ]);
 
-    // Get AURORA APY
-    const rewarderContract = new ethers.Contract(
-      triPoolV2Ids[jar.depositToken.addr]?.rewarder,
-      sushiComplexRewarderAbi,
-      model.providerFor(jar.chain),
-    );
+    // Return Aurora APY of 0 if there's no rewarder
+    if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
+      auroraAPY = 0;
+    } else {
+      // Get AURORA APY
+      const rewarderContract = new ethers.Contract(
+        triPoolV2Ids[jar.depositToken.addr]?.rewarder,
+        sushiComplexRewarderAbi,
+        model.providerFor(jar.chain),
+      );
 
-    const auroraPerBlock = await rewarderContract.tokenPerBlock();
+      const auroraPerBlock = await rewarderContract.tokenPerBlock();
 
-    const auroraRewardsPerYear =
-      (parseFloat(formatEther(auroraPerBlock)) *
-        ONE_YEAR_IN_SECONDS *
-        (await model.priceOf("aurora"))) /
-      Chains.get(jar.chain).secondsPerBlock;
+      const auroraRewardsPerYear =
+        (parseFloat(formatEther(auroraPerBlock)) *
+          ONE_YEAR_IN_SECONDS *
+          (await model.priceOf("aurora"))) /
+        Chains.get(jar.chain).secondsPerBlock;
 
-    const totalSupply = parseFloat(formatEther(totalSupplyBN));
+      const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
-    auroraAPY = auroraRewardsPerYear / (totalSupply * pricePerToken);
+      auroraAPY = auroraRewardsPerYear / (totalSupply * pricePerToken);
+    }
   }
 
   const rewardsPerBlock =
