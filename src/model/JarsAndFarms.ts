@@ -4145,21 +4145,21 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
   contract: "0x4F5bd36925e1a141Ebb34f94Be00bdc4A3fc7034",
   depositToken: {
     addr: "0xEc538fAfaFcBB625C394c35b11252cef732368cd",
-    name: "BRL USDT/NEAR",
+    name: "BRL USDT/USDC",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
-    components: ["usdt", "near"],
+    components: ["usdt", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-USDT/NEAR",
+    apiKey: "ALP-USDT/USDC",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
-    farmNickname: "pALP USDT/NEAR",
-    farmDepositTokenName: "pALP USDT/NEAR",
+    farmNickname: "pALP USDT/USDC",
+    farmDepositTokenName: "pALP USDT/USDC",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_USDT_USDC);
