@@ -174,20 +174,31 @@ export const getPosition = async (
   const poolAddress = await jarV3.pool();
   const poolContract = new ethers.Contract(poolAddress, v3PoolABI, provider);
 
-  const [data, fee, totalLiquidity, jarLiquidity, token0, token1, tickLower, tickUpper] =
-    await Promise.all([
-      poolContract.slot0(),
-      poolContract.fee(),
-      poolContract.liquidity(),
-      jarV3.totalLiquidity(),
-      jarV3.token0(),
-      jarV3.token1(),
-      jarV3.getLowerTick(),
-      jarV3.getUpperTick()
-    ]);
+  const [
+    data,
+    fee,
+    totalLiquidity,
+    jarLiquidity,
+    token0,
+    token1,
+    tickLower,
+    tickUpper,
+  ] = await Promise.all([
+    poolContract.slot0(),
+    poolContract.fee(),
+    poolContract.liquidity(),
+    jarV3.totalLiquidity(),
+    jarV3.token0(),
+    jarV3.token1(),
+    jarV3.getLowerTick(),
+    jarV3.getUpperTick(),
+  ]);
 
-  const tokenA = new Token(1, token0, 18);
-  const tokenB = new Token(1, token1, 18);
+  const token0Contract = new ethers.Contract(token0, erc20Abi, provider);
+  const token1Contract = new ethers.Contract(token1, erc20Abi, provider);
+
+  const tokenA = new Token(1, token0, await token0Contract.decimals());
+  const tokenB = new Token(1, token1, await token1Contract.decimals());
   const pool = new Pool(
     tokenA,
     tokenB,
