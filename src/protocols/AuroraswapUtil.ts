@@ -4,10 +4,10 @@ import {
   JarDefinition,
 } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
-import wannaChefAbi from "../Contracts/ABIs/wanna-farms.json";
+import brlChefAbi from "../Contracts/ABIs/brl-farms.json";
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { ChainNetwork, Chains } from "../chain/Chains";
+import { Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
@@ -16,26 +16,29 @@ import {
   ONE_YEAR_IN_SECONDS,
 } from "../behavior/AbstractJarBehavior";
 
-export const WANNA_FARMS = "0x2B2e72C232685fC4D350Eaa92f39f6f8AD2e1593";
+export const BRL_FARMS = "0x35CC71888DBb9FfB777337324a4A60fdBAA19DDE";
 
-export const wannaPoolIds: PoolId = {
+export const brlPoolIds: PoolId = {
   "0xbf9Eef63139b67fd0ABf22bD5504ACB0519a4212": 0,
-  "0xBf560771B6002a58477EFBCDD6774A5a1947587B": 1,
-  "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67": 2,
-  "0x3502eaC6Fa27bEebDC5cd3615B7CB0784B0Ce48f": 3,
-  "0x256d03607eeE0156b8A2aB84da1D5B283219Fe97": 4,
-  "0xf56997948d4235514Dcc50fC0EA7C0e110EC255d": 5,
-  "0xbF58062D23f869a90c6Eb04B9655f0dfCA345947": 6,
-  "0xE6c47B036f6Fd0684B109B484aC46094e633aF2e": 7,
-  "0x7E9EA10E5984a09D19D05F31ca3cB65BB7df359d": 8,
-  "0x523faE29D7ff6FD38842c8F271eDf2ebd3150435": 9,
-  "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940": 10,
-  "0x24f6c59747e4AcEB3DBA365df77D68c2A3aA4fB1": 12,
-  "0x436C525D536adC447c7775575f88D357634734C1": 13,
-  "0xddCcf2F096fa400ce90ba0568908233e6A950961": 16
+  "0xc57eCc341aE4df32442Cf80F34f41Dc1782fE067": 1,
+  "0xEc538fAfaFcBB625C394c35b11252cef732368cd": 2,
+  "0x480A68bA97d70495e80e11e05D59f6C659749F27": 3,
+  "0xF3DE9dc38f62608179c45fE8943a0cA34Ba9CEfc": 4,
+  "0xe11A3f2BAB372d88D133b64487D1772847Eec4eA": 5,
+  "0xcb8584360Dc7A4eAC4878b48fB857AA794E46Fa8": 6,
+  "0x388D5EE199aC8dAD049B161b57487271Cd787941": 7,
+  "0x729dB9dB6d3cA82EF7e4c886C352749758BaD0eb": 8,
+  "0x314ab6AaeE15424ea8De07e2007646EcF3772357": 9,
+  "0x1C393468D95ADF8960E64939bCDd6eE602DE221C": 10,
+  "0x8F6e13B3D28B09535EB82BE539c1E4802B0c25B7": 11,
+  "0x8298B8C863c2213B9698A08de009cC0aB0F87FEe": 12,
+  "0x5BdAC608cd38C5C8738f5bE20813194A3150d4Ff": 13,
+  "0xEfCF518CA36DC3362F539965807b42A77DC26Be0": 14,
+  "0xDB0363ee28a5B40BDc2f4701e399c63E00f91Aa8": 15,
+  "0x84567E7511E0d97DE676d236AEa7aE688221799e": 16
 };
 
-export async function calculateWannaFarmsAPY(
+export async function calculateBrlFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
@@ -44,20 +47,20 @@ export async function calculateWannaFarmsAPY(
 
   const pricePerToken = await model.priceOf(jar.depositToken.addr);
 
-  const poolId = wannaPoolIds[jar.depositToken.addr];
-  const multicallWannaFarms = new MulticallContract(WANNA_FARMS, wannaChefAbi);
+  const poolId = brlPoolIds[jar.depositToken.addr];
+  const multicallBrlFarms = new MulticallContract(BRL_FARMS, brlChefAbi);
   const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
 
-  const [wannaPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
+  const [brlPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
     await multicallProvider.all([
-      multicallWannaFarms.wannaPerBlock(),
-      multicallWannaFarms.totalAllocPoint(),
-      multicallWannaFarms.poolInfo(poolId),
-      lpToken.balanceOf(WANNA_FARMS),
+      multicallBrlFarms.BRLPerBlock(),
+      multicallBrlFarms.totalAllocPoint(),
+      multicallBrlFarms.poolInfo(poolId),
+      lpToken.balanceOf(BRL_FARMS),
     ]);
 
   const rewardsPerBlock =
-    (parseFloat(formatEther(wannaPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
+    (parseFloat(formatEther(brlPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
   const rewardsPerYear =
@@ -65,16 +68,16 @@ export async function calculateWannaFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const wannaRewardedPerYear = (await model.priceOf("wanna")) * rewardsPerYear;
+  const brlRewardedPerYear = (await model.priceOf("brl")) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
-  const wannaAPY = wannaRewardedPerYear / totalValueStaked;
+  const brlAPY = brlRewardedPerYear / totalValueStaked;
 
-  return [createAprComponentImpl("wanna", wannaAPY * 100, true, 0.9)];
+  return [createAprComponentImpl("brl", brlAPY * 100, true, 0.9)];
 }
 
-const WANNA_PAIR_CACHE_KEY = "wanna.pair.data.cache.key";
+const BRL_PAIR_CACHE_KEY = "brl.pair.data.cache.key";
 
-const WANNA_QUERY_KEYS: string[] = [
+const BRL_QUERY_KEYS: string[] = [
   "pairAddress",
   "date",
   "reserveUSD",
@@ -86,14 +89,13 @@ const WANNA_QUERY_KEYS: string[] = [
   "totalSupply",
 ];
 
-export class WannaPairManager extends GenericSwapUtility {
+export class BrlPairManager extends GenericSwapUtility {
   constructor() {
     super(
-      WANNA_PAIR_CACHE_KEY,
+      BRL_PAIR_CACHE_KEY,
       "pairAddress",
-      WANNA_QUERY_KEYS,
-      AssetProtocol.WANNASWAP,
-      ChainNetwork.Aurora,
+      BRL_QUERY_KEYS,
+      AssetProtocol.AURORASWAP,
       0.002,
     );
   }

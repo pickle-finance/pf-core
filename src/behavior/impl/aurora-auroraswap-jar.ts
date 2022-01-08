@@ -1,12 +1,18 @@
-import { Signer } from "ethers";
+import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateTriFarmsAPY, triPoolV2Ids } from "../../protocols/TrisolarisUtil";
-import { triPoolIds, TRI_FARMS } from "../../protocols/TrisolarisUtil";
+import {
+  calculateBrlFarmsAPY,
+  brlPoolIds,
+  BRL_FARMS,
+} from "../../protocols/AuroraswapUtil";
+import brlChefAbi from "../../Contracts/ABIs/brl-farms.json";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
-export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
+export abstract class AuroraBrlJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
     super(5, 1);
@@ -17,14 +23,12 @@ export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       resolver,
-      ["tri"],
-      TRI_FARMS,
-      "pendingTri",
-      triPoolIds[jar.depositToken.addr] || triPoolV2Ids[jar.depositToken.addr],
+      ["brl"],
+      this.strategyAbi,
     );
   }
 
@@ -33,7 +37,7 @@ export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     return this.aprComponentsToProjectedApr(
-      await calculateTriFarmsAPY(definition, model),
+      await calculateBrlFarmsAPY(definition, model),
     );
   }
 }
