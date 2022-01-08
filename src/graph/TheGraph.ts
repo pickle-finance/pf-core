@@ -30,6 +30,7 @@ const SUBGRAPH_URL_COMETH =
 const SUBGRAPH_URL_QUICKSWAP =
   "https://api.thegraph.com/subgraphs/name/sameepsi/quickswap06";
 const SUBGRAPH_URL_SOLARSWAP = "https://analytics.solarbeam.io/api/subgraph";
+const SUBGRAPH_URL_BALANCER = "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2";
 const SUBGRAPH_URL_BALANCER_ARBITRUM =
   "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-arbitrum-v2";
 const SUBGRAPH_URL_VVS_CRONOS = "https://graph.vvs.finance/exchange";
@@ -74,32 +75,24 @@ export function graphUrlFromDetails(
       }
       break;
     }
-    case AssetProtocol.COMETHSWAP:
-      return SUBGRAPH_URL_COMETH;
-    case AssetProtocol.QUICKSWAP:
-      return SUBGRAPH_URL_QUICKSWAP;
-    case AssetProtocol.SOLARSWAP:
-      return SUBGRAPH_URL_SOLARSWAP;
-    case AssetProtocol.BALANCER:
-      return SUBGRAPH_URL_BALANCER_ARBITRUM;
-    case AssetProtocol.VVS:
-      return SUBGRAPH_URL_VVS_CRONOS;
-    case AssetProtocol.TETHYS:
-      return SUBGRAPH_URL_TETHYS;
-    case AssetProtocol.LOOKS:
-      return SUBGRAPH_URL_LOOKS;
-    case AssetProtocol.SUSHISWAP:
-      {
-        switch (chain) {
-          case ChainNetwork.Ethereum:
-            return SUBGRAPH_URL_SUSHISWAP;
-          case ChainNetwork.Polygon:
-            return SUBGRAPH_URL_SUSHISWAP_POLYGON;
-          case ChainNetwork.Arbitrum:
-            return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
-          case ChainNetwork.Harmony:
-            return SUBGRAPH_URL_SUSHISWAP_HARMONY;
-        }
+    case AssetProtocol.COMETHSWAP: return SUBGRAPH_URL_COMETH;
+    case AssetProtocol.QUICKSWAP: return SUBGRAPH_URL_QUICKSWAP;
+    case AssetProtocol.SOLARSWAP: return SUBGRAPH_URL_SOLARSWAP;
+    case AssetProtocol.BALANCER: {
+      switch(chain) {
+        case ChainNetwork.Ethereum: return SUBGRAPH_URL_BALANCER;
+        case ChainNetwork.Arbitrum: return SUBGRAPH_URL_BALANCER_ARBITRUM;
+      }
+    }
+    case AssetProtocol.VVS: return SUBGRAPH_URL_VVS_CRONOS;
+    case AssetProtocol.TETHYS: return SUBGRAPH_URL_TETHYS;
+    case AssetProtocol.LOOKS: return SUBGRAPH_URL_LOOKS;
+    case AssetProtocol.SUSHISWAP: {
+      switch(chain) {
+        case ChainNetwork.Ethereum: return SUBGRAPH_URL_SUSHISWAP;
+        case ChainNetwork.Polygon: return SUBGRAPH_URL_SUSHISWAP_POLYGON;
+        case ChainNetwork.Arbitrum: return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
+        case ChainNetwork.Harmony: return SUBGRAPH_URL_SUSHISWAP_HARMONY;
       }
       // ADD_PROTOCOL
       return undefined;

@@ -1,7 +1,7 @@
 import { BigNumber, Contract, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20 from "../Contracts/ABIs/erc20.json";
-import { ChainNetwork, PickleModel } from "..";
+import { ChainNetwork, Chains, PickleModel } from "..";
 import fetch from "cross-fetch";
 import { readQueryFromGraphDetails } from "../graph/TheGraph";
 import {
@@ -10,7 +10,7 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
-// import { ARBITRUM_SECONDS_PER_BLOCK } from "../chain/Chains";
+import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 
 const balLMUrl =
   "https://raw.githubusercontent.com/balancer-labs/frontend-v2/master/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
@@ -57,40 +57,50 @@ type LiquidityMiningWeek = Array<{
 
 const balPoolIds: { [poolTokenAddress: string]: string } = {
   "0x64541216bafffeec8ea535bb71fbc927831d0595":
-    "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // bal tricrypto
+    "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // arb bal tricrypto
   "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac":
-    "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017", // bal pickle-eth
+    "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017", // arb bal pickle-eth
+  "0x5c6Ee304399DBdB9C8Ef030aB642B10820DB8F56":
+    "0x5c6ee304399dbdb9c8ef030ab642b10820db8f56000200000000000000000014", // mainnet bal bal-eth
 };
 
-interface Tokens {
-  [tokenAddres: string]: {
-    decimals: number;
-    priceId: string;
-  };
-}
+// interface Tokens {
+//   [tokenAddres: string]: {
+//     decimals: number;
+//     priceId: string;
+//   };
+// }
 
-const TOKENS: Tokens = {
-  "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8": {
-    decimals: 18,
-    priceId: "bal",
-  },
-  "0x965772e0e9c84b6f359c8597c891108dcf1c5b1a": {
-    decimals: 18,
-    priceId: "pickle",
-  },
-  "0x82af49447d8a07e3bd95bd0d56f35241523fbab1": {
-    decimals: 18,
-    priceId: "weth",
-  },
-  "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8": {
-    priceId: "usdc",
-    decimals: 6,
-  },
-  "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f": {
-    priceId: "wbtc",
-    decimals: 8,
-  },
-};
+// const TOKENS: Tokens = {
+//   "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8": {
+//     decimals: 18,
+//     priceId: "bal",
+//   },
+//   "0xba100000625a3754423978a60c9317c58a424e3d": {
+//     decimals: 18,
+//     priceId: "bal",
+//   },
+//   "0x965772e0e9c84b6f359c8597c891108dcf1c5b1a": {
+//     decimals: 18,
+//     priceId: "pickle",
+//   },
+//   "0x82af49447d8a07e3bd95bd0d56f35241523fbab1": {
+//     decimals: 18,
+//     priceId: "weth",
+//   },
+//   "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
+//     decimals: 18,
+//     priceId: "weth"
+//   },
+//   "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8": {
+//     priceId: "usdc",
+//     decimals: 6,
+//   },
+//   "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f": {
+//     priceId: "wbtc",
+//     decimals: 8,
+//   },
+// };
 
 interface GraphResponse {
   address: string;
@@ -105,15 +115,20 @@ export interface PoolData {
 }
 
 export const queryTheGraph = async (
-  poolAddress: string,
+  jar: JarDefinition,
   blockNumber: number,
 ): Promise<GraphResponse> => {
-  blockNumber -= 300; // safety buffer, the graph can take more than 1000 blocks to update!
-  const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
+  blockNumber -=
+    jar.chain === ChainNetwork.Ethereum
+      ? 30 // safety buffer, the graph on mainnet is quite instantaneous, but just to be safe
+      : jar.chain === ChainNetwork.Arbitrum
+      ? 300 // safety buffer, the graph on arbitrum can take more than 1000 blocks to update!
+      : 0;
+  const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${jar.depositToken.addr}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
   const res = await readQueryFromGraphDetails(
     query,
     AssetProtocol.BALANCER,
-    ChainNetwork.Arbitrum,
+    jar.chain,
   );
   const poolData = res?.data?.pools[0];
   try {
@@ -129,20 +144,19 @@ export const queryTheGraph = async (
 };
 
 export const getBalancerPoolDayAPY = async (
-  poolAddress: string,
+  jar: JarDefinition,
   model: PickleModel,
 ) => {
   // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
-  const arbBlocktime = 3; // in Chains.ts the value is set to 13
-  const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = await provider.getBlockNumber();
+  const blocktime =
+  jar.chain === ChainNetwork.Arbitrum
+    ? 3   // in Chains.ts the value is wrongly set to 13
+    : Chains.get(jar.chain).secondsPerBlock;
+  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
-  const blocksInDay = Math.round(secondsInDay / arbBlocktime);
-  const currentPoolDayDate = await queryTheGraph(poolAddress, blockNum);
-  const yesterdayPoolDayData = await queryTheGraph(
-    poolAddress,
-    blockNum - blocksInDay,
-  );
+  const blocksInDay = Math.round(secondsInDay / blocktime);
+  const currentPoolDayDate = await queryTheGraph(jar, blockNum);
+  const yesterdayPoolDayData = await queryTheGraph(jar, blockNum - blocksInDay);
   const lastDaySwapFee =
     currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
   const apy = (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
@@ -154,19 +168,20 @@ export const getBalancerPerformance = async (
   asset: JarDefinition,
   model: PickleModel,
 ): Promise<HistoricalYield> => {
-  const poolAddress = asset.depositToken.addr;
-  const arbBlocktime = 3; // in Chains.ts the value is set to 13
-  const provider = model.providerFor(asset.chain);
-  const blockNum = await provider.getBlockNumber();
+  const blocktime =
+    asset.chain === ChainNetwork.Arbitrum
+      ? 3   // in Chains.ts the value is wrongly set to 13
+      : Chains.get(asset.chain).secondsPerBlock;
+  const blockNum = await model.providerFor(asset.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
-  const blocksInDay = Math.round(secondsInDay / arbBlocktime);
+  const blocksInDay = Math.round(secondsInDay / blocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
     await Promise.all([
-      queryTheGraph(poolAddress, blockNum),
-      queryTheGraph(poolAddress, blockNum - blocksInDay),
-      queryTheGraph(poolAddress, blockNum - blocksInDay * 3),
-      queryTheGraph(poolAddress, blockNum - blocksInDay * 7),
-      queryTheGraph(poolAddress, blockNum - blocksInDay * 30),
+      queryTheGraph(asset, blockNum),
+      queryTheGraph(asset, blockNum - blocksInDay),
+      queryTheGraph(asset, blockNum - blocksInDay * 3),
+      queryTheGraph(asset, blockNum - blocksInDay * 7),
+      queryTheGraph(asset, blockNum - blocksInDay * 30),
     ]);
   const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
   const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
@@ -198,7 +213,8 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
       parseFloat(
         ethers.utils.formatUnits(
           balances[i],
-          TOKENS[tokenAddr.toLowerCase()].decimals,
+          // TOKENS[tokenAddr.toLowerCase()].decimals,
+          model.tokenDecimals(tokenAddr, jar.chain),
         ),
       ),
     ];
@@ -224,7 +240,7 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
 };
 
 export const calculateBalPoolAPRs = async (
-  depositToken: string,
+  jar: JarDefinition,
   model: PickleModel,
   poolData: PoolData,
 ): Promise<AssetAprComponent[]> => {
@@ -254,13 +270,17 @@ export const calculateBalPoolAPRs = async (
   const { totalPoolValue } = poolData;
 
   const poolRewardsPerWeek =
-    miningRewards[balPoolIds[depositToken.toLowerCase()]];
+    miningRewards[balPoolIds[jar.depositToken.addr.toLowerCase()]];
   const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
     (reward) => {
       const rewardValue =
         reward.amount *
-        model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
-      const name = TOKENS[reward.tokenAddress.toLowerCase()].priceId;
+        // model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
+        model.priceOfSync(reward.tokenAddress);
+      const name = ExternalTokenModelSingleton.getToken(
+        reward.tokenAddress,
+        jar.chain,
+      ).id; // TOKENS[reward.tokenAddress.toLowerCase()].priceId;
       const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
       return { name: name, apr: apr, compoundable: true };
     },
@@ -268,7 +288,7 @@ export const calculateBalPoolAPRs = async (
 
   const lp: AssetAprComponent = {
     name: "lp",
-    apr: (await getBalancerPoolDayAPY(depositToken, model)).lp,
+    apr: (await getBalancerPoolDayAPY(jar, model)).lp,
     compoundable: false,
   };
 

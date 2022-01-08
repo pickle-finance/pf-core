@@ -465,6 +465,7 @@ jarToBehavior.set(JAR_ARBITRUM_DODO_USDC.id, new ArbitrumDodoUsdc());
 jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_SLP_GOHM_ETH.id, new ArbitrumGohmEth());
 jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
+// jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalPickleEth());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());

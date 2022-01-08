@@ -7,7 +7,7 @@ import {
 } from "../../protocols/BalancerUtil";
 import { BalancerJar } from "./balancer-jar";
 
-export class BalTricrypto extends BalancerJar {
+export class BalPickleEth extends BalancerJar {
   poolData: PoolData | undefined;
 
   async getDepositTokenPrice(
