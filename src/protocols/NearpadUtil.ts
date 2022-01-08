@@ -7,7 +7,7 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import sushiChefAbi from "../Contracts/ABIs/sushi-chef.json";
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Chains } from "../chain/Chains";
+import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
@@ -85,6 +85,7 @@ export class NearpadPairManager extends GenericSwapUtility {
       "pairAddress",
       PAD_QUERY_KEYS,
       AssetProtocol.NEARPAD,
+      ChainNetwork.Aurora,
       0.002,
     );
   }

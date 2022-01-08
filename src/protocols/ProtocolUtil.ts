@@ -1,5 +1,7 @@
+import { ChainNetwork } from "..";
 import { PickleAsset, AssetProtocol } from "../model/PickleModelJson";
 import { ComethPairManager } from "./ComethUtil";
+import { GenericSwapUtility } from "./GenericSwapUtil";
 import { QuickswapPairManager } from "./QuickswapUtil";
 import { SushiEthPairManager, SushiPolyPairManager, SushiArbPairManager } from "./SushiSwapUtil";
 import { UniPairManager } from "./UniswapUtil";
@@ -19,26 +21,20 @@ export interface PoolInfo {
   };
 }
 
-// ADD_PROTOCOL
-export function getSwapUtilityForProtocol(asset: PickleAsset) {
-  if( asset.protocol === AssetProtocol.SUSHISWAP) 
+export function getSwapUtilityForAsset(asset: PickleAsset): GenericSwapUtility | undefined {
+  const chain: ChainNetwork = asset.chain;
+  if( asset.protocol === AssetProtocol.SUSHISWAP && chain === ChainNetwork.Ethereum) 
     return new SushiEthPairManager();
-  if( asset.protocol === AssetProtocol.SUSHISWAP_POLYGON) 
+  if( asset.protocol === AssetProtocol.SUSHISWAP && chain === ChainNetwork.Polygon) 
     return new SushiPolyPairManager();
-  if( asset.protocol === AssetProtocol.SUSHISWAP_ARBITRUM) 
+  if( asset.protocol === AssetProtocol.SUSHISWAP && chain === ChainNetwork.Arbitrum) 
     return new SushiArbPairManager();
   if( asset.protocol === AssetProtocol.UNISWAP) 
     return new UniPairManager();
   if( asset.protocol === AssetProtocol.COMETHSWAP) 
     return new ComethPairManager();
-  if( asset.protocol === AssetProtocol.QUICKSWAP_POLYGON) 
+  if( asset.protocol === AssetProtocol.QUICKSWAP) 
     return new QuickswapPairManager();
-
-  // TODO
-  if( asset.protocol === AssetProtocol.DODOSWAP) 
-    return undefined;
-  if( asset.protocol === AssetProtocol.CHERRYSWAP) 
-    return undefined;
-  if( asset.protocol === AssetProtocol.JSWAP) 
-    return undefined;
+  // ADD_PROTOCOL
+  return undefined;
 }

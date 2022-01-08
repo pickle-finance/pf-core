@@ -153,8 +153,12 @@ import {
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
+<<<<<<< HEAD
   JAR_AURORA_ROSE_FRAX,
   JAR_AURORA_TRI_USDT
+=======
+  JAR_POLY_UNIV3_USDC_ETH
+>>>>>>> main
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -311,6 +315,7 @@ import { BrlUsdcNear } from "./impl/aurora-brl-usdc-near";
 import { BrlUsdtNear } from "./impl/aurora-brl-usdt-near";
 import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
 import { BrlUstNear } from "./impl/aurora-brl-ust-near";
+import { Uni3UsdcEth } from "./impl/univ3-usdc-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -378,6 +383,7 @@ jarToBehavior.set(JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set(JAR_QUICK_QI_MATIC.id, new MaticQi());
 jarToBehavior.set(JAR_IRON3USD.id, new Is3Usd());
 jarToBehavior.set(JAR_POLY_SUSHI_WORK_USDC.id, new PSlpWorkUsdc());
+jarToBehavior.set(JAR_POLY_UNIV3_USDC_ETH.id, new Uni3UsdcEth());
 
 // Arbitrum
 jarToBehavior.set(JAR_ARBITRUM_SLP_MIM_ETH.id, new ArbitrumMimEth());

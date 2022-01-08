@@ -1,4 +1,4 @@
-import { PickleModel } from "..";
+import { ChainNetwork, PickleModel } from "..";
 import { AssetProtocol } from "../model/PickleModelJson";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
@@ -21,6 +21,7 @@ export class UniPairManager extends GenericSwapUtility {
       "pairAddress",
       UNI_PAIR_GRAPH_FIELDS,
       AssetProtocol.UNISWAP,
+      ChainNetwork.Ethereum,
       0.003,
     );
   }

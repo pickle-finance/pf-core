@@ -1,5 +1,5 @@
-import { JarDefinition } from "../model/PickleModelJson";
-import { readQueryFromGraphProtocol } from "../graph/TheGraph";
+import { AssetProtocol, JarDefinition } from "../model/PickleModelJson";
+import { readQueryFromGraphDetails } from "../graph/TheGraph";
 
 export interface PerformanceData {
   oneDay: number;
@@ -25,9 +25,9 @@ export async function getProtocolPerformance(
 ): Promise<PerformanceData> {
   if (!asset.protocol) return undefined;
   switch (asset.protocol) {
-    case "uniswap":
-    case "sushiswap":
-    case "comethswap":
+    case AssetProtocol.UNISWAP:
+    case AssetProtocol.SUSHISWAP:
+    case AssetProtocol.COMETHSWAP:
       return await getSwapPerformance(asset);
     default:
       return undefined;
@@ -46,7 +46,7 @@ export async function getSwapPerformance(
         }
       }
     `;
-  const asJson = await readQueryFromGraphProtocol(query, asset.protocol);
+  const asJson = await readQueryFromGraphDetails(query, asset.protocol, asset.chain);
   const pairDayResponse = asJson.data.pairDayDatas;
 
   const returnObj: PerformanceData = {

@@ -1,3 +1,4 @@
+import { ChainNetwork } from "..";
 import { AssetProtocol } from "../model/PickleModelJson";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
@@ -20,7 +21,8 @@ export class QuickswapPairManager extends GenericSwapUtility {
       QUICKSWAP_PAIR_CACHE_KEY,
       "pairAddress",
       QUICKSWAP_QUERY_KEYS,
-      AssetProtocol.QUICKSWAP_POLYGON,
+      AssetProtocol.QUICKSWAP,
+      ChainNetwork.Polygon,
       0.005,
     );
   }

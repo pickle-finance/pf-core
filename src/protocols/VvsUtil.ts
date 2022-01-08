@@ -3,7 +3,7 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import vvsFarmsAbi from "../Contracts/ABIs/vvs-farms.json";
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Chains } from "../chain/Chains";
+import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
@@ -79,7 +79,8 @@ export class VvsswapPairManager extends GenericSwapUtility {
       VVS_PAIR_CACHE_KEY,
       "pairAddress",
       VVS_QUERY_KEYS,
-      AssetProtocol.VVS_CRONOS,
+      AssetProtocol.VVS,
+      ChainNetwork.Cronos,
       0.002,
     );
   }

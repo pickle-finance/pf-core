@@ -50,7 +50,8 @@ export class SushiArbPairManager extends GenericSwapUtility {
       SUSHI_ARB_PAIR_DATA_CACHE_KEY,
       "pair",
       SUSHI_POLY_PAIR_GRAPH_FIELDS, //Same fields as Polygon
-      AssetProtocol.SUSHISWAP_ARBITRUM,
+      AssetProtocol.SUSHISWAP,
+      ChainNetwork.Arbitrum,
       0.0025,
     );
   }
@@ -80,7 +81,8 @@ export class SushiOnePairManager extends GenericSwapUtility {
       SUSHI_ONE_PAIR_DATA_CACHE_KEY,
       "pair",
       SUSHI_POLY_PAIR_GRAPH_FIELDS, //Same fields as Polygon
-      AssetProtocol.SUSHISWAP_HARMONY,
+      AssetProtocol.SUSHISWAP,
+      ChainNetwork.Harmony,
       0.0025,
     );
   }
@@ -121,7 +123,8 @@ export class SushiPolyPairManager extends GenericSwapUtility {
       SUSHI_POLY_PAIR_DATA_CACHE_KEY,
       "pair",
       SUSHI_POLY_PAIR_GRAPH_FIELDS,
-      AssetProtocol.SUSHISWAP_POLYGON,
+      AssetProtocol.SUSHISWAP,
+      ChainNetwork.Polygon,
       0.0025,
     );
   }
@@ -163,6 +166,7 @@ export class SushiEthPairManager extends GenericSwapUtility {
       "pairAddress",
       SUSHI_ETH_PAIR_GRAPH_FIELDS,
       AssetProtocol.SUSHISWAP,
+      ChainNetwork.Ethereum,
       0.0025,
     );
   }

@@ -41,20 +41,6 @@ export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
   // TODO - add Pickle subgraph on Harmony
 ]);
 
-// ADD_PROTOCOL
-export const protocolToSubgraphUrl: Map<string, string> = new Map([
-  [AssetProtocol.UNISWAP, SUBGRAPH_URL_UNISWAP],
-  [AssetProtocol.SUSHISWAP, SUBGRAPH_URL_SUSHISWAP],
-  [AssetProtocol.SUSHISWAP_POLYGON, SUBGRAPH_URL_SUSHISWAP_POLYGON],
-  [AssetProtocol.SUSHISWAP_ARBITRUM, SUBGRAPH_URL_SUSHISWAP_ARBITRUM],
-  [AssetProtocol.SUSHISWAP_HARMONY, SUBGRAPH_URL_SUSHISWAP_HARMONY],
-  [AssetProtocol.COMETHSWAP, SUBGRAPH_URL_COMETH],
-  [AssetProtocol.QUICKSWAP_POLYGON, SUBGRAPH_URL_QUICKSWAP], //TODO is this right?
-  [AssetProtocol.SOLARSWAP, SUBGRAPH_URL_SOLARSWAP],
-  [AssetProtocol.BALANCER_ARBITRUM, SUBGRAPH_URL_BALANCER_ARBITRUM],
-  [AssetProtocol.VVS_CRONOS, SUBGRAPH_URL_VVS_CRONOS],
-]);
-
 export async function readQueryFromPickleSubgraph(
   query: string,
   chain: ChainNetwork,
@@ -62,11 +48,33 @@ export async function readQueryFromPickleSubgraph(
   return await readQueryFromGraph(query, chainToPickleSubgraphUrl.get(chain));
 }
 
-export async function readQueryFromGraphProtocol(
+export async function readQueryFromGraphDetails(
   query: string,
-  protocol: string,
+  protocol: AssetProtocol,
+  chain: ChainNetwork
 ): Promise<any> {
-  return await readQueryFromGraph(query, protocolToSubgraphUrl.get(protocol));
+  return await readQueryFromGraph(query, graphUrlFromDetails(protocol, chain));
+}
+
+export function graphUrlFromDetails(protocol: AssetProtocol, chain: ChainNetwork): string {
+  switch(protocol) {
+    case AssetProtocol.UNISWAP: return SUBGRAPH_URL_UNISWAP;
+    case AssetProtocol.COMETHSWAP: return SUBGRAPH_URL_COMETH;
+    case AssetProtocol.QUICKSWAP: return SUBGRAPH_URL_QUICKSWAP;
+    case AssetProtocol.SOLARSWAP: return SUBGRAPH_URL_SOLARSWAP;
+    case AssetProtocol.BALANCER: return SUBGRAPH_URL_BALANCER_ARBITRUM;
+    case AssetProtocol.VVS: return SUBGRAPH_URL_VVS_CRONOS;
+    case AssetProtocol.SUSHISWAP: {
+      switch(chain) {
+        case ChainNetwork.Ethereum: return SUBGRAPH_URL_SUSHISWAP;
+        case ChainNetwork.Polygon: return SUBGRAPH_URL_SUSHISWAP_POLYGON;
+        case ChainNetwork.Arbitrum: return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
+        case ChainNetwork.Harmony: return SUBGRAPH_URL_SUSHISWAP_HARMONY;
+      }
+    }
+    // ADD_PROTOCOL
+    return undefined;
+  }
 }
 
 export async function readQueryFromGraph(
