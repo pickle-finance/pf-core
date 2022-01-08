@@ -1,7 +1,7 @@
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
-import { AuroraBrlJar } from "./aurora-auroraswap-jar";
+import { AuroraTriJar } from "./aurora-tri-jar";
 
-export class BrlEthBtc extends AuroraBrlJar {
+export class TriTriUsdt extends AuroraTriJar {
   constructor() {
     super(sushiStrategyAbi);
   }

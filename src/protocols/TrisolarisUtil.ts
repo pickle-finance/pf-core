@@ -48,6 +48,10 @@ export const triPoolV2Ids = {
     poolId: 3,
     rewarder: "",
   },
+  "0x61C9E05d1Cdb1b70856c7a2c53fA9c220830633c": {
+    poolId: 4,
+    rewarder: ""
+  }
 };
 
 export async function calculateTriFarmsAPY(

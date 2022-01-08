@@ -142,7 +142,6 @@ import {
   JAR_AURORA_BRL_BRL_ETH,
   JAR_AURORA_BRL_BRL_NEAR,
   JAR_AURORA_BRL_BUSD_NEAR,
-  JAR_AURORA_BRL_ETH_BTC,
   JAR_AURORA_BRL_MATIC_NEAR,
   JAR_AURORA_BRL_NEAR_BTC,
   JAR_AURORA_BRL_NEAR_ETH,
@@ -154,7 +153,8 @@ import {
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
-  JAR_AURORA_ROSE_FRAX
+  JAR_AURORA_ROSE_FRAX,
+  JAR_AURORA_TRI_USDT
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -272,6 +272,7 @@ import { TriAuroraEth } from "./impl/aurora-tri-aurora-eth";
 import { TriAuroraLp } from "./impl/aurora-tri-lp";
 import { TriNearLuna } from "./impl/aurora-tri-near-luna";
 import { TriUstNear } from "./impl/aurora-tri-ust-near";
+import { TriTriUsdt } from "./impl/aurora-tri-tri-usdt";
 import { PadNearBtc } from "./impl/aurora-nearpad-near-btc";
 import { WannaNear } from "./impl/aurora-wanna-near";
 import { WannaNearDai } from "./impl/aurora-wanna-near-dai";
@@ -302,7 +303,6 @@ import { BrlBrlAurora } from "./impl/aurora-brl-brl-aurora";
 import { BrlBrlEth } from "./impl/aurora-brl-brl-eth";
 import { BrlBrlNear } from "./impl/aurora-brl-brl-near";
 import { BrlBusdNear } from "./impl/aurora-brl-busd-near";
-import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
 import { BrlMaticNear } from "./impl/aurora-brl-matic-near";
 import { BrlNearBtc } from "./impl/aurora-brl-near-btc";
 import { BrlNearEth } from "./impl/aurora-brl-near-eth";
@@ -482,7 +482,6 @@ jarToBehavior.set(JAR_AURORA_BRL_BRL_AURORA.id, new BrlBrlAurora());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_ETH.id, new BrlBrlEth());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_NEAR.id, new BrlBrlNear());
 jarToBehavior.set(JAR_AURORA_BRL_BUSD_NEAR.id, new BrlBusdNear());
-jarToBehavior.set(JAR_AURORA_BRL_ETH_BTC.id, new BrlEthBtc());
 jarToBehavior.set(JAR_AURORA_BRL_MATIC_NEAR.id, new BrlMaticNear());
 jarToBehavior.set(JAR_AURORA_BRL_NEAR_BTC.id, new BrlNearBtc());
 jarToBehavior.set(JAR_AURORA_BRL_NEAR_ETH.id, new BrlNearEth());
@@ -491,7 +490,7 @@ jarToBehavior.set(JAR_AURORA_BRL_USDC_NEAR.id, new BrlUsdcNear());
 jarToBehavior.set(JAR_AURORA_BRL_USDT_NEAR.id, new BrlUsdtNear());
 jarToBehavior.set(JAR_AURORA_BRL_USDT_USDC.id, new BrlUsdtUsdc());
 jarToBehavior.set(JAR_AURORA_BRL_UST_NEAR.id, new BrlUstNear());
-
+jarToBehavior.set(JAR_AURORA_TRI_USDT.id, new TriTriUsdt());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

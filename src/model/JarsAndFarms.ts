@@ -3263,6 +3263,31 @@ export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_UST_NEAR);
 
+export const JAR_AURORA_TRI_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1k",
+  contract: "0x820980948220115Ccc64C66Ef71E65c2b7239664",
+  depositToken: {
+    addr: "0x61C9E05d1Cdb1b70856c7a2c53fA9c220830633c",
+    name: "TRI TRI/USDT",
+    link: "https://www.trisolaris.io/#/add/0xFa94348467f64D5A457F75F8bc40495D33c65aBB/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
+    components: ["tri", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-TRI/USDT",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTLP TRI/USDT",
+    farmDepositTokenName: "pTLP UST/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT);
+
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",
@@ -3963,31 +3988,6 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_BUSD_NEAR);
-
-export const JAR_AURORA_BRL_ETH_BTC: JarDefinition = {
-  type: AssetType.JAR,
-  id: "nearJar 5h",
-  contract: "0x6bcd59972Af5b6C27e7Df3FA49787B5Fb578E083",
-  depositToken: {
-    addr: "0xcb8584360Dc7A4eAC4878b48fB857AA794E46Fa8",
-    name: "BRL ETH/BTC",
-    link: "https://swap.auroraswap.finance/#/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
-    components: ["eth", "btc"],
-  },
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.AURORASWAP,
-  details: {
-    apiKey: "ALP-ETH/BTC",
-    harvestStyle: HarvestStyle.CUSTOM,
-  },
-  farm: {
-    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
-    farmNickname: "pALP ETH/BTC",
-    farmDepositTokenName: "pALP ETH/BTC",
-  },
-};
-JAR_DEFINITIONS.push(JAR_AURORA_BRL_ETH_BTC);
 
 export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
   type: AssetType.JAR,
