@@ -88,31 +88,3 @@ const BRL_QUERY_KEYS: string[] = [
   "token1{id}",
   "totalSupply",
 ];
-
-export class BrlPairManager extends GenericSwapUtility {
-  constructor() {
-    super(
-      BRL_PAIR_CACHE_KEY,
-      "pairAddress",
-      BRL_QUERY_KEYS,
-      AssetProtocol.AURORASWAP,
-      0.002,
-    );
-  }
-  pairAddressFromDayData(dayData: any): string {
-    return dayData.pairAddress;
-  }
-  toExtendedPairData(pair: any): IExtendedPairData {
-    return {
-      pairAddress: pair.pairAddress,
-      reserveUSD: pair.reserveUSD,
-      dailyVolumeUSD: pair.dailyVolumeUSD,
-      reserve0: pair.reserve0,
-      reserve1: pair.reserve1,
-      token0Id: pair.token0.id,
-      token1Id: pair.token1.id,
-      totalSupply: pair.totalSupply,
-      pricePerToken: pair.reserveUSD / pair.totalSupply,
-    };
-  }
-}
