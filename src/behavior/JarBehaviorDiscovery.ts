@@ -153,12 +153,9 @@ import {
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
-<<<<<<< HEAD
   JAR_AURORA_ROSE_FRAX,
-  JAR_AURORA_TRI_USDT
-=======
+  JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH
->>>>>>> main
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
