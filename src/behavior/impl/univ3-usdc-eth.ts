@@ -8,6 +8,7 @@ import {
 } from "../../protocols/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import jarV3Abi from "../../Contracts/ABIs/jar-v3.json";
+import { univ3StrategyABI } from "../../Contracts/ABIs/univ3Strategy.abi";
 export class Uni3UsdcEth extends AbstractJarBehavior {
   async getDepositTokenPrice(
     definition: JarDefinition,
@@ -50,11 +51,28 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
     _available: BigNumber,
     _resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
+
+    const strategy = new ethers.Contract(
+      "0xcDF83A6878C50AD403dF0D68F229696a70972bEf",
+      univ3StrategyABI,
+      _resolver,
+    );
+
+
+    const [bal0, bal1] = await strategy.callStatic.getHarvestable({from:"0x0f571d2625b503bb7c1d2b5655b483a2fa696fef"}); // This is Tsuke
+
+    const decimals0 : number = _model.tokenDecimals("usdc", definition.chain);
+    const decimals1 : number = _model.tokenDecimals("weth", definition.chain);
+
+    const harvestableUSD =
+      _model.priceOfSync("usdc") * parseFloat(ethers.utils.formatUnits(bal0, decimals0)) +
+      _model.priceOfSync("weth") * parseFloat(ethers.utils.formatUnits(bal1, decimals1));
+
     return {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: 0, // This jar is always earned on user deposit
-      harvestableUSD: 0, // TODO - when getHarvestable lens function is provided
+      harvestableUSD: harvestableUSD,
     };
   }
   async getProjectedAprStats(
