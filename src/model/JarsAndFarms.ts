@@ -4018,6 +4018,31 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_BUSD_NEAR);
 
+export const JAR_AURORA_BRL_ETH_BTC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 5h",
+  contract: "0x6bcd59972Af5b6C27e7Df3FA49787B5Fb578E083",
+  depositToken: {
+    addr: "0xcb8584360Dc7A4eAC4878b48fB857AA794E46Fa8",
+    name: "BRL ETH/BTC",
+    link: "https://swap.auroraswap.finance/#/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
+    components: ["eth", "btc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.AURORASWAP,
+  details: {
+    apiKey: "ALP-ETH/BTC",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pALP ETH/BTC",
+    farmDepositTokenName: "pALP ETH/BTC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_BRL_ETH_BTC);
+
 export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 5i",

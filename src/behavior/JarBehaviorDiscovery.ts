@@ -155,7 +155,8 @@ import {
   JAR_CURVE_CVXETHLP,
   JAR_AURORA_ROSE_FRAX,
   JAR_AURORA_TRI_USDT,
-  JAR_POLY_UNIV3_USDC_ETH
+  JAR_POLY_UNIV3_USDC_ETH,
+  JAR_AURORA_BRL_ETH_BTC
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -313,6 +314,7 @@ import { BrlUsdtNear } from "./impl/aurora-brl-usdt-near";
 import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
 import { BrlUstNear } from "./impl/aurora-brl-ust-near";
 import { Uni3UsdcEth } from "./impl/univ3-usdc-eth";
+import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -485,6 +487,7 @@ jarToBehavior.set(JAR_AURORA_BRL_BRL_AURORA.id, new BrlBrlAurora());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_ETH.id, new BrlBrlEth());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_NEAR.id, new BrlBrlNear());
 jarToBehavior.set(JAR_AURORA_BRL_BUSD_NEAR.id, new BrlBusdNear());
+jarToBehavior.set(JAR_AURORA_BRL_ETH_BTC.id, new BrlEthBtc());
 jarToBehavior.set(JAR_AURORA_BRL_MATIC_NEAR.id, new BrlMaticNear());
 jarToBehavior.set(JAR_AURORA_BRL_NEAR_BTC.id, new BrlNearBtc());
 jarToBehavior.set(JAR_AURORA_BRL_NEAR_ETH.id, new BrlNearEth());
