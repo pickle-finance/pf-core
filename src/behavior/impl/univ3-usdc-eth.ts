@@ -50,7 +50,7 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
     _resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
     const strategy = new ethers.Contract(
-      "0xcDF83A6878C50AD403dF0D68F229696a70972bEf",
+      definition.details.strategyAddr,
       univ3StrategyABI,
       _resolver,
     );
