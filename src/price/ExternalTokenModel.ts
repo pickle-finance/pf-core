@@ -119,29 +119,29 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Polygon, "work", "the-employment-commons-work-token", "0x6002410dda2fb88b4d0dc3c1d562f7761191ea80".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
 
     // Arbitrum
-    this.addToken(ChainNetwork.Arbitrum, "spell", "spell-token", "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "weth", "weth", "0x82af49447d8a07e3bd95bd0d56f35241523fbab1".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "sushi", "sushi", "0xd4d42f0b6def4ce0383636770ef773390d85c61a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "mim", "magic-internet-money", "0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "crv", "curve-dao-token", "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "wbtc", "wrapped-bitcoin", "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f".toLowerCase(), 8, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "usdt", "usdt", "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "2crv", "2crv", "0xbf7e49483881c76487b0989cd7d9a8239b20ca41".toLowerCase(), 18, ExternalTokenFetchStyle.NONE,);
-    this.addToken(ChainNetwork.Arbitrum, "dodo", "dodo", "0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    this.addToken(ChainNetwork.Arbitrum, "hnd", "hundred-finance", "0x10010078a54396f62c96df8532dc2b4847d47ed3".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "pickle", "pickle-finance", "0x965772e0E9c84b6f359c8597C891108DcF1c5B1A".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "bal", "balancer", "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "usdc", "usd-coin", "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
-    this.addToken(
-      ChainNetwork.Arbitrum,
-      "usdc",
-      "usd-coin",
-      "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),
-      6,
-      ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(ChainNetwork.Arbitrum, "gohm", "governance-ohm", "0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
-    this.addToken(ChainNetwork.Arbitrum, "magic", "magic", "0x539bde0d7dbd336b79148aa742883198bbf60342".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    // this.addToken(ChainNetwork.Arbitrum, "spell", "spell-token", "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "weth", "weth", "0x82af49447d8a07e3bd95bd0d56f35241523fbab1".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "sushi", "sushi", "0xd4d42f0b6def4ce0383636770ef773390d85c61a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "mim", "magic-internet-money", "0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "crv", "curve-dao-token", "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "wbtc", "wrapped-bitcoin", "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f".toLowerCase(), 8, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "usdt", "usdt", "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "2crv", "2crv", "0xbf7e49483881c76487b0989cd7d9a8239b20ca41".toLowerCase(), 18, ExternalTokenFetchStyle.NONE,);
+    // this.addToken(ChainNetwork.Arbitrum, "dodo", "dodo", "0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    // this.addToken(ChainNetwork.Arbitrum, "hnd", "hundred-finance", "0x10010078a54396f62c96df8532dc2b4847d47ed3".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    // this.addToken(ChainNetwork.Arbitrum, "pickle", "pickle-finance", "0x965772e0E9c84b6f359c8597C891108DcF1c5B1A".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    // this.addToken(ChainNetwork.Arbitrum, "bal", "balancer", "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    // this.addToken(ChainNetwork.Arbitrum, "usdc", "usd-coin", "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+    // this.addToken(
+    //   ChainNetwork.Arbitrum,
+    //   "usdc",
+    //   "usd-coin",
+    //   "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),
+    //   6,
+    //   ExternalTokenFetchStyle.ID,
+    // );
+    // this.addToken(ChainNetwork.Arbitrum, "gohm", "governance-ohm", "0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    // this.addToken(ChainNetwork.Arbitrum, "magic", "magic", "0x539bde0d7dbd336b79148aa742883198bbf60342".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
 
 
     // OKEx
