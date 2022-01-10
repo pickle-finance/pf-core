@@ -1195,6 +1195,32 @@ export const JAR_SUSHI_ETH_TRU: JarDefinition = {
 JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
 
 
+export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0.98a",
+  contract: "0xBc57294Fc20bD23983dB598fa6B3f306aA1a414f",
+  depositToken: {
+    addr: "0xB264dC9D22ece51aAa6028C5CBf2738B684560D6",
+    name: "Sushi NEWO/USDC",
+    link: "https://app.sushi.com/add/0x1b890fd37cd50bea59346fc2f8ddb7cd9f5fabd5/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+    components: ["newo", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "NEWO-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x5e50640dcdd1e83feac729321bacb52525df1cd2",
+    farmNickname: "pSushi NEWO/USDC",
+    farmDepositTokenName: "pSushi NEWO/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_SUSHI_NEWO_USDC);
+
+
 
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,

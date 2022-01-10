@@ -65,6 +65,7 @@ import {
   JAR_OKEX_OKT_USDT,
   JAR_OKEX_USDT_CHE,
   JAR_UNIV3_RBN_ETH,
+  JAR_SUSHI_NEWO_USDC,
   JAR_OKEX_JSWAP_BTCK_USDT,
   JAR_OKEX_JSWAP_ETHK_USDT,
   JAR_OKEX_JSWAP_JF_USDT,
@@ -217,6 +218,7 @@ import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
 import { CvxCrv } from "./impl/cvxcrv";
 import { Uni3RbnEth } from "./impl/uni-rbn-eth";
+import { NewoUsdc } from "./impl/newo-usdc";
 import { CherryCheOkt } from "./impl/cherry-che-okt";
 import { CherryCheUsdt } from "./impl/cherry-che-usdt";
 import { CherryEthkUsdt } from "./impl/cherry-ethk-usdt";
@@ -365,6 +367,7 @@ jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
 jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth)
 jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth)
+jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc)
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
