@@ -1,6 +1,5 @@
 import {
   AssetAprComponent,
-  AssetProtocol,
   JarDefinition,
 } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
@@ -10,7 +9,6 @@ import { Contract as MulticallContract } from "ethers-multicall";
 import { Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
-import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 import {
   createAprComponentImpl,
   ONE_YEAR_IN_SECONDS,

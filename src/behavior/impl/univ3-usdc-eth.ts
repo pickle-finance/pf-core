@@ -1,7 +1,7 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber, Contract, ethers } from "ethers";
-import { ChainNetwork, Chains, JarHarvestStats, PickleModel } from "../..";
+import { BigNumber, ethers } from "ethers";
+import { Chains, JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { getPosition } from "../../protocols/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
