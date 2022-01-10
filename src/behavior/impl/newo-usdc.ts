@@ -38,18 +38,18 @@ export class NewoUsdc extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const fox: number = await this.calculateNewoAPY(
+    const newo: number = await this.calculateNewoAPY(
       this.rewardAddress,
       definition,
       model,
     );
     const lp: number = await new SushiEthPairManager().calculateLpApr(
-        model,
-        definition.depositToken.addr)
-    )
+      model,
+      definition.depositToken.addr,
+    );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lp, false),
-      this.createAprComponent("fox", fox, true),
+      this.createAprComponent("newo", newo, true),
     ]);
   }
 
@@ -81,8 +81,7 @@ export class NewoUsdc extends AbstractJarBehavior {
     );
 
     const rewardsPerYear = rewardRate * ONE_YEAR_SECONDS;
-    const valueRewardedPerYear =
-      (await model.priceOf("newo")) * rewardsPerYear;
+    const valueRewardedPerYear = (await model.priceOf("newo")) * rewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const newoAPY = valueRewardedPerYear / totalValueStaked;
