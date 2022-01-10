@@ -1,13 +1,11 @@
-import { ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import roseFarmAbi from "../../Contracts/ABIs/rose-farm.json";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { PickleModel } from "../../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { Chains } from "../../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
