@@ -1648,7 +1648,7 @@ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_WORK_USDC);
 
 export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   type: AssetType.JAR,
-  id: "pjar U3a",
+  id: "polyJar U3a",
   contract: "0xb409FfdAA37f8B98766E5b11D183acCfC7Ca6822",
   depositToken: {
     addr: "0x45dDa9cb7c25131DF268515131f647d726f50608",

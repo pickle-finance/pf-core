@@ -1,4 +1,4 @@
-import { ChainNetwork } from "../../src/chain/Chains";
+import { ChainNetwork, Chains } from "../../src/chain/Chains";
 import { IExternalToken } from "../../src/model/PickleModelJson";
 import { CoinGeckoPriceResolver } from "../../src/price/CoinGeckoPriceResolver";
 import {
@@ -81,21 +81,24 @@ describe("Coingecko and external token integration", () => {
   });
 
   test("Each external token contract maps to a single token", async () => {
-    const tokens: IExternalToken[] =
-      ExternalTokenModelSingleton.getAllTokensOutput();
-    const seen = [];
+    const tokens: IExternalToken[] = ExternalTokenModelSingleton.getAllTokensOutput();
     const errors = [];
-    for (let i = 0; i < tokens.length; i++) {
-      if (seen.includes(tokens[i].contractAddr.toLowerCase())) {
-        errors.push(
-          "Contract " +
-            tokens[i].contractAddr.toLowerCase() +
-            " used by more than 1 token",
-        );
-      } else {
-        seen.push(tokens[i].contractAddr.toLowerCase());
+    const chains: ChainNetwork[] = Chains.list();
+    for( let z = 0; z < chains.length; z++ ) {
+      const seen = [];
+      const chainTokens: IExternalToken[] = tokens.filter((x) => x.chain === chains[z]);
+      for (let i = 0; i < chainTokens.length; i++) {
+        if (seen.includes(chainTokens[i].contractAddr.toLowerCase())) {
+          errors.push(
+            "Contract " +
+            chainTokens[i].contractAddr.toLowerCase() +
+              " used by more than 1 token on chain " + chains[z],
+          );
+        } else {
+          seen.push(chainTokens[i].contractAddr.toLowerCase());
+        }
       }
-    }
+      }
     console.log(JSON.stringify(errors));
     expect(errors.length).toBe(0);
   });

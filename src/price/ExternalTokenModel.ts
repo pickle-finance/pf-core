@@ -48,9 +48,10 @@ export class ExternalTokenModel {
   chainTokens: Map<ChainNetwork, Map<string, ExternalToken>> = new Map();
   contractToToken: Map<string, ExternalToken> = new Map();
   constructor() {
-    const chains = Chains.list();
-    for (let i = 0; i < chains.length; i++) {
-      this.chainTokens.set(chains[i], new Map());
+    for (const item in ChainNetwork) {
+      if (isNaN(Number(item))) {
+        this.chainTokens.set(ChainNetwork[item], new Map());
+      }
     }
     this.addToken(
       ChainNetwork.Ethereum,
@@ -157,11 +158,11 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.OKEx, "daik", "dai", "0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
 
     // Harmony
-    // this.addToken(ChainNetwork.Harmony, "wone", "harmony", "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    // this.addToken(ChainNetwork.Harmony, "1eth", "ethereum", "0x6983D1E6DEf3690C4d616b13597A09e6193EA013".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    // this.addToken(ChainNetwork.Harmony, "1dai", "dai", "0xEf977d2f931C1978Db5F6747666fa1eACB0d0339".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    // this.addToken(ChainNetwork.Harmony, "1wbtc", "wrapped-bitcoin", "0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
-    // this.addToken(ChainNetwork.Harmony, "sushi", "sushi", "0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Harmony, "wone", "harmony", "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Harmony, "1eth", "ethereum", "0x6983D1E6DEf3690C4d616b13597A09e6193EA013".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Harmony, "1dai", "dai", "0xEf977d2f931C1978Db5F6747666fa1eACB0d0339".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Harmony, "1wbtc", "wrapped-bitcoin", "0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Harmony, "sushi", "sushi", "0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
 
     // Moonriver
     this.addToken(ChainNetwork.Moonriver, "movr", "moonriver", "0x98878B06940aE243284CA214f92Bb71a2b032B8A".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
