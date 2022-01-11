@@ -157,7 +157,9 @@ import {
   JAR_AURORA_ROSE_FRAX,
   JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH,
-  JAR_AURORA_BRL_ETH_BTC
+  JAR_AURORA_BRL_ETH_BTC,
+  JAR_METIS_NETSWAP_NETT_METIS,
+  JAR_METIS_TETHYS__METIS
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -317,6 +319,8 @@ import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
 import { BrlUstNear } from "./impl/aurora-brl-ust-near";
 import { Uni3UsdcEth } from "./impl/univ3-usdc-eth";
 import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
+import { NetswapNettMetis } from "./impl/metis-netswap-nett-metis";
+import { TethysMetis } from "./impl/metis-tethys";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -500,6 +504,11 @@ jarToBehavior.set(JAR_AURORA_BRL_USDT_NEAR.id, new BrlUsdtNear());
 jarToBehavior.set(JAR_AURORA_BRL_USDT_USDC.id, new BrlUsdtUsdc());
 jarToBehavior.set(JAR_AURORA_BRL_UST_NEAR.id, new BrlUstNear());
 jarToBehavior.set(JAR_AURORA_TRI_USDT.id, new TriTriUsdt());
+
+// Metis
+jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());
+jarToBehavior.set(JAR_METIS_TETHYS__METIS.id, new TethysMetis());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

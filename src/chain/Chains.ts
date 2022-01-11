@@ -24,7 +24,8 @@ export enum ChainNetwork {
   Harmony = "harmony",
   Moonriver = "moonriver",
   Cronos = "cronos",
-  Aurora = "aurora"
+  Aurora = "aurora",
+  Metis = "metis",
   // ADD_CHAIN
   //Binance
 }
@@ -120,6 +121,17 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     multicallAddress: "0x60Ad579Fb20c8896b7b98E800cBA9e196E6eaA44",
     defaultPerformanceFee: 0.1,
   },
+  {
+    chainId: 1088,
+    network: "metis",
+    networkVisible: "Metis",
+    secondsPerBlock: 3.5,
+    gasToken: "metis",
+    explorer: "https://andromeda-explorer.metis.io/",
+    rpcs: ["https://andromeda.metis.io/?owner=1088"],
+    multicallAddress: "0xa99850Ff94d3D333e7F669203Ab7B77Ec634028F",
+    defaultPerformanceFee: 0.1,
+  },
   // ADD_CHAIN
 ];
 export class JsonChain extends AbstractChain {
@@ -133,8 +145,10 @@ export class Chains {
     Chains.singleton = new Chains(raw);
   }
 
-  chainMap: Map<ChainNetwork, AbstractChain> = 
-    new Map<ChainNetwork, AbstractChain>();
+  chainMap: Map<ChainNetwork, AbstractChain> = new Map<
+    ChainNetwork,
+    AbstractChain
+  >();
   rawData: RawChain[];
 
   private constructor(chainData: RawChain[]) {

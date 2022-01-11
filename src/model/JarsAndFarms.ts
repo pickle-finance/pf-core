@@ -4269,6 +4269,57 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
 
+// Metis
+export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1a",
+  contract: "0xaDd50d6396B53876ac58752E153E3431C1E9bA93",
+  depositToken: {
+    addr: "0x60312d4EbBF3617d3D33841906b5868A86931Cbd",
+    name: "NET NETT/METIS",
+    link: "https://netswap.io/#/add/0x90fe084f877c65e1b577c7b2ea64b8d8dd1ab278/0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+    components: ["nett", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-NETT/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP NETT/METIS",
+    farmDepositTokenName: "pNLP NETT/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_NETT_METIS);
+
+export const JAR_METIS_TETHYS__METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2a",
+  contract: "0xC3f393FB40F8Cc499C1fe7FA5781495dc6FAc9E9",
+  depositToken: {
+    addr: "0xc9b290FF37fA53272e9D71A0B13a444010aF4497",
+    name: "NET NETT/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0x69fdb77064ec5c84FA2F21072973eB28441F43F3",
+    components: ["tethys", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-TETHYS/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP TETHYS/METIS",
+    farmDepositTokenName: "pTLP TETHYS/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS__METIS);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
