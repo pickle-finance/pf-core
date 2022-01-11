@@ -1205,7 +1205,7 @@ export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
     link: "https://app.sushi.com/add/0x1b890fd37cd50bea59346fc2f8ddb7cd9f5fabd5/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     components: ["newo", "usdc"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
