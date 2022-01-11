@@ -33,7 +33,7 @@ export enum AssetProtocol {
   AURORASWAP = "auroraswap",
   TETHYS = "tethys",
   NETSWAP = "netswap",
-// ADD_PROTOCOL
+  // ADD_PROTOCOL
 }
 
 export const SWAP_PROTOCOLS: AssetProtocol[] = [
