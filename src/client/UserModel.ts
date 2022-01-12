@@ -26,6 +26,11 @@ export interface UserData {
     earnings: IUserEarningsSummary,
     votes: IUserVote[],
     dill: IUserDillStats,
+    pickles: UserPickles,
+}
+
+export interface UserPickles {
+    [key: string]: string;
 }
 
 export interface IUserDillStats {
@@ -48,17 +53,38 @@ export class UserModel {
     }
 
     async generateUserModel(): Promise<UserData> {
-        const [tokens, earnings,votes, dill] = await Promise.all([
+        const [tokens, earnings,votes, dill, pickles] = await Promise.all([
             this.getUserTokens(),
             this.getUserEarningsSummary(),
             this.getUserGaugeVotes(),
             this.getUserDillStats(),
+            this.getUserPickles(),
         ]);
         return {
+            pickles: pickles,
             tokens: tokens,
             earnings: earnings,
             votes: votes,
             dill: dill,
+        }
+    }
+
+
+    async getUserPickles(): Promise<UserPickles> {
+        try {
+            const ret : UserPickles = {};
+            await Promise.all(Chains.list().map(async (x)=> {
+                let r : BigNumber = BigNumber.from(0);
+                if( ADDRESSES.get(x) && ADDRESSES.get(x).pickle !== undefined && ADDRESSES.get(x).pickle !== NULL_ADDRESS) {
+                    const contract = new Contract(ADDRESSES.get(x).pickle, erc20Abi, this.providerFor(x));
+                    r = await contract.balanceOf(this.walletId).catch(() => BigNumber.from("0"));
+                }
+                ret[x.toString()] = r.toString();
+            }));
+            return ret;
+        } catch( err ) {
+            console.log("getUserPickles failed: " + err);
+            throw err;
         }
     }
 

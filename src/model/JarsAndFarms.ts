@@ -1648,7 +1648,7 @@ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_WORK_USDC);
 
 export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   type: AssetType.JAR,
-  id: "pjar U3a",
+  id: "polyJar U3a",
   contract: "0xb409FfdAA37f8B98766E5b11D183acCfC7Ca6822",
   depositToken: {
     addr: "0x45dDa9cb7c25131DF268515131f647d726f50608",
@@ -2199,7 +2199,7 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/0xEf977d2f931C1978Db5F6747666fa1eACB0d0339",
     components: ["1eth", "1dai"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -2224,7 +2224,7 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
     link: "https://app.sushi.com/add/0x3095c7557bCb296ccc6e363DE01b760bA031F2d9/0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
     components: ["1wbtc", "1eth"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -2249,7 +2249,7 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/ETH",
     components: ["1eth", "wone"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -3853,7 +3853,7 @@ export const JAR_AURORA_PAD_ROSE: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
     components: ["pad", "rose"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {

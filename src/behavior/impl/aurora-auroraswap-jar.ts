@@ -1,15 +1,10 @@
-import { BigNumber, ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateBrlFarmsAPY,
-  brlPoolIds,
-  BRL_FARMS,
 } from "../../protocols/AuroraswapUtil";
-import brlChefAbi from "../../Contracts/ABIs/brl-farms.json";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
 export abstract class AuroraBrlJar extends AuroraMultistepHarvestJar {
