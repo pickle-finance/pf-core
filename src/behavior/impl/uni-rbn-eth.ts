@@ -3,7 +3,7 @@ import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber, Contract } from "ethers";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { AprNamePair, calculateUniV3Apy, getUniV3Info, getUniV3TokenPairData, UniV3InfoValue } from "../../protocols/UniV3";
+import { AprNamePair, calculateUniV3Apy, getUniV3Info, getUniV3TokenPairData, UniV3InfoValue } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import univ3StakerAbi from "../../Contracts/ABIs/univ3Staking.json";
 import { oneEParam } from "../../util/BnUtil";
