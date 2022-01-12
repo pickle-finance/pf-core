@@ -176,7 +176,7 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
     const lpApr = (fee24H * 365 * 100) / jarValue;
 
     return super.aprComponentsToProjectedApr([
-      this.createAprComponent("lp", lpApr, false),
+      this.createAprComponent("lp", lpApr, true),
     ]);
   }
 }
