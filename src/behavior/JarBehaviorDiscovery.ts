@@ -169,7 +169,7 @@ import {
   JAR_METIS_NETSWAP_NETT_USDT,
   JAR_METIS_NETSWAP_USDT_METIS,
   JAR_METIS_NETSWAP_USDT_USDC,
-  JAR_METIS_TETHYS__METIS,
+  JAR_METIS_TETHYS_METIS,
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
   JAR_METIS_TETHYS_USDT_METIS
@@ -543,7 +543,7 @@ jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDC.id, new NetswapNettUsdc());
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDT.id, new NetswapNettUsdt());
 jarToBehavior.set(JAR_METIS_NETSWAP_USDT_METIS.id, new NetswapUsdtMetis());
 jarToBehavior.set(JAR_METIS_NETSWAP_USDT_USDC.id, new NetswapUsdtUsdc());
-jarToBehavior.set(JAR_METIS_TETHYS__METIS.id, new TethysMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());

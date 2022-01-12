@@ -1,7 +1,7 @@
 import { ethers, Signer } from "ethers";
 import fetch from "cross-fetch";
 import { Provider } from "@ethersproject/providers";
-import { PickleModel } from "../..";
+import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
@@ -55,7 +55,7 @@ export class NetswapJar extends AbstractJarBehavior {
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", poolStats[0]?.lpApy, false),
-      this.createAprComponent("nett", poolStats[0]?.nettApy, true),
+      this.createAprComponent("nett", poolStats[0]?.nettApy, true, 1-Chains.get(jar.chain).defaultPerformanceFee),
     ]);
   }
 }

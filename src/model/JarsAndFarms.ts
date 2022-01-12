@@ -4323,9 +4323,9 @@ JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_BNB_NETT);
 export const JAR_METIS_NETSWAP_ETH_METIS: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 1c",
-  contract: "0x9c461DA93004A494fb6E92Ed998A398c0e389533",
+  contract: "0x8dF965E1791f3948158BA0C0A05702EA67861489",
   depositToken: {
-    addr: "0x3bF77b9192579826f260Bc48F2214Dfba840fcE5",
+    addr: "0x59051b5f5172b69e66869048dc69d35db0b3610d",
     name: "NET ETH/METIS",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
     components: ["eth", "metis"],
@@ -4348,9 +4348,9 @@ JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_ETH_METIS);
 export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 1d",
-  contract: "0x9c461DA93004A494fb6E92Ed998A398c0e389533",
+  contract: "0x739267bF641756315434f6C1deC6f7eA137B561A",
   depositToken: {
-    addr: "0x3bF77b9192579826f260Bc48F2214Dfba840fcE5",
+    addr: "0xC8aE82A0ab6AdA2062B812827E1556c0fa448dd0",
     name: "NET ETH/NETT",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
     components: ["eth", "nett"],
@@ -4428,7 +4428,7 @@ export const JAR_METIS_NETSWAP_METIS_USDC: JarDefinition = {
     addr: "0x5Ae3ee7fBB3Cb28C17e7ADc3a6Ae605ae2465091",
     name: "NET METIS/USDC",
     link: "https://netswap.io/#/add/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
-    components: ["eth", "usdc"],
+    components: ["metis", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4545,7 +4545,7 @@ export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_USDT_USDC);
 
-export const JAR_METIS_TETHYS__METIS: JarDefinition = {
+export const JAR_METIS_TETHYS_METIS: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 2a",
   contract: "0xC3f393FB40F8Cc499C1fe7FA5781495dc6FAc9E9",
@@ -4568,7 +4568,7 @@ export const JAR_METIS_TETHYS__METIS: JarDefinition = {
     farmDepositTokenName: "pTLP TETHYS/METIS",
   },
 };
-JAR_DEFINITIONS.push(JAR_METIS_TETHYS__METIS);
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS);
 
 export const JAR_METIS_TETHYS_ETH_METIS: JarDefinition = {
   type: AssetType.JAR,
@@ -4643,7 +4643,7 @@ export const JAR_METIS_TETHYS_USDT_METIS: JarDefinition = {
     farmDepositTokenName: "pTLP USDT/METIS",
   },
 };
-JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_USDC);
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_USDT_METIS);
 
 
 
