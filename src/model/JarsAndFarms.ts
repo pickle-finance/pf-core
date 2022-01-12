@@ -1655,7 +1655,7 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
     name: "UniV3 USDC/ETH",
     link: "https://app.uniswap.org/#/add/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/500",
     components: ["usdc", "weth"],
-    componentAddresses: ["0x2791bca1f2de4661ed88a30c99a7a9449aa84174", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619" ],
+    componentAddresses: ["0x2791bca1f2de4661ed88a30c99a7a9449aa84174", "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619"],
     style: { erc20: false }
   },
   enablement: AssetEnablement.DEV,
@@ -4268,6 +4268,384 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
+
+// Metis
+export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1a",
+  contract: "0xaDd50d6396B53876ac58752E153E3431C1E9bA93",
+  depositToken: {
+    addr: "0x60312d4EbBF3617d3D33841906b5868A86931Cbd",
+    name: "NET NETT/METIS",
+    link: "https://netswap.io/#/add/0x90fe084f877c65e1b577c7b2ea64b8d8dd1ab278/0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+    components: ["nett", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-NETT/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP NETT/METIS",
+    farmDepositTokenName: "pNLP NETT/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_NETT_METIS);
+
+export const JAR_METIS_NETSWAP_BNB_NETT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1b",
+  contract: "0x9c461DA93004A494fb6E92Ed998A398c0e389533",
+  depositToken: {
+    addr: "0x3bF77b9192579826f260Bc48F2214Dfba840fcE5",
+    name: "NET BNB/NETT",
+    link: "https://netswap.io/#/add/0x2692BE44A6E38B698731fDDf417d060f0d20A0cB/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
+    components: ["bnb", "nett"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-BNB/NETT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP BNB/NETT",
+    farmDepositTokenName: "pNLP BNB/NETT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_BNB_NETT);
+
+export const JAR_METIS_NETSWAP_ETH_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1c",
+  contract: "0x8dF965E1791f3948158BA0C0A05702EA67861489",
+  depositToken: {
+    addr: "0x59051b5f5172b69e66869048dc69d35db0b3610d",
+    name: "NET ETH/METIS",
+    link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
+    components: ["eth", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-ETH/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP ETH/METIS",
+    farmDepositTokenName: "pNLP ETH/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_ETH_METIS);
+
+export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1d",
+  contract: "0x739267bF641756315434f6C1deC6f7eA137B561A",
+  depositToken: {
+    addr: "0xC8aE82A0ab6AdA2062B812827E1556c0fa448dd0",
+    name: "NET ETH/NETT",
+    link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
+    components: ["eth", "nett"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-ETH/NETT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP ETH/NETT",
+    farmDepositTokenName: "pNLP ETH/NETT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_ETH_NETT);
+
+export const JAR_METIS_NETSWAP_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1d",
+  contract: "0x69dd7bc7712596a93F09b556Eb8668D36f336885",
+  depositToken: {
+    addr: "0xF5988809ac97C65121e2c34f5D49558e3D12C253",
+    name: "NET ETH/USDC",
+    link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["eth", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-ETH/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP ETH/USDC",
+    farmDepositTokenName: "pNLP ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_ETH_USDC);
+
+export const JAR_METIS_NETSWAP_ETH_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1e",
+  contract: "0x073068b3d575d6B1dF109a6E580db6A739c47158",
+  depositToken: {
+    addr: "0x4Db4CE7f5b43A6B455D3c3057b63A083b09b8376",
+    name: "NET ETH/USDT",
+    link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
+    components: ["eth", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-ETH/USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP ETH/USDT",
+    farmDepositTokenName: "pNLP ETH/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_ETH_USDT);
+
+export const JAR_METIS_NETSWAP_METIS_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1f",
+  contract: "0x255832c3d5Ba7583bE132B2dacdD3d081cb44079",
+  depositToken: {
+    addr: "0x5Ae3ee7fBB3Cb28C17e7ADc3a6Ae605ae2465091",
+    name: "NET METIS/USDC",
+    link: "https://netswap.io/#/add/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["metis", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-METIS/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP METIS/USDC",
+    farmDepositTokenName: "pNLP METIS/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_METIS_USDC);
+
+export const JAR_METIS_NETSWAP_NETT_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1g",
+  contract: "0xA4A94C04b8fF7B38314dEdD0bcF4Da3C48A463c0",
+  depositToken: {
+    addr: "0x0724d37522585E87d27C802728E824862Dc72861",
+    name: "NET NETT/USDC",
+    link: "https://netswap.io/#/add/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["nett", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-NETT/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP NETT/USDC",
+    farmDepositTokenName: "pNLP NETT/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_NETT_USDC);
+
+export const JAR_METIS_NETSWAP_NETT_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1h",
+  contract: "0x57fFD8164E3332B95a042CC876023B1BfE8f81AA",
+  depositToken: {
+    addr: "0x7D02ab940d7dD2B771e59633bBC1ed6EC2b99Af1",
+    name: "NET NETT/USDT",
+    link: "https://netswap.io/#/add/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
+    components: ["nett", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-NETT/USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP NETT/USDT",
+    farmDepositTokenName: "pNLP NETT/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_NETT_USDT);
+
+export const JAR_METIS_NETSWAP_USDT_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1i",
+  contract: "0x3e4cc5307312fD0857E207880e731F4c71fDE1c7",
+  depositToken: {
+    addr: "0x3D60aFEcf67e6ba950b499137A72478B2CA7c5A1",
+    name: "NET USDT/METIS",
+    link: "https://netswap.io/#/add/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
+    components: ["usdt", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-USDT/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP USDT/METIS",
+    farmDepositTokenName: "pNLP USDT/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_USDT_METIS);
+
+export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1i",
+  contract: "0x5b64b5382d68a934004578d6bE3e482b455EDfa2",
+  depositToken: {
+    addr: "0x1caD5f8f5D4C0AD49646B2565CC0cA725E4280EA",
+    name: "NET USDT/USDC",
+    link: "https://netswap.io/#/add/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["usdt", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-USDT/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP USDT/USDC",
+    farmDepositTokenName: "pNLP USDT/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_USDT_USDC);
+
+export const JAR_METIS_TETHYS_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2a",
+  contract: "0xC3f393FB40F8Cc499C1fe7FA5781495dc6FAc9E9",
+  depositToken: {
+    addr: "0xc9b290FF37fA53272e9D71A0B13a444010aF4497",
+    name: "TETHYS TETHYS/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0x69fdb77064ec5c84FA2F21072973eB28441F43F3",
+    components: ["tethys", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-TETHYS/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP TETHYS/METIS",
+    farmDepositTokenName: "pTLP TETHYS/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS);
+
+export const JAR_METIS_TETHYS_ETH_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2b",
+  contract: "0xC33d6596328935FA558A8d501f8fb15eD56ff879",
+  depositToken: {
+    addr: "0xEE5adB5b0DfC51029Aca5Ad4Bc684Ad676b307F7",
+    name: "TETHYS ETH/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=0x420000000000000000000000000000000000000A&outputCurrency=METIS",
+    components: ["eth", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-ETH/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP ETH/METIS",
+    farmDepositTokenName: "pTLP ETH/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_ETH_METIS);
+
+export const JAR_METIS_TETHYS_METIS_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2c",
+  contract: "0x12334d225c8Efc3eFFe56A5CeF5aEDFEf3f6ca7F",
+  depositToken: {
+    addr: "0xDd7dF3522a49e6e1127bf1A1d3bAEa3bc100583B",
+    name: "TETHYS METIS/USDC",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["metis", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP METIS/USDC",
+    farmDepositTokenName: "pTLP METIS/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_USDC);
+
+export const JAR_METIS_TETHYS_USDT_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2d",
+  contract: "0x0289035c5a5836597061C4A25A72DDa02F597E10",
+  depositToken: {
+    addr: "0x8121113eB9952086deC3113690Af0538BB5506fd",
+    name: "TETHYS USDT/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC&outputCurrency=METIS",
+    components: ["usdt", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-USDT/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP USDT/METIS",
+    farmDepositTokenName: "pTLP USDT/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_USDT_METIS);
+
+
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

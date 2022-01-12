@@ -216,6 +216,16 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Aurora, "bnb", "binancecoin", "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Aurora, "busd", "binance-usd", "0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
 
+    // Metis
+    this.addToken(ChainNetwork.Metis, "nett", "netswap", "0x90fe084f877c65e1b577c7b2ea64b8d8dd1ab278".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "metis", "metis-token", "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "tethys", "tethys-finance", "0x69fdb77064ec5c84fa2f21072973eb28441f43f3".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "bnb", "binancecoin", "0x2692BE44A6E38B698731fDDf417d060f0d20A0cB".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "eth", "ethereum", "0x420000000000000000000000000000000000000A".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "usdc", "usd-coin", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "usdt", "tether", "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+
+
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
     const allTokenList: ExternalToken[] = [];
