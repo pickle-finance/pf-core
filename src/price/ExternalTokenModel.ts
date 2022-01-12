@@ -103,6 +103,7 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Ethereum, "cvxcrv", "convex-crv", "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7".toLowerCase(), 18,);
     this.addToken(ChainNetwork.Ethereum, "rbn", "ribbon-finance", "0x6123b0049f904d730db3c36a31167d9d4121fa6b".toLowerCase(), 18,);
     this.addToken(ChainNetwork.Ethereum, "newo", "new-order", "0x1b890fd37cd50bea59346fc2f8ddb7cd9f5fabd5".toLowerCase(), 18,);
+    this.addToken(ChainNetwork.Ethereum, "looks", "looksrare", "0xf4d2888d29d722226fafa5d9b24f9164c092421e".toLowerCase(), 18,);
 
     // Polygon
     this.addToken(ChainNetwork.Polygon, "usdc", "usd-coin", "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(), 6,);
