@@ -1,17 +1,21 @@
 import { Contract, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import { ChainNetwork, Chains, PickleModel } from "..";
-import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
-import { JarDefinition } from "../model/PickleModelJson";
-import v3PoolABI from "../Contracts/ABIs/univ3Pool.json";
+import { ChainNetwork, Chains, PickleModel } from "../..";
+import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
+import { AssetProtocol, JarDefinition } from "../../model/PickleModelJson";
+import v3PoolABI from "../../Contracts/ABIs/univ3Pool.json";
 import univ3prices from "@thanpolas/univ3prices";
 import { Token } from "@uniswap/sdk-core";
 import { Pool, Position } from "@uniswap/v3-sdk";
-import erc20Abi from "../Contracts/ABIs/erc20.json";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import fetch from "node-fetch";
+import { readQueryFromGraphDetails } from "../../graph/TheGraph";
 
 export const UniV3GraphCacheKey =
   "uniswap.mainnet.v3.graph.pair.data.cache.key";
+
+const UNISWAP_GRAPH_POLYGON =
+  "https://api.thegraph.com/subgraphs/name/laktek/uniswap-v3-polygon";
 
 export interface UniV3PoolData {
   token: number;
@@ -167,7 +171,7 @@ export async function getUniV3TokenPairData(
   return undefined;
 }
 
-export const getPosition = async (
+export const getUniV3 = async (
   jarV3: Contract,
   provider: Provider | Signer,
 ) => {
@@ -213,8 +217,42 @@ export const getPosition = async (
     tickLower,
     tickUpper,
   });
-  return position;
+  return { position, tokenA, tokenB, pool };
 };
+
+export async function queryUniswapTicks(
+  poolAddress: string,
+  chain: ChainNetwork,
+) {
+  const query = `{
+    ticks(first: 1000, skip: 0, where: { poolAddress: "${poolAddress}" }, orderBy: tickIdx) {
+      tickIdx
+      liquidityNet
+      price0
+      price1
+    }
+  }`;
+  const res = await readQueryFromGraphDetails(
+    query,
+    AssetProtocol.UNISWAP_V3,
+    chain,
+  );
+  return res?.data?.ticks;
+}
+
+export async function queryVolume24H(poolAddress: string, chain: ChainNetwork) {
+  const query = `{
+    poolDayDatas(skip: 1, first:3, orderBy: date, orderDirection: desc, where:{pool: "${poolAddress}"}) {
+      volumeUSD
+    }
+  }`;
+  const res = await readQueryFromGraphDetails(
+    query,
+    AssetProtocol.UNISWAP_V3,
+    chain,
+  );
+  return res?.data?.poolDayDatas[0]?.volumeUSD;
+}
 
 export async function queryUniV3TokensFromGraph() {
   const listOfInfos = Object.values(uniV3Info);

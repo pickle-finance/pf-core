@@ -15,6 +15,7 @@ const SUBGRAPH_URL_PICKLE_ARBITRUM =
 //ADD_PROTOCOL
 const SUBGRAPH_URL_UNISWAP =
   "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2";
+const SUBGRAPH_URL_UNISWAP_V3_POLYGON = "https://api.thegraph.com/subgraphs/name/kalinbas/uniswap-v3-polygon"
 const SUBGRAPH_URL_SUSHISWAP =
   "https://api.thegraph.com/subgraphs/name/croco-finance/sushiswap";
 const SUBGRAPH_URL_SUSHISWAP_POLYGON =
@@ -59,6 +60,11 @@ export async function readQueryFromGraphDetails(
 export function graphUrlFromDetails(protocol: AssetProtocol, chain: ChainNetwork): string {
   switch(protocol) {
     case AssetProtocol.UNISWAP: return SUBGRAPH_URL_UNISWAP;
+    case AssetProtocol.UNISWAP_V3: {
+      switch(chain) {
+        case ChainNetwork.Polygon: return SUBGRAPH_URL_UNISWAP_V3_POLYGON; 
+      }
+    }
     case AssetProtocol.COMETHSWAP: return SUBGRAPH_URL_COMETH;
     case AssetProtocol.QUICKSWAP: return SUBGRAPH_URL_QUICKSWAP;
     case AssetProtocol.SOLARSWAP: return SUBGRAPH_URL_SOLARSWAP;
