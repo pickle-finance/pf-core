@@ -54,10 +54,16 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
 ];
 
 export enum AssetEnablement {
+  // A jar that is in development mode, should have pfcore run against it, 
+  // But should only be shown in the UI during local testing 
   DEV = "dev",
+  // An active jar
   ENABLED = "enabled",
+  // To be used when a jar is being deprecated but should still appear in the main jar section
   WITHDRAW_ONLY = "withdraw_only",
+  // To be used when a jar should be in a deprecated / closed down jar section
   DISABLED = "disabled",
+  // To be used when a jar should be essentially ignored by core and UI
   PERMANENTLY_DISABLED = "permanently_disabled",
 }
 

@@ -2199,7 +2199,7 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/0xEf977d2f931C1978Db5F6747666fa1eACB0d0339",
     components: ["1eth", "1dai"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -2224,7 +2224,7 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
     link: "https://app.sushi.com/add/0x3095c7557bCb296ccc6e363DE01b760bA031F2d9/0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
     components: ["1wbtc", "1eth"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -2249,7 +2249,7 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/ETH",
     components: ["1eth", "wone"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
