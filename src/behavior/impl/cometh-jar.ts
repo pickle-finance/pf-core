@@ -46,7 +46,6 @@ export abstract class ComethJar extends AbstractJarBehavior {
       model,
       definition.depositToken.addr,
     );
-
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lp, false),
       this.createAprComponent("must", must, true),

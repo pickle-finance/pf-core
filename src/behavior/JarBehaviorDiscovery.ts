@@ -158,7 +158,22 @@ import {
   JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH,
   JAR_AURORA_BRL_ETH_BTC,
-  JAR_UNIV2_LOOKS_ETH
+  JAR_UNIV2_LOOKS_ETH,
+  JAR_METIS_NETSWAP_NETT_METIS,
+  JAR_METIS_NETSWAP_BNB_NETT,
+  JAR_METIS_NETSWAP_ETH_METIS,
+  JAR_METIS_NETSWAP_ETH_NETT,
+  JAR_METIS_NETSWAP_ETH_USDC,
+  JAR_METIS_NETSWAP_ETH_USDT,
+  JAR_METIS_NETSWAP_METIS_USDC,
+  JAR_METIS_NETSWAP_NETT_USDC,
+  JAR_METIS_NETSWAP_NETT_USDT,
+  JAR_METIS_NETSWAP_USDT_METIS,
+  JAR_METIS_NETSWAP_USDT_USDC,
+  JAR_METIS_TETHYS_METIS,
+  JAR_METIS_TETHYS_ETH_METIS,
+  JAR_METIS_TETHYS_METIS_USDC,
+  JAR_METIS_TETHYS_USDT_METIS
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -319,6 +334,21 @@ import { BrlUstNear } from "./impl/aurora-brl-ust-near";
 import { Uni3UsdcEth } from "./impl/univ3-usdc-eth";
 import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
 import { LooksEth } from "./impl/looks-eth";
+import { NetswapNettMetis } from "./impl/metis-netswap-nett-metis";
+import { NetswapBnbNett } from "./impl/metis-netswap-bnb-nett";
+import { NetswapEthMetis } from "./impl/metis-netswap-eth-metis";
+import { NetswapEthNett } from "./impl/metis-netswap-eth-nett";
+import { NetswapEthUsdc } from "./impl/metis-netswap-eth-usdc";
+import { NetswapEthUsdt } from "./impl/metis-netswap-eth-usdt";
+import { NetswapMetisUsdc } from "./impl/metis-netswap-metis-usdc";
+import { NetswapNettUsdc } from "./impl/metis-netswap-nett-usdc";
+import { NetswapNettUsdt } from "./impl/metis-netswap-nett-usdt";
+import { NetswapUsdtMetis } from "./impl/metis-netswap-usdt-metis";
+import { NetswapUsdtUsdc } from "./impl/metis-netswap-usdt-usdc";
+import { TethysMetis } from "./impl/metis-tethys";
+import { TethysEthMetis } from "./impl/metis-tethys-eth-metis";
+import { TethysMetisUsdc } from "./impl/metis-tethys-metis-usdc";
+import { TethysUsdtMetis } from "./impl/metis-tethys-usdt-metis";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -504,6 +534,24 @@ jarToBehavior.set(JAR_AURORA_BRL_USDT_NEAR.id, new BrlUsdtNear());
 jarToBehavior.set(JAR_AURORA_BRL_USDT_USDC.id, new BrlUsdtUsdc());
 jarToBehavior.set(JAR_AURORA_BRL_UST_NEAR.id, new BrlUstNear());
 jarToBehavior.set(JAR_AURORA_TRI_USDT.id, new TriTriUsdt());
+
+// Metis
+jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());
+jarToBehavior.set(JAR_METIS_NETSWAP_BNB_NETT.id, new NetswapBnbNett());
+jarToBehavior.set(JAR_METIS_NETSWAP_ETH_METIS.id, new NetswapEthMetis());
+jarToBehavior.set(JAR_METIS_NETSWAP_ETH_NETT.id, new NetswapEthNett());
+jarToBehavior.set(JAR_METIS_NETSWAP_ETH_USDC.id, new NetswapEthUsdc());
+jarToBehavior.set(JAR_METIS_NETSWAP_ETH_USDT.id, new NetswapEthUsdt());
+jarToBehavior.set(JAR_METIS_NETSWAP_METIS_USDC.id, new NetswapMetisUsdc());
+jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDC.id, new NetswapNettUsdc());
+jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDT.id, new NetswapNettUsdt());
+jarToBehavior.set(JAR_METIS_NETSWAP_USDT_METIS.id, new NetswapUsdtMetis());
+jarToBehavior.set(JAR_METIS_NETSWAP_USDT_USDC.id, new NetswapUsdtUsdc());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
+jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

@@ -13,7 +13,7 @@ import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { Chains } from "../..";
 
-export class NewoUsdc extends AbstractJarBehavior {
+export class LooksEth extends AbstractJarBehavior {
   protected strategyAbi: any;
   private rewardAddress = "0x2A70e7F51f6cd40C3E9956aa964137668cBfAdC5";
 
