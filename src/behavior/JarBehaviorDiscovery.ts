@@ -157,7 +157,8 @@ import {
   JAR_AURORA_ROSE_FRAX,
   JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH,
-  JAR_AURORA_BRL_ETH_BTC
+  JAR_AURORA_BRL_ETH_BTC,
+  JAR_UNIV2_LOOKS_ETH
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -317,6 +318,7 @@ import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
 import { BrlUstNear } from "./impl/aurora-brl-ust-near";
 import { Uni3UsdcEth } from "./impl/univ3-usdc-eth";
 import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
+import { LooksEth } from "./impl/looks-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -365,9 +367,11 @@ jarToBehavior.set(JAR_UNI_RLY_ETH.id, new RlyEth());
 jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
 jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
-jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth)
-jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth)
-jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc)
+jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth())
+jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth())
+jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc())
+jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth())
+
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());

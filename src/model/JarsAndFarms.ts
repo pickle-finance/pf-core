@@ -1220,7 +1220,30 @@ export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_SUSHI_NEWO_USDC);
 
-
+export const JAR_UNIV2_LOOKS_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0.98a",
+  contract: "0x69CC22B240bdcDf4A33c7B3D04a660D4cF714370",
+  depositToken: {
+    addr: "0xDC00bA87Cc2D99468f7f34BC04CBf72E111A32f7",
+    name: "UniV2 LOOKS/ETH",
+    link: "https://app.uniswap.org/#/add/v2/ETH/0xf4d2888d29D722226FafA5d9B24F9164c092421E",
+    components: ["weth", "looks"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP,
+  details: {
+    apiKey: "LOOKS-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xb5fe3204aabe02475d5b9d3c52820f2169002124",
+    farmNickname: "pUniV2 LOOKS/ETH",
+    farmDepositTokenName: "pUniV2 LOOKS/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
 
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
