@@ -162,13 +162,13 @@ export const getLiquidityForAmounts = (
 
 export const calculateFee = (
   liquidityDelta: bn,
-  liquidity: bn,
+  liquidity: string,
   volume24H: number,
   _feeTier: string,
 ): number => {
   const feeTier = getFeeTierPercentage(_feeTier);
   const liquidityPercentage = liquidityDelta
-    .div(liquidity.plus(liquidityDelta))
+    .div((new bn(liquidity)).plus(liquidityDelta))
     .toNumber();
 
   return feeTier * volume24H * liquidityPercentage;

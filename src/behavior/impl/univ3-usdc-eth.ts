@@ -144,8 +144,6 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
     );
     const liquidityFromPool = pool.liquidity.toString();
 
-    const L = calculateLiquidity(ticks || [], currentTick);
-
     const volume24H = await queryVolume24H(
       definition.depositToken.addr.toLowerCase(),
       definition.chain,
@@ -153,19 +151,8 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
 
     const feeTier = pool.fee.toString();
 
-    const fee24H = calculateFee(deltaL, L, volume24H, feeTier);
+    const fee24H = calculateFee(deltaL, liquidityFromPool, volume24H, feeTier);
     const lpApr = (fee24H * 365 * 100) / jarValue;
-
-    console.log({
-      amount0,
-      amount1,
-      jarValue,
-      deltaL,
-      volume24H,
-      feeTier,
-      fee24H,
-      lpApr,
-    });
 
     return super.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
