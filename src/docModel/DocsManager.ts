@@ -1,16 +1,30 @@
 import { PickleAsset } from "../model/PickleModelJson";
-import { AssetDocumentationDefinition, AssetDocumentationResult, DocsFormat, documentationAssetDefinitionToResult } from "./documentationImplementation";
+import { AssetDocumentationDefinition, AssetDocumentationResult, DocsFormat, documentationAssetDefinitionToResult, DocumentationModelResult } from "./documentationImplementation";
 import { ALL_JAR_DOCUMENTATION } from "./docs";
 export class DocsManager {
+
+    public static getDocumentationForAllAssets(language: string, linkType: DocsFormat): DocumentationModelResult {
+        const result: DocumentationModelResult = {};
+        for( let i = 0; i < ALL_JAR_DOCUMENTATION.length; i++ ) {
+            const d = DocsManager.getDocumentationForAssetId(ALL_JAR_DOCUMENTATION[i].apiKey, language, linkType);
+            result[ALL_JAR_DOCUMENTATION[i].apiKey] = d;
+        }
+        return result;
+    }
+
     public static getDocumentationForAsset(asset: PickleAsset, 
         language: string, linkType: DocsFormat): AssetDocumentationResult {
-        const key = asset.details.apiKey;
-        const docItem: AssetDocumentationDefinition | undefined  = ALL_JAR_DOCUMENTATION.find((x)=>x.apiKey===key);
+            return DocsManager.getDocumentationForAssetId(asset.details.apiKey, language, linkType);
+    }
+    public static getDocumentationForAssetId(assetId: string, 
+        language: string, linkType: DocsFormat): AssetDocumentationResult {
+        const docItem: AssetDocumentationDefinition | undefined  = ALL_JAR_DOCUMENTATION.find((x)=>x.apiKey===assetId);
         if( !docItem ) {
             return undefined;
         }
         return documentationAssetDefinitionToResult(language, linkType, docItem);
     }
+
     public static getAssetDocumentationString(docs: AssetDocumentationResult, format: DocsFormat): string {
         // TODO docbook format, plain text
         let ret = "";

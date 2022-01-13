@@ -9,7 +9,7 @@ import {
 } from "./behavior/JarBehaviorResolver";
 import { JarBehaviorDiscovery } from "./behavior/JarBehaviorDiscovery";
 import { DocsManager } from "./docModel/DocsManager";
-import { AssetDocumentationResult, DocumentationModelResult } from "./docModel/documentationImplementation";
+import { AssetDocumentationResult, DocsFormat, DocumentationModelResult } from "./docModel/documentationImplementation";
 
 export {
   ChainNetwork,
@@ -22,6 +22,7 @@ export {
   JarHarvestStats,
   JarBehaviorDiscovery,
   DocsManager,
+  DocsFormat,
   AssetDocumentationResult,
   DocumentationModelResult
 };
