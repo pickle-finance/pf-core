@@ -1,5 +1,4 @@
 import { I18n } from "i18n";
-import path from "path";
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 import { PickleAsset } from "../model/PickleModelJson";
 
@@ -129,7 +128,7 @@ export function translateSingleString(
   const anyObject: any = {};
   i18nInstance.configure({
     locales: ["en", "de"],
-    directory: path.join(__dirname, "../", "/locales"),
+    directory: "./lib/locales",
     register: anyObject,
   });
   anyObject.setLocale(language);
