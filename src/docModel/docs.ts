@@ -10,7 +10,7 @@ import {
   SOCIAL_KEY_TWITTER,
   OBTAIN_KEY_ONETOKEN_POOL,
   RISK_PROTOCOL,
-} from "./documentationInterfaces";
+} from "./documentationImplementation";
 
 export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
   {
