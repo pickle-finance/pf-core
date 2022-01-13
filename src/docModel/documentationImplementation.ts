@@ -1,6 +1,7 @@
 import { I18n } from "i18n";
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 import { PickleAsset } from "../model/PickleModelJson";
+import path from "path";
 
 export interface DocumentationModelDefinition {
   [key: string]: AssetDocumentationDefinition;
@@ -128,7 +129,7 @@ export function translateSingleString(
   const anyObject: any = {};
   i18nInstance.configure({
     locales: ["en", "de"],
-    directory: "./lib/locales",
+    directory: path.join(__dirname, "../", "/locales"),
     register: anyObject,
   });
   anyObject.setLocale(language);
