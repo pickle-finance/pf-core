@@ -27,6 +27,7 @@ export interface UserData {
     votes: IUserVote[],
     dill: IUserDillStats,
     pickles: UserPickles,
+    errors: string[],
 }
 
 export interface UserPickles {
@@ -46,6 +47,7 @@ export interface IUserVote {
 export class UserModel {
     model: PickleModelJson.PickleModelJson;
     walletId: string;
+    errors: string[] = [];
     constructor(model: PickleModelJson.PickleModelJson, walletId: string, rpcs: Map<ChainNetwork, Provider | Signer>) {
         this.model = model;
         this.walletId = walletId;
@@ -56,8 +58,8 @@ export class UserModel {
         const [tokens, earnings,votes, dill, pickles] = await Promise.all([
             this.getUserTokens(),
             this.getUserEarningsSummary(),
-            this.getUserGaugeVotes(),
-            this.getUserDillStats(),
+            this.getUserGaugeVotesGuard(),
+            this.getUserDillStatsGuard(),
             this.getUserPickles(),
         ]);
         return {
@@ -66,9 +68,9 @@ export class UserModel {
             earnings: earnings,
             votes: votes,
             dill: dill,
+            errors: this.errors
         }
     }
-
 
     async getUserPickles(): Promise<UserPickles> {
         try {
@@ -83,28 +85,46 @@ export class UserModel {
             }));
             return ret;
         } catch( err ) {
-            console.log("getUserPickles failed: " + err);
-            throw err;
+            const msg = "Error loading user pickles: " + err;
+            console.log(msg);
+            this.errors.push(msg);
+            return {
+
+            }
         }
     }
 
     async getUserTokens(): Promise<UserTokenData[]> {
         try {
             const ret : UserTokenData[] = [];
-            const result = await Promise.all(Chains.list().map((x)=>this.getUserTokensSingleChain(x)));
+            const result = await Promise.all(Chains.list().map((x)=>this.getUserTokensSingleChainGuard(x)));
             for( let i = 0; i < result.length; i++ ) {
                 ret.push(...result[i]);
             }
             return ret;
         } catch( err ) {
-            console.log("getUserTokens failed: " + err);
-            throw err;
+            const msg = "getUserTokens failed: " + err;
+            console.log(msg);
+            this.errors.push(msg);
+            return [];
         }
     }
 
     isErc20Underlying(asset: JarDefinition) : boolean {
         return asset.depositToken.style === undefined || 
             asset.depositToken.style.erc20 === true;
+    }
+
+    async getUserTokensSingleChainGuard(chain: ChainNetwork) : Promise<UserTokenData[]> {
+        try {
+            const res:UserTokenData[] = await this.getUserTokensSingleChain(chain);
+            return res;
+        } catch( error ) {
+            const msg = "Error loading user tokens for chain " + chain;
+            console.log(msg);
+            this.errors.push(msg);
+            return [];
+        }
     }
 
     async getUserTokensSingleChain(chain: ChainNetwork) : Promise<UserTokenData[]> {
@@ -258,6 +278,17 @@ export class UserModel {
         return ret;
     }
 
+    async getUserGaugeVotesGuard(): Promise<IUserVote[]> {
+        try {
+            const r = await this.getUserGaugeVotes();
+            return r;
+        } catch(error) {
+            const msg = "Error loading user votes";
+            console.log(msg);
+            this.errors.push(msg);
+            return [];
+        }
+    }
     async getUserGaugeVotes(): Promise<IUserVote[]> {
         const gaugeProxy = ADDRESSES.get(ChainNetwork.Ethereum).gaugeProxy;
         const gaugeProxyContract = new Contract(gaugeProxy, gaugeProxyAbi, this.providerFor(ChainNetwork.Ethereum));
@@ -283,13 +314,34 @@ export class UserModel {
         try {
             return getUserJarSummary(this.walletId.toLowerCase(), this.model);
         } catch(error ) {
-            console.log("Error in getUserEarningsSummary: " + error);
-            throw error;
+            const msg = ("Error in getUserEarningsSummary: " + error);
+            console.log(msg);
+            this.errors.push(msg);
+            return {
+                userId: this.walletId,
+                earnings: 0,
+                jarEarnings: []
+            }
         }
     }
 
+    async getUserDillStatsGuard(): Promise<IUserDillStats> {
+        try {
+            const r = await this.getUserDillStats();
+            return r;
+        } catch( error ) {
+            const msg = ("Error in getUserDillStats: " + error);
+            console.log(msg);
+            this.errors.push(msg);
+            return {
+                pickleLocked: "0",
+                lockEnd: "0",
+                balance: "0",
+                claimable: "0"
+            }
+        }
+    }
     async getUserDillStats(): Promise<IUserDillStats> {
-        const provider : MulticallProvider = this.multicallProviderFor(ChainNetwork.Ethereum);
         const dillContractAddr : string = ADDRESSES.get(ChainNetwork.Ethereum).dill;
         const feeDistributorAddr : string = ADDRESSES.get(ChainNetwork.Ethereum).feeDistributor;
         const dillContract : Dill = Dill__factory.connect(dillContractAddr, this.providerFor(ChainNetwork.Ethereum));
