@@ -72,16 +72,27 @@ export class UserModel {
         }
     }
 
+    getChainsToRun(): ChainNetwork[] {
+        return Chains.list();
+        //return [ChainNetwork.Harmony];
+    }
+
     async getUserPickles(): Promise<UserPickles> {
         try {
             const ret : UserPickles = {};
-            await Promise.all(Chains.list().map(async (x)=> {
-                let r : BigNumber = BigNumber.from(0);
-                if( ADDRESSES.get(x) && ADDRESSES.get(x).pickle !== undefined && ADDRESSES.get(x).pickle !== NULL_ADDRESS) {
-                    const contract = new Contract(ADDRESSES.get(x).pickle, erc20Abi, this.providerFor(x));
-                    r = await contract.balanceOf(this.walletId).catch(() => BigNumber.from("0"));
+            await Promise.all(this.getChainsToRun().map(async (x)=> {
+                try {
+                    let r : BigNumber = BigNumber.from(0);
+                    if( ADDRESSES.get(x) && ADDRESSES.get(x).pickle !== undefined && ADDRESSES.get(x).pickle !== NULL_ADDRESS) {
+                        const contract = new Contract(ADDRESSES.get(x).pickle, erc20Abi, this.providerFor(x));
+                        r = await contract.balanceOf(this.walletId).catch(() => BigNumber.from("0"));
+                    }
+                    ret[x.toString()] = r.toString();
+                } catch( err ) {
+                    const msg = "Error loading user pickles on chain " + x + ": " + err;
+                    console.log(msg);
+                    this.errors.push(msg);
                 }
-                ret[x.toString()] = r.toString();
             }));
             return ret;
         } catch( err ) {
@@ -97,7 +108,7 @@ export class UserModel {
     async getUserTokens(): Promise<UserTokenData[]> {
         try {
             const ret : UserTokenData[] = [];
-            const result = await Promise.all(Chains.list().map((x)=>this.getUserTokensSingleChainGuard(x)));
+            const result = await Promise.all(this.getChainsToRun().map((x)=>this.getUserTokensSingleChainGuard(x)));
             for( let i = 0; i < result.length; i++ ) {
                 ret.push(...result[i]);
             }
@@ -133,6 +144,10 @@ export class UserModel {
             && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED
             && this.isErc20Underlying(x));
         
+        if( chainAssets.length === 0 ) {
+            return [];
+        }
+
         const provider : MulticallProvider = this.multicallProviderFor(chain);
         const depositTokenBalancesPromise : Promise<BigNumber[]> = provider.all(
             chainAssets.map((x)=>{
