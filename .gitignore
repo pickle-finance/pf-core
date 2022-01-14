@@ -28,3 +28,5 @@ lib/
 
 # Misc
 .DS_Store
+
+persistent_data_store_no_commit.json

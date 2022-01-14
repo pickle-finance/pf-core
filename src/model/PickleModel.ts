@@ -19,6 +19,12 @@ import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { CoinMarketCapPriceResolver } from "../price/CoinMarketCapPriceResolver";
 import { SwapPriceResolver } from "../price/SwapPriceResolver";
 
+
+export interface PfDataStore {
+    readData(key: string): Promise<string|undefined>;
+    writeData(key: string, value: string): Promise<void>;
+}
+
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 export const FICTIONAL_ADDRESS = "0x000FEED0BEEF000FEED0BEEF0000000000000000";
 
@@ -88,8 +94,9 @@ export class PickleModel {
     private prices : PriceCache;
     private dillDetails: DillDetails;
     private platformData: PlatformData;
-    // This can be used to cache any object with a key that might be shared
-    // by a few different classes. 
+    // A persistent data store for sharing data that is common to all executions
+    private permanentDataStore: PfDataStore
+    // A non-persistent cache that can share data within a single execution
     resourceCache: Map<string, any>;
     private configuredChains: ChainNetwork[];
 
@@ -100,6 +107,25 @@ export class PickleModel {
         this.initializePriceCache();
         this.resourceCache = new Map<string,any>();
     }
+
+    setDataStore(dataStore: PfDataStore): void {
+        this.permanentDataStore = dataStore;
+    }
+    
+    getDataStore(): PfDataStore {
+        return this.permanentDataStore ? this.permanentDataStore : 
+        // Return a no-op data store
+        {
+            readData(_key: string): Promise<string> {
+                return undefined;
+            },
+            writeData(_key: string, _value: string): Promise<void> {
+                // do nothing
+                return;
+            }
+        }
+    }
+    
 
     static fromJson(json: PickleModelJson, chains: Map<ChainNetwork, Provider|Signer>) : PickleModel {
         const allAssets = json.assets.external.concat(json.assets.jars).concat(json.assets.standaloneFarms);

@@ -13,6 +13,7 @@ import {
   TokenClaimInfo,
 } from "./types";
 import fetch from "cross-fetch";
+import { PfDataStore } from "../../model/PickleModel";
 
 export class BalancerTokenClaim {
   /**
@@ -38,6 +39,7 @@ export class BalancerTokenClaim {
     public tokenClaimInfo: TokenClaimInfo,
     private tokenIndex: number,
     private address: string,
+    private dataStore: PfDataStore,
   ) {}
 
   fetchData = async (): Promise<void> => {
@@ -203,10 +205,10 @@ export class BalancerTokenClaim {
 
   private fetchFromIpfs = async (hash: string): Promise<Snapshot> => {
     const url = `https://ipfs.io/ipfs/${hash}`;
-    const res = await fetch(url);
+    const res:string = await this.dataStoreFetchWrapper(url);
 
     try {
-      const ret = await res.json();
+      const ret = await JSON.parse(res);
       return ret;
     } catch(error) {
       console.log("Impossible: " + error);
@@ -223,4 +225,38 @@ export class BalancerTokenClaim {
 
     return new MerkleTree(elements);
   };
+
+  async dataStoreFetchWrapper(url: string): Promise<string> {
+    const data: string = await this.dataStore.readData(url);
+    if( data ) {
+      return data;
+    }
+
+    let response = undefined;
+    try {
+      response = await fetch(url);
+    } catch( err ) {
+      // Ignore, error later
+    }
+
+    if( response === undefined )
+      return undefined;
+
+    let text = undefined;
+    try {
+      text = await response.text();
+    } catch( error ) {
+      // Ignore, error later
+    }
+
+    if( text === undefined )
+      return undefined;
+
+    try {
+      await this.dataStore.writeData(url, text);
+    } catch( error ) {
+      // Ignore, error later
+    }
+    return text;    
+  }
 }

@@ -1,6 +1,6 @@
 import { ChainNetwork, Chains } from "./chain/Chains";
 import { IChain } from "./chain/IChain";
-import { PickleModel } from "./model/PickleModel";
+import { PfDataStore, PickleModel } from "./model/PickleModel";
 import * as PickleModelJson from "./model/PickleModelJson";
 import * as JarsAndFarms from "./model/JarsAndFarms";
 import {
@@ -12,6 +12,7 @@ import { DocsManager } from "./docModel/DocsManager";
 import { AssetDocumentationResult, DocsFormat, DocumentationModelResult } from "./docModel/documentationImplementation";
 
 export {
+  PfDataStore,
   ChainNetwork,
   Chains,
   IChain,

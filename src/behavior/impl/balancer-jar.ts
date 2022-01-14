@@ -50,7 +50,7 @@ export abstract class BalancerJar extends AbstractJarBehavior {
       pickle: model.priceOfSync("pickle"),
     };
     const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
-    await manager.fetchData();
+    await manager.fetchData(model.getDataStore());
     return manager.claimableAmountUsd;
   }
 
@@ -89,7 +89,7 @@ export abstract class BalancerJar extends AbstractJarBehavior {
         const strategyAddr = jar.details.strategyAddr;
         console.log("[" + jar.details.apiKey + "] - Fetching claim data");
         const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
-        await manager.fetchData();
+        await manager.fetchData(model.getDataStore());
         console.log("[" + jar.details.apiKey + "] - About to claim distributions");
         const claimTransaction: ContractTransaction =
         await manager.claimDistributions();

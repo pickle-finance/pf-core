@@ -4,6 +4,7 @@ import { tokenClaimInfoList, merkleOrchardAddress } from "./config";
 import { Prices, ClaimableAmounts, ClaimProof } from "./types";
 import { BalancerTokenClaim } from "./BalancerTokenClaim";
 import { BalancerMerkleOrchard__factory as MerkleOrchardFactory } from "../../Contracts/ContractsImpl/factories/BalancerMerkleOrchard__factory";
+import { PfDataStore } from "../../model/PickleModel";
 
 export class BalancerClaimsManager {
   private tokens: string[] = [];
@@ -15,13 +16,14 @@ export class BalancerClaimsManager {
     private prices: Prices,
   ) {}
 
-  fetchData = async (): Promise<void> => {
+  fetchData = async (dataStore: PfDataStore): Promise<void> => {
     for (let index = 0; index < tokenClaimInfoList.length; index++) {
       const tokenClaimInfo = tokenClaimInfoList[index];
       const tokenClaim = new BalancerTokenClaim(
         tokenClaimInfo,
         index,
         this.address,
+        dataStore
       );
       await tokenClaim.fetchData();
 
