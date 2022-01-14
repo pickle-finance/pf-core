@@ -4370,7 +4370,7 @@ JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_ETH_METIS);
 
 export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
   type: AssetType.JAR,
-  id: "metJar 1d",
+  id: "metJar 1k",
   contract: "0x739267bF641756315434f6C1deC6f7eA137B561A",
   depositToken: {
     addr: "0xC8aE82A0ab6AdA2062B812827E1556c0fa448dd0",
@@ -4545,7 +4545,7 @@ JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_USDT_METIS);
 
 export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "metJar 1i",
+  id: "metJar 1j",
   contract: "0x5b64b5382d68a934004578d6bE3e482b455EDfa2",
   depositToken: {
     addr: "0x1caD5f8f5D4C0AD49646B2565CC0cA725E4280EA",
