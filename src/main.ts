@@ -13,9 +13,9 @@ async function generateFullApi() {
   map.set(ChainNetwork.Polygon, new ethers.providers.JsonRpcProvider('https://polygon-rpc.com/'));
   
   const model : PickleModel = new PickleModel(ALL_ASSETS, map);
-  const store = new LocalPersistedDataStore();
-  store.load();
-  model.setDataStore(store);
+  // const store = new LocalPersistedDataStore();
+  // store.load();
+  // model.setDataStore(store);
   const result = await model.generateFullApi();
   const resultString = JSON.stringify(result, null, 2);
   process.stdout.write(resultString);

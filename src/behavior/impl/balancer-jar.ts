@@ -49,9 +49,14 @@ export abstract class BalancerJar extends AbstractJarBehavior {
       bal: model.priceOfSync("bal"),
       pickle: model.priceOfSync("pickle"),
     };
-    const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
-    await manager.fetchData(model.getDataStore());
-    return manager.claimableAmountUsd;
+    try {
+      const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
+      await manager.fetchData(model.getDataStore());
+      return manager.claimableAmountUsd;
+    } catch( error ) {
+      console.log(error);
+      return 0;
+    }
   }
 
   getCustomHarvester(

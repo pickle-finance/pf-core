@@ -211,7 +211,7 @@ export class BalancerTokenClaim {
       const ret = await JSON.parse(res);
       return ret;
     } catch(error) {
-      console.log("Impossible: " + error);
+      console.log("[BalancerTokenClaim]: " + error + "\n\nresponse from " + url + " was:\n" + res);
     }
   };
 
