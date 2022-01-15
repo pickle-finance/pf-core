@@ -1183,13 +1183,6 @@
   resolved "https://registry.yarnpkg.com/@types/coingecko-api/-/coingecko-api-1.0.2.tgz#d051356bd11c65ab6e3c1a3b24b512913bf60ad2"
   integrity sha512-UdyZfbYeOi+MC+IiVKDt+hppWAUzPNtDkAwsYVdGlsUU02h9kXYtnyFuAhhCX7GoNt1qhwM6ZOVaHFn2E5xtfA==
 
-"@types/date-fns@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@types/date-fns/-/date-fns-2.6.0.tgz#b062ca46562002909be0c63a6467ed173136acc1"
-  integrity sha1-sGLKRlYgApCb4MY6ZGftFzE2rME=
-  dependencies:
-    date-fns "*"
-
 "@types/graceful-fs@^4.1.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/graceful-fs/-/graceful-fs-4.1.5.tgz#21ffba0d98da4350db64891f92a9e5db3cdb4e15"
@@ -1998,11 +1991,6 @@ data-urls@^2.0.0:
     abab "^2.0.3"
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
-
-date-fns@*, date-fns@^2.26.0:
-  version "2.26.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.26.0.tgz#fa45305543c392c4f914e50775fd2a4461e60fbd"
-  integrity sha512-VQI812dRi3cusdY/fhoBKvc6l2W8BPWU1FNVnFH9Nttjx4AFBRzfSVb/Eyc7jBT6e9sg1XtAGsYpBQ6c/jygbg==
 
 debug@4, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1:
   version "4.3.2"
