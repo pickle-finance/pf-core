@@ -126,7 +126,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     network: "metis",
     networkVisible: "Metis",
     secondsPerBlock: 3.5,
-    gasToken: "metis",
+    gasToken: "metis-token",
     explorer: "https://andromeda-explorer.metis.io/",
     rpcs: ["https://andromeda.metis.io/?owner=1088"],
     multicallAddress: "0xa99850Ff94d3D333e7F669203Ab7B77Ec634028F",
