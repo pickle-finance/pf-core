@@ -244,7 +244,6 @@ import { Mim2Crv } from "./impl/mim2crv";
 import { ArbitrumMimEth } from "./impl/arbitrum-mim-eth";
 import { ArbitrumSpellEth } from "./impl/arbitrum-spell-eth";
 import { ArbitrumHndEth } from "./impl/arbitrum-hnd-eth";
-import { BalTricrypto } from "./impl/bal-tricrypto";
 import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
 import { CvxCrv } from "./impl/cvxcrv";
@@ -462,10 +461,11 @@ jarToBehavior.set(JAR_ARBITRUM_MIM2CRV.id, new Mim2Crv());
 jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
 jarToBehavior.set(JAR_ARBITRUM_DODO_USDC.id, new ArbitrumDodoUsdc());
-jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalTricrypto());
+jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_SLP_GOHM_ETH.id, new ArbitrumGohmEth());
 jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
-// jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalPickleEth());
+jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalancerJar());
+jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());

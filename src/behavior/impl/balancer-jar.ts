@@ -6,15 +6,46 @@ import {
   Signer,
 } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
-import { PickleModel } from "../..";
-import { HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
-import { getBalancerPerformance } from "../../protocols/BalancerUtil";
+import jarAbi from "../../Contracts/ABIs/jar.json";
+import { JarHarvestStats, PickleModel } from "../..";
+import { AssetProjectedApr, HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
+import { calculateBalPoolAPRs, getBalancerPerformance, getPoolData, PoolData } from "../../protocols/BalancerUtil";
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
 
-export abstract class BalancerJar extends AbstractJarBehavior {
+export class BalancerJar extends AbstractJarBehavior {
+  poolData: PoolData | undefined;
+
+  async getDepositTokenPrice(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
+    if (!this.poolData) this.poolData = await getPoolData(jar, model);
+    return this.poolData.pricePerToken;
+  }
+
+  async getProjectedAprStats(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetProjectedApr> {
+    if (!this.poolData) this.poolData = await getPoolData(jar, model);
+    const res = await calculateBalPoolAPRs(
+      jar,
+      model,
+      this.poolData,
+    );
+    const aprsPostFee = res.map((component) =>
+      this.createAprComponent(
+        component.name,
+        component.apr,
+        component.compoundable,
+      ),
+    );
+    return this.aprComponentsToProjectedApr(aprsPostFee);
+  }
+  
   async getProtocolApy(
     definition: JarDefinition,
     model: PickleModel,

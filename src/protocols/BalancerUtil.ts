@@ -55,52 +55,15 @@ type LiquidityMiningWeek = Array<{
   pools: LiquidityMiningPools;
 }>;
 
+// make sure keys are lower-cased!
 const balPoolIds: { [poolTokenAddress: string]: string } = {
   "0x64541216bafffeec8ea535bb71fbc927831d0595":
     "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // arb bal tricrypto
   "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac":
     "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017", // arb bal pickle-eth
-  "0x5c6Ee304399DBdB9C8Ef030aB642B10820DB8F56":
-    "0x5c6ee304399dbdb9c8ef030ab642b10820db8f56000200000000000000000014", // mainnet bal bal-eth
+  "0xcc65a812ce382ab909a11e434dbf75b34f1cc59d":
+    "0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001", // arb bal-eth
 };
-
-// interface Tokens {
-//   [tokenAddres: string]: {
-//     decimals: number;
-//     priceId: string;
-//   };
-// }
-
-// const TOKENS: Tokens = {
-//   "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8": {
-//     decimals: 18,
-//     priceId: "bal",
-//   },
-//   "0xba100000625a3754423978a60c9317c58a424e3d": {
-//     decimals: 18,
-//     priceId: "bal",
-//   },
-//   "0x965772e0e9c84b6f359c8597c891108dcf1c5b1a": {
-//     decimals: 18,
-//     priceId: "pickle",
-//   },
-//   "0x82af49447d8a07e3bd95bd0d56f35241523fbab1": {
-//     decimals: 18,
-//     priceId: "weth",
-//   },
-//   "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
-//     decimals: 18,
-//     priceId: "weth"
-//   },
-//   "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8": {
-//     priceId: "usdc",
-//     decimals: 6,
-//   },
-//   "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f": {
-//     priceId: "wbtc",
-//     decimals: 8,
-//   },
-// };
 
 interface GraphResponse {
   address: string;

@@ -34,7 +34,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   details: {
     apiKey: "pickle-eth",
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
@@ -1667,7 +1667,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
     apiKey: "PSLP-PICKLE",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
@@ -2047,6 +2047,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
     farmNickname: "Balancer Tricrypto",
     farmDepositTokenName: "Balancer Tricrypto",
   },
+  tags: ["cooldown"],
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_TRICRYPTO);
 
@@ -5074,7 +5075,7 @@ export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   details: {
     apiKey: "sushi-pickle-eth",
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
 
