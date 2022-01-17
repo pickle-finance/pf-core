@@ -120,6 +120,8 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Polygon, "dino", "dinoswap", "0xAa9654BECca45B5BDFA5ac646c939C62b527D394".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Polygon, "ice", "iron-finance", "0x4a81f8796e0c6ad4877a51c86693b0de8093f2ef".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
     this.addToken(ChainNetwork.Polygon, "work", "the-employment-commons-work-token", "0x6002410dda2fb88b4d0dc3c1d562f7761191ea80".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Polygon, "raider", "crypto-raiders", "0xcd7361ac3307d1c5a46b63086a90742ff44c63b3".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Polygon, "aurum", "raider-aurum", "0x34d4ab47bee066f361fa52d792e69ac7bd05ee23".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
 
     // Arbitrum
     this.addToken(ChainNetwork.Arbitrum, "spell", "spell-token", "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
