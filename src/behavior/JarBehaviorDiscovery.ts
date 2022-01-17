@@ -173,7 +173,11 @@ import {
   JAR_METIS_TETHYS_METIS,
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
-  JAR_METIS_TETHYS_USDT_METIS
+  JAR_METIS_TETHYS_USDT_METIS,
+  JAR_POLY_SUSHI_RAIDER_MATIC,
+  JAR_POLY_SUSHI_RAIDER_WETH,
+  JAR_POLY_SUSHI_AURUM_MATIC,
+  JAR_POLY_SUSHI_AURUM_USDC
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -349,6 +353,10 @@ import { TethysMetis } from "./impl/metis-tethys";
 import { TethysEthMetis } from "./impl/metis-tethys-eth-metis";
 import { TethysMetisUsdc } from "./impl/metis-tethys-metis-usdc";
 import { TethysUsdtMetis } from "./impl/metis-tethys-usdt-metis";
+import { RaiderMatic } from "./impl/raider-matic";
+import { RaiderWeth } from "./impl/raider-weth";
+import { AurumMatic } from "./impl/raider-aurum-matic";
+import { AurumUsdc } from "./impl/raider-aurum-usdc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -420,6 +428,10 @@ jarToBehavior.set(JAR_QUICK_QI_MATIC.id, new MaticQi());
 jarToBehavior.set(JAR_IRON3USD.id, new Is3Usd());
 jarToBehavior.set(JAR_POLY_SUSHI_WORK_USDC.id, new PSlpWorkUsdc());
 jarToBehavior.set(JAR_POLY_UNIV3_USDC_ETH.id, new Uni3UsdcEth());
+jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_MATIC.id, new RaiderMatic());
+jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_WETH.id, new RaiderWeth());
+jarToBehavior.set(JAR_POLY_SUSHI_AURUM_MATIC.id, new AurumMatic());
+jarToBehavior.set(JAR_POLY_SUSHI_AURUM_USDC.id, new AurumUsdc());
 
 // Arbitrum
 jarToBehavior.set(JAR_ARBITRUM_SLP_MIM_ETH.id, new ArbitrumMimEth());

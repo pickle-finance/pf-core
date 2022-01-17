@@ -1669,6 +1669,106 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_WORK_USDC);
 
+export const JAR_POLY_SUSHI_RAIDER_MATIC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 4d",
+  contract: "0xCA12121E55C5523ad5e0e6a9062689c4eBa0b691",
+  depositToken: {
+    addr: "0x2E7d6490526C7d7e2FDEa5c6Ec4b0d1b9F8b25B7",
+    name: "Sushi RAIDER/MATIC",
+    link: "https://app.sushi.com/add/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+    components: ["raider", "matic"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "PSLP-RAIDER-MATIC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749",
+    farmNickname: "pSushi RAIDER/MATIC",
+    farmDepositTokenName: "pSushi RAIDER/MATIC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_SUSHI_RAIDER_MATIC);
+
+export const JAR_POLY_SUSHI_RAIDER_WETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 4e",
+  contract: "0x2e57627ACf6c1812F99e274d0ac61B786c19E74f",
+  depositToken: {
+    addr: "0x426a56F6923c2B8A488407fc1B38007317ECaFB1",
+    name: "Sushi RAIDER/WETH",
+    link: "https://app.sushi.com/add/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+    components: ["raider", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "PSLP-RAIDER-WETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749",
+    farmNickname: "pSushi RAIDER/WETH",
+    farmDepositTokenName: "pSushi RAIDER/WETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_SUSHI_RAIDER_WETH);
+
+export const JAR_POLY_SUSHI_AURUM_MATIC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 4f",
+  contract: "0x6f8B4D9c4dC3592962C55207Ac945dbf5be54cC4",
+  depositToken: {
+    addr: "0x91670a2A69554c61d814CD7f406D7793387E68Ef",
+    name: "Sushi AURUM/MATIC",
+    link: "https://app.sushi.com/add/0x34d4ab47bee066f361fa52d792e69ac7bd05ee23/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+    components: ["aurum", "matic"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "PSLP-AURUM-MATIC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749",
+    farmNickname: "pSushi AURUM/MATIC",
+    farmDepositTokenName: "pSushi AURUM/MATIC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_SUSHI_AURUM_MATIC);
+
+export const JAR_POLY_SUSHI_AURUM_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 4g",
+  contract: "0x5E5D7739ea3B6787587E129E4A508FfDAF180923",
+  depositToken: {
+    addr: "0xaBEE7668a96C49D27886D1a8914a54a5F9805041",
+    name: "Sushi AURUM/USDC",
+    link: "https://app.sushi.com/add/0x34d4ab47bee066f361fa52d792e69ac7bd05ee23/0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    components: ["aurum", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "PSLP-AURUM-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749",
+    farmNickname: "pSushi AURUM/USDC",
+    farmDepositTokenName: "pSushi AURUM/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_SUSHI_AURUM_USDC);
+
 export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "polyJar U3a",
