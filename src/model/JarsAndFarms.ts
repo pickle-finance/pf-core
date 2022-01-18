@@ -1262,12 +1262,12 @@ export const JAR_LOOKS: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: "0xb5fe3204aabe02475d5b9d3c52820f2169002124",
+    farmAddress: "0x06a566e7812413bc66215b48d6f26321ddf653a9",
     farmNickname: "pLOOKS",
     farmDepositTokenName: "pLOOKS",
   },
 };
-JAR_DEFINITIONS.push(JAR_UNIV2_LOOKS_ETH);
+JAR_DEFINITIONS.push(JAR_LOOKS);
 
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
