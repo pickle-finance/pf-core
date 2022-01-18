@@ -33,6 +33,7 @@ export enum AssetProtocol {
   AURORASWAP = "auroraswap",
   TETHYS = "tethys",
   NETSWAP = "netswap",
+  LOOKS = "LooksRare",
   // ADD_PROTOCOL
 }
 
