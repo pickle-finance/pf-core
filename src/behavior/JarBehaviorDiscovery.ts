@@ -177,7 +177,8 @@ import {
   JAR_POLY_SUSHI_RAIDER_MATIC,
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
-  JAR_POLY_SUSHI_AURUM_USDC
+  JAR_POLY_SUSHI_AURUM_USDC,
+  JAR_LOOKS
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -357,6 +358,7 @@ import { RaiderMatic } from "./impl/raider-matic";
 import { RaiderWeth } from "./impl/raider-weth";
 import { AurumMatic } from "./impl/raider-aurum-matic";
 import { AurumUsdc } from "./impl/raider-aurum-usdc";
+import { pLooks } from "./impl/looks";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -409,6 +411,7 @@ jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth())
 jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth())
 jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc())
 jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth())
+jarToBehavior.set(JAR_LOOKS.id, new pLooks())
 
 
 // Polygon

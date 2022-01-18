@@ -1245,6 +1245,30 @@ export const JAR_UNIV2_LOOKS_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_LOOKS_ETH);
 
+export const JAR_LOOKS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0.98b",
+  contract: "0xb4EBc2C371182DeEa04B2264B9ff5AC4F0159C69",
+  depositToken: {
+    addr: "0xf4d2888d29D722226FafA5d9B24F9164c092421E",
+    name: "LOOKS",
+    link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xf4d2888d29d722226fafa5d9b24f9164c092421e",
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.LOOKS,
+  details: {
+    apiKey: "LOOKS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xb5fe3204aabe02475d5b9d3c52820f2169002124",
+    farmNickname: "pLOOKS",
+    farmDepositTokenName: "pLOOKS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UNIV2_LOOKS_ETH);
+
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar U3a",
