@@ -26,6 +26,7 @@ export enum ChainNetwork {
   Cronos = "cronos",
   Aurora = "aurora",
   Metis = "metis",
+  Moonbeam = "moonbeam"
   // ADD_CHAIN
   //Binance
 }
@@ -130,6 +131,17 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://andromeda-explorer.metis.io/",
     rpcs: ["https://andromeda.metis.io/?owner=1088"],
     multicallAddress: "0xa99850Ff94d3D333e7F669203Ab7B77Ec634028F",
+    defaultPerformanceFee: 0.1,
+  },
+  {
+    chainId: 1284,
+    network: "moonbeam",
+    networkVisible: "Moonbeam",
+    secondsPerBlock: 12.1,
+    gasToken: "moonbeam",
+    explorer: "https://blockscout.moonbeam.network/",
+    rpcs: ["https://rpc.api.moonbeam.network"],
+    multicallAddress: "0xDad6760bd3FC33b741D46df1e205558BB22D1507",
     defaultPerformanceFee: 0.1,
   },
   // ADD_CHAIN

@@ -85,6 +85,12 @@ export const ADDRESSES = new Map([
         controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
         minichef: NULL_ADDRESS,
     }],
+    [ChainNetwork.Moonbeam, {
+        pickle: NULL_ADDRESS,
+        masterChef: NULL_ADDRESS,
+        controller: "0x95ca4584eA2007D578fa2693CCC76D930a96d165",
+        minichef: NULL_ADDRESS,
+    }],
 
     // ADD_CHAIN
 ]);

@@ -178,7 +178,8 @@ import {
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
   JAR_POLY_SUSHI_AURUM_USDC,
-  JAR_LOOKS
+  JAR_LOOKS,
+  JAR_MOONBEAM_STELLA_GLMR
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -359,6 +360,8 @@ import { RaiderWeth } from "./impl/raider-weth";
 import { AurumMatic } from "./impl/raider-aurum-matic";
 import { AurumUsdc } from "./impl/raider-aurum-usdc";
 import { pLooks } from "./impl/looks";
+import { MoonbeamStellaJar } from "./impl/moonbeam-stella-jar";
+import { StellaGlmr } from "./impl/moonbeam-stella-glmr";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -567,6 +570,8 @@ jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
 
+// Moonbeam
+jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

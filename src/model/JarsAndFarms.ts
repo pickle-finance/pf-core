@@ -4792,6 +4792,31 @@ export const JAR_METIS_TETHYS_USDT_METIS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_TETHYS_USDT_METIS);
 
+export const JAR_MOONBEAM_STELLA_GLMR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1a",
+  contract: "0xa9e5E86BA4e8E175e7eF7Ddd4ee30a28f90186e2",
+  depositToken: {
+    addr: "0x7F5Ac0FC127bcf1eAf54E3cd01b00300a0861a62",
+    name: "STELLA STELLA/GLMR",
+    link: "https://app.stellaswap.com/exchange/add/ETH/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2",
+    components: ["stella", "glmr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.STELLA,
+  details: {
+    apiKey: "SLP-STELLA-GLMR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP STELLA/GLMR",
+    farmDepositTokenName: "pTLP STELLA/GLMR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_GLMR);
+
 
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below

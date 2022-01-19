@@ -228,6 +228,10 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Metis, "usdc", "usd-coin", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Metis, "usdt", "tether", "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
 
+    // Moonbeam
+    this.addToken(ChainNetwork.Moonbeam, "glmr", "moonbeam", "0xAcc15dC74880C9944775448304B263D191c6077F".toLowerCase(), 18, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Moonbeam, "stella", "stellaswap", "0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x81e11a9374033d11Cc7e7485A7192AE37D0795D6"]);
+    this.addToken(ChainNetwork.Moonbeam, "usdc", "usd-coin", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
