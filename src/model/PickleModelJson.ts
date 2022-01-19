@@ -34,6 +34,7 @@ export enum AssetProtocol {
   TETHYS = "tethys",
   NETSWAP = "netswap",
   LOOKS = "LooksRare",
+  STELLASWAP = "stellaswap",
   // ADD_PROTOCOL
 }
 
@@ -55,12 +56,13 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.AURORASWAP,
   AssetProtocol.NETSWAP,
   AssetProtocol.TETHYS,
+  AssetProtocol.STELLASWAP,
   // ADD_PROTOCOL
 ];
 
 export enum AssetEnablement {
-  // A jar that is in development mode, should have pfcore run against it, 
-  // But should only be shown in the UI during local testing 
+  // A jar that is in development mode, should have pfcore run against it,
+  // But should only be shown in the UI during local testing
   DEV = "dev",
   // An active jar
   ENABLED = "enabled",

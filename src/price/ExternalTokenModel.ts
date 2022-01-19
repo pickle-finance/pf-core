@@ -228,6 +228,17 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Metis, "usdc", "usd-coin", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Metis, "usdt", "tether", "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
 
+    //Moonbeam
+    this.addToken(ChainNetwork.Moonbeam, "glmr", "moonbeam", "0xAcc15dC74880C9944775448304B263D191c6077F".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Moonbeam, "stella", "stella", "0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0x8BC3CceeF43392B315dDD92ba30b435F79b66b9e"]);
+    this.addToken(ChainNetwork.Moonbeam, "bnb", "binancecoin", "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Moonbeam, "busd", "binance-usd", "0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Moonbeam, "dai", "dai", "0x765277EebeCA2e31912C9946eAe1021199B39C61".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Moonbeam, "eth", "ethereum", "0xfA9343C3897324496A05fC75abeD6bAC29f8A40f".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Moonbeam, "usdc", "usd-coin", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+
+
+
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
