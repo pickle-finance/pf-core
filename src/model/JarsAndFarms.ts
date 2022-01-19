@@ -398,7 +398,7 @@ export const JAR_UNI_BAC_DAI: JarDefinition = {
     name: "UniV2 BAC/DAI",
     link: undefined,
     components: ["bac", "dai"],
-  },
+},
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
@@ -1796,7 +1796,7 @@ JAR_DEFINITIONS.push(JAR_POLY_SUSHI_AURUM_USDC);
 export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "polyJar U3a",
-  contract: "0xb409FfdAA37f8B98766E5b11D183acCfC7Ca6822",
+  contract: "0x75415BF29f054Ab9047D26501Ad5ef93B5364eb0",
   depositToken: {
     addr: "0x45dDa9cb7c25131DF268515131f647d726f50608",
     name: "UniV3 USDC/ETH",
