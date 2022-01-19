@@ -22,7 +22,16 @@ export class BalancerJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    if (!this.poolData) this.poolData = await getPoolData(jar, model);
+    if (!this.poolData) {
+      try {
+        this.poolData = await getPoolData(jar, model);
+      } catch (error) {
+        const msg = (`Error in getDepositTokenPrice (${jar.details.apiKey}): ${error}`);
+        console.log(msg);
+        return 0;
+      }
+    }
+    
     return this.poolData.pricePerToken;
   }
 
