@@ -99,7 +99,6 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       model,
       resolver,
     );
-    const balanceWithAvailable = balance.add(available);
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
@@ -108,7 +107,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     );
     const balanceUSD: number =
       parseFloat(
-        ethers.utils.formatUnits(balanceWithAvailable, depositTokenDecimals),
+        ethers.utils.formatUnits(balance, depositTokenDecimals),
       ) * depositTokenPrice;
     const availUSD: number =
       parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) *

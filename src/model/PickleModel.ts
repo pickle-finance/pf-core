@@ -635,7 +635,7 @@ export class PickleModel {
         let balanceOfProm : Promise<BigNumber[]> = undefined; 
         try {
             balanceOfProm = multicallProvider.all<BigNumber[]>(
-                harvestableJars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf())
+                harvestableJars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).balance())
             );
         } catch ( error ) { this.logError("loadHarvestDataJarAbi: balanceOfProm", error, chain); }
 
