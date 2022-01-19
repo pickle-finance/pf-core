@@ -178,7 +178,9 @@ import {
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
   JAR_POLY_SUSHI_AURUM_USDC,
-  JAR_LOOKS
+  JAR_LOOKS,
+  JAR_METIS_HADES_METIS,
+  JAR_METIS_HELLSHARE_METIS
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -359,6 +361,8 @@ import { RaiderWeth } from "./impl/raider-weth";
 import { AurumMatic } from "./impl/raider-aurum-matic";
 import { AurumUsdc } from "./impl/raider-aurum-usdc";
 import { pLooks } from "./impl/looks";
+import { HadesMetis } from "./impl/metis-hades";
+import { HellshareMetis } from "./impl/metis-hellshare";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -566,6 +570,8 @@ jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
+jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
+jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());

@@ -227,6 +227,8 @@ export class ExternalTokenModel {
     this.addToken(ChainNetwork.Metis, "eth", "ethereum", "0x420000000000000000000000000000000000000A".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Metis, "usdc", "usd-coin", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
     this.addToken(ChainNetwork.Metis, "usdt", "tether", "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC".toLowerCase(), 6, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "hades", "hades-money", "0x88c37e0bc6a237e96bc4a82774a38bbc30eff3cf".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Metis, "hellshare", "hellshare", "0xefb15ef34f85632fd1d4c17fc130ccee3d3d48ae".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
 
 
     // Make the reverse map to fascilitate contract lookups

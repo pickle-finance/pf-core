@@ -4792,7 +4792,55 @@ export const JAR_METIS_TETHYS_USDT_METIS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_TETHYS_USDT_METIS);
 
+export const JAR_METIS_HADES_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2e",
+  contract: "0x3657dE6D8F500a4e91370Fb8c738D33C5010541f",
+  depositToken: {
+    addr: "0x586f616Bb811F1b0dFa953FBF6DE3569e7919752",
+    name: "TETHYS HADES/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=0x88c37e0bc6a237e96bc4a82774a38bbc30eff3cf&outputCurrency=METIS",
+    components: ["hades", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-HADES/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP HADES/METIS",
+    farmDepositTokenName: "pTLP HADES/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_HADES_METIS);
 
+export const JAR_METIS_HELLSHARE_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2f",
+  contract: "0xD46998a580Ca8cB3b4f805A36CD23054874115ee",
+  depositToken: {
+    addr: "0xCD1cc85DC7b4Deef34247CCB5d7C42A58039b1bA",
+    name: "TETHYS HELLSHARE/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=0xefb15ef34f85632fd1d4c17fc130ccee3d3d48ae&outputCurrency=METIS",
+    components: ["hellshare", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-HELLSHARE/METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTLP HELLSHARE/METIS",
+    farmDepositTokenName: "pTLP HELLSHARE/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_HELLSHARE_METIS);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
