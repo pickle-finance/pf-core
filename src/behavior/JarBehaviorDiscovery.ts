@@ -189,6 +189,8 @@ import {
   JAR_MOONBEAM_STELLA_USDC_USDT,
   JAR_METIS_HADES_METIS,
   JAR_METIS_HELLSHARE_METIS,
+  JAR_ARBITRUM_BAL_PICKLE_ETH,
+  JAR_ARBITRUM_BAL_ETH
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -378,6 +380,7 @@ import { StellaStellaUsdc } from "./impl/stella-stella-usdc";
 import { StellaUsdcUsdt } from "./impl/stella-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
+import { BalancerJar } from "./impl/balancer-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
