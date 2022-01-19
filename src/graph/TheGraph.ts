@@ -82,6 +82,7 @@ export function graphUrlFromDetails(
       switch(chain) {
         case ChainNetwork.Ethereum: return SUBGRAPH_URL_BALANCER;
         case ChainNetwork.Arbitrum: return SUBGRAPH_URL_BALANCER_ARBITRUM;
+        default: throw new Error(`(${protocol}) has no graph on (${chain})`);
       }
     }
     case AssetProtocol.VVS: return SUBGRAPH_URL_VVS_CRONOS;
@@ -93,6 +94,7 @@ export function graphUrlFromDetails(
         case ChainNetwork.Polygon: return SUBGRAPH_URL_SUSHISWAP_POLYGON;
         case ChainNetwork.Arbitrum: return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
         case ChainNetwork.Harmony: return SUBGRAPH_URL_SUSHISWAP_HARMONY;
+        default: throw new Error(`(${protocol}) has no graph on (${chain})`);
       }
       // ADD_PROTOCOL
       return undefined;
