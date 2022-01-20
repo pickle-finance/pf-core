@@ -1,5 +1,4 @@
-import { ethers, Signer } from "ethers";
-import fetch from "cross-fetch";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";

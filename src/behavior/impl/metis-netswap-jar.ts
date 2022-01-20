@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import fetch from "cross-fetch";
 import { Provider } from "@ethersproject/providers";
 import { Chains, PickleModel } from "../..";
