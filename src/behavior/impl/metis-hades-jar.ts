@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { Provider } from "@ethersproject/providers";
 import { PickleModel } from "../..";

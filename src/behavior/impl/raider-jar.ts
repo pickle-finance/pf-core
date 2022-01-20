@@ -2,17 +2,14 @@ import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import {
-  AssetAprComponent,
   AssetProjectedApr,
   JarDefinition,
 } from "../../model/PickleModelJson";
 import { Contract as MulticallContract } from "ethers-multicall";
 import {
   AbstractJarBehavior,
-  createAprComponentImpl,
 } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateFossilFarmsAPY } from "../../protocols/DinoUtil";
 import { SushiPolyPairManager } from "../../protocols/SushiSwapUtil";
 import raiderRewardsAbi from "../../Contracts/ABIs/raider-rewards.json";
 import { formatEther } from "ethers/lib/utils";

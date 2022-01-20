@@ -66,6 +66,7 @@ export function graphUrlFromDetails(protocol: AssetProtocol, chain: ChainNetwork
       switch(chain) {
         case ChainNetwork.Polygon: return SUBGRAPH_URL_UNISWAP_V3_POLYGON; 
       }
+      break;
     }
     case AssetProtocol.COMETHSWAP: return SUBGRAPH_URL_COMETH;
     case AssetProtocol.QUICKSWAP: return SUBGRAPH_URL_QUICKSWAP;

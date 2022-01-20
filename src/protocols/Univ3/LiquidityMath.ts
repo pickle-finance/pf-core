@@ -38,8 +38,8 @@ export const calculateLiquidity = (ticks: Tick[], currentTick: number): bn => {
   for (let i = 0; i < ticks.length - 1; ++i) {
     liquidity = liquidity.plus(new bn(ticks[i].liquidityNet));
 
-    let lowerTick = Number(ticks[i].tickIdx);
-    let upperTick = Number(ticks[i + 1].tickIdx);
+    const lowerTick = Number(ticks[i].tickIdx);
+    const upperTick = Number(ticks[i + 1].tickIdx);
 
     if (lowerTick <= currentTick && currentTick <= upperTick) {
       break;
