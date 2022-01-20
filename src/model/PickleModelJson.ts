@@ -61,8 +61,8 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
 ];
 
 export enum AssetEnablement {
-  // A jar that is in development mode, should have pfcore run against it, 
-  // But should only be shown in the UI during local testing 
+  // A jar that is in development mode, should have pfcore run against it,
+  // But should only be shown in the UI during local testing
   DEV = "dev",
   // An active jar
   ENABLED = "enabled",

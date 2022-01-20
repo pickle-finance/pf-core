@@ -1,7 +1,7 @@
 import { AssetEnablement, AssetProjectedApr, AssetProtocol, AssetType, DillDetails, ExternalAssetDefinition, HarvestStyle, HistoricalYield, JarDefinition, PickleAsset, PickleModelJson, PlatformData, StandaloneFarmDefinition } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import { Provider as MulticallProvider, Contract as MulticallContract} from 'ethers-multicall';
+import { Provider as MulticallProvider, Contract as MulticallContract } from 'ethers-multicall';
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
@@ -21,7 +21,7 @@ import { SwapPriceResolver } from "../price/SwapPriceResolver";
 
 
 export interface PfDataStore {
-    readData(key: string): Promise<string|undefined>;
+    readData(key: string): Promise<string | undefined>;
     writeData(key: string, value: string): Promise<void>;
 }
 
@@ -36,7 +36,7 @@ export const ADDRESSES = new Map([
         dill: "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf",
         feeDistributor: "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc",
         gaugeProxy: "0x2e57627ACf6c1812F99e274d0ac61B786c19E74f",
-    }], 
+    }],
     [ChainNetwork.Polygon, {
         pickle: "0x2b88ad57897a8b496595925f43048301c37615da",
         masterChef: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
@@ -48,19 +48,19 @@ export const ADDRESSES = new Map([
         masterChef: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
         controller: "0x55d5bcef2bfd4921b8790525ff87919c2e26bd03",
         minichef: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-      }],
+    }],
     [ChainNetwork.OKEx, {
         pickle: "0x965772e0E9c84b6f359c8597C891108DcF1c5B1A",
         masterChef: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
         controller: "0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4",
         minichef: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
-      }],
+    }],
     [ChainNetwork.Harmony, {
         pickle: NULL_ADDRESS,
         masterChef: NULL_ADDRESS,
         controller: "0xf4396dca6201e0ca120073acda087b53f7159e24",
         minichef: NULL_ADDRESS,
-      }],
+    }],
     [ChainNetwork.Moonriver, {
         pickle: NULL_ADDRESS,
         masterChef: NULL_ADDRESS,
@@ -96,8 +96,8 @@ export const ADDRESSES = new Map([
 ]);
 
 export class PickleModel {
-    private allAssets : PickleAsset[];
-    private prices : PriceCache;
+    private allAssets: PickleAsset[];
+    private prices: PriceCache;
     private dillDetails: DillDetails;
     private platformData: PlatformData;
     // A persistent data store for sharing data that is common to all executions
@@ -106,113 +106,113 @@ export class PickleModel {
     resourceCache: Map<string, any>;
     private configuredChains: ChainNetwork[];
 
-    constructor( allAssets: PickleAsset[], chains: Map<ChainNetwork, Provider | Signer>) {
-        // Make a copy so the original definitions stay unchanged. 
+    constructor(allAssets: PickleAsset[], chains: Map<ChainNetwork, Provider | Signer>) {
+        // Make a copy so the original definitions stay unchanged.
         this.allAssets = JSON.parse(JSON.stringify(allAssets));
         this.initializeChains(chains);
         this.initializePriceCache();
-        this.resourceCache = new Map<string,any>();
+        this.resourceCache = new Map<string, any>();
     }
 
     setDataStore(dataStore: PfDataStore): void {
         this.permanentDataStore = dataStore;
     }
-    
-    getDataStore(): PfDataStore {
-        return this.permanentDataStore ? this.permanentDataStore : 
-        // Return a no-op data store
-        {
-            readData(_key: string): Promise<string> {
-                return undefined;
-            },
-            writeData(_key: string, _value: string): Promise<void> {
-                // do nothing
-                return;
-            }
-        }
-    }
-    
 
-    static fromJson(json: PickleModelJson, chains: Map<ChainNetwork, Provider|Signer>) : PickleModel {
+    getDataStore(): PfDataStore {
+        return this.permanentDataStore ? this.permanentDataStore :
+            // Return a no-op data store
+            {
+                readData(_key: string): Promise<string> {
+                    return undefined;
+                },
+                writeData(_key: string, _value: string): Promise<void> {
+                    // do nothing
+                    return;
+                }
+            }
+    }
+
+
+    static fromJson(json: PickleModelJson, chains: Map<ChainNetwork, Provider | Signer>): PickleModel {
         const allAssets = json.assets.external.concat(json.assets.jars).concat(json.assets.standaloneFarms);
-        const model : PickleModel = new PickleModel(allAssets, chains);
+        const model: PickleModel = new PickleModel(allAssets, chains);
         model.setPrices(json.prices);
         return model;
     }
 
-    setPrices(prices: any) : void {
+    setPrices(prices: any): void {
         this.prices = new PriceCache(prices);
     }
 
     getHarvesterForAsset(definition: PickleAsset, signer: Signer, properties: any) {
-        const beh : AssetBehavior<PickleAsset> = new JarBehaviorDiscovery().findAssetBehavior(definition);
-        if( beh ) {
+        const beh: AssetBehavior<PickleAsset> = new JarBehaviorDiscovery().findAssetBehavior(definition);
+        if (beh) {
             const ret = beh.getCustomHarvester(definition, this, signer, properties);
-            if( ret ) 
+            if (ret)
                 return ret;
         }
         return undefined;
     }
-    getJars() : JarDefinition[] {
-        const arr : PickleAsset[] = this.allAssets.filter((x)=>x.type===AssetType.JAR);
+    getJars(): JarDefinition[] {
+        const arr: PickleAsset[] = this.allAssets.filter((x) => x.type === AssetType.JAR);
         return arr as JarDefinition[];
     }
 
-    getStandaloneFarms() : StandaloneFarmDefinition[] {
-        const arr : PickleAsset[] = this.allAssets.filter((x)=>x.type===AssetType.STANDALONE_FARM);
+    getStandaloneFarms(): StandaloneFarmDefinition[] {
+        const arr: PickleAsset[] = this.allAssets.filter((x) => x.type === AssetType.STANDALONE_FARM);
         return arr as StandaloneFarmDefinition[];
     }
 
-    getExternalAssets() : ExternalAssetDefinition[] {
-        const arr : PickleAsset[] = this.allAssets.filter((x)=>x.type===AssetType.EXTERNAL);
+    getExternalAssets(): ExternalAssetDefinition[] {
+        const arr: PickleAsset[] = this.allAssets.filter((x) => x.type === AssetType.EXTERNAL);
         return arr as ExternalAssetDefinition[];
     }
 
-    semiActiveJars(chain: ChainNetwork) : JarDefinition[] {
-        return this.getJars().filter(x => x.chain === chain 
+    semiActiveJars(chain: ChainNetwork): JarDefinition[] {
+        return this.getJars().filter(x => x.chain === chain
             && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
     }
 
-    semiActiveAssets(chain: ChainNetwork) : PickleAsset[] {
-        return [].concat(this.getJars().filter(x => x.chain === chain 
-                && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED))
-                .concat(this.getStandaloneFarms().filter(x => x.chain === chain 
-                    && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED));
+    semiActiveAssets(chain: ChainNetwork): PickleAsset[] {
+        return [].concat(this.getJars().filter(x => x.chain === chain
+            && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED))
+            .concat(this.getStandaloneFarms().filter(x => x.chain === chain
+                && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED));
     }
 
-    getAllAssets() : PickleAsset[] {
+    getAllAssets(): PickleAsset[] {
         return this.allAssets;
     }
 
-    // Results unpredictable if similar token on multiple chains. 
+    // Results unpredictable if similar token on multiple chains.
     // Please be specific, use address()
     addr(name: string): string {
-        for( let i = 0; i < this.configuredChains.length; i++ ) {
+        for (let i = 0; i < this.configuredChains.length; i++) {
             const t1 = ExternalTokenModelSingleton.getToken(name, this.configuredChains[i])?.contractAddr;
             if (t1 !== undefined)
-            return t1;
+                return t1;
         }
         return undefined;
     }
     address(id: string, chain: ChainNetwork) {
         return ExternalTokenModelSingleton.getToken(id, chain)?.contractAddr;
     }
-    tokenDecimals(id: string, chain:ChainNetwork) {
+    tokenDecimals(id: string, chain: ChainNetwork) {
         return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
     }
-    async priceOf(token: string) : Promise<number> {
+    async priceOf(token: string): Promise<number> {
         return this.prices.priceOf(token);
     }
-    priceOfSync(token: string) : number {
+    priceOfSync(token: string): number {
         return this.prices.priceOf(token);
     }
-    providerFor(network: ChainNetwork) : Provider {
+    providerFor(network: ChainNetwork): Provider {
         return Chains.get(network).getPreferredWeb3Provider();
     }
-    multicallProviderFor(chain: ChainNetwork) : MulticallProvider {
+    multicallProviderFor(chain: ChainNetwork): MulticallProvider {
         return new MulticallProvider(this.providerFor(chain), Chains.get(chain).id);
     }
-    getResourceCache() : Map<string,any> {
+    getResourceCache(): Map<string, any> {
         return this.resourceCache;
     }
 
@@ -222,26 +222,26 @@ export class PickleModel {
     }
 
     controllerForJar(jar: JarDefinition) {
-        return jar.details?.controller ? jar.details.controller 
+        return jar.details?.controller ? jar.details.controller
             : this.defaultControllerForChain(jar.chain);
     }
 
-    findAsset(id: string) : PickleAsset {
-        for( let i = 0; i < this.allAssets.length; i++ ) {
-            if( this.allAssets[i].id === id) 
+    findAsset(id: string): PickleAsset {
+        for (let i = 0; i < this.allAssets.length; i++) {
+            if (this.allAssets[i].id === id)
                 return this.allAssets[i];
         }
         return undefined;
     }
 
-    async generateFullApi() : Promise<PickleModelJson> {
+    async generateFullApi(): Promise<PickleModelJson> {
         await this.loadJarAndFarmData();
-        this.dillDetails = await getDillDetails(getWeeklyDistribution(this.getJars()), 
-                this.prices, this, ChainNetwork.Ethereum);
+        this.dillDetails = await getDillDetails(getWeeklyDistribution(this.getJars()),
+            this.prices, this, ChainNetwork.Ethereum);
         this.platformData = this.loadPlatformData();
         return this.toJson();
     }
-    async loadJarAndFarmData() : Promise<void> {
+    async loadJarAndFarmData(): Promise<void> {
 
         await Promise.all([
             this.ensurePriceCacheLoaded(),
@@ -265,8 +265,8 @@ export class PickleModel {
         ]);
     }
 
-    toJson() : PickleModelJson {
-        const ret : PickleModelJson = {
+    toJson(): PickleModelJson {
+        const ret: PickleModelJson = {
             chains: RAW_CHAIN_BUNDLED_DEF,
             tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
             prices: Object.fromEntries(this.prices.getCache()),
@@ -283,22 +283,22 @@ export class PickleModel {
     }
 
     initializePriceCache() {
-        if( this.prices === undefined ) {
+        if (this.prices === undefined) {
             this.prices = new PriceCache();
         }
     }
 
     initializeChains(chains: Map<ChainNetwork, Provider | Signer>) {
-        const allChains : ChainNetwork[] = Chains.list();
+        const allChains: ChainNetwork[] = Chains.list();
         Chains.globalInitialize(chains);
         this.configuredChains = allChains;
     }
 
-    async ensurePriceCacheLoaded() : Promise<any> {
-        if( this.prices && this.prices.getCache() && this.prices.getCache().size === 0 ) {
+    async ensurePriceCacheLoaded(): Promise<any> {
+        if (this.prices && this.prices.getCache() && this.prices.getCache().size === 0) {
             const cgResolver = new CoinGeckoPriceResolver(ExternalTokenModelSingleton);
             const cgPromises = Promise.all(
-                this.configuredChains.map((x)=>this.prices.getPrices(
+                this.configuredChains.map((x) => this.prices.getPrices(
                     ExternalTokenModelSingleton.getTokens(x).filter(val => val.fetchType != ExternalTokenFetchStyle.NONE).map(a => a.coingeckoId),
                     cgResolver
                 ))
@@ -307,11 +307,11 @@ export class PickleModel {
             const all = ExternalTokenModelSingleton.getAllTokens();
             const filtered = all.filter(val => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP);
             const cmcPromise = this.prices.getPrices(filtered.map(a => a.coingeckoId), cmcResolver);
-            const swapFiltered = all.filter(val => val.fetchType=== ExternalTokenFetchStyle.SWAP_PAIRS)
+            const swapFiltered = all.filter(val => val.fetchType === ExternalTokenFetchStyle.SWAP_PAIRS)
             const swapResolver = new SwapPriceResolver(ExternalTokenModelSingleton)
             const swapPromises = Promise.all(
-                this.configuredChains.map((chain) => 
-                    this.prices.getPrices(swapFiltered.filter(x=> x.chain === chain).map(a => a.coingeckoId), swapResolver, chain)
+                this.configuredChains.map((chain) =>
+                    this.prices.getPrices(swapFiltered.filter(x => x.chain === chain).map(a => a.coingeckoId), swapResolver, chain)
                 )
             )
 
@@ -319,10 +319,10 @@ export class PickleModel {
         }
     }
 
-    async loadStrategyData() : Promise<any> {
-        const jars : JarDefinition[] = this.getJars();
-        const promises : Promise<any>[] = [];
-        for( let i = 0; i < this.configuredChains.length; i++ ) {
+    async loadStrategyData(): Promise<any> {
+        const jars: JarDefinition[] = this.getJars();
+        const promises: Promise<any>[] = [];
+        for (let i = 0; i < this.configuredChains.length; i++) {
             const controller = this.defaultControllerForChain(this.configuredChains[i]);
             const chainJars = jars.filter(x => x.chain === this.configuredChains[i] && x.details?.controller === undefined);
             promises.push(this.addJarStrategies(chainJars, controller, this.configuredChains[i]));
@@ -330,28 +330,28 @@ export class PickleModel {
 
         // Now handle jars with custom controllers
         const customControllerJars = jars.filter(x => x.details?.controller !== undefined);
-        for( let i = 0; i < customControllerJars.length; i++ ) {
-            promises.push(this.addJarStrategies([customControllerJars[i]], 
+        for (let i = 0; i < customControllerJars.length; i++) {
+            promises.push(this.addJarStrategies([customControllerJars[i]],
                 customControllerJars[i].details.controller, customControllerJars[i].chain));
         }
-        try{
+        try {
             return Promise.all(promises);
-        } catch ( error ) { this.logError("loadStrategyData", error); }
+        } catch (error) { this.logError("loadStrategyData", error); }
     }
 
 
-    async loadRatiosData() : Promise<any> {
-        await Promise.all(this.configuredChains.map((x)=> 
-                this.addJarRatios(this.semiActiveJars(x), x)));
+    async loadRatiosData(): Promise<any> {
+        await Promise.all(this.configuredChains.map((x) =>
+            this.addJarRatios(this.semiActiveJars(x), x)));
     }
 
-    async loadJarTotalSupplyData() : Promise<any>  {
-        return Promise.all(this.configuredChains.map((x)=>
+    async loadJarTotalSupplyData(): Promise<any> {
+        return Promise.all(this.configuredChains.map((x) =>
             this.addJarTotalSupply(this.semiActiveJars(x), x)));
     }
 
-    async ensureComponentTokensLoaded() : Promise<any> {
-        return Promise.all(this.configuredChains.map((x)=>
+    async ensureComponentTokensLoaded(): Promise<any> {
+        return Promise.all(this.configuredChains.map((x) =>
             this.ensureComponentTokensLoadedForChain(x)));
     }
 
@@ -362,19 +362,20 @@ export class PickleModel {
             token: string,
             tokenName: string,
             result?: BigNumberish
-            
+
         };
-        const arr : requests[] = [];
-        const assets = this.getAllAssets().filter((x)=>x.chain === chain);
-        for( let i = 0; i < assets.length; i++ ) {
-            if( assets[i].depositToken && assets[i].depositToken.components 
+        const arr: requests[] = [];
+        const assets = this.getAllAssets().filter((x) => x.chain === chain);
+        for (let i = 0; i < assets.length; i++) {
+            if (assets[i].depositToken && assets[i].depositToken.components
                 && assets[i].depositToken.components.length > 0) {
-                for( let j = 0; j < assets[i].depositToken.components.length; j++ ) {
+                for (let j = 0; j < assets[i].depositToken.components.length; j++) {
                     arr.push({
                         asset: assets[i],
-                        pool: assets[i].depositToken.addr, 
+                        pool: assets[i].depositToken.addr,
                         tokenName: assets[i].depositToken.components[j],
-                        token:  this.address(assets[i].depositToken.components[j], chain)})
+                        token: this.address(assets[i].depositToken.components[j], chain)
+                    })
                 }
             }
         }
@@ -382,15 +383,15 @@ export class PickleModel {
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();
 
-        let results : string[] = undefined; 
+        let results: string[] = undefined;
         try {
             results = await ethcallProvider.all<string[]>(
                 arr.map((oneArr) => new MulticallContract(oneArr.token, erc20Abi).balanceOf(oneArr.pool))
             );
-        } catch ( error ) { this.logError("ensureComponentTokensLoadedForChain", error, chain); }
+        } catch (error) { this.logError("ensureComponentTokensLoadedForChain", error, chain); }
 
-        for( let i = 0; results !== undefined && i < results.length; i++ ) {
-            if( arr[i].asset.depositToken.componentTokens === undefined ) {
+        for (let i = 0; results !== undefined && i < results.length; i++) {
+            if (arr[i].asset.depositToken.componentTokens === undefined) {
                 arr[i].asset.depositToken.componentTokens = [];
             }
             const decimals = this.tokenDecimals(arr[i].token, arr[i].asset.chain);
@@ -399,13 +400,13 @@ export class PickleModel {
         }
     }
 
-    async loadDepositTokenTotalSupplyData() : Promise<any>  {
-        return Promise.all(this.configuredChains.map((x)=>
+    async loadDepositTokenTotalSupplyData(): Promise<any> {
+        return Promise.all(this.configuredChains.map((x) =>
             this.addDepositTokenTotalSupply(this.semiActiveJars(x), x)));
     }
 
-    async loadJarBalanceData() : Promise<any>  {
-        return Promise.all(this.configuredChains.map((x)=>
+    async loadJarBalanceData(): Promise<any> {
+        return Promise.all(this.configuredChains.map((x) =>
             this.addDepositTokenBalance(this.semiActiveJars(x), x)));
     }
 
@@ -413,20 +414,20 @@ export class PickleModel {
     // Could this be moved to the asset behaviors instead??
     async ensureDepositTokenPriceLoaded() {
         const jarBehaviorResolver = new JarBehaviorDiscovery();
-        const notDisabled : PickleAsset[] = this.allAssets.filter((jar)=>{return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED});
-        let prices : number[] = undefined;
+        const notDisabled: PickleAsset[] = this.allAssets.filter((jar) => { return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED });
+        let prices: number[] = undefined;
         try {
-            prices = await Promise.all(notDisabled.map(async (x)=>{
+            prices = await Promise.all(notDisabled.map(async (x) => {
                 const beh = jarBehaviorResolver.findAssetBehavior(x);
                 const prom = beh ? beh.getDepositTokenPrice(x, this) : getDepositTokenPrice(x, this);
                 try {
                     return await prom;
-                } catch( error ) {
+                } catch (error) {
                     this.logError("ensureDepositTokenPriceLoaded", error, x.details.apiKey);
                 }
             }));
-        } catch ( error ) { this.logError("ensureDepositTokenPriceLoaded", error); }
-        for( let i = 0; prices !== undefined && i < notDisabled.length; i++ ) {
+        } catch (error) { this.logError("ensureDepositTokenPriceLoaded", error); }
+        for (let i = 0; prices !== undefined && i < notDisabled.length; i++) {
             notDisabled[i].depositToken.price = prices[i];
             this.prices.put(notDisabled[i].depositToken.addr, prices[i]);
         }
@@ -434,24 +435,24 @@ export class PickleModel {
 
     // All jars called here must be on the same chain.
     async addJarStrategies(jars: JarDefinition[], controllerAddr: string, chain: ChainNetwork) {
-        if( !jars || jars.length === 0 )
+        if (!jars || jars.length === 0)
             return;
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();
         const controllerContract = new MulticallContract(controllerAddr, controllerAbi);
 
-        let strategyAddresses : string[] = undefined;
+        let strategyAddresses: string[] = undefined;
         try {
             strategyAddresses = await ethcallProvider.all<string[]>(
                 jars.map((oneJar) => {
                     return controllerContract.strategies(oneJar.depositToken.addr)
                 })
             );
-        } catch(error) {
+        } catch (error) {
             this.logError("addJarStrategies: strategyAddresses", error, chain);
         }
-        for( let i = 0; strategyAddresses !== undefined && i < jars.length; i++ ) {
-            if( jars[i].details === undefined ) {
+        for (let i = 0; strategyAddresses !== undefined && i < jars.length; i++) {
+            if (jars[i].details === undefined) {
                 jars[i].details = {
                     apiKey: undefined,
                     harvestStyle: HarvestStyle.PASSIVE
@@ -462,115 +463,115 @@ export class PickleModel {
 
         const ethcallProvider2 = this.multicallProviderFor(jars[0].chain);
         await ethcallProvider2.init();
-        const withStrategyAddresses = jars.filter((x) => x.details.strategyAddr !== undefined 
+        const withStrategyAddresses = jars.filter((x) => x.details.strategyAddr !== undefined
             && x.details.strategyAddr !== NULL_ADDRESS
             && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
 
-        let strategyNames : string[] = undefined;
+        let strategyNames: string[] = undefined;
         try {
             strategyNames = await ethcallProvider2.all<string[]>(
                 withStrategyAddresses.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).getName())
             );
-        } catch(error) {
+        } catch (error) {
             this.logError("addJarStrategies: strategyNames", error, chain);
         }
-        for( let i = 0; strategyNames !== undefined && i < withStrategyAddresses.length; i++ ) {
+        for (let i = 0; strategyNames !== undefined && i < withStrategyAddresses.length; i++) {
             withStrategyAddresses[i].details.strategyName = strategyNames[i];
         }
     }
 
     // All jars must be on same chain
     async addJarRatios(jars: JarDefinition[], chain: ChainNetwork) {
-        if( jars === undefined || jars.length === 0 ) 
+        if (jars === undefined || jars.length === 0)
             return;
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();
 
-        let ratios : string[] = undefined;
+        let ratios: string[] = undefined;
         try {
             ratios = await ethcallProvider.all<string[]>(
                 jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).getRatio())
             );
-        } catch ( error ) {this.logError("addJarRatios", error, chain); }  
-        for( let i = 0; ratios !== undefined && i < jars.length; i++ ) {
+        } catch (error) { this.logError("addJarRatios", error, chain); }
+        for (let i = 0; ratios !== undefined && i < jars.length; i++) {
             jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
         }
     }
 
     // All jars must be on same chain
     async addJarTotalSupply(jars: JarDefinition[], chain: ChainNetwork) {
-        if( jars === undefined || jars.length === 0 )
+        if (jars === undefined || jars.length === 0)
             return;
 
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();
 
-        let supply : string[] = undefined;
+        let supply: string[] = undefined;
         try {
             supply = await ethcallProvider.all<string[]>(
                 jars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).totalSupply())
             );
-        } catch ( error ) { console.log("Failed on addJarTotalSupply"); }
-        for( let i = 0; supply !== undefined && i < jars.length; i++ ) {
+        } catch (error) { console.log("Failed on addJarTotalSupply"); }
+        for (let i = 0; supply !== undefined && i < jars.length; i++) {
             jars[i].details.totalSupply = parseFloat(ethers.utils.formatUnits(supply[i]));
         }
     }
 
 
     async addDepositTokenBalance(jars: JarDefinition[], chain: ChainNetwork) {
-        if( jars === undefined || jars.length === 0 )
+        if (jars === undefined || jars.length === 0)
             return;
 
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();
 
-        let balance : string[] = undefined;
+        let balance: string[] = undefined;
         try {
             balance = await ethcallProvider.all<string[]>(
-                jars.map((oneJar) => 
-                    oneJar.protocol === AssetProtocol.UNISWAP_V3 ? 
-                    new MulticallContract(oneJar.contract, jarAbi).totalLiquidity() :
-                    new MulticallContract(oneJar.contract, jarAbi).balance())
+                jars.map((oneJar) =>
+                    oneJar.protocol === AssetProtocol.UNISWAP_V3 ?
+                        new MulticallContract(oneJar.contract, jarAbi).totalLiquidity() :
+                        new MulticallContract(oneJar.contract, jarAbi).balance())
             );
-        } catch ( error ) { this.logError("addDepositTokenBalance", error, chain); }
-        for( let i = 0; balance !== undefined && i < jars.length; i++ ) {
-            jars[i].details.tokenBalance = 
-            parseFloat(ethers.utils.formatUnits(balance[i], 
-                jars[i].details.decimals ? jars[i].details.decimals : 18));
+        } catch (error) { this.logError("addDepositTokenBalance", error, chain); }
+        for (let i = 0; balance !== undefined && i < jars.length; i++) {
+            jars[i].details.tokenBalance =
+                parseFloat(ethers.utils.formatUnits(balance[i],
+                    jars[i].details.decimals ? jars[i].details.decimals : 18));
         }
     }
 
     async addDepositTokenTotalSupply(jars: PickleAsset[], chain: ChainNetwork) {
-        if( jars === undefined || jars.length === 0 )
+        if (jars === undefined || jars.length === 0)
             return;
 
         const ethcallProvider = this.multicallProviderFor(chain);
         await ethcallProvider.init();  // error being raised by this
-        
-        let supply : string[] = undefined;
+
+        let supply: string[] = undefined;
         try {
             supply = await ethcallProvider.all<string[]>(
-                jars.map((oneJar) => 
-                    oneJar.protocol === AssetProtocol.UNISWAP_V3 ? 
-                    new MulticallContract(oneJar.depositToken.addr, univ3PoolAbi).liquidity() :
-                    new MulticallContract(oneJar.depositToken.addr, erc20Abi).totalSupply())
+                jars.map((oneJar) =>
+                    oneJar.protocol === AssetProtocol.UNISWAP_V3 ?
+                        new MulticallContract(oneJar.depositToken.addr, univ3PoolAbi).liquidity() :
+                        new MulticallContract(oneJar.depositToken.addr, erc20Abi).totalSupply())
             );
-            } catch ( error ) { console.log("Failed on addDepositTokenTotalSupply"); }
-        for( let i = 0; supply !== undefined && i < jars.length; i++ ) {
-            jars[i].depositToken.totalSupply = 
-            parseFloat(ethers.utils.formatUnits(supply[i], 
-                this.tokenDecimals(jars[i].depositToken.addr, jars[i].chain)));
+        } catch (error) { console.log("Failed on addDepositTokenTotalSupply"); }
+        for (let i = 0; supply !== undefined && i < jars.length; i++) {
+            jars[i].depositToken.totalSupply =
+                parseFloat(ethers.utils.formatUnits(supply[i],
+                    this.tokenDecimals(jars[i].depositToken.addr, jars[i].chain)));
         }
     }
 
 
-    async ensureHarvestDataLoaded() : Promise<any> {
-        const map : Map<ChainNetwork, JarDefinition[]> = new Map();
-        for( let i = 0; i < this.configuredChains.length; i++ ) {
-            const missing : JarDefinition[] = [];
+    async ensureHarvestDataLoaded(): Promise<any> {
+        const map: Map<ChainNetwork, JarDefinition[]> = new Map();
+        for (let i = 0; i < this.configuredChains.length; i++) {
+            const missing: JarDefinition[] = [];
             const jars = this.getJars().filter(x => x.chain === this.configuredChains[i]);
-            for( let j = 0; j < jars.length; j++ ) {
-                if( jars[j].details.harvestStats === undefined 
+            for (let j = 0; j < jars.length; j++) {
+                if (jars[j].details.harvestStats === undefined
                     && jars[j].enablement !== AssetEnablement.PERMANENTLY_DISABLED
                     && jars[j].details.strategyAddr !== NULL_ADDRESS) {
                     missing.push(jars[j]);
@@ -579,16 +580,16 @@ export class PickleModel {
             map.set(this.configuredChains[i], missing);
         }
 
-        const promises : Promise<any>[] = [];
-        for( let i = 0; i < this.configuredChains.length; i++ ) {
+        const promises: Promise<any>[] = [];
+        for (let i = 0; i < this.configuredChains.length; i++) {
             promises.push(this.loadHarvestData(map.get(this.configuredChains[i]), this.configuredChains[i]));
         }
         return Promise.all(promises);
     }
 
     async loadHarvestData(jars: JarDefinition[], chain: ChainNetwork) {
-        const univ3Jars : JarDefinition[] = jars.filter((x)=>x.protocol === AssetProtocol.UNISWAP_V3);
-        const jarV1 : JarDefinition[] = jars.filter((x)=>x.protocol !== AssetProtocol.UNISWAP_V3);
+        const univ3Jars: JarDefinition[] = jars.filter((x) => x.protocol === AssetProtocol.UNISWAP_V3);
+        const jarV1: JarDefinition[] = jars.filter((x) => x.protocol !== AssetProtocol.UNISWAP_V3);
         await Promise.all([
             this.loadHarvestDataJarAbi(jarV1, chain),
             // TODO this shouldn't just be univ3 jars. Any custom harvesters
@@ -598,22 +599,22 @@ export class PickleModel {
     async loadHarvestDataCustom(harvestableJars: JarDefinition[], chain: ChainNetwork) {
         // TODO share code between the two impls
         const resolver = Chains.getResolver(chain);
-        const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
+        const discovery: JarBehaviorDiscovery = new JarBehaviorDiscovery();
         const harvestArr: Promise<JarHarvestStats>[] = [];
-        for( let i = 0; i < harvestableJars.length; i++ ) {
-            const harvestResolver : JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
-            harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
-                BigNumber.from(0),  BigNumber.from(0), resolver));
+        for (let i = 0; i < harvestableJars.length; i++) {
+            const harvestResolver: JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
+            harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this,
+                BigNumber.from(0), BigNumber.from(0), resolver));
         }
         let results: JarHarvestStats[] = undefined;
         try {
             results = await Promise.all(harvestArr);
-        } catch( e ) {
+        } catch (e) {
             console.log("Error loading harvest data for jar");
         }
 
-        for( let j = 0; j < harvestableJars.length; j++ ) {
-            if( results[j] ) {
+        for (let j = 0; j < harvestableJars.length; j++) {
+            if (results[j]) {
                 results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
                 results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
                 results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
@@ -623,12 +624,12 @@ export class PickleModel {
     }
 
     async loadHarvestDataJarAbi(jars: JarDefinition[], chain: ChainNetwork) {
-        if( !jars || jars.length === 0)
+        if (!jars || jars.length === 0)
             return;
-        
-        const discovery : JarBehaviorDiscovery = new JarBehaviorDiscovery();
-        const harvestableJars : JarDefinition[] = jars.filter((x)=>discovery.findAssetBehavior(x) !== null && discovery.findAssetBehavior(x) !== undefined)
-        if( !harvestableJars || harvestableJars.length === 0)
+
+        const discovery: JarBehaviorDiscovery = new JarBehaviorDiscovery();
+        const harvestableJars: JarDefinition[] = jars.filter((x) => discovery.findAssetBehavior(x) !== null && discovery.findAssetBehavior(x) !== undefined)
+        if (!harvestableJars || harvestableJars.length === 0)
             return;
 
         // Load balances as a group
@@ -638,54 +639,54 @@ export class PickleModel {
         const multicallProvider2 = this.multicallProviderFor(chain);
         await multicallProvider2.init();
 
-        let balanceOfProm : Promise<BigNumber[]> = undefined; 
+        let balanceOfProm: Promise<BigNumber[]> = undefined;
         try {
             balanceOfProm = multicallProvider.all<BigNumber[]>(
                 harvestableJars.map((oneJar) => new MulticallContract(oneJar.details.strategyAddr, strategyAbi).balanceOf())
             );
-        } catch ( error ) { this.logError("loadHarvestDataJarAbi: balanceOfProm", error, chain); }
+        } catch (error) { this.logError("loadHarvestDataJarAbi: balanceOfProm", error, chain); }
 
         // Just do the want.balanceOf(strategy) but protect against non-erc20 deposit tokens
-        let strategyWantProm : Promise<BigNumber[]> = undefined;
+        let strategyWantProm: Promise<BigNumber[]> = undefined;
         try {
             strategyWantProm = multicallProvider.all<BigNumber[]>(
                 harvestableJars.map((oneJar) => {
                     const safe = getErc20SafeDepositTokenMulticall(oneJar);
-                    if( safe )
+                    if (safe)
                         return safe;
                     return new MulticallContract(oneJar.depositToken.addr, erc20Abi).balanceOf(oneJar.details.strategyAddr);
                 }));
-        } catch ( error ) { this.logError("loadHarvestDataJarAbi: strategyWantProm", error, chain); }
+        } catch (error) { this.logError("loadHarvestDataJarAbi: strategyWantProm", error, chain); }
 
 
         // Load available as a group
-        let availableProm : Promise<BigNumber[]> = undefined; 
+        let availableProm: Promise<BigNumber[]> = undefined;
         try {
             availableProm = multicallProvider2.all<BigNumber[]>(
                 harvestableJars.map((oneJar) => new MulticallContract(oneJar.contract, jarAbi).available()));
-        } catch ( error ) { this.logError("loadHarvestDataJarAbi: availableProm", error, chain)}
+        } catch (error) { this.logError("loadHarvestDataJarAbi: availableProm", error, chain) }
 
         let [balanceOf, available, strategyWant] = [undefined, undefined, undefined];
         try {
             [balanceOf, available, strategyWant] = await Promise.all([
                 balanceOfProm, availableProm, strategyWantProm
             ]);
-        } catch ( error ) { this.logError("loadHarvesDataJarAbi: [balanceOf, available, strategyWant]", error, chain); }
-    
+        } catch (error) { this.logError("loadHarvesDataJarAbi: [balanceOf, available, strategyWant]", error, chain); }
+
         const resolver = Chains.getResolver(chain);
         const harvestArr: Promise<JarHarvestStats>[] = [];
-        for( let i = 0; i < harvestableJars.length; i++ ) {
+        for (let i = 0; i < harvestableJars.length; i++) {
             try {
-                const harvestResolver : JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
-                harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this, 
+                const harvestResolver: JarBehavior = discovery.findAssetBehavior(harvestableJars[i]);
+                harvestArr.push(harvestResolver.getAssetHarvestData(harvestableJars[i], this,
                     balanceOf[i], available[i].add(strategyWant[i]), resolver));
-            } catch( e ) {
+            } catch (e) {
                 console.log("Error loading harvest data for jar " + harvestableJars[i].id + ":  " + e);
             }
         }
         const results: JarHarvestStats[] = await Promise.all(harvestArr);
-        for( let j = 0; j < harvestableJars.length; j++ ) {
-            if( results[j] ) {
+        for (let j = 0; j < harvestableJars.length; j++) {
+            if (results[j]) {
                 results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
                 results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
                 results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
@@ -694,12 +695,12 @@ export class PickleModel {
         }
     }
     ensureStandaloneFarmsBalanceLoaded(farms: StandaloneFarmDefinition[], balances: any[]) {
-        for( let i = 0; i < farms.length; i++ ) {
+        for (let i = 0; i < farms.length; i++) {
             const tokens = balances[i];
-            const depositTokenPrice : number = farms[i].depositToken.price;
+            const depositTokenPrice: number = farms[i].depositToken.price;
             let dec = farms[i].depositToken.decimals ? farms[i].depositToken.decimals :
                 this.tokenDecimals(farms[i].depositToken.addr, farms[i].chain);
-            if( !dec ) {
+            if (!dec) {
                 dec = 18;
             }
             const tokenBalance = parseFloat(ethers.utils.formatUnits(tokens, dec));
@@ -715,13 +716,13 @@ export class PickleModel {
     }
 
     ensureNestedFarmsBalanceLoaded(jarsWithFarms: JarDefinition[], balances: any[]) {
-        for( let i = 0; i < jarsWithFarms.length; i++ ) {
-            const ptokenPrice : number = jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
+        for (let i = 0; i < jarsWithFarms.length; i++) {
+            const ptokenPrice: number = jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
             const ptokens = balances[i];
             const dec = jarsWithFarms[i].details.decimals ? jarsWithFarms[i].details.decimals : 18;
             const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
             const valueBalance = ptokenBalance * ptokenPrice;
-            if( jarsWithFarms[i].farm.details === undefined ) {
+            if (jarsWithFarms[i].farm.details === undefined) {
                 jarsWithFarms[i].farm.details = {};
             }
             jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
@@ -734,127 +735,128 @@ export class PickleModel {
         await ethcallProvider.init();
 
         // Run on eth standalone farms
-        const ethFarms : StandaloneFarmDefinition[] = this.getStandaloneFarms().filter((x)=>x.chain === chain);
-        let ethFarmResults : string[] = undefined;
+        const ethFarms: StandaloneFarmDefinition[] = this.getStandaloneFarms().filter((x) => x.chain === chain);
+        let ethFarmResults: string[] = undefined;
         try {
             ethFarmResults = await ethcallProvider.all<string[]>(
                 ethFarms.map((oneFarm) => new MulticallContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(oneFarm.contract))
             );
-        } catch ( error ) { this.logError("ensureFarmsBalanceLoadedForProtocol", error, chain); }
+        } catch (error) { this.logError("ensureFarmsBalanceLoadedForProtocol", error, chain); }
         this.ensureStandaloneFarmsBalanceLoaded(ethFarms, ethFarmResults);
 
 
-        const protocolJarsWithFarms : JarDefinition[] = this.semiActiveJars(chain).filter((x)=>{return x.farm !== undefined });
-        let protocolJarsWithFarmResults : string[] = undefined;
+        const protocolJarsWithFarms: JarDefinition[] = this.semiActiveJars(chain).filter((x) => { return x.farm !== undefined });
+        let protocolJarsWithFarmResults: string[] = undefined;
         try {
             protocolJarsWithFarmResults = await ethcallProvider.all<string[]>(
                 protocolJarsWithFarms.map((oneJar) => new MulticallContract(oneJar.contract, erc20Abi).balanceOf(oneJar.farm.farmAddress))
             );
-        } catch ( error ) { this.logError("ensureFarmsBalanceLoadedForProtocol", error, chain); }
+        } catch (error) { this.logError("ensureFarmsBalanceLoadedForProtocol", error, chain); }
         this.ensureNestedFarmsBalanceLoaded(protocolJarsWithFarms, protocolJarsWithFarmResults);
     }
 
-    async loadGaugeAprData() : Promise<any> {
-        return Promise.all(this.configuredChains.map((x)=> loadGaugeAprData(this, x)));
+    async loadGaugeAprData(): Promise<any> {
+        return Promise.all(this.configuredChains.map((x) => loadGaugeAprData(this, x)));
     }
-    async ensureFarmsBalanceLoaded() : Promise<any> {
-        return Promise.all(this.configuredChains.map((x)=>this.ensureFarmsBalanceLoadedForProtocol(x)));
+    async ensureFarmsBalanceLoaded(): Promise<any> {
+        return Promise.all(this.configuredChains.map((x) => this.ensureFarmsBalanceLoadedForProtocol(x)));
     }
 
-    
-    async ensureExternalAssetBalanceLoaded() : Promise<void> {
-        // This needs to be separated out and unified, seriously. 
-        let external : ExternalAssetDefinition[] = undefined;
-        try { external = this.getExternalAssets(); } catch ( error ) {this.logError("ensureExternalAssetBalanceLoaded", error); }
-        for( let i = 0; external !== undefined && i < external.length; i++ ) {
+
+    async ensureExternalAssetBalanceLoaded(): Promise<void> {
+        // This needs to be separated out and unified, seriously.
+        let external: ExternalAssetDefinition[] = undefined;
+        try { external = this.getExternalAssets(); } catch (error) { this.logError("ensureExternalAssetBalanceLoaded", error); }
+        for (let i = 0; external !== undefined && i < external.length; i++) {
             const behavior = new JarBehaviorDiscovery().findAssetBehavior(external[i]);
-            if( behavior ) {
-                let bal : JarHarvestStats = undefined;
+            if (behavior) {
+                let bal: JarHarvestStats = undefined;
                 try {
                     bal = await behavior.getAssetHarvestData(external[i], this, null, null, this.providerFor(external[i].chain));
-                } catch ( error ) { this.logError("ensureExternalAssetBalanceLoaded: bal", error); }
-                if ( bal !== undefined) { external[i].details.harvestStats = bal; }
+                } catch (error) { this.logError("ensureExternalAssetBalanceLoaded: bal", error); }
+                if (bal !== undefined) { external[i].details.harvestStats = bal; }
             }
         }
     }
 
     async loadApyComponents() {
-        const withBehaviors : PickleAsset[] = 
-            this.allAssets.filter((x)=>new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined);
+        const withBehaviors: PickleAsset[] =
+            this.allAssets.filter((x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined);
         let aprStats: AssetProjectedApr[] = undefined;
         try {
             aprStats = await Promise.all(
                 withBehaviors.map(async (x) => {
                     const ret: Promise<AssetProjectedApr> = new JarBehaviorDiscovery().findAssetBehavior(x)
-                            .getProjectedAprStats(x as JarDefinition, this);
+                        .getProjectedAprStats(x as JarDefinition, this);
                     try {
                         return await ret;
-                    } catch(error ) {
+                    } catch (error) {
                         this.logError("loadApyComponents", error, x.details.apiKey);
                     }
                 })
             );
-            } catch ( error ) { this.logError("loadApyComponents", error); }
-        for( let i = 0; aprStats !== undefined && i < withBehaviors.length; i++ ) {
+        } catch (error) { this.logError("loadApyComponents", error); }
+        for (let i = 0; aprStats !== undefined && i < withBehaviors.length; i++) {
             withBehaviors[i].aprStats = this.cleanAprStats(aprStats[i]);
         }
     }
 
-    cleanAprStats(stats: AssetProjectedApr) : AssetProjectedApr{
-        if( stats ) {
-            if( stats.components) {
-                for( let i = 0; i < stats.components.length; i++ ) {
-                    stats.components[i].apr = toThreeDec(stats.components[i].apr ? stats.components[i].apr:0);
-                    if( stats.components[i].maxApr)
-                        stats.components[i].maxApr = toThreeDec(stats.components[i].maxApr ? stats.components[i].maxApr:0);
+    cleanAprStats(stats: AssetProjectedApr): AssetProjectedApr {
+        if (stats) {
+            if (stats.components) {
+                for (let i = 0; i < stats.components.length; i++) {
+                    stats.components[i].apr = toThreeDec(stats.components[i].apr ? stats.components[i].apr : 0);
+                    if (stats.components[i].maxApr)
+                        stats.components[i].maxApr = toThreeDec(stats.components[i].maxApr ? stats.components[i].maxApr : 0);
                 }
             }
-            stats.apr = toThreeDec(stats.apr ? stats.apr:0);
-            stats.apy = toThreeDec(stats.apy ? stats.apy:0);
+            stats.apr = toThreeDec(stats.apr ? stats.apr : 0);
+            stats.apy = toThreeDec(stats.apy ? stats.apy : 0);
         }
         return stats;
     }
 
     async loadProtocolApr() {
-        const withBehaviors : JarDefinition[] = 
-            this.getJars().filter((x)=>new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined);
+        const withBehaviors: JarDefinition[] =
+            this.getJars().filter((x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined);
         let historical: HistoricalYield[] = undefined;
         try {
             historical = await Promise.all(
                 withBehaviors.map(async (x) => {
                     const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery().findAssetBehavior(x)
-                            .getProtocolApy(x as JarDefinition, this);
+                        .getProtocolApy(x as JarDefinition, this);
                     try {
                         return await ret;
-                    } catch(error ) {
+                    } catch (error) {
                         this.logError("loadProtocolApr", error, x.details.apiKey);
                     }
                 })
             );
-            } catch ( error ) { this.logError("loadApyComponents", error); 
+        } catch (error) {
+            this.logError("loadApyComponents", error);
         }
 
-        for( let i = 0; historical !== undefined && i < withBehaviors.length; i++ ) {
-            if( historical[i] !== undefined )
+        for (let i = 0; historical !== undefined && i < withBehaviors.length; i++) {
+            if (historical[i] !== undefined)
                 withBehaviors[i].details.protocolApr = historical[i];
         }
     }
     loadPlatformData(): PlatformData {
-        const farms : StandaloneFarmDefinition[] = this.getStandaloneFarms();
+        const farms: StandaloneFarmDefinition[] = this.getStandaloneFarms();
         let tvl = 0;
         let blendedRateSum = 0;
         let harvestPending = 0;
-        for( let i = 0; i < farms.length; i++ ) {
-            if( farms[i].details?.valueBalance) {
+        for (let i = 0; i < farms.length; i++) {
+            if (farms[i].details?.valueBalance) {
                 tvl += farms[i].details?.valueBalance;
                 // TODO standalone farms don't generate fees at all
                 // They also don't increase AUM much at all other than emitted pickle
                 //blendedRateSum += 0;
             }
         }
-        const jars : JarDefinition[] = this.getJars();
-        for( let i = 0; i < jars.length; i++ ) {
-            if( jars[i].details?.harvestStats?.balanceUSD) {
+        const jars: JarDefinition[] = this.getJars();
+        for (let i = 0; i < jars.length; i++) {
+            if (jars[i].details?.harvestStats?.balanceUSD) {
                 const jarApr = jars[i].aprStats?.apr ? jars[i].aprStats?.apr : 0;
                 const bal = jars[i].details?.harvestStats?.balanceUSD ? jars[i].details.harvestStats.balanceUSD : 0;
                 const pending = jars[i].details?.harvestStats?.harvestableUSD ? jars[i].details?.harvestStats?.harvestableUSD : 0;
@@ -865,7 +867,7 @@ export class PickleModel {
         }
         return {
             platformTVL: tvl,
-            platformBlendedRate: tvl === 0 ? 0 : (blendedRateSum/tvl),
+            platformBlendedRate: tvl === 0 ? 0 : (blendedRateSum / tvl),
             harvestPending: harvestPending
         };
     }
@@ -878,23 +880,23 @@ export class PickleModel {
 
 /**
  * A safe call to get a zero return for non-erc20 calls when doing bulk multicalls
- * @param jar 
- * @returns 
+ * @param jar
+ * @returns
  */
-const getErc20SafeDepositTokenMulticall = (jar: JarDefinition) : Promise<any> => {
-    if( jar.depositToken === undefined || 
-        (jar.depositToken.style !== undefined 
-        && jar.depositToken.style.erc20 !== undefined 
-        && jar.depositToken.style.erc20 === false)) {
-        // We need a safe multicall 
-        const randomErc20Token : string = ExternalTokenModelSingleton.getTokens(jar.chain)[0].contractAddr;
+const getErc20SafeDepositTokenMulticall = (jar: JarDefinition): Promise<any> => {
+    if (jar.depositToken === undefined ||
+        (jar.depositToken.style !== undefined
+            && jar.depositToken.style.erc20 !== undefined
+            && jar.depositToken.style.erc20 === false)) {
+        // We need a safe multicall
+        const randomErc20Token: string = ExternalTokenModelSingleton.getTokens(jar.chain)[0].contractAddr;
         return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(FICTIONAL_ADDRESS);
-    } 
+    }
     return undefined;
 }
 
-const toThreeDec = function (param:number) {
-    return Math.floor(param*1000)/1000;
-  };
+const toThreeDec = function (param: number) {
+    return Math.floor(param * 1000) / 1000;
+};
 
 
