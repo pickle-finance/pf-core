@@ -179,6 +179,14 @@ import {
   JAR_POLY_SUSHI_AURUM_MATIC,
   JAR_POLY_SUSHI_AURUM_USDC,
   JAR_LOOKS,
+  JAR_MOONBEAM_STELLA_GLMR,
+  JAR_MOONBEAM_STELLA_USDC_BNB,
+  JAR_MOONBEAM_STELLA_BUSD_GLMR,
+  JAR_MOONBEAM_STELLA_USDC_DAI,
+  JAR_MOONBEAM_STELLA_ETH_GLMR,
+  JAR_MOONBEAM_STELLA_USDC_GLMR,
+  JAR_MOONBEAM_STELLA_STELLA_USDC,
+  JAR_MOONBEAM_STELLA_USDC_USDT,
   JAR_METIS_HADES_METIS,
   JAR_METIS_HELLSHARE_METIS
 } from "../model/JarsAndFarms";
@@ -361,6 +369,14 @@ import { RaiderWeth } from "./impl/raider-weth";
 import { AurumMatic } from "./impl/raider-aurum-matic";
 import { AurumUsdc } from "./impl/raider-aurum-usdc";
 import { pLooks } from "./impl/looks";
+import { StellaGlmr } from "./impl/moonbeam-stella-glmr";
+import { StellaUsdcBnb } from "./impl/stella-usdc-bnb";
+import { StellaBusdGlmr } from "./impl/stella-busd-glmr";
+import { StellaUsdcDai } from "./impl/stella-usdc-dai";
+import { StellaEthGlmr } from "./impl/stella-eth-glmr";
+import { StellaUsdcGlmr } from "./impl/stella-usdc-glmr";
+import { StellaStellaUsdc } from "./impl/stella-stella-usdc";
+import { StellaUsdcUsdt } from "./impl/stella-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
 
@@ -572,6 +588,16 @@ jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
 jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
 jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
+
+// Moonbeam
+jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_BNB.id, new StellaUsdcBnb());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_BUSD_GLMR.id, new StellaBusdGlmr());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_DAI.id, new StellaUsdcDai());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_ETH_GLMR.id, new StellaEthGlmr());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_GLMR.id, new StellaUsdcGlmr());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_STELLA_USDC.id, new StellaStellaUsdc());
+jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_USDT.id, new StellaUsdcUsdt());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
