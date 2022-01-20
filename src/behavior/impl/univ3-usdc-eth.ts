@@ -12,7 +12,6 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import jarV3Abi from "../../Contracts/ABIs/jar-v3.json";
 import {
   calculateFee,
-  calculateLiquidity,
   getLiquidityForAmounts,
   getSqrtPriceX96,
   getTickFromPrice,
@@ -154,7 +153,7 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
       amount1,
       Number(tokenA.decimals.toFixed() || 18),
     );
-    let currentTick = getTickFromPrice(
+    const currentTick = getTickFromPrice(
       token1Price,
       tokenA.decimals.toFixed() || "18",
       tokenB.decimals.toFixed() || "18",

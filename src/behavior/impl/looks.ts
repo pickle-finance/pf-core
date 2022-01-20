@@ -2,7 +2,6 @@ import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import {
-  AssetAprComponent,
   AssetProjectedApr,
   AssetProtocol,
   JarDefinition,
@@ -65,11 +64,11 @@ export class pLooks extends AbstractJarBehavior {
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("weth fee sharing", wethApy, true),
-      this.createAprComponent("looks", looksApy, false),
+      this.createAprComponent("looks", looksApy, true, 1),
     ]);
   }
 
-  async calculateWethRewardsApy(jar: JarDefinition, model: PickleModel) {
+  async calculateWethRewardsApy(jar: JarDefinition, model: PickleModel): Promise<number> {
     const query = `{
         rewardPeriods(first: 1, orderBy:block, orderDirection: desc) {
           id
@@ -94,7 +93,7 @@ export class pLooks extends AbstractJarBehavior {
     return 0;
   }
 
-  async calculateLooksApy(jar: JarDefinition, model: PickleModel) {
+  async calculateLooksApy(jar: JarDefinition, model: PickleModel): Promise<number>{
     const distributor = new ethers.Contract(
       LOOKS_DISTRIBUTOR,
       distributorAbi,

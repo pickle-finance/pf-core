@@ -187,6 +187,8 @@ import {
   JAR_MOONBEAM_STELLA_USDC_GLMR,
   JAR_MOONBEAM_STELLA_STELLA_USDC,
   JAR_MOONBEAM_STELLA_USDC_USDT,
+  JAR_METIS_HADES_METIS,
+  JAR_METIS_HELLSHARE_METIS
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -375,6 +377,8 @@ import { StellaEthGlmr } from "./impl/stella-eth-glmr";
 import { StellaUsdcGlmr } from "./impl/stella-usdc-glmr";
 import { StellaStellaUsdc } from "./impl/stella-stella-usdc";
 import { StellaUsdcUsdt } from "./impl/stella-usdc-usdt";
+import { HadesMetis } from "./impl/metis-hades";
+import { HellshareMetis } from "./impl/metis-hellshare";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -582,6 +586,8 @@ jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
+jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
+jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
 
 // Moonbeam
 jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());
