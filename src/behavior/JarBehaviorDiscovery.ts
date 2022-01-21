@@ -189,7 +189,10 @@ import {
   JAR_MOONBEAM_STELLA_USDC_USDT,
   JAR_METIS_HADES_METIS,
   JAR_METIS_HELLSHARE_METIS,
-  JAR_OPTIMISM_ZIP_ETH_USDC
+  JAR_OPTIMISM_ZIP_ETH_USDC,
+  JAR_OPTIMISM_ZIP_ETH_DAI,
+  JAR_OPTIMISM_ZIP_ETH_BTC,
+  JAR_OPTIMISM_ZIP_ETH_ZIP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -381,6 +384,9 @@ import { StellaUsdcUsdt } from "./impl/stella-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
 import { ZipswapEthUsdc } from "./impl/optimism-zip-eth-usdc";
+import { ZipswapEthDai } from "./impl/optimism-zip-eth-dai";
+import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
+import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -601,8 +607,11 @@ jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_GLMR.id, new StellaUsdcGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_STELLA_USDC.id, new StellaStellaUsdc());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_USDT.id, new StellaUsdcUsdt());
 
-// Optimism 
+// Optimism
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

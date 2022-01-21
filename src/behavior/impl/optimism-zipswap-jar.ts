@@ -17,6 +17,9 @@ const ZIP_FARMS = "0x1e2F8e5f94f366eF5Dc041233c0738b1c1C2Cb0c";
 
 const zipPoolIds: PoolId = {
   "0x1A981dAa7967C66C3356Ad044979BC82E4a478b9": 0,
+  "0x53790B6C7023786659D11ed82eE03079F3bD6976": 1,
+  "0x251de0f0368c472Bba2E1C8f5Db5aC7582B5f847": 2,
+  "0xD7F6ECF4371eddBd60C1080BfAEc3d1d60D415d0": 3,
 };
 
 export abstract class ZipswapJar extends AbstractJarBehavior {
@@ -76,7 +79,7 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
       (parseFloat(formatEther(zipPerSecondBN)) *
         poolInfo.allocPoint.toNumber() *
         ONE_YEAR_IN_SECONDS) /
-      totalAllocPointBN.toNumber() ;
+      totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const zipRewardedPerYear =
