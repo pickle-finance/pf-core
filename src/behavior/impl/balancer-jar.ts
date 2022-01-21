@@ -18,27 +18,6 @@ export abstract class BalancerJar extends AbstractJarBehavior {
     return await getBalancerPerformance(definition, model);
   }
 
-  async getAssetHarvestData(
-    definition: JarDefinition,
-    model: PickleModel,
-    balance: BigNumber,
-    available: BigNumber,
-    resolver: Signer | Provider,
-  ): Promise<JarHarvestStats> {
-    const ret = await super.getAssetHarvestData(definition, model, balance, available, resolver);
-    const earnableInJar = await new Contract(definition.contract, jarAbi, resolver).available();
-    const depositTokenDecimals = definition.depositToken.decimals
-        ? definition.depositToken.decimals : 18;
-    const depositTokenPrice: number = await model.priceOf(
-      definition.depositToken.addr,);
-    const availUSD: number = parseFloat(ethers.utils.formatUnits(
-      earnableInJar, depositTokenDecimals)) * depositTokenPrice;
-    const less = ret.earnableUSD - availUSD;
-    ret.earnableUSD = availUSD;
-    ret.balanceUSD = ret.balanceUSD - less;
-    return ret;
-  }
-
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
