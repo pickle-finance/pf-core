@@ -1,16 +1,18 @@
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import {
-  AssetProjectedApr,
-  JarDefinition,
-} from "../../model/PickleModelJson";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateTriFarmsAPY } from "../../protocols/TrisolarisUtil";
+import {
+  calculateTriFarmsAPY,
+  triPoolIds,
+  triPoolV2Ids,
+  TRI_V2_FARMS,
+} from "../../protocols/TrisolarisUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
 export abstract class AuroraTriDualJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
-  constructor(strategyAbi: any, numSteps:number, toTreasury:number) {
+  constructor(strategyAbi: any, numSteps: number, toTreasury: number) {
     super(numSteps, toTreasury);
     this.strategyAbi = strategyAbi;
   }
@@ -18,9 +20,26 @@ export abstract class AuroraTriDualJar extends AuroraMultistepHarvestJar {
     jar: JarDefinition,
     model: PickleModel,
     resolver: Signer | Provider,
-  ): Promise<number> {    
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-    ["tri","aurora"], this.strategyAbi);
+  ): Promise<number> {
+    const harvestable =
+      (await this.getHarvestableUSDDefaultImplementation(
+        jar,
+        model,
+        resolver,
+        ["tri", "aurora"],
+        this.strategyAbi,
+      )) ||
+      (await this.getHarvestableUSDMasterchefImplementation(
+        jar,
+        model,
+        resolver,
+        ["tri"],
+        TRI_V2_FARMS,
+        "pendingTri",
+        triPoolV2Ids[jar.depositToken.addr].poolId,
+      ));
+
+    return harvestable;
   }
 
   async getProjectedAprStats(
