@@ -14,6 +14,7 @@ import {
 } from "./types";
 import fetch from "cross-fetch";
 import { PfDataStore } from "../../model/PickleModel";
+import { fulfillWithRetries } from "../../util/PromiseTimeout";
 
 export class BalancerTokenClaim {
   /**
@@ -188,8 +189,9 @@ export class BalancerTokenClaim {
       // Ignore distributions managed by the old contract (not MerkleOrchard).
       if (parseInt(week) < this.tokenClaimInfo.weekStart) continue;
 
-      const c1 = await this.fetchFromIpfs(hash);
-      if (c1) {
+      const t = Date.now();
+      const c1 = await fulfillWithRetries([this.fetchFromIpfs, hash], 5000, 3);
+      if( c1 ) {
         claimsByWeek[week] = c1;
       }
     }
