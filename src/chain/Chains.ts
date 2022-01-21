@@ -26,7 +26,8 @@ export enum ChainNetwork {
   Cronos = "cronos",
   Aurora = "aurora",
   Metis = "metis",
-  Moonbeam = "moonbeam"
+  Moonbeam = "moonbeam",
+  Optimism = "optimism"
   // ADD_CHAIN
   //Binance
 }
@@ -142,6 +143,17 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://blockscout.moonbeam.network/",
     rpcs: ["https://rpc.api.moonbeam.network"],
     multicallAddress: "0xDad6760bd3FC33b741D46df1e205558BB22D1507",
+    defaultPerformanceFee: 0.1,
+  },
+  {
+    chainId: 10,
+    network: "optimism",
+    networkVisible: "Optimism",
+    secondsPerBlock: 13,
+    gasToken: "ethereum",
+    explorer: "https://optimistic.etherscan.io/",
+    rpcs: ["https://mainnet.optimism.io/"],
+    multicallAddress: "0xD0E99f15B24F265074747B2A1444eB02b9E30422",
     defaultPerformanceFee: 0.1,
   },
   // ADD_CHAIN

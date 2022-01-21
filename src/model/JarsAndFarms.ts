@@ -5035,6 +5035,32 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_USDC_USDT);
 
+
+export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 1a",
+  contract: "0x7446bf003b98b7b0d90ce84810ac12d6b8114b62",
+  depositToken: {
+    addr: "0x1A981dAa7967C66C3356Ad044979BC82E4a478b9",
+    name: "ZIP ETH/USDC",
+    link: "https://zipswap.fi/#/add/ETH/0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
+    components: ["eth", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.ZIPSWAP,
+  details: {
+    apiKey: "ZLP-ETH-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pZLP ETH/USDC",
+    farmDepositTokenName: "pZLP ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_USDC);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

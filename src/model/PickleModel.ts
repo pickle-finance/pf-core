@@ -91,6 +91,12 @@ export const ADDRESSES = new Map([
         controller: "0x95ca4584eA2007D578fa2693CCC76D930a96d165",
         minichef: NULL_ADDRESS,
     }],
+    [ChainNetwork.Optimism, {
+        pickle: NULL_ADDRESS,
+        masterChef: NULL_ADDRESS,
+        controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
+        minichef: NULL_ADDRESS,
+    }],
 
     // ADD_CHAIN
 ]);
