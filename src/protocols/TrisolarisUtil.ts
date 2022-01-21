@@ -50,6 +50,15 @@ export const triPoolV2Ids = {
   },
   "0x61C9E05d1Cdb1b70856c7a2c53fA9c220830633c": {
     poolId: 4,
+    rewarder: "",
+  },
+  "0x6443532841a5279cb04420E61Cf855cBEb70dc8C": {
+    poolId: 5,
+    rewarder: "",
+  },
+  "0x3dC236Ea01459F57EFc737A12BA3Bb5F3BFfD071":
+  {
+    poolId: 7,
     rewarder: ""
   }
 };
