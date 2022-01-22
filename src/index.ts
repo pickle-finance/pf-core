@@ -9,7 +9,11 @@ import {
 } from "./behavior/JarBehaviorResolver";
 import { JarBehaviorDiscovery } from "./behavior/JarBehaviorDiscovery";
 import { DocsManager } from "./docModel/DocsManager";
-import { AssetDocumentationResult, DocsFormat, DocumentationModelResult } from "./docModel/documentationImplementation";
+import {
+  AssetDocumentationResult,
+  DocsFormat,
+  DocumentationModelResult,
+} from "./docModel/documentationImplementation";
 
 export {
   PfDataStore,
@@ -25,5 +29,5 @@ export {
   DocsManager,
   DocsFormat,
   AssetDocumentationResult,
-  DocumentationModelResult
+  DocumentationModelResult,
 };

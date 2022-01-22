@@ -34,7 +34,7 @@ export enum AssetProtocol {
   TETHYS = "tethys",
   NETSWAP = "netswap",
   LOOKS = "LooksRare",
-  STELLA = "StellaSwap"
+  STELLA = "StellaSwap",
   // ADD_PROTOCOL
 }
 
@@ -56,7 +56,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.AURORASWAP,
   AssetProtocol.NETSWAP,
   AssetProtocol.TETHYS,
-  AssetProtocol.STELLA
+  AssetProtocol.STELLA,
   // ADD_PROTOCOL
 ];
 
@@ -79,7 +79,7 @@ export enum HarvestStyle {
   PASSIVE = "passive",
   EARN_BEFORE_HARVEST = "earnBeforeHarvest",
   CUSTOM = "custom",
-  NONE = 'none'
+  NONE = "none",
 }
 
 export enum AssetType {
@@ -89,7 +89,7 @@ export enum AssetType {
 }
 
 export interface DepositTokenStyle {
-  erc20: boolean
+  erc20: boolean;
 }
 
 export interface IExternalToken {
@@ -108,7 +108,7 @@ export interface DepositToken {
   components?: string[];
   componentTokens?: number[];
   componentAddresses?: string[];
-  style?: DepositTokenStyle,
+  style?: DepositTokenStyle;
   price?: number;
 }
 
@@ -162,7 +162,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
 
 export interface FarmDetails {
   allocShare?: number;

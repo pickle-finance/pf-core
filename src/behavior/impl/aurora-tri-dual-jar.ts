@@ -4,7 +4,6 @@ import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateTriFarmsAPY,
-  triPoolIds,
   triPoolV2Ids,
   TRI_V2_FARMS,
 } from "../../protocols/TrisolarisUtil";

@@ -23,7 +23,8 @@ function getCurrentLiquidityMiningWeek() {
   const dateLeft = toUtcTime(new Date());
   const dateRight = liquidityMiningStartTime;
   const diff = differenceInDays(dateLeft, dateRight) / 7;
-  const roundingFunc = (value: number) => (value < 0 ? Math.ceil(value) : Math.floor(value)); // Math.trunc is not supported by IE
+  const roundingFunc = (value: number) =>
+    value < 0 ? Math.ceil(value) : Math.floor(value); // Math.trunc is not supported by IE
   const diffInWeeksRet = roundingFunc(diff);
   return diffInWeeksRet + 1;
 }
@@ -276,61 +277,57 @@ export const calculateBalPoolAPRs = async (
   return poolAprComponents;
 };
 
-
 /*
  Stuff copied from somewhere else
  */
 
-
 function differenceInDays(
   dirtyDateLeft: Date | number,
-  dirtyDateRight: Date | number
+  dirtyDateRight: Date | number,
 ): number {
-
   const dateLeft = toDate(dirtyDateLeft);
-  const dateRight = toDate(dirtyDateRight)
+  const dateRight = toDate(dirtyDateRight);
 
-  const sign = compareLocalAsc(dateLeft, dateRight)
-  const difference = Math.abs(differenceInCalendarDays(dateLeft, dateRight))
+  const sign = compareLocalAsc(dateLeft, dateRight);
+  const difference = Math.abs(differenceInCalendarDays(dateLeft, dateRight));
 
-  dateLeft.setDate(dateLeft.getDate() - sign * difference)
+  dateLeft.setDate(dateLeft.getDate() - sign * difference);
 
   // Math.abs(diff in full days - diff in calendar days) === 1 if last calendar day is not full
   // If so, result must be decreased by 1 in absolute value
   const isLastDayNotFull = Number(
-    compareLocalAsc(dateLeft, dateRight) === -sign
-  )
-  const result = sign * (difference - isLastDayNotFull)
+    compareLocalAsc(dateLeft, dateRight) === -sign,
+  );
+  const result = sign * (difference - isLastDayNotFull);
   // Prevent negative zero
-  return result === 0 ? 0 : result
+  return result === 0 ? 0 : result;
 }
 
 export default function toDate(argument: Date | number): Date {
-
-  const argStr = Object.prototype.toString.call(argument)
+  const argStr = Object.prototype.toString.call(argument);
 
   // Clone the date
   if (
     argument instanceof Date ||
-    (typeof argument === 'object' && argStr === '[object Date]')
+    (typeof argument === "object" && argStr === "[object Date]")
   ) {
     // Prevent the date to lose the milliseconds when passed to new Date() in IE10
-    return new Date(argument.getTime())
-  } else if (typeof argument === 'number' || argStr === '[object Number]') {
-    return new Date(argument)
+    return new Date(argument.getTime());
+  } else if (typeof argument === "number" || argStr === "[object Number]") {
+    return new Date(argument);
   } else {
     if (
-      (typeof argument === 'string' || argStr === '[object String]') &&
-      typeof console !== 'undefined'
+      (typeof argument === "string" || argStr === "[object String]") &&
+      typeof console !== "undefined"
     ) {
       // eslint-disable-next-line no-console
       console.warn(
-        "Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule"
-      )
+        "Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule",
+      );
       // eslint-disable-next-line no-console
-      console.warn(new Error().stack)
+      console.warn(new Error().stack);
     }
-    return new Date(NaN)
+    return new Date(NaN);
   }
 }
 
@@ -342,41 +339,42 @@ function compareLocalAsc(dateLeft: Date, dateRight: Date): number {
     dateLeft.getHours() - dateRight.getHours() ||
     dateLeft.getMinutes() - dateRight.getMinutes() ||
     dateLeft.getSeconds() - dateRight.getSeconds() ||
-    dateLeft.getMilliseconds() - dateRight.getMilliseconds()
+    dateLeft.getMilliseconds() - dateRight.getMilliseconds();
 
   if (diff < 0) {
-    return -1
+    return -1;
   } else if (diff > 0) {
-    return 1
+    return 1;
     // Return 0 if diff is 0; return NaN if diff is NaN
   } else {
-    return diff
+    return diff;
   }
 }
 
-const MILLISECONDS_IN_DAY = 86400000
+const MILLISECONDS_IN_DAY = 86400000;
 function differenceInCalendarDays(
   dirtyDateLeft: Date | number,
-  dirtyDateRight: Date | number
+  dirtyDateRight: Date | number,
 ): number {
-  const startOfDayLeft = startOfDay(dirtyDateLeft)
-  const startOfDayRight = startOfDay(dirtyDateRight)
+  const startOfDayLeft = startOfDay(dirtyDateLeft);
+  const startOfDayRight = startOfDay(dirtyDateRight);
 
   const timestampLeft =
-    startOfDayLeft.getTime() - getTimezoneOffsetInMilliseconds(startOfDayLeft)
+    startOfDayLeft.getTime() - getTimezoneOffsetInMilliseconds(startOfDayLeft);
   const timestampRight =
-    startOfDayRight.getTime() - getTimezoneOffsetInMilliseconds(startOfDayRight)
+    startOfDayRight.getTime() -
+    getTimezoneOffsetInMilliseconds(startOfDayRight);
 
   // Round the number of days to the nearest integer
   // because the number of milliseconds in a day is not constant
   // (e.g. it's different in the day of the daylight saving time clock shift)
-  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY)
+  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY);
 }
 
 function startOfDay(dirtyDate: Date | number): Date {
-  const date = toDate(dirtyDate)
-  date.setHours(0, 0, 0, 0)
-  return date
+  const date = toDate(dirtyDate);
+  date.setHours(0, 0, 0, 0);
+  return date;
 }
 
 function getTimezoneOffsetInMilliseconds(date) {
@@ -388,9 +386,9 @@ function getTimezoneOffsetInMilliseconds(date) {
       date.getHours(),
       date.getMinutes(),
       date.getSeconds(),
-      date.getMilliseconds()
-    )
-  )
-  utcDate.setUTCFullYear(date.getFullYear())
-  return date.getTime() - utcDate.getTime()
+      date.getMilliseconds(),
+    ),
+  );
+  utcDate.setUTCFullYear(date.getFullYear());
+  return date.getTime() - utcDate.getTime();
 }

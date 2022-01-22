@@ -16,8 +16,13 @@ export abstract class OkexJswapJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["jswap"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["jswap"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(

@@ -12,7 +12,6 @@ export class Mim2Crv extends CurveJar {
   constructor() {
     super("0x97E2768e8E73511cA874545DC5Ff8067eB19B787");
     this.strategyAbi = strategyAbi;
-
   }
 
   async getDepositTokenPrice(
@@ -29,8 +28,13 @@ export class Mim2Crv extends CurveJar {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["spell"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["spell"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(

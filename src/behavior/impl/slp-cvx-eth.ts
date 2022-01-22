@@ -22,7 +22,12 @@ export class SlpCvxEth extends SushiJar {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["sushi", "cvx"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi", "cvx"],
+      this.strategyAbi,
+    );
   }
 }

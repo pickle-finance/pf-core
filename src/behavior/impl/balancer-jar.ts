@@ -1,8 +1,12 @@
 import { Provider, TransactionResponse } from "@ethersproject/providers";
-import { BigNumber, Contract, ContractTransaction, ethers, Signer } from "ethers";
+import {
+  BigNumber,
+  ContractTransaction,
+  ethers,
+  Signer,
+} from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
-import jarAbi from "../../Contracts/ABIs/jar.json";
-import { JarHarvestStats, PickleModel } from "../..";
+import { PickleModel } from "../..";
 import { HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
 import { getBalancerPerformance } from "../../protocols/BalancerUtil";
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
@@ -32,7 +36,7 @@ export abstract class BalancerJar extends AbstractJarBehavior {
       const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
       await manager.fetchData(model.getDataStore());
       return manager.claimableAmountUsd;
-    } catch( error ) {
+    } catch (error) {
       console.log(error);
       return 0;
     }
@@ -74,10 +78,14 @@ export abstract class BalancerJar extends AbstractJarBehavior {
         console.log("[" + jar.details.apiKey + "] - Fetching claim data");
         const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
         await manager.fetchData(model.getDataStore());
-        console.log("[" + jar.details.apiKey + "] - About to claim distributions");
+        console.log(
+          "[" + jar.details.apiKey + "] - About to claim distributions",
+        );
         const claimTransaction: ContractTransaction =
-        await manager.claimDistributions();
-        console.log("[" + jar.details.apiKey + "] - Waiting for claim to verify");
+          await manager.claimDistributions();
+        console.log(
+          "[" + jar.details.apiKey + "] - Waiting for claim to verify",
+        );
         await claimTransaction.wait(3);
         const strategy = new ethers.Contract(
           jar.details.strategyAddr as string,
@@ -86,7 +94,9 @@ export abstract class BalancerJar extends AbstractJarBehavior {
         );
         console.log("[" + jar.details.apiKey + "] - Calling harvest");
         const ret = strategy.harvest(flags);
-        console.log("[" + jar.details.apiKey + "] - harvest called, returning result");
+        console.log(
+          "[" + jar.details.apiKey + "] - harvest called, returning result",
+        );
         return ret;
       },
     };

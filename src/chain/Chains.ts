@@ -26,7 +26,7 @@ export enum ChainNetwork {
   Cronos = "cronos",
   Aurora = "aurora",
   Metis = "metis",
-  Moonbeam = "moonbeam"
+  Moonbeam = "moonbeam",
   // ADD_CHAIN
   //Binance
 }

@@ -23,7 +23,7 @@ export abstract class AbstractChain implements IChain {
     this.rpcProviderUrls = rawChain.rpcs;
     this.gasToken = rawChain.gasToken;
     this.defaultPerformanceFee = rawChain.defaultPerformanceFee;
-    if( rawChain.multicallAddress )
+    if (rawChain.multicallAddress)
       this.multicallAddress = rawChain.multicallAddress;
   }
   getRandomWeb3Provider(): Provider {
@@ -35,10 +35,10 @@ export abstract class AbstractChain implements IChain {
     return new ethers.providers.JsonRpcProvider(s);
   }
 
-  setSigner(signer: Signer) : void {
+  setSigner(signer: Signer): void {
     this.signer = signer;
   }
-  setPreferredWeb3Provider(provider: Provider) : void {
+  setPreferredWeb3Provider(provider: Provider): void {
     this.preferredProvider = provider;
   }
   getPreferredWeb3Provider(): Provider {

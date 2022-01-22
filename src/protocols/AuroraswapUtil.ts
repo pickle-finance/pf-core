@@ -1,7 +1,4 @@
-import {
-  AssetAprComponent,
-  JarDefinition,
-} from "../model/PickleModelJson";
+import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import brlChefAbi from "../Contracts/ABIs/brl-farms.json";
 import { PickleModel } from "../model/PickleModel";
@@ -33,7 +30,7 @@ export const brlPoolIds: PoolId = {
   "0x5BdAC608cd38C5C8738f5bE20813194A3150d4Ff": 13,
   "0xEfCF518CA36DC3362F539965807b42A77DC26Be0": 14,
   "0xDB0363ee28a5B40BDc2f4701e399c63E00f91Aa8": 15,
-  "0x84567E7511E0d97DE676d236AEa7aE688221799e": 16
+  "0x84567E7511E0d97DE676d236AEa7aE688221799e": 16,
 };
 
 export async function calculateBrlFarmsAPY(

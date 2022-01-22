@@ -43,7 +43,12 @@ export class SteCrv extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["crv", "cvx", "ldo"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["crv", "cvx", "ldo"],
+      this.strategyAbi,
+    );
   }
 }

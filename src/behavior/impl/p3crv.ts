@@ -2,7 +2,10 @@ import { Contract, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { AbstractJarBehavior, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
+import {
+  AbstractJarBehavior,
+  ONE_YEAR_IN_SECONDS,
+} from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import { getCurveRawStats } from "./curve-jar";
@@ -14,36 +17,36 @@ import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility"
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
 const crv_streamer_abi = [
   {
-    "stateMutability": "view",
-    "type": "function",
-    "name": "reward_data",
-    "inputs": [{ "name": "arg0", "type": "address" }],
-    "outputs": [
-      { "name": "distributor", "type": "address" },
-      { "name": "period_finish", "type": "uint256" },
-      { "name": "rate", "type": "uint256" },
-      { "name": "duration", "type": "uint256" },
-      { "name": "received", "type": "uint256" },
-      { "name": "paid", "type": "uint256" }
-    ]
-  }
+    stateMutability: "view",
+    type: "function",
+    name: "reward_data",
+    inputs: [{ name: "arg0", type: "address" }],
+    outputs: [
+      { name: "distributor", type: "address" },
+      { name: "period_finish", type: "uint256" },
+      { name: "rate", type: "uint256" },
+      { name: "duration", type: "uint256" },
+      { name: "received", type: "uint256" },
+      { name: "paid", type: "uint256" },
+    ],
+  },
 ];
 const non_crv_streamer_abi = [
   {
-    "stateMutability": "view",
-    "type": "function",
-    "name": "period_finish",
-    "inputs": [],
-    "outputs": [{ "name": "", "type": "uint256" }],
+    stateMutability: "view",
+    type: "function",
+    name: "period_finish",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256" }],
   },
   {
-    "stateMutability": "view",
-    "type": "function",
-    "name": "reward_rate",
-    "inputs": [],
-    "outputs": [{ "name": "", "type": "uint256" }]
-  }
-]
+    stateMutability: "view",
+    type: "function",
+    name: "reward_rate",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256" }],
+  },
+];
 
 const aaveContracts = {
   N_COINS: 3,
@@ -83,7 +86,7 @@ const aaveContracts = {
       token: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
       id: "matic",
       decimals: 18,
-      abi: non_crv_streamer_abi
+      abi: non_crv_streamer_abi,
     },
   ],
 };
@@ -149,21 +152,23 @@ export class PThreeCrv extends AbstractJarBehavior {
     ]);
 
     const yearlyRewards = await this.getRewardsAprs(jar, model);
-    const rewardsAprComponents = yearlyRewards.map( reward => {
+    const rewardsAprComponents = yearlyRewards.map((reward) => {
       const apr = reward.yearlyRewardsUSD / +formatEther(lpBalance);
       return this.createAprComponent(reward.id, apr * 100, true);
-    })
+    });
 
     // TODO: matic rewards calculation is inaccurate and should be fixed ... sometime
     let isMaticRewardsRetrieved = false;
-    yearlyRewards.forEach(x => {
+    yearlyRewards.forEach((x) => {
       if (x.id === "matic") isMaticRewardsRetrieved = true;
-    })
+    });
 
     if (!isMaticRewardsRetrieved) {
       const wmaticRewardsAmount = (await model.priceOf("matic")) * 414597 * 6; // Reward rate is reverse engineered, not sure how long it will last correct!
       const wmaticAPY = wmaticRewardsAmount / +formatEther(lpBalance);
-      rewardsAprComponents.push(this.createAprComponent("matic", wmaticAPY*100, true));
+      rewardsAprComponents.push(
+        this.createAprComponent("matic", wmaticAPY * 100, true),
+      );
     }
 
     const curveRawStats: any = await getCurveRawStats(model, jar.chain);
@@ -179,45 +184,45 @@ export class PThreeCrv extends AbstractJarBehavior {
   }
 
   async getRewardsAprs(jar: JarDefinition, model: PickleModel) {
-    const yearlyRewards = (await Promise.all(
-      aaveContracts.rewards.map(async (reward) => {
-        let rewardRate: number;
-        let periodFinish: number;
-        const price = model.priceOfSync(reward.token);
-        if (reward.id === "crv"){
-          const rewardStreamer = new Contract(
-            reward.stream,
-            reward.abi,
-            model.providerFor(jar.chain),
-          );
-          const { period_finish: periodFinishBN, rate: rateBN } = await rewardStreamer.reward_data(
-            reward.token,
-          );
-          rewardRate = +formatUnits(rateBN, reward.decimals);
-          periodFinish = +formatUnits(periodFinishBN, 0);
-        } else {
-          const rewardStreamer = new Contract(
-            reward.stream,
-            reward.abi,
-            model.providerFor(jar.chain),
-          );
-          const [periodFinishBN, rateBN] = await Promise.all([
-            rewardStreamer.period_finish(),
-            rewardStreamer.reward_rate(),
-          ])
-          rewardRate = +formatUnits(rateBN, reward.decimals);
-          periodFinish = +formatUnits(periodFinishBN, 0);
-        }        
-        
-        return {
-          token: reward.token,
-          id: reward.id,
-          periodFinish: periodFinish,
-          yearlyRewardsUSD: rewardRate * price * ONE_YEAR_IN_SECONDS,
-        }
-      }),
-    ))
-    .filter(x => x.periodFinish > (Date.now() / 1000));
+    const yearlyRewards = (
+      await Promise.all(
+        aaveContracts.rewards.map(async (reward) => {
+          let rewardRate: number;
+          let periodFinish: number;
+          const price = model.priceOfSync(reward.token);
+          if (reward.id === "crv") {
+            const rewardStreamer = new Contract(
+              reward.stream,
+              reward.abi,
+              model.providerFor(jar.chain),
+            );
+            const { period_finish: periodFinishBN, rate: rateBN } =
+              await rewardStreamer.reward_data(reward.token);
+            rewardRate = +formatUnits(rateBN, reward.decimals);
+            periodFinish = +formatUnits(periodFinishBN, 0);
+          } else {
+            const rewardStreamer = new Contract(
+              reward.stream,
+              reward.abi,
+              model.providerFor(jar.chain),
+            );
+            const [periodFinishBN, rateBN] = await Promise.all([
+              rewardStreamer.period_finish(),
+              rewardStreamer.reward_rate(),
+            ]);
+            rewardRate = +formatUnits(rateBN, reward.decimals);
+            periodFinish = +formatUnits(periodFinishBN, 0);
+          }
+
+          return {
+            token: reward.token,
+            id: reward.id,
+            periodFinish: periodFinish,
+            yearlyRewardsUSD: rewardRate * price * ONE_YEAR_IN_SECONDS,
+          };
+        }),
+      )
+    ).filter((x) => x.periodFinish > Date.now() / 1000);
 
     return yearlyRewards;
   }

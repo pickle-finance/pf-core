@@ -188,7 +188,7 @@ import {
   JAR_MOONBEAM_STELLA_STELLA_USDC,
   JAR_MOONBEAM_STELLA_USDC_USDT,
   JAR_METIS_HADES_METIS,
-  JAR_METIS_HELLSHARE_METIS
+  JAR_METIS_HELLSHARE_METIS,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -427,12 +427,11 @@ jarToBehavior.set(JAR_UNI_RLY_ETH.id, new RlyEth());
 jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
 jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
-jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth())
-jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth())
-jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc())
-jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth())
-jarToBehavior.set(JAR_LOOKS.id, new pLooks())
-
+jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth());
+jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth());
+jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc());
+jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth());
+jarToBehavior.set(JAR_LOOKS.id, new pLooks());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
@@ -598,7 +597,6 @@ jarToBehavior.set(JAR_MOONBEAM_STELLA_ETH_GLMR.id, new StellaEthGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_GLMR.id, new StellaUsdcGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_STELLA_USDC.id, new StellaStellaUsdc());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_USDT.id, new StellaUsdcUsdt());
-
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

@@ -16,8 +16,13 @@ export abstract class OkexCherryJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["cherry"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["cherry"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(

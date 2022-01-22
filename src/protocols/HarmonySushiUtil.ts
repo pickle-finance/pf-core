@@ -65,29 +65,34 @@ export async function calculateHarmonySushiAPY(
 
   // Getting ONE rewards
   const provider = model.providerFor(jar.chain);
-  const totalAllocPointCREncoded = await provider.getStorageAt(ONE_COMPLEX_REWARDER, 5);
-    const [
-        poolInfoCR,
-        onePerSecondBN,
-    ] = await multicallProvider.all([
-        new MulticallContract(ONE_COMPLEX_REWARDER, sushiComplexRewarderAbi).poolInfo(poolId),
-        new MulticallContract(ONE_COMPLEX_REWARDER, sushiComplexRewarderAbi).rewardPerSecond(),
-    ]);
+  const totalAllocPointCREncoded = await provider.getStorageAt(
+    ONE_COMPLEX_REWARDER,
+    5,
+  );
+  const [poolInfoCR, onePerSecondBN] = await multicallProvider.all([
+    new MulticallContract(
+      ONE_COMPLEX_REWARDER,
+      sushiComplexRewarderAbi,
+    ).poolInfo(poolId),
+    new MulticallContract(
+      ONE_COMPLEX_REWARDER,
+      sushiComplexRewarderAbi,
+    ).rewardPerSecond(),
+  ]);
 
-    const totalAllocPointCR = defaultAbiCoder.decode(
-        ["uint256"],
-        totalAllocPointCREncoded,
-    );
+  const totalAllocPointCR = defaultAbiCoder.decode(
+    ["uint256"],
+    totalAllocPointCREncoded,
+  );
 
-    const oneRewardsPerSecond =
-        (parseFloat(formatEther(onePerSecondBN)) *
-          poolInfoCR.allocPoint.toNumber()) /
-        totalAllocPointCR[0].toNumber();
+  const oneRewardsPerSecond =
+    (parseFloat(formatEther(onePerSecondBN)) *
+      poolInfoCR.allocPoint.toNumber()) /
+    totalAllocPointCR[0].toNumber();
 
-   const oneRewardsPerYear = oneRewardsPerSecond * (365 * 24 * 60 * 60);
-   const oneValueRewardedPerYear = model.priceOfSync("one") * oneRewardsPerYear;
-   const oneAPY = (oneValueRewardedPerYear / totalValueStaked) * 100;
-
+  const oneRewardsPerYear = oneRewardsPerSecond * (365 * 24 * 60 * 60);
+  const oneValueRewardedPerYear = model.priceOfSync("one") * oneRewardsPerYear;
+  const oneAPY = (oneValueRewardedPerYear / totalValueStaked) * 100;
 
   const lpApr: number = await new SushiPolyPairManager().calculateLpApr(
     model,

@@ -24,8 +24,13 @@ export class MimaticUSDC extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["qi"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["qi"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(
@@ -40,7 +45,11 @@ export class MimaticUSDC extends AbstractJarBehavior {
     );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
-      this.createAprComponent(chefComponent.name, chefComponent.apr, chefComponent.compoundable),
+      this.createAprComponent(
+        chefComponent.name,
+        chefComponent.apr,
+        chefComponent.compoundable,
+      ),
     ]);
   }
 }

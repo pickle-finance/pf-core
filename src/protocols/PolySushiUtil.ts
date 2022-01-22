@@ -63,29 +63,35 @@ export async function calculatePolySushiAPY(
 
   // Getting MATIC rewards
   const provider = model.providerFor(jar.chain);
-  const totalAllocPointCREncoded = await provider.getStorageAt(MATIC_COMPLEX_REWARDER, 5);
-    const [
-        poolInfoCR,
-        maticPerSecondBN,
-    ] = await multicallProvider.all([
-        new MulticallContract(MATIC_COMPLEX_REWARDER, sushiComplexRewarderAbi).poolInfo(poolId),
-        new MulticallContract(MATIC_COMPLEX_REWARDER, sushiComplexRewarderAbi).rewardPerSecond(),
-    ]);
+  const totalAllocPointCREncoded = await provider.getStorageAt(
+    MATIC_COMPLEX_REWARDER,
+    5,
+  );
+  const [poolInfoCR, maticPerSecondBN] = await multicallProvider.all([
+    new MulticallContract(
+      MATIC_COMPLEX_REWARDER,
+      sushiComplexRewarderAbi,
+    ).poolInfo(poolId),
+    new MulticallContract(
+      MATIC_COMPLEX_REWARDER,
+      sushiComplexRewarderAbi,
+    ).rewardPerSecond(),
+  ]);
 
-    const totalAllocPointCR = defaultAbiCoder.decode(
-        ["uint256"],
-        totalAllocPointCREncoded,
-    );
+  const totalAllocPointCR = defaultAbiCoder.decode(
+    ["uint256"],
+    totalAllocPointCREncoded,
+  );
 
-    const maticRewardsPerSecond =
-        (parseFloat(formatEther(maticPerSecondBN)) *
-          poolInfoCR.allocPoint.toNumber()) /
-        totalAllocPointCR[0].toNumber();
+  const maticRewardsPerSecond =
+    (parseFloat(formatEther(maticPerSecondBN)) *
+      poolInfoCR.allocPoint.toNumber()) /
+    totalAllocPointCR[0].toNumber();
 
-   const maticRewardsPerYear = maticRewardsPerSecond * (365 * 24 * 60 * 60);
-   const maticValueRewardedPerYear = model.priceOfSync("matic") * maticRewardsPerYear;
-   const maticAPY = (maticValueRewardedPerYear / totalValueStaked) * 100;
-
+  const maticRewardsPerYear = maticRewardsPerSecond * (365 * 24 * 60 * 60);
+  const maticValueRewardedPerYear =
+    model.priceOfSync("matic") * maticRewardsPerYear;
+  const maticAPY = (maticValueRewardedPerYear / totalValueStaked) * 100;
 
   const lpApr: number = await new SushiPolyPairManager().calculateLpApr(
     model,

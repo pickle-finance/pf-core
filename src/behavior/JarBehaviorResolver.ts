@@ -1,5 +1,8 @@
 import { BigNumber, Signer } from "ethers";
-import { Provider, TransactionResponse } from '@ethersproject/abstract-provider';
+import {
+  Provider,
+  TransactionResponse,
+} from "@ethersproject/abstract-provider";
 import {
   AssetProjectedApr,
   ExternalAssetDefinition,
@@ -26,7 +29,10 @@ export interface ActiveJarHarvestStats extends JarHarvestStats {
 }
 
 export interface AssetBehavior<T extends PickleAsset> {
-  getProtocolApy(_definition:JarDefinition, _model:PickleModel) : Promise<HistoricalYield>;
+  getProtocolApy(
+    _definition: JarDefinition,
+    _model: PickleModel,
+  ): Promise<HistoricalYield>;
 
   getProjectedAprStats(
     definition: T,
@@ -44,16 +50,17 @@ export interface AssetBehavior<T extends PickleAsset> {
   ): Promise<JarHarvestStats>;
 
   getCustomHarvester(
-    definition: T, 
+    definition: T,
     model: PickleModel,
-    signer: Signer, 
-    properties: any) : ICustomHarvester|undefined;
+    signer: Signer,
+    properties: any,
+  ): ICustomHarvester | undefined;
 }
 
 export type JarBehavior = AssetBehavior<JarDefinition>;
 export type ExternalAssetBehavior = AssetBehavior<ExternalAssetDefinition>;
 
-// Duplicate of interface in tsuke. 
+// Duplicate of interface in tsuke.
 export interface PfCoreGasFlags {
   gasPrice?: number;
   gasLimit?: BigNumber;
@@ -62,6 +69,6 @@ export interface PfCoreGasFlags {
 }
 
 export interface ICustomHarvester {
-  estimateGasToRun(): Promise<BigNumber|undefined>;
-  run(flags: PfCoreGasFlags) : Promise<TransactionResponse | undefined>;
+  estimateGasToRun(): Promise<BigNumber | undefined>;
+  run(flags: PfCoreGasFlags): Promise<TransactionResponse | undefined>;
 }

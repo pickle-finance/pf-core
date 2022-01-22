@@ -19,7 +19,6 @@ import {
 } from "../../protocols/Univ3/LiquidityMath";
 import { univ3StrategyABI } from "../../Contracts/ABIs/univ3Strategy.abi";
 
-
 export class Uni3UsdcEth extends AbstractJarBehavior {
   async getDepositTokenPrice(
     definition: JarDefinition,

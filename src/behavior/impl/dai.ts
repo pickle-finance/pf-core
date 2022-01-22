@@ -85,10 +85,10 @@ export class DaiJar extends AbstractJarBehavior {
 
     let rawSupplyAPY = +pool["avg1DaysLiquidityRate"];
     let rawBorrowAPY = +pool["avg1DaysVariableBorrowRate"];
-    if( isNaN(rawSupplyAPY)) {
+    if (isNaN(rawSupplyAPY)) {
       rawSupplyAPY = +pool["avg7DaysLiquidityRate"];
     }
-    if( isNaN(rawBorrowAPY)) {
+    if (isNaN(rawBorrowAPY)) {
       rawBorrowAPY = +pool["avg7DaysLiquidityRate"];
     }
 

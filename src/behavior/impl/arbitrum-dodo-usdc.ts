@@ -3,7 +3,7 @@ import { Provider } from "@ethersproject/providers";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import strategyABI from "../../Contracts/ABIs/strategy.json"
+import strategyABI from "../../Contracts/ABIs/strategy.json";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { formatEther } from "ethers/lib/utils";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
@@ -29,8 +29,13 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["dodo"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["dodo"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(

@@ -11,7 +11,10 @@ import { IPriceResolver } from "./IPriceResolver";
  *
  * This class will only query for symbols that are defined in the ExternalTokenModel.
  */
-export class CoinGeckoPriceResolver extends AbstractPriceResolver implements IPriceResolver {
+export class CoinGeckoPriceResolver
+  extends AbstractPriceResolver
+  implements IPriceResolver
+{
   constructor(tokenModel: ExternalTokenModel) {
     super(tokenModel);
   }

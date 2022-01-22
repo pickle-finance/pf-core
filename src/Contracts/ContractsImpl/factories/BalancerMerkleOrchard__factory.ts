@@ -466,12 +466,12 @@ export class BalancerMerkleOrchard__factory {
   }
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider
+    signerOrProvider: Signer | Provider,
   ): BalancerMerkleOrchard {
     return new Contract(
       address,
       _abi,
-      signerOrProvider
+      signerOrProvider,
     ) as BalancerMerkleOrchard;
   }
 }

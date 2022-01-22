@@ -6,7 +6,11 @@ import {
   JarDefinition,
   PickleAsset,
 } from "../../model/PickleModelJson";
-import { AbstractJarBehavior, aprComponentsToProjectedAprImpl, createAprComponentImpl } from "../AbstractJarBehavior";
+import {
+  AbstractJarBehavior,
+  aprComponentsToProjectedAprImpl,
+  createAprComponentImpl,
+} from "../AbstractJarBehavior";
 import { Chains } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import {
@@ -27,8 +31,13 @@ export abstract class SushiJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["sushi"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(
@@ -105,15 +114,7 @@ export const chefV2AprStatsStatic = async (
     model,
     definition.depositToken.addr,
   );
-  const lpComp: AssetAprComponent = createAprComponentImpl(
-    "lp",
-    lpApr,
-    false,
-  );
+  const lpComp: AssetAprComponent = createAprComponentImpl("lp", lpApr, false);
 
-  return aprComponentsToProjectedAprImpl([
-    aprSushiComp,
-    tokenAprComp,
-    lpComp,
-  ]);
-}
+  return aprComponentsToProjectedAprImpl([aprSushiComp, tokenAprComp, lpComp]);
+};

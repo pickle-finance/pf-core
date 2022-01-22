@@ -68,7 +68,10 @@ export class pLooks extends AbstractJarBehavior {
     ]);
   }
 
-  async calculateWethRewardsApy(jar: JarDefinition, model: PickleModel): Promise<number> {
+  async calculateWethRewardsApy(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
     const query = `{
         rewardPeriods(first: 1, orderBy:block, orderDirection: desc) {
           id
@@ -93,7 +96,10 @@ export class pLooks extends AbstractJarBehavior {
     return 0;
   }
 
-  async calculateLooksApy(jar: JarDefinition, model: PickleModel): Promise<number>{
+  async calculateLooksApy(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
     const distributor = new ethers.Contract(
       LOOKS_DISTRIBUTOR,
       distributorAbi,
