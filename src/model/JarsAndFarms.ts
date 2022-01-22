@@ -3482,6 +3482,56 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT);
 
+export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1l",
+  contract: "0xC12F1469E85Aea3E556242b35AeEfD15bD6d99d1",
+  depositToken: {
+    addr: "0x6443532841a5279cb04420E61Cf855cBEb70dc8C",
+    name: "TRI AVAX/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844",
+    components: ["avax", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-AVAX/NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTLP AVAX/NEAR",
+    farmDepositTokenName: "pTLP AVAX/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_AVAX_NEAR);
+
+export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1m",
+  contract: "0x4fb8690751cd5D68b1d0b59F7E46DA632b6813a4",
+  depositToken: {
+    addr: "0x3dC236Ea01459F57EFc737A12BA3Bb5F3BFfD071",
+    name: "TRI MATIC/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8",
+    components: ["matic", "near"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-MATIC/NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTLP MATIC/NEAR",
+    farmDepositTokenName: "pTLP MATIC/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_MATIC_NEAR);
+
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",
@@ -4992,7 +5042,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   depositToken: {
     addr: "0x81e11a9374033d11Cc7e7485A7192AE37D0795D6",
     name: "STELLA STELLA/USDC",
-    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/ETH",
+    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2",
     components: ["stella", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
