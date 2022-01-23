@@ -188,8 +188,8 @@ export class BalancerTokenClaim {
     for (const [week, hash] of Object.entries(snapshot)) {
       // Ignore distributions managed by the old contract (not MerkleOrchard).
       if (parseInt(week) < this.tokenClaimInfo.weekStart) continue;
-      
-      const c1 = await fulfillWithRetries([this.fetchFromIpfs, hash], 5000, 3);
+
+      const c1 = await this.fetchFromIpfs(hash);
       if( c1 ) {
         claimsByWeek[week] = c1;
       }
@@ -243,8 +243,8 @@ export class BalancerTokenClaim {
 
     let response = undefined;
     try {
-      response = await fetch(url);
-    } catch (err) {
+      response = await fulfillWithRetries([fetch, url], 5000, 3);
+    } catch( err ) {
       // Ignore, error later
     }
 

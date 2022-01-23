@@ -23,14 +23,14 @@ export const fulfillWithTimeLimit = async (
  * @param {CallbackFunction} task - The async task to be run.
  * @param {...any[]} args - Arguments to pass to the task.
  * @param {number}  timeLimit - Number of milliseconds to wait for the task.
- * @param {string} [retries=1] - Number of times to run the task if not resolved (default=1).
+ * @param {number} [retries=1] - Number of times to run the task if not resolved (default=1).
  * @param {string} [failureValue=null] - Return value on failure to resolve the task in time (default=null).
  * @returns {Promise<any>} Task response (if resolved in time) || failureValue
  */
 export const fulfillWithRetries = async (
   [task, ...args]: [ CallbackFunction, ...any[] ],
   timeLimit: number,
-  retries = 3,
+  retries: number = 1,
   failureValue: any = null,
 ): Promise<any> => {
   let response = null;
