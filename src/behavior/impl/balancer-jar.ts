@@ -1,6 +1,7 @@
 import { Provider, TransactionResponse } from "@ethersproject/providers";
 import {
   BigNumber,
+  Contract,
   ContractTransaction,
   ethers,
   Signer,
