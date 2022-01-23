@@ -176,7 +176,6 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
       parseFloat(
         ethers.utils.formatUnits(
           balances[i],
-          // TOKENS[tokenAddr.toLowerCase()].decimals,
           model.tokenDecimals(tokenAddr, jar.chain),
         ),
       ),
@@ -238,12 +237,11 @@ export const calculateBalPoolAPRs = async (
     (reward) => {
       const rewardValue =
         reward.amount *
-        // model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
         model.priceOfSync(reward.tokenAddress);
       const name = ExternalTokenModelSingleton.getToken(
         reward.tokenAddress,
         jar.chain,
-      ).id; // TOKENS[reward.tokenAddress.toLowerCase()].priceId;
+      ).id;
       const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
       return { name: name, apr: apr, compoundable: true };
     },
