@@ -187,6 +187,13 @@ import {
   JAR_MOONBEAM_STELLA_USDC_GLMR,
   JAR_MOONBEAM_STELLA_STELLA_USDC,
   JAR_MOONBEAM_STELLA_USDC_USDT,
+  JAR_MOONBEAM_BEAM_BNB_BUSD,
+  JAR_MOONBEAM_BEAM_BUSD_GLMR,
+  JAR_MOONBEAM_BEAM_BUSD_USDC,
+  JAR_MOONBEAM_BEAM_ETH_USDC,
+  JAR_MOONBEAM_BEAM_GLMR_GLINT,
+  JAR_MOONBEAM_BEAM_GLMR_USDC,
+  JAR_MOONBEAM_BEAM_USDC_USDT,
   JAR_METIS_HADES_METIS,
   JAR_METIS_HELLSHARE_METIS,
 } from "../model/JarsAndFarms";
@@ -377,6 +384,13 @@ import { StellaEthGlmr } from "./impl/stella-eth-glmr";
 import { StellaUsdcGlmr } from "./impl/stella-usdc-glmr";
 import { StellaStellaUsdc } from "./impl/stella-stella-usdc";
 import { StellaUsdcUsdt } from "./impl/stella-usdc-usdt";
+import { BeamBnbBusd } from "./impl/beam-bnb-busd";
+import { BeamBusdGlmr } from "./impl/beam-busd-glmr";
+import { BeamBusdUsdc } from "./impl/beam-busd-usdc";
+import { BeamEthUsdc } from "./impl/beam-eth-usdc";
+import { BeamGlmrGlint } from "./impl/beam-glmr-glint";
+import { BeamGlmrUsdc } from "./impl/beam-glmr-usdc";
+import { BeamUsdcUsdt } from "./impl/beam-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
 
@@ -597,6 +611,13 @@ jarToBehavior.set(JAR_MOONBEAM_STELLA_ETH_GLMR.id, new StellaEthGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_GLMR.id, new StellaUsdcGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_STELLA_USDC.id, new StellaStellaUsdc());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_USDT.id, new StellaUsdcUsdt());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_BNB_BUSD.id, new BeamBnbBusd());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_BUSD_USDC.id, new BeamBusdUsdc());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_BUSD_GLMR.id, new BeamBusdGlmr());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_ETH_USDC.id, new BeamEthUsdc());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_GLINT.id, new BeamGlmrGlint());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_USDC.id, new BeamGlmrUsdc());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_USDC_USDT.id, new BeamUsdcUsdt());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

@@ -35,6 +35,7 @@ export enum AssetProtocol {
   NETSWAP = "netswap",
   LOOKS = "LooksRare",
   STELLA = "StellaSwap",
+  BEAM = "Beamswap",
   // ADD_PROTOCOL
 }
 
@@ -57,6 +58,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.NETSWAP,
   AssetProtocol.TETHYS,
   AssetProtocol.STELLA,
+  AssetProtocol.BEAM,
   // ADD_PROTOCOL
 ];
 
@@ -162,7 +164,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
 
 export interface FarmDetails {
   allocShare?: number;

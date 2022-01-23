@@ -5035,6 +5035,181 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_USDC_USDT);
 
+export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1i",
+  contract: "0xF1f61233a02BEe9D2867Daa3c3f9ea2327414941",
+  depositToken: {
+    addr: "0x34A1F4AB3548A92C6B32cd778Eed310FcD9A340D",
+    name: "BEAM BNB/BUSD",
+    link: "https://app.beamswap.io/exchange/add/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F",
+    components: ["bnb", "busd"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-BNB/BUSD",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP BNB/BUSD",
+    farmDepositTokenName: "pBLP BNB/BUSD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BNB_BUSD);
+
+export const JAR_MOONBEAM_BEAM_BUSD_GLMR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1j",
+  contract: "0xbF04440582F8a59870f9845005AAc652B9c37733",
+  depositToken: {
+    addr: "0xfC422EB0A2C7a99bAd330377497FD9798c9B1001",
+    name: "BEAM BUSD/GLMR",
+    link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/GLMR",
+    components: ["busd", "glmr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-BUSD/GLMR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP BUSD/GLMR",
+    farmDepositTokenName: "pBLP BUSD/GLMR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_GLMR);
+
+export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1k",
+  contract: "0x4f9cAD3450a2B8ba538207082D84B1b49666984e",
+  depositToken: {
+    addr: "0xa0799832FB2b9F18Acf44B92FbbEDCfD6442DD5e",
+    name: "BEAM BUSD/USDC",
+    link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["busd", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-BUSD/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP BUSD/USDC",
+    farmDepositTokenName: "pBLP BUSD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_USDC);
+
+export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1l",
+  contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
+  depositToken: {
+    addr: "0x6BA3071760d46040FB4dc7B627C9f68efAca3000",
+    name: "BEAM ETH/USDC",
+    link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["eth", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-ETH/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP ETH/USDC",
+    farmDepositTokenName: "pBLP ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_ETH_USDC);
+
+export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1M",
+  contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
+  depositToken: {
+    addr: "0x6BA3071760d46040FB4dc7B627C9f68efAca3000",
+    name: "BEAM GLMR/GLINT",
+    link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["glmr", "glint"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-GLMR/GLINT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP GLMR/GLINT",
+    farmDepositTokenName: "pBLP GLMR/GLINT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_GLINT);
+
+export const JAR_MOONBEAM_BEAM_GLMR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1m",
+  contract: "0xA075d810fD05c1AB5769b08Dfd34693Ddfa190F3",
+  depositToken: {
+    addr: "0xb929914B89584b4081C7966AC6287636F7EfD053",
+    name: "BEAM GLMR/USDC",
+    link: "https://app.beamswap.io/exchange/add/GLMR/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["glmr", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-GLMR/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP GLMR/USDC",
+    farmDepositTokenName: "pBLP GLMR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_USDC);
+
+export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 1n",
+  contract: "0xE6e02865d8E6DF9b529691204FBC630159e7a9de",
+  depositToken: {
+    addr: "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1",
+    name: "BEAM USDC/USDT",
+    link: "https://app.beamswap.io/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73",
+    components: ["usdc", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-USDC/USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP USDC/USDT",
+    farmDepositTokenName: "pBLP USDC/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
