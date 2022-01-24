@@ -190,7 +190,7 @@ export class BalancerTokenClaim {
       if (parseInt(week) < this.tokenClaimInfo.weekStart) continue;
 
       const c1 = await this.fetchFromIpfs(hash);
-      if( c1 ) {
+      if (c1) {
         claimsByWeek[week] = c1;
       }
     }
@@ -244,7 +244,7 @@ export class BalancerTokenClaim {
     let response = undefined;
     try {
       response = await fulfillWithRetries([fetch, url], 5000, 3);
-    } catch( err ) {
+    } catch (err) {
       // Ignore, error later
     }
 

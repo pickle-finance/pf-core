@@ -2100,9 +2100,8 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
     farmDepositTokenName: "Balancer BAL/ETH",
   },
   tags: ["cooldown"],
-}
+};
 JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_ETH);
-
 
 // OKEx Chain
 

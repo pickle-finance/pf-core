@@ -1,7 +1,7 @@
 type CallbackFunction = (...args: any[]) => any;
 
 export const fulfillWithTimeLimit = async (
-  [task, ...args]: [ CallbackFunction, ...any[] ],
+  [task, ...args]: [CallbackFunction, ...any[]],
   timeLimit: number,
   failureValue: any,
 ): Promise<any> => {
@@ -28,9 +28,9 @@ export const fulfillWithTimeLimit = async (
  * @returns {Promise<any>} Task response (if resolved in time) || failureValue
  */
 export const fulfillWithRetries = async (
-  [task, ...args]: [ CallbackFunction, ...any[] ],
+  [task, ...args]: [CallbackFunction, ...any[]],
   timeLimit: number,
-  retries: number = 1,
+  retries = 1,
   failureValue: any = null,
 ): Promise<any> => {
   let response = null;

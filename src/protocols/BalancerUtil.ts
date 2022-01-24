@@ -112,9 +112,9 @@ export const getBalancerPoolDayAPY = async (
 ) => {
   // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
   const blocktime =
-  jar.chain === ChainNetwork.Arbitrum
-    ? 3   // in Chains.ts the value is wrongly set to 13
-    : Chains.get(jar.chain).secondsPerBlock;
+    jar.chain === ChainNetwork.Arbitrum
+      ? 3 // in Chains.ts the value is wrongly set to 13
+      : Chains.get(jar.chain).secondsPerBlock;
   const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
@@ -133,7 +133,7 @@ export const getBalancerPerformance = async (
 ): Promise<HistoricalYield> => {
   const blocktime =
     asset.chain === ChainNetwork.Arbitrum
-      ? 3   // in Chains.ts the value is wrongly set to 13
+      ? 3 // in Chains.ts the value is wrongly set to 13
       : Chains.get(asset.chain).secondsPerBlock;
   const blockNum = await model.providerFor(asset.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
@@ -236,8 +236,7 @@ export const calculateBalPoolAPRs = async (
   const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
     (reward) => {
       const rewardValue =
-        reward.amount *
-        model.priceOfSync(reward.tokenAddress);
+        reward.amount * model.priceOfSync(reward.tokenAddress);
       const name = ExternalTokenModelSingleton.getToken(
         reward.tokenAddress,
         jar.chain,

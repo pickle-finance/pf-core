@@ -190,7 +190,7 @@ import {
   JAR_METIS_HADES_METIS,
   JAR_METIS_HELLSHARE_METIS,
   JAR_ARBITRUM_BAL_PICKLE_ETH,
-  JAR_ARBITRUM_BAL_ETH
+  JAR_ARBITRUM_BAL_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 

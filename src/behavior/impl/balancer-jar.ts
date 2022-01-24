@@ -9,8 +9,17 @@ import {
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import jarAbi from "../../Contracts/ABIs/jar.json";
 import { JarHarvestStats, PickleModel } from "../..";
-import { AssetProjectedApr, HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
-import { calculateBalPoolAPRs, getBalancerPerformance, getPoolData, PoolData } from "../../protocols/BalancerUtil";
+import {
+  AssetProjectedApr,
+  HistoricalYield,
+  JarDefinition,
+} from "../../model/PickleModelJson";
+import {
+  calculateBalPoolAPRs,
+  getBalancerPerformance,
+  getPoolData,
+  PoolData,
+} from "../../protocols/BalancerUtil";
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
@@ -27,12 +36,12 @@ export class BalancerJar extends AbstractJarBehavior {
       try {
         this.poolData = await getPoolData(jar, model);
       } catch (error) {
-        const msg = (`Error in getDepositTokenPrice (${jar.details.apiKey}): ${error}`);
+        const msg = `Error in getDepositTokenPrice (${jar.details.apiKey}): ${error}`;
         console.log(msg);
         return 0;
       }
     }
-    
+
     return this.poolData.pricePerToken;
   }
 
@@ -41,11 +50,7 @@ export class BalancerJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     if (!this.poolData) this.poolData = await getPoolData(jar, model);
-    const res = await calculateBalPoolAPRs(
-      jar,
-      model,
-      this.poolData,
-    );
+    const res = await calculateBalPoolAPRs(jar, model, this.poolData);
     const aprsPostFee = res.map((component) =>
       this.createAprComponent(
         component.name,
@@ -55,7 +60,7 @@ export class BalancerJar extends AbstractJarBehavior {
     );
     return this.aprComponentsToProjectedApr(aprsPostFee);
   }
-  
+
   async getProtocolApy(
     definition: JarDefinition,
     model: PickleModel,
@@ -66,18 +71,32 @@ export class BalancerJar extends AbstractJarBehavior {
   async getAssetHarvestData(
     definition: JarDefinition,
     model: PickleModel,
-    balance: BigNumber,   // total want balance in strategy+jar
+    balance: BigNumber, // total want balance in strategy+jar
     available: BigNumber, // strategy want balance + jar earnable balance (95% of jar want balance)
     resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
-    const ret = await super.getAssetHarvestData(definition, model, balance, available, resolver);
-    const earnableInJar = await new Contract(definition.contract, jarAbi, resolver).available();
+    const ret = await super.getAssetHarvestData(
+      definition,
+      model,
+      balance,
+      available,
+      resolver,
+    );
+    const earnableInJar = await new Contract(
+      definition.contract,
+      jarAbi,
+      resolver,
+    ).available();
     const depositTokenDecimals = definition.depositToken.decimals
-        ? definition.depositToken.decimals : 18;
+      ? definition.depositToken.decimals
+      : 18;
     const depositTokenPrice: number = await model.priceOf(
-      definition.depositToken.addr,);
-    const availUSD: number = parseFloat(ethers.utils.formatUnits(
-      earnableInJar, depositTokenDecimals)) * depositTokenPrice;
+      definition.depositToken.addr,
+    );
+    const availUSD: number =
+      parseFloat(
+        ethers.utils.formatUnits(earnableInJar, depositTokenDecimals),
+      ) * depositTokenPrice;
     const less = ret.earnableUSD - availUSD;
     ret.earnableUSD = availUSD;
     ret.balanceUSD = less;
