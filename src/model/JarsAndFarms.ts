@@ -1195,7 +1195,7 @@ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
 
 export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "pjar 0.98a",
+  id: "pjar 0.98a2",
   contract: "0xBc57294Fc20bD23983dB598fa6B3f306aA1a414f",
   depositToken: {
     addr: "0xB264dC9D22ece51aAa6028C5CBf2738B684560D6",
