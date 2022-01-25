@@ -3791,7 +3791,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   contract: "0xECDA075c31c20449f89Dc4467CF70d5F98e657D2",
   depositToken: {
     addr: "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940",
-    name: "WANNA USDT/WANNA",
+    name: "WANNA WANNA/USDT",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22",
     components: ["usdt", "wanna"],
   },
@@ -3804,8 +3804,8 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
-    farmNickname: "pWLP USDT/WANNA",
-    farmDepositTokenName: "pWLP USDT/WANNA",
+    farmNickname: "pWLP WANNA/USDT",
+    farmDepositTokenName: "pWLP WANNA/USDT",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_WANNA_USDT_WANNA);
@@ -5190,7 +5190,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_ETH_USDC);
 
 export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1M",
+  id: "beamJar 1m",
   contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
   depositToken: {
     addr: "0x99588867e817023162F4d4829995299054a5fC57",
@@ -5215,7 +5215,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_GLINT);
 
 export const JAR_MOONBEAM_BEAM_GLMR_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1m",
+  id: "beamJar 1n",
   contract: "0xA075d810fD05c1AB5769b08Dfd34693Ddfa190F3",
   depositToken: {
     addr: "0xb929914B89584b4081C7966AC6287636F7EfD053",
@@ -5240,7 +5240,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_USDC);
 
 export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1n",
+  id: "beamJar 1o",
   contract: "0xE6e02865d8E6DF9b529691204FBC630159e7a9de",
   depositToken: {
     addr: "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1",
