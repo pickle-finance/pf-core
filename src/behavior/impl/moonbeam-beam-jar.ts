@@ -59,7 +59,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const beamApr: number = await this.calculateBeamFarmsAPY(jar, model);
-    const lp = await new TethysPairManager().calculateLpApr(
+    const lp = await new BeamswapPairManager().calculateLpApr(
       model,
       jar.depositToken.addr,
     );
@@ -82,12 +82,12 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
 
     const [beamPerSecBN, totalSupplyBN] = await multicallProvider.all([
-      multicallBeamFarms.poolRewardsPerSec(),
+      multicallBeamFarms.poolRewardsPerSec(poolId),
       lpToken.balanceOf(BEAM_FARMS),
     ]);
 
     const rewardsPerYear =
-      parseFloat(formatEther(beamPerSecBN)) * ONE_YEAR_IN_SECONDS;
+      parseFloat(formatEther(beamPerSecBN.rewardsPerSec[0])) * ONE_YEAR_IN_SECONDS;
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const beamRewardedPerYear = (await model.priceOf("beam")) * rewardsPerYear;
@@ -112,14 +112,14 @@ const BEAM_QUERY_KEYS: string[] = [
   "totalSupply",
 ];
 
-export class TethysPairManager extends GenericSwapUtility {
+export class BeamswapPairManager extends GenericSwapUtility {
   constructor() {
     super(
       BEAM_CACHE_KEY,
       "pairAddress",
       BEAM_QUERY_KEYS,
-      AssetProtocol.TETHYS,
-      ChainNetwork.Metis,
+      AssetProtocol.BEAM,
+      ChainNetwork.Moonbeam,
       0.002,
     );
   }

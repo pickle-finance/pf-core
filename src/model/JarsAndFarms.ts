@@ -5193,10 +5193,10 @@ export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
   id: "beamJar 1M",
   contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
   depositToken: {
-    addr: "0x6BA3071760d46040FB4dc7B627C9f68efAca3000",
+    addr: "0x99588867e817023162F4d4829995299054a5fC57",
     name: "BEAM GLMR/GLINT",
     link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
-    components: ["glmr", "glint"],
+    components: ["glmr", "beam"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
