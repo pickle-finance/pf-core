@@ -33,7 +33,7 @@ export enum ChainNetwork {
 export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1,
-    network: "eth",
+    network: ChainNetwork.Ethereum,
     networkVisible: "Ethereum",
     secondsPerBlock: 13,
     gasToken: "ethereum",
@@ -43,7 +43,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 137,
-    network: "polygon",
+    network: ChainNetwork.Polygon,
     networkVisible: "Polygon",
     secondsPerBlock: 2,
     gasToken: "matic-network",
@@ -58,7 +58,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 66,
-    network: "okex",
+    network: ChainNetwork.OKEx,
     networkVisible: "OEC",
     secondsPerBlock: 3,
     gasToken: "oec-token",
@@ -69,7 +69,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 42161,
-    network: "arbitrum",
+    network: ChainNetwork.Arbitrum,
     networkVisible: "Arbitrum",
     secondsPerBlock: 13,
     gasToken: "ethereum",
@@ -80,7 +80,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1666600000,
-    network: "harmony",
+    network: ChainNetwork.Harmony,
     networkVisible: "Harmony ONE",
     secondsPerBlock: 2,
     gasToken: "harmony",
@@ -91,7 +91,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1285,
-    network: "moonriver",
+    network: ChainNetwork.Moonriver,
     networkVisible: "Moonriver",
     secondsPerBlock: 14,
     gasToken: "moonriver",
@@ -102,7 +102,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 25,
-    network: "cronos",
+    network: ChainNetwork.Cronos,
     networkVisible: "Cronos",
     secondsPerBlock: 5.5,
     gasToken: "cro",
@@ -113,7 +113,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1313161554,
-    network: "aurora",
+    network: ChainNetwork.Aurora,
     networkVisible: "Aurora",
     secondsPerBlock: 1,
     gasToken: "eth",
@@ -124,7 +124,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1088,
-    network: "metis",
+    network: ChainNetwork.Metis,
     networkVisible: "Metis",
     secondsPerBlock: 3.5,
     gasToken: "metis-token",
@@ -135,7 +135,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1284,
-    network: "moonbeam",
+    network: ChainNetwork.Moonbeam,
     networkVisible: "Moonbeam",
     secondsPerBlock: 12.1,
     gasToken: "moonbeam",
