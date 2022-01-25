@@ -14,6 +14,7 @@ import {
 } from "./types";
 import fetch from "cross-fetch";
 import { PfDataStore } from "../../model/PickleModel";
+import { fulfillWithRetries } from "../../util/PromiseTimeout";
 
 export class BalancerTokenClaim {
   /**
@@ -242,7 +243,7 @@ export class BalancerTokenClaim {
 
     let response = undefined;
     try {
-      response = await fetch(url);
+      response = await fulfillWithRetries([fetch, url], 5000, 3);
     } catch (err) {
       // Ignore, error later
     }

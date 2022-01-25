@@ -30,6 +30,8 @@ const SUBGRAPH_URL_COMETH =
 const SUBGRAPH_URL_QUICKSWAP =
   "https://api.thegraph.com/subgraphs/name/sameepsi/quickswap06";
 const SUBGRAPH_URL_SOLARSWAP = "https://analytics.solarbeam.io/api/subgraph";
+const SUBGRAPH_URL_BALANCER =
+  "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2";
 const SUBGRAPH_URL_BALANCER_ARBITRUM =
   "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-arbitrum-v2";
 const SUBGRAPH_URL_VVS_CRONOS = "https://graph.vvs.finance/exchange";
@@ -81,8 +83,15 @@ export function graphUrlFromDetails(
       return SUBGRAPH_URL_QUICKSWAP;
     case AssetProtocol.SOLARSWAP:
       return SUBGRAPH_URL_SOLARSWAP;
-    case AssetProtocol.BALANCER:
-      return SUBGRAPH_URL_BALANCER_ARBITRUM;
+    case AssetProtocol.BALANCER: {
+      switch (chain) {
+        case ChainNetwork.Ethereum:
+          return SUBGRAPH_URL_BALANCER;
+        case ChainNetwork.Arbitrum:
+          return SUBGRAPH_URL_BALANCER_ARBITRUM;
+      }
+      break;
+    }
     case AssetProtocol.VVS:
       return SUBGRAPH_URL_VVS_CRONOS;
     case AssetProtocol.TETHYS:
@@ -103,6 +112,7 @@ export function graphUrlFromDetails(
           case ChainNetwork.Harmony:
             return SUBGRAPH_URL_SUSHISWAP_HARMONY;
         }
+        break;
       }
       // ADD_PROTOCOL
       return undefined;

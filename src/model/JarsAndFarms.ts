@@ -34,7 +34,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   details: {
     apiKey: "pickle-eth",
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
@@ -1195,7 +1195,7 @@ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
 
 export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "pjar 0.98a",
+  id: "pjar 0.98a2",
   contract: "0xBc57294Fc20bD23983dB598fa6B3f306aA1a414f",
   depositToken: {
     addr: "0xB264dC9D22ece51aAa6028C5CBf2738B684560D6",
@@ -1667,7 +1667,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
     apiKey: "PSLP-PICKLE",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
@@ -2047,8 +2047,61 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
     farmNickname: "Balancer Tricrypto",
     farmDepositTokenName: "Balancer Tricrypto",
   },
+  tags: ["cooldown"],
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_TRICRYPTO);
+
+export const JAR_ARBITRUM_BAL_PICKLE_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 4b",
+  contract: "0x979Cb85f2fe4B6036c089c554c91fdfB7158bB28",
+  depositToken: {
+    addr: "0xc2F082d33b5B8eF3A7E3de30da54EFd3114512aC",
+    name: "Balancer PICKLE/ETH",
+    link: "https://arbitrum.balancer.fi/#/pool/0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017/invest",
+    components: ["pickle", "weth"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.BALANCER,
+  details: {
+    apiKey: "BalPickleEth",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "Balancer PICKLE/ETH",
+    farmDepositTokenName: "Balancer PICKLE/ETH",
+  },
+  tags: ["pool2", "cooldown"],
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_PICKLE_ETH);
+
+export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 4c",
+  contract: "0x46573375eEDA7979e19fAEEdd7eF2843047D9E0d",
+  depositToken: {
+    addr: "0xcC65A812ce382aB909a11E434dbf75B34f1cc59D",
+    name: "Balancer BAL/ETH",
+    link: "https://arbitrum.balancer.fi/#/pool/0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001/invest",
+    components: ["bal", "weth"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.BALANCER,
+  details: {
+    apiKey: "ArbitrumBalEth",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "Balancer BAL/ETH",
+    farmDepositTokenName: "Balancer BAL/ETH",
+  },
+  tags: ["cooldown"],
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_ETH);
 
 // OKEx Chain
 
@@ -5249,7 +5302,7 @@ export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   details: {
     apiKey: "sushi-pickle-eth",
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
 
