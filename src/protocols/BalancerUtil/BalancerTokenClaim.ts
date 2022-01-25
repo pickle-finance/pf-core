@@ -189,7 +189,7 @@ export class BalancerTokenClaim {
       // Ignore distributions managed by the old contract (not MerkleOrchard).
       if (parseInt(week) < this.tokenClaimInfo.weekStart) continue;
 
-      const c1 = await this.fetchFromIpfs(hash);
+      const c1 = await this.fetchFromIpfs(hash, true);
       if (c1) {
         claimsByWeek[week] = c1;
       }
@@ -205,7 +205,7 @@ export class BalancerTokenClaim {
     return await snapshot.json();
   };
 
-  private fetchFromIpfs = async (hash: string): Promise<Snapshot> => {
+  private fetchFromIpfs = async (hash: string, retryOnError: boolean): Promise<Snapshot> => {
     const url = `https://ipfs.io/ipfs/${hash}`;
     const res: string = await this.dataStoreFetchWrapper(url);
 
@@ -221,6 +221,9 @@ export class BalancerTokenClaim {
           " was:\n" +
           res,
       );
+      await this.dataStore.writeData(url, undefined);
+      if( retryOnError )
+        return this.fetchFromIpfs(hash, false);
     }
   };
 
