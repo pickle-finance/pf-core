@@ -84,10 +84,10 @@ export const ADDRESSES = new Map([
   [
     ChainNetwork.OKEx,
     {
-      pickle: "0x965772e0E9c84b6f359c8597C891108DcF1c5B1A",
-      masterChef: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+      pickle: NULL_ADDRESS,
+      masterChef: NULL_ADDRESS,
       controller: "0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4",
-      minichef: "0x7446BF003b98B7B0D90CE84810AC12d6b8114B62",
+      minichef: NULL_ADDRESS,
     },
   ],
   [
