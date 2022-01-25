@@ -1,7 +1,11 @@
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
-import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import {
+  AssetProjectedApr,
+  AssetProtocol,
+  JarDefinition,
+} from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import beamFarmsAbi from "../../Contracts/ABIs/beam-farms.json";
 import { Contract as MulticallContract } from "ethers-multicall";
@@ -12,7 +16,11 @@ import {
 import { PickleModel } from "../../model/PickleModel";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther } from "ethers/lib/utils";
-import { Chains } from "../..";
+import { ChainNetwork, Chains } from "../..";
+import {
+  GenericSwapUtility,
+  IExtendedPairData,
+} from "../../protocols/GenericSwapUtil";
 
 const BEAM_FARMS = "0xC6ca172FC8BDB803c5e12731109744fb0200587b";
 
@@ -23,7 +31,7 @@ const beamPoolIds: PoolId = {
   "0x34A1F4AB3548A92C6B32cd778Eed310FcD9A340D": 3,
   "0x6BA3071760d46040FB4dc7B627C9f68efAca3000": 4,
   "0xfC422EB0A2C7a99bAd330377497FD9798c9B1001": 6,
-  "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1": 7
+  "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1": 7,
 };
 
 export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
@@ -51,9 +59,14 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const beamApr: number = await this.calculateBeamFarmsAPY(jar, model);
+    const lp = await new TethysPairManager().calculateLpApr(
+      model,
+      jar.depositToken.addr,
+    );
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("beam", beamApr, true),
+      this.createAprComponent("lp", lp, false),
     ]);
   }
 
@@ -65,32 +78,66 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = beamPoolIds[jar.depositToken.addr];
-    const multicallBeamFarms = new MulticallContract(
-      BEAM_FARMS,
-      beamFarmsAbi,
-    );
+    const multicallBeamFarms = new MulticallContract(BEAM_FARMS, beamFarmsAbi);
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
 
-    const [beamPerBlockBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallBeamFarms.beamPerBlock(),
-        multicallBeamFarms.totalAllocPoint(),
-        multicallBeamFarms.poolInfo(poolId),
-        lpToken.balanceOf(BEAM_FARMS),
-      ]);
+    const [beamPerSecBN, totalSupplyBN] = await multicallProvider.all([
+      multicallBeamFarms.poolRewardsPerSec(),
+      lpToken.balanceOf(BEAM_FARMS),
+    ]);
 
     const rewardsPerYear =
-      (parseFloat(formatEther(beamPerBlockBn)) *
-        poolInfo.allocPoint.toNumber() *
-        ONE_YEAR_IN_SECONDS) /
-      (totalAllocPointBN.toNumber() * Chains.get(jar.chain).secondsPerBlock);
+      parseFloat(formatEther(beamPerSecBN)) * ONE_YEAR_IN_SECONDS;
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const beamRewardedPerYear =
-      (await model.priceOf("beam")) * rewardsPerYear;
+    const beamRewardedPerYear = (await model.priceOf("beam")) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const beamAPY = beamRewardedPerYear / totalValueStaked;
 
     return beamAPY * 100;
+  }
+}
+
+const BEAM_CACHE_KEY = "beam.pair.data.cache.key";
+
+const BEAM_QUERY_KEYS: string[] = [
+  "pairAddress",
+  "date",
+  "reserveUSD",
+  "dailyVolumeUSD",
+  "reserve0",
+  "reserve1",
+  "token0{id}",
+  "token1{id}",
+  "totalSupply",
+];
+
+export class TethysPairManager extends GenericSwapUtility {
+  constructor() {
+    super(
+      BEAM_CACHE_KEY,
+      "pairAddress",
+      BEAM_QUERY_KEYS,
+      AssetProtocol.TETHYS,
+      ChainNetwork.Metis,
+      0.002,
+    );
+  }
+  pairAddressFromDayData(dayData: any): string {
+    return dayData.pairAddress;
+  }
+
+  toExtendedPairData(pair: any): IExtendedPairData {
+    return {
+      pairAddress: pair.pairAddress,
+      reserveUSD: pair.reserveUSD,
+      dailyVolumeUSD: pair.dailyVolumeUSD,
+      reserve0: pair.reserve0,
+      reserve1: pair.reserve1,
+      token0Id: pair.token0.id,
+      token1Id: pair.token1.id,
+      totalSupply: pair.totalSupply,
+      pricePerToken: pair.reserveUSD / pair.totalSupply,
+    };
   }
 }

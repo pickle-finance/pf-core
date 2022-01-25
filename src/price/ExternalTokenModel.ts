@@ -1226,6 +1226,15 @@ export class ExternalTokenModel {
       6,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Moonbeam,
+      "beam",
+      "beamswap",
+      "0xcd3b51d98478d53f4515a306be565c6eebef1d58".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0x99588867e817023162F4d4829995299054a5fC57, 0xb929914B89584b4081C7966AC6287636F7EfD053"],
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
