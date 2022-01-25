@@ -38,6 +38,7 @@ const SUBGRAPH_URL_VVS_CRONOS = "https://graph.vvs.finance/exchange";
 const SUBGRAPH_URL_TETHYS = "https://node.tethys.finance/subgraphs/name/tethys";
 const SUBGRAPH_URL_LOOKS =
   "https://api.thegraph.com/subgraphs/name/looksrare/looks-distribution";
+const SUBGRAPH_BEAMSWAP = "https://graph.beamswap.io/subgraphs/name/beamswap";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -97,6 +98,8 @@ export function graphUrlFromDetails(
       return SUBGRAPH_URL_TETHYS;
     case AssetProtocol.LOOKS:
       return SUBGRAPH_URL_LOOKS;
+    case AssetProtocol.BEAM:
+      return SUBGRAPH_BEAMSWAP;
     case AssetProtocol.SUSHISWAP:
       {
         switch (chain) {
