@@ -5191,7 +5191,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_ETH_USDC);
 export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
   type: AssetType.JAR,
   id: "beamJar 2e",
-  contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
+  contract: "0xEE4587694b553aE065337ea4BCdb0C43e83bB3f2",
   depositToken: {
     addr: "0x99588867e817023162F4d4829995299054a5fC57",
     name: "BEAM GLMR/GLINT",
