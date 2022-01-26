@@ -31,7 +31,7 @@ export interface IPriceResolver {
   getOrResolve(
     ids: string[],
     cache: PriceCache,
-    chain: ChainNetwork | null
+    chain: ChainNetwork | null,
   ): Promise<Map<string, number>> | null;
 
   /**
@@ -43,6 +43,6 @@ export interface IPriceResolver {
   getPriceComponents(
     ids: string[],
     cache: PriceCache,
-    chain: ChainNetwork
+    chain: ChainNetwork,
   ): Promise<Map<string, IPriceComponents>>;
 }

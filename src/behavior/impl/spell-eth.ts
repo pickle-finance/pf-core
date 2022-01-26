@@ -18,13 +18,23 @@ export class SpellEth extends AbstractJarBehavior {
   ): Promise<AssetProjectedApr> {
     const chainSigner = Chains.get(definition.chain).getProviderOrSigner();
     const [abraApr, lpApr] = await Promise.all([
-      calculateAbradabraApy(definition,model,chainSigner),
+      calculateAbradabraApy(definition, model, chainSigner),
       new SushiEthPairManager().calculateLpApr(
-          model, definition.depositToken.addr)
+        model,
+        definition.depositToken.addr,
+      ),
     ]);
 
-    const abraComp: AssetAprComponent = this.createAprComponent("spell", abraApr, true);
-    const lpComp: AssetAprComponent = this.createAprComponent("lp",lpApr,false);
+    const abraComp: AssetAprComponent = this.createAprComponent(
+      "spell",
+      abraApr,
+      true,
+    );
+    const lpComp: AssetAprComponent = this.createAprComponent(
+      "lp",
+      lpApr,
+      false,
+    );
     return this.aprComponentsToProjectedApr([abraComp, lpComp]);
   }
 

@@ -1,4 +1,7 @@
-import { DocsFormat, documentationAssetDefinitionToResult } from './docModel/documentationImplementation';
+import {
+  DocsFormat,
+  documentationAssetDefinitionToResult,
+} from "./docModel/documentationImplementation";
 import { ALL_JAR_DOCUMENTATION } from './docModel/docs';
 import { ALL_ASSETS } from './model/JarsAndFarms';
 

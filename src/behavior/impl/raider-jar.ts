@@ -1,14 +1,9 @@
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
-import {
-  AssetProjectedApr,
-  JarDefinition,
-} from "../../model/PickleModelJson";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { Contract as MulticallContract } from "ethers-multicall";
-import {
-  AbstractJarBehavior,
-} from "../AbstractJarBehavior";
+import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { SushiPolyPairManager } from "../../protocols/SushiSwapUtil";
 import raiderRewardsAbi from "../../Contracts/ABIs/raider-rewards.json";
@@ -50,7 +45,7 @@ export abstract class RaiderJar extends AbstractJarBehavior {
     );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
-      this.createAprComponent("raider", raiderAPY, true)
+      this.createAprComponent("raider", raiderAPY, true),
     ]);
   }
 }

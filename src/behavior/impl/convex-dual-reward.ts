@@ -27,8 +27,13 @@ export class ConvexDualReward extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["crv", "cvx"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["crv", "cvx"],
+      this.strategyAbi,
+    );
   }
 }
 

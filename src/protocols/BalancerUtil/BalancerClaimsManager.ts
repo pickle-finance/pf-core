@@ -23,7 +23,7 @@ export class BalancerClaimsManager {
         tokenClaimInfo,
         index,
         this.address,
-        dataStore
+        dataStore,
       );
       await tokenClaim.fetchData();
 
@@ -41,7 +41,7 @@ export class BalancerClaimsManager {
     );
     console.log("Connected");
 
-    const ret : ContractTransaction = await merkleOrchard.claimDistributions(
+    const ret: ContractTransaction = await merkleOrchard.claimDistributions(
       this.address,
       this.claims,
       this.tokens,

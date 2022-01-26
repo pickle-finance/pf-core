@@ -82,6 +82,6 @@ export class RlyEth extends AbstractJarBehavior {
 
     const totalValueStaked = totalSupply * pricePerToken;
     const rlyAPY = valueRewardedPerYear / totalValueStaked;
-    return rlyAPY*100;
+    return rlyAPY * 100;
   }
 }

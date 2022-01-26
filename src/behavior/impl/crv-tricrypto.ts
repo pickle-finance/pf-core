@@ -1,7 +1,11 @@
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { ChainNetwork, PickleModel } from "../..";
-import { JarDefinition, AssetProjectedApr, AssetAprComponent } from "../../model/PickleModelJson";
+import {
+  JarDefinition,
+  AssetProjectedApr,
+  AssetAprComponent,
+} from "../../model/PickleModelJson";
 import { CurveJar, getCurveRawStats } from "./curve-jar";
 import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
 import { formatEther } from "ethers/lib/utils";
@@ -95,9 +99,9 @@ export class CrvTricrypto extends CurveJar {
     const curveRawStats: any = await getCurveRawStats(model, jar.chain);
     const lp: AssetAprComponent = this.createAprComponent(
       "lp",
-      curveRawStats.tricrypto? curveRawStats.tricrypto: 0,
+      curveRawStats.tricrypto ? curveRawStats.tricrypto : 0,
       false,
-    )
-    return this.aprComponentsToProjectedApr([lp,crvApy]);
+    );
+    return this.aprComponentsToProjectedApr([lp, crvApy]);
   }
 }

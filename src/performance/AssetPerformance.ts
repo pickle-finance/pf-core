@@ -46,7 +46,11 @@ export async function getSwapPerformance(
         }
       }
     `;
-  const asJson = await readQueryFromGraphDetails(query, asset.protocol, asset.chain);
+  const asJson = await readQueryFromGraphDetails(
+    query,
+    asset.protocol,
+    asset.chain,
+  );
   const pairDayResponse = asJson.data.pairDayDatas;
 
   const returnObj: PerformanceData = {

@@ -12,7 +12,7 @@ import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 export abstract class AuroraWannaJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
-    super(5,1);
+    super(5, 1);
     this.strategyAbi = strategyAbi;
   }
   async getHarvestableUSD(

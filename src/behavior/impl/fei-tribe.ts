@@ -14,7 +14,6 @@ import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 
 export const FEI_MASTERCHEF = "0x9e1076cC0d19F9B0b8019F384B0a29E48Ee46f7f";
 export class FeiTribe extends AbstractJarBehavior {
-
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,

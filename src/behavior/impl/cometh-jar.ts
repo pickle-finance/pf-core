@@ -29,8 +29,13 @@ export abstract class ComethJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["must"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["must"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(

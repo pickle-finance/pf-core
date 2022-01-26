@@ -34,7 +34,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   details: {
     apiKey: "pickle-eth",
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 STANDALONE_FARM_DEFINITIONS.push(FARM_UNI_PICKLE_ETH);
 
@@ -1195,7 +1195,7 @@ JAR_DEFINITIONS.push(JAR_SUSHI_ETH_TRU);
 
 export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "pjar 0.98a",
+  id: "pjar 0.98a2",
   contract: "0xBc57294Fc20bD23983dB598fa6B3f306aA1a414f",
   depositToken: {
     addr: "0xB264dC9D22ece51aAa6028C5CBf2738B684560D6",
@@ -1667,7 +1667,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
     apiKey: "PSLP-PICKLE",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_PICKLE_DAI);
 
@@ -2047,8 +2047,61 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
     farmNickname: "Balancer Tricrypto",
     farmDepositTokenName: "Balancer Tricrypto",
   },
+  tags: ["cooldown"],
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_TRICRYPTO);
+
+export const JAR_ARBITRUM_BAL_PICKLE_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 4b",
+  contract: "0x979Cb85f2fe4B6036c089c554c91fdfB7158bB28",
+  depositToken: {
+    addr: "0xc2F082d33b5B8eF3A7E3de30da54EFd3114512aC",
+    name: "Balancer PICKLE/ETH",
+    link: "https://arbitrum.balancer.fi/#/pool/0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017/invest",
+    components: ["pickle", "weth"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.BALANCER,
+  details: {
+    apiKey: "BalPickleEth",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "Balancer PICKLE/ETH",
+    farmDepositTokenName: "Balancer PICKLE/ETH",
+  },
+  tags: ["pool2", "cooldown"],
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_PICKLE_ETH);
+
+export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 4c",
+  contract: "0x46573375eEDA7979e19fAEEdd7eF2843047D9E0d",
+  depositToken: {
+    addr: "0xcC65A812ce382aB909a11E434dbf75B34f1cc59D",
+    name: "Balancer BAL/ETH",
+    link: "https://arbitrum.balancer.fi/#/pool/0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001/invest",
+    components: ["bal", "weth"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.BALANCER,
+  details: {
+    apiKey: "ArbitrumBalEth",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "Balancer BAL/ETH",
+    farmDepositTokenName: "Balancer BAL/ETH",
+  },
+  tags: ["cooldown"],
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_ETH);
 
 // OKEx Chain
 
@@ -3738,7 +3791,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   contract: "0xECDA075c31c20449f89Dc4467CF70d5F98e657D2",
   depositToken: {
     addr: "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940",
-    name: "WANNA USDT/WANNA",
+    name: "WANNA WANNA/USDT",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22",
     components: ["usdt", "wanna"],
   },
@@ -3751,8 +3804,8 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
-    farmNickname: "pWLP USDT/WANNA",
-    farmDepositTokenName: "pWLP USDT/WANNA",
+    farmNickname: "pWLP WANNA/USDT",
+    farmDepositTokenName: "pWLP WANNA/USDT",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_WANNA_USDT_WANNA);
@@ -4892,7 +4945,7 @@ export const JAR_MOONBEAM_STELLA_BUSD_GLMR: JarDefinition = {
   depositToken: {
     addr: "0x367c36dAE9ba198A4FEe295c22bC98cB72f77Fe1",
     name: "STELLA BUSD/GLMR",
-    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055",
+    link: "https://app.stellaswap.com/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/ETH",
     components: ["busd", "glmr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -4992,7 +5045,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   depositToken: {
     addr: "0x81e11a9374033d11Cc7e7485A7192AE37D0795D6",
     name: "STELLA STELLA/USDC",
-    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/ETH",
+    link: "https://app.stellaswap.com/exchange/add/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["stella", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -5035,7 +5088,182 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_USDC_USDT);
 
+export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2a",
+  contract: "0xF1f61233a02BEe9D2867Daa3c3f9ea2327414941",
+  depositToken: {
+    addr: "0x34A1F4AB3548A92C6B32cd778Eed310FcD9A340D",
+    name: "BEAM BNB/BUSD",
+    link: "https://app.beamswap.io/exchange/add/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F",
+    components: ["bnb", "busd"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-BNB/BUSD",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP BNB/BUSD",
+    farmDepositTokenName: "pBLP BNB/BUSD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BNB_BUSD);
 
+export const JAR_MOONBEAM_BEAM_BUSD_GLMR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2b",
+  contract: "0xbF04440582F8a59870f9845005AAc652B9c37733",
+  depositToken: {
+    addr: "0xfC422EB0A2C7a99bAd330377497FD9798c9B1001",
+    name: "BEAM BUSD/GLMR",
+    link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/GLMR",
+    components: ["busd", "glmr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-BUSD/GLMR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP BUSD/GLMR",
+    farmDepositTokenName: "pBLP BUSD/GLMR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_GLMR);
+
+export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2c",
+  contract: "0x4f9cAD3450a2B8ba538207082D84B1b49666984e",
+  depositToken: {
+    addr: "0xa0799832FB2b9F18Acf44B92FbbEDCfD6442DD5e",
+    name: "BEAM BUSD/USDC",
+    link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["busd", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-BUSD/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP BUSD/USDC",
+    farmDepositTokenName: "pBLP BUSD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_USDC);
+
+export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2d",
+  contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
+  depositToken: {
+    addr: "0x6BA3071760d46040FB4dc7B627C9f68efAca3000",
+    name: "BEAM ETH/USDC",
+    link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["eth", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-ETH/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP ETH/USDC",
+    farmDepositTokenName: "pBLP ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_ETH_USDC);
+
+export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2e",
+  contract: "0xEE4587694b553aE065337ea4BCdb0C43e83bB3f2",
+  depositToken: {
+    addr: "0x99588867e817023162F4d4829995299054a5fC57",
+    name: "BEAM GLMR/GLINT",
+    link: "https://app.beamswap.io/exchange/add/GLMR/0xcd3b51d98478d53f4515a306be565c6eebef1d58",
+    components: ["glmr", "beam"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-GLMR/GLINT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP GLMR/GLINT",
+    farmDepositTokenName: "pBLP GLMR/GLINT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_GLINT);
+
+export const JAR_MOONBEAM_BEAM_GLMR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2f",
+  contract: "0xA075d810fD05c1AB5769b08Dfd34693Ddfa190F3",
+  depositToken: {
+    addr: "0xb929914B89584b4081C7966AC6287636F7EfD053",
+    name: "BEAM GLMR/USDC",
+    link: "https://app.beamswap.io/exchange/add/GLMR/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    components: ["glmr", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-GLMR/USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP GLMR/USDC",
+    farmDepositTokenName: "pBLP GLMR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_USDC);
+
+export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 2g",
+  contract: "0xE6e02865d8E6DF9b529691204FBC630159e7a9de",
+  depositToken: {
+    addr: "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1",
+    name: "BEAM USDC/USDT",
+    link: "https://app.beamswap.io/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73",
+    components: ["usdc", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.BEAM,
+  details: {
+    apiKey: "BLP-USDC/USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBLP USDC/USDT",
+    farmDepositTokenName: "pBLP USDC/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
+
+// Optimism 
 export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 1a",
@@ -5175,7 +5403,7 @@ export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   details: {
     apiKey: "sushi-pickle-eth",
   },
-  tags: "pool2",
+  tags: ["pool2"],
 };
 EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
 

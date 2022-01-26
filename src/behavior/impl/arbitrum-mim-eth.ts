@@ -12,7 +12,7 @@ import {
 
 export class ArbitrumMimEth extends AbstractJarBehavior {
   protected strategyAbi: any;
-  
+
   constructor() {
     super();
     this.strategyAbi = multiSushiStrategyAbi;
@@ -30,8 +30,13 @@ export class ArbitrumMimEth extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["sushi","spell"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi", "spell"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(
@@ -41,9 +46,7 @@ export class ArbitrumMimEth extends AbstractJarBehavior {
     const [sushiMimEthApy, spellMimEthApy, lpApr] = await Promise.all([
       calculateSushiApyArbitrum(jar, model),
       calculateMCv2ApyArbitrum(jar, model, "spell"),
-      new SushiArbPairManager().calculateLpApr(
-        model, jar.depositToken.addr)
-
+      new SushiArbPairManager().calculateLpApr(model, jar.depositToken.addr),
     ]);
 
     return this.aprComponentsToProjectedApr([

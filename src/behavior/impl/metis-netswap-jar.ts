@@ -55,7 +55,12 @@ export class NetswapJar extends AbstractJarBehavior {
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", poolStats[0]?.lpApy, false),
-      this.createAprComponent("nett", poolStats[0]?.nettApy, true, 1-Chains.get(jar.chain).defaultPerformanceFee),
+      this.createAprComponent(
+        "nett",
+        poolStats[0]?.nettApy,
+        true,
+        1 - Chains.get(jar.chain).defaultPerformanceFee,
+      ),
     ]);
   }
 }

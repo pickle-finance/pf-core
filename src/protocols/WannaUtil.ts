@@ -32,7 +32,7 @@ export const wannaPoolIds: PoolId = {
   "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940": 10,
   "0x24f6c59747e4AcEB3DBA365df77D68c2A3aA4fB1": 12,
   "0x436C525D536adC447c7775575f88D357634734C1": 13,
-  "0xddCcf2F096fa400ce90ba0568908233e6A950961": 16
+  "0xddCcf2F096fa400ce90ba0568908233e6A950961": 16,
 };
 
 export async function calculateWannaFarmsAPY(
@@ -57,7 +57,8 @@ export async function calculateWannaFarmsAPY(
     ]);
 
   const rewardsPerBlock =
-    (parseFloat(formatEther(wannaPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
+    (parseFloat(formatEther(wannaPerBlockBN)) *
+      poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
   const rewardsPerYear =

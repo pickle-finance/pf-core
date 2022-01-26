@@ -49,8 +49,8 @@ export interface BalancerMerkleOrchardInterface extends ethers.utils.Interface {
         tokenIndex: BigNumberish;
         merkleProof: BytesLike[];
       }[],
-      string[]
-    ]
+      string[],
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "claimDistributionsToInternalBalance",
@@ -63,8 +63,8 @@ export interface BalancerMerkleOrchardInterface extends ethers.utils.Interface {
         tokenIndex: BigNumberish;
         merkleProof: BytesLike[];
       }[],
-      string[]
-    ]
+      string[],
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "claimDistributionsWithCallback",
@@ -79,68 +79,68 @@ export interface BalancerMerkleOrchardInterface extends ethers.utils.Interface {
       }[],
       string[],
       string,
-      BytesLike
-    ]
+      BytesLike,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: "createDistribution",
-    values: [string, BytesLike, BigNumberish, BigNumberish]
+    values: [string, BytesLike, BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "getDistributionRoot",
-    values: [string, string, BigNumberish]
+    values: [string, string, BigNumberish],
   ): string;
   encodeFunctionData(
     functionFragment: "getNextDistributionId",
-    values: [string, string]
+    values: [string, string],
   ): string;
   encodeFunctionData(
     functionFragment: "getRemainingBalance",
-    values: [string, string]
+    values: [string, string],
   ): string;
   encodeFunctionData(functionFragment: "getVault", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "isClaimed",
-    values: [string, string, BigNumberish, string]
+    values: [string, string, BigNumberish, string],
   ): string;
   encodeFunctionData(
     functionFragment: "verifyClaim",
-    values: [string, string, BigNumberish, string, BigNumberish, BytesLike[]]
+    values: [string, string, BigNumberish, string, BigNumberish, BytesLike[]],
   ): string;
 
   decodeFunctionResult(
     functionFragment: "claimDistributions",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "claimDistributionsToInternalBalance",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "claimDistributionsWithCallback",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "createDistribution",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getDistributionRoot",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getNextDistributionId",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
     functionFragment: "getRemainingBalance",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(functionFragment: "getVault", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "isClaimed", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "verifyClaim",
-    data: BytesLike
+    data: BytesLike,
   ): Result;
 
   events: {
@@ -191,15 +191,15 @@ export interface BalancerMerkleOrchard extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
   listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
+    eventFilter?: TypedEventFilter<TEvent>,
   ): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
   removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
+    eventFilter: TypedEventFilter<TEvent>,
   ): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
@@ -218,7 +218,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     claimDistributionsToInternalBalance(
@@ -231,7 +231,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     claimDistributionsWithCallback(
@@ -246,7 +246,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       tokens: string[],
       callbackContract: string,
       callbackData: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     createDistribution(
@@ -254,26 +254,26 @@ export interface BalancerMerkleOrchard extends BaseContract {
       merkleRoot: BytesLike,
       amount: BigNumberish,
       distributionId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     getDistributionRoot(
       token: string,
       distributor: string,
       distributionId: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     getNextDistributionId(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getRemainingBalance(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
     getVault(overrides?: CallOverrides): Promise<[string]>;
@@ -283,7 +283,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       distributor: string,
       distributionId: BigNumberish,
       claimer: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean]>;
 
     verifyClaim(
@@ -293,7 +293,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       claimer: string,
       claimedBalance: BigNumberish,
       merkleProof: BytesLike[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean]>;
   };
 
@@ -307,7 +307,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       merkleProof: BytesLike[];
     }[],
     tokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   claimDistributionsToInternalBalance(
@@ -320,7 +320,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       merkleProof: BytesLike[];
     }[],
     tokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   claimDistributionsWithCallback(
@@ -335,7 +335,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
     tokens: string[],
     callbackContract: string,
     callbackData: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   createDistribution(
@@ -343,26 +343,26 @@ export interface BalancerMerkleOrchard extends BaseContract {
     merkleRoot: BytesLike,
     amount: BigNumberish,
     distributionId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   getDistributionRoot(
     token: string,
     distributor: string,
     distributionId: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   getNextDistributionId(
     token: string,
     distributor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getRemainingBalance(
     token: string,
     distributor: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
   getVault(overrides?: CallOverrides): Promise<string>;
@@ -372,7 +372,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
     distributor: string,
     distributionId: BigNumberish,
     claimer: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<boolean>;
 
   verifyClaim(
@@ -382,7 +382,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
     claimer: string,
     claimedBalance: BigNumberish,
     merkleProof: BytesLike[],
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<boolean>;
 
   callStatic: {
@@ -396,7 +396,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     claimDistributionsToInternalBalance(
@@ -409,7 +409,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     claimDistributionsWithCallback(
@@ -424,7 +424,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       tokens: string[],
       callbackContract: string,
       callbackData: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     createDistribution(
@@ -432,26 +432,26 @@ export interface BalancerMerkleOrchard extends BaseContract {
       merkleRoot: BytesLike,
       amount: BigNumberish,
       distributionId: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     getDistributionRoot(
       token: string,
       distributor: string,
       distributionId: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     getNextDistributionId(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getRemainingBalance(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getVault(overrides?: CallOverrides): Promise<string>;
@@ -461,7 +461,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       distributor: string,
       distributionId: BigNumberish,
       claimer: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     verifyClaim(
@@ -471,7 +471,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       claimer: string,
       claimedBalance: BigNumberish,
       merkleProof: BytesLike[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
   };
 
@@ -481,14 +481,14 @@ export interface BalancerMerkleOrchard extends BaseContract {
       token?: string | null,
       distributionId?: null,
       merkleRoot?: null,
-      amount?: null
+      amount?: null,
     ): DistributionAddedEventFilter;
     DistributionAdded(
       distributor?: string | null,
       token?: string | null,
       distributionId?: null,
       merkleRoot?: null,
-      amount?: null
+      amount?: null,
     ): DistributionAddedEventFilter;
 
     "DistributionClaimed(address,address,uint256,address,address,uint256)"(
@@ -497,7 +497,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       distributionId?: null,
       claimer?: string | null,
       recipient?: null,
-      amount?: null
+      amount?: null,
     ): DistributionClaimedEventFilter;
     DistributionClaimed(
       distributor?: string | null,
@@ -505,7 +505,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       distributionId?: null,
       claimer?: string | null,
       recipient?: null,
-      amount?: null
+      amount?: null,
     ): DistributionClaimedEventFilter;
   };
 
@@ -520,7 +520,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     claimDistributionsToInternalBalance(
@@ -533,7 +533,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     claimDistributionsWithCallback(
@@ -548,7 +548,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       tokens: string[],
       callbackContract: string,
       callbackData: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     createDistribution(
@@ -556,26 +556,26 @@ export interface BalancerMerkleOrchard extends BaseContract {
       merkleRoot: BytesLike,
       amount: BigNumberish,
       distributionId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     getDistributionRoot(
       token: string,
       distributor: string,
       distributionId: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getNextDistributionId(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getRemainingBalance(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getVault(overrides?: CallOverrides): Promise<BigNumber>;
@@ -585,7 +585,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       distributor: string,
       distributionId: BigNumberish,
       claimer: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     verifyClaim(
@@ -595,7 +595,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       claimer: string,
       claimedBalance: BigNumberish,
       merkleProof: BytesLike[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -610,7 +610,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     claimDistributionsToInternalBalance(
@@ -623,7 +623,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
         merkleProof: BytesLike[];
       }[],
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     claimDistributionsWithCallback(
@@ -638,7 +638,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       tokens: string[],
       callbackContract: string,
       callbackData: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     createDistribution(
@@ -646,26 +646,26 @@ export interface BalancerMerkleOrchard extends BaseContract {
       merkleRoot: BytesLike,
       amount: BigNumberish,
       distributionId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     getDistributionRoot(
       token: string,
       distributor: string,
       distributionId: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getNextDistributionId(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getRemainingBalance(
       token: string,
       distributor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getVault(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -675,7 +675,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       distributor: string,
       distributionId: BigNumberish,
       claimer: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     verifyClaim(
@@ -685,7 +685,7 @@ export interface BalancerMerkleOrchard extends BaseContract {
       claimer: string,
       claimedBalance: BigNumberish,
       merkleProof: BytesLike[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

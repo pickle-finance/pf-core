@@ -9,7 +9,11 @@ import {
 } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import hadesFarmAbi from "../../Contracts/ABIs/hades-chef.json";
-import { AbstractJarBehavior, createAprComponentImpl, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
+import {
+  AbstractJarBehavior,
+  createAprComponentImpl,
+  ONE_YEAR_IN_SECONDS,
+} from "../AbstractJarBehavior";
 import { Contract as MulticallContract } from "ethers-multicall";
 import { TethysPairManager } from "../../protocols/TethysUtil";
 import { formatEther } from "ethers/lib/utils";
@@ -66,10 +70,7 @@ export class HadesJar extends AbstractJarBehavior {
     const pricePerToken = await model.priceOf(jar.depositToken.addr);
 
     const poolId = hadesPoolIds[jar.depositToken.addr];
-    const multicallHadesFarms = new MulticallContract(
-      HADES_FARM,
-      hadesFarmAbi,
-    );
+    const multicallHadesFarms = new MulticallContract(HADES_FARM, hadesFarmAbi);
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
 
     const [hadesPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =

@@ -36,6 +36,7 @@ export enum AssetProtocol {
   LOOKS = "LooksRare",
   STELLA = "StellaSwap",
   ZIPSWAP = "ZipSwap",
+  BEAM = "Beamswap",
   // ADD_PROTOCOL
 }
 
@@ -58,7 +59,8 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.NETSWAP,
   AssetProtocol.TETHYS,
   AssetProtocol.STELLA,
-  AssetProtocol.ZIPSWAP
+  AssetProtocol.ZIPSWAP,
+  AssetProtocol.BEAM,
   // ADD_PROTOCOL
 ];
 
@@ -81,7 +83,7 @@ export enum HarvestStyle {
   PASSIVE = "passive",
   EARN_BEFORE_HARVEST = "earnBeforeHarvest",
   CUSTOM = "custom",
-  NONE = 'none'
+  NONE = "none",
 }
 
 export enum AssetType {
@@ -91,7 +93,7 @@ export enum AssetType {
 }
 
 export interface DepositTokenStyle {
-  erc20: boolean
+  erc20: boolean;
 }
 
 export interface IExternalToken {
@@ -110,7 +112,7 @@ export interface DepositToken {
   components?: string[];
   componentTokens?: number[];
   componentAddresses?: string[];
-  style?: DepositTokenStyle,
+  style?: DepositTokenStyle;
   price?: number;
 }
 
@@ -124,7 +126,7 @@ export interface PickleAsset {
   protocol: AssetProtocol;
   aprStats?: AssetProjectedApr;
   details: AssetDetails;
-  tags?: string;
+  tags?: string[];
 }
 
 export interface ExternalAssetDefinition extends PickleAsset {

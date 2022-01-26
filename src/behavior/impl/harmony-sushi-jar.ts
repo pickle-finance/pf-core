@@ -18,8 +18,13 @@ export abstract class HarmonySushiJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["sushi", "wone"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi", "wone"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(
@@ -27,8 +32,13 @@ export abstract class HarmonySushiJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     return this.aprComponentsToProjectedApr(
-      (await calculateHarmonySushiAPY(definition, model))
-      .map( (component) => this.createAprComponent(component.name, component.apr, component.compoundable)),
+      (await calculateHarmonySushiAPY(definition, model)).map((component) =>
+        this.createAprComponent(
+          component.name,
+          component.apr,
+          component.compoundable,
+        ),
+      ),
     );
   }
 }

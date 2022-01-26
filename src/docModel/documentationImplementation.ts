@@ -34,7 +34,6 @@ export interface AssetDocumentationResult {
   risks: string[];
 }
 
-
 export enum DocsFormat {
   HTML = "html",
   MD = "markdown",
@@ -87,10 +86,17 @@ export function documentationAssetDefinitionToResult(
       }
     } else if (k === OBTAIN_KEY_MULTITOKEN_POOL) {
       properties = properties ? properties : {};
-      properties.protocol = properties.protocol ? properties.protocol : asset.protocol;
-      properties.link = properties.link ? properties.link : asset.depositToken.link;
-      properties.tokens = properties.tokens ? properties.tokens : 
-        asset.depositToken.components ? asset.depositToken.components.join("/") : "unknown";
+      properties.protocol = properties.protocol
+        ? properties.protocol
+        : asset.protocol;
+      properties.link = properties.link
+        ? properties.link
+        : asset.depositToken.link;
+      properties.tokens = properties.tokens
+        ? properties.tokens
+        : asset.depositToken.components
+        ? asset.depositToken.components.join("/")
+        : "unknown";
     } else if (k === OBTAIN_KEY_ONETOKEN_POOL) {
       // TODO ? not sure
     }
@@ -108,7 +114,12 @@ export function documentationAssetDefinitionToResult(
   const descriptionKey = def.descriptionKey
     ? def.descriptionKey
     : def.apiKey + ".desc";
-  const description = translateSingleString(language, descriptionKey, {}, format);
+  const description = translateSingleString(
+    language,
+    descriptionKey,
+    {},
+    format,
+  );
   return {
     apiKey: def.apiKey,
     description: description,
@@ -138,26 +149,26 @@ export function translateSingleString(
 }
 
 export function toFormat(str: string, format: DocsFormat): string {
-  if( str.indexOf("PFLINK") === -1 ) {
+  if (str.indexOf("PFLINK") === -1) {
     return str;
   }
   const arr: string[] = str.split("PFLINK");
-  for( let i = 0; i < arr.length; i++ ) {
-    if( arr[i].charAt(0) === '<') {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].charAt(0) === "<") {
       const textEndsIndex = arr[i].indexOf(">");
-      if( textEndsIndex !== -1 ) {
+      if (textEndsIndex !== -1) {
         const text = arr[i].substring(1, textEndsIndex);
-        const urlEndsIndex = arr[i].indexOf(">", textEndsIndex+1);
-        if(urlEndsIndex !== -1 ) {
-          const url = arr[i].substring(textEndsIndex+2, urlEndsIndex);
+        const urlEndsIndex = arr[i].indexOf(">", textEndsIndex + 1);
+        if (urlEndsIndex !== -1) {
+          const url = arr[i].substring(textEndsIndex + 2, urlEndsIndex);
 
           // do formats
-          const suffix = arr[i].substring(urlEndsIndex+1);
-          if( format === DocsFormat.PLAIN ) {
+          const suffix = arr[i].substring(urlEndsIndex + 1);
+          if (format === DocsFormat.PLAIN) {
             arr[i] = text + "(" + url + ")" + suffix;
-          } else if( format === DocsFormat.HTML) {
-            arr[i] = "<a href=\"" + url + "\">" + text + "</a>" + suffix;
-          } else if( format === DocsFormat.MD) {
+          } else if (format === DocsFormat.HTML) {
+            arr[i] = '<a href="' + url + '">' + text + "</a>" + suffix;
+          } else if (format === DocsFormat.MD) {
             arr[i] = "[" + text + "]" + "(" + url + ")" + suffix;
           }
         }

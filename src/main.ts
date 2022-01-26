@@ -1,18 +1,20 @@
 import { ChainNetwork } from ".";
-import { ethers, Signer } from 'ethers';
-import { Provider } from '@ethersproject/providers';
+import { ethers, Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
-import fs from 'fs';
-
+import fs from "fs";
 
 // This is an example of the code you'd want to run in a client
 async function generateFullApi() {
-  const map : Map<ChainNetwork, Provider | Signer> = new Map();
+  const map: Map<ChainNetwork, Provider | Signer> = new Map();
   map.set(ChainNetwork.Ethereum, new ethers.providers.InfuraProvider());
-  map.set(ChainNetwork.Polygon, new ethers.providers.JsonRpcProvider('https://polygon-rpc.com/'));
-  
-  const model : PickleModel = new PickleModel(ALL_ASSETS, map);
+  map.set(
+    ChainNetwork.Polygon,
+    new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
+  );
+
+  const model: PickleModel = new PickleModel(ALL_ASSETS, map);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
@@ -22,8 +24,8 @@ async function generateFullApi() {
 }
 
 export interface PersistedData {
-  key: string, 
-  value: string,
+  key: string;
+  value: string;
 }
 
 export class LocalPersistedDataStore implements PfDataStore {
@@ -32,36 +34,40 @@ export class LocalPersistedDataStore implements PfDataStore {
     // empty
   }
 
-  async load(): Promise<void>{
-    let persistedFile:string = undefined;
+  async load(): Promise<void> {
+    let persistedFile: string = undefined;
     try {
-      persistedFile = fs.readFileSync('./persistent_data_store_no_commit.json','utf8');
-    } catch( err ) {
+      persistedFile = fs.readFileSync(
+        "./persistent_data_store_no_commit.json",
+        "utf8",
+      );
+    } catch (err) {
       persistedFile = "[]";
     }
     try {
       this.persistedObj = JSON.parse(persistedFile);
-    } catch( err ) {
+    } catch (err) {
       console.log(err);
       this.persistedObj = [];
     }
   }
 
-  async readData(key: string): Promise<string|undefined> {
-    const row = this.persistedObj.find((x)=>x.key ===key);
+  async readData(key: string): Promise<string | undefined> {
+    const row = this.persistedObj.find((x) => x.key === key);
     return row === undefined ? undefined : row.value;
   }
   async writeData(key: string, value: string): Promise<void> {
-    this.persistedObj = this.persistedObj.filter((x)=>x.key !== key);
-    this.persistedObj.push({key: key, value: value});
+    this.persistedObj = this.persistedObj.filter((x) => x.key !== key);
+    this.persistedObj.push({ key: key, value: value });
     try {
-      fs.writeFileSync('./persistent_data_store_no_commit.json',JSON.stringify(this.persistedObj));
-    } catch( err ) {
+      fs.writeFileSync(
+        "./persistent_data_store_no_commit.json",
+        JSON.stringify(this.persistedObj),
+      );
+    } catch (err) {
       console.log(err);
     }
-
   }
-
 }
 
 generateFullApi();

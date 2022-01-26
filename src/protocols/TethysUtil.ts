@@ -22,7 +22,7 @@ export const tethysPoolIds: PoolId = {
   "0xc9b290FF37fA53272e9D71A0B13a444010aF4497": 0,
   "0x8121113eB9952086deC3113690Af0538BB5506fd": 1,
   "0xDd7dF3522a49e6e1127bf1A1d3bAEa3bc100583B": 2,
-  "0xEE5adB5b0DfC51029Aca5Ad4Bc684Ad676b307F7": 3
+  "0xEE5adB5b0DfC51029Aca5Ad4Bc684Ad676b307F7": 3,
 };
 
 export async function calculateTethysFarmsAPY(

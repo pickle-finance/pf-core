@@ -81,24 +81,28 @@ describe("Coingecko and external token integration", () => {
   });
 
   test("Each external token contract maps to a single token", async () => {
-    const tokens: IExternalToken[] = ExternalTokenModelSingleton.getAllTokensOutput();
+    const tokens: IExternalToken[] =
+      ExternalTokenModelSingleton.getAllTokensOutput();
     const errors = [];
     const chains: ChainNetwork[] = Chains.list();
-    for( let z = 0; z < chains.length; z++ ) {
+    for (let z = 0; z < chains.length; z++) {
       const seen = [];
-      const chainTokens: IExternalToken[] = tokens.filter((x) => x.chain === chains[z]);
+      const chainTokens: IExternalToken[] = tokens.filter(
+        (x) => x.chain === chains[z],
+      );
       for (let i = 0; i < chainTokens.length; i++) {
         if (seen.includes(chainTokens[i].contractAddr.toLowerCase())) {
           errors.push(
             "Contract " +
-            chainTokens[i].contractAddr.toLowerCase() +
-              " used by more than 1 token on chain " + chains[z],
+              chainTokens[i].contractAddr.toLowerCase() +
+              " used by more than 1 token on chain " +
+              chains[z],
           );
         } else {
           seen.push(chainTokens[i].contractAddr.toLowerCase());
         }
       }
-      }
+    }
     console.log(JSON.stringify(errors));
     expect(errors.length).toBe(0);
   });

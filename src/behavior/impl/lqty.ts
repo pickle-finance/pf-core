@@ -30,8 +30,13 @@ export class pLqty extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["lusd", "weth"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["lusd", "weth"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(

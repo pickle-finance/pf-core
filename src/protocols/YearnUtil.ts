@@ -18,7 +18,9 @@ export async function getYearnData(model: PickleModel): Promise<any> {
   return result;
 }
 export async function loadYearnData(): Promise<any> {
-  return await fetch(YEARN_API).then((x) => x.json()).catch(()=>[]);
+  return await fetch(YEARN_API)
+    .then((x) => x.json())
+    .catch(() => []);
 }
 
 export async function calculateYearnAPY(
