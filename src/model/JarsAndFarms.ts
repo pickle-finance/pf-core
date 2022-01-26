@@ -4945,7 +4945,7 @@ export const JAR_MOONBEAM_STELLA_BUSD_GLMR: JarDefinition = {
   depositToken: {
     addr: "0x367c36dAE9ba198A4FEe295c22bC98cB72f77Fe1",
     name: "STELLA BUSD/GLMR",
-    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055",
+    link: "https://app.stellaswap.com/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/ETH",
     components: ["busd", "glmr"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -5045,7 +5045,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   depositToken: {
     addr: "0x81e11a9374033d11Cc7e7485A7192AE37D0795D6",
     name: "STELLA STELLA/USDC",
-    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/ETH",
+    link: "https://app.stellaswap.com/exchange/add/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["stella", "usdc"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -5090,7 +5090,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_USDC_USDT);
 
 export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1i",
+  id: "beamJar 2a",
   contract: "0xF1f61233a02BEe9D2867Daa3c3f9ea2327414941",
   depositToken: {
     addr: "0x34A1F4AB3548A92C6B32cd778Eed310FcD9A340D",
@@ -5115,7 +5115,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BNB_BUSD);
 
 export const JAR_MOONBEAM_BEAM_BUSD_GLMR: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1j",
+  id: "beamJar 2b",
   contract: "0xbF04440582F8a59870f9845005AAc652B9c37733",
   depositToken: {
     addr: "0xfC422EB0A2C7a99bAd330377497FD9798c9B1001",
@@ -5140,7 +5140,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_GLMR);
 
 export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1k",
+  id: "beamJar 2c",
   contract: "0x4f9cAD3450a2B8ba538207082D84B1b49666984e",
   depositToken: {
     addr: "0xa0799832FB2b9F18Acf44B92FbbEDCfD6442DD5e",
@@ -5165,7 +5165,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_USDC);
 
 export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1l",
+  id: "beamJar 2d",
   contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
   depositToken: {
     addr: "0x6BA3071760d46040FB4dc7B627C9f68efAca3000",
@@ -5190,12 +5190,12 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_ETH_USDC);
 
 export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1m",
+  id: "beamJar 2e",
   contract: "0x6f40CB33a3FD953A9254356f40a59C3F4e1377D0",
   depositToken: {
     addr: "0x99588867e817023162F4d4829995299054a5fC57",
     name: "BEAM GLMR/GLINT",
-    link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    link: "https://app.beamswap.io/exchange/add/GLMR/0xcd3b51d98478d53f4515a306be565c6eebef1d58",
     components: ["glmr", "beam"],
   },
   enablement: AssetEnablement.ENABLED,
@@ -5215,7 +5215,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_GLINT);
 
 export const JAR_MOONBEAM_BEAM_GLMR_USDC: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1n",
+  id: "beamJar 2f",
   contract: "0xA075d810fD05c1AB5769b08Dfd34693Ddfa190F3",
   depositToken: {
     addr: "0xb929914B89584b4081C7966AC6287636F7EfD053",
@@ -5240,7 +5240,7 @@ JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_GLMR_USDC);
 
 export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
   type: AssetType.JAR,
-  id: "beamJar 1o",
+  id: "beamJar 2g",
   contract: "0xE6e02865d8E6DF9b529691204FBC630159e7a9de",
   depositToken: {
     addr: "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1",
