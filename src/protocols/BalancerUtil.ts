@@ -80,12 +80,12 @@ export interface PoolData {
 export const queryTheGraph = async (
   jar: JarDefinition,
   blockNumber: number,
-): Promise<GraphResponse> => {
+): Promise<GraphResponse | undefined> => {
   blockNumber -=
     jar.chain === ChainNetwork.Ethereum
       ? 30 // safety buffer, the graph on mainnet is quite instantaneous, but just to be safe
       : jar.chain === ChainNetwork.Arbitrum
-      ? 300 // safety buffer, the graph on arbitrum can take more than 1000 blocks to update!
+      ? 5000 // safety buffer, the graph on arbitrum can take more than 1000 blocks to update!
       : 0;
   const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${jar.depositToken.addr}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
   const res = await readQueryFromGraphDetails(
@@ -93,7 +93,13 @@ export const queryTheGraph = async (
     AssetProtocol.BALANCER,
     jar.chain,
   );
+  if( !res || !res.data || !res.data.pools || res.data.pools.length === 0 ) {
+    return undefined;
+  }
   const poolData = res?.data?.pools[0];
+  if( poolData.address === undefined || poolData.totalLiquidity === undefined || poolData.totalSwapFee === undefined ) {
+    return undefined;
+  }
   try {
     return {
       address: <string>poolData.address,
@@ -109,7 +115,7 @@ export const queryTheGraph = async (
 export const getBalancerPoolDayAPY = async (
   jar: JarDefinition,
   model: PickleModel,
-) => {
+): Promise<number> => {
   // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
   const blocktime =
     jar.chain === ChainNetwork.Arbitrum
@@ -118,13 +124,16 @@ export const getBalancerPoolDayAPY = async (
   const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
-  const currentPoolDayDate = await queryTheGraph(jar, blockNum);
-  const yesterdayPoolDayData = await queryTheGraph(jar, blockNum - blocksInDay);
+  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(jar, blockNum);
+  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(jar, blockNum - blocksInDay);
+  if( currentPoolDayDate === undefined || yesterdayPoolDayData === undefined ) {
+    return 0;
+  }
+
   const lastDaySwapFee =
     currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
   const apy = (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
-
-  return { lp: apy };
+  return apy;
 };
 
 export const getBalancerPerformance = async (
@@ -248,7 +257,7 @@ export const calculateBalPoolAPRs = async (
 
   const lp: AssetAprComponent = {
     name: "lp",
-    apr: (await getBalancerPoolDayAPY(jar, model)).lp,
+    apr: (await getBalancerPoolDayAPY(jar, model)),
     compoundable: false,
   };
 
