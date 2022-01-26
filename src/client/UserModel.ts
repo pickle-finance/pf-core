@@ -377,7 +377,7 @@ export class UserModel {
       if (ind === -1) {
         ret.push(BigNumber.from(0));
       } else {
-        ret.push(userInfos[ind][1].toString());
+        ret.push(userInfos[ind][0].toString());
       }
     }
     return ret;
