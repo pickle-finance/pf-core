@@ -27,6 +27,7 @@ import univ3PoolAbi from "../Contracts/ABIs/univ3Pool.json";
 import { ChainNetwork, Chains, RAW_CHAIN_BUNDLED_DEF } from "../chain/Chains";
 import { PriceCache } from "../price/PriceCache";
 import {
+  ExternalToken,
   ExternalTokenFetchStyle,
   ExternalTokenModelSingleton,
 } from "../price/ExternalTokenModel";
@@ -402,15 +403,21 @@ export class PickleModel {
       const cgResolver = new CoinGeckoPriceResolver(
         ExternalTokenModelSingleton,
       );
+      const isCgFetchType = (token: ExternalToken): boolean => {
+        return token.fetchType === ExternalTokenFetchStyle.CONTRACT || 
+        token.fetchType === ExternalTokenFetchStyle.ID ||
+        token.fetchType === ExternalTokenFetchStyle.BOTH;
+      }
       const cgPromises = Promise.all(
-        this.configuredChains.map((x) =>
-          this.prices.getPrices(
+        this.configuredChains.map(async (x) => {
+          const r = await this.prices.getPrices(
             ExternalTokenModelSingleton.getTokens(x)
-              .filter((val) => val.fetchType != ExternalTokenFetchStyle.NONE)
+              .filter((val) => isCgFetchType(val))
               .map((a) => a.coingeckoId),
             cgResolver,
-          ),
-        ),
+          );
+          return r;
+        }),
       );
       const cmcResolver = new CoinMarketCapPriceResolver(
         ExternalTokenModelSingleton,
