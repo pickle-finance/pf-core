@@ -5263,6 +5263,107 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
 
+// Optimism 
+export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 1a",
+  contract: "0x7446bf003b98b7b0d90ce84810ac12d6b8114b62",
+  depositToken: {
+    addr: "0x1A981dAa7967C66C3356Ad044979BC82E4a478b9",
+    name: "ZIP ETH/USDC",
+    link: "https://zipswap.fi/#/add/ETH/0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
+    components: ["eth", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.ZIPSWAP,
+  details: {
+    apiKey: "ZLP-ETH-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pZLP ETH/USDC",
+    farmDepositTokenName: "pZLP ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_USDC);
+
+export const JAR_OPTIMISM_ZIP_ETH_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 1b",
+  contract: "0xe43c173F7dA43c2D5800aD915426b312Ea003Bff",
+  depositToken: {
+    addr: "0x53790B6C7023786659D11ed82eE03079F3bD6976",
+    name: "ZIP ETH/DAI",
+    link: "https://www.zipswap.fi/#/add/v2/ETH/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    components: ["eth", "dai"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.ZIPSWAP,
+  details: {
+    apiKey: "ZLP-ETH-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pZLP ETH/DAI",
+    farmDepositTokenName: "pZLP ETH/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_DAI);
+
+export const JAR_OPTIMISM_ZIP_ETH_BTC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 1c",
+  contract: "0x15Bfcf85551c3DdBbB94ED08B9bA194D301E690A",
+  depositToken: {
+    addr: "0x251de0f0368c472Bba2E1C8f5Db5aC7582B5f847",
+    name: "ZIP ETH/BTC",
+    link: "https://www.zipswap.fi/#/add/v2/ETH/0x68f180fcCe6836688e9084f035309E29Bf0A2095",
+    components: ["eth", "btc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.ZIPSWAP,
+  details: {
+    apiKey: "ZLP-ETH-BTC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pZLP ETH/BTC",
+    farmDepositTokenName: "pZLP ETH/BTC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_BTC);
+
+export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 1d",
+  contract: "0x25C10d8713172782f83B340cbE1446be171720d7",
+  depositToken: {
+    addr: "0xD7F6ECF4371eddBd60C1080BfAEc3d1d60D415d0",
+    name: "ZIP ETH/ZIP",
+    link: "https://www.zipswap.fi/#/add/v2/ETH/0xFA436399d0458Dbe8aB890c3441256E3E09022a8",
+    components: ["eth", "zip"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.ZIPSWAP,
+  details: {
+    apiKey: "ZLP-ETH-ZIP",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pZLP ETH/ZIP",
+    farmDepositTokenName: "pZLP ETH/ZIP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_ZIP);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

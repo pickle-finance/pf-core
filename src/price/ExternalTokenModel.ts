@@ -1236,6 +1236,14 @@ export class ExternalTokenModel {
       ["0x99588867e817023162F4d4829995299054a5fC57", "0xb929914B89584b4081C7966AC6287636F7EfD053"],
     );
 
+    // Optimism
+    this.addToken(ChainNetwork.Optimism, "zip", "zipswap", "0xFA436399d0458Dbe8aB890c3441256E3E09022a8".toLowerCase(), 18, ExternalTokenFetchStyle.SWAP_PAIRS, ["0xD7F6ECF4371eddBd60C1080BfAEc3d1d60D415d0", "0x1A981dAa7967C66C3356Ad044979BC82E4a478b9"]);
+    this.addToken(ChainNetwork.Optimism, "eth", "ethereum", "0x4200000000000000000000000000000000000006".toLowerCase(), 18, ExternalTokenFetchStyle.ID);
+    this.addToken(ChainNetwork.Optimism, "usdc", "usd-coin", "0x7F5c764cBc14f9669B88837ca1490cCa17c31607".toLowerCase(), 6, ExternalTokenFetchStyle.ID,);
+    this.addToken(ChainNetwork.Optimism, "btc", "bitcoin", "0x68f180fcCe6836688e9084f035309E29Bf0A2095".toLowerCase(), 8, ExternalTokenFetchStyle.ID)
+    this.addToken(ChainNetwork.Optimism, "dai", "dai", "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1".toLowerCase(), 18, ExternalTokenFetchStyle.ID)
+
+
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
     const allTokenList: ExternalToken[] = [];

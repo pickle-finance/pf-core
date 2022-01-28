@@ -35,6 +35,7 @@ export enum AssetProtocol {
   NETSWAP = "netswap",
   LOOKS = "LooksRare",
   STELLA = "StellaSwap",
+  ZIPSWAP = "ZipSwap",
   BEAM = "Beamswap",
   // ADD_PROTOCOL
 }
@@ -58,6 +59,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.NETSWAP,
   AssetProtocol.TETHYS,
   AssetProtocol.STELLA,
+  AssetProtocol.ZIPSWAP,
   AssetProtocol.BEAM,
   // ADD_PROTOCOL
 ];

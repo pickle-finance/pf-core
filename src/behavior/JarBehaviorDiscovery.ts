@@ -196,6 +196,10 @@ import {
   JAR_MOONBEAM_BEAM_USDC_USDT,
   JAR_METIS_HADES_METIS,
   JAR_METIS_HELLSHARE_METIS,
+  JAR_OPTIMISM_ZIP_ETH_USDC,
+  JAR_OPTIMISM_ZIP_ETH_DAI,
+  JAR_OPTIMISM_ZIP_ETH_BTC,
+  JAR_OPTIMISM_ZIP_ETH_ZIP,
   JAR_ARBITRUM_BAL_PICKLE_ETH,
   JAR_ARBITRUM_BAL_ETH,
 } from "../model/JarsAndFarms";
@@ -394,6 +398,10 @@ import { BeamGlmrUsdc } from "./impl/beam-glmr-usdc";
 import { BeamUsdcUsdt } from "./impl/beam-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
+import { ZipswapEthUsdc } from "./impl/optimism-zip-eth-usdc";
+import { ZipswapEthDai } from "./impl/optimism-zip-eth-dai";
+import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
+import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
 import { BalancerJar } from "./impl/balancer-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
@@ -622,6 +630,12 @@ jarToBehavior.set(JAR_MOONBEAM_BEAM_ETH_USDC.id, new BeamEthUsdc());
 jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_GLINT.id, new BeamGlmrGlint());
 jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_USDC.id, new BeamGlmrUsdc());
 jarToBehavior.set(JAR_MOONBEAM_BEAM_USDC_USDT.id, new BeamUsdcUsdt());
+
+// Optimism
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
