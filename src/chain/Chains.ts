@@ -158,7 +158,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 10,
-    network: "optimism",
+    network: ChainNetwork.Optimism,
     networkVisible: "Optimism",
     secondsPerBlock: 13,
     gasToken: "ethereum",
