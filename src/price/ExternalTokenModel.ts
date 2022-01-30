@@ -368,6 +368,13 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Polygon,
+      "wbtc",
+      "wrapped-bitcoin",
+      "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6".toLowerCase(),
+      8,
+    );
+    this.addToken(
+      ChainNetwork.Polygon,
       "dai",
       "dai",
       "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase(),
