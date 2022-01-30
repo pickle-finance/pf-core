@@ -1810,7 +1810,7 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
-    controller: "0xbc4276e2006BE22fAA59050Fc709850F4c7360E3",
+    controller: "0x90Ee5481A78A23a24a4290EEc42E8Ad0FD3B4AC3",
     apiKey: "UNIV3-USDC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
@@ -1822,6 +1822,134 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   },*/
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_ETH);
+
+export const JAR_POLY_UNIV3_MATIC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar U3b",
+  contract: "0x5AD67020FD2841a75ac4b03e4c6271D8639903af",
+  depositToken: {
+    addr: "0x167384319B41F7094e62f7506409Eb38079AbfF8",
+    name: "UniV3 MATIC/ETH",
+    link: "https://app.uniswap.org/#/add/ETH/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/3000",
+    components: ["matic", "weth"],
+    componentAddresses: [
+      "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+    ],
+    style: { erc20: false },
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x90Ee5481A78A23a24a4290EEc42E8Ad0FD3B4AC3",
+    apiKey: "UNIV3-MATIC-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /*
+  farm: {
+    farmAddress: "TODO",
+    farmNickname: "pUNIv3 RBN/ETH",
+    farmDepositTokenName: "pUNIv3 RBN/ETH",
+  },*/
+};
+JAR_DEFINITIONS.push(JAR_POLY_UNIV3_MATIC_ETH);
+
+export const JAR_POLY_UNIV3_MATIC_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar U3c",
+  contract: "0xEaC24e1Df0D299E4dcBaCb9cbcD14eFBf09E9008",
+  depositToken: {
+    addr: "0x88f3C15523544835fF6c738DDb30995339AD57d6",
+    name: "UniV3 MATIC/USDC",
+    link: "https://app.uniswap.org/#/add/ETH/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/3000",
+    components: ["matic", "usdc"],
+    componentAddresses: [
+      "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+      "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    ],
+    style: { erc20: false },
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x90Ee5481A78A23a24a4290EEc42E8Ad0FD3B4AC3",
+    apiKey: "UNIV3-MATIC-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /*
+  farm: {
+    farmAddress: "TODO",
+    farmNickname: "pUNIv3 RBN/ETH",
+    farmDepositTokenName: "pUNIv3 RBN/ETH",
+  },*/
+};
+JAR_DEFINITIONS.push(JAR_POLY_UNIV3_MATIC_USDC);
+
+export const JAR_POLY_UNIV3_USDC_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar U3d",
+  contract: "0x6ddCE484E929b2667C604f6867A4a7b3d344A917",
+  depositToken: {
+    addr: "0x3F5228d0e7D75467366be7De2c31D0d098bA2C23",
+    name: "UniV3 USDC/USDT",
+    link: "https://app.uniswap.org/#/add/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/0xc2132D05D31c914a87C6611C10748AEb04B58e8F/500",
+    components: ["usdc", "usdt"],
+    componentAddresses: [
+      "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+      "0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
+    ],
+    style: { erc20: false },
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x90Ee5481A78A23a24a4290EEc42E8Ad0FD3B4AC3",
+    apiKey: "UNIV3-USDC-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /*
+  farm: {
+    farmAddress: "TODO",
+    farmNickname: "pUNIv3 RBN/ETH",
+    farmDepositTokenName: "pUNIv3 RBN/ETH",
+  },*/
+};
+JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_USDT);
+
+export const JAR_POLY_UNIV3_WBTC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar U3e",
+  contract: "0xf4b1635f6B71D7859B4184EbDB5cf7321e828055",
+  depositToken: {
+    addr: "0x50eaEDB835021E4A108B7290636d62E9765cc6d7",
+    name: "UniV3 WBTC/ETH",
+    link: "https://app.uniswap.org/#/add/0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/500",
+    components: ["wbtc", "weth"],
+    componentAddresses: [
+      "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6",
+      "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+    ],
+    style: { erc20: false },
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x90Ee5481A78A23a24a4290EEc42E8Ad0FD3B4AC3",
+    apiKey: "UNIV3-WBTC-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /*
+  farm: {
+    farmAddress: "TODO",
+    farmNickname: "pUNIv3 RBN/ETH",
+    farmDepositTokenName: "pUNIv3 RBN/ETH",
+  },*/
+};
+JAR_DEFINITIONS.push(JAR_POLY_UNIV3_WBTC_ETH);
 
 // Arbitrum
 
