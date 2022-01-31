@@ -2,6 +2,8 @@ import { I18n } from "i18n";
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 import { PickleAsset } from "../model/PickleModelJson";
 import path from "path";
+import { DocsFormat } from "..";
+import { AssetDocumentationResult } from "./DocsManager";
 
 export interface DocumentationModelDefinition {
   [key: string]: AssetDocumentationDefinition;
@@ -19,25 +21,6 @@ export interface AssetDocumentationDefinition {
 export interface TranslationKeyWithProperties {
   key: string;
   properties?: { [key: string]: string };
-}
-
-export interface DocumentationModelResult {
-  [key: string]: AssetDocumentationResult;
-}
-
-export interface AssetDocumentationResult {
-  // Defaults to apiKey + ".desc"
-  apiKey: string;
-  description: string;
-  social?: string[];
-  obtain: string[];
-  risks: string[];
-}
-
-export enum DocsFormat {
-  HTML = "html",
-  MD = "markdown",
-  PLAIN = "plain",
 }
 
 export const SOCIAL_KEY_DISCORD = "social.key.discord";

@@ -8,6 +8,11 @@ import {
   JarHarvestStats,
 } from "./behavior/JarBehaviorResolver";
 import { JarBehaviorDiscovery } from "./behavior/JarBehaviorDiscovery";
+import {
+  DocsManager,
+  DocsFormat,
+  DocumentationModelResult,
+} from "./docModel/DocsManager";
 
 export {
   ChainNetwork,
@@ -19,4 +24,7 @@ export {
   ActiveJarHarvestStats,
   JarHarvestStats,
   JarBehaviorDiscovery,
+  DocsManager,
+  DocsFormat,
+  DocumentationModelResult,
 };

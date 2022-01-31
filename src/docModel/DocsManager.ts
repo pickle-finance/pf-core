@@ -1,12 +1,29 @@
 import { PickleAsset } from "../model/PickleModelJson";
 import {
   AssetDocumentationDefinition,
-  AssetDocumentationResult,
-  DocsFormat,
   documentationAssetDefinitionToResult,
-  DocumentationModelResult,
 } from "./documentationImplementation";
 import { ALL_JAR_DOCUMENTATION } from "./docs";
+
+export interface DocumentationModelResult {
+  [key: string]: AssetDocumentationResult;
+}
+
+export interface AssetDocumentationResult {
+  // Defaults to apiKey + ".desc"
+  apiKey: string;
+  description: string;
+  social?: string[];
+  obtain: string[];
+  risks: string[];
+}
+
+export enum DocsFormat {
+  HTML = "html",
+  MD = "markdown",
+  PLAIN = "plain",
+}
+
 export class DocsManager {
   public static getDocumentationForAllAssets(
     language: string,

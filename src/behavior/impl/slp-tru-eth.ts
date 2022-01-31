@@ -14,10 +14,15 @@ export class SlpTruEth extends SushiJar {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-        ["sushi","tru"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi", "tru"],
+      this.strategyAbi,
+    );
   }
-  
+
   async getProjectedAprStats(
     definition: JarDefinition,
     model: PickleModel,
