@@ -205,7 +205,10 @@ export class BalancerTokenClaim {
     return await snapshot.json();
   };
 
-  private fetchFromIpfs = async (hash: string, retryOnError: boolean): Promise<Snapshot> => {
+  private fetchFromIpfs = async (
+    hash: string,
+    retryOnError: boolean,
+  ): Promise<Snapshot> => {
     const url = `https://ipfs.io/ipfs/${hash}`;
     const res: string = await this.dataStoreFetchWrapper(url);
 
@@ -222,8 +225,7 @@ export class BalancerTokenClaim {
           res,
       );
       await this.dataStore.writeData(url, undefined);
-      if( retryOnError )
-        return this.fetchFromIpfs(hash, false);
+      if (retryOnError) return this.fetchFromIpfs(hash, false);
     }
   };
 

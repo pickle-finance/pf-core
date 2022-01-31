@@ -16,7 +16,7 @@ import {
 import { PickleModel } from "../../model/PickleModel";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther } from "ethers/lib/utils";
-import { ChainNetwork, Chains } from "../..";
+import { ChainNetwork } from "../..";
 import {
   GenericSwapUtility,
   IExtendedPairData,
@@ -87,7 +87,8 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     ]);
 
     const rewardsPerYear =
-      parseFloat(formatEther(beamPerSecBN.rewardsPerSec[0])) * ONE_YEAR_IN_SECONDS;
+      parseFloat(formatEther(beamPerSecBN.rewardsPerSec[0])) *
+      ONE_YEAR_IN_SECONDS;
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const beamRewardedPerYear = (await model.priceOf("beam")) * rewardsPerYear;

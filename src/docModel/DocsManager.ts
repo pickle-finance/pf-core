@@ -5,7 +5,6 @@ import {
 } from "./documentationImplementation";
 import { ALL_JAR_DOCUMENTATION } from "./docs";
 
-
 export interface DocumentationModelResult {
   [key: string]: AssetDocumentationResult;
 }

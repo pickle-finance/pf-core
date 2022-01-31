@@ -404,10 +404,12 @@ export class PickleModel {
         ExternalTokenModelSingleton,
       );
       const isCgFetchType = (token: ExternalToken): boolean => {
-        return token.fetchType === ExternalTokenFetchStyle.CONTRACT || 
-        token.fetchType === ExternalTokenFetchStyle.ID ||
-        token.fetchType === ExternalTokenFetchStyle.BOTH;
-      }
+        return (
+          token.fetchType === ExternalTokenFetchStyle.CONTRACT ||
+          token.fetchType === ExternalTokenFetchStyle.ID ||
+          token.fetchType === ExternalTokenFetchStyle.BOTH
+        );
+      };
       const cgPromises = Promise.all(
         this.configuredChains.map(async (x) => {
           const r = await this.prices.getPrices(

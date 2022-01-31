@@ -93,11 +93,15 @@ export const queryTheGraph = async (
     AssetProtocol.BALANCER,
     jar.chain,
   );
-  if( !res || !res.data || !res.data.pools || res.data.pools.length === 0 ) {
+  if (!res || !res.data || !res.data.pools || res.data.pools.length === 0) {
     return undefined;
   }
   const poolData = res?.data?.pools[0];
-  if( poolData.address === undefined || poolData.totalLiquidity === undefined || poolData.totalSwapFee === undefined ) {
+  if (
+    poolData.address === undefined ||
+    poolData.totalLiquidity === undefined ||
+    poolData.totalSwapFee === undefined
+  ) {
     return undefined;
   }
   try {
@@ -124,9 +128,15 @@ export const getBalancerPoolDayAPY = async (
   const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
-  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(jar, blockNum);
-  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(jar, blockNum - blocksInDay);
-  if( currentPoolDayDate === undefined || yesterdayPoolDayData === undefined ) {
+  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(
+    jar,
+    blockNum,
+  );
+  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(
+    jar,
+    blockNum - blocksInDay,
+  );
+  if (currentPoolDayDate === undefined || yesterdayPoolDayData === undefined) {
     return 0;
   }
 
@@ -257,7 +267,7 @@ export const calculateBalPoolAPRs = async (
 
   const lp: AssetAprComponent = {
     name: "lp",
-    apr: (await getBalancerPoolDayAPY(jar, model)),
+    apr: await getBalancerPoolDayAPY(jar, model),
     compoundable: false,
   };
 

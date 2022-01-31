@@ -5263,7 +5263,7 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
 
-// Optimism 
+// Optimism
 export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 1a",

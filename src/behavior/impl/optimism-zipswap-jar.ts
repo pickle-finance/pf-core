@@ -61,10 +61,7 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = zipPoolIds[jar.depositToken.addr];
-    const multicallZipFarms = new MulticallContract(
-      ZIP_FARMS,
-      zipFarms,
-    );
+    const multicallZipFarms = new MulticallContract(ZIP_FARMS, zipFarms);
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
 
     const [zipPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
@@ -82,8 +79,7 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const zipRewardedPerYear =
-      (await model.priceOf("zip")) * rewardsPerYear;
+    const zipRewardedPerYear = (await model.priceOf("zip")) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const zipAPY = zipRewardedPerYear / totalValueStaked;
 
