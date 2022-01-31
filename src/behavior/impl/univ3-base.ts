@@ -44,7 +44,7 @@ export class Univ3Base extends AbstractJarBehavior {
 
     const pJarUSD =
       model.priceOfSync(definition.depositToken.components[0]) * jarAmount0 +
-      model.priceOfSync(definition.depositToken.components[0]) * jarAmount1;
+      model.priceOfSync(definition.depositToken.components[1]) * jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }
