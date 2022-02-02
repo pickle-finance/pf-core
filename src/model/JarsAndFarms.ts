@@ -1100,7 +1100,7 @@ export const JAR_CVXCRV: JarDefinition = {
   depositToken: {
     addr: "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7",
     name: "Curve cvxCRV",
-    link: "https://curve.fi/factory/22/deposit",
+    link: "https://curve.fi/factory/22",
     components: ["cvxcrv"],
   },
   enablement: AssetEnablement.ENABLED,

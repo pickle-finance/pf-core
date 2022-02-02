@@ -77,7 +77,11 @@ describe("Testing defined model", () => {
         if (usedKeys.includes(ALL_ASSETS[i].details.apiKey)) {
           err.push("Asset " + ALL_ASSETS[i].id + " has a duplicate API key");
         }
+        if (usedKeys.includes(ALL_ASSETS[i].details.apiKey.toLowerCase())) {
+          err.push("Asset " + ALL_ASSETS[i].id + " has a duplicate API key");
+        }
         usedKeys.push(ALL_ASSETS[i].details.apiKey);
+        usedKeys.push(ALL_ASSETS[i].details.apiKey.toLowerCase());
       }
     }
     console.log("Errors: " + JSON.stringify(err));
