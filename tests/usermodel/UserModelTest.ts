@@ -24,5 +24,5 @@ describe("Testing user model", () => {
     );
     const earnings = await userModel.generateUserModel();
     expect(earnings).toBeDefined();
-  }, 15000);
+  }, 25000);
 });

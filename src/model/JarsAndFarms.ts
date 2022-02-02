@@ -3502,7 +3502,7 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-USDT/USDC",
+    apiKey: "TLP-USDT-USDC",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3527,7 +3527,7 @@ export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-BTC/NEAR",
+    apiKey: "TLP-BTC-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3552,7 +3552,7 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-AURORA/TRI",
+    apiKey: "TLP-AURORA-TRI",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3577,7 +3577,7 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-AURORA/ETH",
+    apiKey: "TLP-AURORA-ETH",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3602,7 +3602,7 @@ export const JAR_AURORA_TRI_NEAR_LUNA: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-NEAR/LUNA",
+    apiKey: "TLP-NEAR-LUNA",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3627,7 +3627,7 @@ export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-UST/NEAR",
+    apiKey: "TLP-UST-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3652,7 +3652,7 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-TRI/USDT",
+    apiKey: "TLP-TRI-USDT",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4027,7 +4027,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
   details: {
-    apiKey: "NLP-BTC/NEAR",
+    apiKey: "NLP-BTC-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4052,7 +4052,7 @@ export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
   details: {
-    apiKey: "NLP-PAD/USDT",
+    apiKey: "NLP-PAD-USDT",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4077,7 +4077,7 @@ export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
   details: {
-    apiKey: "NLP-PAD/USDC",
+    apiKey: "NLP-PAD-USDC",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4102,7 +4102,7 @@ export const JAR_AURORA_PAD_PAD_ETH: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
   details: {
-    apiKey: "NLP-PAD/ETH",
+    apiKey: "NLP-PAD-ETH",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4127,7 +4127,7 @@ export const JAR_AURORA_PAD_PAD_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
   details: {
-    apiKey: "NLP-PAD/NEAR",
+    apiKey: "NLP-PAD-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4152,7 +4152,7 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
   details: {
-    apiKey: "NLP-PAD/FRAX",
+    apiKey: "NLP-PAD-FRAX",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4177,7 +4177,7 @@ export const JAR_AURORA_PAD_ROSE: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
-    apiKey: "NLP-PAD/ROSE",
+    apiKey: "NLP-PAD-ROSE",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4202,7 +4202,7 @@ export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
-    apiKey: "NLP-FRAX/ROSE",
+    apiKey: "NLP-FRAX-ROSE",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4227,7 +4227,7 @@ export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-AURORA/NEAR",
+    apiKey: "ALP-AURORA-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4252,7 +4252,7 @@ export const JAR_AURORA_BRL_AVAX_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-AVAX/NEAR",
+    apiKey: "ALP-AVAX-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4277,7 +4277,7 @@ export const JAR_AURORA_BRL_BRL_AURORA: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-BRL/AURORA",
+    apiKey: "ALP-BRL-AURORA",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4302,7 +4302,7 @@ export const JAR_AURORA_BRL_BRL_ETH: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-BRL/ETH",
+    apiKey: "ALP-BRL-ETH",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4327,7 +4327,7 @@ export const JAR_AURORA_BRL_BRL_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-BRL/NEAR",
+    apiKey: "ALP-BRL-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4352,7 +4352,7 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "NLP-BUSD/NEAR",
+    apiKey: "NLP-BUSD-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4377,7 +4377,7 @@ export const JAR_AURORA_BRL_ETH_BTC: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-ETH/BTC",
+    apiKey: "ALP-ETH-BTC",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4402,7 +4402,7 @@ export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-MATIC/NEAR",
+    apiKey: "ALP-MATIC-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4427,7 +4427,7 @@ export const JAR_AURORA_BRL_NEAR_BTC: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-NEAR/BTC",
+    apiKey: "ALP-NEAR-BTC",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4452,7 +4452,7 @@ export const JAR_AURORA_BRL_NEAR_ETH: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-NEAR/ETH",
+    apiKey: "ALP-NEAR-ETH",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4477,7 +4477,7 @@ export const JAR_AURORA_BRL_NEAR_LUNA: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-NEAR/LUNA",
+    apiKey: "ALP-NEAR-LUNA",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4502,7 +4502,7 @@ export const JAR_AURORA_BRL_USDC_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-USDC/NEAR",
+    apiKey: "ALP-USDC-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4527,7 +4527,7 @@ export const JAR_AURORA_BRL_USDT_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-USDT/NEAR",
+    apiKey: "ALP-USDT-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4552,7 +4552,7 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-USDT/USDC",
+    apiKey: "ALP-USDT-USDC",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4577,7 +4577,7 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
-    apiKey: "ALP-UST/NEAR",
+    apiKey: "ALP-UST-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4603,7 +4603,7 @@ export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-NETT/METIS",
+    apiKey: "NLP-NETT-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4628,7 +4628,7 @@ export const JAR_METIS_NETSWAP_BNB_NETT: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-BNB/NETT",
+    apiKey: "NLP-BNB-NETT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4653,7 +4653,7 @@ export const JAR_METIS_NETSWAP_ETH_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-ETH/METIS",
+    apiKey: "NLP-ETH-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4678,7 +4678,7 @@ export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-ETH/NETT",
+    apiKey: "NLP-ETH-NETT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4703,7 +4703,7 @@ export const JAR_METIS_NETSWAP_ETH_USDC: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-ETH/USDC",
+    apiKey: "NLP-ETH-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4728,7 +4728,7 @@ export const JAR_METIS_NETSWAP_ETH_USDT: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-ETH/USDT",
+    apiKey: "NLP-ETH-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4753,7 +4753,7 @@ export const JAR_METIS_NETSWAP_METIS_USDC: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-METIS/USDC",
+    apiKey: "NLP-METIS-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4778,7 +4778,7 @@ export const JAR_METIS_NETSWAP_NETT_USDC: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-NETT/USDC",
+    apiKey: "NLP-NETT-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4803,7 +4803,7 @@ export const JAR_METIS_NETSWAP_NETT_USDT: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-NETT/USDT",
+    apiKey: "NLP-NETT-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4828,7 +4828,7 @@ export const JAR_METIS_NETSWAP_USDT_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-USDT/METIS",
+    apiKey: "NLP-USDT-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4853,7 +4853,7 @@ export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
-    apiKey: "NLP-USDT/USDC",
+    apiKey: "NLP-USDT-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4878,7 +4878,7 @@ export const JAR_METIS_TETHYS_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
-    apiKey: "TLP-TETHYS/METIS",
+    apiKey: "TLP-TETHYS-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4903,7 +4903,7 @@ export const JAR_METIS_TETHYS_ETH_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
-    apiKey: "TLP-ETH/METIS",
+    apiKey: "TLP-ETH-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4928,7 +4928,7 @@ export const JAR_METIS_TETHYS_METIS_USDC: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
-    apiKey: "TLP-METIS/USDC",
+    apiKey: "TLP-METIS-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4953,7 +4953,7 @@ export const JAR_METIS_TETHYS_USDT_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
-    apiKey: "TLP-USDT/METIS",
+    apiKey: "TLP-USDT-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4978,7 +4978,7 @@ export const JAR_METIS_HADES_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
-    apiKey: "TLP-HADES/METIS",
+    apiKey: "TLP-HADES-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5003,7 +5003,7 @@ export const JAR_METIS_HELLSHARE_METIS: JarDefinition = {
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
-    apiKey: "TLP-HELLSHARE/METIS",
+    apiKey: "TLP-HELLSHARE-METIS",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5055,7 +5055,7 @@ export const JAR_MOONBEAM_STELLA_USDC_BNB: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-USDC/BNB",
+    apiKey: "SLP-USDC-BNB",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5080,7 +5080,7 @@ export const JAR_MOONBEAM_STELLA_BUSD_GLMR: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-BUSD/GLMR",
+    apiKey: "SLP-BUSD-GLMR",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5105,7 +5105,7 @@ export const JAR_MOONBEAM_STELLA_USDC_DAI: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-USDC/DAI",
+    apiKey: "SLP-USDC-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5130,7 +5130,7 @@ export const JAR_MOONBEAM_STELLA_ETH_GLMR: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-ETH/GLMR",
+    apiKey: "SLP-ETH-GLMR",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5155,7 +5155,7 @@ export const JAR_MOONBEAM_STELLA_USDC_GLMR: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-USDC/GLMR",
+    apiKey: "SLP-USDC-GLMR",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5180,7 +5180,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-STELLA/USDC",
+    apiKey: "SLP-STELLA-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5205,7 +5205,7 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
-    apiKey: "SLP-USDC/USDT",
+    apiKey: "SLP-USDC-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5230,7 +5230,7 @@ export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-BNB/BUSD",
+    apiKey: "BLP-BNB-BUSD",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5255,7 +5255,7 @@ export const JAR_MOONBEAM_BEAM_BUSD_GLMR: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-BUSD/GLMR",
+    apiKey: "BLP-BUSD-GLMR",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5280,7 +5280,7 @@ export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-BUSD/USDC",
+    apiKey: "BLP-BUSD-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5305,7 +5305,7 @@ export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-ETH/USDC",
+    apiKey: "BLP-ETH-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5330,7 +5330,7 @@ export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-GLMR/GLINT",
+    apiKey: "BLP-GLMR-GLINT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5355,7 +5355,7 @@ export const JAR_MOONBEAM_BEAM_GLMR_USDC: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-GLMR/USDC",
+    apiKey: "BLP-GLMR-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -5380,7 +5380,7 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
-    apiKey: "BLP-USDC/USDT",
+    apiKey: "BLP-USDC-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {

@@ -23,30 +23,44 @@ describe("Testing defined model", () => {
     "0xF125357f05c75F9beEA0Cc721D7a2A0eA03aaa63": 2,
   };
 
-  test("Ensure no duplicate contracts", async () => {
+  test("Ensure no duplicate contracts on a single chain", async () => {
     const duplicateContractsFound = {};
     const err = [];
     const tmp = [];
     for (let i = 0; i < ALL_ASSETS.length; i++) {
-      if (tmp.includes(ALL_ASSETS[i].contract)) {
+      const contractKey = ALL_ASSETS[i].contract;
+      if (tmp.includes(contractKey)) {
         const allowDuplicateCount =
           DUPLICATE_CONTRACT_EXCEPTIONS[ALL_ASSETS[i].contract];
+        const chainAndContract = ALL_ASSETS[i].chain + "-" + contractKey;
         if (allowDuplicateCount !== undefined) {
-          const currentCount = duplicateContractsFound[ALL_ASSETS[i].contract]
-            ? duplicateContractsFound[ALL_ASSETS[i].contract]
+          const currentCount = duplicateContractsFound[chainAndContract]
+            ? duplicateContractsFound[chainAndContract]
             : 0;
-          duplicateContractsFound[ALL_ASSETS[i].contract] = currentCount + 1;
+          duplicateContractsFound[chainAndContract] = currentCount + 1;
           if (
-            duplicateContractsFound[ALL_ASSETS[i].contract] >
-            DUPLICATE_CONTRACT_EXCEPTIONS[ALL_ASSETS[i].contract]
+            duplicateContractsFound[chainAndContract] >
+            DUPLICATE_CONTRACT_EXCEPTIONS[chainAndContract]
           ) {
-            err.push("Duplicate Contract address: " + ALL_ASSETS[i].contract);
+            err.push("Duplicate Contract address: " + chainAndContract);
           }
         } else {
-          err.push("Duplicate Contract address: " + ALL_ASSETS[i].contract);
+          err.push("Duplicate Contract address: " + chainAndContract);
         }
       }
-      tmp.push(ALL_ASSETS[i].contract);
+      tmp.push(contractKey);
+    }
+    console.log("Errors: " + JSON.stringify(err));
+    expect(err.length).toBe(0);
+  });
+
+
+  test("Ensure no assets have forbidden characters in api key", async () => {
+    const err = [];
+    for (let i = 0; i < ALL_ASSETS.length; i++) {
+      if( ALL_ASSETS[i].details && ALL_ASSETS[i].details.apiKey && ALL_ASSETS[i].details.apiKey.includes("/")) {
+        err.push(ALL_ASSETS[i].details.apiKey + " must not include a forward slash in the api-key");
+      }
     }
     console.log("Errors: " + JSON.stringify(err));
     expect(err.length).toBe(0);
