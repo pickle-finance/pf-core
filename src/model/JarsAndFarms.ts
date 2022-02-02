@@ -5391,6 +5391,31 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
 
+export const JAR_FLARE_FLARE_GLMR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3a",
+  contract: "0xD07796f2C91AB65ebBA43e3A93F36f800946d2BB",
+  depositToken: {
+    addr: "0x26A2abD79583155EA5d34443b62399879D42748A",
+    name: "FLARE FLARE/GLMR",
+    link: "https://solarflare.io/exchange/add/ETH/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7",
+    components: ["flare", "glmr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-FLARE-GLMR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP FLARE/GLMR",
+    farmDepositTokenName: "pFLP FLARE/GLMR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FLARE_FLARE_GLMR);
+
 // Optimism
 export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
   type: AssetType.JAR,

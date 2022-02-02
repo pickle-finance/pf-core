@@ -1245,6 +1245,17 @@ export class ExternalTokenModel {
         "0xb929914B89584b4081C7966AC6287636F7EfD053",
       ],
     );
+    this.addToken(
+      ChainNetwork.Moonbeam,
+      "flare",
+      "solarflare",
+      "0x0e358838ce72d5e61e0018a2ffac4bec5f4c88d2".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x976888647affb4b2d7ac1952cb12ca048cd67762", // FLARE-USDC
+      ],
+    );
 
     // Optimism
     this.addToken(
