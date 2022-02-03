@@ -5391,6 +5391,157 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
 
+export const JAR_FLARE_FLARE_GLMR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3a",
+  contract: "0xD07796f2C91AB65ebBA43e3A93F36f800946d2BB",
+  depositToken: {
+    addr: "0x26A2abD79583155EA5d34443b62399879D42748A",
+    name: "FLARE FLARE/GLMR",
+    link: "https://solarflare.io/exchange/add/ETH/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7",
+    components: ["flare", "glmr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-FLARE-GLMR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP FLARE/GLMR",
+    farmDepositTokenName: "pFLP FLARE/GLMR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FLARE_FLARE_GLMR);
+
+export const JAR_FLARE_FLARE_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3b",
+  contract: "0x751a2f3b93b9c1af88e34d123ebc4d5541f6c2e4",
+  depositToken: {
+    addr: "0x976888647affb4b2d7Ac1952cB12ca048cD67762",
+    name: "FLARE FLARE/USDC",
+    link: "https://solarflare.io/exchange/add/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7/0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
+    components: ["flare", "usdc-2"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-FLARE-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP FLARE/USDC",
+    farmDepositTokenName: "pFLP FLARE/USDC",
+  },
+};
+
+JAR_DEFINITIONS.push(JAR_FLARE_FLARE_USDC);
+
+export const JAR_FLARE_GLMR_MOVR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3c",
+  contract: "0x3657dE6D8F500a4e91370Fb8c738D33C5010541f",
+  depositToken: {
+    addr: "0xa65949fa1053903fcc019ac21b0335aa4b4b1bfa",
+    name: "FLARE GLMR/MOVR",
+    link: "https://solarflare.io/exchange/add/ETH/0x1d4C2a246311bB9f827F4C768e277FF5787B7D7E",
+    components: ["glmr", "movr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-GLMR-MOVR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP GLMR/MOVR",
+    farmDepositTokenName: "pFLP GLMR/MOVR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_MOVR);
+
+export const JAR_FLARE_GLMR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3d",
+  contract: "0x9d2F70c5aABc067beaF0Af2367007DF8cB7C497F",
+  depositToken: {
+    addr: "0xAb89eD43D10c7CE0f4D6F21616556AeCb71b9c5f",
+    name: "FLARE GLMR/USDC",
+    link: "https://solarflare.io/exchange/add/ETH/0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
+    components: ["glmr", "usdc-2"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-GLMR-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP GLMR/USDC",
+    farmDepositTokenName: "pFLP GLMR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_USDC);
+
+export const JAR_FLARE_GLMR_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3e",
+  contract: "0xbD59171dA1c3a2624D60421bcb6c3c3270111656",
+  depositToken: {
+    addr: "0xb521C0aCf67390C1364f1e940e44dB25828E5Ef9",
+    name: "FLARE GLMR/ETH",
+    link: "https://solarflare.io/exchange/add/ETH/0x30D2a9F5FDf90ACe8c17952cbb4eE48a55D916A7",
+    components: ["glmr", "eth-2"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-GLMR-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP GLMR/ETH",
+    farmDepositTokenName: "pFLP GLMR/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_ETH);
+
+export const JAR_FLARE_GLMR_WBTC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "beamJar 3f",
+  contract: "0x45d287c9761E14D07f3fF45a733B9f8B0aFF1045",
+  depositToken: {
+    addr: "0xDF74D67a4Fe29d9D5e0bfAaB3516c65b21a5d7cf",
+    name: "FLARE GLMR/WBTC",
+    link: "https://solarflare.io/exchange/add/ETH/0x1DC78Acda13a8BC4408B207c9E48CDBc096D95e0",
+    components: ["glmr", "wbtc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonbeam,
+  protocol: AssetProtocol.FLARE,
+  details: {
+    apiKey: "FLP-GLMR-WBTC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFLP GLMR/WBTC",
+    farmDepositTokenName: "pFLP GLMR/WBTC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_WBTC);
+
 // Optimism
 export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
   type: AssetType.JAR,
