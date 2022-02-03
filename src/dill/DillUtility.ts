@@ -73,11 +73,8 @@ export async function getDillDetails(
       number[]
     >([dillContract.supply(), dillContract.totalSupply()]);
 
-    const supply = picklesLocked; //.mul(dec18);
-    const supplyFloat = parseFloat(ethers.utils.formatEther(supply));
-
-    const totalSupply = dillSupply; //.mul(dec18);
-    const totalSupplyFloat = parseFloat(ethers.utils.formatEther(totalSupply));
+    const picklesLockedFloat = parseFloat(ethers.utils.formatEther(picklesLocked));
+    const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
 
     // Ignore initial negligible distributions that distort
     // PICKLE/DILL ratio range.
@@ -100,13 +97,13 @@ export async function getDillDetails(
       payoutTimes.push(time);
     }
 
-    const payouts = await multicallProvider.all<BigNumber[]>(
+    const payouts: number[] = (await multicallProvider.all<BigNumber[]>(
       payoutTimes.map((time) => feeDistContract.tokens_per_week(time)),
-    );
+    )).map((x) => parseFloat(ethers.utils.formatEther(x)) );
 
-    const dillAmounts = await multicallProvider.all<BigNumber[]>(
+    const dillAmounts: number[] = (await multicallProvider.all<BigNumber[]>(
       payoutTimes.map((time) => feeDistContract.ve_supply(time)),
-    );
+    )).map((x) => parseFloat(ethers.utils.formatEther(x)) );
 
     const picklePriceSeries = await fetchHistoricalPriceSeries({
       from: new Date(firstMeaningfulDistributionTimestamp * 1000),
@@ -122,7 +119,7 @@ export async function getDillDetails(
 
       const weeklyPickleAmount = isProjected
         ? thisWeekProjectedDistribution / priceCache.get("pickle")
-        : parseFloat(ethers.utils.formatEther(payouts[index]));
+        : payouts[index];
 
       const historicalEntry = picklePriceSeries.find((value) =>
         moment(value[0]).isSame(distributionTime, "day"),
@@ -131,9 +128,7 @@ export async function getDillDetails(
         ? historicalEntry[1]
         : priceCache.get("pickle");
 
-      const totalDillAmount = parseFloat(
-        ethers.utils.formatEther(dillAmounts[index]),
-      );
+      const totalDillAmount: number = dillAmounts[index];
       const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
 
       totalPickleAmount += weeklyPickleAmount;
@@ -158,8 +153,8 @@ export async function getDillDetails(
     });
 
     return {
-      pickleLocked: totalSupplyFloat,
-      totalDill: supplyFloat,
+      pickleLocked: picklesLockedFloat,
+      totalDill: dillSupplyFloat,
       dillWeeks: mapResult,
     };
   } catch (e) {
