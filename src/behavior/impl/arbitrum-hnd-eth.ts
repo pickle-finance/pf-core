@@ -37,7 +37,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
       jar,
       model,
       resolver,
-      ["hnd"],
+      ["dodo"],
       this.strategyAbi,
     );
   }
@@ -49,29 +49,29 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     const multicallProvider: MulticallProvider = model.multicallProviderFor(
       jar.chain,
     );
-    const rewardsAddr = "0x52C7B4aA3F67D3533aAf1153430758c702a3594b"; // HND-ETH
+    const rewardsAddr = "0x23fFB3687d3800FDDde75E7e604392fEa15c8757"; // HND-ETH
     const mcDodoRewards = new MulticallContract(rewardsAddr, mcdodoAbi);
 
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-    const [hndInfo, totalSupplyBN] = await multicallProvider.all([
+    const [dodoInfo, totalSupplyBN] = await multicallProvider.all([
       mcDodoRewards.rewardTokenInfos(0),
       lpToken.balanceOf(rewardsAddr),
     ]);
 
-    const HND_PER_BLOCK = +formatEther(hndInfo.rewardPerBlock);
+    const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
     const totalSupply = +formatEther(totalSupplyBN);
     const pricePerToken = model.priceOfSync(jar.depositToken.addr);
 
     const blocksPerYear =
       ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock;
-    const hndValueRewardedPerYear =
-      model.priceOfSync("hnd") * HND_PER_BLOCK * blocksPerYear;
+    const dodoValueRewardedPerYear =
+      model.priceOfSync("dodo") * DODO_PER_BLOCK * blocksPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
-    const hndAPY = hndValueRewardedPerYear / totalValueStaked;
+    const dodoAPY = dodoValueRewardedPerYear / totalValueStaked;
 
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("hnd", hndAPY * 100, true),
+      this.createAprComponent("dodo", dodoAPY * 100, true),
     ]);
   }
 }
