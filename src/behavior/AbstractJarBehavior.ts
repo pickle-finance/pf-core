@@ -250,7 +250,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   }
 }
 
-const oneRewardSubtotal = (
+export const oneRewardSubtotal = (
   harvestable: BigNumber,
   wallet: BigNumber,
   tokenPrice: number,

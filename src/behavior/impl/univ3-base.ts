@@ -135,12 +135,6 @@ export class Univ3Base extends AbstractJarBehavior {
       token0Price,
       jarValue,
     );
-    console.log({      token1Price,
-      lowerTickPrice,
-      upperTickPrice,
-      token0Price,
-      jarValue,
-    amount0, amount1})
 
     const sqrtRatioX96 = getSqrtPriceX96(
       token1Price,

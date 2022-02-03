@@ -40,6 +40,7 @@ const SUBGRAPH_URL_LOOKS =
   "https://api.thegraph.com/subgraphs/name/looksrare/looks-distribution";
 const SUBGRAPH_BEAMSWAP =
   "https://api.thegraph.com/subgraphs/name/beamswap/beamswap-dex";
+const SUBGRAPH_SOLARFLARE = "https://analytics.solarflare.io/api/subgraph";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -101,6 +102,8 @@ export function graphUrlFromDetails(
       return SUBGRAPH_URL_LOOKS;
     case AssetProtocol.BEAM:
       return SUBGRAPH_BEAMSWAP;
+    case AssetProtocol.FLARE:
+      return SUBGRAPH_SOLARFLARE;
     case AssetProtocol.SUSHISWAP:
       {
         switch (chain) {

@@ -1195,6 +1195,14 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonbeam,
+      "usdc-2",
+      "usd-coin",
+      "0x8f552a71efe5eefc207bf75485b356a0b3f01ec9".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonbeam,
       "bnb",
       "binancecoin",
       "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055".toLowerCase(),
@@ -1227,6 +1235,14 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonbeam,
+      "eth-2",
+      "ethereum",
+      "0x30D2a9F5FDf90ACe8c17952cbb4eE48a55D916A7".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonbeam,
       "usdt",
       "tether",
       "0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73".toLowerCase(),
@@ -1249,12 +1265,28 @@ export class ExternalTokenModel {
       ChainNetwork.Moonbeam,
       "flare",
       "solarflare",
-      "0x0e358838ce72d5e61e0018a2ffac4bec5f4c88d2".toLowerCase(),
+      "0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7".toLowerCase(),
       18,
       ExternalTokenFetchStyle.SWAP_PAIRS,
       [
         "0x976888647affb4b2d7ac1952cb12ca048cd67762", // FLARE-USDC
       ],
+    );
+    this.addToken(
+      ChainNetwork.Moonbeam,
+      "movr",
+      "moonriver",
+      "0x1d4C2a246311bB9f827F4C768e277FF5787B7D7E".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonbeam,
+      "wbtc",
+      "wrapped-bitcoin",
+      "0x1DC78Acda13a8BC4408B207c9E48CDBc096D95e0".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
     );
 
     // Optimism

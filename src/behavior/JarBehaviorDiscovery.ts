@@ -207,6 +207,11 @@ import {
   JAR_ARBITRUM_BAL_PICKLE_ETH,
   JAR_ARBITRUM_BAL_ETH,
   JAR_FLARE_FLARE_GLMR,
+  JAR_FLARE_FLARE_USDC,
+  JAR_FLARE_GLMR_ETH,
+  JAR_FLARE_GLMR_MOVR,
+  JAR_FLARE_GLMR_USDC,
+  JAR_FLARE_GLMR_WBTC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -408,7 +413,7 @@ import { ZipswapEthDai } from "./impl/optimism-zip-eth-dai";
 import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
 import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
 import { BalancerJar } from "./impl/balancer-jar";
-import { MoonbeamFlareJar } from "./impl/flare-base";
+import { MoonbeamFlareJar } from "./impl/flare-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -641,6 +646,11 @@ jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_GLINT.id, new BeamGlmrGlint());
 jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_USDC.id, new BeamGlmrUsdc());
 jarToBehavior.set(JAR_MOONBEAM_BEAM_USDC_USDT.id, new BeamUsdcUsdt());
 jarToBehavior.set(JAR_FLARE_FLARE_GLMR.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_FLARE_USDC.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_ETH.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_MOVR.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_USDC.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_WBTC.id, new MoonbeamFlareJar());
 
 // Optimism
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
