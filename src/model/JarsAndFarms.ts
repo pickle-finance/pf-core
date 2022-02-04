@@ -3138,31 +3138,6 @@ export const JAR_MOVR_FINN_DOT_FINN: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_FINN_DOT_FINN);
 
-export const JAR_MOVR_FINN_: JarDefinition = {
-  type: AssetType.JAR,
-  id: "moonJar 2a",
-  contract: "0x855bfF6456f42643b2b64c767Ce1398C3fF6304B",
-  depositToken: {
-    addr: "0xF09211fb5eD5019b072774cfD7Db0c9f4ccd5Be0",
-    name: "FINN DOT/FINN",
-    link: "https://www.huckleberry.finance/#/add/0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
-    components: ["dot", "finn"],
-  },
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.FINN,
-  details: {
-    apiKey: "FLP-DOT-FINN",
-    harvestStyle: HarvestStyle.PASSIVE,
-  },
-  farm: {
-    farmAddress: NULL_ADDRESS,
-    farmNickname: "pFINN DOT/FINN",
-    farmDepositTokenName: "pFINN DOT/FINN",
-  },
-};
-JAR_DEFINITIONS.push(JAR_MOVR_FINN_DOT_FINN);
-
 export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
   type: AssetType.JAR,
   id: "moonJar 2b",
@@ -3186,7 +3161,7 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     farmDepositTokenName: "pFINN FINN/KSM",
   },
 };
-JAR_DEFINITIONS.push(JAR_MOVR_FINN_DOT_FINN);
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
 
 export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
   type: AssetType.JAR,
