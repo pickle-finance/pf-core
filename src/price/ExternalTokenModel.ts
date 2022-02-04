@@ -858,6 +858,30 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "ksm",
+      "kusama",
+      "0xffffffff1fcacbd218edc0eba20fc2308c778080".toLowerCase(),
+      12,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "finn",
+      "huckleberry",
+      "0x9a92b5ebf1f6f6f7d93696fcd44e5cf75035a756".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "rmrk",
+      "rmrk",
+      "0xffffffff893264794d9d57e1e0e21e0042af5a0a".toLowerCase(),
+      10,
+      ExternalTokenFetchStyle.ID,
+    )
 
     // Cronos
     this.addToken(
