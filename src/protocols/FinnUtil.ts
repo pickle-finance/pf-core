@@ -7,6 +7,7 @@ import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
+import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 
 export const FINN_FARMS = "0x1f4b7660b6AdC3943b5038e3426B33c1c0e343E6";
 
@@ -22,43 +23,24 @@ export async function calculateFinnFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ) {
-  let finnPerSecBN,
-    finnPerBlockBN,
-    totalAllocPointBN,
-    poolInfo,
-    totalSupplyBN,
-    rewardsPerYear;
-
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
-    const poolId = finnPoolIds[jar.depositToken.addr];
-    const multicallFinnFarms = new MulticallContract(
-      FINN_FARMS,
-      finnFarmsAbi,
-    );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-    [finnPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallFinnFarms.finnPerSecond(),
-        multicallFinnFarms.totalAllocPoint(),
-        multicallFinnFarms.poolInfo(poolId),
-        lpToken.balanceOf(FINN_FARMS),
-      ]);
+  const poolId = finnPoolIds[jar.depositToken.addr];
+  const multicallFinnFarms = new MulticallContract(FINN_FARMS, finnFarmsAbi);
+  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const [finnPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
+    await multicallProvider.all([
+      multicallFinnFarms.finnPerSecond(),
+      multicallFinnFarms.totalAllocPoint(),
+      multicallFinnFarms.poolInfo(poolId),
+      lpToken.balanceOf(FINN_FARMS),
+    ]);
 
-    const rewardsPerBlock =
-      (parseFloat(formatEther(finnPerBlockBN)) *
-        poolInfo.allocPoint.toNumber()) /
-      totalAllocPointBN.toNumber();
+  const rewardsPerSec =
+    (parseFloat(formatEther(finnPerSecBN)) * poolInfo.allocPoint.toNumber()) /
+    totalAllocPointBN.toNumber();
 
-    rewardsPerYear =
-      rewardsPerBlock *
-      ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
-    const rewardsPerSec =
-      (parseFloat(formatEther(finnPerSecBN)) *
-        poolInfo.allocPoint.toNumber()) /
-      totalAllocPointBN.toNumber();
-
-    rewardsPerYear = rewardsPerSec * (360 * 24 * 60 * 60);
+  const rewardsPerYear = rewardsPerSec * ONE_YEAR_IN_SECONDS;
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
@@ -68,7 +50,7 @@ export async function calculateFinnFarmsAPY(
   const totalValueStaked = totalSupply * pricePerToken;
   const finnAPY = finnRewardedPerYear / totalValueStaked;
   return { name: "finn", apr: finnAPY * 100, compoundable: true };
-};
+}
 
 const FINN_PAIR_CACHE_KEY = "finn.pair.data.cache.key";
 

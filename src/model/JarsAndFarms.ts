@@ -3166,9 +3166,9 @@ JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
 export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
   type: AssetType.JAR,
   id: "moonJar 2c",
-  contract: "0x6F94461bDfe75802e819EF8AeFDD3503388b6fbd",
+  contract: "0xd14802ED86328e88E068F356fA1a98A95C759A8B",
   depositToken: {
-    addr: "0x14BE4d09c5A8237403b83A8A410bAcE16E8667DC",
+    addr: "0xd9e98aD7AE9E5612b90cd0bdcD82df4FA5b943b8",
     name: "FINN FINN/RMRK",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "rmrk"],
