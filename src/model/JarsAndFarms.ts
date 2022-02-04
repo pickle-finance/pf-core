@@ -1826,7 +1826,7 @@ JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_ETH);
 export const JAR_POLY_UNIV3_MATIC_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "polyJar U3b",
-  contract: "0x05c7945bEFBE5003B5201d64FAaf8AB50fCF48d3",
+  contract: "0x925b6f866AeB88131d159Fc790b9FC8203621B3C",
   depositToken: {
     addr: "0x167384319B41F7094e62f7506409Eb38079AbfF8",
     name: "UniV3 MATIC/ETH",
@@ -1858,7 +1858,7 @@ JAR_DEFINITIONS.push(JAR_POLY_UNIV3_MATIC_ETH);
 export const JAR_POLY_UNIV3_MATIC_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "polyJar U3c",
-  contract: "0xc205156726BD291De40c0b37849A5b348e355121",
+  contract: "0x09e4E5fc62d8ae06fD44b3527235693f29fda852",
   depositToken: {
     addr: "0x88f3C15523544835fF6c738DDb30995339AD57d6",
     name: "UniV3 MATIC/USDC",
