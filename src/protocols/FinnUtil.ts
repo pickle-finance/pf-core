@@ -39,7 +39,7 @@ export async function calculateFinnFarmsAPY(
     const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
     [finnPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
       await multicallProvider.all([
-        multicallFinnFarms.finnPerBlock(),
+        multicallFinnFarms.finnPerSecond(),
         multicallFinnFarms.totalAllocPoint(),
         multicallFinnFarms.poolInfo(poolId),
         lpToken.balanceOf(FINN_FARMS),
