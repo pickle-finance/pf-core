@@ -53,14 +53,12 @@ export async function calculateFinnFarmsAPY(
     rewardsPerYear =
       rewardsPerBlock *
       ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
-
     const rewardsPerSec =
       (parseFloat(formatEther(finnPerSecBN)) *
         poolInfo.allocPoint.toNumber()) /
       totalAllocPointBN.toNumber();
 
     rewardsPerYear = rewardsPerSec * (360 * 24 * 60 * 60);
-  }
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
@@ -70,7 +68,7 @@ export async function calculateFinnFarmsAPY(
   const totalValueStaked = totalSupply * pricePerToken;
   const finnAPY = finnRewardedPerYear / totalValueStaked;
   return { name: "finn", apr: finnAPY * 100, compoundable: true };
-}
+};
 
 const FINN_PAIR_CACHE_KEY = "finn.pair.data.cache.key";
 

@@ -881,6 +881,14 @@ export class ExternalTokenModel {
       "0xffffffff893264794d9d57e1e0e21e0042af5a0a".toLowerCase(),
       10,
       ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "dot",
+      "polkadot",
+      "0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445".toLowerCase(),
+      10,
+      ExternalTokenFetchStyle.ID,
     )
 
     // Cronos
