@@ -142,7 +142,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://andromeda-explorer.metis.io/",
     rpcs: ["https://andromeda.metis.io/?owner=1088"],
     multicallAddress: "0xa99850Ff94d3D333e7F669203Ab7B77Ec634028F",
-    defaultPerformanceFee: 0.1,
+    defaultPerformanceFee: 0.042,
   },
   {
     chainId: 1284,
