@@ -777,6 +777,14 @@ export class ExternalTokenModel {
       6,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "usdc-2",
+      "usd-coin",
+      "0x748134b5f553f2bcbd78c6826de99a70274bdeb3".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
     // the second "dai" field is the Coingecko price ID of that token
     this.addToken(
       ChainNetwork.Moonriver,

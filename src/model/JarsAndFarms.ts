@@ -3221,7 +3221,7 @@ export const JAR_MOVR_FINN_USDC_MOVR: JarDefinition = {
     addr: "0x7128C61Da34c27eAD5419B8EB50c71CE0B15CD50",
     name: "FINN USDC/MOVR",
     link: "https://www.huckleberry.finance/#/add/0x748134b5F553F2bcBD78c6826De99a70274bDEb3/MOVR",
-    components: ["usdc", "movr"],
+    components: ["usdc-2", "movr"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
