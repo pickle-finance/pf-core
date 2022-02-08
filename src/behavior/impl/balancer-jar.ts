@@ -8,7 +8,7 @@ import {
 } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import jarAbi from "../../Contracts/ABIs/jar.json";
-import { JarHarvestStats, PickleModel } from "../..";
+import { ChainNetwork, JarHarvestStats, PickleModel } from "../..";
 import {
   AssetProjectedApr,
   HistoricalYield,
@@ -21,9 +21,14 @@ import {
   PoolData,
 } from "../../protocols/BalancerUtil";
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import { AbstractJarBehavior, oneRewardSubtotal } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
+
+const balancerRewardTokens = {
+  arbitrum: ["bal", "pickle"],
+};
 
 export class BalancerJar extends AbstractJarBehavior {
   poolData: PoolData | undefined;
@@ -113,14 +118,42 @@ export class BalancerJar extends AbstractJarBehavior {
       bal: model.priceOfSync("bal"),
       pickle: model.priceOfSync("pickle"),
     };
+    let total = 0;
     try {
       const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
       await manager.fetchData(model.getDataStore());
-      return manager.claimableAmountUsd;
+      total += manager.claimableAmountUsd;
     } catch (error) {
       console.log(error);
-      return 0;
     }
+    const rewardTokens = balancerRewardTokens[jar.chain];
+    const rewardContracts: ethers.Contract[] = rewardTokens.map(
+      (x) =>
+        new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver),
+    );
+
+    const promises: Promise<any>[] = [];
+    for (let i = 0; i < rewardTokens.length; i++) {
+      promises.push(
+        rewardContracts[i]
+          .balanceOf(jar.details.strategyAddr)
+          .catch(() => BigNumber.from("0")),
+      );
+    }
+
+    const walletBalances: any[] = await Promise.all(promises);
+    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x));
+
+    walletBalances.forEach(
+      (walletBalance, i) =>
+        (total += oneRewardSubtotal(
+          BigNumber.from(0),
+          walletBalance,
+          rewardTokenPrices[i],
+          model.tokenDecimals(rewardTokens[i], jar.chain),
+        )),
+    );
+    return total;
   }
 
   getCustomHarvester(
