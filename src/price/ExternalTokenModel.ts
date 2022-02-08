@@ -777,6 +777,14 @@ export class ExternalTokenModel {
       6,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "usdc-2",
+      "usd-coin",
+      "0x748134b5f553f2bcbd78c6826de99a70274bdeb3".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
     // the second "dai" field is the Coingecko price ID of that token
     this.addToken(
       ChainNetwork.Moonriver,
@@ -858,6 +866,38 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "ksm",
+      "kusama",
+      "0xffffffff1fcacbd218edc0eba20fc2308c778080".toLowerCase(),
+      12,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "finn",
+      "huckleberry",
+      "0x9a92b5ebf1f6f6f7d93696fcd44e5cf75035a756".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "rmrk",
+      "rmrk",
+      "0xffffffff893264794d9d57e1e0e21e0042af5a0a".toLowerCase(),
+      10,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "dot",
+      "polkadot",
+      "0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445".toLowerCase(),
+      10,
+      ExternalTokenFetchStyle.ID,
+    )
 
     // Cronos
     this.addToken(

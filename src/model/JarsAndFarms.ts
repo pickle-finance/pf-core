@@ -3113,6 +3113,134 @@ export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_ETH_MOVR);
 
+export const JAR_MOVR_FINN_DOT_FINN: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 2a",
+  contract: "0x855bfF6456f42643b2b64c767Ce1398C3fF6304B",
+  depositToken: {
+    addr: "0xF09211fb5eD5019b072774cfD7Db0c9f4ccd5Be0",
+    name: "FINN DOT/FINN",
+    link: "https://www.huckleberry.finance/#/add/0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
+    components: ["dot", "finn"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.FINN,
+  details: {
+    apiKey: "FLP-DOT-FINN",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFINN DOT/FINN",
+    farmDepositTokenName: "pFINN DOT/FINN",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_DOT_FINN);
+
+export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 2b",
+  contract: "0x6F94461bDfe75802e819EF8AeFDD3503388b6fbd",
+  depositToken: {
+    addr: "0x14BE4d09c5A8237403b83A8A410bAcE16E8667DC",
+    name: "FINN FINN/KSM",
+    link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
+    components: ["finn", "ksm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.FINN,
+  details: {
+    apiKey: "FLP-FINN-KSM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFINN FINN/KSM",
+    farmDepositTokenName: "pFINN FINN/KSM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
+
+export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 2c",
+  contract: "0xd14802ED86328e88E068F356fA1a98A95C759A8B",
+  depositToken: {
+    addr: "0xd9e98aD7AE9E5612b90cd0bdcD82df4FA5b943b8",
+    name: "FINN FINN/RMRK",
+    link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
+    components: ["finn", "rmrk"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.FINN,
+  details: {
+    apiKey: "FLP-FINN-RMRK",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFINN FINN/RMRK",
+    farmDepositTokenName: "pFINN FINN/RMRK",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_RMRK);
+
+export const JAR_MOVR_FINN_MOVR_FINN: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 2d",
+  contract: "0x589FFC81e4803017ED0d0169B3C61C04BC4a3B76",
+  depositToken: {
+    addr: "0xbBe2f34367972Cb37ae8dea849aE168834440685",
+    name: "FINN MOVR/FINN",
+    link: "https://www.huckleberry.finance/#/add/MOVR/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
+    components: ["movr", "finn"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.FINN,
+  details: {
+    apiKey: "FLP-MOVR-FINN",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFINN MOVR/FINN",
+    farmDepositTokenName: "pFINN MOVR/FINN",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_MOVR_FINN);
+
+export const JAR_MOVR_FINN_USDC_MOVR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 2e",
+  contract: "0x4f02273EAF4a71e53C81f9d50bd89D3Beaf0F3e9",
+  depositToken: {
+    addr: "0x7128C61Da34c27eAD5419B8EB50c71CE0B15CD50",
+    name: "FINN USDC/MOVR",
+    link: "https://www.huckleberry.finance/#/add/0x748134b5F553F2bcBD78c6826De99a70274bDEb3/MOVR",
+    components: ["usdc-2", "movr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.FINN,
+  details: {
+    apiKey: "FLP-USDC-MOVR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pFINN USDC/MOVR",
+    farmDepositTokenName: "pFINN USDC/MOVR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_USDC_MOVR);
+
+
+//Cronos
+
 export const JAR_CRO_VVS_CRO_BIFI: JarDefinition = {
   type: AssetType.JAR,
   id: "croJar 1a",

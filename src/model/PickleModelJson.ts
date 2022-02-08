@@ -38,6 +38,7 @@ export enum AssetProtocol {
   ZIPSWAP = "ZipSwap",
   BEAM = "Beamswap",
   FLARE = "Solarflare",
+  FINN = "Finn"
   // ADD_PROTOCOL
 }
 
@@ -63,6 +64,7 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.ZIPSWAP,
   AssetProtocol.BEAM,
   AssetProtocol.FLARE,
+  AssetProtocol.FINN,
   // ADD_PROTOCOL
 ];
 
@@ -168,7 +170,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
 
 export interface FarmDetails {
   allocShare?: number;

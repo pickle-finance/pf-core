@@ -212,6 +212,11 @@ import {
   JAR_FLARE_GLMR_MOVR,
   JAR_FLARE_GLMR_USDC,
   JAR_FLARE_GLMR_WBTC,
+  JAR_MOVR_FINN_DOT_FINN,
+  JAR_MOVR_FINN_FINN_KSM,
+  JAR_MOVR_FINN_FINN_RMRK,
+  JAR_MOVR_FINN_MOVR_FINN,
+  JAR_MOVR_FINN_USDC_MOVR,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -414,6 +419,11 @@ import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
 import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
 import { BalancerJar } from "./impl/balancer-jar";
 import { MoonbeamFlareJar } from "./impl/flare-jar";
+import { FinnDotFinn } from './impl/movr-finn-dot-finn';
+import { FinnFinnKsm } from "./impl/movr-finn-finn-ksm";
+import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
+import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
+import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -545,6 +555,11 @@ jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_ETH_MOVR.id, new SolarEthMovr());
+jarToBehavior.set(JAR_MOVR_FINN_DOT_FINN.id, new FinnDotFinn());
+jarToBehavior.set(JAR_MOVR_FINN_FINN_KSM.id, new FinnFinnKsm());
+jarToBehavior.set(JAR_MOVR_FINN_FINN_RMRK.id, new FinnFinnRmrk());
+jarToBehavior.set(JAR_MOVR_FINN_MOVR_FINN.id, new FinnMovrFinn());
+jarToBehavior.set(JAR_MOVR_FINN_USDC_MOVR.id, new FinnUsdcMovr());
 
 // Cronos
 jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
