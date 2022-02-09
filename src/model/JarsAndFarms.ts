@@ -1806,7 +1806,7 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1838,7 +1838,7 @@ export const JAR_POLY_UNIV3_MATIC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1870,7 +1870,7 @@ export const JAR_POLY_UNIV3_MATIC_USDC: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1902,7 +1902,7 @@ export const JAR_POLY_UNIV3_USDC_USDT: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1934,7 +1934,7 @@ export const JAR_POLY_UNIV3_WBTC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -3262,7 +3262,6 @@ export const JAR_MOVR_FINN_USDC_MOVR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_MOVR_FINN_USDC_MOVR);
-
 
 //Cronos
 
