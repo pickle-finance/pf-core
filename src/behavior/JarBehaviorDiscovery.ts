@@ -217,6 +217,7 @@ import {
   JAR_MOVR_FINN_FINN_RMRK,
   JAR_MOVR_FINN_MOVR_FINN,
   JAR_MOVR_FINN_USDC_MOVR,
+  JAR_ARBITRUM_BAL_VSTA_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -424,6 +425,7 @@ import { FinnFinnKsm } from "./impl/movr-finn-finn-ksm";
 import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
 import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
+import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -516,6 +518,7 @@ jarToBehavior.set(JAR_ARBITRUM_SLP_GOHM_ETH.id, new ArbitrumGohmEth());
 jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
 jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
+jarToBehavior.set(JAR_ARBITRUM_BAL_VSTA_ETH.id, new BalancerVstaEth());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());

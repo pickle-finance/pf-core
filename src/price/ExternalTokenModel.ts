@@ -603,6 +603,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Arbitrum,
+      "vsta",
+      "vesta-finance",
+      "0xa684cd057951541187f288294a1e1C2646aA2d24".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // OKEx
     this.addToken(

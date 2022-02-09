@@ -2231,6 +2231,31 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_ETH);
 
+export const JAR_ARBITRUM_BAL_VSTA_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar 5a",
+  contract: "0x0c02883103e64b62c4b52ABe7E743Cc50EB2D4C7",
+  depositToken: {
+    addr: "0xC61ff48f94D801c1ceFaCE0289085197B5ec44F0",
+    name: "Balancer VSTA/ETH",
+    link: "https://arbitrum.balancer.fi/#/pool/0xc61ff48f94d801c1ceface0289085197b5ec44f000020000000000000000004d/invest",
+    components: ["vsta", "weth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.BALANCER,
+  details: {
+    apiKey: "BalVstaEth",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "Balancer VSTA/ETH",
+    farmDepositTokenName: "Balancer VSTA/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_TRICRYPTO);
+
 // OKEx Chain
 
 export const JAR_OKEX_OKT_CHE: JarDefinition = {
