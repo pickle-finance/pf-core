@@ -2254,7 +2254,7 @@ export const JAR_ARBITRUM_BAL_VSTA_ETH: JarDefinition = {
     farmDepositTokenName: "Balancer VSTA/ETH",
   },
 };
-JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_TRICRYPTO);
+JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_VSTA_ETH);
 
 // OKEx Chain
 
