@@ -1,4 +1,4 @@
-import { PickleModel } from "../..";
+import { JarHarvestStats, PickleModel } from "../..";
 import {
   AssetProjectedApr,
   HistoricalYield,
@@ -10,7 +10,7 @@ import { getBalancerPoolDayAPY } from "../../protocols/BalancerUtil";
 import { Contract as MulticallContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import { Signer } from "ethers";
+import { BigNumber, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 
@@ -80,5 +80,38 @@ export class BalancerVstaEth extends BalancerJar {
       ["vsta"],
       sushiStrategyAbi,
     );
+  }
+
+  // AbstractJarBehavior's Implementation, since Balancer one is buggy
+  async getAssetHarvestData(
+    definition: JarDefinition,
+    model: PickleModel,
+    balance: BigNumber,
+    available: BigNumber,
+    resolver: Signer | Provider,
+  ): Promise<JarHarvestStats> {
+    const harvestableUSD: number = await this.getHarvestableUSD(
+      definition,
+      model,
+      resolver,
+    );
+    const depositTokenDecimals = definition.depositToken.decimals
+      ? definition.depositToken.decimals
+      : 18;
+    const depositTokenPrice: number = await model.priceOf(
+      definition.depositToken.addr,
+    );
+    const balanceUSD: number =
+      parseFloat(ethers.utils.formatUnits(balance, depositTokenDecimals)) *
+      depositTokenPrice;
+    const availUSD: number =
+      parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) *
+      depositTokenPrice;
+
+    return {
+      balanceUSD: balanceUSD,
+      earnableUSD: availUSD,
+      harvestableUSD: harvestableUSD,
+    };
   }
 }
