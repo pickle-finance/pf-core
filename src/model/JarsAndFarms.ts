@@ -5945,6 +5945,31 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_ZIP);
 
+export const JAR_FANTOM_OXD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1a",
+  contract: "0xF00BFC776c215383e4CAD253b94d7c09E2739Be5",
+  depositToken: {
+    addr: "0xD5fa400a24EB2EA55BC5Bd29c989E70fbC626FfF",
+    name: "BOO OXD/USDC",
+    link: "https://spookyswap.finance/add/0xc165d941481e68696f43EE6E99BFB2B23E0E3114/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+    components: ["oxd", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "SLP-OXD-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP OXD/USDC",
+    farmDepositTokenName: "pSLP OXD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_OXD_USDC);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

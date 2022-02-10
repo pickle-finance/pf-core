@@ -220,6 +220,7 @@ import {
   JAR_MOVR_FINN_MOVR_FINN,
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
+  JAR_FANTOM_OXD_USDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -430,6 +431,7 @@ import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
 import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
+import { OxdJar } from "./impl/fantom-oxd-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -681,6 +683,9 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
+
+// Fantom
+jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

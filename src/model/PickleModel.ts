@@ -155,6 +155,15 @@ export const ADDRESSES = new Map([
       minichef: NULL_ADDRESS,
     },
   ],
+  [
+    ChainNetwork.Fantom,
+    {
+      pickle: NULL_ADDRESS,
+      masterChef: NULL_ADDRESS,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      minichef: NULL_ADDRESS,
+    },
+  ],
 
   // ADD_CHAIN
 ]);

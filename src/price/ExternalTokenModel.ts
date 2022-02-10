@@ -1410,6 +1410,34 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
+    // Fantom
+    this.addToken(
+      ChainNetwork.Fantom,
+      "oxd",
+      "0xdao",
+      "0xc165d941481e68696f43ee6e99bfb2b23e0e3114".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "ftm",
+      "fantom",
+      "0x4E15361FD6b4BB609Fa63C81A2be19d873717870".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "usdc",
+      "usd-coin",
+      "0x04068da6c83afcfa0e13ba15a6696662335d5b75".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+
+
+
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
     const allTokenList: ExternalToken[] = [];
