@@ -117,6 +117,8 @@ import {
   JAR_AURORA_TRI_LP,
   JAR_AURORA_TRI_NEAR_LUNA,
   JAR_AURORA_TRI_UST_NEAR,
+  JAR_AURORA_TRI_AVAX_NEAR,
+  JAR_AURORA_TRI_MATIC_NEAR,
   JAR_AURORA_PAD_BTC_NEAR,
   JAR_AURORA_WANNA_NEAR,
   JAR_AURORA_WANNA_NEAR_DAI,
@@ -336,6 +338,8 @@ import { TriAuroraLp } from "./impl/aurora-tri-lp";
 import { TriNearLuna } from "./impl/aurora-tri-near-luna";
 import { TriUstNear } from "./impl/aurora-tri-ust-near";
 import { TriTriUsdt } from "./impl/aurora-tri-tri-usdt";
+import { TriAvaxNear } from "./impl/aurora-tri-avax-near";
+import { TriMaticNear } from "./impl/aurora-tri-matic-near";
 import { PadNearBtc } from "./impl/aurora-nearpad-near-btc";
 import { WannaNear } from "./impl/aurora-wanna-near";
 import { WannaNearDai } from "./impl/aurora-wanna-near-dai";
@@ -589,6 +593,8 @@ jarToBehavior.set(JAR_AURORA_TRI_AURORA_ETH.id, new TriAuroraEth());
 jarToBehavior.set(JAR_AURORA_TRI_LP.id, new TriAuroraLp());
 jarToBehavior.set(JAR_AURORA_TRI_NEAR_LUNA.id, new TriNearLuna());
 jarToBehavior.set(JAR_AURORA_TRI_UST_NEAR.id, new TriUstNear());
+jarToBehavior.set(JAR_AURORA_TRI_AVAX_NEAR.id, new TriAvaxNear());
+jarToBehavior.set(JAR_AURORA_TRI_MATIC_NEAR.id, new TriMaticNear());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR.id, new WannaNear());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR_DAI.id, new WannaNearDai());
 jarToBehavior.set(JAR_AURORA_WANNA_NEAR_ETH.id, new WannaNearEth());
