@@ -11,7 +11,10 @@ import { IPriceResolver } from "./IPriceResolver";
  *
  * This class will only query for symbols that are defined in the ExternalTokenModel.
  */
-export class CoinGeckoPriceResolver extends AbstractPriceResolver implements IPriceResolver {
+export class CoinGeckoPriceResolver
+  extends AbstractPriceResolver
+  implements IPriceResolver
+{
   constructor(tokenModel: ExternalTokenModel) {
     super(tokenModel);
   }
@@ -32,7 +35,40 @@ export class CoinGeckoPriceResolver extends AbstractPriceResolver implements IPr
     return returnMap;
   }
 
+  private timeout = (prom, time, exception) => {
+    let timer;
+    return Promise.race([
+      prom,
+      new Promise((_r, rej) => (timer = setTimeout(rej, time, exception))),
+    ]).finally(() => clearTimeout(timer));
+  };
+
   protected async fetchPricesByContracts(
+    contractIds: string[],
+  ): Promise<Map<string, number>> {
+    for (let i = 0; i < 5; i++) {
+      try {
+        const promise1 = await this.timeout(
+          this.fetchPricesByContractsImpl(contractIds),
+          4000,
+          Symbol(),
+        );
+        return promise1;
+      } catch (err) {
+        const joined = contractIds.join("%2C");
+        const url = `https://api.coingecko.com/api/v3/simple/token_price/ethereum?contract_addresses=${joined}&vs_currencies=usd`;
+
+        console.log("Timeout fetching cg prices: " + url);
+        // Do nothing
+      }
+    }
+    // We still haven't returned, so we have no prices :|
+    throw new Error(
+      "Cannot load prices for various contracts after several retries",
+    );
+  }
+
+  private async fetchPricesByContractsImpl(
     contractIds: string[],
   ): Promise<Map<string, number>> {
     const joined = contractIds.join("%2C");

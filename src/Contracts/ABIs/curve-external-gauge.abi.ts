@@ -117,8 +117,8 @@ export const curveThirdPartyGaugeAbi = [
       { name: "_addr", type: "address" },
       { name: "_token", type: "address" },
     ],
-    outputs: [{ name:"", type: "uint256" }],
-    gas: "2067577"
+    outputs: [{ name: "", type: "uint256" }],
+    gas: "2067577",
   },
   {
     name: "claim_rewards",

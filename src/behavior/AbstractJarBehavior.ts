@@ -8,7 +8,11 @@ import {
   HistoricalYield,
   SWAP_PROTOCOLS,
 } from "../model/PickleModelJson";
-import { ICustomHarvester, JarBehavior, JarHarvestStats } from "./JarBehaviorResolver";
+import {
+  ICustomHarvester,
+  JarBehavior,
+  JarHarvestStats,
+} from "./JarBehaviorResolver";
 import { PickleModel } from "../model/PickleModel";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { GenericSwapUtility } from "../protocols/GenericSwapUtil";
@@ -18,10 +22,15 @@ import { getSwapUtilityForAsset } from "../protocols/ProtocolUtil";
 export const ONE_YEAR_IN_SECONDS: number = 360 * 24 * 60 * 60;
 
 export abstract class AbstractJarBehavior implements JarBehavior {
-  getCustomHarvester(_definition: JarDefinition, _model: PickleModel, _signer: ethers.Signer,_properties: unknown): ICustomHarvester | undefined {
+  getCustomHarvester(
+    _definition: JarDefinition,
+    _model: PickleModel,
+    _signer: ethers.Signer,
+    _properties: unknown,
+  ): ICustomHarvester | undefined {
     return undefined;
   }
-  
+
   isGenericSwapProtocol(protocol: string): boolean {
     return SWAP_PROTOCOLS.filter((x) => x.toString() === protocol).length > 0;
   }
@@ -106,9 +115,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       definition.depositToken.addr,
     );
     const balanceUSD: number =
-      parseFloat(
-        ethers.utils.formatUnits(balance, depositTokenDecimals),
-      ) * depositTokenPrice;
+      parseFloat(ethers.utils.formatUnits(balance, depositTokenDecimals)) *
+      depositTokenPrice;
     const availUSD: number =
       parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) *
       depositTokenPrice;
@@ -132,26 +140,46 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     rewardTokens: string[],
     strategyAbi: any,
   ): Promise<number> {
-
-    const rewardContracts: ethers.Contract[] = rewardTokens.map((x)=> 
-      new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver));
-    const strategyContract = new ethers.Contract(jar.details.strategyAddr, strategyAbi, resolver);
+    const rewardContracts: ethers.Contract[] = rewardTokens.map(
+      (x) =>
+        new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver),
+    );
+    const strategyContract = new ethers.Contract(
+      jar.details.strategyAddr,
+      strategyAbi,
+      resolver,
+    );
 
     const promises: Promise<any>[] = [];
-    for( let i = 0; i < rewardTokens.length; i++ ) {
-      promises.push(rewardContracts[i].balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")));
+    for (let i = 0; i < rewardTokens.length; i++) {
+      promises.push(
+        rewardContracts[i]
+          .balanceOf(jar.details.strategyAddr)
+          .catch(() => BigNumber.from("0")),
+      );
     }
-    promises.push(strategyContract.getHarvestable().catch(() => new Array(rewardTokens.length).fill(BigNumber.from("0"))));
+    promises.push(
+      strategyContract
+        .getHarvestable()
+        .catch(() => new Array(rewardTokens.length).fill(BigNumber.from("0"))),
+    );
 
     const results: any[] = await Promise.all(promises);
-    const walletBalances = results.slice(0,results.length-1);
-    const tmpStrategyHarvestables = results[results.length-1];
-    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables ? [].concat(tmpStrategyHarvestables): [];
-    const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
-    
+    const walletBalances = results.slice(0, results.length - 1);
+    const tmpStrategyHarvestables = results[results.length - 1];
+    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables
+      ? [].concat(tmpStrategyHarvestables)
+      : [];
+    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x));
+
     let runningTotal = 0;
-    for( let i = 0; i < rewardTokens.length; i++ ) {
-      runningTotal += (oneRewardSubtotal(strategyHarvestables[i], walletBalances[i], rewardTokenPrices[i], model.tokenDecimals(rewardTokens[i], jar.chain)));
+    for (let i = 0; i < rewardTokens.length; i++) {
+      runningTotal += oneRewardSubtotal(
+        strategyHarvestables[i],
+        walletBalances[i],
+        rewardTokenPrices[i],
+        model.tokenDecimals(rewardTokens[i], jar.chain),
+      );
     }
     return runningTotal;
   }
@@ -172,40 +200,62 @@ export abstract class AbstractJarBehavior implements JarBehavior {
           { internalType: "address", name: "_user", type: "address" },
         ],
         name: rewardsFuncName,
-        outputs: [{ internalType: "uint256", name: "pending", type: "uint256" }],
+        outputs: [
+          { internalType: "uint256", name: "pending", type: "uint256" },
+        ],
         stateMutability: "view",
         type: "function",
-      }
+      },
     ];
 
-    const rewardContracts: ethers.Contract[] = rewardTokens.map((x)=> 
-      new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver));
+    const rewardContracts: ethers.Contract[] = rewardTokens.map(
+      (x) =>
+        new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver),
+    );
     const mcContract = new ethers.Contract(masterchefAddr, mcAbi, resolver);
 
     const promises: Promise<any>[] = [];
-    for( let i = 0; i < rewardTokens.length; i++ ) {
-      promises.push(rewardContracts[i].balanceOf(jar.details.strategyAddr).catch(() => BigNumber.from("0")));
+    for (let i = 0; i < rewardTokens.length; i++) {
+      promises.push(
+        rewardContracts[i]
+          .balanceOf(jar.details.strategyAddr)
+          .catch(() => BigNumber.from("0")),
+      );
     }
-    promises.push(mcContract.callStatic[rewardsFuncName](poolId, jar.details.strategyAddr).catch(() => BigNumber.from("0")));
+    promises.push(
+      mcContract.callStatic[rewardsFuncName](
+        poolId,
+        jar.details.strategyAddr,
+      ).catch(() => BigNumber.from("0")),
+    );
 
     const results: any[] = await Promise.all(promises);
-    const walletBalances = results.slice(0,results.length-1);
-    const tmpMCHarvestables = results[results.length-1];
-    const masterchefHarvestables: BigNumber[] = tmpMCHarvestables ? [].concat(tmpMCHarvestables): [];
-    const rewardTokenPrices = rewardTokens.map((x)=>model.priceOfSync(x));
-    
-    
+    const walletBalances = results.slice(0, results.length - 1);
+    const tmpMCHarvestables = results[results.length - 1];
+    const masterchefHarvestables: BigNumber[] = tmpMCHarvestables
+      ? [].concat(tmpMCHarvestables)
+      : [];
+    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x));
+
     let runningTotal = 0;
-    for( let i = 0; i < rewardTokens.length; i++ ) {
-      runningTotal += (oneRewardSubtotal(masterchefHarvestables[i], walletBalances[i], rewardTokenPrices[i], model.tokenDecimals(rewardTokens[i], jar.chain)));
+    for (let i = 0; i < rewardTokens.length; i++) {
+      runningTotal += oneRewardSubtotal(
+        masterchefHarvestables[i],
+        walletBalances[i],
+        rewardTokenPrices[i],
+        model.tokenDecimals(rewardTokens[i], jar.chain),
+      );
     }
     return runningTotal;
   }
-
 }
 
-const oneRewardSubtotal = (harvestable: BigNumber, wallet: BigNumber, 
-  tokenPrice: number, tokenDecimals: number) : number => {
+export const oneRewardSubtotal = (
+  harvestable: BigNumber,
+  wallet: BigNumber,
+  tokenPrice: number,
+  tokenDecimals: number,
+): number => {
   const tokens = harvestable.add(wallet);
   const log = Math.log(tokenPrice) / Math.log(10);
   const precisionAdjust = log > 4 ? 0 : 5 - Math.floor(log);

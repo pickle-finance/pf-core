@@ -20,7 +20,7 @@ export const findMax = (data: number[]): number => {
 export const findMin = (data: number[]): number => {
   return data.reduce(
     (min, val) => (min > val ? val : min),
-    Number.MAX_SAFE_INTEGER
+    Number.MAX_SAFE_INTEGER,
   );
 };
 

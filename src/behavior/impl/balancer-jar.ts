@@ -1,16 +1,71 @@
 import { Provider, TransactionResponse } from "@ethersproject/providers";
-import { BigNumber, Contract, ContractTransaction, ethers, Signer } from "ethers";
+import {
+  BigNumber,
+  Contract,
+  ContractTransaction,
+  ethers,
+  Signer,
+} from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import jarAbi from "../../Contracts/ABIs/jar.json";
-import { JarHarvestStats, PickleModel } from "../..";
-import { HistoricalYield, JarDefinition } from "../../model/PickleModelJson";
-import { getBalancerPerformance } from "../../protocols/BalancerUtil";
+import { ChainNetwork, JarHarvestStats, PickleModel } from "../..";
+import {
+  AssetProjectedApr,
+  HistoricalYield,
+  JarDefinition,
+} from "../../model/PickleModelJson";
+import {
+  calculateBalPoolAPRs,
+  getBalancerPerformance,
+  getPoolData,
+  PoolData,
+} from "../../protocols/BalancerUtil";
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import { AbstractJarBehavior, oneRewardSubtotal } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
 
-export abstract class BalancerJar extends AbstractJarBehavior {
+const balancerRewardTokens = {
+  arbitrum: ["bal", "pickle"],
+};
+
+export class BalancerJar extends AbstractJarBehavior {
+  poolData: PoolData | undefined;
+
+  async getDepositTokenPrice(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
+    if (!this.poolData) {
+      try {
+        this.poolData = await getPoolData(jar, model);
+      } catch (error) {
+        const msg = `Error in getDepositTokenPrice (${jar.details.apiKey}): ${error}`;
+        console.log(msg);
+        return 0;
+      }
+    }
+
+    return this.poolData.pricePerToken;
+  }
+
+  async getProjectedAprStats(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetProjectedApr> {
+    if (!this.poolData) this.poolData = await getPoolData(jar, model);
+    const res = await calculateBalPoolAPRs(jar, model, this.poolData);
+    const aprsPostFee = res.map((component) =>
+      this.createAprComponent(
+        component.name,
+        component.apr,
+        component.compoundable,
+      ),
+    );
+    return this.aprComponentsToProjectedApr(aprsPostFee);
+  }
+
   async getProtocolApy(
     definition: JarDefinition,
     model: PickleModel,
@@ -21,21 +76,35 @@ export abstract class BalancerJar extends AbstractJarBehavior {
   async getAssetHarvestData(
     definition: JarDefinition,
     model: PickleModel,
-    balance: BigNumber,
-    available: BigNumber,
+    balance: BigNumber, // total want balance in strategy+jar
+    available: BigNumber, // strategy want balance + jar earnable balance (95% of jar want balance)
     resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
-    const ret = await super.getAssetHarvestData(definition, model, balance, available, resolver);
-    const earnableInJar = await new Contract(definition.contract, jarAbi, resolver).available();
+    const ret = await super.getAssetHarvestData(
+      definition,
+      model,
+      balance,
+      available,
+      resolver,
+    );
+    const earnableInJar = await new Contract(
+      definition.contract,
+      jarAbi,
+      resolver,
+    ).available();
     const depositTokenDecimals = definition.depositToken.decimals
-        ? definition.depositToken.decimals : 18;
+      ? definition.depositToken.decimals
+      : 18;
     const depositTokenPrice: number = await model.priceOf(
-      definition.depositToken.addr,);
-    const availUSD: number = parseFloat(ethers.utils.formatUnits(
-      earnableInJar, depositTokenDecimals)) * depositTokenPrice;
+      definition.depositToken.addr,
+    );
+    const availUSD: number =
+      parseFloat(
+        ethers.utils.formatUnits(earnableInJar, depositTokenDecimals),
+      ) * depositTokenPrice;
     const less = ret.earnableUSD - availUSD;
     ret.earnableUSD = availUSD;
-    ret.balanceUSD = ret.balanceUSD - less;
+    ret.balanceUSD = less;
     return ret;
   }
 
@@ -49,14 +118,42 @@ export abstract class BalancerJar extends AbstractJarBehavior {
       bal: model.priceOfSync("bal"),
       pickle: model.priceOfSync("pickle"),
     };
+    let total = 0;
     try {
       const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
       await manager.fetchData(model.getDataStore());
-      return manager.claimableAmountUsd;
-    } catch( error ) {
+      total += manager.claimableAmountUsd;
+    } catch (error) {
       console.log(error);
-      return 0;
     }
+    const rewardTokens = balancerRewardTokens[jar.chain];
+    const rewardContracts: ethers.Contract[] = rewardTokens.map(
+      (x) =>
+        new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver),
+    );
+
+    const promises: Promise<any>[] = [];
+    for (let i = 0; i < rewardTokens.length; i++) {
+      promises.push(
+        rewardContracts[i]
+          .balanceOf(jar.details.strategyAddr)
+          .catch(() => BigNumber.from("0")),
+      );
+    }
+
+    const walletBalances: any[] = await Promise.all(promises);
+    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x));
+
+    walletBalances.forEach(
+      (walletBalance, i) =>
+        (total += oneRewardSubtotal(
+          BigNumber.from(0),
+          walletBalance,
+          rewardTokenPrices[i],
+          model.tokenDecimals(rewardTokens[i], jar.chain),
+        )),
+    );
+    return total;
   }
 
   getCustomHarvester(
@@ -95,10 +192,14 @@ export abstract class BalancerJar extends AbstractJarBehavior {
         console.log("[" + jar.details.apiKey + "] - Fetching claim data");
         const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
         await manager.fetchData(model.getDataStore());
-        console.log("[" + jar.details.apiKey + "] - About to claim distributions");
+        console.log(
+          "[" + jar.details.apiKey + "] - About to claim distributions",
+        );
         const claimTransaction: ContractTransaction =
-        await manager.claimDistributions();
-        console.log("[" + jar.details.apiKey + "] - Waiting for claim to verify");
+          await manager.claimDistributions();
+        console.log(
+          "[" + jar.details.apiKey + "] - Waiting for claim to verify",
+        );
         await claimTransaction.wait(3);
         const strategy = new ethers.Contract(
           jar.details.strategyAddr as string,
@@ -107,7 +208,9 @@ export abstract class BalancerJar extends AbstractJarBehavior {
         );
         console.log("[" + jar.details.apiKey + "] - Calling harvest");
         const ret = strategy.harvest(flags);
-        console.log("[" + jar.details.apiKey + "] - harvest called, returning result");
+        console.log(
+          "[" + jar.details.apiKey + "] - harvest called, returning result",
+        );
         return ret;
       },
     };

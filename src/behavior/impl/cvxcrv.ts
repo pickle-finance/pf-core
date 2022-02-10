@@ -27,33 +27,38 @@ export class CvxCrv extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["crv", "cvx", "3crv"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["crv", "cvx", "3crv"],
+      this.strategyAbi,
+    );
   }
 }
 
-const threeRewardAbi : any = [
+const threeRewardAbi: any = [
   {
-    "inputs": [],
-    "name": "getHarvestable",
-    "outputs": [
+    inputs: [],
+    name: "getHarvestable",
+    outputs: [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
-  }
+    stateMutability: "view",
+    type: "function",
+  },
 ];

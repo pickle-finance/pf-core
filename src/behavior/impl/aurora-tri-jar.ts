@@ -2,7 +2,10 @@ import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateTriFarmsAPY, triPoolV2Ids } from "../../protocols/TrisolarisUtil";
+import {
+  calculateTriFarmsAPY,
+  triPoolV2Ids,
+} from "../../protocols/TrisolarisUtil";
 import { triPoolIds, TRI_FARMS } from "../../protocols/TrisolarisUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 

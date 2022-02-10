@@ -1,7 +1,7 @@
 import { BigNumber, Contract, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20 from "../Contracts/ABIs/erc20.json";
-import { ChainNetwork, PickleModel } from "..";
+import { ChainNetwork, Chains, PickleModel } from "..";
 import fetch from "cross-fetch";
 import { readQueryFromGraphDetails } from "../graph/TheGraph";
 import {
@@ -10,7 +10,7 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
-// import { ARBITRUM_SECONDS_PER_BLOCK } from "../chain/Chains";
+import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 
 const balLMUrl =
   "https://raw.githubusercontent.com/balancer-labs/frontend-v2/master/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
@@ -23,7 +23,8 @@ function getCurrentLiquidityMiningWeek() {
   const dateLeft = toUtcTime(new Date());
   const dateRight = liquidityMiningStartTime;
   const diff = differenceInDays(dateLeft, dateRight) / 7;
-  const roundingFunc = (value: number) => (value < 0 ? Math.ceil(value) : Math.floor(value)); // Math.trunc is not supported by IE
+  const roundingFunc = (value: number) =>
+    value < 0 ? Math.ceil(value) : Math.floor(value); // Math.trunc is not supported by IE
   const diffInWeeksRet = roundingFunc(diff);
   return diffInWeeksRet + 1;
 }
@@ -54,41 +55,16 @@ type LiquidityMiningWeek = Array<{
   pools: LiquidityMiningPools;
 }>;
 
+// make sure keys are lower-cased!
 const balPoolIds: { [poolTokenAddress: string]: string } = {
   "0x64541216bafffeec8ea535bb71fbc927831d0595":
-    "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // bal tricrypto
+    "0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002", // arb bal tricrypto
   "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac":
-    "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017", // bal pickle-eth
-};
-
-interface Tokens {
-  [tokenAddres: string]: {
-    decimals: number;
-    priceId: string;
-  };
-}
-
-const TOKENS: Tokens = {
-  "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8": {
-    decimals: 18,
-    priceId: "bal",
-  },
-  "0x965772e0e9c84b6f359c8597c891108dcf1c5b1a": {
-    decimals: 18,
-    priceId: "pickle",
-  },
-  "0x82af49447d8a07e3bd95bd0d56f35241523fbab1": {
-    decimals: 18,
-    priceId: "weth",
-  },
-  "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8": {
-    priceId: "usdc",
-    decimals: 6,
-  },
-  "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f": {
-    priceId: "wbtc",
-    decimals: 8,
-  },
+    "0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017", // arb bal pickle-eth
+  "0xcc65a812ce382ab909a11e434dbf75b34f1cc59d":
+    "0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001", // arb bal-eth
+  "0xc61ff48f94d801c1ceface0289085197b5ec44f0":
+    "0xc61ff48f94d801c1ceface0289085197b5ec44f000020000000000000000004d", // arb vsta-eth
 };
 
 interface GraphResponse {
@@ -104,17 +80,32 @@ export interface PoolData {
 }
 
 export const queryTheGraph = async (
-  poolAddress: string,
+  jar: JarDefinition,
   blockNumber: number,
-): Promise<GraphResponse> => {
-  blockNumber -= 300; // safety buffer, the graph can take more than 1000 blocks to update!
-  const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${poolAddress}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
+): Promise<GraphResponse | undefined> => {
+  blockNumber -=
+    jar.chain === ChainNetwork.Ethereum
+      ? 30 // safety buffer, the graph on mainnet is quite instantaneous, but just to be safe
+      : jar.chain === ChainNetwork.Arbitrum
+      ? 5000 // safety buffer, the graph on arbitrum can take more than 1000 blocks to update!
+      : 0;
+  const query = `{ pools(first: 1, skip: 0, block: {number: ${blockNumber}}, where: {address_in: ["${jar.depositToken.addr}"]}) {\n    address\n    totalLiquidity\n    totalSwapFee\n  }\n}`;
   const res = await readQueryFromGraphDetails(
     query,
     AssetProtocol.BALANCER,
-    ChainNetwork.Arbitrum,
+    jar.chain,
   );
+  if (!res || !res.data || !res.data.pools || res.data.pools.length === 0) {
+    return undefined;
+  }
   const poolData = res?.data?.pools[0];
+  if (
+    poolData.address === undefined ||
+    poolData.totalLiquidity === undefined ||
+    poolData.totalSwapFee === undefined
+  ) {
+    return undefined;
+  }
   try {
     return {
       address: <string>poolData.address,
@@ -128,44 +119,53 @@ export const queryTheGraph = async (
 };
 
 export const getBalancerPoolDayAPY = async (
-  poolAddress: string,
+  jar: JarDefinition,
   model: PickleModel,
-) => {
+): Promise<number> => {
   // const arbBlocktime = ARBITRUM_SECONDS_PER_BLOCK   // TODO: uncomment this line once the value is corrected in Chains.ts
-  const arbBlocktime = 3; // in Chains.ts the value is set to 13
-  const provider = model.providerFor(ChainNetwork.Arbitrum);
-  const blockNum = await provider.getBlockNumber();
+  const blocktime =
+    jar.chain === ChainNetwork.Arbitrum
+      ? 3 // in Chains.ts the value is wrongly set to 13
+      : Chains.get(jar.chain).secondsPerBlock;
+  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
-  const blocksInDay = Math.round(secondsInDay / arbBlocktime);
-  const currentPoolDayDate = await queryTheGraph(poolAddress, blockNum);
-  const yesterdayPoolDayData = await queryTheGraph(
-    poolAddress,
+  const blocksInDay = Math.round(secondsInDay / blocktime);
+  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(
+    jar,
+    blockNum,
+  );
+  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(
+    jar,
     blockNum - blocksInDay,
   );
+  if (currentPoolDayDate === undefined || yesterdayPoolDayData === undefined) {
+    return 0;
+  }
+
   const lastDaySwapFee =
     currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
   const apy = (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
-
-  return { lp: apy };
+  return apy;
 };
 
 export const getBalancerPerformance = async (
   asset: JarDefinition,
   model: PickleModel,
 ): Promise<HistoricalYield> => {
-  const poolAddress = asset.depositToken.addr;
-  const arbBlocktime = 3; // in Chains.ts the value is set to 13
-  const provider = model.providerFor(asset.chain);
-  const blockNum = await provider.getBlockNumber();
+  const blocktime =
+    asset.chain === ChainNetwork.Arbitrum
+      ? 3 // in Chains.ts the value is wrongly set to 13
+      : Chains.get(asset.chain).secondsPerBlock;
+  const blockNum = await model.providerFor(asset.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
-  const blocksInDay = Math.round(secondsInDay / arbBlocktime);
+  const blocksInDay = Math.round(secondsInDay / blocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
     await Promise.all([
-      queryTheGraph(poolAddress, blockNum),
-      queryTheGraph(poolAddress, blockNum - blocksInDay),
-      queryTheGraph(poolAddress, blockNum - blocksInDay * 3),
-      queryTheGraph(poolAddress, blockNum - blocksInDay * 7),
-      queryTheGraph(poolAddress, blockNum - blocksInDay * 30),
+      queryTheGraph(asset, blockNum),
+      queryTheGraph(asset, blockNum - blocksInDay),
+      queryTheGraph(asset, blockNum - blocksInDay * 3),
+      queryTheGraph(asset, blockNum - blocksInDay * 7),
+      queryTheGraph(asset, blockNum - blocksInDay * 30),
     ]);
   const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
   const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
@@ -197,7 +197,7 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
       parseFloat(
         ethers.utils.formatUnits(
           balances[i],
-          TOKENS[tokenAddr.toLowerCase()].decimals,
+          model.tokenDecimals(tokenAddr, jar.chain),
         ),
       ),
     ];
@@ -223,7 +223,7 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
 };
 
 export const calculateBalPoolAPRs = async (
-  depositToken: string,
+  jar: JarDefinition,
   model: PickleModel,
   poolData: PoolData,
 ): Promise<AssetAprComponent[]> => {
@@ -253,13 +253,15 @@ export const calculateBalPoolAPRs = async (
   const { totalPoolValue } = poolData;
 
   const poolRewardsPerWeek =
-    miningRewards[balPoolIds[depositToken.toLowerCase()]];
+    miningRewards[balPoolIds[jar.depositToken.addr.toLowerCase()]];
   const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
     (reward) => {
       const rewardValue =
-        reward.amount *
-        model.priceOfSync(TOKENS[reward.tokenAddress.toLowerCase()].priceId);
-      const name = TOKENS[reward.tokenAddress.toLowerCase()].priceId;
+        reward.amount * model.priceOfSync(reward.tokenAddress);
+      const name = ExternalTokenModelSingleton.getToken(
+        reward.tokenAddress,
+        jar.chain,
+      ).id;
       const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
       return { name: name, apr: apr, compoundable: true };
     },
@@ -267,7 +269,7 @@ export const calculateBalPoolAPRs = async (
 
   const lp: AssetAprComponent = {
     name: "lp",
-    apr: (await getBalancerPoolDayAPY(depositToken, model)).lp,
+    apr: await getBalancerPoolDayAPY(jar, model),
     compoundable: false,
   };
 
@@ -276,61 +278,57 @@ export const calculateBalPoolAPRs = async (
   return poolAprComponents;
 };
 
-
 /*
  Stuff copied from somewhere else
  */
 
-
 function differenceInDays(
   dirtyDateLeft: Date | number,
-  dirtyDateRight: Date | number
+  dirtyDateRight: Date | number,
 ): number {
-
   const dateLeft = toDate(dirtyDateLeft);
-  const dateRight = toDate(dirtyDateRight)
+  const dateRight = toDate(dirtyDateRight);
 
-  const sign = compareLocalAsc(dateLeft, dateRight)
-  const difference = Math.abs(differenceInCalendarDays(dateLeft, dateRight))
+  const sign = compareLocalAsc(dateLeft, dateRight);
+  const difference = Math.abs(differenceInCalendarDays(dateLeft, dateRight));
 
-  dateLeft.setDate(dateLeft.getDate() - sign * difference)
+  dateLeft.setDate(dateLeft.getDate() - sign * difference);
 
   // Math.abs(diff in full days - diff in calendar days) === 1 if last calendar day is not full
   // If so, result must be decreased by 1 in absolute value
   const isLastDayNotFull = Number(
-    compareLocalAsc(dateLeft, dateRight) === -sign
-  )
-  const result = sign * (difference - isLastDayNotFull)
+    compareLocalAsc(dateLeft, dateRight) === -sign,
+  );
+  const result = sign * (difference - isLastDayNotFull);
   // Prevent negative zero
-  return result === 0 ? 0 : result
+  return result === 0 ? 0 : result;
 }
 
 export default function toDate(argument: Date | number): Date {
-
-  const argStr = Object.prototype.toString.call(argument)
+  const argStr = Object.prototype.toString.call(argument);
 
   // Clone the date
   if (
     argument instanceof Date ||
-    (typeof argument === 'object' && argStr === '[object Date]')
+    (typeof argument === "object" && argStr === "[object Date]")
   ) {
     // Prevent the date to lose the milliseconds when passed to new Date() in IE10
-    return new Date(argument.getTime())
-  } else if (typeof argument === 'number' || argStr === '[object Number]') {
-    return new Date(argument)
+    return new Date(argument.getTime());
+  } else if (typeof argument === "number" || argStr === "[object Number]") {
+    return new Date(argument);
   } else {
     if (
-      (typeof argument === 'string' || argStr === '[object String]') &&
-      typeof console !== 'undefined'
+      (typeof argument === "string" || argStr === "[object String]") &&
+      typeof console !== "undefined"
     ) {
       // eslint-disable-next-line no-console
       console.warn(
-        "Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule"
-      )
+        "Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule",
+      );
       // eslint-disable-next-line no-console
-      console.warn(new Error().stack)
+      console.warn(new Error().stack);
     }
-    return new Date(NaN)
+    return new Date(NaN);
   }
 }
 
@@ -342,41 +340,42 @@ function compareLocalAsc(dateLeft: Date, dateRight: Date): number {
     dateLeft.getHours() - dateRight.getHours() ||
     dateLeft.getMinutes() - dateRight.getMinutes() ||
     dateLeft.getSeconds() - dateRight.getSeconds() ||
-    dateLeft.getMilliseconds() - dateRight.getMilliseconds()
+    dateLeft.getMilliseconds() - dateRight.getMilliseconds();
 
   if (diff < 0) {
-    return -1
+    return -1;
   } else if (diff > 0) {
-    return 1
+    return 1;
     // Return 0 if diff is 0; return NaN if diff is NaN
   } else {
-    return diff
+    return diff;
   }
 }
 
-const MILLISECONDS_IN_DAY = 86400000
+const MILLISECONDS_IN_DAY = 86400000;
 function differenceInCalendarDays(
   dirtyDateLeft: Date | number,
-  dirtyDateRight: Date | number
+  dirtyDateRight: Date | number,
 ): number {
-  const startOfDayLeft = startOfDay(dirtyDateLeft)
-  const startOfDayRight = startOfDay(dirtyDateRight)
+  const startOfDayLeft = startOfDay(dirtyDateLeft);
+  const startOfDayRight = startOfDay(dirtyDateRight);
 
   const timestampLeft =
-    startOfDayLeft.getTime() - getTimezoneOffsetInMilliseconds(startOfDayLeft)
+    startOfDayLeft.getTime() - getTimezoneOffsetInMilliseconds(startOfDayLeft);
   const timestampRight =
-    startOfDayRight.getTime() - getTimezoneOffsetInMilliseconds(startOfDayRight)
+    startOfDayRight.getTime() -
+    getTimezoneOffsetInMilliseconds(startOfDayRight);
 
   // Round the number of days to the nearest integer
   // because the number of milliseconds in a day is not constant
   // (e.g. it's different in the day of the daylight saving time clock shift)
-  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY)
+  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY);
 }
 
 function startOfDay(dirtyDate: Date | number): Date {
-  const date = toDate(dirtyDate)
-  date.setHours(0, 0, 0, 0)
-  return date
+  const date = toDate(dirtyDate);
+  date.setHours(0, 0, 0, 0);
+  return date;
 }
 
 function getTimezoneOffsetInMilliseconds(date) {
@@ -388,9 +387,9 @@ function getTimezoneOffsetInMilliseconds(date) {
       date.getHours(),
       date.getMinutes(),
       date.getSeconds(),
-      date.getMilliseconds()
-    )
-  )
-  utcDate.setUTCFullYear(date.getFullYear())
-  return date.getTime() - utcDate.getTime()
+      date.getMilliseconds(),
+    ),
+  );
+  utcDate.setUTCFullYear(date.getFullYear());
+  return date.getTime() - utcDate.getTime();
 }

@@ -1,17 +1,18 @@
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import {
-  AssetProjectedApr,
-  JarDefinition,
-} from "../../model/PickleModelJson";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import { calculatePadFarmsAPY, padPoolIds, PAD_FARMS } from "../../protocols/NearpadUtil";
+import {
+  calculatePadFarmsAPY,
+  padPoolIds,
+  PAD_FARMS,
+} from "../../protocols/NearpadUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
 export abstract class AuroraPadJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
   constructor(strategyAbi: any) {
-    super(5,1);
+    super(5, 1);
     this.strategyAbi = strategyAbi;
   }
   async getHarvestableUSD(

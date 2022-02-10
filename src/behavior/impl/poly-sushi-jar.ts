@@ -16,8 +16,13 @@ export abstract class PolySushiJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["sushi", "matic"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi", "matic"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(
@@ -25,8 +30,13 @@ export abstract class PolySushiJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     return this.aprComponentsToProjectedApr(
-      (await calculatePolySushiAPY(definition, model))
-      .map( (component) => this.createAprComponent(component.name, component.apr, component.compoundable)),
+      (await calculatePolySushiAPY(definition, model)).map((component) =>
+        this.createAprComponent(
+          component.name,
+          component.apr,
+          component.compoundable,
+        ),
+      ),
     );
   }
 }

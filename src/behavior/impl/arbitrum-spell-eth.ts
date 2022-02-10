@@ -12,7 +12,7 @@ import {
 
 export class ArbitrumSpellEth extends AbstractJarBehavior {
   protected strategyAbi: any;
-  
+
   constructor() {
     super();
     this.strategyAbi = multiSushiStrategyAbi;
@@ -30,8 +30,13 @@ export class ArbitrumSpellEth extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(jar, model, resolver, 
-      ["sushi","spell"], this.strategyAbi);
+    return this.getHarvestableUSDDefaultImplementation(
+      jar,
+      model,
+      resolver,
+      ["sushi", "spell"],
+      this.strategyAbi,
+    );
   }
 
   async getProjectedAprStats(
@@ -42,7 +47,10 @@ export class ArbitrumSpellEth extends AbstractJarBehavior {
       calculateSushiApyArbitrum(jar, model),
       calculateMCv2ApyArbitrum(jar, model, "spell"),
     ]);
-    const lp: number = await calculateSushiswapLpApr(model, jar.depositToken.addr);
+    const lp: number = await calculateSushiswapLpApr(
+      model,
+      jar.depositToken.addr,
+    );
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lp, false),

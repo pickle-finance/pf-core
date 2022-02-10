@@ -9,7 +9,8 @@ export interface RawChain {
   network: string; // This must never change once created
   networkVisible: string; // This can change as we wish
   secondsPerBlock: number;
-  gasToken: string;
+  gasToken: string; // Coingecko API ID
+  gasTokenSymbol: string; // Token symbol
   explorer: string;
   rpcs: string[];
   multicallAddress?: string;
@@ -26,27 +27,30 @@ export enum ChainNetwork {
   Cronos = "cronos",
   Aurora = "aurora",
   Metis = "metis",
-  Moonbeam = "moonbeam"
+  Moonbeam = "moonbeam",
+  Optimism = "optimism",
   // ADD_CHAIN
   //Binance
 }
 export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   {
     chainId: 1,
-    network: "eth",
+    network: ChainNetwork.Ethereum,
     networkVisible: "Ethereum",
     secondsPerBlock: 13,
     gasToken: "ethereum",
+    gasTokenSymbol: "eth",
     explorer: "https://etherscan.io",
     rpcs: ["https://cloudflare-eth.com/"],
     defaultPerformanceFee: 0.2,
   },
   {
     chainId: 137,
-    network: "polygon",
+    network: ChainNetwork.Polygon,
     networkVisible: "Polygon",
     secondsPerBlock: 2,
     gasToken: "matic-network",
+    gasTokenSymbol: "matic",
     explorer: "https://polygonscan.com",
     rpcs: [
       "https://polygon-rpc.com",
@@ -58,10 +62,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 66,
-    network: "okex",
+    network: ChainNetwork.OKEx,
     networkVisible: "OEC",
     secondsPerBlock: 3,
     gasToken: "oec-token",
+    gasTokenSymbol: "okt",
     explorer: "https://www.oklink.com/en/oec",
     rpcs: ["https://exchainrpc.okex.org"],
     multicallAddress: "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa",
@@ -69,10 +74,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 42161,
-    network: "arbitrum",
+    network: ChainNetwork.Arbitrum,
     networkVisible: "Arbitrum",
     secondsPerBlock: 13,
     gasToken: "ethereum",
+    gasTokenSymbol: "eth",
     explorer: "https://arbiscan.io",
     rpcs: ["https://arb1.arbitrum.io/rpc"],
     multicallAddress: "0x813715eF627B01f4931d8C6F8D2459F26E19137E",
@@ -80,10 +86,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1666600000,
-    network: "harmony",
+    network: ChainNetwork.Harmony,
     networkVisible: "Harmony ONE",
     secondsPerBlock: 2,
     gasToken: "harmony",
+    gasTokenSymbol: "one",
     explorer: "https://explorer.harmony.one",
     rpcs: ["https://api.harmony.one"],
     multicallAddress: "0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9",
@@ -91,10 +98,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1285,
-    network: "moonriver",
+    network: ChainNetwork.Moonriver,
     networkVisible: "Moonriver",
     secondsPerBlock: 14,
     gasToken: "moonriver",
+    gasTokenSymbol: "movr",
     explorer: "https://moonriver.moonscan.io",
     rpcs: ["https://rpc.moonriver.moonbeam.network"],
     multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
@@ -102,10 +110,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 25,
-    network: "cronos",
+    network: ChainNetwork.Cronos,
     networkVisible: "Cronos",
     secondsPerBlock: 5.5,
-    gasToken: "cro",
+    gasToken: "crypto-com-chain",
+    gasTokenSymbol: "cro",
     explorer: "https://cronos.crypto.org/explorer",
     rpcs: ["https://evm-cronos.crypto.org"],
     multicallAddress: "0x0fA4d452693F2f45D28c4EC4d20b236C4010dA74",
@@ -113,10 +122,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1313161554,
-    network: "aurora",
+    network: ChainNetwork.Aurora,
     networkVisible: "Aurora",
     secondsPerBlock: 1,
-    gasToken: "eth",
+    gasToken: "ethereum",
+    gasTokenSymbol: "eth",
     explorer: "https://explorer.mainnet.aurora.dev/",
     rpcs: ["https://mainnet.aurora.dev"],
     multicallAddress: "0x60Ad579Fb20c8896b7b98E800cBA9e196E6eaA44",
@@ -124,24 +134,38 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
   },
   {
     chainId: 1088,
-    network: "metis",
+    network: ChainNetwork.Metis,
     networkVisible: "Metis",
     secondsPerBlock: 3.5,
     gasToken: "metis-token",
+    gasTokenSymbol: "metis",
     explorer: "https://andromeda-explorer.metis.io/",
     rpcs: ["https://andromeda.metis.io/?owner=1088"],
     multicallAddress: "0xa99850Ff94d3D333e7F669203Ab7B77Ec634028F",
-    defaultPerformanceFee: 0.1,
+    defaultPerformanceFee: 0.042,
   },
   {
     chainId: 1284,
-    network: "moonbeam",
+    network: ChainNetwork.Moonbeam,
     networkVisible: "Moonbeam",
-    secondsPerBlock: 12.1,
+    secondsPerBlock: 13.5,
     gasToken: "moonbeam",
-    explorer: "https://blockscout.moonbeam.network/",
+    gasTokenSymbol: "glmr",
+    explorer: "https://moonbeam.moonscan.io/",
     rpcs: ["https://rpc.api.moonbeam.network"],
     multicallAddress: "0xDad6760bd3FC33b741D46df1e205558BB22D1507",
+    defaultPerformanceFee: 0.1,
+  },
+  {
+    chainId: 10,
+    network: ChainNetwork.Optimism,
+    networkVisible: "Optimism",
+    secondsPerBlock: 13,
+    gasToken: "ethereum",
+    gasTokenSymbol: "eth",
+    explorer: "https://explorer.optimism.io/",
+    rpcs: ["https://mainnet.optimism.io"],
+    multicallAddress: "0xD0E99f15B24F265074747B2A1444eB02b9E30422",
     defaultPerformanceFee: 0.1,
   },
   // ADD_CHAIN

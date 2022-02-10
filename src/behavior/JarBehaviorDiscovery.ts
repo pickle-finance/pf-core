@@ -159,6 +159,10 @@ import {
   JAR_AURORA_ROSE_FRAX,
   JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH,
+  JAR_POLY_UNIV3_MATIC_ETH,
+  JAR_POLY_UNIV3_MATIC_USDC,
+  JAR_POLY_UNIV3_USDC_USDT,
+  JAR_POLY_UNIV3_WBTC_ETH,
   JAR_AURORA_BRL_ETH_BTC,
   JAR_UNIV2_LOOKS_ETH,
   JAR_METIS_NETSWAP_NETT_METIS,
@@ -189,8 +193,33 @@ import {
   JAR_MOONBEAM_STELLA_USDC_GLMR,
   JAR_MOONBEAM_STELLA_STELLA_USDC,
   JAR_MOONBEAM_STELLA_USDC_USDT,
+  JAR_MOONBEAM_BEAM_BNB_BUSD,
+  JAR_MOONBEAM_BEAM_BUSD_GLMR,
+  JAR_MOONBEAM_BEAM_BUSD_USDC,
+  JAR_MOONBEAM_BEAM_ETH_USDC,
+  JAR_MOONBEAM_BEAM_GLMR_GLINT,
+  JAR_MOONBEAM_BEAM_GLMR_USDC,
+  JAR_MOONBEAM_BEAM_USDC_USDT,
   JAR_METIS_HADES_METIS,
-  JAR_METIS_HELLSHARE_METIS
+  JAR_METIS_HELLSHARE_METIS,
+  JAR_OPTIMISM_ZIP_ETH_USDC,
+  JAR_OPTIMISM_ZIP_ETH_DAI,
+  JAR_OPTIMISM_ZIP_ETH_BTC,
+  JAR_OPTIMISM_ZIP_ETH_ZIP,
+  JAR_ARBITRUM_BAL_PICKLE_ETH,
+  JAR_ARBITRUM_BAL_ETH,
+  JAR_FLARE_FLARE_GLMR,
+  JAR_FLARE_FLARE_USDC,
+  JAR_FLARE_GLMR_ETH,
+  JAR_FLARE_GLMR_MOVR,
+  JAR_FLARE_GLMR_USDC,
+  JAR_FLARE_GLMR_WBTC,
+  JAR_MOVR_FINN_DOT_FINN,
+  JAR_MOVR_FINN_FINN_KSM,
+  JAR_MOVR_FINN_FINN_RMRK,
+  JAR_MOVR_FINN_MOVR_FINN,
+  JAR_MOVR_FINN_USDC_MOVR,
+  JAR_ARBITRUM_BAL_VSTA_ETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -246,7 +275,6 @@ import { Mim2Crv } from "./impl/mim2crv";
 import { ArbitrumMimEth } from "./impl/arbitrum-mim-eth";
 import { ArbitrumSpellEth } from "./impl/arbitrum-spell-eth";
 import { ArbitrumHndEth } from "./impl/arbitrum-hnd-eth";
-import { BalTricrypto } from "./impl/bal-tricrypto";
 import { CurveCvxCrv } from "./impl/crv-cvxcrv";
 import { PSlpWorkUsdc } from "./impl/pslp-work-usdc";
 import { CvxCrv } from "./impl/cvxcrv";
@@ -350,7 +378,7 @@ import { BrlUsdcNear } from "./impl/aurora-brl-usdc-near";
 import { BrlUsdtNear } from "./impl/aurora-brl-usdt-near";
 import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
 import { BrlUstNear } from "./impl/aurora-brl-ust-near";
-import { Uni3UsdcEth } from "./impl/univ3-usdc-eth";
+import { Univ3Base } from "./impl/univ3-base";
 import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
 import { LooksEth } from "./impl/looks-eth";
 import { NetswapNettMetis } from "./impl/metis-netswap-nett-metis";
@@ -381,8 +409,27 @@ import { StellaEthGlmr } from "./impl/stella-eth-glmr";
 import { StellaUsdcGlmr } from "./impl/stella-usdc-glmr";
 import { StellaStellaUsdc } from "./impl/stella-stella-usdc";
 import { StellaUsdcUsdt } from "./impl/stella-usdc-usdt";
+import { BeamBnbBusd } from "./impl/beam-bnb-busd";
+import { BeamBusdGlmr } from "./impl/beam-busd-glmr";
+import { BeamBusdUsdc } from "./impl/beam-busd-usdc";
+import { BeamEthUsdc } from "./impl/beam-eth-usdc";
+import { BeamGlmrGlint } from "./impl/beam-glmr-glint";
+import { BeamGlmrUsdc } from "./impl/beam-glmr-usdc";
+import { BeamUsdcUsdt } from "./impl/beam-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
+import { ZipswapEthUsdc } from "./impl/optimism-zip-eth-usdc";
+import { ZipswapEthDai } from "./impl/optimism-zip-eth-dai";
+import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
+import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
+import { BalancerJar } from "./impl/balancer-jar";
+import { MoonbeamFlareJar } from "./impl/flare-jar";
+import { FinnDotFinn } from './impl/movr-finn-dot-finn';
+import { FinnFinnKsm } from "./impl/movr-finn-finn-ksm";
+import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
+import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
+import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
+import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -431,12 +478,11 @@ jarToBehavior.set(JAR_UNI_RLY_ETH.id, new RlyEth());
 jarToBehavior.set(JAR_CURVE_CVXCRVLP.id, new CurveCvxCrv());
 jarToBehavior.set(JAR_CVXCRV.id, new CvxCrv());
 jarToBehavior.set(JAR_UNIV3_RBN_ETH.id, new Uni3RbnEth());
-jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth())
-jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth())
-jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc())
-jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth())
-jarToBehavior.set(JAR_LOOKS.id, new pLooks())
-
+jarToBehavior.set(JAR_CURVE_CRVETHLP.id, new CurveCrvEth());
+jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth());
+jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc());
+jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth());
+jarToBehavior.set(JAR_LOOKS.id, new pLooks());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
@@ -454,7 +500,11 @@ jarToBehavior.set(JAR_QUICK_QI_MIMATIC.id, new MimaticQi());
 jarToBehavior.set(JAR_QUICK_QI_MATIC.id, new MaticQi());
 jarToBehavior.set(JAR_IRON3USD.id, new Is3Usd());
 jarToBehavior.set(JAR_POLY_SUSHI_WORK_USDC.id, new PSlpWorkUsdc());
-jarToBehavior.set(JAR_POLY_UNIV3_USDC_ETH.id, new Uni3UsdcEth());
+jarToBehavior.set(JAR_POLY_UNIV3_USDC_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_POLY_UNIV3_MATIC_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_POLY_UNIV3_MATIC_USDC.id, new Univ3Base());
+jarToBehavior.set(JAR_POLY_UNIV3_USDC_USDT.id, new Univ3Base());
+jarToBehavior.set(JAR_POLY_UNIV3_WBTC_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_MATIC.id, new RaiderMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_WETH.id, new RaiderWeth());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_MATIC.id, new AurumMatic());
@@ -467,9 +517,12 @@ jarToBehavior.set(JAR_ARBITRUM_MIM2CRV.id, new Mim2Crv());
 jarToBehavior.set(JAR_ARBITRUM_CRV_TRICRYPTO.id, new CrvTricrypto());
 jarToBehavior.set(JAR_ARBITRUM_DODO_HND_ETH.id, new ArbitrumHndEth());
 jarToBehavior.set(JAR_ARBITRUM_DODO_USDC.id, new ArbitrumDodoUsdc());
-jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalTricrypto());
+jarToBehavior.set(JAR_ARBITRUM_BAL_TRICRYPTO.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_SLP_GOHM_ETH.id, new ArbitrumGohmEth());
 jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
+jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalancerJar());
+jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
+jarToBehavior.set(JAR_ARBITRUM_BAL_VSTA_ETH.id, new BalancerVstaEth());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());
@@ -509,6 +562,11 @@ jarToBehavior.set(JAR_MOVR_SOLAR_FRAX_MOVR.id, new SolarFraxMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_MIM_MOVR.id, new SolarMimMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_BNB_MOVR.id, new SolarBnbMovr());
 jarToBehavior.set(JAR_MOVR_SOLAR_ETH_MOVR.id, new SolarEthMovr());
+jarToBehavior.set(JAR_MOVR_FINN_DOT_FINN.id, new FinnDotFinn());
+jarToBehavior.set(JAR_MOVR_FINN_FINN_KSM.id, new FinnFinnKsm());
+jarToBehavior.set(JAR_MOVR_FINN_FINN_RMRK.id, new FinnFinnRmrk());
+jarToBehavior.set(JAR_MOVR_FINN_MOVR_FINN.id, new FinnMovrFinn());
+jarToBehavior.set(JAR_MOVR_FINN_USDC_MOVR.id, new FinnUsdcMovr());
 
 // Cronos
 jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
@@ -604,7 +662,25 @@ jarToBehavior.set(JAR_MOONBEAM_STELLA_ETH_GLMR.id, new StellaEthGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_GLMR.id, new StellaUsdcGlmr());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_STELLA_USDC.id, new StellaStellaUsdc());
 jarToBehavior.set(JAR_MOONBEAM_STELLA_USDC_USDT.id, new StellaUsdcUsdt());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_BNB_BUSD.id, new BeamBnbBusd());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_BUSD_USDC.id, new BeamBusdUsdc());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_BUSD_GLMR.id, new BeamBusdGlmr());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_ETH_USDC.id, new BeamEthUsdc());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_GLINT.id, new BeamGlmrGlint());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_GLMR_USDC.id, new BeamGlmrUsdc());
+jarToBehavior.set(JAR_MOONBEAM_BEAM_USDC_USDT.id, new BeamUsdcUsdt());
+jarToBehavior.set(JAR_FLARE_FLARE_GLMR.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_FLARE_USDC.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_ETH.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_MOVR.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_USDC.id, new MoonbeamFlareJar());
+jarToBehavior.set(JAR_FLARE_GLMR_WBTC.id, new MoonbeamFlareJar());
 
+// Optimism
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

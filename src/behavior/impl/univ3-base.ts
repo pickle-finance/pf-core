@@ -19,8 +19,10 @@ import {
 } from "../../protocols/Univ3/LiquidityMath";
 import { univ3StrategyABI } from "../../Contracts/ABIs/univ3Strategy.abi";
 
-
-export class Uni3UsdcEth extends AbstractJarBehavior {
+export class Univ3Base extends AbstractJarBehavior {
+  constructor() {
+    super();
+  }
   async getDepositTokenPrice(
     definition: JarDefinition,
     model: PickleModel,
@@ -41,8 +43,8 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
     definition.depositToken.totalSupply = definition.details.tokenBalance;
 
     const pJarUSD =
-      model.priceOfSync("usdc") * jarAmount0 +
-      model.priceOfSync("weth") * jarAmount1;
+      model.priceOfSync(definition.depositToken.components[0]) * jarAmount0 +
+      model.priceOfSync(definition.depositToken.components[1]) * jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }
@@ -72,13 +74,19 @@ export class Uni3UsdcEth extends AbstractJarBehavior {
       from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
     }); // This is Tsuke
 
-    const decimals0: number = _model.tokenDecimals("usdc", definition.chain);
-    const decimals1: number = _model.tokenDecimals("weth", definition.chain);
+    const decimals0: number = _model.tokenDecimals(
+      definition.depositToken.components[0],
+      definition.chain,
+    );
+    const decimals1: number = _model.tokenDecimals(
+      definition.depositToken.components[1],
+      definition.chain,
+    );
 
     const harvestableUSD =
-      _model.priceOfSync("usdc") *
+      _model.priceOfSync(definition.depositToken.components[0]) *
         parseFloat(ethers.utils.formatUnits(bal0, decimals0)) +
-      _model.priceOfSync("weth") *
+      _model.priceOfSync(definition.depositToken.components[1]) *
         parseFloat(ethers.utils.formatUnits(bal1, decimals1));
 
     return {

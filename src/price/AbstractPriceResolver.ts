@@ -53,7 +53,12 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
           aliases.push(value.coingeckoId);
           aliases.push(value.contractAddr);
         });
-        return { needle: needle, cgId: tmp[0].coingeckoId, aliases: aliases , swapPairs: tmp[0].swapPairs};
+        return {
+          needle: needle,
+          cgId: tmp[0].coingeckoId,
+          aliases: aliases,
+          swapPairs: tmp[0].swapPairs,
+        };
       }
     }
     return undefined;
@@ -134,15 +139,21 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     }
 
     if (missingIds.length > 0) {
-      const missingPrices = (await this.fetchPricesBySearchId(missingIds)) || new Map<string, number>();
-      const missingPairPrices = (await this.fetchPricesBySwapPairs(withAliases.filter(x => x.swapPairs.length > 0), chain)) || new Map<string, number>();
+      const missingPrices =
+        (await this.fetchPricesBySearchId(missingIds)) ||
+        new Map<string, number>();
+      const missingPairPrices =
+        (await this.fetchPricesBySwapPairs(
+          withAliases.filter((x) => x.swapPairs.length > 0),
+          chain,
+        )) || new Map<string, number>();
       const mergedPrices = new Map([...missingPrices, ...missingPairPrices]);
       for (const oneAsset of withAliases) {
         if (mergedPrices.has(oneAsset.cgId)) {
           const price = mergedPrices.get(oneAsset.cgId);
           if (price !== undefined) {
             this.addToCollector(oneAsset, price, collector);
-          } 
+          }
         }
       }
     }
@@ -181,7 +192,7 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     _chain: string,
   ): Promise<Map<string, number>> {
     return null;
-  };
+  }
 
   protected abstract fetchPricesByContracts(
     contractIds: string[],
@@ -196,9 +207,13 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
   async getPriceComponents(
     ids: string[],
     cache: PriceCache,
-    chain: ChainNetwork
+    chain: ChainNetwork,
   ): Promise<Map<string, IPriceComponents>> {
-    const prices: Map<string, number> = await this.getOrResolve(ids, cache, chain);
+    const prices: Map<string, number> = await this.getOrResolve(
+      ids,
+      cache,
+      chain,
+    );
     const ret: Map<string, IPriceComponents> = new Map<
       string,
       IPriceComponents

@@ -14,6 +14,7 @@ import {
 } from "./types";
 import fetch from "cross-fetch";
 import { PfDataStore } from "../../model/PickleModel";
+import { fulfillWithRetries } from "../../util/PromiseTimeout";
 
 export class BalancerTokenClaim {
   /**
@@ -138,25 +139,26 @@ export class BalancerTokenClaim {
    *
    * E.g. { 6: 'roothash', 7: 'roothash', 8: '0x00000...' }
    */
-  private getDistributionRootByWeek = async (): Promise<
-    DistributionRootByWeek
-  > => {
-    const weeks = Object.keys(this.claimsByWeek);
+  private getDistributionRootByWeek =
+    async (): Promise<DistributionRootByWeek> => {
+      const weeks = Object.keys(this.claimsByWeek);
 
-    const distributionRootCalls = weeks.map((week) =>
-      multicallContract.getDistributionRoot(
-        this.tokenClaimInfo.token,
-        this.tokenClaimInfo.distributor,
-        parseInt(week),
-      ),
-    );
+      const distributionRootCalls = weeks.map((week) =>
+        multicallContract.getDistributionRoot(
+          this.tokenClaimInfo.token,
+          this.tokenClaimInfo.distributor,
+          parseInt(week),
+        ),
+      );
 
-    const roots = await multicallProvider.all<string[]>(distributionRootCalls);
+      const roots = await multicallProvider.all<string[]>(
+        distributionRootCalls,
+      );
 
-    return Object.fromEntries(
-      weeks.map((week, i) => [parseInt(week), roots[i]]),
-    );
-  };
+      return Object.fromEntries(
+        weeks.map((week, i) => [parseInt(week), roots[i]]),
+      );
+    };
 
   // E.g. { 6: true, 7: false, 8: false }
   private getClaimStatusByWeek = async (): Promise<ClaimStatusByWeek> => {
@@ -187,8 +189,8 @@ export class BalancerTokenClaim {
       // Ignore distributions managed by the old contract (not MerkleOrchard).
       if (parseInt(week) < this.tokenClaimInfo.weekStart) continue;
 
-      const c1 = await this.fetchFromIpfs(hash);
-      if( c1 ) {
+      const c1 = await this.fetchFromIpfs(hash, true);
+      if (c1) {
         claimsByWeek[week] = c1;
       }
     }
@@ -203,15 +205,27 @@ export class BalancerTokenClaim {
     return await snapshot.json();
   };
 
-  private fetchFromIpfs = async (hash: string): Promise<Snapshot> => {
+  private fetchFromIpfs = async (
+    hash: string,
+    retryOnError: boolean,
+  ): Promise<Snapshot> => {
     const url = `https://ipfs.io/ipfs/${hash}`;
-    const res:string = await this.dataStoreFetchWrapper(url);
+    const res: string = await this.dataStoreFetchWrapper(url);
 
     try {
       const ret = await JSON.parse(res);
       return ret;
-    } catch(error) {
-      console.log("[BalancerTokenClaim]: " + error + "\n\nresponse from " + url + " was:\n" + res);
+    } catch (error) {
+      console.log(
+        "[BalancerTokenClaim]: " +
+          error +
+          "\n\nresponse from " +
+          url +
+          " was:\n" +
+          res,
+      );
+      await this.dataStore.writeData(url, undefined);
+      if (retryOnError) return this.fetchFromIpfs(hash, false);
     }
   };
 
@@ -228,35 +242,33 @@ export class BalancerTokenClaim {
 
   async dataStoreFetchWrapper(url: string): Promise<string> {
     const data: string = await this.dataStore.readData(url);
-    if( data ) {
+    if (data) {
       return data;
     }
 
     let response = undefined;
     try {
-      response = await fetch(url);
-    } catch( err ) {
+      response = await fulfillWithRetries([fetch, url], 5000, 3);
+    } catch (err) {
       // Ignore, error later
     }
 
-    if( response === undefined )
-      return undefined;
+    if (response === undefined) return undefined;
 
     let text = undefined;
     try {
       text = await response.text();
-    } catch( error ) {
+    } catch (error) {
       // Ignore, error later
     }
 
-    if( text === undefined )
-      return undefined;
+    if (text === undefined) return undefined;
 
     try {
       await this.dataStore.writeData(url, text);
-    } catch( error ) {
+    } catch (error) {
       // Ignore, error later
     }
-    return text;    
+    return text;
   }
 }
