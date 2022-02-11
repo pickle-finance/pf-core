@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { IExternalToken } from "../model/PickleModelJson";
 
@@ -1418,6 +1419,9 @@ export class ExternalTokenModel {
       "0xc165d941481e68696f43ee6e99bfb2b23e0e3114".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [
+        "0xD5fa400a24EB2EA55BC5Bd29c989E70fbC626FfF", // OXD-USDC
+      ],
     );
     this.addToken(
       ChainNetwork.Fantom,
@@ -1518,7 +1522,7 @@ export class ExternalTokenModel {
     let ret: ExternalToken = this.mapForChain(chain)?.get(id);
     if (ret === undefined) {
       // Search by contract
-      if (id.toLowerCase().startsWith("0x")) {
+      if (ethers.utils.isAddress(id)) {
         ret = this.findTokenFromContract(id);
       }
     }
