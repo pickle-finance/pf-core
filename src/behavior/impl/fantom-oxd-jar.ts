@@ -68,7 +68,7 @@ export class OxdJar extends AbstractJarBehavior {
         lpToken.balanceOf(OXD_FARMS),
       ]);
     const rewardsPerYear =
-      (parseFloat(formatEther(oxdPerSecondBN.rewardsPerSec[0])) *
+      (parseFloat(formatEther(oxdPerSecondBN)) *
         ONE_YEAR_IN_SECONDS *
         poolInfo.allocPoint.toNumber()) /
       totalAllocPointBN.toNumber();
