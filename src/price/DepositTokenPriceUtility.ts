@@ -17,7 +17,7 @@ import { Provider } from "@ethersproject/providers";
     (sushi, uni, curve, etc) or the few leftovers with no home. 
 */
 function isGenericSwapProtocol(protocol: string): boolean {
-  return SWAP_PROTOCOLS.filter((x) => x.toString() === protocol).length > 0;
+  return SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol).length > 0;
 }
 
 export async function getDepositTokenPriceForSwap(

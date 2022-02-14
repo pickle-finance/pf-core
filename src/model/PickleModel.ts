@@ -12,6 +12,7 @@ import {
   PickleModelJson,
   PlatformData,
   StandaloneFarmDefinition,
+  SWAP_PROTOCOLS,
 } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
@@ -331,6 +332,18 @@ export class PickleModel {
     return undefined;
   }
 
+  loadSwapData() {
+    for (let i = 0; i < this.allAssets.length; i++) {
+      let swapProtocol = SWAP_PROTOCOLS.find((x) => {
+        return x.protocol == this.allAssets[i].protocol && x.chain == this.allAssets[i].chain;
+      });
+
+      if (swapProtocol) {
+        this.allAssets[i].swapProtocol = swapProtocol;
+      }
+    }
+  }
+
   async generateFullApi(): Promise<PickleModelJson> {
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
@@ -343,6 +356,8 @@ export class PickleModel {
     return this.toJson();
   }
   async loadJarAndFarmData(): Promise<void> {
+    this.loadSwapData();
+    
     await Promise.all([
       this.ensurePriceCacheLoaded(),
       this.loadStrategyData(),

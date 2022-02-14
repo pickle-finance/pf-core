@@ -42,29 +42,151 @@ export enum AssetProtocol {
   // ADD_PROTOCOL
 }
 
-export const SWAP_PROTOCOLS: AssetProtocol[] = [
-  AssetProtocol.SUSHISWAP,
-  AssetProtocol.UNISWAP,
-  AssetProtocol.COMETHSWAP,
-  AssetProtocol.QUICKSWAP,
-  AssetProtocol.DODOSWAP,
-  AssetProtocol.CHERRYSWAP,
-  AssetProtocol.BXH,
-  AssetProtocol.JSWAP,
-  AssetProtocol.SOLARSWAP,
-  AssetProtocol.VVS,
-  AssetProtocol.TRISOLARIS,
-  AssetProtocol.NEARPAD,
-  AssetProtocol.WANNASWAP,
-  AssetProtocol.ROSE,
-  AssetProtocol.AURORASWAP,
-  AssetProtocol.NETSWAP,
-  AssetProtocol.TETHYS,
-  AssetProtocol.STELLA,
-  AssetProtocol.ZIPSWAP,
-  AssetProtocol.BEAM,
-  AssetProtocol.FLARE,
-  AssetProtocol.FINN,
+export const SWAP_PROTOCOLS: SwapProtocol[] = [
+  {
+    protocol: AssetProtocol.SUSHISWAP,
+    chain: ChainNetwork.Polygon,
+    zappable: true,
+    router: "0x93bcDc45f7e62f89a8e901DC4A0E2c6C427D9F25",
+  },
+  {
+    protocol: AssetProtocol.SUSHISWAP,
+    chain: ChainNetwork.Arbitrum,
+    zappable: true,
+    router: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
+  },
+  {
+    protocol: AssetProtocol.SUSHISWAP,
+    chain: ChainNetwork.Harmony,
+    zappable: true,
+    router: "one17qf8q2jlpe2qz5mze09zdgn0ey92sv4r323k20",
+  },
+  {
+    protocol: AssetProtocol.UNISWAP,
+    chain: ChainNetwork.Ethereum,
+    zappable: true,
+    router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+  },
+  {
+    protocol: AssetProtocol.COMETHSWAP,
+    chain: ChainNetwork.Polygon,
+    zappable: false,
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.QUICKSWAP,
+    chain: ChainNetwork.Polygon,
+    zappable: true,
+    router: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+  },
+  {
+    protocol: AssetProtocol.DODOSWAP,
+    chain: ChainNetwork.Arbitrum,
+    zappable: false,
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.CHERRYSWAP,
+    chain: ChainNetwork.OKEx,
+    zappable: true,
+    router: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+  },
+  {
+    protocol: AssetProtocol.BXH,
+    chain: ChainNetwork.OKEx,
+    zappable: false,
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.JSWAP,
+    chain: ChainNetwork.OKEx,
+    zappable: true,
+    router: "0x069A306A638ac9d3a68a6BD8BE898774C073DCb3",
+  },
+  {
+    protocol: AssetProtocol.SOLARSWAP,
+    chain: ChainNetwork.Moonriver,
+    zappable: false,
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.VVS,
+    chain: ChainNetwork.Cronos,
+    zappable: true,
+    router: "0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae",
+  },
+  {
+    protocol: AssetProtocol.TRISOLARIS,
+    chain: ChainNetwork.Aurora,
+    zappable: true,
+    router: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+  },
+  {
+    protocol: AssetProtocol.NEARPAD,
+    chain: ChainNetwork.Aurora,
+    zappable: false,
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.WANNASWAP,
+    chain: ChainNetwork.Aurora,
+    zappable: true,
+    router: "0xa3a1eF5Ae6561572023363862e238aFA84C72ef5",
+  },
+  {
+    protocol: AssetProtocol.ROSE,
+    chain: ChainNetwork.Aurora,
+    zappable: false,
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.AURORASWAP,
+    chain: ChainNetwork.Aurora,
+    zappable: true,
+    router: "0xA1B1742e9c32C7cAa9726d8204bD5715e3419861",
+  },
+  {
+    protocol: AssetProtocol.NETSWAP,
+    chain: ChainNetwork.Metis,
+    zappable: true,
+    router: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+  },
+  {
+    protocol: AssetProtocol.TETHYS,
+    chain: ChainNetwork.Metis,
+    zappable: true,
+    router: "0x81b9FA50D5f5155Ee17817C21702C3AE4780AD09",
+  },
+  {
+    protocol: AssetProtocol.STELLA,
+    chain: ChainNetwork.Moonbeam,
+    zappable: true,
+    router: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1",
+  },
+  {
+    protocol: AssetProtocol.ZIPSWAP,
+    chain: ChainNetwork.Optimism,
+    zappable: true,
+    router: "0xE6Df0BB08e5A97b40B21950a0A51b94c4DbA0Ff6",
+  },
+  {
+    protocol: AssetProtocol.BEAM,
+    chain: ChainNetwork.Moonbeam,
+    zappable: true,
+    router: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+  },
+  {
+    protocol: AssetProtocol.FLARE,
+    chain: ChainNetwork.Moonbeam,
+    zappable: true,
+    router: "0xd3B02Ff30c218c7f7756BA14bcA075Bf7C2C951e",
+  },
+  {
+    protocol: AssetProtocol.FINN,
+    chain: ChainNetwork.Moonriver,
+    zappable: true,
+    router: "0x2d4e873f9Ab279da9f1bb2c532d4F06f67755b77",
+  },
   // ADD_PROTOCOL
 ];
 
@@ -96,6 +218,13 @@ export enum AssetType {
   EXTERNAL = "external",
 }
 
+export interface SwapProtocol {
+  chain: ChainNetwork;
+  protocol: AssetProtocol;
+  zappable: boolean;
+  router: string;
+}
+
 export interface DepositTokenStyle {
   erc20: boolean;
 }
@@ -118,6 +247,10 @@ export interface DepositToken {
   componentAddresses?: string[];
   style?: DepositTokenStyle;
   price?: number;
+  nativePaths?: {
+    path: string[];
+    target: string;
+  }[]
 }
 
 export interface PickleAsset {
@@ -128,6 +261,7 @@ export interface PickleAsset {
   enablement: AssetEnablement;
   chain: ChainNetwork;
   protocol: AssetProtocol;
+  swapProtocol?: SwapProtocol; 
   aprStats?: AssetProjectedApr;
   details: AssetDetails;
   tags?: string[];
