@@ -5253,9 +5253,9 @@ export const JAR_MOONBEAM_STELLA_USDC_BNB: JarDefinition = {
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055",
     components: ["usdc", "bnb"],
     nativePath: {
-      //Stella Router --> WGLMR, BNB
-      target: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055"]
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
     }
   },
   enablement: AssetEnablement.ENABLED,
@@ -5307,6 +5307,11 @@ export const JAR_MOONBEAM_STELLA_USDC_DAI: JarDefinition = {
     name: "STELLA USDC/DAI",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0x765277EebeCA2e31912C9946eAe1021199B39C61",
     components: ["usdc", "dai"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5382,6 +5387,11 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
     name: "STELLA STELLA/USDC",
     link: "https://app.stellaswap.com/exchange/add/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["stella", "usdc"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5407,6 +5417,11 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
     name: "STELLA USDC/USDT",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73",
     components: ["usdc", "usdt"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5432,6 +5447,11 @@ export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
     name: "BEAM BNB/BUSD",
     link: "https://app.beamswap.io/exchange/add/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F",
     components: ["bnb", "busd"],
+    nativePath: {
+      //Stella Router --> WGLMR, BUSD
+      target: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xa649325aa7c5093d12d6f98eb4378deae68ce23f"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5482,6 +5502,11 @@ export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
     name: "BEAM BUSD/USDC",
     link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["busd", "usdc"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5507,6 +5532,11 @@ export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
     name: "BEAM ETH/USDC",
     link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["eth", "usdc"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5582,6 +5612,11 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
     name: "BEAM USDC/USDT",
     link: "https://app.beamswap.io/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73",
     components: ["usdc", "usdt"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
