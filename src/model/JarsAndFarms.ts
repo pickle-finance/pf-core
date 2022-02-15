@@ -2189,7 +2189,7 @@ export const JAR_ARBITRUM_BAL_PICKLE_ETH: JarDefinition = {
     link: "https://arbitrum.balancer.fi/#/pool/0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017/invest",
     components: ["pickle", "weth"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
@@ -2215,7 +2215,7 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
     link: "https://arbitrum.balancer.fi/#/pool/0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001/invest",
     components: ["bal", "weth"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
