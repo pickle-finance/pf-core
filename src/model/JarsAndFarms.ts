@@ -5955,7 +5955,7 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
     link: "https://spookyswap.finance/add/0xc165d941481e68696f43EE6E99BFB2B23E0E3114/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["oxd", "usdc"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -5980,7 +5980,7 @@ export const JAR_FANTOM_OXD: JarDefinition = {
     link: "https://spookyswap.finance/swap?inputCurrency=0x04068DA6C83AFCFA0e13ba15A6696662335D5B75&outputCurrency=0xc165d941481e68696f43EE6E99BFB2B23E0E3114",
     components: ["oxd"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -6005,7 +6005,7 @@ export const JAR_FANTOM_TOMB: JarDefinition = {
     link: "https://spookyswap.finance/swap?inputCurrency=ETH&outputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
     components: ["tomb"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -6030,7 +6030,7 @@ export const JAR_FANTOM_LQDR: JarDefinition = {
     link: "https://spookyswap.finance/swap?inputCurrency=ETH&outputCurrency=0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9",
     components: ["lqdr"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -6055,7 +6055,7 @@ export const JAR_FANTOM_XBOO: JarDefinition = {
     link: "https://spookyswap.finance/pools",
     components: ["boo"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -6080,7 +6080,7 @@ export const JAR_FANTOM_XCREDIT: JarDefinition = {
     link: "https://revenant.finance/creditum/farm",
     components: ["credit"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -6105,7 +6105,7 @@ export const JAR_FANTOM_XSCREAM: JarDefinition = {
     link: "https://scream.sh/stake",
     components: ["scream"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -6130,7 +6130,7 @@ export const JAR_FANTOM_XTAROT: JarDefinition = {
     link: "https://www.tarot.to/stake",
     components: ["tarot"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
