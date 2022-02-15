@@ -247,10 +247,10 @@ export interface DepositToken {
   componentAddresses?: string[];
   style?: DepositTokenStyle;
   price?: number;
-  nativePaths?: {
+  nativePath?: {
     path: string[];
     target: string;
-  }[]
+  }
 }
 
 export interface PickleAsset {

@@ -332,14 +332,35 @@ export class PickleModel {
     return undefined;
   }
 
+  getNativeComponent(components: string[], chain: ChainNetwork): ExternalToken | undefined {
+    for (let i = 0; i < components.length; i++) {
+      let token = ExternalTokenModelSingleton.getToken(components[i], chain)
+      if (token.isNativeToken) {
+        return token;
+      }
+    }
+  }
+
   loadSwapData() {
     for (let i = 0; i < this.allAssets.length; i++) {
+      let chain = this.allAssets[i].chain;
+      let protocol = this.allAssets[i].protocol;
+
       let swapProtocol = SWAP_PROTOCOLS.find((x) => {
-        return x.protocol == this.allAssets[i].protocol && x.chain == this.allAssets[i].chain;
+        return x.protocol == protocol && x.chain == chain;
       });
 
       if (swapProtocol) {
         this.allAssets[i].swapProtocol = swapProtocol;
+
+        // Add path for native pairs
+        let nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
+        if (nativeComponent) {
+          this.allAssets[i].depositToken.nativePath = {
+            target: nativeComponent.contractAddr,
+            path: [],
+          }
+        }
       }
     }
   }
@@ -357,7 +378,7 @@ export class PickleModel {
   }
   async loadJarAndFarmData(): Promise<void> {
     this.loadSwapData();
-    
+
     await Promise.all([
       this.ensurePriceCacheLoaded(),
       this.loadStrategyData(),

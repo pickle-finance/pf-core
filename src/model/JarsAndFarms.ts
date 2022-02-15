@@ -5227,12 +5227,6 @@ export const JAR_MOONBEAM_STELLA_GLMR: JarDefinition = {
     name: "STELLA STELLA/GLMR",
     link: "https://app.stellaswap.com/exchange/add/ETH/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2",
     components: ["stella", "glmr"],
-    nativePaths: [
-      {
-        target: "0xacc15dc74880c9944775448304b263d191c6077f", //WGLMR
-        path: []
-      },
-    ]
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5258,16 +5252,11 @@ export const JAR_MOONBEAM_STELLA_USDC_BNB: JarDefinition = {
     name: "STELLA USDC/BNB",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055",
     components: ["usdc", "bnb"],
-    nativePaths: [
-      {
-        target: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1", //Stella Router
-        path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055"] //WGLMR, BNB
-      },
-      {
-        target: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1", //Stella Router
-        path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0a7fe18ff94269904fced6ae3dae6d6dc0b"] //WGLMR, USDC
-      },
-    ]
+    nativePath: {
+      //Stella Router --> WGLMR, BNB
+      target: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
