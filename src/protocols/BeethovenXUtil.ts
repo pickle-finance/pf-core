@@ -19,7 +19,7 @@ import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 const VAULT_ADDRESS = "0x20dd72Ed959b6147912C2e529F0a0C651c33c9ce";
 export const MC_ADDRESS = "0x8166994d9ebBe5829EC86Bd81258149B87faCfd3";
 
-// make sure keys are lower-cased!
+// make sure keys are lower-cased! (TODO: replace with the checksummed version)
 const vaultPoolIds: { [poolTokenAddress: string]: string } = {
   "0xd47d2791d3b46f9452709fa41855a045304d6f9d":
     "0xd47d2791d3b46f9452709fa41855a045304d6f9d000100000000000000000004", // ftm-btc-eth
@@ -37,6 +37,7 @@ const vaultPoolIds: { [poolTokenAddress: string]: string } = {
     "0xcde5a11a4acb4ee4c805352cec57e236bdbc3837000200000000000000000019", // beets-ftm
 };
 
+// make sure keys are lower-cased! (TODO: replace with the checksummed version)
 export const masterChefIds: { [tokenAddress: string]: number } = {
   "0xd47d2791d3b46f9452709fa41855a045304d6f9d": 1, // ftm-btc-eth
   "0x5e02ab5699549675a6d3beeb92a62782712d0509": 36, // lqdr-ftm
@@ -44,11 +45,11 @@ export const masterChefIds: { [tokenAddress: string]: number } = {
   "0xf3a602d30dcb723a74a0198313a7551feaca7dac": 17, // usdc-ftm-btc-eth
   "0x9af1f0e9ac9c844a4a4439d446c1437807183075": 26, // ftm-matic-sol-avax-luna-bnb
   "0xcdf68a4d525ba2e90fe959c74330430a5a6b8226": 8, // ftm-usdc
-  "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1": 22, // fBeets (beets-ftm)
+  "0xfcef8a994209d6916eb2c86cdd2afd60aa6f54b1": 22, // fBeets (beets-ftm)
 };
 
-const fBeets = "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1";
-const fBeetsUnderlying = "0xcdE5a11a4ACB4eE4c805352Cec57E236bdBC3837"; // beets-ftm
+export const fBeets = "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1";
+export const fBeetsUnderlying = "0xcdE5a11a4ACB4eE4c805352Cec57E236bdBC3837"; // beets-ftm
 
 interface GraphResponse {
   address: string;
@@ -228,7 +229,6 @@ export const calculateBalPoolAPRs = async (
     (parseFloat(ethers.utils.formatEther(beetsPerBlockBN)) *
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
-  // const pricePerToken = await model.priceOf(jar.depositToken.addr);
   const blocksPerYear =
     ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
   const rewardsPerYear = rewardsPerBlock * blocksPerYear;
