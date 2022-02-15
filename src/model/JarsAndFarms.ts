@@ -5951,7 +5951,7 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
   contract: "0xF00BFC776c215383e4CAD253b94d7c09E2739Be5",
   depositToken: {
     addr: "0xD5fa400a24EB2EA55BC5Bd29c989E70fbC626FfF",
-    name: "BOO OXD/USDC",
+    name: "BOO 0XD/USDC",
     link: "https://spookyswap.finance/add/0xc165d941481e68696f43EE6E99BFB2B23E0E3114/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["oxd", "usdc"],
   },
@@ -5964,11 +5964,186 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
   },
   farm: {
     farmAddress: NULL_ADDRESS,
-    farmNickname: "pSLP OXD/USDC",
-    farmDepositTokenName: "pSLP OXD/USDC",
+    farmNickname: "pSLP 0XD/USDC",
+    farmDepositTokenName: "pSLP 0XD/USDC",
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_OXD_USDC);
+
+export const JAR_FANTOM_OXD: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1b",
+  contract: "0x22fe9Fcad85D8F00451525320D90A31EB9F511C5",
+  depositToken: {
+    addr: "0xc165d941481e68696f43EE6E99BFB2B23E0E3114",
+    name: "0XD",
+    link: "https://spookyswap.finance/swap?inputCurrency=0x04068DA6C83AFCFA0e13ba15A6696662335D5B75&outputCurrency=0xc165d941481e68696f43EE6E99BFB2B23E0E3114",
+    components: ["oxd"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD",
+    farmDepositTokenName: "0XD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_OXD);
+
+export const JAR_FANTOM_TOMB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1c",
+  contract: "0xF1703cB77Dae74399400610426695410aBBE496B",
+  depositToken: {
+    addr: "0x6c021Ae822BEa943b2E66552bDe1D2696a53fbB7",
+    name: "0XD TOMB",
+    link: "https://spookyswap.finance/swap?inputCurrency=ETH&outputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
+    components: ["tomb"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD-TOMB",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD TOMB",
+    farmDepositTokenName: "0XD TOMB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_TOMB);
+
+export const JAR_FANTOM_LQDR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1d",
+  contract: "0x076684bD15a1925598749D59141B3Faf7C3CCe63",
+  depositToken: {
+    addr: "0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9",
+    name: "0XD LQDR",
+    link: "https://spookyswap.finance/swap?inputCurrency=ETH&outputCurrency=0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9",
+    components: ["lqdr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD-LQDR",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD LQDR",
+    farmDepositTokenName: "0XD LQDR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR);
+
+export const JAR_FANTOM_XBOO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1e",
+  contract: "0x6AED57724eC1F3055F0b24F197AFf1Be47d344e3",
+  depositToken: {
+    addr: "0xa48d959AE2E88f1dAA7D5F611E01908106dE7598",
+    name: "0XD XBOO",
+    link: "https://spookyswap.finance/pools",
+    components: ["boo"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD-XBOO",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD XBOO",
+    farmDepositTokenName: "0XD XBOO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_XBOO);
+
+export const JAR_FANTOM_XCREDIT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1f",
+  contract: "0x8514346F8E07d57beA5401c557f57cDb93B98f3E",
+  depositToken: {
+    addr: "0xd9e28749e80D867d5d14217416BFf0e668C10645",
+    name: "0XD XCREDIT",
+    link: "https://revenant.finance/creditum/farm",
+    components: ["credit"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD-XCREDIT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD XCREDIT",
+    farmDepositTokenName: "0XD XCREDIT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_XCREDIT);
+
+export const JAR_FANTOM_XSCREAM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1g",
+  contract: "0x49f2a27d516c3c2Aa87eEFB73c5d01Bd34F88ac1",
+  depositToken: {
+    addr: "0xe3D17C7e840ec140a7A51ACA351a482231760824",
+    name: "0XD XSCREAM",
+    link: "https://scream.sh/stake",
+    components: ["scream"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD-XSCREAM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD XSCREAM",
+    farmDepositTokenName: "0XD XSCREAM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_XSCREAM);
+
+export const JAR_FANTOM_XTAROT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 1h",
+  contract: "0xAc531A6384708178845DCd8F0Eb5CDF094BF2f79",
+  depositToken: {
+    addr: "0x74D1D2A851e339B8cB953716445Be7E8aBdf92F4",
+    name: "0XD XTAROT",
+    link: "https://www.tarot.to/stake",
+    components: ["tarot"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.OXD,
+  details: {
+    apiKey: "OXD-XTAROT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "0XD XTAROT",
+    farmDepositTokenName: "0XD XTAROT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_XTAROT);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

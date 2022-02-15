@@ -1439,8 +1439,54 @@ export class ExternalTokenModel {
       6,
       ExternalTokenFetchStyle.ID,
     );
-
-
+    this.addToken(
+      ChainNetwork.Fantom,
+      "tomb",
+      "tomb",
+      "0x6c021ae822bea943b2e66552bde1d2696a53fbb7".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "lqdr",
+      "liquiddriver",
+      "0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "boo",
+      "spookyswap",
+      "0x841fad6eae12c286d1fd18d1d525dffa75c7effe".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "credit",
+      "creditum",
+      "0x77128dfdd0ac859b33f44050c6fa272f34872b5e".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "scream",
+      "scream",
+      "0xe0654c8e6fd4d733349ac7e09f6f23da256bf475".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "tarot",
+      "tarot",
+      "0xc5e2b037d30a390e62180970b3aa4e91868764cd".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

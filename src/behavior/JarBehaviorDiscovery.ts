@@ -221,6 +221,13 @@ import {
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
   JAR_FANTOM_OXD_USDC,
+  JAR_FANTOM_LQDR,
+  JAR_FANTOM_XBOO,
+  JAR_FANTOM_XCREDIT,
+  JAR_FANTOM_XSCREAM,
+  JAR_FANTOM_OXD,
+  JAR_FANTOM_XTAROT,
+  JAR_FANTOM_TOMB,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -432,6 +439,13 @@ import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
 import { OxdJar } from "./impl/fantom-oxd-jar";
+import { OxdLqdr } from "./impl/fantom-oxd-lqdr";
+import { OxdXboo } from "./impl/fantom-oxd-xboo";
+import { OxdXcredit } from "./impl/fantom-oxd-xcredit";
+import { OxdXscream } from "./impl/fantom-oxd-xscream";
+import { OxdSingle } from "./impl/fantom-oxd";
+import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
+import { OxdTomb } from "./impl/fantom-oxd-tomb";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -686,6 +700,14 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
+jarToBehavior.set(JAR_FANTOM_LQDR.id, new OxdLqdr());
+jarToBehavior.set(JAR_FANTOM_XBOO.id, new OxdXboo());
+jarToBehavior.set(JAR_FANTOM_XCREDIT.id, new OxdXcredit());
+jarToBehavior.set(JAR_FANTOM_XSCREAM.id, new OxdXscream());
+jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
+jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
+jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

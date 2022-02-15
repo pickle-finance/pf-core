@@ -39,6 +39,8 @@ export enum AssetProtocol {
   BEAM = "Beamswap",
   FLARE = "Solarflare",
   FINN = "Finn",
+  SPOOKYSWAP = "Spookyswap",
+  OXD = "0xDAO"
   // ADD_PROTOCOL
 }
 
