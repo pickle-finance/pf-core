@@ -350,17 +350,20 @@ export class PickleModel {
         return x.protocol == protocol && x.chain == chain;
       });
 
-      if (swapProtocol) {
-        this.allAssets[i].swapProtocol = swapProtocol;
+      // Guard clause 1
+      if (!swapProtocol) continue;
 
-        // Add path for native pairs
-        let nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
-        if (nativeComponent) {
-          this.allAssets[i].depositToken.nativePath = {
-            target: nativeComponent.contractAddr,
-            path: [],
-          }
-        }
+      this.allAssets[i].swapProtocol = swapProtocol;
+
+      // Add path for native pairs
+      let nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
+
+      // Guard clause 2
+      if (!nativeComponent) continue;
+
+      this.allAssets[i].depositToken.nativePath = {
+        target: nativeComponent.contractAddr,
+        path: [],
       }
     }
   }
