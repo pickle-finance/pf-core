@@ -40,7 +40,8 @@ export enum AssetProtocol {
   FLARE = "Solarflare",
   FINN = "Finn",
   SPOOKYSWAP = "Spookyswap",
-  OXD = "0xDAO"
+  OXD = "0xDAO",
+  BEETHOVENX = "BeethovenX",
   // ADD_PROTOCOL
 }
 

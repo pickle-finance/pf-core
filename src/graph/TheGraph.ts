@@ -41,6 +41,7 @@ const SUBGRAPH_URL_LOOKS =
 const SUBGRAPH_BEAMSWAP =
   "https://api.thegraph.com/subgraphs/name/beamswap/beamswap-dex";
 const SUBGRAPH_SOLARFLARE = "https://analytics.solarflare.io/api/subgraph";
+const SUBGRAPH_BEETHOVENX = "https://graph-node.beets-ftm-node.com/subgraphs/name/beethovenx/graphql";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -118,6 +119,8 @@ export function graphUrlFromDetails(
         }
         break;
       }
+    case AssetProtocol.BEETHOVENX:
+      return SUBGRAPH_BEETHOVENX;
       // ADD_PROTOCOL
       return undefined;
   }
