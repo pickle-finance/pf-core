@@ -334,7 +334,7 @@ export class PickleModel {
 
   getNativeComponent(components: string[], chain: ChainNetwork): ExternalToken | undefined {
     for (let i = 0; i < components.length; i++) {
-      let token = ExternalTokenModelSingleton.getToken(components[i], chain)
+      const token = ExternalTokenModelSingleton.getToken(components[i], chain)
       if (token.isNativeToken) {
         return token;
       }
@@ -343,20 +343,20 @@ export class PickleModel {
 
   loadSwapData() {
     for (let i = 0; i < this.allAssets.length; i++) {
-      let chain = this.allAssets[i].chain;
-      let protocol = this.allAssets[i].protocol;
+      const chain = this.allAssets[i].chain;
+      const protocol = this.allAssets[i].protocol;
 
-      let swapProtocol = SWAP_PROTOCOLS.find((x) => {
+      const swapProtocol = SWAP_PROTOCOLS.find((x) => {
         return x.protocol == protocol && x.chain == chain;
       });
 
       // Guard clause 1
       if (!swapProtocol) continue;
 
-      this.allAssets[i].swapProtocol = swapProtocol;
+      this.allAssets[i].depositToken.isSwapProtocol = true;
 
       // Add path for native pairs
-      let nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
+      const nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
 
       // Guard clause 2
       if (!nativeComponent) continue;
@@ -411,6 +411,7 @@ export class PickleModel {
       prices: Object.fromEntries(this.prices.getCache()),
       dill: this.dillDetails,
       platform: this.platformData,
+      swapProtocols: SWAP_PROTOCOLS,
       assets: {
         jars: this.getJars(),
         standaloneFarms: this.getStandaloneFarms(),

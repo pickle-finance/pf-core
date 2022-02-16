@@ -17,7 +17,7 @@ export class ExternalToken implements IExternalToken {
   coingeckoId?: string;
   fetchType?: ExternalTokenFetchStyle;
   swapPairs?: string[];
-  isNativeToken?: Boolean;
+  isNativeToken?: boolean;
   constructor(
     chain: ChainNetwork,
     id: string,
@@ -26,7 +26,7 @@ export class ExternalToken implements IExternalToken {
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
     swapPairs: string[] = [],
-    isNativeToken: Boolean = false,
+    isNativeToken = false,
   ) {
     this.chain = chain;
     this.id = id;
@@ -1429,7 +1429,7 @@ export class ExternalTokenModel {
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
     swapPairs: string[] = [],
-    isNative: Boolean = false,
+    isNative = false,
   ): void {
     this.chainTokens
       .get(chain)
