@@ -6,7 +6,6 @@ import {
 } from "../../model/PickleModelJson";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { BalancerJar } from "./balancer-jar";
-import { getBalancerPoolDayAPY } from "../../protocols/BalancerUtil";
 import { Contract as MulticallContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";

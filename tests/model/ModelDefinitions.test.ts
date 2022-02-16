@@ -21,13 +21,18 @@ describe("Testing defined model", () => {
   test("Ensure no duplicate contracts on a single chain", async () => {
     const chains = Chains.list();
     const err = [];
-    for( let i = 0; i < chains.length; i++ ) {
+    for (let i = 0; i < chains.length; i++) {
       const chainAssets = ALL_ASSETS.filter((x) => x.chain === chains[i]);
       const incremental = [];
-      for( let j = 0; j < chainAssets.length; j++ ) {
+      for (let j = 0; j < chainAssets.length; j++) {
         const contractLowercase = chainAssets[j].contract.toLowerCase();
-        if( incremental.includes(contractLowercase) ) {
-          err.push("Duplicate Contract address: " + chains[i] + ", " + chainAssets[j].contract.toLowerCase());
+        if (incremental.includes(contractLowercase)) {
+          err.push(
+            "Duplicate Contract address: " +
+              chains[i] +
+              ", " +
+              chainAssets[j].contract.toLowerCase(),
+          );
         } else {
           incremental.push(contractLowercase);
         }
@@ -37,12 +42,18 @@ describe("Testing defined model", () => {
     expect(err.length).toBe(0);
   });
 
-
   test("Ensure no assets have forbidden characters in api key", async () => {
     const err = [];
     for (let i = 0; i < ALL_ASSETS.length; i++) {
-      if( ALL_ASSETS[i].details && ALL_ASSETS[i].details.apiKey && ALL_ASSETS[i].details.apiKey.includes("/")) {
-        err.push(ALL_ASSETS[i].details.apiKey + " must not include a forward slash in the api-key");
+      if (
+        ALL_ASSETS[i].details &&
+        ALL_ASSETS[i].details.apiKey &&
+        ALL_ASSETS[i].details.apiKey.includes("/")
+      ) {
+        err.push(
+          ALL_ASSETS[i].details.apiKey +
+            " must not include a forward slash in the api-key",
+        );
       }
     }
     console.log("Errors: " + JSON.stringify(err));

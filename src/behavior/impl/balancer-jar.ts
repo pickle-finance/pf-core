@@ -8,7 +8,7 @@ import {
 } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import jarAbi from "../../Contracts/ABIs/jar.json";
-import { ChainNetwork, JarHarvestStats, PickleModel } from "../..";
+import { JarHarvestStats, PickleModel } from "../..";
 import {
   AssetProjectedApr,
   HistoricalYield,

@@ -38,7 +38,7 @@ export enum AssetProtocol {
   ZIPSWAP = "ZipSwap",
   BEAM = "Beamswap",
   FLARE = "Solarflare",
-  FINN = "Finn"
+  FINN = "Finn",
   // ADD_PROTOCOL
 }
 
@@ -170,7 +170,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
 
 export interface FarmDetails {
   allocShare?: number;

@@ -2,9 +2,7 @@ import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import {
-  calculateBrlFarmsAPY,
-} from "../../protocols/AuroraswapUtil";
+import { calculateBrlFarmsAPY } from "../../protocols/AuroraswapUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
 export abstract class AuroraBrlJar extends AuroraMultistepHarvestJar {

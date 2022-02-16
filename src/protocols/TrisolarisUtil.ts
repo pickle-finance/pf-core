@@ -58,8 +58,8 @@ export const triPoolV2Ids = {
   },
   "0x3dC236Ea01459F57EFc737A12BA3Bb5F3BFfD071": {
     poolId: 7,
-    rewarder: ""
-  }
+    rewarder: "",
+  },
 };
 
 export async function calculateTriFarmsAPY(
