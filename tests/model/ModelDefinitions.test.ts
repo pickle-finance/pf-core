@@ -124,15 +124,16 @@ describe("Testing defined model", () => {
 
   test("Ensure all jars with custom harvester have a harvester", async () => {
     const err = [];
-    const withCustomHarvest = ALL_ASSETS.filter((x) => x.type === 'jar')
-      .filter((x) => (x as JarDefinition).details.harvestStyle === HarvestStyle.CUSTOM && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+    const withCustomHarvest = ALL_ASSETS.filter((x) => x.type === 'jar' && x.details !== undefined)
+      .filter((x) => (x as JarDefinition).details.harvestStyle === HarvestStyle.CUSTOM && 
+      x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
     for (let i = 0; i < withCustomHarvest.length; i++) {
       const beh: AssetBehavior<PickleAsset> = new JarBehaviorDiscovery().findAssetBehavior(withCustomHarvest[i]);
       if( beh === undefined ) {
         err.push(withCustomHarvest[i].details.apiKey + " has no behavior class");
       } else {
         const model = new PickleModel([withCustomHarvest[i]], new Map<ChainNetwork, Provider | Signer>());
-        const harvester: ICustomHarvester | undefined = beh.getCustomHarvester(withCustomHarvest[i], model, undefined, {});
+        const harvester: ICustomHarvester | undefined = beh.getCustomHarvester(withCustomHarvest[i], model, undefined, {action: "harvest"});
         if( harvester === undefined ) {
           err.push(withCustomHarvest[i].details.apiKey + " has no custom harvester");
         }
