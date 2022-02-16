@@ -1441,52 +1441,181 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Fantom,
+<<<<<<< HEAD
       "tomb",
       "tomb",
       "0x6c021ae822bea943b2e66552bde1d2696a53fbb7".toLowerCase(),
+=======
+      "ice",
+      "ice-token",
+      "0xf16e81dce15B08F326220742020379B855B87DF9".toLowerCase(),
+>>>>>>> de712cb (add info for spookyswap farms)
       18,
       ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Fantom,
+<<<<<<< HEAD
       "lqdr",
       "liquiddriver",
       "0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9".toLowerCase(),
+=======
+      "spell",
+      "spell-token",
+      "0x468003B688943977e6130F4F68F23aad939a1040".toLowerCase(),
+>>>>>>> de712cb (add info for spookyswap farms)
       18,
       ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Fantom,
+<<<<<<< HEAD
       "boo",
       "spookyswap",
       "0x841fad6eae12c286d1fd18d1d525dffa75c7effe".toLowerCase(),
+=======
+      "crv",
+      "curve-dao-token",
+      "0x1E4F97b9f9F913c46F1632781732927B9019C68b".toLowerCase(),
+>>>>>>> de712cb (add info for spookyswap farms)
       18,
       ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Fantom,
+<<<<<<< HEAD
       "credit",
       "creditum",
       "0x77128dfdd0ac859b33f44050c6fa272f34872b5e".toLowerCase(),
+=======
+      "avax",
+      "avalanche-2",
+      "0x511d35c52a3c244e7b8bd92c0c297755fbd89212".toLowerCase(),
+>>>>>>> de712cb (add info for spookyswap farms)
       18,
       ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Fantom,
+<<<<<<< HEAD
       "scream",
       "scream",
       "0xe0654c8e6fd4d733349ac7e09f6f23da256bf475".toLowerCase(),
+=======
+      "eth",
+      "ethereum",
+      "0x74b23882a30290451A17c44f4F05243b6b58C76d".toLowerCase(),
+>>>>>>> de712cb (add info for spookyswap farms)
       18,
       ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Fantom,
+<<<<<<< HEAD
       "tarot",
       "tarot",
       "0xc5e2b037d30a390e62180970b3aa4e91868764cd".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
+=======
+      "dai",
+      "dai",
+      "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "usdt",
+      "tether",
+      "0x049d68029688eabf473097a2fc38ef61633a3c7a".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "bnb",
+      "binancecoin",
+      "0xd67de0e0a0fd7b15dc8348bb9be742f3c5850454".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "bnb",
+      "binancecoin",
+      "0xd67de0e0a0fd7b15dc8348bb9be742f3c5850454".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "btc",
+      "bitcoin",
+      "0x321162Cd933E2Be498Cd2267a90534A804051b11".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "mim",
+      "magic-internet-money",
+      "0x82f0b8b456c1a451378467398982d4834b6829c1".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "link",
+      "chainlink",
+      "0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "sushi",
+      "sushi",
+      "0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "yfi",
+      "yearn-finance",
+      "0x29b0Da86e484E1C0029B56e817912d778aC0EC69".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "treeb",
+      "treeb",
+      "0xc60d7067dfbc6f2caf30523a064f416a5af52963".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "any",
+      "anyswap",
+      "0xddcb3ffd12750b45d32e084887fdf1aabab34239".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "matic",
+      "matic-network",
+      "0x40df1ae6074c35047bff66675488aa2f9f6384f3".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+
+
+>>>>>>> de712cb (add info for spookyswap farms)
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

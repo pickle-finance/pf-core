@@ -221,6 +221,7 @@ import {
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
   JAR_FANTOM_OXD_USDC,
+<<<<<<< HEAD
   JAR_FANTOM_LQDR,
   JAR_FANTOM_XBOO,
   JAR_FANTOM_XCREDIT,
@@ -228,6 +229,28 @@ import {
   JAR_FANTOM_OXD,
   JAR_FANTOM_XTAROT,
   JAR_FANTOM_TOMB,
+=======
+  JAR_FANTOM_BOO_FTM_BOO,
+  JAR_FANTOM_BOO_FTM_ICE,
+  JAR_FANTOM_BOO_FTM_SPELL,
+  JAR_FANTOM_BOO_CRV_FTM,
+  JAR_FANTOM_BOO_FTM_AVAX,
+  JAR_FANTOM_BOO_FTM_ETH,
+  JAR_FANTOM_BOO_USDC_FTM,
+  JAR_FANTOM_BOO_FTM_DAI,
+  JAR_FANTOM_BOO_USDT_FTM,
+  JAR_FANTOM_BOO_FTM_BNB,
+  JAR_FANTOM_BOO_FTM_BTC,
+  JAR_FANTOM_BOO_FTM_MIM,
+  JAR_FANTOM_BOO_FTM_LINK,
+  JAR_FANTOM_BOO_FTM_SUSHI,
+  JAR_FANTOM_BOO_YFI_ETH,
+  JAR_FANTOM_BOO_FTM_TREEB,
+  JAR_FANTOM_BOO_FTM_ANY,
+  JAR_FANTOM_BOO_FTM_MATIC,
+  JAR_FANTOM_BOO_BTC_ETH,
+
+>>>>>>> de712cb (add info for spookyswap farms)
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -439,6 +462,7 @@ import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
 import { OxdJar } from "./impl/fantom-oxd-jar";
+<<<<<<< HEAD
 import { OxdLqdr } from "./impl/fantom-oxd-lqdr";
 import { OxdXboo } from "./impl/fantom-oxd-xboo";
 import { OxdXcredit } from "./impl/fantom-oxd-xcredit";
@@ -446,6 +470,27 @@ import { OxdXscream } from "./impl/fantom-oxd-xscream";
 import { OxdSingle } from "./impl/fantom-oxd";
 import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
 import { OxdTomb } from "./impl/fantom-oxd-tomb";
+=======
+import { BooFtmBoo } from "./impl/fantom-boo-ftm-boo";
+import { BooFtmIce } from "./impl/fantom-boo-ftm-ice";
+import { BooFtmSpell } from "./impl/fantom-boo-ftm-spell";
+import { BooCrvFtm } from "./impl/fantom-boo-crv-ftm";
+import { BooFtmAvax } from "./impl/fantom-boo-ftm-avax";
+import { BooFtmEth } from "./impl/fantom-boo-ftm-eth";
+import { BooUsdcFtm } from "./impl/fantom-boo-usdc-ftm";
+import { BooFtmDai } from "./impl/fantom-boo-ftm-dai";
+import { BooUsdtFtm } from "./impl/fantom-boo-usdt-ftm";
+import { BooFtmBnb } from "./impl/fantom-boo-ftm-bnb";
+import { BooFtmBtc } from "./impl/fantom-boo-ftm-btc";
+import { BooFtmMim } from "./impl/fantom-boo-ftm-mim";
+import { BooFtmLink } from "./impl/fantom-boo-ftm-link";
+import { BooFtmSushi } from "./impl/fantom-boo-ftm-sushi";
+import { BooYfiEth } from "./impl/fantom-boo-yfi-eth";
+import { BooFtmTreeb } from "./impl/fantom-boo-ftm-treeb";
+import { BooFtmAny } from "./impl/fantom-boo-ftm-any";
+import { BooFtmMatic }  from "./impl/fantom-boo-ftm-matic";
+import { BooBtcEth } from "./impl/fantom-boo-btc-eth";
+>>>>>>> de712cb (add info for spookyswap farms)
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -700,6 +745,7 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
+<<<<<<< HEAD
 jarToBehavior.set(JAR_FANTOM_LQDR.id, new OxdLqdr());
 jarToBehavior.set(JAR_FANTOM_XBOO.id, new OxdXboo());
 jarToBehavior.set(JAR_FANTOM_XCREDIT.id, new OxdXcredit());
@@ -708,6 +754,27 @@ jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
 jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
 jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
 
+=======
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooFtmBoo());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooFtmIce());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_SPELL.id, new BooFtmSpell());
+jarToBehavior.set(JAR_FANTOM_BOO_CRV_FTM.id, new BooCrvFtm());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_AVAX.id, new BooFtmAvax());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_ETH.id, new BooFtmEth());
+jarToBehavior.set(JAR_FANTOM_BOO_USDC_FTM.id, new BooUsdcFtm());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_DAI.id, new BooFtmDai());
+jarToBehavior.set(JAR_FANTOM_BOO_USDT_FTM.id, new BooUsdtFtm());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_BNB.id, new BooFtmBnb());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_BTC.id, new BooFtmBtc());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_MIM.id, new BooFtmMim());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_LINK.id, new BooFtmLink());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_SUSHI.id, new BooFtmSushi());
+jarToBehavior.set(JAR_FANTOM_BOO_YFI_ETH.id, new BooYfiEth());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_TREEB.id, new BooFtmTreeb());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_ANY.id, new BooFtmAny());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_MATIC.id, new BooFtmMatic());
+jarToBehavior.set(JAR_FANTOM_BOO_BTC_ETH.id, new BooBtcEth());
+>>>>>>> de712cb (add info for spookyswap farms)
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
