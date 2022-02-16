@@ -2292,6 +2292,11 @@ export const JAR_OKEX_USDT_CHE: JarDefinition = {
     name: "Cherry USDT/CHE",
     link: "https://www.cherryswap.net/#/add/0x382bb369d343125bfb2117af9c149795c6c65c50/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
     components: ["usdt", "cherry"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2342,6 +2347,11 @@ export const JAR_OKEX_ETHK_USDT: JarDefinition = {
     name: "Cherry ETHK/USDT",
     link: "https://www.cherryswap.net/#/add/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["ethk", "usdt"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2416,7 +2426,12 @@ export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
     addr: "0x8009edebBBdeb4A3BB3003c79877fCd98ec7fB45",
     name: "JSWAP JF/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A",
-    components: ["jswap", "usdt"],
+    components: ["jf", "usdt"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2442,6 +2457,11 @@ export const JAR_OKEX_JSWAP_BTCK_USDT: JarDefinition = {
     name: "JSWAP BTCK/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x54e4622DC504176b3BB432dCCAf504569699a7fF",
     components: ["btck", "usdt"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2467,6 +2487,11 @@ export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
     name: "JSWAP ETHK/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C",
     components: ["ethk", "usdt"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2492,6 +2517,11 @@ export const JAR_OKEX_JSWAP_USDT_DAIK: JarDefinition = {
     name: "JSWAP DAIK/USDT",
     link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0x382bB369d343125BfB2117af9c149795C6C65C50",
     components: ["daik", "usdt"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -4825,6 +4855,11 @@ export const JAR_METIS_NETSWAP_BNB_NETT: JarDefinition = {
     name: "NET BNB/NETT",
     link: "https://netswap.io/#/add/0x2692BE44A6E38B698731fDDf417d060f0d20A0cB/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
     components: ["bnb", "nett"],
+    nativePath: {
+      //NetswapRouter --> METIS, NETT
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4875,6 +4910,11 @@ export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
     name: "NET ETH/NETT",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
     components: ["eth", "nett"],
+    nativePath: {
+      //NetswapRouter --> METIS, WETH
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0x420000000000000000000000000000000000000A"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4900,6 +4940,11 @@ export const JAR_METIS_NETSWAP_ETH_USDC: JarDefinition = {
     name: "NET ETH/USDC",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["eth", "usdc"],
+    nativePath: {
+      //NetswapRouter --> METIS, USDC
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4925,6 +4970,11 @@ export const JAR_METIS_NETSWAP_ETH_USDT: JarDefinition = {
     name: "NET ETH/USDT",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
     components: ["eth", "usdt"],
+    nativePath: {
+      //NetswapRouter --> METIS, WETH
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0x420000000000000000000000000000000000000A"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4975,6 +5025,11 @@ export const JAR_METIS_NETSWAP_NETT_USDC: JarDefinition = {
     name: "NET NETT/USDC",
     link: "https://netswap.io/#/add/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["nett", "usdc"],
+    nativePath: {
+      //NetswapRouter --> METIS, USDC
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -5667,6 +5722,11 @@ export const JAR_FLARE_FLARE_USDC: JarDefinition = {
     name: "FLARE FLARE/USDC",
     link: "https://solarflare.io/exchange/add/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7/0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
     components: ["flare", "usdc-2"],
+    nativePath: {
+      //Beam Router --> WGLMR, USDC
+      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
