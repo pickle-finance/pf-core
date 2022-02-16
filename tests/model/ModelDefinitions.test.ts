@@ -1,7 +1,10 @@
-import { Chains } from "../../src";
+import { Signer } from "ethers";
+import { Provider } from "@ethersproject/providers";
+import { ChainNetwork, Chains, PickleModel } from "../../src";
 import { JarBehaviorDiscovery } from "../../src/behavior/JarBehaviorDiscovery";
+import { AssetBehavior, ICustomHarvester } from "../../src/behavior/JarBehaviorResolver";
 import { ALL_ASSETS } from "../../src/model/JarsAndFarms";
-import { AssetEnablement, AssetType } from "../../src/model/PickleModelJson";
+import { AssetEnablement, AssetType, HarvestStyle, JarDefinition, PickleAsset } from "../../src/model/PickleModelJson";
 import { ExternalTokenModelSingleton } from "../../src/price/ExternalTokenModel";
 
 describe("Testing defined model", () => {
@@ -111,6 +114,27 @@ describe("Testing defined model", () => {
                 " is not found in the ExternalTokenModel",
             );
           }
+        }
+      }
+    }
+    console.log("Errors: " + JSON.stringify(err));
+    expect(err.length).toBe(0);
+  });
+
+
+  test("Ensure all jars with custom harvester have a harvester", async () => {
+    const err = [];
+    const withCustomHarvest = ALL_ASSETS.filter((x) => x.type === 'jar')
+      .filter((x) => (x as JarDefinition).details.harvestStyle === HarvestStyle.CUSTOM && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+    for (let i = 0; i < withCustomHarvest.length; i++) {
+      const beh: AssetBehavior<PickleAsset> = new JarBehaviorDiscovery().findAssetBehavior(withCustomHarvest[i]);
+      if( beh === undefined ) {
+        err.push(withCustomHarvest[i].details.apiKey + " has no behavior class");
+      } else {
+        const model = new PickleModel([withCustomHarvest[i]], new Map<ChainNetwork, Provider | Signer>());
+        const harvester: ICustomHarvester | undefined = beh.getCustomHarvester(withCustomHarvest[i], model, undefined, {});
+        if( harvester === undefined ) {
+          err.push(withCustomHarvest[i].details.apiKey + " has no custom harvester");
         }
       }
     }
