@@ -1,3 +1,4 @@
+import { Chains } from "../../src";
 import { JarBehaviorDiscovery } from "../../src/behavior/JarBehaviorDiscovery";
 import { ALL_ASSETS } from "../../src/model/JarsAndFarms";
 import { AssetEnablement, AssetType } from "../../src/model/PickleModelJson";
@@ -17,38 +18,20 @@ describe("Testing defined model", () => {
     expect(err.length).toBe(0);
   });
 
-  const DUPLICATE_CONTRACT_EXCEPTIONS = {
-    "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03": 2,
-    "0xC3f393FB40F8Cc499C1fe7FA5781495dc6FAc9E9": 2,
-    "0xF125357f05c75F9beEA0Cc721D7a2A0eA03aaa63": 2,
-  };
-
   test("Ensure no duplicate contracts on a single chain", async () => {
-    const duplicateContractsFound = {};
+    const chains = Chains.list();
     const err = [];
-    const tmp = [];
-    for (let i = 0; i < ALL_ASSETS.length; i++) {
-      const contractKey = ALL_ASSETS[i].contract;
-      if (tmp.includes(contractKey)) {
-        const allowDuplicateCount =
-          DUPLICATE_CONTRACT_EXCEPTIONS[ALL_ASSETS[i].contract];
-        const chainAndContract = ALL_ASSETS[i].chain + "-" + contractKey;
-        if (allowDuplicateCount !== undefined) {
-          const currentCount = duplicateContractsFound[chainAndContract]
-            ? duplicateContractsFound[chainAndContract]
-            : 0;
-          duplicateContractsFound[chainAndContract] = currentCount + 1;
-          if (
-            duplicateContractsFound[chainAndContract] >
-            DUPLICATE_CONTRACT_EXCEPTIONS[chainAndContract]
-          ) {
-            err.push("Duplicate Contract address: " + chainAndContract);
-          }
+    for( let i = 0; i < chains.length; i++ ) {
+      const chainAssets = ALL_ASSETS.filter((x) => x.chain === chains[i]);
+      const incremental = [];
+      for( let j = 0; j < chainAssets.length; j++ ) {
+        const contractLowercase = chainAssets[j].contract.toLowerCase();
+        if( incremental.includes(contractLowercase) ) {
+          err.push("Duplicate Contract address: " + chains[i] + ", " + chainAssets[j].contract.toLowerCase());
         } else {
-          err.push("Duplicate Contract address: " + chainAndContract);
+          incremental.push(contractLowercase);
         }
       }
-      tmp.push(contractKey);
     }
     console.log("Errors: " + JSON.stringify(err));
     expect(err.length).toBe(0);
