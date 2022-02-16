@@ -1,4 +1,4 @@
-import { ChainNetwork, Chains } from "./chain/Chains";
+simport { ChainNetwork, Chains } from "./chain/Chains";
 import { IChain } from "./chain/IChain";
 import { PickleModel } from "./model/PickleModel";
 import * as PickleModelJson from "./model/PickleModelJson";
