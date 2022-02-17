@@ -1228,7 +1228,7 @@ export const JAR_UNIV2_LOOKS_ETH: JarDefinition = {
     link: "https://app.uniswap.org/#/add/v2/ETH/0xf4d2888d29D722226FafA5d9B24F9164c092421E",
     components: ["weth", "looks"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
