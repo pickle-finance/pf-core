@@ -73,7 +73,9 @@ export async function getDillDetails(
       number[]
     >([dillContract.supply(), dillContract.totalSupply()]);
 
-    const picklesLockedFloat = parseFloat(ethers.utils.formatEther(picklesLocked));
+    const picklesLockedFloat = parseFloat(
+      ethers.utils.formatEther(picklesLocked),
+    );
     const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
 
     // Ignore initial negligible distributions that distort
@@ -97,13 +99,17 @@ export async function getDillDetails(
       payoutTimes.push(time);
     }
 
-    const payouts: number[] = (await multicallProvider.all<BigNumber[]>(
-      payoutTimes.map((time) => feeDistContract.tokens_per_week(time)),
-    )).map((x) => parseFloat(ethers.utils.formatEther(x)) );
+    const payouts: number[] = (
+      await multicallProvider.all<BigNumber[]>(
+        payoutTimes.map((time) => feeDistContract.tokens_per_week(time)),
+      )
+    ).map((x) => parseFloat(ethers.utils.formatEther(x)));
 
-    const dillAmounts: number[] = (await multicallProvider.all<BigNumber[]>(
-      payoutTimes.map((time) => feeDistContract.ve_supply(time)),
-    )).map((x) => parseFloat(ethers.utils.formatEther(x)) );
+    const dillAmounts: number[] = (
+      await multicallProvider.all<BigNumber[]>(
+        payoutTimes.map((time) => feeDistContract.ve_supply(time)),
+      )
+    ).map((x) => parseFloat(ethers.utils.formatEther(x)));
 
     const picklePriceSeries = await fetchHistoricalPriceSeries({
       from: new Date(firstMeaningfulDistributionTimestamp * 1000),

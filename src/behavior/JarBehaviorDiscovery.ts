@@ -424,7 +424,7 @@ import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
 import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
 import { BalancerJar } from "./impl/balancer-jar";
 import { MoonbeamFlareJar } from "./impl/flare-jar";
-import { FinnDotFinn } from './impl/movr-finn-dot-finn';
+import { FinnDotFinn } from "./impl/movr-finn-dot-finn";
 import { FinnFinnKsm } from "./impl/movr-finn-finn-ksm";
 import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
 import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";

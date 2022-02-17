@@ -3,7 +3,7 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import finnFarmsAbi from "../Contracts/ABIs/finn-farms.json";
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
-import { ChainNetwork, Chains } from "../chain/Chains";
+import { ChainNetwork } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";

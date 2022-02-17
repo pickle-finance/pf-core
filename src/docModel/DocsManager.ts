@@ -58,7 +58,9 @@ export class DocsManager {
     linkType: DocsFormat,
   ): AssetDocumentationResult {
     const docItem: AssetDocumentationDefinition | undefined =
-      ALL_JAR_DOCUMENTATION.find((x) => x.apiKey.toLowerCase() === assetId.toLowerCase());
+      ALL_JAR_DOCUMENTATION.find(
+        (x) => x.apiKey.toLowerCase() === assetId.toLowerCase(),
+      );
     if (!docItem) {
       return undefined;
     }
