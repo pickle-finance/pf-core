@@ -3829,7 +3829,7 @@ export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-AVAX/NEAR",
+    apiKey: "TLP-AVAX-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3854,7 +3854,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-MATIC/NEAR",
+    apiKey: "TLP-MATIC-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
