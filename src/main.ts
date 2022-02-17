@@ -14,11 +14,7 @@ async function generateFullApi() {
     new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
   );
 
-<<<<<<< HEAD
-  const model: PickleModel = new PickleModel([JAR_FANTOM_OXD_USDC, JAR_FANTOM_XTAROT, JAR_FANTOM_OXD, JAR_FANTOM_XSCREAM, JAR_FANTOM_XCREDIT, JAR_FANTOM_XBOO, JAR_FANTOM_LQDR, JAR_FANTOM_TOMB], map);
-=======
-  const model: PickleModel = new PickleModel(ALL_ASSETS, map);
->>>>>>> de712cb (add info for spookyswap farms)
+  const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x => x.chain === ChainNetwork.Fantom), map);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);

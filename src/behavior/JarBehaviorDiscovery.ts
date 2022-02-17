@@ -221,7 +221,6 @@ import {
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
   JAR_FANTOM_OXD_USDC,
-<<<<<<< HEAD
   JAR_FANTOM_LQDR,
   JAR_FANTOM_XBOO,
   JAR_FANTOM_XCREDIT,
@@ -229,7 +228,6 @@ import {
   JAR_FANTOM_OXD,
   JAR_FANTOM_XTAROT,
   JAR_FANTOM_TOMB,
-=======
   JAR_FANTOM_BOO_FTM_BOO,
   JAR_FANTOM_BOO_FTM_ICE,
   JAR_FANTOM_BOO_FTM_SPELL,
@@ -249,8 +247,15 @@ import {
   JAR_FANTOM_BOO_FTM_ANY,
   JAR_FANTOM_BOO_FTM_MATIC,
   JAR_FANTOM_BOO_BTC_ETH,
+  JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_MIM_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_USDC_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_ETH_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_SPIRIT_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM
 
->>>>>>> de712cb (add info for spookyswap farms)
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -462,7 +467,6 @@ import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
 import { OxdJar } from "./impl/fantom-oxd-jar";
-<<<<<<< HEAD
 import { OxdLqdr } from "./impl/fantom-oxd-lqdr";
 import { OxdXboo } from "./impl/fantom-oxd-xboo";
 import { OxdXcredit } from "./impl/fantom-oxd-xcredit";
@@ -470,7 +474,6 @@ import { OxdXscream } from "./impl/fantom-oxd-xscream";
 import { OxdSingle } from "./impl/fantom-oxd";
 import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
 import { OxdTomb } from "./impl/fantom-oxd-tomb";
-=======
 import { BooFtmBoo } from "./impl/fantom-boo-ftm-boo";
 import { BooFtmIce } from "./impl/fantom-boo-ftm-ice";
 import { BooFtmSpell } from "./impl/fantom-boo-ftm-spell";
@@ -488,9 +491,17 @@ import { BooFtmSushi } from "./impl/fantom-boo-ftm-sushi";
 import { BooYfiEth } from "./impl/fantom-boo-yfi-eth";
 import { BooFtmTreeb } from "./impl/fantom-boo-ftm-treeb";
 import { BooFtmAny } from "./impl/fantom-boo-ftm-any";
-import { BooFtmMatic }  from "./impl/fantom-boo-ftm-matic";
+import { BooFtmMatic } from "./impl/fantom-boo-ftm-matic";
 import { BooBtcEth } from "./impl/fantom-boo-btc-eth";
->>>>>>> de712cb (add info for spookyswap farms)
+import { LqdrSpiritDeusFtm } from "./impl/fantom-lqdr-spirit-deus-ftm";
+import { LqdrSpiritFraxFtm } from "./impl/fantom-lqdr-spirit-frax-ftm";
+import { LqdrSpiritMimFtm } from "./impl/fantom-lqdr-spirit-mim-ftm";
+import { LqdrSpiritUsdcFtm } from "./impl/fantom-lqdr-spirit-usdc-ftm";
+import { LqdrSpiritPillsFtm } from "./impl/fantom-lqdr-spirit-pill-ftm";
+import { LqdrSpiritEthFtm } from "./impl/fantom-lqdr-spirit-eth-ftm";
+import { LqdrSpiritSpiritFtm } from "./impl/fantom-lqdr-spirit-spirit-ftm";
+import { LqdrSpiritLqdrFtm } from "./impl/fantom-lqdr-spirit-lqdr-ftm";
+
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -745,7 +756,6 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
-<<<<<<< HEAD
 jarToBehavior.set(JAR_FANTOM_LQDR.id, new OxdLqdr());
 jarToBehavior.set(JAR_FANTOM_XBOO.id, new OxdXboo());
 jarToBehavior.set(JAR_FANTOM_XCREDIT.id, new OxdXcredit());
@@ -754,7 +764,6 @@ jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
 jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
 jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
 
-=======
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooFtmBoo());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooFtmIce());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_SPELL.id, new BooFtmSpell());
@@ -774,7 +783,16 @@ jarToBehavior.set(JAR_FANTOM_BOO_FTM_TREEB.id, new BooFtmTreeb());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_ANY.id, new BooFtmAny());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_MATIC.id, new BooFtmMatic());
 jarToBehavior.set(JAR_FANTOM_BOO_BTC_ETH.id, new BooBtcEth());
->>>>>>> de712cb (add info for spookyswap farms)
+
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM.id, new LqdrSpiritDeusFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM.id, new LqdrSpiritFraxFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_MIM_FTM.id, new LqdrSpiritMimFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_USDC_FTM.id, new LqdrSpiritUsdcFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM.id, new LqdrSpiritPillsFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_ETH_FTM.id, new LqdrSpiritEthFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_SPIRIT_FTM.id, new LqdrSpiritSpiritFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM.id, new LqdrSpiritLqdrFtm());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

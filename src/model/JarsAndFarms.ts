@@ -6620,6 +6620,206 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_BOO_BTC_ETH);
 
+export const JAR_FANTOM_LQDR_DEUS_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3a",
+  contract: "0x17c138a61B2ED1A0dA0DD61Df8e66AdfF3437A5D",
+  depositToken: {
+    addr: "0x2599Eba5fD1e49F294C76D034557948034d6C96E",
+    name: "LQDR DEUS/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
+    components: ["deus", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.LQDR,
+  details: {
+    apiKey: "SLP-DEUS-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP DEUS-FTM",
+    farmDepositTokenName: "pSLP DEUS-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_DEUS_FTM);
+
+export const JAR_FANTOM_LQDR_FRAX_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3b",
+  contract: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
+  depositToken: {
+    addr: "0x7ed0cdDB9BB6c6dfEa6fB63E117c8305479B8D7D",
+    name: "LQDR FRAX/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
+    components: ["frax", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.LQDR,
+  details: {
+    apiKey: "SLP-FRAX-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP FRAX-FTM",
+    farmDepositTokenName: "pSLP FRAX-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_FRAX_FTM);
+
+export const JAR_FANTOM_LQDR_MIM_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3c",
+  contract: "0x1A7271cd1604155C5e1aB1fca4f7D8cE7ee92e71",
+  depositToken: {
+    addr: "0xB32b31DfAfbD53E310390F641C7119b5B9Ea0488",
+    name: "LQDR MIM/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
+    components: ["frax", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "SLP-MIM-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP MIM-FTM",
+    farmDepositTokenName: "pSLP MIM-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_MIM_FTM);
+
+export const JAR_FANTOM_LQDR_USDC_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3d",
+  contract: "0xb36b9767f840e4742528eA65C53499437FFf1b66",
+  depositToken: {
+    addr: "0xe7E90f5a767406efF87Fdad7EB07ef407922EC1D",
+    name: "LQDR USDC/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+    components: ["usdc", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "SLP-USDC-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP USDC-FTM",
+    farmDepositTokenName: "pSLP USDC-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_USDC_FTM);
+
+export const JAR_FANTOM_LQDR_PILLS_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3e",
+  contract: "0x4c0035863c371EB77BF3D30583BF9A00239ffcdf",
+  depositToken: {
+    addr: "0x9C775D3D66167685B2A3F4567B548567D2875350",
+    name: "LQDR PILLS/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+    components: ["pills", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "SLP-PILLS-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP PILLS-FTM",
+    farmDepositTokenName: "pSLP PILLS-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_PILLS_FTM);
+
+export const JAR_FANTOM_LQDR_ETH_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3f",
+  contract: "0x675F8f5a0D091888bA8de194b6Ba3cbD228E31C9",
+  depositToken: {
+    addr: "0x613BF4E46b4817015c01c6Bb31C7ae9edAadc26e",
+    name: "LQDR ETH/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
+    components: ["eth", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "SLP-ETH-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP ETH-FTM",
+    farmDepositTokenName: "pSLP ETH-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_ETH_FTM);
+
+export const JAR_FANTOM_LQDR_SPIRIT_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3g",
+  contract: "0xD826A08dB6bdaa693241B3144160f575112A98Fc",
+  depositToken: {
+    addr: "0x30748322B6E34545DBe0788C421886AEB5297789",
+    name: "LQDR SPIRIT/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+    components: ["spirit", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "SLP-SPIRIT-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP SPIRIT-FTM",
+    farmDepositTokenName: "pSLP SPIRIT-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_SPIRIT_FTM);
+
+export const JAR_FANTOM_LQDR_LQDR_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3h",
+  contract: "0x688fE246327C42dedB01F319aFF5A707549cd721",
+  depositToken: {
+    addr: "0x4Fe6f19031239F105F753D1DF8A0d24857D0cAA2",
+    name: "LQDR LQDR/FTM",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+    components: ["lqdr", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "SLP-LQDR-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSLP LQDR-FTM",
+    farmDepositTokenName: "pSLP LQDR-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_LQDR_FTM);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets
