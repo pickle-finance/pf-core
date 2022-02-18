@@ -2426,7 +2426,7 @@ export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
     addr: "0x8009edebBBdeb4A3BB3003c79877fCd98ec7fB45",
     name: "JSWAP JF/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A",
-    components: ["jf", "usdt"],
+    components: ["jswap", "usdt"],
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
