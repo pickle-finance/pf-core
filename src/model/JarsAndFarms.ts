@@ -1228,7 +1228,7 @@ export const JAR_UNIV2_LOOKS_ETH: JarDefinition = {
     link: "https://app.uniswap.org/#/add/v2/ETH/0xf4d2888d29D722226FafA5d9B24F9164c092421E",
     components: ["weth", "looks"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -2189,7 +2189,7 @@ export const JAR_ARBITRUM_BAL_PICKLE_ETH: JarDefinition = {
     link: "https://arbitrum.balancer.fi/#/pool/0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017/invest",
     components: ["pickle", "weth"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
@@ -2215,7 +2215,7 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
     link: "https://arbitrum.balancer.fi/#/pool/0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001/invest",
     components: ["bal", "weth"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
@@ -3859,7 +3859,7 @@ export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-AVAX/NEAR",
+    apiKey: "TLP-AVAX-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -3884,7 +3884,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
-    apiKey: "TLP-MATIC/NEAR",
+    apiKey: "TLP-MATIC-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
   },
   farm: {
@@ -4430,12 +4430,12 @@ export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
     components: ["frax", "rose"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
     apiKey: "NLP-FRAX-ROSE",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",

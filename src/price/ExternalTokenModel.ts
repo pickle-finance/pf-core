@@ -922,7 +922,7 @@ export class ExternalTokenModel {
       "0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445".toLowerCase(),
       10,
       ExternalTokenFetchStyle.ID,
-    )
+    );
 
     // Cronos
     this.addToken(
