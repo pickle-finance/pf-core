@@ -180,7 +180,7 @@ export const SWAP_PROTOCOLS: SwapProtocol[] = [
     protocol: AssetProtocol.STELLA,
     chain: ChainNetwork.Moonbeam,
     zappable: true,
-    pickleZapAddress: "",
+    pickleZapAddress: "0x3c42aa7d2a72be36e8009b53ebea769880cfda05",
     router: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1",
   },
   {
@@ -194,14 +194,14 @@ export const SWAP_PROTOCOLS: SwapProtocol[] = [
     protocol: AssetProtocol.BEAM,
     chain: ChainNetwork.Moonbeam,
     zappable: true,
-    pickleZapAddress: "",
+    pickleZapAddress: "0x3c42aa7d2a72be36e8009b53ebea769880cfda05",
     router: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
   },
   {
     protocol: AssetProtocol.FLARE,
     chain: ChainNetwork.Moonbeam,
     zappable: true,
-    pickleZapAddress: "",
+    pickleZapAddress: "0x3c42aa7d2a72be36e8009b53ebea769880cfda05",
     router: "0xd3B02Ff30c218c7f7756BA14bcA075Bf7C2C951e",
   },
   {
