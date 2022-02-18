@@ -12,6 +12,7 @@ import {
   PickleModelJson,
   PlatformData,
   StandaloneFarmDefinition,
+  SWAP_PROTOCOLS,
 } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
@@ -331,6 +332,42 @@ export class PickleModel {
     return undefined;
   }
 
+  getNativeComponent(components: string[], chain: ChainNetwork): ExternalToken | undefined {
+    for (let i = 0; i < components.length; i++) {
+      const token = ExternalTokenModelSingleton.getToken(components[i], chain)
+      if (token.isNativeToken) {
+        return token;
+      }
+    }
+  }
+
+  loadSwapData() {
+    for (let i = 0; i < this.allAssets.length; i++) {
+      const chain = this.allAssets[i].chain;
+      const protocol = this.allAssets[i].protocol;
+
+      const swapProtocol = SWAP_PROTOCOLS.find((x) => {
+        return x.protocol == protocol && x.chain == chain;
+      });
+
+      // Guard clause 1
+      if (!swapProtocol) continue;
+
+      this.allAssets[i].depositToken.isSwapProtocol = true;
+
+      // Add path for native pairs
+      const nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
+
+      // Guard clause 2
+      if (!nativeComponent) continue;
+
+      this.allAssets[i].depositToken.nativePath = {
+        target: nativeComponent.contractAddr,
+        path: [],
+      }
+    }
+  }
+
   async generateFullApi(): Promise<PickleModelJson> {
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
@@ -343,6 +380,8 @@ export class PickleModel {
     return this.toJson();
   }
   async loadJarAndFarmData(): Promise<void> {
+    this.loadSwapData();
+
     await Promise.all([
       this.ensurePriceCacheLoaded(),
       this.loadStrategyData(),
@@ -372,6 +411,7 @@ export class PickleModel {
       prices: Object.fromEntries(this.prices.getCache()),
       dill: this.dillDetails,
       platform: this.platformData,
+      swapProtocols: SWAP_PROTOCOLS,
       assets: {
         jars: this.getJars(),
         standaloneFarms: this.getStandaloneFarms(),

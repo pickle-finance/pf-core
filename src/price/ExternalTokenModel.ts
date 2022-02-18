@@ -17,6 +17,7 @@ export class ExternalToken implements IExternalToken {
   coingeckoId?: string;
   fetchType?: ExternalTokenFetchStyle;
   swapPairs?: string[];
+  isNativeToken?: boolean;
   constructor(
     chain: ChainNetwork,
     id: string,
@@ -25,6 +26,7 @@ export class ExternalToken implements IExternalToken {
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
     swapPairs: string[] = [],
+    isNativeToken = false,
   ) {
     this.chain = chain;
     this.id = id;
@@ -33,6 +35,7 @@ export class ExternalToken implements IExternalToken {
     this.decimals = dec;
     this.fetchType = style;
     this.swapPairs = swapPairs;
+    this.isNativeToken = isNativeToken;
   }
   toOutputFormat(): IExternalToken {
     return {
@@ -102,6 +105,10 @@ export class ExternalTokenModel {
       "weth",
       "weth",
       "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.BOTH,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -402,6 +409,8 @@ export class ExternalTokenModel {
       "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Polygon,
@@ -490,6 +499,8 @@ export class ExternalTokenModel {
       "0x82af49447d8a07e3bd95bd0d56f35241523fbab1".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true
     );
     this.addToken(
       ChainNetwork.Arbitrum,
@@ -668,6 +679,8 @@ export class ExternalTokenModel {
       "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.OKEx,
@@ -694,6 +707,8 @@ export class ExternalTokenModel {
       "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Harmony,
@@ -736,6 +751,8 @@ export class ExternalTokenModel {
       "0x98878B06940aE243284CA214f92Bb71a2b032B8A".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Moonriver,
@@ -923,6 +940,8 @@ export class ExternalTokenModel {
       "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Cronos,
@@ -1017,6 +1036,8 @@ export class ExternalTokenModel {
       "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Aurora,
@@ -1157,6 +1178,8 @@ export class ExternalTokenModel {
       "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Metis,
@@ -1223,6 +1246,8 @@ export class ExternalTokenModel {
       "0xAcc15dC74880C9944775448304B263D191c6077F".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true
     );
     this.addToken(
       ChainNetwork.Moonbeam,
@@ -1357,6 +1382,8 @@ export class ExternalTokenModel {
       "0x4200000000000000000000000000000000000006".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Optimism,
@@ -1402,10 +1429,11 @@ export class ExternalTokenModel {
     dec = 18,
     style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
     swapPairs: string[] = [],
+    isNative = false,
   ): void {
     this.chainTokens
       .get(chain)
-      .set(id, new ExternalToken(chain, id, cgid, addr, dec, style, swapPairs));
+      .set(id, new ExternalToken(chain, id, cgid, addr, dec, style, swapPairs, isNative));
   }
 
   mapForChain(chain: ChainNetwork): Map<string, ExternalToken> {
