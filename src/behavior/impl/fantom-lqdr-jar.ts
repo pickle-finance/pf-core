@@ -2,7 +2,8 @@ import { Contract, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
-import strategyABI from "../../Contracts/ABIs/strategy.json";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import lqdrFarmsAbi from "../../Contracts/ABIs/lqdr-farm.json";
 import lqdrStrategyAbi from "../../Contracts/ABIs/lqdr-strategy.json";
 import lqdrRewarderAbi from "../../Contracts/ABIs/lqdr-strategy-rewarder.json";
@@ -33,17 +34,18 @@ const poolIds: PoolId = {
 const rewarderTotalAlloc = {
   "0x90De614815C1e550213974C2f004C5e56C4a4be0": 300, // DEUS rewarder (pools:36,37)
   "0x1d028122deEfcfB859426F3B957DdF82459A7C2A": 100, // PILLS rewarder (pool:35)
-  // "0xC8F0C688568193bf2A40d7831D306c550423450d": 9999, // SPIRIT rewarder (pool:0)
 };
 
-const rewardTokens = ["lqdr", "deus"];
+const rewardTokens = ["lqdr", "deus", "pills"];
 
 export class LqdrJar extends AbstractJarBehavior {
   protected strategyAbi: any;
+  protected rewarderAddr: string;
+  protected multicallRewarder: MulticallContract;
 
   constructor() {
     super();
-    this.strategyAbi = strategyABI;
+    this.strategyAbi = strategyAbi;
   }
 
   async getDepositTokenPrice(
@@ -58,13 +60,35 @@ export class LqdrJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    let runningTotal = await this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       resolver,
       ["lqdr"],
       this.strategyAbi,
     );
+
+    if (await this.rewarderContractExist(jar,model)) {
+      const poolId = poolIds[jar.depositToken.addr];
+      const multicallProvider = model.multicallProviderFor(jar.chain);
+      const [rewardTokenAddr, pendingTokenBN] = await multicallProvider.all([
+        this.multicallRewarder.rewardToken(),
+        this.multicallRewarder.pendingToken(poolId, jar.details.strategyAddr),
+      ])
+      const rewardTokenContract = new Contract(rewardTokenAddr, erc20Abi, model.providerFor(jar.chain));
+      const strategyBalanceBN = await rewardTokenContract.balanceOf(jar.details.strategyAddr);
+      const rewardToken = ExternalTokenModelSingleton.getToken(
+        rewardTokenAddr,
+        jar.chain,
+      );
+      const rewardTokenPrice = model.priceOfSync(rewardToken.id);
+      const pendingTokenValue = parseFloat(formatUnits(pendingTokenBN, rewardToken.decimals)) * rewardTokenPrice;
+      const strategyBalanceValue = parseFloat(formatUnits(strategyBalanceBN, rewardToken.decimals)) * rewardTokenPrice;
+
+      runningTotal += pendingTokenValue + strategyBalanceValue;
+    }
+
+    return runningTotal;
   }
 
   async getProjectedAprStats(
@@ -81,12 +105,13 @@ export class LqdrJar extends AbstractJarBehavior {
       multicallFarms.strategies(poolId),
       multicallFarms.rewarder(poolId),
     ]);
+    this.rewarderAddr = rewarderAddress;
     const lqdrStrategyContract = new MulticallContract(
       lqdrStrategyAddress,
       lqdrStrategyAbi,
     );
 
-    const [lqdrPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
+    const [lqdrPerBlockBN, totalAllocPointBN, poolInfo, totalStakedBN] =
       await multicallProvider.all([
         multicallFarms.lqdrPerBlock(),
         multicallFarms.totalAllocPoint(),
@@ -99,7 +124,7 @@ export class LqdrJar extends AbstractJarBehavior {
         poolInfo.allocPoint.toNumber()) /
       totalAllocPointBN.toNumber();
 
-    const totalSupply = parseFloat(formatEther(totalSupplyBN));
+    const totalSupply = parseFloat(formatEther(totalStakedBN));
     const lqdrValuePerYear = (await model.priceOf("lqdr")) * lqdrPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const lqdrAPY = lqdrValuePerYear / totalValueStaked;
@@ -112,17 +137,13 @@ export class LqdrJar extends AbstractJarBehavior {
         1 - Chains.get(jar.chain).defaultPerformanceFee,
       ),
     ];
-    
-    if (Object.keys(rewarderTotalAlloc).includes(rewarderAddress)/* rewarderAddress != "0x0000000000000000000000000000000000000000" */) {
-      const multicallRewarder = new MulticallContract(
-        rewarderAddress,
-        lqdrRewarderAbi,
-      );
+
+    if (await this.rewarderContractExist(jar,model)) {
       const [rewardTokenAddr, tokenPerBlockBN, rewardPoolInfo] =
         await multicallProvider.all([
-          multicallRewarder.rewardToken(),
-          multicallRewarder.tokenPerBlock(),
-          multicallRewarder.poolInfo(poolId),
+          this.multicallRewarder.rewardToken(),
+          this.multicallRewarder.tokenPerBlock(),
+          this.multicallRewarder.poolInfo(poolId),
         ]);
       const rewardToken = ExternalTokenModelSingleton.getToken(
         rewardTokenAddr,
@@ -147,5 +168,30 @@ export class LqdrJar extends AbstractJarBehavior {
     }
 
     return this.aprComponentsToProjectedApr(aprComponents);
+  }
+
+  async rewarderContractExist(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<boolean> {
+    if (!this.rewarderAddr) {
+      const poolId = poolIds[jar.depositToken.addr];
+      const provider = model.providerFor(jar.chain);
+      const farms = new Contract(LQDR_FARMS, lqdrFarmsAbi, provider);
+      const rewarderAddress = await farms.rewarder(poolId);
+      this.rewarderAddr = rewarderAddress;
+    }
+    if (
+      !this.multicallRewarder &&
+      Object.keys(rewarderTotalAlloc).includes(this.rewarderAddr)
+    ) {
+      this.multicallRewarder = new MulticallContract(
+        this.rewarderAddr,
+        lqdrRewarderAbi,
+      );
+    }
+
+    if (this.multicallRewarder) return true;
+    return false;
   }
 }
