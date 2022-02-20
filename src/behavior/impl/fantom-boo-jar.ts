@@ -20,6 +20,7 @@ const poolIds: PoolId = {
   "0x5965E53aa80a0bcF1CD6dbDd72e6A9b2AA047410": 1,
   "0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c": 2,
   "0xe120ffBDA0d14f3Bb6d6053E90E63c572A66a428": 3,
+  "0xFdb9Ab8B9513Ad9E419Cf19530feE49d412C3Ee3": 4,
   "0xf0702249F4D3A25cD3DED7859a165693685Ab577": 5,
   "0x89d9bC2F2d091CfBFc31e333D6Dc555dDBc2fd29": 6,
   "0xf84E313B36E86315af7a06ff26C8b20e9EB443C3": 10,
@@ -85,7 +86,7 @@ export class BooJar extends AbstractJarBehavior {
         lpToken.balanceOf(BOO_FARMS),
       ]);
     const rewardsPerYear =
-      (parseFloat(formatEther(booPerSecondBN.rewardsPerSec[0])) *
+      (parseFloat(formatEther(booPerSecondBN)) *
         ONE_YEAR_IN_SECONDS *
         poolInfo.allocPoint.toNumber()) /
       totalAllocPointBN.toNumber();
