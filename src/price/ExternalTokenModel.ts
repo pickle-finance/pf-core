@@ -1427,7 +1427,7 @@ export class ExternalTokenModel {
       ChainNetwork.Fantom,
       "ftm",
       "fantom",
-      "0x4E15361FD6b4BB609Fa63C81A2be19d873717870".toLowerCase(),
+      "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
@@ -1621,7 +1621,57 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Fantom,
+      "beets",
+      "beethoven-x",
+      "0xF24Bcf4d1e507740041C9cFd2DddB29585aDCe1e".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "mai",
+      "mimatic",
+      "0xfb98b335551a418cd0737375a2ea0ded62ea213b".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "spirit",
+      "spiritswap",
+      "0x5cc61a78f164885776aa610fb0fe1257df78e59b".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "pills",
+      "morpheus-token",
+      "0xb66b5d38e183de42f21e92abcaf3c712dd5d6286".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+      [
+        "0x9C775D3D66167685B2A3F4567B548567D2875350", // PILLS-FTM
+      ],
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "frax",
+      "frax",
+      "0xdc301622e621166bd8e82f2ca0a26c13ad0be355".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "deus",
+      "deus-finance-2",
+      "0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
 
     // Make the reverse map to fascilitate contract lookups

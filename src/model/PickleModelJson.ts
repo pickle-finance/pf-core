@@ -42,9 +42,11 @@ export enum AssetProtocol {
   SPOOKYSWAP = "Spookyswap",
   OXD = "0xDAO",
   BEETHOVENX = "BeethovenX",
+  SPIRITSWAP = "SpiritSwap",
   // ADD_PROTOCOL
 }
 
+<<<<<<< HEAD
 export const SWAP_PROTOCOLS: SwapProtocol[] = [
   {
     protocol: AssetProtocol.SUSHISWAP,
@@ -214,6 +216,34 @@ export const SWAP_PROTOCOLS: SwapProtocol[] = [
     pickleZapAddress: "",
     router: "0x2d4e873f9Ab279da9f1bb2c532d4F06f67755b77",
   },
+=======
+export const SWAP_PROTOCOLS: AssetProtocol[] = [
+  AssetProtocol.SUSHISWAP,
+  AssetProtocol.UNISWAP,
+  AssetProtocol.COMETHSWAP,
+  AssetProtocol.QUICKSWAP,
+  AssetProtocol.DODOSWAP,
+  AssetProtocol.CHERRYSWAP,
+  AssetProtocol.BXH,
+  AssetProtocol.JSWAP,
+  AssetProtocol.SOLARSWAP,
+  AssetProtocol.VVS,
+  AssetProtocol.TRISOLARIS,
+  AssetProtocol.NEARPAD,
+  AssetProtocol.WANNASWAP,
+  AssetProtocol.ROSE,
+  AssetProtocol.AURORASWAP,
+  AssetProtocol.NETSWAP,
+  AssetProtocol.TETHYS,
+  AssetProtocol.STELLA,
+  AssetProtocol.ZIPSWAP,
+  AssetProtocol.BEAM,
+  AssetProtocol.FLARE,
+  AssetProtocol.FINN,
+  AssetProtocol.SPOOKYSWAP,
+  AssetProtocol.BEETHOVENX,
+  AssetProtocol.SPIRITSWAP,
+>>>>>>> d2d3ac4 (-liquid jars dual rewards support. -few fixes.)
   // ADD_PROTOCOL
 ];
 

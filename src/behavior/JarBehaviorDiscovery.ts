@@ -228,33 +228,34 @@ import {
   JAR_FANTOM_OXD,
   JAR_FANTOM_XTAROT,
   JAR_FANTOM_TOMB,
-  JAR_FANTOM_BOO_FTM_BOO,
-  JAR_FANTOM_BOO_FTM_ICE,
-  JAR_FANTOM_BOO_FTM_SPELL,
-  JAR_FANTOM_BOO_CRV_FTM,
-  JAR_FANTOM_BOO_FTM_AVAX,
-  JAR_FANTOM_BOO_FTM_ETH,
-  JAR_FANTOM_BOO_USDC_FTM,
-  JAR_FANTOM_BOO_FTM_DAI,
-  JAR_FANTOM_BOO_USDT_FTM,
-  JAR_FANTOM_BOO_FTM_BNB,
-  JAR_FANTOM_BOO_FTM_BTC,
-  JAR_FANTOM_BOO_FTM_MIM,
-  JAR_FANTOM_BOO_FTM_LINK,
-  JAR_FANTOM_BOO_FTM_SUSHI,
-  JAR_FANTOM_BOO_YFI_ETH,
-  JAR_FANTOM_BOO_FTM_TREEB,
-  JAR_FANTOM_BOO_FTM_ANY,
-  JAR_FANTOM_BOO_FTM_MATIC,
-  JAR_FANTOM_BOO_BTC_ETH,
+  // JAR_FANTOM_BOO_FTM_BOO,
+  // JAR_FANTOM_BOO_FTM_ICE,
+  // JAR_FANTOM_BOO_FTM_SPELL,
+  // JAR_FANTOM_BOO_CRV_FTM,
+  // JAR_FANTOM_BOO_FTM_AVAX,
+  // JAR_FANTOM_BOO_FTM_ETH,
+  // JAR_FANTOM_BOO_USDC_FTM,
+  // JAR_FANTOM_BOO_FTM_DAI,
+  // JAR_FANTOM_BOO_USDT_FTM,
+  // JAR_FANTOM_BOO_FTM_BNB,
+  // JAR_FANTOM_BOO_FTM_BTC,
+  // JAR_FANTOM_BOO_FTM_MIM,
+  // JAR_FANTOM_BOO_FTM_LINK,
+  // JAR_FANTOM_BOO_FTM_SUSHI,
+  // JAR_FANTOM_BOO_YFI_ETH,
+  // JAR_FANTOM_BOO_FTM_TREEB,
+  // JAR_FANTOM_BOO_FTM_ANY,
+  // JAR_FANTOM_BOO_FTM_MATIC,
+  // JAR_FANTOM_BOO_BTC_ETH,
   JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM,
   JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM,
   JAR_FANTOM_LQDR_SPIRIT_MIM_FTM,
   JAR_FANTOM_LQDR_SPIRIT_USDC_FTM,
   JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM,
   JAR_FANTOM_LQDR_SPIRIT_ETH_FTM,
-  JAR_FANTOM_LQDR_SPIRIT_SPIRIT_FTM,
-  JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM
+  JAR_FANTOM_LQDR_SPIRIT_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM,
+  JAR_FANTOM_LQDR_BOO_SUSHI_FTM
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -493,14 +494,7 @@ import { BooFtmTreeb } from "./impl/fantom-boo-ftm-treeb";
 import { BooFtmAny } from "./impl/fantom-boo-ftm-any";
 import { BooFtmMatic } from "./impl/fantom-boo-ftm-matic";
 import { BooBtcEth } from "./impl/fantom-boo-btc-eth";
-import { LqdrSpiritDeusFtm } from "./impl/fantom-lqdr-spirit-deus-ftm";
-import { LqdrSpiritFraxFtm } from "./impl/fantom-lqdr-spirit-frax-ftm";
-import { LqdrSpiritMimFtm } from "./impl/fantom-lqdr-spirit-mim-ftm";
-import { LqdrSpiritUsdcFtm } from "./impl/fantom-lqdr-spirit-usdc-ftm";
-import { LqdrSpiritPillsFtm } from "./impl/fantom-lqdr-spirit-pill-ftm";
-import { LqdrSpiritEthFtm } from "./impl/fantom-lqdr-spirit-eth-ftm";
-import { LqdrSpiritSpiritFtm } from "./impl/fantom-lqdr-spirit-spirit-ftm";
-import { LqdrSpiritLqdrFtm } from "./impl/fantom-lqdr-spirit-lqdr-ftm";
+import { LqdrJar } from "./impl/fantom-lqdr-jar";
 
 
 export class noOpJarBehavior extends AbstractJarBehavior {
@@ -764,34 +758,35 @@ jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
 jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
 jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
 
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooFtmBoo());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooFtmIce());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_SPELL.id, new BooFtmSpell());
-jarToBehavior.set(JAR_FANTOM_BOO_CRV_FTM.id, new BooCrvFtm());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_AVAX.id, new BooFtmAvax());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_ETH.id, new BooFtmEth());
-jarToBehavior.set(JAR_FANTOM_BOO_USDC_FTM.id, new BooUsdcFtm());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_DAI.id, new BooFtmDai());
-jarToBehavior.set(JAR_FANTOM_BOO_USDT_FTM.id, new BooUsdtFtm());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_BNB.id, new BooFtmBnb());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_BTC.id, new BooFtmBtc());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_MIM.id, new BooFtmMim());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_LINK.id, new BooFtmLink());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_SUSHI.id, new BooFtmSushi());
-jarToBehavior.set(JAR_FANTOM_BOO_YFI_ETH.id, new BooYfiEth());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_TREEB.id, new BooFtmTreeb());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_ANY.id, new BooFtmAny());
-jarToBehavior.set(JAR_FANTOM_BOO_FTM_MATIC.id, new BooFtmMatic());
-jarToBehavior.set(JAR_FANTOM_BOO_BTC_ETH.id, new BooBtcEth());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooFtmBoo());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooFtmIce());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_SPELL.id, new BooFtmSpell());
+// jarToBehavior.set(JAR_FANTOM_BOO_CRV_FTM.id, new BooCrvFtm());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_AVAX.id, new BooFtmAvax());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_ETH.id, new BooFtmEth());
+// jarToBehavior.set(JAR_FANTOM_BOO_USDC_FTM.id, new BooUsdcFtm());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_DAI.id, new BooFtmDai());
+// jarToBehavior.set(JAR_FANTOM_BOO_USDT_FTM.id, new BooUsdtFtm());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_BNB.id, new BooFtmBnb());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_BTC.id, new BooFtmBtc());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_MIM.id, new BooFtmMim());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_LINK.id, new BooFtmLink());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_SUSHI.id, new BooFtmSushi());
+// jarToBehavior.set(JAR_FANTOM_BOO_YFI_ETH.id, new BooYfiEth());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_TREEB.id, new BooFtmTreeb());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_ANY.id, new BooFtmAny());
+// jarToBehavior.set(JAR_FANTOM_BOO_FTM_MATIC.id, new BooFtmMatic());
+// jarToBehavior.set(JAR_FANTOM_BOO_BTC_ETH.id, new BooBtcEth());
 
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM.id, new LqdrSpiritDeusFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM.id, new LqdrSpiritFraxFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_MIM_FTM.id, new LqdrSpiritMimFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_USDC_FTM.id, new LqdrSpiritUsdcFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM.id, new LqdrSpiritPillsFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_ETH_FTM.id, new LqdrSpiritEthFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_SPIRIT_FTM.id, new LqdrSpiritSpiritFtm());
-jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM.id, new LqdrSpiritLqdrFtm());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_MIM_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_USDC_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_ETH_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_SUSHI_FTM.id, new LqdrJar());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
