@@ -169,10 +169,12 @@ export class Univ3FraxBase extends AbstractJarBehavior {
     );
 
     const fxsApr =
-      (rewardRate * 1e18 * 2) /* * 60 * 24 * 365 */ / totalCombinedWeight;
+      ((rewardRate * 60 * 60 * 24 * 365 * combinedWeightOf) /
+        (totalCombinedWeight * 1e18)) *
+      100;
 
     return super.aprComponentsToProjectedApr([
-      this.createAprComponent("lp", lpApr, true),
+      //this.createAprComponent("lp", lpApr, true),
       this.createAprComponent("fxs", fxsApr, true),
     ]);
   }
