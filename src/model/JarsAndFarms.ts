@@ -7154,7 +7154,7 @@ export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
     addr: "0x2C580C6F08044D6dfACA8976a66C8fAddDBD9901",
     name: "BEETX USDC/DAI/MAI",
     link: "https://beets.fi/#/pool/0x2c580c6f08044d6dfaca8976a66c8fadddbd9901000000000000000000000038",
-    components: ["usdc", "dai", "mai"],
+    components: ["usdc", "dai", "mimatic"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,

@@ -1631,7 +1631,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Fantom,
-      "mai",
+      "mimatic",
       "mimatic",
       "0xfb98b335551a418cd0737375a2ea0ded62ea213b".toLowerCase(),
       18,
