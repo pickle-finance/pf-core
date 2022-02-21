@@ -184,18 +184,21 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
 
     const totalCombinedWeight = await gaugeContract.totalCombinedWeight();
     const rewardRate = await gaugeContract.rewardRate0();
+    const rewardDuration = await gaugeContract.getRewardForDuration();
     const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
 
-    const weightPercentage = combinedWeightOf / (totalCombinedWeight * 1e18);
-    const oneYear = 60 * 60 * 24 * 365;
-    const fxsApr =
-      ((rewardRate * oneYear * weightPercentage * model.priceOfSync("fxs")) /
-        jarValue) *
+    const apr =
+      (((combinedWeightOf / totalCombinedWeight) *
+        rewardDuration *
+        52 *
+        model.priceOfSync("fxs")) /
+        1e18 /
+        (definition.details.tokenBalance * definition.depositToken.price)) *
       100;
 
     return super.aprComponentsToProjectedApr([
       //this.createAprComponent("lp", lpApr, true),
-      this.createAprComponent("fxs", fxsApr, true),
+      this.createAprComponent("fxs", apr, true),
     ]);
   }
 }
