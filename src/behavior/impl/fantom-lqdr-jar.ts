@@ -101,7 +101,7 @@ export class LqdrJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = poolIds[jar.depositToken.addr];
@@ -131,7 +131,7 @@ export class LqdrJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalStakedBN));
-    const lqdrValuePerYear = (await model.priceOf("lqdr")) * lqdrPerYear;
+    const lqdrValuePerYear = model.priceOfSync("lqdr") * lqdrPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const lqdrAPY = lqdrValuePerYear / totalValueStaked;
 
@@ -162,7 +162,7 @@ export class LqdrJar extends AbstractJarBehavior {
           rewardPoolInfo.allocPoint.toNumber()) /
         rewardTotalAlloc;
       const rewardValuePerYear =
-        (await model.priceOf(rewardTokenAddr)) * rewardsPerYear;
+        model.priceOfSync(rewardTokenAddr) * rewardsPerYear;
       const rewardAPY = rewardValuePerYear / totalValueStaked;
       const rewardAprComponent = this.createAprComponent(
         rewardToken.id,

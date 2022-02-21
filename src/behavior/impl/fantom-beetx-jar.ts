@@ -16,22 +16,24 @@ import {
   fBeetsUnderlying,
   getBalancerPerformance,
   getPoolData,
-  PoolData,
+  // PoolData,
 } from "../../protocols/BeethovenXUtil";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
 
 export class BeetXJar extends AbstractJarBehavior {
-  protected poolData: PoolData | undefined;
+  // protected poolData: PoolData | undefined;
+  protected pricePerToken: number | undefined;
+
 
   async getDepositTokenPrice(
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    if (!this.poolData) {
+    if (!this.pricePerToken) {
       try {
-        this.poolData = await getPoolData(jar, model);
+        this.pricePerToken = await getPoolData(jar, model);
         if (jar.depositToken.addr === fBeets) {
           const multicallProvider: MulticallProvider =
             model.multicallProviderFor(jar.chain);
@@ -49,7 +51,7 @@ export class BeetXJar extends AbstractJarBehavior {
           const ratio =
             parseFloat(ethers.utils.formatEther(underlyingLocked)) /
             parseFloat(ethers.utils.formatEther(fBeetsTotalSupplyBN));
-          this.poolData.pricePerToken = this.poolData.pricePerToken * ratio;
+          this.pricePerToken = this.pricePerToken * ratio;
         }
       } catch (error) {
         const msg = `Error in getDepositTokenPrice (${jar.details.apiKey}): ${error}`;
@@ -58,15 +60,15 @@ export class BeetXJar extends AbstractJarBehavior {
       }
     }
 
-    return this.poolData.pricePerToken;
+    return this.pricePerToken;
   }
 
   async getProjectedAprStats(
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    if (!this.poolData) this.poolData = await getPoolData(jar, model);
-    const res = await calculateBalPoolAPRs(jar, model, this.poolData);
+    if (!this.pricePerToken) this.pricePerToken = await getPoolData(jar, model);
+    const res = await calculateBalPoolAPRs(jar, model, this.pricePerToken);
     const aprsPostFee = res.map((component) =>
       this.createAprComponent(
         component.name,
