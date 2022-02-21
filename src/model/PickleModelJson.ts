@@ -241,7 +241,6 @@ export const SWAP_PROTOCOLS: AssetProtocol[] = [
   AssetProtocol.FLARE,
   AssetProtocol.FINN,
   AssetProtocol.SPOOKYSWAP,
-  AssetProtocol.BEETHOVENX,
   AssetProtocol.SPIRITSWAP,
 >>>>>>> d2d3ac4 (-liquid jars dual rewards support. -few fixes.)
   // ADD_PROTOCOL

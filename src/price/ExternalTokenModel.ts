@@ -1672,6 +1672,30 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "sol",
+      "solana",
+      "0x44F7237df00E386af8e79B817D05ED9f6FE0f296".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "luna",
+      "terra-luna",
+      "0x95dD59343a893637BE1c3228060EE6afBf6F0730".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+    // this.addToken(
+    //   ChainNetwork.Fantom,
+    //   "",
+    //   "",
+    //   "".toLowerCase(),
+    //   0,
+    //   ExternalTokenFetchStyle.ID,
+    // )
 
 
     // Make the reverse map to fascilitate contract lookups

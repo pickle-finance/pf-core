@@ -6323,9 +6323,9 @@ JAR_DEFINITIONS.push(JAR_FANTOM_BOO_USDC_FTM);
 export const JAR_FANTOM_BOO_FTM_DAI: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 2h",
-  contract: "0xC65094422673db9600ca644d35435CeA688D9062",
+  contract: "0x274f3E746Ff8beD72c5019a0203e861B03205E68",
   depositToken: {
-    addr: "0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c",
+    addr: "0xe120ffBDA0d14f3Bb6d6053E90E63c572A66a428",
     name: "BOO FTM/DAI",
     link: "https://spookyswap.finance/add/FTM/0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     components: ["ftm", "dai"],
@@ -6820,9 +6820,184 @@ export const JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM);
 
+export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3a",
+  contract: "0x1C368f923abC3ee48c6F3511921b4f16443CE989",
+  depositToken: {
+    addr: "0xe120ffBDA0d14f3Bb6d6053E90E63c572A66a428",
+    name: "BOO DAI/FTM",
+    link: "https://spookyswap.finance/add/FTM/0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
+    components: ["dai", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-DAI-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO DAI-FTM",
+    farmDepositTokenName: "pLQDR-BOO DAI-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_DAI_FTM);
+
+export const JAR_FANTOM_LQDR_BOO_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3b",
+  contract: "0xd974775FC29996e39692dBfB50AA98173D553680",
+  depositToken: {
+    addr: "0xEc7178F4C41f346b2721907F5cF7628E388A7a58",
+    name: "BOO BOO/FTM",
+    link: "https://spookyswap.finance/add/FTM/0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
+    components: ["boo", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO BOO-FTM",
+    farmDepositTokenName: "pLQDR-BOO BOO-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_FTM);
+
+export const JAR_FANTOM_LQDR_BOO_ETH_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3c",
+  contract: "0xc479869dF74D8699a4D2204E3A1930437c7e88Dd",
+  depositToken: {
+    addr: "0xf0702249F4D3A25cD3DED7859a165693685Ab577",
+    name: "BOO ETH/FTM",
+    link: "https://spookyswap.finance/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
+    components: ["eth", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-ETH-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO ETH-FTM",
+    farmDepositTokenName: "pLQDR-BOO ETH-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_ETH_FTM);
+
+export const JAR_FANTOM_LQDR_BOO_MIM_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3d",
+  contract: "0x1C0742b93CA1Bd36F4e405A669422b9d66b81ed6",
+  depositToken: {
+    addr: "0x6f86e65b255c9111109d2D2325ca2dFc82456efc",
+    name: "BOO MIM/FTM",
+    link: "https://spookyswap.finance/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
+    components: ["mim", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-MIM-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO MIM-FTM",
+    farmDepositTokenName: "pLQDR-BOO MIM-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_MIM_FTM);
+
+export const JAR_FANTOM_LQDR_BOO_LINK_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3e",
+  contract: "0x6a3f82d42E65EE78c41f47eA53bF29d9aeCd85fd",
+  depositToken: {
+    addr: "0x89d9bC2F2d091CfBFc31e333D6Dc555dDBc2fd29",
+    name: "BOO LINK/FTM",
+    link: "https://spookyswap.finance/add/FTM/0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8",
+    components: ["link", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-LINK-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO LINK-FTM",
+    farmDepositTokenName: "pLQDR-BOO LINK-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_LINK_FTM);
+
+export const JAR_FANTOM_LQDR_BOO_USDC_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3f",
+  contract: "0xC921abCe87717e0E1DF9da95fD03819Fe50203c4",
+  depositToken: {
+    addr: "0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c",
+    name: "BOO USDC/FTM",
+    link: "https://spookyswap.finance/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+    components: ["usdc", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-USDC-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO USDC-FTM",
+    farmDepositTokenName: "pLQDR-BOO USDC-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_USDC_FTM);
+
+export const JAR_FANTOM_LQDR_BOO_USDT_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3g",
+  contract: "0x84Fb387b0d6014A625642c33da2fcbf7A1C85f71",
+  depositToken: {
+    addr: "0x5965E53aa80a0bcF1CD6dbDd72e6A9b2AA047410",
+    name: "BOO USDT/FTM",
+    link: "https://spookyswap.finance/add/FTM/0x049d68029688eAbF473097a2fC38ef61633A3C7A",
+    components: ["usdt", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPOOKYSWAP,
+  details: {
+    apiKey: "LQDR-BOO-USDT-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-BOO USDT-FTM",
+    farmDepositTokenName: "pLQDR-BOO USDT-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_USDT_FTM);
+
 export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
   type: AssetType.JAR,
-  id: "fanJar 3i",
+  id: "fanJar 3h",
   contract: "0x82BA82A1Eb794F19688e9fCb4725020114766fDb",
   depositToken: {
     addr: "0xf84E313B36E86315af7a06ff26C8b20e9EB443C3",
