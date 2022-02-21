@@ -6846,180 +6846,180 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
 JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_SUSHI_FTM);
 
 
-// export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4a",
-//   contract: "0x48331A50097C91885442A5FF8d02D6f6fAA1F089",
-//   depositToken: {
-//     addr: "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1",
-//     name: "BEETX fBEETS",
-//     link: "https://beets.fi/#/stake",
-//     components: ["beets", "ftm"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-FBEETS",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX FBEETS",
-//     farmDepositTokenName: "pBEETX FBEETS",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FBEETS);
+export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4a",
+  contract: "0x48331A50097C91885442A5FF8d02D6f6fAA1F089",
+  depositToken: {
+    addr: "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1",
+    name: "BEETX fBEETS",
+    link: "https://beets.fi/#/stake",
+    components: ["beets", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-FBEETS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX FBEETS",
+    farmDepositTokenName: "pBEETX FBEETS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FBEETS);
 
-// export const JAR_FANTOM_BEETX_FTM_BTC_ETH: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4b",
-//   contract: "0xAcD024827dd03F012c6EDe61cF298e7Feb75119D",
-//   depositToken: {
-//     addr: "0xd47D2791d3B46f9452709Fa41855a045304D6f9d",
-//     name: "BEETX FTM/BTC/ETH",
-//     link: "https://beets.fi/#/pool/0xd47d2791d3b46f9452709fa41855a045304d6f9d000100000000000000000004",
-//     components: ["ftm", "btc", "eth"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-FTM-BTC-ETH",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX FTM-BTC-ETH",
-//     farmDepositTokenName: "pBEETX FTM-BTC-ETH",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FTM_BTC_ETH);
+export const JAR_FANTOM_BEETX_FTM_BTC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4b",
+  contract: "0xAcD024827dd03F012c6EDe61cF298e7Feb75119D",
+  depositToken: {
+    addr: "0xd47D2791d3B46f9452709Fa41855a045304D6f9d",
+    name: "BEETX FTM/BTC/ETH",
+    link: "https://beets.fi/#/pool/0xd47d2791d3b46f9452709fa41855a045304d6f9d000100000000000000000004",
+    components: ["ftm", "btc", "eth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-FTM-BTC-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX FTM-BTC-ETH",
+    farmDepositTokenName: "pBEETX FTM-BTC-ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FTM_BTC_ETH);
 
-// export const JAR_FANTOM_BEETX_LQDR_FTM: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4c",
-//   contract: "0xBBF8233867c1982D66EA920d726d24391B713550",
-//   depositToken: {
-//     addr: "0x5E02aB5699549675A6d3BEEb92A62782712D0509",
-//     name: "BEETX LQDR/FTM",
-//     link: "https://beets.fi/#/pool/0x5e02ab5699549675a6d3beeb92a62782712d0509000200000000000000000138",
-//     components: ["lqdr", "ftm"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-LQDR-FTM",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX LQDR-FTM",
-//     farmDepositTokenName: "pBEETX LQDR-FTM",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_LQDR_FTM);
+export const JAR_FANTOM_BEETX_LQDR_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4c",
+  contract: "0xBBF8233867c1982D66EA920d726d24391B713550",
+  depositToken: {
+    addr: "0x5E02aB5699549675A6d3BEEb92A62782712D0509",
+    name: "BEETX LQDR/FTM",
+    link: "https://beets.fi/#/pool/0x5e02ab5699549675a6d3beeb92a62782712d0509000200000000000000000138",
+    components: ["lqdr", "ftm"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-LQDR-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX LQDR-FTM",
+    farmDepositTokenName: "pBEETX LQDR-FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_LQDR_FTM);
 
-// export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4d",
-//   contract: "0x666141b4040d665383feB7881F265F081b53cf8D",
-//   depositToken: {
-//     addr: "0x9af1F0e9aC9C844A4a4439d446c1437807183075",
-//     name: "BEETX FTM/MATIC/SOL/AVAX/LUNA/BNB",
-//     link: "https://beets.fi/#/pool/0x9af1f0e9ac9c844a4a4439d446c14378071830750001000000000000000000da",
-//     components: ["ftm", "matic", "sol", "avax", "luna", "bnb"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-FTM-MATIC-SOL-AVAX-LUNA-BNB",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX FTM-MATIC-SOL-AVAX-LUNA-BNB",
-//     farmDepositTokenName: "pBEETX FTM-MATIC-SOL-AVAX-LUNA-BNB",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB);
+export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4d",
+  contract: "0x666141b4040d665383feB7881F265F081b53cf8D",
+  depositToken: {
+    addr: "0x9af1F0e9aC9C844A4a4439d446c1437807183075",
+    name: "BEETX FTM/MATIC/SOL/AVAX/LUNA/BNB",
+    link: "https://beets.fi/#/pool/0x9af1f0e9ac9c844a4a4439d446c14378071830750001000000000000000000da",
+    components: ["ftm", "matic", "sol", "avax", "luna", "bnb"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-FTM-MATIC-SOL-AVAX-LUNA-BNB",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX FTM-MATIC-SOL-AVAX-LUNA-BNB",
+    farmDepositTokenName: "pBEETX FTM-MATIC-SOL-AVAX-LUNA-BNB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB);
 
-// export const JAR_FANTOM_BEETX_FTM_USDC: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4e",
-//   contract: "0xae2A28B97FFF55ca62881cBB30De0A3D9949F234",
-//   depositToken: {
-//     addr: "0xcdF68a4d525Ba2E90Fe959c74330430A5a6b8226",
-//     name: "BEETX FTM/USDC",
-//     link: "https://beets.fi/#/pool/0xcdf68a4d525ba2e90fe959c74330430a5a6b8226000200000000000000000008",
-//     components: ["ftm", "usdc"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-FTM-USDC",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX FTM-USDC",
-//     farmDepositTokenName: "pBEETX FTM-USDC",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FTM_USDC);
+export const JAR_FANTOM_BEETX_FTM_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4e",
+  contract: "0xae2A28B97FFF55ca62881cBB30De0A3D9949F234",
+  depositToken: {
+    addr: "0xcdF68a4d525Ba2E90Fe959c74330430A5a6b8226",
+    name: "BEETX FTM/USDC",
+    link: "https://beets.fi/#/pool/0xcdf68a4d525ba2e90fe959c74330430a5a6b8226000200000000000000000008",
+    components: ["ftm", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-FTM-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX FTM-USDC",
+    farmDepositTokenName: "pBEETX FTM-USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_FTM_USDC);
 
-// export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4e",
-//   contract: "0x3a0F1451629f62fCb290a600e553e0d9f03B62C9",
-//   depositToken: {
-//     addr: "0x2C580C6F08044D6dfACA8976a66C8fAddDBD9901",
-//     name: "BEETX USDC/DAI/MAI",
-//     link: "https://beets.fi/#/pool/0x2c580c6f08044d6dfaca8976a66c8fadddbd9901000000000000000000000038",
-//     components: ["usdc", "dai", "mai"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-USDC-DAI-MAI",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX USDC-DAI-MAI",
-//     farmDepositTokenName: "pBEETX USDC-DAI-MAI",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_DAI_MAI);
+export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4f",
+  contract: "0x3a0F1451629f62fCb290a600e553e0d9f03B62C9",
+  depositToken: {
+    addr: "0x2C580C6F08044D6dfACA8976a66C8fAddDBD9901",
+    name: "BEETX USDC/DAI/MAI",
+    link: "https://beets.fi/#/pool/0x2c580c6f08044d6dfaca8976a66c8fadddbd9901000000000000000000000038",
+    components: ["usdc", "dai", "mai"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-USDC-DAI-MAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX USDC-DAI-MAI",
+    farmDepositTokenName: "pBEETX USDC-DAI-MAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_DAI_MAI);
 
-// export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 4e",
-//   contract: "0x179F487f5d735A1353E13A718e6C1030DC01E011",
-//   depositToken: {
-//     addr: "0xf3A602d30dcB723A74a0198313a7551FEacA7DAc",
-//     name: "BEETX USDC/FTM/BTC/ETH",
-//     link: "https://beets.fi/#/pool/0xf3a602d30dcb723a74a0198313a7551feaca7dac00010000000000000000005f",
-//     components: ["usdc", "ftm", "btc", "eth"],
-//   },
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.BEETHOVENX,
-//   details: {
-//     apiKey: "BEETX-USDC-FTM-BTC-ETH",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pBEETX USDC-FTM-BTC-ETH",
-//     farmDepositTokenName: "pBEETX USDC-FTM-BTC-ETH",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH);
+export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 4g",
+  contract: "0x179F487f5d735A1353E13A718e6C1030DC01E011",
+  depositToken: {
+    addr: "0xf3A602d30dcB723A74a0198313a7551FEacA7DAc",
+    name: "BEETX USDC/FTM/BTC/ETH",
+    link: "https://beets.fi/#/pool/0xf3a602d30dcb723a74a0198313a7551feaca7dac00010000000000000000005f",
+    components: ["usdc", "ftm", "btc", "eth"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "BEETX-USDC-FTM-BTC-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX USDC-FTM-BTC-ETH",
+    farmDepositTokenName: "pBEETX USDC-FTM-BTC-ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH);
 
 
 

@@ -255,7 +255,14 @@ import {
   JAR_FANTOM_LQDR_SPIRIT_ETH_FTM,
   JAR_FANTOM_LQDR_SPIRIT_FTM,
   JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM,
-  JAR_FANTOM_LQDR_BOO_SUSHI_FTM
+  JAR_FANTOM_BEETX_FBEETS,
+  JAR_FANTOM_BEETX_FTM_BTC_ETH,
+  JAR_FANTOM_BEETX_LQDR_FTM,
+  JAR_FANTOM_LQDR_BOO_SUSHI_FTM,
+  JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB,
+  JAR_FANTOM_BEETX_FTM_USDC,
+  JAR_FANTOM_BEETX_USDC_DAI_MAI,
+  JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH,
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -477,6 +484,7 @@ import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
 import { OxdTomb } from "./impl/fantom-oxd-tomb";
 import { LqdrJar } from "./impl/fantom-lqdr-jar";
 import { BooJar } from "./impl/fantom-boo-jar";
+import { BeetXJar } from "./impl/fantom-beetx-jar";
 
 
 export class noOpJarBehavior extends AbstractJarBehavior {
@@ -769,6 +777,14 @@ jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_ETH_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_BOO_SUSHI_FTM.id, new LqdrJar());
+
+jarToBehavior.set(JAR_FANTOM_BEETX_FBEETS.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_FTM_BTC_ETH.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_LQDR_FTM.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_FTM_USDC.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_USDC_DAI_MAI.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH.id, new BeetXJar());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());

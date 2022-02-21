@@ -164,41 +164,58 @@ export const getBalancerPerformance = async (
   };
 };
 
-export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
+export const getPoolData = async (jar: JarDefinition, model: PickleModel): Promise<PoolData> => {
   const provider = model.providerFor(jar.chain);
-  const balVaultContract = new Contract(VAULT_ADDRESS, balVaultABI, provider);
-  const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
-    vaultPoolIds[jar.depositToken.addr.toLowerCase()],
+  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
+  const graphResp: GraphResponse | undefined = await queryTheGraph(
+    jar,
+    blockNum,
   );
-  const { tokens, balances } = poolTokensResp;
-  const filtered = tokens.map((tokenAddr: string, i: number) => {
-    return [
-      tokenAddr,
-      parseFloat(
-        ethers.utils.formatUnits(
-          balances[i],
-          model.tokenDecimals(tokenAddr, jar.chain),
-        ),
-      ),
-    ];
-  });
   const poolContract = new Contract(jar.depositToken.addr, erc20Abi, provider);
   const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
   const poolTokenTotalSupply = parseFloat(
     ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
   ); // balancer LP tokens always have 18 decimals
-  const poolTotalBalanceUSD = filtered.reduce(
-    (total: number, token: [string, number]) => {
-      const tokenAddress = token[0].toLowerCase();
-      const tokenValueUSD = token[1] * model.priceOfSync(tokenAddress);
-      return total + tokenValueUSD;
-    },
-    0,
-  );
+
+  let totalSupplyUSD;
+  if (graphResp) {
+    // Better & more accurate way to get totalLiquidityUSD value. Depends on the graph to work.
+    const { totalLiquidity } = graphResp;
+    totalSupplyUSD = totalLiquidity;
+  } else {
+    // Less accurate (issue observed with usdc-dai-mai pool). Fallback in case the graph doesn't work
+    const balVaultContract = new Contract(VAULT_ADDRESS, balVaultABI, provider);
+    const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
+      vaultPoolIds[jar.depositToken.addr.toLowerCase()],
+    );
+    const { tokens, balances } = poolTokensResp;
+    const filtered = tokens.map((tokenAddr: string, i: number) => {
+      return [
+        tokenAddr,
+        parseFloat(
+          ethers.utils.formatUnits(
+            balances[i],
+            model.tokenDecimals(tokenAddr, jar.chain),
+          ),
+        ),
+      ];
+    });
+    const poolTotalBalanceUSD = filtered.reduce(
+      (total: number, token: [string, number]) => {
+        const tokenAddress = token[0].toLowerCase();
+        const tokenPrice = model.priceOfSync(tokenAddress);
+        const tokenValueUSD = token[1] * tokenPrice;
+        return total + tokenValueUSD;
+      },
+      0,
+    );
+    totalSupplyUSD = isNaN(poolTotalBalanceUSD) ? 0 : poolTotalBalanceUSD;
+  }
+
   return {
-    totalPoolValue: +poolTotalBalanceUSD,
+    totalPoolValue: totalSupplyUSD,
     totalSupply: poolTokenTotalSupply,
-    pricePerToken: poolTotalBalanceUSD / poolTokenTotalSupply,
+    pricePerToken: totalSupplyUSD / poolTokenTotalSupply,
   };
 };
 

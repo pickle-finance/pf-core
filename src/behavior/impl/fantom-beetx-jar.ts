@@ -3,8 +3,8 @@ import {
   Provider as MulticallProvider,
   Contract as MulticallContract,
 } from "ethers-multicall";
-import { BigNumber, ethers, Signer } from "ethers";
-import { PickleModel } from "../..";
+import { ethers, Signer } from "ethers";
+import { Chains, PickleModel } from "../..";
 import {
   AssetProjectedApr,
   HistoricalYield,
@@ -19,11 +19,11 @@ import {
   PoolData,
 } from "../../protocols/BeethovenXUtil";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { masterChefIds, MC_ADDRESS } from "../../protocols/BeethovenXUtil";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import strategyABI from "../../Contracts/ABIs/strategy.json";
 
-export class BalancerJar extends AbstractJarBehavior {
-  poolData: PoolData | undefined;
+export class BeetXJar extends AbstractJarBehavior {
+  protected poolData: PoolData | undefined;
 
   async getDepositTokenPrice(
     jar: JarDefinition,
@@ -37,13 +37,19 @@ export class BalancerJar extends AbstractJarBehavior {
             model.multicallProviderFor(jar.chain);
           await multicallProvider.init();
           const fBeetsMulticontract = new MulticallContract(fBeets, erc20Abi);
-          const fBeetsUnderlyingMulticontract = new MulticallContract(fBeetsUnderlying, erc20Abi);
-          const [fBeetsTotalSupplyBN, underlyingLocked] = await multicallProvider.all([
+          const fBeetsUnderlyingMulticontract = new MulticallContract(
+            fBeetsUnderlying,
+            erc20Abi,
+          );
+          const [fBeetsTotalSupplyBN, underlyingLocked] =
+            await multicallProvider.all([
               fBeetsMulticontract.totalSupply(),
               fBeetsUnderlyingMulticontract.balanceOf(fBeets),
-          ]);
-          const ratio = parseFloat(ethers.utils.formatEther(underlyingLocked))/parseFloat(ethers.utils.formatEther(fBeetsTotalSupplyBN));
-          this.poolData.pricePerToken = this.poolData.pricePerToken*ratio;
+            ]);
+          const ratio =
+            parseFloat(ethers.utils.formatEther(underlyingLocked)) /
+            parseFloat(ethers.utils.formatEther(fBeetsTotalSupplyBN));
+          this.poolData.pricePerToken = this.poolData.pricePerToken * ratio;
         }
       } catch (error) {
         const msg = `Error in getDepositTokenPrice (${jar.details.apiKey}): ${error}`;
@@ -66,6 +72,7 @@ export class BalancerJar extends AbstractJarBehavior {
         component.name,
         component.apr,
         component.compoundable,
+        1 - Chains.get(jar.chain).defaultPerformanceFee,
       ),
     );
     return this.aprComponentsToProjectedApr(aprsPostFee);
@@ -83,14 +90,12 @@ export class BalancerJar extends AbstractJarBehavior {
     model: PickleModel,
     resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       resolver,
       ["beets"],
-      MC_ADDRESS,
-      "pendingBeets",
-      masterChefIds[jar.depositToken.addr],
+      strategyABI,
     );
   }
 }
