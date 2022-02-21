@@ -6820,6 +6820,31 @@ export const JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM);
 
+export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 3i",
+  contract: "0x41ed7A45350dD788637bD5C4616B998b27CE0832",
+  depositToken: {
+    addr: "0x8eFD36aA4Afa9F4E157bec759F1744A7FeBaEA0e",
+    name: "SPIRIT DEI/USDC",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3",
+    components: ["dei", "usdc"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  details: {
+    apiKey: "LQDR-SPIRIT-DEI-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pLQDR-SPIRIT DEI-USDC",
+    farmDepositTokenName: "pLQDR-SPIRIT DEI-USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_SPIRIT_DEI_USDC);
+
 export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 3a",

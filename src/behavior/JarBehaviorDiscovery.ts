@@ -255,6 +255,7 @@ import {
   JAR_FANTOM_LQDR_SPIRIT_ETH_FTM,
   JAR_FANTOM_LQDR_SPIRIT_FTM,
   JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_DEI_USDC,
   JAR_FANTOM_LQDR_BOO_DAI_FTM,
   JAR_FANTOM_LQDR_BOO_FTM,
   JAR_FANTOM_LQDR_BOO_ETH_FTM,
@@ -783,6 +784,7 @@ jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_ETH_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_DEI_USDC.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_BOO_DAI_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_BOO_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_LQDR_BOO_ETH_FTM.id, new LqdrJar());

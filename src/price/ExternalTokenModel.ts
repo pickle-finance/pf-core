@@ -1688,14 +1688,14 @@ export class ExternalTokenModel {
       6,
       ExternalTokenFetchStyle.ID,
     );
-    // this.addToken(
-    //   ChainNetwork.Fantom,
-    //   "",
-    //   "",
-    //   "".toLowerCase(),
-    //   0,
-    //   ExternalTokenFetchStyle.ID,
-    // )
+    this.addToken(
+      ChainNetwork.Fantom,
+      "dei",
+      "dei-token",
+      "0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    )
 
 
     // Make the reverse map to fascilitate contract lookups
