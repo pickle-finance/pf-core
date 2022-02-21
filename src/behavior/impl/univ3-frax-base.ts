@@ -1,7 +1,7 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-import { ethers } from "ethers";
-import { Chains, PickleModel } from "../..";
+import { BigNumber, ethers } from "ethers";
+import { Chains, JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   getUniV3,
@@ -20,8 +20,10 @@ import {
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
 
-export class Univ3FraxBase extends AbstractJarBehavior {
-  constructor() {
+let gaugeAddress = "0";
+export abstract class Univ3FraxBase extends AbstractJarBehavior {
+  constructor(_gaugeAddress: string) {
+    gaugeAddress = _gaugeAddress;
     super();
   }
   async getDepositTokenPrice(
@@ -55,13 +57,34 @@ export class Univ3FraxBase extends AbstractJarBehavior {
     _model: PickleModel,
     _resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
-      _jar,
-      _model,
-      _resolver,
-      ["fxs"],
+    // Do not implement.
+    return 0;
+  }
+
+  async getAssetHarvestData(
+    definition: JarDefinition,
+    _model: PickleModel,
+    _balance: BigNumber,
+    _available: BigNumber,
+    _resolver: Signer | Provider,
+  ): Promise<JarHarvestStats> {
+    const strategy = new ethers.Contract(
+      definition.details.strategyAddr,
       strategyABI,
+      _resolver,
     );
+
+    const harvestable = await strategy.getHarvestable();
+
+    const jar = new ethers.Contract(definition.contract, jarV3Abi, _resolver);
+
+    const liquidity = await jar.liquidityOfThis();
+    return {
+      balanceUSD:
+        definition.details.tokenBalance * definition.depositToken.price,
+      earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
+      harvestableUSD: (harvestable * _model.priceOfSync("fxs")) / 1e18,
+    };
   }
 
   async getProjectedAprStats(
@@ -151,26 +174,23 @@ export class Univ3FraxBase extends AbstractJarBehavior {
     const lpApr = (fee24H * 365 * 100) / jarValue;
 
     //FXS APR
+    const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
 
-    const gaugeContract = new ethers.Contract(
-      "0xF22471AC2156B489CC4a59092c56713F813ff53e",
-      gaugeABI,
-      provider,
-    );
+    const gaugeContract = new ethers.Contract(gaugeAddress, gaugeABI, provider);
 
     const combinedWeightOf = await gaugeContract.combinedWeightOf(
-      "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
+      lockerAddress,
     );
 
     const totalCombinedWeight = await gaugeContract.totalCombinedWeight();
     const rewardRate = await gaugeContract.rewardRate0();
-    const multiplier = await gaugeContract.veFXSMultiplier(
-      "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
-    );
+    const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
 
+    const weightPercentage = combinedWeightOf / (totalCombinedWeight * 1e18);
+    const oneYear = 60 * 60 * 24 * 365;
     const fxsApr =
-      ((rewardRate * 60 * 60 * 24 * 365 * combinedWeightOf) /
-        (totalCombinedWeight * 1e18)) *
+      ((rewardRate * oneYear * weightPercentage * model.priceOfSync("fxs")) /
+        jarValue) *
       100;
 
     return super.aprComponentsToProjectedApr([
