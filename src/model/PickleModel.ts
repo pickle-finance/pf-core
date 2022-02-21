@@ -307,10 +307,28 @@ export class PickleModel {
   tokenDecimals(id: string, chain: ChainNetwork): number {
     return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
   }
-  async priceOf(token: string): Promise<number> {
-    return this.prices.priceOf(token);
+  /**
+   * Don't use this. Use the synchronous version instead `priceOfSync()`.
+   */
+  async priceOf(
+    token: string,
+    chain: ChainNetwork = undefined,
+  ): Promise<number> {
+    return this.priceOfSync(token, chain);
   }
-  priceOfSync(token: string): number {
+  /**
+   * @param token The token to look-up the price for. Can be an address, ID, or cgID.
+   * @param chain The chain on which the token is. If specified, `token` value has to be an ID (e.g., not an address/cgID) (default=undefined).
+   * @returns Returns the token price || `undefined` if token price not found.
+   */
+  priceOfSync(
+    token: string,
+    chain: ChainNetwork | undefined = undefined,
+  ): number {
+    if (chain && !ethers.utils.isAddress(token)) {
+      const address = this.address(token, chain);
+      return this.prices.priceOf(address);
+    }
     return this.prices.priceOf(token);
   }
   providerFor(network: ChainNetwork): Provider {
