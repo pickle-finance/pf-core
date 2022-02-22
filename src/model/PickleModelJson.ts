@@ -216,17 +216,19 @@ export interface PlatformData {
   harvestPending: number;
 }
 export interface PickleModelJson {
-  assets: {
-    jars: JarDefinition[];
-    standaloneFarms: StandaloneFarmDefinition[];
-    external: ExternalAssetDefinition[];
-  };
+  assets: PickleModelAssets;
   dill: DillDetails;
   tokens: IExternalToken[];
   prices: { [key: string]: number };
   platform: PlatformData;
   chains: RawChain[];
   timestamp: number;
+}
+
+export interface PickleModelAssets {
+  jars: JarDefinition[];
+  standaloneFarms: StandaloneFarmDefinition[];
+  external: ExternalAssetDefinition[];
 }
 
 export interface AssetProjectedApr {
