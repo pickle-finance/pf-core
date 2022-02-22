@@ -11,6 +11,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "start": "node lib/main.js",
+    "readme": "node lib/readmeMain.js",
     "user": "node lib/usermain.js",
     "docs": "node lib/docsMain.js",
     "build": "npm run clean && npm run compile",
