@@ -328,6 +328,7 @@ export interface JarDetails extends AssetDetails {
 export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
+  rewardTokens?: string[];
 }
 export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
 
