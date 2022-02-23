@@ -292,10 +292,10 @@ export class PickleModel {
     }
     return undefined;
   }
-  address(id: string, chain: ChainNetwork) {
+  address(id: string, chain: ChainNetwork): string {
     return ExternalTokenModelSingleton.getToken(id, chain)?.contractAddr;
   }
-  tokenDecimals(id: string, chain: ChainNetwork) {
+  tokenDecimals(id: string, chain: ChainNetwork): number {
     return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
   }
   async priceOf(token: string): Promise<number> {
@@ -314,12 +314,12 @@ export class PickleModel {
     return this.resourceCache;
   }
 
-  defaultControllerForChain(chain: ChainNetwork) {
+  defaultControllerForChain(chain: ChainNetwork): string | undefined {
     const addrObj = ADDRESSES.get(chain);
     return addrObj ? addrObj.controller : undefined;
   }
 
-  controllerForJar(jar: JarDefinition) {
+  controllerForJar(jar: JarDefinition): string | undefined {
     return jar.details?.controller
       ? jar.details.controller
       : this.defaultControllerForChain(jar.chain);
@@ -422,7 +422,7 @@ export class PickleModel {
     return ret;
   }
 
-  initializePriceCache() {
+  initializePriceCache(): void {
     if (this.prices === undefined) {
       this.prices = new PriceCache();
     }

@@ -163,9 +163,11 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     na: NeedleAliases,
     prices: Map<string, number>,
   ) {
-    for (let i = 0; i < na.aliases.length; i++) {
-      if (na.aliases[i].startsWith("0x") && prices.has(na.aliases[i])) {
-        return prices.get(na.aliases[i]);
+    if( prices !== undefined ) {
+      for (let i = 0; i < na.aliases.length; i++) {
+        if (na.aliases[i].startsWith("0x") && prices.has(na.aliases[i])) {
+          return prices.get(na.aliases[i]);
+        }
       }
     }
     return undefined;
