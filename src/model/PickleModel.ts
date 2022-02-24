@@ -587,7 +587,11 @@ export class PickleModel {
     }
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("ensureComponentTokensLoadedForChain: ethcallProvider", error, chain);
+    }
 
     let results: string[] = undefined;
     try {
@@ -669,7 +673,11 @@ export class PickleModel {
   ) {
     if (!jars || jars.length === 0) return;
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addJarStrategies: ethcallProvider", error, chain);
+    }
     const controllerContract = new MulticallContract(
       controllerAddr,
       controllerAbi,
@@ -696,7 +704,11 @@ export class PickleModel {
     }
 
     const ethcallProvider2 = this.multicallProviderFor(jars[0].chain);
-    await ethcallProvider2.init();
+    try {
+      await ethcallProvider2.init();
+    } catch (error) {
+      this.logError("addJarStrategies: ethcallProvider2", error, chain);
+    }
     const withStrategyAddresses = jars.filter(
       (x) =>
         x.details.strategyAddr !== undefined &&
@@ -730,7 +742,11 @@ export class PickleModel {
   async addJarRatios(jars: JarDefinition[], chain: ChainNetwork) {
     if (jars === undefined || jars.length === 0) return;
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addJarRatios: ethcallProvider", error, chain);
+    }
 
     let ratios: string[] = undefined;
     try {
@@ -740,7 +756,7 @@ export class PickleModel {
         ),
       );
     } catch (error) {
-      this.logError("addJarRatios", error, chain);
+      this.logError("addJarRatios: ratios", error, chain);
     }
     for (let i = 0; ratios !== undefined && i < jars.length; i++) {
       jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
@@ -752,7 +768,11 @@ export class PickleModel {
     if (jars === undefined || jars.length === 0) return;
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();      
+    } catch (error) {
+      this.logError("addJarTotalSupply: ethcallProvider", error, chain);
+    }
 
     let supply: string[] = undefined;
     try {
@@ -775,7 +795,11 @@ export class PickleModel {
     if (jars === undefined || jars.length === 0) return;
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addDepositTokenBalance: ethcallProvider", error, chain);
+    }
 
     let balance: string[] = undefined;
     try {
@@ -803,7 +827,11 @@ export class PickleModel {
     if (jars === undefined || jars.length === 0) return;
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init(); // error being raised by this
+    try {
+      await ethcallProvider.init(); // error being raised by this
+    } catch (error) {
+      this.logError("addDepositTokenTotalSupply: ethcallProvider", error, chain);
+    }
 
     let supply: string[] = undefined;
     try {
@@ -929,10 +957,14 @@ export class PickleModel {
 
     // Load balances as a group
     const multicallProvider = this.multicallProviderFor(chain);
-    await multicallProvider.init();
-
     const multicallProvider2 = this.multicallProviderFor(chain);
-    await multicallProvider2.init();
+    try {
+      await multicallProvider.init();
+      await multicallProvider2.init();
+    } catch (error) {
+      this.logError("loadHarvestDataJarAbi: multicallProvider", error, chain);
+    }
+
 
     let balanceOfProm: Promise<BigNumber[]> = undefined;
     try {
@@ -1058,25 +1090,36 @@ export class PickleModel {
     balances: any[],
   ) {
     for (let i = 0; i < jarsWithFarms.length; i++) {
-      const ptokenPrice: number =
-        jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
-      const ptokens = balances[i];
-      const dec = jarsWithFarms[i].details.decimals
-        ? jarsWithFarms[i].details.decimals
-        : 18;
-      const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
-      const valueBalance = ptokenBalance * ptokenPrice;
       if (jarsWithFarms[i].farm.details === undefined) {
         jarsWithFarms[i].farm.details = {};
       }
-      jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
-      jarsWithFarms[i].farm.details.valueBalance = valueBalance;
+      try {
+        const ptokenPrice: number =
+          jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
+        const ptokens = balances[i];
+        const dec = jarsWithFarms[i].details.decimals
+          ? jarsWithFarms[i].details.decimals
+          : 18;
+        const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
+        const valueBalance = ptokenBalance * ptokenPrice;
+        jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
+        jarsWithFarms[i].farm.details.valueBalance = valueBalance;
+      } catch (error) {
+        this.logError("ensureNestedFarmsBalanceLoaded", error, jarsWithFarms[i].id);
+        jarsWithFarms[i].farm.details.tokenBalance = 0;
+        jarsWithFarms[i].farm.details.valueBalance = 0;
+      }
     }
   }
 
   async ensureFarmsBalanceLoadedForProtocol(chain: ChainNetwork): Promise<void> {
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("ensureFarmsBalanceLoadedForProtocol: ethcallProvider", error, chain);
+      
+    }
 
     // Run on eth standalone farms
     const chainFarms: StandaloneFarmDefinition[] =
