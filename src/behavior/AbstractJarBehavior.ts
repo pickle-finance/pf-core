@@ -6,7 +6,7 @@ import {
   AssetProjectedApr,
   JarDefinition,
   HistoricalYield,
-  SWAP_PROTOCOLS,
+  XYK_SWAP_PROTOCOLS,
 } from "../model/PickleModelJson";
 import {
   ICustomHarvester,
@@ -32,7 +32,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   }
 
   isGenericSwapProtocol(protocol: string): boolean {
-    return SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol).length > 0;
+    return XYK_SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol).length > 0;
   }
 
   async getProtocolApy(

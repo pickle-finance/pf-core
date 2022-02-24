@@ -46,7 +46,7 @@ export enum AssetProtocol {
   // ADD_PROTOCOL
 }
 
-export const SWAP_PROTOCOLS: SwapProtocol[] = [
+export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.SUSHISWAP,
     chain: ChainNetwork.Polygon,
@@ -260,7 +260,7 @@ export enum AssetType {
   EXTERNAL = "external",
 }
 
-export interface SwapProtocol {
+export interface XYKSwapProtocol {
   chain: ChainNetwork;
   protocol: AssetProtocol;
   zappable: boolean;
@@ -290,7 +290,6 @@ export interface DepositToken {
   componentAddresses?: string[];
   style?: DepositTokenStyle;
   price?: number;
-  isSwapProtocol?: boolean;
   nativePath?: {
     path: string[];
     target: string;
@@ -396,7 +395,7 @@ export interface PlatformData {
 export interface PickleModelJson {
   assets: PickleModelAssets;
   dill: DillDetails;
-  swapProtocols: SwapProtocol[];
+  xykSwapProtocols: XYKSwapProtocol[];
   tokens: IExternalToken[];
   prices: { [key: string]: number };
   platform: PlatformData;

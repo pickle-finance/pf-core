@@ -12,7 +12,7 @@ import {
   PickleModelJson,
   PlatformData,
   StandaloneFarmDefinition,
-  SWAP_PROTOCOLS,
+  XYK_SWAP_PROTOCOLS,
 } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
@@ -373,20 +373,15 @@ export class PickleModel {
       const chain = this.allAssets[i].chain;
       const protocol = this.allAssets[i].protocol;
 
-      const swapProtocol = SWAP_PROTOCOLS.find((x) => {
+      const swapProtocol = XYK_SWAP_PROTOCOLS.find((x) => {
         return x.protocol == protocol && x.chain == chain;
       });
-
-      // Guard clause 1
-      if (!swapProtocol) continue;
-
-      this.allAssets[i].depositToken.isSwapProtocol = true;
 
       // Add path for native pairs
       const nativeComponent = this.getNativeComponent(this.allAssets[i].depositToken.components, chain)
 
-      // Guard clause 2
-      if (!nativeComponent) continue;
+      // Guard clause 1
+      if (!swapProtocol || !nativeComponent) continue;
 
       this.allAssets[i].depositToken.nativePath = {
         target: nativeComponent.contractAddr,
@@ -454,7 +449,7 @@ export class PickleModel {
       prices: Object.fromEntries(this.prices.getCache()),
       dill: this.dillDetails,
       platform: this.platformData,
-      swapProtocols: SWAP_PROTOCOLS,
+      xykSwapProtocols: XYK_SWAP_PROTOCOLS,
       assets: {
         jars: this.getJars(),
         standaloneFarms: this.getStandaloneFarms(),
