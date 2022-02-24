@@ -506,7 +506,8 @@ export class PickleModel {
       const chainJars = jars.filter(
         (x) =>
           x.chain === this.configuredChains[i] &&
-          x.details?.controller === undefined,
+          x.details?.controller === undefined && 
+          x.enablement !== AssetEnablement.PERMANENTLY_DISABLED
       );
       promises.push(
         this.addJarStrategies(chainJars, controller, this.configuredChains[i]),
@@ -515,7 +516,7 @@ export class PickleModel {
 
     // Now handle jars with custom controllers on configured chains
     const customControllerJars = jars.filter(
-      (x) => x.details?.controller !== undefined,
+      (x) => x.details?.controller !== undefined && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
     ).filter((x) => this.configuredChains.includes(x.chain));
 
     for (let i = 0; i < customControllerJars.length; i++) {
@@ -841,8 +842,8 @@ export class PickleModel {
       );
       for (let j = 0; j < jars.length; j++) {
         if (
-          jars[j].details.harvestStats === undefined &&
           jars[j].enablement !== AssetEnablement.PERMANENTLY_DISABLED &&
+          jars[j].details.harvestStats === undefined &&
           jars[j].details.strategyAddr !== NULL_ADDRESS
         ) {
           missing.push(jars[j]);
@@ -1164,7 +1165,7 @@ export class PickleModel {
 
   async loadApyComponents(): Promise<void> {
     const withBehaviors: PickleAsset[] = this.allAssets.filter(
-      (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined,
+      (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
     ).filter((x) => this.configuredChains.includes(x.chain));
     let aprStats: AssetProjectedApr[] = undefined;
     try {
