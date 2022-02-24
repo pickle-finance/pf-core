@@ -1,4 +1,4 @@
-import { ChainNetwork } from ".";
+import { ChainNetwork, Chains } from ".";
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
@@ -15,6 +15,9 @@ async function generateFullApi() {
   );
 
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
+  // TODO REMOVE THIS ASAP
+  const ignoreChains: ChainNetwork[] = [ChainNetwork.Polygon, ChainNetwork.Moonriver];
+  model.setConfiguredChains(Chains.list().filter((x) => !ignoreChains.includes(x)));
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
