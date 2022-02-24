@@ -3,7 +3,7 @@ import { PickleModel } from "../model/PickleModel";
 import {
   AssetProtocol,
   PickleAsset,
-  SWAP_PROTOCOLS,
+  XYK_SWAP_PROTOCOLS,
 } from "../model/PickleModelJson";
 import { getLivePairDataFromContracts } from "../protocols/GenericSwapUtil";
 import CurvePoolABI from "../Contracts/ABIs/curve-pool.json";
@@ -17,7 +17,7 @@ import { Provider } from "@ethersproject/providers";
     (sushi, uni, curve, etc) or the few leftovers with no home. 
 */
 function isGenericSwapProtocol(protocol: string): boolean {
-  return SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol).length > 0;
+  return XYK_SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol).length > 0;
 }
 
 export async function getDepositTokenPriceForSwap(
