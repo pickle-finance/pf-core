@@ -176,10 +176,14 @@ import {
   JAR_METIS_NETSWAP_NETT_USDT,
   JAR_METIS_NETSWAP_USDT_METIS,
   JAR_METIS_NETSWAP_USDT_USDC,
+  JAR_METIS_NETSWAP_BTC_METIS,
+  JAR_METIS_NETSWAP_BTC_USDT,
+  JAR_METIS_NETSWAP_METIS_RELAY,
   JAR_METIS_TETHYS_METIS,
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
   JAR_METIS_TETHYS_USDT_METIS,
+  JAR_METIS_TETHYS_BTC_METIS,
   JAR_POLY_SUSHI_RAIDER_MATIC,
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
@@ -392,10 +396,14 @@ import { NetswapNettUsdc } from "./impl/metis-netswap-nett-usdc";
 import { NetswapNettUsdt } from "./impl/metis-netswap-nett-usdt";
 import { NetswapUsdtMetis } from "./impl/metis-netswap-usdt-metis";
 import { NetswapUsdtUsdc } from "./impl/metis-netswap-usdt-usdc";
+import { NetswapBtcMetis } from "./impl/metis-netswap-btc-metis";
+import { NetswapBtcUsdt } from "./impl/metis-netswap-btc-usdt";
+import { NetswapMetisRelay } from "./impl/metis-netswap-metis-relay";
 import { TethysMetis } from "./impl/metis-tethys";
 import { TethysEthMetis } from "./impl/metis-tethys-eth-metis";
 import { TethysMetisUsdc } from "./impl/metis-tethys-metis-usdc";
 import { TethysUsdtMetis } from "./impl/metis-tethys-usdt-metis";
+import { TethysBtcMetis } from "./impl/metis-tethys-btc-metis";
 import { RaiderMatic } from "./impl/raider-matic";
 import { RaiderWeth } from "./impl/raider-weth";
 import { AurumMatic } from "./impl/raider-aurum-matic";
@@ -646,10 +654,14 @@ jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDC.id, new NetswapNettUsdc());
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDT.id, new NetswapNettUsdt());
 jarToBehavior.set(JAR_METIS_NETSWAP_USDT_METIS.id, new NetswapUsdtMetis());
 jarToBehavior.set(JAR_METIS_NETSWAP_USDT_USDC.id, new NetswapUsdtUsdc());
+jarToBehavior.set(JAR_METIS_NETSWAP_BTC_METIS.id, new NetswapBtcMetis());
+jarToBehavior.set(JAR_METIS_NETSWAP_BTC_USDT.id, new NetswapBtcUsdt());
+jarToBehavior.set(JAR_METIS_NETSWAP_METIS_RELAY.id, new NetswapMetisRelay());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_BTC_METIS.id, new TethysBtcMetis());
 jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
 jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
 

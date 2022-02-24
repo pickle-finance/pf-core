@@ -1207,6 +1207,14 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Metis,
+      "btc",
+      "bitcoin",
+      "0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
+    )
+    this.addToken(
+      ChainNetwork.Metis,
       "usdc",
       "usd-coin",
       "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21".toLowerCase(),
@@ -1237,6 +1245,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Metis,
+      "relay",
+      "relay-token",
+      "0xfe282Af5f9eB59C30A3f78789EEfFA704188bdD4".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+
 
     // Moonbeam
     this.addToken(
