@@ -368,7 +368,23 @@ export class PickleModel {
     }
   }
 
+  async checkConfiguredChainsConnections(): Promise<void> {
+    let liveChains: ChainNetwork[];
+    await Promise.all(
+      this.configuredChains.map(async chain => {
+      const provider = this.providerFor(chain);
+      try {
+        await provider.getNetwork();
+        liveChains.push(chain);
+      } catch (error) {
+        this.logError("setConfiguredChains",error,`[${chain}] RPC is dead`,);
+      }
+    }));
+    this.setConfiguredChains(liveChains);
+  }
+
   async generateFullApi(): Promise<PickleModelJson> {
+    await this.checkConfiguredChainsConnections();
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
       getWeeklyDistribution(this.getJars()),
@@ -428,13 +444,13 @@ export class PickleModel {
     }
   }
 
-  initializeChains(chains: Map<ChainNetwork, Provider | Signer>): void {
+  async initializeChains(chains: Map<ChainNetwork, Provider | Signer>): Promise<void> {
     const allChains: ChainNetwork[] = Chains.list();
     Chains.globalInitialize(chains);
-    this.setConfiguredChains(allChains);
+    await this.setConfiguredChains(allChains);
   }
 
-  setConfiguredChains(chains: ChainNetwork[]): void {
+  async setConfiguredChains(chains: ChainNetwork[]): Promise<void> {
     this.configuredChains = chains;
   }
 
