@@ -15,6 +15,7 @@ export interface RawChain {
   rpcs: string[];
   multicallAddress?: string;
   defaultPerformanceFee: number;
+  wrappedNativeAddress: string;
 }
 
 export enum ChainNetwork {
@@ -43,6 +44,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://etherscan.io",
     rpcs: ["https://cloudflare-eth.com/"],
     defaultPerformanceFee: 0.2,
+    wrappedNativeAddress: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
   {
     chainId: 137,
@@ -59,6 +61,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
       "https://rpc-mainnet.matic.network",
     ],
     defaultPerformanceFee: 0.2,
+    wrappedNativeAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
   },
   {
     chainId: 66,
@@ -71,6 +74,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://exchainrpc.okex.org"],
     multicallAddress: "0x94fEadE0D3D832E4A05d459eBeA9350c6cDd3bCa",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
   },
   {
     chainId: 42161,
@@ -83,6 +87,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://arb1.arbitrum.io/rpc"],
     multicallAddress: "0x813715eF627B01f4931d8C6F8D2459F26E19137E",
     defaultPerformanceFee: 0.2,
+    wrappedNativeAddress: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1",
   },
   {
     chainId: 1666600000,
@@ -95,6 +100,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://api.harmony.one"],
     multicallAddress: "0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a",
   },
   {
     chainId: 1285,
@@ -107,6 +113,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://rpc.moonriver.moonbeam.network"],
     multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
   },
   {
     chainId: 25,
@@ -119,6 +126,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://evm-cronos.crypto.org"],
     multicallAddress: "0x0fA4d452693F2f45D28c4EC4d20b236C4010dA74",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
   },
   {
     chainId: 1313161554,
@@ -131,6 +139,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://mainnet.aurora.dev"],
     multicallAddress: "0x60Ad579Fb20c8896b7b98E800cBA9e196E6eaA44",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
   },
   {
     chainId: 1088,
@@ -143,6 +152,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://andromeda.metis.io/?owner=1088"],
     multicallAddress: "0xa99850Ff94d3D333e7F669203Ab7B77Ec634028F",
     defaultPerformanceFee: 0.042,
+    wrappedNativeAddress: "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
   },
   {
     chainId: 1284,
@@ -155,6 +165,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://rpc.api.moonbeam.network"],
     multicallAddress: "0xDad6760bd3FC33b741D46df1e205558BB22D1507",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0xAcc15dC74880C9944775448304B263D191c6077F",
   },
   {
     chainId: 10,
@@ -167,6 +178,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://mainnet.optimism.io"],
     multicallAddress: "0xD0E99f15B24F265074747B2A1444eB02b9E30422",
     defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0x4200000000000000000000000000000000000006",
   },
   // ADD_CHAIN
 ];
