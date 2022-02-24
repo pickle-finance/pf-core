@@ -333,6 +333,9 @@ export class PickleModel {
   }
 
   getNativeComponent(components: string[], chain: ChainNetwork): ExternalToken | undefined {
+    if( !components ) {
+      return undefined;
+    }
     for (let i = 0; i < components.length; i++) {
       const token = ExternalTokenModelSingleton.getToken(components[i], chain)
       if (token.isNativeToken) {
