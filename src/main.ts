@@ -15,11 +15,6 @@ async function generateFullApi() {
   );
 
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
-  // TODO REMOVE THIS ASAP
-  const ignoreChains: ChainNetwork[] = [ChainNetwork.Moonriver];
-  //model.setConfiguredChains(Chains.list().filter((x) => !ignoreChains.includes(x)));
-  model.setConfiguredChains(ignoreChains);
-  //model.setConfiguredChains([ChainNetwork.Polygon]);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
