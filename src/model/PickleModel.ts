@@ -369,7 +369,7 @@ export class PickleModel {
   }
 
   async checkConfiguredChainsConnections(): Promise<void> {
-    let liveChains: ChainNetwork[];
+    const liveChains: ChainNetwork[] = [];
     await Promise.all(
       this.configuredChains.map(async chain => {
       const provider = this.providerFor(chain);
