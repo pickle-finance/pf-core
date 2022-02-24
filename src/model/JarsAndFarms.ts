@@ -5723,9 +5723,9 @@ export const JAR_FLARE_FLARE_USDC: JarDefinition = {
     link: "https://solarflare.io/exchange/add/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7/0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
     components: ["flare", "usdc-2"],
     nativePath: {
-      //Beam Router --> WGLMR, USDC
-      target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
+      //Solar Router --> WGLMR, FLARE
+      target: "0xd3B02Ff30c218c7f7756BA14bcA075Bf7C2C951e",
+      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xe3e43888fa7803cdc7bea478ab327cf1a0dc11a7"]
     }
   },
   enablement: AssetEnablement.ENABLED,
