@@ -1028,6 +1028,15 @@ export class PickleModel {
     const resolver = Chains.getResolver(chain);
     const harvestArr: Promise<JarHarvestStats>[] = [];
     for (let i = 0; i < harvestableJars.length; i++) {
+      if( !balanceOf || !available || !strategyWant 
+          || balanceOf.length <= i || available.length <= i || strategyWant.length <= i) {
+            console.log(
+              "Error loading harvest data for jar " +
+                harvestableJars[i].id +
+                ":  multicall for prereqs failed"
+            );
+            continue;
+      }
       try {
         const harvestResolver: JarBehavior = discovery.findAssetBehavior(
           harvestableJars[i],
@@ -1088,26 +1097,32 @@ export class PickleModel {
   ensureNestedFarmsBalanceLoaded(
     jarsWithFarms: JarDefinition[],
     balances: any[],
-  ) {
+  ): void {
     for (let i = 0; i < jarsWithFarms.length; i++) {
       if (jarsWithFarms[i].farm.details === undefined) {
         jarsWithFarms[i].farm.details = {};
       }
-      try {
-        const ptokenPrice: number =
-          jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
-        const ptokens = balances[i];
-        const dec = jarsWithFarms[i].details.decimals
-          ? jarsWithFarms[i].details.decimals
-          : 18;
-        const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
-        const valueBalance = ptokenBalance * ptokenPrice;
-        jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
-        jarsWithFarms[i].farm.details.valueBalance = valueBalance;
-      } catch (error) {
-        this.logError("ensureNestedFarmsBalanceLoaded", error, jarsWithFarms[i].id);
+      if( balances === undefined || balances === null) {
+        this.logError("ensureNestedFarmsBalanceLoaded", "undefined balance", jarsWithFarms[i].id);
         jarsWithFarms[i].farm.details.tokenBalance = 0;
         jarsWithFarms[i].farm.details.valueBalance = 0;
+      } else {
+        try {
+          const ptokenPrice: number =
+            jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
+          const ptokens = balances[i];
+          const dec = jarsWithFarms[i].details.decimals
+            ? jarsWithFarms[i].details.decimals
+            : 18;
+          const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
+          const valueBalance = ptokenBalance * ptokenPrice;
+          jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
+          jarsWithFarms[i].farm.details.valueBalance = valueBalance;
+        } catch (error) {
+          this.logError("ensureNestedFarmsBalanceLoaded", error, jarsWithFarms[i].id);
+          jarsWithFarms[i].farm.details.tokenBalance = 0;
+          jarsWithFarms[i].farm.details.valueBalance = 0;
+        }
       }
     }
   }
