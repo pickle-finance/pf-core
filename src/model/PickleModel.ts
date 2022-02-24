@@ -1075,7 +1075,7 @@ export class PickleModel {
     }
     const results: JarHarvestStats[] = await Promise.all(harvestArr);
     for (let j = 0; j < harvestableJars.length; j++) {
-      if (results[j]) {
+      if (results && results.length > j && results[j]) {
         results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
         results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
         results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
