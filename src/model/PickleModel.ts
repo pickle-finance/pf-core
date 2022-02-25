@@ -155,6 +155,15 @@ export const ADDRESSES = new Map([
       minichef: NULL_ADDRESS,
     },
   ],
+  [
+    ChainNetwork.Fantom,
+    {
+      pickle: NULL_ADDRESS,
+      masterChef: NULL_ADDRESS,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      minichef: NULL_ADDRESS,
+    },
+  ],
 
   // ADD_CHAIN
 ]);
@@ -292,16 +301,34 @@ export class PickleModel {
     }
     return undefined;
   }
-  address(id: string, chain: ChainNetwork) {
+  address(id: string, chain: ChainNetwork): string {
     return ExternalTokenModelSingleton.getToken(id, chain)?.contractAddr;
   }
-  tokenDecimals(id: string, chain: ChainNetwork) {
+  tokenDecimals(id: string, chain: ChainNetwork): number {
     return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
   }
-  async priceOf(token: string): Promise<number> {
-    return this.prices.priceOf(token);
+  /**
+   * Don't use this. Use the synchronous version instead `priceOfSync()`.
+   */
+  async priceOf(
+    token: string,
+    chain: ChainNetwork = undefined,
+  ): Promise<number> {
+    return this.priceOfSync(token, chain);
   }
-  priceOfSync(token: string): number {
+  /**
+   * @param token The token to look-up the price for. Can be an address, ID, or cgID.
+   * @param chain The chain on which the token is. If specified, `token` value has to be an ID (e.g., not an address/cgID) (default=undefined).
+   * @returns Returns the token price || `undefined` if token price not found.
+   */
+  priceOfSync(
+    token: string,
+    chain: ChainNetwork | undefined = undefined,
+  ): number {
+    if (chain && !ethers.utils.isAddress(token)) {
+      const address = this.address(token, chain);
+      return this.prices.priceOf(address);
+    }
     return this.prices.priceOf(token);
   }
   providerFor(network: ChainNetwork): Provider {
@@ -314,12 +341,12 @@ export class PickleModel {
     return this.resourceCache;
   }
 
-  defaultControllerForChain(chain: ChainNetwork) {
+  defaultControllerForChain(chain: ChainNetwork): string | undefined {
     const addrObj = ADDRESSES.get(chain);
     return addrObj ? addrObj.controller : undefined;
   }
 
-  controllerForJar(jar: JarDefinition) {
+  controllerForJar(jar: JarDefinition): string | undefined {
     return jar.details?.controller
       ? jar.details.controller
       : this.defaultControllerForChain(jar.chain);
@@ -368,7 +395,23 @@ export class PickleModel {
     }
   }
 
+  async checkConfiguredChainsConnections(): Promise<void> {
+    const liveChains: ChainNetwork[] = [];
+    await Promise.all(
+      this.configuredChains.map(async chain => {
+      const provider = this.providerFor(chain);
+      try {
+        await provider.getNetwork();
+        liveChains.push(chain);
+      } catch (error) {
+        this.logError("setConfiguredChains",error,`[${chain}] RPC is dead`,);
+      }
+    }));
+    this.setConfiguredChains(liveChains);
+  }
+
   async generateFullApi(): Promise<PickleModelJson> {
+    await this.checkConfiguredChainsConnections();
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
       getWeeklyDistribution(this.getJars()),
@@ -422,16 +465,20 @@ export class PickleModel {
     return ret;
   }
 
-  initializePriceCache() {
+  initializePriceCache(): void {
     if (this.prices === undefined) {
       this.prices = new PriceCache();
     }
   }
 
-  initializeChains(chains: Map<ChainNetwork, Provider | Signer>) {
+  async initializeChains(chains: Map<ChainNetwork, Provider | Signer>): Promise<void> {
     const allChains: ChainNetwork[] = Chains.list();
     Chains.globalInitialize(chains);
-    this.configuredChains = allChains;
+    await this.setConfiguredChains(allChains);
+  }
+
+  async setConfiguredChains(chains: ChainNetwork[]): Promise<void> {
+    this.configuredChains = chains;
   }
 
   async ensurePriceCacheLoaded(): Promise<any> {
@@ -502,17 +549,19 @@ export class PickleModel {
       const chainJars = jars.filter(
         (x) =>
           x.chain === this.configuredChains[i] &&
-          x.details?.controller === undefined,
+          x.details?.controller === undefined && 
+          x.enablement !== AssetEnablement.PERMANENTLY_DISABLED
       );
       promises.push(
         this.addJarStrategies(chainJars, controller, this.configuredChains[i]),
       );
     }
 
-    // Now handle jars with custom controllers
+    // Now handle jars with custom controllers on configured chains
     const customControllerJars = jars.filter(
-      (x) => x.details?.controller !== undefined,
-    );
+      (x) => x.details?.controller !== undefined && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
+    ).filter((x) => this.configuredChains.includes(x.chain));
+
     for (let i = 0; i < customControllerJars.length; i++) {
       promises.push(
         this.addJarStrategies(
@@ -581,7 +630,11 @@ export class PickleModel {
     }
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("ensureComponentTokensLoadedForChain: ethcallProvider", error, chain);
+    }
 
     let results: string[] = undefined;
     try {
@@ -626,7 +679,7 @@ export class PickleModel {
     const jarBehaviorResolver = new JarBehaviorDiscovery();
     const notDisabled: PickleAsset[] = this.allAssets.filter((jar) => {
       return jar.enablement !== AssetEnablement.PERMANENTLY_DISABLED;
-    });
+    }).filter((x) => this.configuredChains.includes(x.chain));
     let prices: number[] = undefined;
     try {
       prices = await Promise.all(
@@ -663,7 +716,11 @@ export class PickleModel {
   ) {
     if (!jars || jars.length === 0) return;
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addJarStrategies: ethcallProvider", error, chain);
+    }
     const controllerContract = new MulticallContract(
       controllerAddr,
       controllerAbi,
@@ -690,7 +747,11 @@ export class PickleModel {
     }
 
     const ethcallProvider2 = this.multicallProviderFor(jars[0].chain);
-    await ethcallProvider2.init();
+    try {
+      await ethcallProvider2.init();
+    } catch (error) {
+      this.logError("addJarStrategies: ethcallProvider2", error, chain);
+    }
     const withStrategyAddresses = jars.filter(
       (x) =>
         x.details.strategyAddr !== undefined &&
@@ -724,7 +785,11 @@ export class PickleModel {
   async addJarRatios(jars: JarDefinition[], chain: ChainNetwork) {
     if (jars === undefined || jars.length === 0) return;
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addJarRatios: ethcallProvider", error, chain);
+    }
 
     let ratios: string[] = undefined;
     try {
@@ -734,7 +799,7 @@ export class PickleModel {
         ),
       );
     } catch (error) {
-      this.logError("addJarRatios", error, chain);
+      this.logError("addJarRatios: ratios", error, chain);
     }
     for (let i = 0; ratios !== undefined && i < jars.length; i++) {
       jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));
@@ -746,7 +811,11 @@ export class PickleModel {
     if (jars === undefined || jars.length === 0) return;
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();      
+    } catch (error) {
+      this.logError("addJarTotalSupply: ethcallProvider", error, chain);
+    }
 
     let supply: string[] = undefined;
     try {
@@ -769,7 +838,11 @@ export class PickleModel {
     if (jars === undefined || jars.length === 0) return;
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addDepositTokenBalance: ethcallProvider", error, chain);
+    }
 
     let balance: string[] = undefined;
     try {
@@ -797,7 +870,11 @@ export class PickleModel {
     if (jars === undefined || jars.length === 0) return;
 
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init(); // error being raised by this
+    try {
+      await ethcallProvider.init(); // error being raised by this
+    } catch (error) {
+      this.logError("addDepositTokenTotalSupply: ethcallProvider", error, chain);
+    }
 
     let supply: string[] = undefined;
     try {
@@ -836,8 +913,8 @@ export class PickleModel {
       );
       for (let j = 0; j < jars.length; j++) {
         if (
-          jars[j].details.harvestStats === undefined &&
           jars[j].enablement !== AssetEnablement.PERMANENTLY_DISABLED &&
+          jars[j].details.harvestStats === undefined &&
           jars[j].details.strategyAddr !== NULL_ADDRESS
         ) {
           missing.push(jars[j]);
@@ -923,10 +1000,14 @@ export class PickleModel {
 
     // Load balances as a group
     const multicallProvider = this.multicallProviderFor(chain);
-    await multicallProvider.init();
-
     const multicallProvider2 = this.multicallProviderFor(chain);
-    await multicallProvider2.init();
+    try {
+      await multicallProvider.init();
+      await multicallProvider2.init();
+    } catch (error) {
+      this.logError("loadHarvestDataJarAbi: multicallProvider", error, chain);
+    }
+
 
     let balanceOfProm: Promise<BigNumber[]> = undefined;
     try {
@@ -990,6 +1071,15 @@ export class PickleModel {
     const resolver = Chains.getResolver(chain);
     const harvestArr: Promise<JarHarvestStats>[] = [];
     for (let i = 0; i < harvestableJars.length; i++) {
+      if( !balanceOf || !available || !strategyWant 
+          || balanceOf.length <= i || available.length <= i || strategyWant.length <= i) {
+            console.log(
+              "Error loading harvest data for jar " +
+                harvestableJars[i].id +
+                ":  multicall for prereqs failed"
+            );
+            continue;
+      }
       try {
         const harvestResolver: JarBehavior = discovery.findAssetBehavior(
           harvestableJars[i],
@@ -1050,44 +1140,61 @@ export class PickleModel {
   ensureNestedFarmsBalanceLoaded(
     jarsWithFarms: JarDefinition[],
     balances: any[],
-  ) {
+  ): void {
     for (let i = 0; i < jarsWithFarms.length; i++) {
-      const ptokenPrice: number =
-        jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
-      const ptokens = balances[i];
-      const dec = jarsWithFarms[i].details.decimals
-        ? jarsWithFarms[i].details.decimals
-        : 18;
-      const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
-      const valueBalance = ptokenBalance * ptokenPrice;
       if (jarsWithFarms[i].farm.details === undefined) {
         jarsWithFarms[i].farm.details = {};
       }
-      jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
-      jarsWithFarms[i].farm.details.valueBalance = valueBalance;
+      if( balances === undefined || balances === null) {
+        this.logError("ensureNestedFarmsBalanceLoaded", "undefined balance", jarsWithFarms[i].id);
+        jarsWithFarms[i].farm.details.tokenBalance = 0;
+        jarsWithFarms[i].farm.details.valueBalance = 0;
+      } else {
+        try {
+          const ptokenPrice: number =
+            jarsWithFarms[i].details.ratio * jarsWithFarms[i].depositToken.price;
+          const ptokens = balances[i];
+          const dec = jarsWithFarms[i].details.decimals
+            ? jarsWithFarms[i].details.decimals
+            : 18;
+          const ptokenBalance = parseFloat(ethers.utils.formatUnits(ptokens, dec));
+          const valueBalance = ptokenBalance * ptokenPrice;
+          jarsWithFarms[i].farm.details.tokenBalance = ptokenBalance;
+          jarsWithFarms[i].farm.details.valueBalance = valueBalance;
+        } catch (error) {
+          this.logError("ensureNestedFarmsBalanceLoaded", error, jarsWithFarms[i].id);
+          jarsWithFarms[i].farm.details.tokenBalance = 0;
+          jarsWithFarms[i].farm.details.valueBalance = 0;
+        }
+      }
     }
   }
 
-  async ensureFarmsBalanceLoadedForProtocol(chain: ChainNetwork) {
+  async ensureFarmsBalanceLoadedForProtocol(chain: ChainNetwork): Promise<void> {
     const ethcallProvider = this.multicallProviderFor(chain);
-    await ethcallProvider.init();
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("ensureFarmsBalanceLoadedForProtocol: ethcallProvider", error, chain);
+      
+    }
 
     // Run on eth standalone farms
-    const ethFarms: StandaloneFarmDefinition[] =
+    const chainFarms: StandaloneFarmDefinition[] =
       this.getStandaloneFarms().filter((x) => x.chain === chain);
-    let ethFarmResults: string[] = undefined;
+    let chainFarmResults: string[] = undefined;
     try {
-      ethFarmResults = await ethcallProvider.all<string[]>(
-        ethFarms.map((oneFarm) =>
+      chainFarmResults = await ethcallProvider.all<string[]>(
+        chainFarms.map((oneFarm) =>
           new MulticallContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(
             oneFarm.contract,
           ),
         ),
       );
     } catch (error) {
-      this.logError("ensureFarmsBalanceLoadedForProtocol", error, chain);
+      this.logError("ensureFarmsBalanceLoadedForProtocol 1", error, chain);
     }
-    this.ensureStandaloneFarmsBalanceLoaded(ethFarms, ethFarmResults);
+    this.ensureStandaloneFarmsBalanceLoaded(chainFarms, chainFarmResults);
 
     const protocolJarsWithFarms: JarDefinition[] = this.semiActiveJars(
       chain,
@@ -1104,7 +1211,7 @@ export class PickleModel {
         ),
       );
     } catch (error) {
-      this.logError("ensureFarmsBalanceLoadedForProtocol", error, chain);
+      this.logError("ensureFarmsBalanceLoadedForProtocol 2", error, chain);
     }
     this.ensureNestedFarmsBalanceLoaded(
       protocolJarsWithFarms,
@@ -1129,7 +1236,7 @@ export class PickleModel {
     // This needs to be separated out and unified, seriously.
     let external: ExternalAssetDefinition[] = undefined;
     try {
-      external = this.getExternalAssets();
+      external = this.getExternalAssets().filter((x) => this.configuredChains.includes(x.chain));
     } catch (error) {
       this.logError("ensureExternalAssetBalanceLoaded", error);
     }
@@ -1157,10 +1264,10 @@ export class PickleModel {
     }
   }
 
-  async loadApyComponents() {
+  async loadApyComponents(): Promise<void> {
     const withBehaviors: PickleAsset[] = this.allAssets.filter(
-      (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined,
-    );
+      (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined && x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
+    ).filter((x) => this.configuredChains.includes(x.chain));
     let aprStats: AssetProjectedApr[] = undefined;
     try {
       aprStats = await Promise.all(

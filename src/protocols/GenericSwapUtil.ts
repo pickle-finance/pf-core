@@ -246,8 +246,8 @@ export async function getLivePairDataFromContracts(
     numBInPairBN / Math.pow(10, model.tokenDecimals(componentB, jar.chain));
 
   // get prices
-  const priceA = model.priceOfSync(componentA);
-  const priceB = model.priceOfSync(componentB);
+  const priceA = model.priceOfSync(addressA);
+  const priceB = model.priceOfSync(addressB);
 
   let reserveUSD;
   // In case price one token is not listed on coingecko

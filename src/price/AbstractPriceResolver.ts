@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { ChainNetwork } from "..";
 import { ExternalToken, ExternalTokenModel } from "./ExternalTokenModel";
 import { IPriceComponents, IPriceResolver } from "./IPriceResolver";
@@ -25,7 +26,7 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
 
   protected getAliases(needle: string): NeedleAliases {
     const lower = needle.toLowerCase();
-    if (lower.startsWith("0x")) {
+    if (ethers.utils.isAddress(lower)) {
       const token = this.tokenModel.findTokenFromContract(lower);
       if (token !== undefined) {
         return {
@@ -163,15 +164,17 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     na: NeedleAliases,
     prices: Map<string, number>,
   ) {
-    for (let i = 0; i < na.aliases.length; i++) {
-      if (na.aliases[i].startsWith("0x") && prices.has(na.aliases[i])) {
-        return prices.get(na.aliases[i]);
+    if( prices !== undefined && prices !== null) {
+      for (let i = 0; i < na.aliases.length; i++) {
+        if (ethers.utils.isAddress(na.aliases[i]) && prices.has(na.aliases[i])) {
+          return prices.get(na.aliases[i]);
+        }
       }
     }
     return undefined;
   }
   private findContracts(aliases: string[]): string[] {
-    return aliases.filter((str) => str.startsWith("0x"));
+    return aliases.filter((str) => ethers.utils.isAddress(str));
   }
   private addToCollector(
     oneStruct: NeedleAliases,
