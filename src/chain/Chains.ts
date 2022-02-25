@@ -29,6 +29,7 @@ export enum ChainNetwork {
   Metis = "metis",
   Moonbeam = "moonbeam",
   Optimism = "optimism",
+  Fantom = "fantom",
   // ADD_CHAIN
   //Binance
 }
@@ -167,6 +168,18 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: ["https://mainnet.optimism.io"],
     multicallAddress: "0xD0E99f15B24F265074747B2A1444eB02b9E30422",
     defaultPerformanceFee: 0.1,
+  },
+  {
+    chainId: 250,
+    network: ChainNetwork.Fantom,
+    networkVisible: "Fantom",
+    secondsPerBlock: 0.91,
+    gasToken: "fantom",
+    gasTokenSymbol: "ftm",
+    explorer: "https://ftmscan.com/",
+    rpcs: ["https://rpc.ftm.tools/"],
+    multicallAddress: "0x11473D6E641dF17cd6331D45b135E35B49edBea8",
+    defaultPerformanceFee: 0.042,
   },
   // ADD_CHAIN
 ];

@@ -224,6 +224,58 @@ import {
   JAR_MOVR_FINN_MOVR_FINN,
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
+  JAR_FANTOM_OXD_USDC,
+  JAR_FANTOM_LQDR,
+  JAR_FANTOM_XBOO,
+  JAR_FANTOM_XCREDIT,
+  JAR_FANTOM_XSCREAM,
+  JAR_FANTOM_OXD,
+  JAR_FANTOM_XTAROT,
+  JAR_FANTOM_TOMB,
+  JAR_FANTOM_BOO_FTM_BOO,
+  JAR_FANTOM_BOO_FTM_ICE,
+  JAR_FANTOM_BOO_FTM_SPELL,
+  JAR_FANTOM_BOO_CRV_FTM,
+  JAR_FANTOM_BOO_FTM_AVAX,
+  JAR_FANTOM_BOO_FTM_ETH,
+  JAR_FANTOM_BOO_USDC_FTM,
+  JAR_FANTOM_BOO_FTM_DAI,
+  JAR_FANTOM_BOO_USDT_FTM,
+  JAR_FANTOM_BOO_FTM_BNB,
+  JAR_FANTOM_BOO_FTM_BTC,
+  JAR_FANTOM_BOO_FTM_MIM,
+  JAR_FANTOM_BOO_FTM_LINK,
+  JAR_FANTOM_BOO_FTM_SUSHI,
+  JAR_FANTOM_BOO_YFI_ETH,
+  JAR_FANTOM_BOO_FTM_TREEB,
+  JAR_FANTOM_BOO_FTM_ANY,
+  JAR_FANTOM_BOO_FTM_MATIC,
+  JAR_FANTOM_BOO_BTC_ETH,
+  JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_MIM_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_USDC_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_ETH_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM,
+  JAR_FANTOM_LQDR_SPIRIT_DEI_USDC,
+  JAR_FANTOM_LQDR_BOO_DAI_FTM,
+  JAR_FANTOM_LQDR_BOO_FTM,
+  JAR_FANTOM_LQDR_BOO_ETH_FTM,
+  JAR_FANTOM_LQDR_BOO_MIM_FTM,
+  JAR_FANTOM_LQDR_BOO_LINK_FTM,
+  JAR_FANTOM_LQDR_BOO_USDC_FTM,
+  JAR_FANTOM_LQDR_BOO_USDT_FTM,
+  JAR_FANTOM_LQDR_BOO_SUSHI_FTM,
+  JAR_FANTOM_BEETX_FBEETS,
+  JAR_FANTOM_BEETX_FTM_BTC_ETH,
+  JAR_FANTOM_BEETX_LQDR_FTM,
+  JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB,
+  JAR_FANTOM_BEETX_FTM_USDC,
+  JAR_FANTOM_BEETX_USDC_DAI_MAI,
+  JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH,
+
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -438,6 +490,18 @@ import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
 import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
+import { OxdJar } from "./impl/fantom-oxd-jar";
+import { OxdLqdr } from "./impl/fantom-oxd-lqdr";
+import { OxdXboo } from "./impl/fantom-oxd-xboo";
+import { OxdXcredit } from "./impl/fantom-oxd-xcredit";
+import { OxdXscream } from "./impl/fantom-oxd-xscream";
+import { OxdSingle } from "./impl/fantom-oxd";
+import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
+import { OxdTomb } from "./impl/fantom-oxd-tomb";
+import { LqdrJar } from "./impl/fantom-lqdr-jar";
+import { BooJar } from "./impl/fantom-boo-jar";
+import { BeetXJar } from "./impl/fantom-beetx-jar";
+
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -693,6 +757,63 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
+
+// Fantom
+jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
+jarToBehavior.set(JAR_FANTOM_LQDR.id, new OxdLqdr());
+jarToBehavior.set(JAR_FANTOM_XBOO.id, new OxdXboo());
+jarToBehavior.set(JAR_FANTOM_XCREDIT.id, new OxdXcredit());
+jarToBehavior.set(JAR_FANTOM_XSCREAM.id, new OxdXscream());
+jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
+jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
+jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
+
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_SPELL.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_CRV_FTM.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_AVAX.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_ETH.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_USDC_FTM.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_DAI.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_USDT_FTM.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_BNB.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_BTC.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_MIM.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_LINK.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_SUSHI.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_YFI_ETH.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_TREEB.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_ANY.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_FTM_MATIC.id, new BooJar());
+jarToBehavior.set(JAR_FANTOM_BOO_BTC_ETH.id, new BooJar());
+
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_MIM_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_USDC_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_ETH_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_SPIRIT_DEI_USDC.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_DAI_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_ETH_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_MIM_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_LINK_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_USDC_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_USDT_FTM.id, new LqdrJar());
+jarToBehavior.set(JAR_FANTOM_LQDR_BOO_SUSHI_FTM.id, new LqdrJar());
+
+jarToBehavior.set(JAR_FANTOM_BEETX_FBEETS.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_FTM_BTC_ETH.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_LQDR_FTM.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_FTM_USDC.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_USDC_DAI_MAI.id, new BeetXJar());
+jarToBehavior.set(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH.id, new BeetXJar());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
