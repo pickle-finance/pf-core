@@ -1320,12 +1320,11 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
     apiKey: "UNIV3-FRAX-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /*
   farm: {
-    farmAddress: "TODO",
+    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
     farmNickname: "pUNIv3 FRAX/DAI",
     farmDepositTokenName: "pUNIv3 FRAX/DAI",
-  },*/
+  },
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_DAI);
 
