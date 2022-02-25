@@ -188,12 +188,9 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
 
     const apr =
-      (((combinedWeightOf / totalCombinedWeight) *
-        rewardDuration *
-        52 *
-        model.priceOfSync("fxs")) /
+      ((multiplier * rewardDuration * 52 * model.priceOfSync("fxs")) /
         1e18 /
-        (definition.details.tokenBalance * definition.depositToken.price)) *
+        (totalCombinedWeight * definition.depositToken.price)) *
       100;
 
     return super.aprComponentsToProjectedApr([
