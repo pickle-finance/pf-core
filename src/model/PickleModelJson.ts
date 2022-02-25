@@ -46,7 +46,6 @@ export enum AssetProtocol {
   // ADD_PROTOCOL
 }
 
-<<<<<<< HEAD
 export const SWAP_PROTOCOLS: SwapProtocol[] = [
   {
     protocol: AssetProtocol.SUSHISWAP,
@@ -216,33 +215,20 @@ export const SWAP_PROTOCOLS: SwapProtocol[] = [
     pickleZapAddress: "",
     router: "0x2d4e873f9Ab279da9f1bb2c532d4F06f67755b77",
   },
-=======
-export const SWAP_PROTOCOLS: AssetProtocol[] = [
-  AssetProtocol.SUSHISWAP,
-  AssetProtocol.UNISWAP,
-  AssetProtocol.COMETHSWAP,
-  AssetProtocol.QUICKSWAP,
-  AssetProtocol.DODOSWAP,
-  AssetProtocol.CHERRYSWAP,
-  AssetProtocol.BXH,
-  AssetProtocol.JSWAP,
-  AssetProtocol.SOLARSWAP,
-  AssetProtocol.VVS,
-  AssetProtocol.TRISOLARIS,
-  AssetProtocol.NEARPAD,
-  AssetProtocol.WANNASWAP,
-  AssetProtocol.ROSE,
-  AssetProtocol.AURORASWAP,
-  AssetProtocol.NETSWAP,
-  AssetProtocol.TETHYS,
-  AssetProtocol.STELLA,
-  AssetProtocol.ZIPSWAP,
-  AssetProtocol.BEAM,
-  AssetProtocol.FLARE,
-  AssetProtocol.FINN,
-  AssetProtocol.SPOOKYSWAP,
-  AssetProtocol.SPIRITSWAP,
->>>>>>> d2d3ac4 (-liquid jars dual rewards support. -few fixes.)
+  {
+    protocol: AssetProtocol.SPOOKYSWAP,
+    chain: ChainNetwork.Fantom,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+  },
+  {
+    protocol: AssetProtocol.SPIRITSWAP,
+    chain: ChainNetwork.Fantom,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+  },
   // ADD_PROTOCOL
 ];
 

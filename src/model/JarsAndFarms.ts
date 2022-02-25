@@ -6155,7 +6155,7 @@ export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
     components: ["ftm", "boo"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6180,7 +6180,7 @@ export const JAR_FANTOM_BOO_FTM_ICE: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xf16e81dce15B08F326220742020379B855B87DF9",
     components: ["ftm", "ice"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6205,7 +6205,7 @@ export const JAR_FANTOM_BOO_FTM_SPELL: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x468003B688943977e6130F4F68F23aad939a1040",
     components: ["ftm", "spell"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6230,7 +6230,7 @@ export const JAR_FANTOM_BOO_CRV_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x1E4F97b9f9F913c46F1632781732927B9019C68b",
     components: ["ftm", "crv"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6255,7 +6255,7 @@ export const JAR_FANTOM_BOO_FTM_AVAX: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x511D35c52a3C244E7b8bd92c0C297755FbD89212",
     components: ["ftm", "avax"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6280,7 +6280,7 @@ export const JAR_FANTOM_BOO_FTM_ETH: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["ftm", "eth"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6305,7 +6305,7 @@ export const JAR_FANTOM_BOO_USDC_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["usdc", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6330,7 +6330,7 @@ export const JAR_FANTOM_BOO_FTM_DAI: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     components: ["ftm", "dai"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6355,7 +6355,7 @@ export const JAR_FANTOM_BOO_USDT_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x049d68029688eAbF473097a2fC38ef61633A3C7A",
     components: ["usdt", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6380,7 +6380,7 @@ export const JAR_FANTOM_BOO_FTM_BNB: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xD67de0e0a0Fd7b15dC8348Bb9BE742F3c5850454",
     components: ["ftm", "bnb"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6405,7 +6405,7 @@ export const JAR_FANTOM_BOO_FTM_BTC: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x321162Cd933E2Be498Cd2267a90534A804051b11",
     components: ["ftm", "btc"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6430,7 +6430,7 @@ export const JAR_FANTOM_BOO_FTM_MIM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
     components: ["ftm", "mim"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6455,7 +6455,7 @@ export const JAR_FANTOM_BOO_FTM_LINK: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8",
     components: ["ftm", "link"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6480,7 +6480,7 @@ export const JAR_FANTOM_BOO_FTM_SUSHI: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC",
     components: ["ftm", "sushi"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6505,7 +6505,7 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
     link: "https://spookyswap.finance/add/0x29b0Da86e484E1C0029B56e817912d778aC0EC69/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["yfi", "eth"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6530,7 +6530,7 @@ export const JAR_FANTOM_BOO_FTM_TREEB: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xc60D7067dfBc6f2caf30523a064f416A5Af52963",
     components: ["ftm", "treeb"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6555,7 +6555,7 @@ export const JAR_FANTOM_BOO_FTM_ANY: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["ftm", "any"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6580,7 +6580,7 @@ export const JAR_FANTOM_BOO_FTM_MATIC: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["ftm", "matic"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6605,7 +6605,7 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["btc", "eth"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6630,7 +6630,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
     components: ["deus", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6655,7 +6655,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
     components: ["frax", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6680,7 +6680,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_MIM_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
     components: ["mim", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6705,7 +6705,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_USDC_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["usdc", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6730,7 +6730,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["pills", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6755,7 +6755,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_ETH_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["eth", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6780,7 +6780,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
     components: ["spirit", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6805,7 +6805,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
     components: ["lqdr", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6830,7 +6830,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3",
     components: ["dei", "usdc"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
   details: {
@@ -6855,7 +6855,7 @@ export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     components: ["dai", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6880,7 +6880,7 @@ export const JAR_FANTOM_LQDR_BOO_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
     components: ["boo", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6905,7 +6905,7 @@ export const JAR_FANTOM_LQDR_BOO_ETH_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["eth", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6930,7 +6930,7 @@ export const JAR_FANTOM_LQDR_BOO_MIM_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
     components: ["mim", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6955,7 +6955,7 @@ export const JAR_FANTOM_LQDR_BOO_LINK_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8",
     components: ["link", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -6980,7 +6980,7 @@ export const JAR_FANTOM_LQDR_BOO_USDC_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["usdc", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -7005,7 +7005,7 @@ export const JAR_FANTOM_LQDR_BOO_USDT_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0x049d68029688eAbF473097a2fC38ef61633A3C7A",
     components: ["usdt", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -7030,7 +7030,7 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
     link: "https://spookyswap.finance/add/FTM/0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC",
     components: ["sushi", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
   details: {
@@ -7056,7 +7056,7 @@ export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
     link: "https://beets.fi/#/stake",
     components: ["beets", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -7081,7 +7081,7 @@ export const JAR_FANTOM_BEETX_FTM_BTC_ETH: JarDefinition = {
     link: "https://beets.fi/#/pool/0xd47d2791d3b46f9452709fa41855a045304d6f9d000100000000000000000004",
     components: ["ftm", "btc", "eth"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -7106,7 +7106,7 @@ export const JAR_FANTOM_BEETX_LQDR_FTM: JarDefinition = {
     link: "https://beets.fi/#/pool/0x5e02ab5699549675a6d3beeb92a62782712d0509000200000000000000000138",
     components: ["lqdr", "ftm"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -7131,7 +7131,7 @@ export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
     link: "https://beets.fi/#/pool/0x9af1f0e9ac9c844a4a4439d446c14378071830750001000000000000000000da",
     components: ["ftm", "matic", "sol", "avax", "luna", "bnb"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -7156,7 +7156,7 @@ export const JAR_FANTOM_BEETX_FTM_USDC: JarDefinition = {
     link: "https://beets.fi/#/pool/0xcdf68a4d525ba2e90fe959c74330430a5a6b8226000200000000000000000008",
     components: ["ftm", "usdc"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -7181,7 +7181,7 @@ export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
     link: "https://beets.fi/#/pool/0x2c580c6f08044d6dfaca8976a66c8fadddbd9901000000000000000000000038",
     components: ["usdc", "dai", "mimatic"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -7206,7 +7206,7 @@ export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
     link: "https://beets.fi/#/pool/0xf3a602d30dcb723a74a0198313a7551feaca7dac00010000000000000000005f",
     components: ["usdc", "ftm", "btc", "eth"],
   },
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
