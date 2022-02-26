@@ -43,6 +43,7 @@ export enum AssetProtocol {
   OXD = "0xDAO",
   BEETHOVENX = "BeethovenX",
   SPIRITSWAP = "SpiritSwap",
+  LIQUID = "LiquidDriver",
   // ADD_PROTOCOL
 }
 
@@ -317,6 +318,7 @@ export interface ExternalAssetDefinition extends PickleAsset {
 export interface JarDefinition extends PickleAsset {
   details: JarDetails;
   farm?: NestedFarm;
+  stakingProtocol?: AssetProtocol;
 }
 export interface StandaloneFarmDefinition extends PickleAsset {
   details: StandaloneFarmDetails;
