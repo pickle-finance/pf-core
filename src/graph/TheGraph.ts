@@ -41,7 +41,8 @@ const SUBGRAPH_URL_LOOKS =
 const SUBGRAPH_BEAMSWAP =
   "https://api.thegraph.com/subgraphs/name/beamswap/beamswap-dex";
 const SUBGRAPH_SOLARFLARE = "https://analytics.solarflare.io/api/subgraph";
-const SUBGRAPH_BEETHOVENX = "https://graph-node.beets-ftm-node.com/subgraphs/name/beethovenx";
+const SUBGRAPH_BEETHOVENX =
+  "https://graph-node.beets-ftm-node.com/subgraphs/name/beethovenx";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -105,20 +106,19 @@ export function graphUrlFromDetails(
       return SUBGRAPH_BEAMSWAP;
     case AssetProtocol.FLARE:
       return SUBGRAPH_SOLARFLARE;
-    case AssetProtocol.SUSHISWAP:
-      {
-        switch (chain) {
-          case ChainNetwork.Ethereum:
-            return SUBGRAPH_URL_SUSHISWAP;
-          case ChainNetwork.Polygon:
-            return SUBGRAPH_URL_SUSHISWAP_POLYGON;
-          case ChainNetwork.Arbitrum:
-            return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
-          case ChainNetwork.Harmony:
-            return SUBGRAPH_URL_SUSHISWAP_HARMONY;
-        }
-        break;
+    case AssetProtocol.SUSHISWAP: {
+      switch (chain) {
+        case ChainNetwork.Ethereum:
+          return SUBGRAPH_URL_SUSHISWAP;
+        case ChainNetwork.Polygon:
+          return SUBGRAPH_URL_SUSHISWAP_POLYGON;
+        case ChainNetwork.Arbitrum:
+          return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
+        case ChainNetwork.Harmony:
+          return SUBGRAPH_URL_SUSHISWAP_HARMONY;
       }
+      break;
+    }
     case AssetProtocol.BEETHOVENX:
       return SUBGRAPH_BEETHOVENX;
       // ADD_PROTOCOL

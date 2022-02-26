@@ -43,7 +43,6 @@ const rewarderTotalAlloc = {
   "0x1d028122deEfcfB859426F3B957DdF82459A7C2A": 100, // PILLS rewarder (pool:35)
 };
 
-
 export class LqdrJar extends AbstractJarBehavior {
   protected strategyAbi: any;
   protected rewarderAddr: string;
@@ -74,22 +73,32 @@ export class LqdrJar extends AbstractJarBehavior {
       this.strategyAbi,
     );
 
-    if (await this.rewarderContractExist(jar,model)) {
+    if (await this.rewarderContractExist(jar, model)) {
       const poolId = poolIds[jar.depositToken.addr];
       const multicallProvider = model.multicallProviderFor(jar.chain);
       const [rewardTokenAddr, pendingTokenBN] = await multicallProvider.all([
         this.multicallRewarder.rewardToken(),
         this.multicallRewarder.pendingToken(poolId, jar.details.strategyAddr),
-      ])
-      const rewardTokenContract = new Contract(rewardTokenAddr, erc20Abi, model.providerFor(jar.chain));
-      const strategyBalanceBN = await rewardTokenContract.balanceOf(jar.details.strategyAddr);
+      ]);
+      const rewardTokenContract = new Contract(
+        rewardTokenAddr,
+        erc20Abi,
+        model.providerFor(jar.chain),
+      );
+      const strategyBalanceBN = await rewardTokenContract.balanceOf(
+        jar.details.strategyAddr,
+      );
       const rewardToken = ExternalTokenModelSingleton.getToken(
         rewardTokenAddr,
         jar.chain,
       );
       const rewardTokenPrice = model.priceOfSync(rewardToken.id);
-      const pendingTokenValue = parseFloat(formatUnits(pendingTokenBN, rewardToken.decimals)) * rewardTokenPrice;
-      const strategyBalanceValue = parseFloat(formatUnits(strategyBalanceBN, rewardToken.decimals)) * rewardTokenPrice;
+      const pendingTokenValue =
+        parseFloat(formatUnits(pendingTokenBN, rewardToken.decimals)) *
+        rewardTokenPrice;
+      const strategyBalanceValue =
+        parseFloat(formatUnits(strategyBalanceBN, rewardToken.decimals)) *
+        rewardTokenPrice;
 
       runningTotal += pendingTokenValue + strategyBalanceValue;
     }
@@ -144,7 +153,7 @@ export class LqdrJar extends AbstractJarBehavior {
       ),
     ];
 
-    if (await this.rewarderContractExist(jar,model)) {
+    if (await this.rewarderContractExist(jar, model)) {
       const [rewardTokenAddr, tokenPerBlockBN, rewardPoolInfo] =
         await multicallProvider.all([
           this.multicallRewarder.rewardToken(),

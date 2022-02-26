@@ -26,7 +26,6 @@ export class BeetXJar extends AbstractJarBehavior {
   // protected poolData: PoolData | undefined;
   protected pricePerToken: number | undefined;
 
-
   async getDepositTokenPrice(
     jar: JarDefinition,
     model: PickleModel,

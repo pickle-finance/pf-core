@@ -272,7 +272,6 @@ import {
   JAR_FANTOM_BEETX_FTM_USDC,
   JAR_FANTOM_BEETX_USDC_DAI_MAI,
   JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH,
-
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -495,7 +494,6 @@ import { OxdTomb } from "./impl/fantom-oxd-tomb";
 import { LqdrJar } from "./impl/fantom-lqdr-jar";
 import { BooJar } from "./impl/fantom-boo-jar";
 import { BeetXJar } from "./impl/fantom-beetx-jar";
-
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -800,11 +798,13 @@ jarToBehavior.set(JAR_FANTOM_LQDR_BOO_SUSHI_FTM.id, new LqdrJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_FBEETS.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_FTM_BTC_ETH.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_LQDR_FTM.id, new BeetXJar());
-jarToBehavior.set(JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB.id, new BeetXJar());
+jarToBehavior.set(
+  JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB.id,
+  new BeetXJar(),
+);
 jarToBehavior.set(JAR_FANTOM_BEETX_FTM_USDC.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_DAI_MAI.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH.id, new BeetXJar());
-
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

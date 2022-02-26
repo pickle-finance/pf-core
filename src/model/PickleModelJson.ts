@@ -294,7 +294,7 @@ export interface DepositToken {
   nativePath?: {
     path: string[];
     target: string;
-  }
+  };
 }
 
 export interface PickleAsset {
