@@ -65,6 +65,7 @@ import {
   JAR_OKEX_OKT_USDT,
   JAR_OKEX_USDT_CHE,
   JAR_UNIV3_RBN_ETH,
+  JAR_UNIV3_FRAX_DAI,
   JAR_SUSHI_NEWO_USDC,
   JAR_OKEX_JSWAP_BTCK_USDT,
   JAR_OKEX_JSWAP_ETHK_USDT,
@@ -435,6 +436,7 @@ import { BrlUsdtNear } from "./impl/aurora-brl-usdt-near";
 import { BrlUsdtUsdc } from "./impl/aurora-brl-usdt-usdc";
 import { BrlUstNear } from "./impl/aurora-brl-ust-near";
 import { Univ3Base } from "./impl/univ3-base";
+import { Univ3FraxDai } from "./impl/univ3-frax-dai";
 import { BrlEthBtc } from "./impl/aurora-brl-eth-btc";
 import { LooksEth } from "./impl/looks-eth";
 import { NetswapNettMetis } from "./impl/metis-netswap-nett-metis";
@@ -577,6 +579,7 @@ jarToBehavior.set(JAR_POLY_UNIV3_MATIC_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_POLY_UNIV3_MATIC_USDC.id, new Univ3Base());
 jarToBehavior.set(JAR_POLY_UNIV3_USDC_USDT.id, new Univ3Base());
 jarToBehavior.set(JAR_POLY_UNIV3_WBTC_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_FRAX_DAI.id, new Univ3FraxDai());
 jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_MATIC.id, new RaiderMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_WETH.id, new RaiderWeth());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_MATIC.id, new AurumMatic());

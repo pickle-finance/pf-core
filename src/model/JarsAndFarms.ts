@@ -1297,6 +1297,37 @@ export const JAR_UNIV3_RBN_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_RBN_ETH);
 
+export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar U3b",
+  contract: "0xe7b69a17B3531d01FCEAd66FaF7d9f7655469267",
+  depositToken: {
+    addr: "0x97e7d56A0408570bA1a7852De36350f7713906ec",
+    name: "UniV3 FRAX/DAI",
+    link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0x6B175474E89094C44Da98b954EedeAC495271d0F/500",
+    components: ["frax", "dai"],
+    componentAddresses: [
+      "0x853d955aCEf822Db058eb8505911ED77F175b99e",
+      "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+    ],
+    style: { erc20: false },
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
+    apiKey: "UNIV3-FRAX-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
+    farmNickname: "pUNIv3 FRAX/DAI",
+    farmDepositTokenName: "pUNIv3 FRAX/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_DAI);
+
 // Polygon
 
 export const JAR_COMETH_USDC_WETH: JarDefinition = {
