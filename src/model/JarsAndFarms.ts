@@ -5185,6 +5185,81 @@ export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_USDT_USDC);
 
+export const JAR_METIS_NETSWAP_WBTC_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1l",
+  contract: "0x56A4ef91C841054B03a963b644F31F51F4Dcb1A5",
+  depositToken: {
+    addr: "0xE0cc462fe369146BAef2306EC6B4BF26704eE84e",
+    name: "NET WBTC/METIS",
+    link: "https://netswap.io/#/add/0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
+    components: ["wbtc", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-WBTC-METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
+    farmNickname: "pNLP WBTC/METIS",
+    farmDepositTokenName: "pNLP WBTC/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_WBTC_METIS);
+
+export const JAR_METIS_NETSWAP_WBTC_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1m",
+  contract: "0xC717887F87E9Eda909F85aD78682bc020f5232F1",
+  depositToken: {
+    addr: "0xAd9b903451dfdc3D79d2021289F9d864fd8c8119",
+    name: "NET WBTC/USDT",
+    link: "https://netswap.io/#/add/0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
+    components: ["wbtc", "usdt"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-WBTC-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
+    farmNickname: "pNLP WBTC/USDT",
+    farmDepositTokenName: "pNLP WBTC/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_WBTC_USDT);
+
+export const JAR_METIS_NETSWAP_METIS_RELAY: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1n",
+  contract: "0xF2EB2FFCF204100ECB63069e67D767e7E8d4A972",
+  depositToken: {
+    addr: "0xA58bd557BFBC12f8cEaCcc6E1668F5FBFB2118BB",
+    name: "NET METIS/RELAY",
+    link: "https://netswap.io/#/add/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000/0xfe282Af5f9eB59C30A3f78789EEfFA704188bdD4",
+    components: ["metis", "relay"],
+  },
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-METIS-RELAY",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP METIS/RELAY",
+    farmDepositTokenName: "pNLP METIS/RELAY",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_METIS_RELAY);
+
 export const JAR_METIS_TETHYS_METIS: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 2a",
@@ -5334,6 +5409,31 @@ export const JAR_METIS_HELLSHARE_METIS: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_METIS_HELLSHARE_METIS);
+
+export const JAR_METIS_TETHYS_WBTC_METIS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2g",
+  contract: "0xd332b8B997ED54D2a3361c45dA9CDF05bc26C745",
+  depositToken: {
+    addr: "0xA0081C6D591c53Ae651bD71B8d90C83C1F1106C2",
+    name: "TETHYS WBTC/METIS",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4",
+    components: ["wbtc", "metis"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-WBTC-METIS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
+    farmNickname: "pTLP WBTC/METIS",
+    farmDepositTokenName: "pTLP WBTC/METIS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_WBTC_METIS);
 
 // Moonbeam
 

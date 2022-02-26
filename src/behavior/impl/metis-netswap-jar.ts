@@ -3,22 +3,12 @@ import fetch from "cross-fetch";
 import { Provider } from "@ethersproject/providers";
 import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
-import strategyABI from "../../Contracts/ABIs/strategy.json";
+import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 
 export class NetswapJar extends AbstractJarBehavior {
-  protected strategyAbi: any;
-
   constructor() {
     super();
-    this.strategyAbi = strategyABI;
-  }
-
-  async getDepositTokenPrice(
-    definition: JarDefinition,
-    model: PickleModel,
-  ): Promise<number> {
-    return super.getDepositTokenPrice(definition, model);
   }
 
   async getHarvestableUSD(
@@ -30,8 +20,8 @@ export class NetswapJar extends AbstractJarBehavior {
       jar,
       model,
       resolver,
-      ["nett"],
-      this.strategyAbi,
+      ["nett", "metis"],
+      multiSushiStrategyAbi,
     );
   }
 
@@ -48,20 +38,24 @@ export class NetswapJar extends AbstractJarBehavior {
     });
 
     const json = await resp.json();
-
     const poolStats = json.data.farmPools.filter(
       (x) => x.pair.id.toLowerCase() === jar.depositToken.addr.toLowerCase(),
     );
-
-    return this.aprComponentsToProjectedApr([
-      this.createAprComponent("lp", poolStats[0]?.lpApy, false),
-      this.createAprComponent(
-        "nett",
-        poolStats[0]?.nettApy,
-        true,
-        1 - Chains.get(jar.chain).defaultPerformanceFee,
-      ),
-    ]);
+    const components = [];
+    if (poolStats && poolStats.length > 0 && poolStats[0]) {
+      const nettApy = poolStats[0].nettApy || 0;
+      const rewarderApy = poolStats[0].rewarderApy || 0;
+      const retained = 1 - Chains.get(jar.chain).defaultPerformanceFee;
+      components.push(this.createAprComponent("lp", poolStats[0]?.lpApy, false));
+      if (nettApy) {
+        components.push(this.createAprComponent("nett", nettApy, true, retained));
+      }
+      if (rewarderApy) {
+        const rewarderToken = poolStats[0].rewarder?.rewardToken?.symbol || "Reward Token";
+        components.push(this.createAprComponent(rewarderToken, rewarderApy, true, retained));
+      }
+    }
+    return this.aprComponentsToProjectedApr(components);
   }
 }
 

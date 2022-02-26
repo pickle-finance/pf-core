@@ -1,4 +1,4 @@
-import { ChainNetwork } from ".";
+import { ChainNetwork, Chains } from ".";
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
