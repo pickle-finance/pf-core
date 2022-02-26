@@ -132,9 +132,9 @@ export const ADDRESSES = new Map([
     ChainNetwork.Metis,
     {
       pickle: NULL_ADDRESS,
-      masterChef: NULL_ADDRESS,
+      masterChef: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
       controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
-      minichef: NULL_ADDRESS,
+      minichef: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
     },
   ],
   [
