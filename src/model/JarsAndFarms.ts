@@ -6249,6 +6249,7 @@ export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-BOO",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6274,6 +6275,7 @@ export const JAR_FANTOM_BOO_FTM_ICE: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-ICE",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6299,6 +6301,7 @@ export const JAR_FANTOM_BOO_FTM_SPELL: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-SPELL",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6324,6 +6327,7 @@ export const JAR_FANTOM_BOO_CRV_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-CRV",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6349,6 +6353,7 @@ export const JAR_FANTOM_BOO_FTM_AVAX: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-AVAX",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6374,6 +6379,7 @@ export const JAR_FANTOM_BOO_FTM_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6399,6 +6405,7 @@ export const JAR_FANTOM_BOO_USDC_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6424,6 +6431,7 @@ export const JAR_FANTOM_BOO_USDT_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-USDT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6449,6 +6457,7 @@ export const JAR_FANTOM_BOO_FTM_BNB: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-BNB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6474,6 +6483,7 @@ export const JAR_FANTOM_BOO_FTM_BTC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-BTC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6499,6 +6509,7 @@ export const JAR_FANTOM_BOO_FTM_MIM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-MIM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6524,6 +6535,7 @@ export const JAR_FANTOM_BOO_FTM_LINK: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-LINK",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6549,6 +6561,7 @@ export const JAR_FANTOM_BOO_FTM_SUSHI: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-SUSHI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6574,6 +6587,7 @@ export const JAR_FANTOM_BOO_FTM_TREEB: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-TREEB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6599,6 +6613,7 @@ export const JAR_FANTOM_BOO_FTM_ANY: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-ANY",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6624,6 +6639,7 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-BTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6649,6 +6665,7 @@ export const JAR_FANTOM_BOO_FTM_DAI: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6674,6 +6691,7 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-YFI-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6699,6 +6717,7 @@ export const JAR_FANTOM_BOO_FTM_MATIC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-MATIC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7166,6 +7185,7 @@ export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FBEETS",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7191,6 +7211,7 @@ export const JAR_FANTOM_BEETX_FTM_BTC_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FTM-BTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7216,6 +7237,7 @@ export const JAR_FANTOM_BEETX_LQDR_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-LQDR-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7241,6 +7263,7 @@ export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FTM-MATIC-SOL-AVAX-LUNA-BNB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7266,6 +7289,7 @@ export const JAR_FANTOM_BEETX_FTM_USDC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FTM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7291,6 +7315,7 @@ export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-USDC-DAI-MAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7316,6 +7341,7 @@ export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-USDC-FTM-BTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
