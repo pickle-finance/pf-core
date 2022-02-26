@@ -158,7 +158,10 @@ export const getBalancerPerformance = async (
   };
 };
 
-export const getPoolData = async (jar: JarDefinition, model: PickleModel): Promise<number> => {
+export const getPoolData = async (
+  jar: JarDefinition,
+  model: PickleModel,
+): Promise<number> => {
   const provider = model.providerFor(jar.chain);
   const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const graphResp: GraphResponse | undefined = await queryTheGraph(
@@ -179,8 +182,12 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel): Promi
   } else {
     try {
       // Less efficient. Fallback in case the graph doesn't work
-      const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()]; 
-      const balVaultContract = new Contract(VAULT_ADDRESS, balVaultABI, provider);
+      const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
+      const balVaultContract = new Contract(
+        VAULT_ADDRESS,
+        balVaultABI,
+        provider,
+      );
       const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
         vaultPoolId,
       );
@@ -197,7 +204,7 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel): Promi
         ];
       });
       const poolTotalBalanceUSD = filtered.reduce(
-        (total: number, [tokenAddr,tokenAmount]:[string,number]) => {
+        (total: number, [tokenAddr, tokenAmount]: [string, number]) => {
           const tokenAddress = tokenAddr.toLowerCase();
           const tokenPrice = model.priceOfSync(tokenAddress);
           const tokenValueUSD = tokenAmount * tokenPrice;
@@ -205,10 +212,11 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel): Promi
         },
         0,
       );
-      if (!poolTotalBalanceUSD) throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
+      if (!poolTotalBalanceUSD)
+        throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
       totalSupplyUSD = poolTotalBalanceUSD;
     } catch (error) {
-      model.logError("getPoolData", error, jar.details.apiKey)
+      model.logError("getPoolData", error, jar.details.apiKey);
     }
   }
 

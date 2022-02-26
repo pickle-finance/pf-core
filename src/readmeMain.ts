@@ -3,7 +3,6 @@ import fetch from "cross-fetch";
 import { Signer } from "@ethersproject/abstract-signer";
 import {
   PickleModelJson,
-  JarDefinition,
   PickleModelAssets,
 } from "./model/PickleModelJson";
 import { ADDRESSES } from "./model/PickleModel";
@@ -374,15 +373,21 @@ const main = async () => {
 
   stringArr.push(pickleEthInfo(assets));
   stringArr.push(pickleJarsEth(assets, await getAllocPoints()));
-  const nonMainnetNetworks = Chains.list().filter((x)=>x!==ChainNetwork.Ethereum);
-  for( let i = 0; i < nonMainnetNetworks.length; i++ ) {
+  const nonMainnetNetworks = Chains.list().filter(
+    (x) => x !== ChainNetwork.Ethereum,
+  );
+  for (let i = 0; i < nonMainnetNetworks.length; i++) {
     stringArr.push(pickleJars(assets, nonMainnetNetworks[i]));
   }
 
   const readme: string = stringArr.join("\n");
 
   fs.writeFile("../contracts/README.md", readme, (err) =>
-    err ? console.log(err) : console.log("../contracts/README.md generated! Remember to go commit it and push it!"),
+    err
+      ? console.log(err)
+      : console.log(
+          "../contracts/README.md generated! Remember to go commit it and push it!",
+        ),
   );
 };
 

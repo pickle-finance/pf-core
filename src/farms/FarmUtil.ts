@@ -37,7 +37,12 @@ export async function loadGaugeAprData(
 ) {
   // TODO ADD_CHAIN_STYLE
   if (chain === ChainNetwork.Ethereum) {
-    const rawGaugeData = await loadGaugeDataEth();
+    let rawGaugeData: IRawGaugeData[] = [];
+    try {
+      rawGaugeData = await loadGaugeDataEth();
+    } catch( error ) {
+      model.logError("loadGaugeAprData", chain.toString(), error);
+    }
     if (rawGaugeData && rawGaugeData.length > 0) {
       for (let i = 0; i < rawGaugeData.length; i++) {
         setAssetGaugeAprEth(rawGaugeData[i], model);
@@ -47,7 +52,12 @@ export async function loadGaugeAprData(
     // All other chains use minichef currently
     const minichefAddr: string = minichefAddressForChain(chain);
     if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
-      const rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
+      let rawGaugeData: IRawGaugeData[] = [];
+      try {
+        rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
+      } catch( error ) {
+        model.logError("loadGaugeAprData", chain.toString(), error);
+      }
       if (rawGaugeData && rawGaugeData.length > 0) {
         for (let i = 0; i < rawGaugeData.length; i++) {
           setAssetGaugeAprMinichef(

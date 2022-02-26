@@ -164,9 +164,12 @@ export abstract class AbstractPriceResolver implements IPriceResolver {
     na: NeedleAliases,
     prices: Map<string, number>,
   ) {
-    if( prices !== undefined && prices !== null) {
+    if (prices !== undefined && prices !== null) {
       for (let i = 0; i < na.aliases.length; i++) {
-        if (ethers.utils.isAddress(na.aliases[i]) && prices.has(na.aliases[i])) {
+        if (
+          ethers.utils.isAddress(na.aliases[i]) &&
+          prices.has(na.aliases[i])
+        ) {
           return prices.get(na.aliases[i]);
         }
       }

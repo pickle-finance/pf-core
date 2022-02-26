@@ -32,7 +32,10 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   }
 
   isGenericSwapProtocol(protocol: string): boolean {
-    return XYK_SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol).length > 0;
+    return (
+      XYK_SWAP_PROTOCOLS.filter((x) => x.protocol.toString() === protocol)
+        .length > 0
+    );
   }
 
   async getProtocolApy(

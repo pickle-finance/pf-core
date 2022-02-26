@@ -2326,8 +2326,11 @@ export const JAR_OKEX_USDT_CHE: JarDefinition = {
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
-      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
-    }
+      path: [
+        "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
+        "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2381,8 +2384,11 @@ export const JAR_OKEX_ETHK_USDT: JarDefinition = {
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
-      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
-    }
+      path: [
+        "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
+        "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2461,8 +2467,11 @@ export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
-      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
-    }
+      path: [
+        "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
+        "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2491,8 +2500,11 @@ export const JAR_OKEX_JSWAP_BTCK_USDT: JarDefinition = {
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
-      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
-    }
+      path: [
+        "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
+        "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2521,8 +2533,11 @@ export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
-      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
-    }
+      path: [
+        "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
+        "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -2551,8 +2566,11 @@ export const JAR_OKEX_JSWAP_USDT_DAIK: JarDefinition = {
     nativePath: {
       //cherry Router --> WOKT, USDT
       target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
-      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
-    }
+      path: [
+        "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15",
+        "0x382bb369d343125bfb2117af9c149795c6c65c50",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.OKEx,
@@ -4889,8 +4907,11 @@ export const JAR_METIS_NETSWAP_BNB_NETT: JarDefinition = {
     nativePath: {
       //NetswapRouter --> METIS, NETT
       target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
-      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278"]
-    }
+      path: [
+        "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+        "0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4944,8 +4965,11 @@ export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
     nativePath: {
       //NetswapRouter --> METIS, WETH
       target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
-      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0x420000000000000000000000000000000000000A"]
-    }
+      path: [
+        "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+        "0x420000000000000000000000000000000000000A",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -4974,8 +4998,11 @@ export const JAR_METIS_NETSWAP_ETH_USDC: JarDefinition = {
     nativePath: {
       //NetswapRouter --> METIS, USDC
       target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
-      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21"]
-    }
+      path: [
+        "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+        "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -5004,8 +5031,11 @@ export const JAR_METIS_NETSWAP_ETH_USDT: JarDefinition = {
     nativePath: {
       //NetswapRouter --> METIS, WETH
       target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
-      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0x420000000000000000000000000000000000000A"]
-    }
+      path: [
+        "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+        "0x420000000000000000000000000000000000000A",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -5059,8 +5089,11 @@ export const JAR_METIS_NETSWAP_NETT_USDC: JarDefinition = {
     nativePath: {
       //NetswapRouter --> METIS, USDC
       target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
-      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21"]
-    }
+      path: [
+        "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
+        "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -5441,8 +5474,11 @@ export const JAR_MOONBEAM_STELLA_USDC_BNB: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5496,8 +5532,11 @@ export const JAR_MOONBEAM_STELLA_USDC_DAI: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5576,8 +5615,11 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5606,8 +5648,11 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5636,8 +5681,11 @@ export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
     nativePath: {
       //Stella Router --> WGLMR, BUSD
       target: "0xd0A01ec574D1fC6652eDF79cb2F880fd47D34Ab1",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xa649325aa7c5093d12d6f98eb4378deae68ce23f"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0xa649325aa7c5093d12d6f98eb4378deae68ce23f",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5691,8 +5739,11 @@ export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5721,8 +5772,11 @@ export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5801,8 +5855,11 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
     nativePath: {
       //Beam Router --> WGLMR, USDC
       target: "0x96b244391D98B62D19aE89b1A4dCcf0fc56970C7",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -5856,8 +5913,11 @@ export const JAR_FLARE_FLARE_USDC: JarDefinition = {
     nativePath: {
       //Solar Router --> WGLMR, FLARE
       target: "0xd3B02Ff30c218c7f7756BA14bcA075Bf7C2C951e",
-      path: ["0xacc15dc74880c9944775448304b263d191c6077f", "0xe3e43888fa7803cdc7bea478ab327cf1a0dc11a7"]
-    }
+      path: [
+        "0xacc15dc74880c9944775448304b263d191c6077f",
+        "0xe3e43888fa7803cdc7bea478ab327cf1a0dc11a7",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonbeam,
@@ -6289,6 +6349,7 @@ export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-BOO",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6314,6 +6375,7 @@ export const JAR_FANTOM_BOO_FTM_ICE: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-ICE",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6339,6 +6401,7 @@ export const JAR_FANTOM_BOO_FTM_SPELL: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-SPELL",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6364,6 +6427,7 @@ export const JAR_FANTOM_BOO_CRV_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-CRV",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6389,6 +6453,7 @@ export const JAR_FANTOM_BOO_FTM_AVAX: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-AVAX",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6414,6 +6479,7 @@ export const JAR_FANTOM_BOO_FTM_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6439,6 +6505,7 @@ export const JAR_FANTOM_BOO_USDC_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6464,6 +6531,7 @@ export const JAR_FANTOM_BOO_USDT_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-USDT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6489,6 +6557,7 @@ export const JAR_FANTOM_BOO_FTM_BNB: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-BNB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6514,6 +6583,7 @@ export const JAR_FANTOM_BOO_FTM_BTC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-BTC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6539,6 +6609,7 @@ export const JAR_FANTOM_BOO_FTM_MIM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-MIM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6564,6 +6635,7 @@ export const JAR_FANTOM_BOO_FTM_LINK: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-LINK",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6589,6 +6661,7 @@ export const JAR_FANTOM_BOO_FTM_SUSHI: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-SUSHI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6614,6 +6687,7 @@ export const JAR_FANTOM_BOO_FTM_TREEB: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-TREEB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6639,6 +6713,7 @@ export const JAR_FANTOM_BOO_FTM_ANY: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-ANY",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6664,6 +6739,7 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-BTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6689,6 +6765,7 @@ export const JAR_FANTOM_BOO_FTM_DAI: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6714,6 +6791,7 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-YFI-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6739,6 +6817,7 @@ export const JAR_FANTOM_BOO_FTM_MATIC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.SPOOKYSWAP,
   details: {
     apiKey: "BOO-FTM-MATIC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6764,6 +6843,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-DEUS-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6789,6 +6869,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-FRAX-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6814,6 +6895,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_MIM_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-MIM-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6839,6 +6921,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_USDC_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6864,6 +6947,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-PILLS-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6889,6 +6973,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_ETH_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-ETH-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6914,6 +6999,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6939,6 +7025,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-LQDR-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6964,6 +7051,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-DEI-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6989,6 +7077,7 @@ export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-DAI-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7014,6 +7103,7 @@ export const JAR_FANTOM_LQDR_BOO_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7039,6 +7129,7 @@ export const JAR_FANTOM_LQDR_BOO_ETH_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-ETH-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7064,6 +7155,7 @@ export const JAR_FANTOM_LQDR_BOO_MIM_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-MIM-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7089,6 +7181,7 @@ export const JAR_FANTOM_LQDR_BOO_LINK_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-LINK-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7114,6 +7207,7 @@ export const JAR_FANTOM_LQDR_BOO_USDC_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7139,6 +7233,7 @@ export const JAR_FANTOM_LQDR_BOO_USDT_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-USDT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7164,6 +7259,7 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-SUSHI-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7175,7 +7271,6 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_BOO_SUSHI_FTM);
-
 
 export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
   type: AssetType.JAR,
@@ -7190,6 +7285,7 @@ export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FBEETS",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7215,6 +7311,7 @@ export const JAR_FANTOM_BEETX_FTM_BTC_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FTM-BTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7240,6 +7337,7 @@ export const JAR_FANTOM_BEETX_LQDR_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-LQDR-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7265,6 +7363,7 @@ export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FTM-MATIC-SOL-AVAX-LUNA-BNB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7290,6 +7389,7 @@ export const JAR_FANTOM_BEETX_FTM_USDC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-FTM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7315,6 +7415,7 @@ export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-USDC-DAI-MAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7340,6 +7441,7 @@ export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
+  stakingProtocol: AssetProtocol.BEETHOVENX,
   details: {
     apiKey: "BEETX-USDC-FTM-BTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7351,11 +7453,6 @@ export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH);
-
-
-
-
-
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

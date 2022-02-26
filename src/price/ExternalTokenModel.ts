@@ -501,7 +501,7 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
       [],
-      true
+      true,
     );
     this.addToken(
       ChainNetwork.Arbitrum,
@@ -1265,7 +1265,7 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
       [],
-      true
+      true,
     );
     this.addToken(
       ChainNetwork.Moonbeam,
@@ -1478,7 +1478,7 @@ export class ExternalTokenModel {
       "liquiddriver",
       "0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Fantom,
@@ -1712,8 +1712,7 @@ export class ExternalTokenModel {
       "0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
-    )
-
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
@@ -1738,7 +1737,19 @@ export class ExternalTokenModel {
   ): void {
     this.chainTokens
       .get(chain)
-      .set(id, new ExternalToken(chain, id, cgid, addr, dec, style, swapPairs, isNative));
+      .set(
+        id,
+        new ExternalToken(
+          chain,
+          id,
+          cgid,
+          addr,
+          dec,
+          style,
+          swapPairs,
+          isNative,
+        ),
+      );
   }
 
   mapForChain(chain: ChainNetwork): Map<string, ExternalToken> {
