@@ -442,7 +442,6 @@ export class PickleModel {
 
     await this.ensureDepositTokenPriceLoaded();
     await this.ensureFarmsBalanceLoaded();
-
     await Promise.all([
       this.loadGaugeAprData(),
       this.ensureExternalAssetBalanceLoaded(),
@@ -999,16 +998,16 @@ export class PickleModel {
     }
 
     for (let j = 0; j < harvestableJars.length; j++) {
-      if (results[j]) {
+      if (results && results.length > j && results[j]) {
         results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
         results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
         results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
+        harvestableJars[j].details.harvestStats = results[j];
       }
-      harvestableJars[j].details.harvestStats = results[j];
     }
   }
 
-  async loadHarvestDataJarAbi(jars: JarDefinition[], chain: ChainNetwork) {
+  async loadHarvestDataJarAbi(jars: JarDefinition[], chain: ChainNetwork): Promise<void> {
     if (!jars || jars.length === 0) return;
 
     const discovery: JarBehaviorDiscovery = new JarBehaviorDiscovery();
