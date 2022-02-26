@@ -6664,6 +6664,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-DEUS-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6689,6 +6690,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-FRAX-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6714,6 +6716,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_MIM_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-MIM-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6739,6 +6742,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_USDC_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6764,6 +6768,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-PILLS-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6789,6 +6794,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_ETH_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-ETH-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6814,6 +6820,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6839,6 +6846,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-LQDR-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6864,6 +6872,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-SPIRIT-DEI-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6889,6 +6898,7 @@ export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-DAI-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6914,6 +6924,7 @@ export const JAR_FANTOM_LQDR_BOO_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6939,6 +6950,7 @@ export const JAR_FANTOM_LQDR_BOO_ETH_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-ETH-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6964,6 +6976,7 @@ export const JAR_FANTOM_LQDR_BOO_MIM_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-MIM-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -6989,6 +7002,7 @@ export const JAR_FANTOM_LQDR_BOO_LINK_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-LINK-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7014,6 +7028,7 @@ export const JAR_FANTOM_LQDR_BOO_USDC_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7039,6 +7054,7 @@ export const JAR_FANTOM_LQDR_BOO_USDT_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-USDT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7064,6 +7080,7 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SPOOKYSWAP,
+  stakingProtocol: AssetProtocol.LIQUID,
   details: {
     apiKey: "LQDR-BOO-SUSHI-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
