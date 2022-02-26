@@ -176,14 +176,11 @@ import {
   JAR_METIS_NETSWAP_NETT_USDT,
   JAR_METIS_NETSWAP_USDT_METIS,
   JAR_METIS_NETSWAP_USDT_USDC,
-  JAR_METIS_NETSWAP_BTC_METIS,
-  JAR_METIS_NETSWAP_BTC_USDT,
   JAR_METIS_NETSWAP_METIS_RELAY,
   JAR_METIS_TETHYS_METIS,
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
   JAR_METIS_TETHYS_USDT_METIS,
-  JAR_METIS_TETHYS_BTC_METIS,
   JAR_POLY_SUSHI_RAIDER_MATIC,
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
@@ -275,6 +272,9 @@ import {
   JAR_FANTOM_BEETX_FTM_USDC,
   JAR_FANTOM_BEETX_USDC_DAI_MAI,
   JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH,
+  JAR_METIS_NETSWAP_WBTC_METIS,
+  JAR_METIS_NETSWAP_WBTC_USDT,
+  JAR_METIS_TETHYS_WBTC_METIS,
 
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -718,14 +718,14 @@ jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDC.id, new NetswapNettUsdc());
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_USDT.id, new NetswapNettUsdt());
 jarToBehavior.set(JAR_METIS_NETSWAP_USDT_METIS.id, new NetswapUsdtMetis());
 jarToBehavior.set(JAR_METIS_NETSWAP_USDT_USDC.id, new NetswapUsdtUsdc());
-jarToBehavior.set(JAR_METIS_NETSWAP_BTC_METIS.id, new NetswapBtcMetis());
-jarToBehavior.set(JAR_METIS_NETSWAP_BTC_USDT.id, new NetswapBtcUsdt());
+jarToBehavior.set(JAR_METIS_NETSWAP_WBTC_METIS.id, new NetswapBtcMetis());
+jarToBehavior.set(JAR_METIS_NETSWAP_WBTC_USDT.id, new NetswapBtcUsdt());
 jarToBehavior.set(JAR_METIS_NETSWAP_METIS_RELAY.id, new NetswapMetisRelay());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
-jarToBehavior.set(JAR_METIS_TETHYS_BTC_METIS.id, new TethysBtcMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_WBTC_METIS.id, new TethysBtcMetis());
 jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
 jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
 

@@ -1208,7 +1208,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Metis,
-      "btc",
+      "wbtc",
       "bitcoin",
       "0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4".toLowerCase(),
       8,
