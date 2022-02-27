@@ -65,6 +65,11 @@ import {
   JAR_OKEX_OKT_USDT,
   JAR_OKEX_USDT_CHE,
   JAR_UNIV3_RBN_ETH,
+  JAR_UNIV3_USDC_ETH_05,
+  JAR_UNIV3_USDC_ETH_3,
+  JAR_UNIV3_LOOKS_ETH,
+  JAR_UNIV3_USDC_USDT,
+  JAR_UNIV3_WBTC_ETH,
   JAR_UNIV3_FRAX_DAI,
   JAR_SUSHI_NEWO_USDC,
   JAR_OKEX_JSWAP_BTCK_USDT,
@@ -276,7 +281,6 @@ import {
   JAR_METIS_NETSWAP_WBTC_METIS,
   JAR_METIS_NETSWAP_WBTC_USDT,
   JAR_METIS_TETHYS_WBTC_METIS,
-  
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -556,6 +560,11 @@ jarToBehavior.set(JAR_CURVE_CVXETHLP.id, new CurveCvxEth());
 jarToBehavior.set(JAR_SUSHI_NEWO_USDC.id, new NewoUsdc());
 jarToBehavior.set(JAR_UNIV2_LOOKS_ETH.id, new LooksEth());
 jarToBehavior.set(JAR_LOOKS.id, new pLooks());
+jarToBehavior.set(JAR_UNIV3_USDC_ETH_05.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_USDC_ETH_3.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_LOOKS_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_USDC_USDT.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_WBTC_ETH.id, new Univ3Base());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
