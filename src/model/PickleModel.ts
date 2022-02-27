@@ -169,6 +169,12 @@ export const ADDRESSES = new Map([
   // ADD_CHAIN
 ]);
 
+export const GLOBAL_DEBUG_FLAG = false;
+export const DEBUG_OUT = (str: string): void => {
+  if( GLOBAL_DEBUG_FLAG ) 
+    console.log(str);
+};
+
 export class PickleModel {
   private allAssets: PickleAsset[];
   private prices: PriceCache;
@@ -375,7 +381,8 @@ export class PickleModel {
     }
   }
 
-  loadSwapData() {
+  loadSwapData(): void {
+    DEBUG_OUT("Begin loadSwapData");
     for (let i = 0; i < this.allAssets.length; i++) {
       const chain = this.allAssets[i].chain;
       const protocol = this.allAssets[i].protocol;
@@ -398,6 +405,7 @@ export class PickleModel {
         path: [],
       };
     }
+    DEBUG_OUT("End loadSwapData");
   }
 
   async checkConfiguredChainsConnections(): Promise<void> {
@@ -489,6 +497,7 @@ export class PickleModel {
   }
 
   async ensurePriceCacheLoaded(): Promise<any> {
+    DEBUG_OUT("Begin ensurePriceCacheLoaded");
     if (
       this.prices &&
       this.prices.getCache() &&
@@ -541,12 +550,14 @@ export class PickleModel {
           ),
         ),
       );
-
+      DEBUG_OUT("End ensurePriceCacheLoaded");
       return Promise.all([cgPromises, cmcPromise, swapPromises]);
     }
+    DEBUG_OUT("End ensurePriceCacheLoaded");
   }
 
   async loadStrategyData(): Promise<any> {
+    DEBUG_OUT("Begin loadStrategyData");
     const jars: JarDefinition[] = this.getJars();
     const promises: Promise<any>[] = [];
     for (let i = 0; i < this.configuredChains.length; i++) {
@@ -586,31 +597,41 @@ export class PickleModel {
       return Promise.all(promises);
     } catch (error) {
       this.logError("loadStrategyData", error);
+    } finally {
+      DEBUG_OUT("End loadStrategyData");
     }
   }
 
   async loadRatiosData(): Promise<any> {
+    DEBUG_OUT("Begin loadRatiosData");
     await Promise.all(
       this.configuredChains.map((x) =>
         this.addJarRatios(this.semiActiveJars(x), x),
       ),
     );
+    DEBUG_OUT("End loadRatiosData");
   }
 
   async loadJarTotalSupplyData(): Promise<any> {
-    return Promise.all(
+    DEBUG_OUT("Begin loadJarTotalSupplyData");
+    const r = await Promise.all(
       this.configuredChains.map((x) =>
         this.addJarTotalSupply(this.semiActiveJars(x), x),
       ),
     );
+    DEBUG_OUT("End loadJarTotalSupplyData");
+    return r;
   }
 
   async ensureComponentTokensLoaded(): Promise<any> {
-    return Promise.all(
+    DEBUG_OUT("Begin ensureComponentTokensLoaded");
+    const r = await Promise.all(
       this.configuredChains.map((x) =>
         this.ensureComponentTokensLoadedForChain(x),
       ),
     );
+    DEBUG_OUT("End ensureComponentTokensLoaded");    
+    return r;
   }
 
   async ensureComponentTokensLoadedForChain(chain: ChainNetwork) {
@@ -674,23 +695,30 @@ export class PickleModel {
   }
 
   async loadDepositTokenTotalSupplyData(): Promise<any> {
-    return Promise.all(
+    DEBUG_OUT("Begin loadDepositTokenTotalSupplyData");    
+    const r = await Promise.all(
       this.configuredChains.map((x) =>
         this.addDepositTokenTotalSupply(this.semiActiveJars(x), x),
       ),
     );
+    DEBUG_OUT("End loadDepositTokenTotalSupplyData");    
+    return r;
   }
 
   async loadJarBalanceData(): Promise<any> {
-    return Promise.all(
+    DEBUG_OUT("Begin loadJarBalanceData");    
+    const r = await Promise.all(
       this.configuredChains.map((x) =>
         this.addDepositTokenBalance(this.semiActiveJars(x), x),
       ),
     );
+    DEBUG_OUT("End loadJarBalanceData");    
+    return r;
   }
 
   // Could this be moved to the asset behaviors instead??
-  async ensureDepositTokenPriceLoaded() {
+  async ensureDepositTokenPriceLoaded(): Promise<void> {
+    DEBUG_OUT("Begin ensureDepositTokenPriceLoaded");
     const jarBehaviorResolver = new JarBehaviorDiscovery();
     const notDisabled: PickleAsset[] = this.allAssets
       .filter((jar) => {
@@ -723,6 +751,7 @@ export class PickleModel {
       notDisabled[i].depositToken.price = prices[i];
       this.prices.put(notDisabled[i].depositToken.addr, prices[i]);
     }
+    DEBUG_OUT("End ensureDepositTokenPriceLoaded");
   }
 
   // All jars called here must be on the same chain.
@@ -926,6 +955,7 @@ export class PickleModel {
   }
 
   async ensureHarvestDataLoaded(): Promise<any> {
+    DEBUG_OUT("Begin ensureHarvestDataLoaded");
     const map: Map<ChainNetwork, JarDefinition[]> = new Map();
     for (let i = 0; i < this.configuredChains.length; i++) {
       const missing: JarDefinition[] = [];
@@ -953,7 +983,9 @@ export class PickleModel {
         ),
       );
     }
-    return Promise.all(promises);
+    const r = await Promise.all(promises);
+    DEBUG_OUT("End ensureHarvestDataLoaded");
+    return r;
   }
 
   async loadHarvestData(jars: JarDefinition[], chain: ChainNetwork) {
@@ -1262,19 +1294,28 @@ export class PickleModel {
   }
 
   async loadGaugeAprData(): Promise<any> {
-    return Promise.all(
+    DEBUG_OUT("Begin loadGaugeAprData");
+    const r = await Promise.all(
       this.configuredChains.map((x) => loadGaugeAprData(this, x)),
     );
+    DEBUG_OUT("End loadGaugeAprData");
+    return r;
   }
+
   async ensureFarmsBalanceLoaded(): Promise<any> {
-    return Promise.all(
+    DEBUG_OUT("Begin ensureFarmsBalanceLoaded");
+    const r = await Promise.all(
       this.configuredChains.map((x) =>
         this.ensureFarmsBalanceLoadedForProtocol(x),
       ),
     );
+    DEBUG_OUT("End ensureFarmsBalanceLoaded");
+    return r;
   }
 
   async ensureExternalAssetBalanceLoaded(): Promise<void> {
+    DEBUG_OUT("Begin ensureExternalAssetBalanceLoaded");
+
     // This needs to be separated out and unified, seriously.
     let external: ExternalAssetDefinition[] = undefined;
     try {
@@ -1306,9 +1347,11 @@ export class PickleModel {
         }
       }
     }
+    DEBUG_OUT("End ensureExternalAssetBalanceLoaded");
   }
 
   async loadApyComponents(): Promise<void> {
+    DEBUG_OUT("Begin loadApyComponents");
     const withBehaviors: PickleAsset[] = this.allAssets
       .filter(
         (x) =>
@@ -1336,6 +1379,7 @@ export class PickleModel {
     for (let i = 0; aprStats !== undefined && i < withBehaviors.length; i++) {
       withBehaviors[i].aprStats = this.cleanAprStats(aprStats[i]);
     }
+    DEBUG_OUT("End loadApyComponents");
   }
 
   cleanAprStats(stats: AssetProjectedApr): AssetProjectedApr {
@@ -1358,6 +1402,7 @@ export class PickleModel {
   }
 
   async loadProtocolApr() {
+    DEBUG_OUT("Begin loadProtocolApr");
     const withBehaviors: JarDefinition[] = this.getJars().filter(
       (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined,
     );
@@ -1383,7 +1428,9 @@ export class PickleModel {
       if (historical[i] !== undefined)
         withBehaviors[i].details.protocolApr = historical[i];
     }
+    DEBUG_OUT("End loadProtocolApr");
   }
+
   loadPlatformData(): PlatformData {
     const farms: StandaloneFarmDefinition[] = this.getStandaloneFarms();
     let tvl = 0;

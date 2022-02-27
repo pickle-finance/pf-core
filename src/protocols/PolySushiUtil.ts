@@ -1,7 +1,7 @@
 import { PoolId } from "./ProtocolUtil";
 import { Contract as MulticallContract } from "ethers-multicall";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
-import { PickleModel } from "..";
+import { ChainNetwork, Chains, PickleModel } from "..";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import sushiMiniChefAbi from "../Contracts/ABIs/sushi-minichef.json";
 import sushiComplexRewarderAbi from "../Contracts/ABIs/sushi-complex-rewarder.json";
@@ -9,6 +9,7 @@ import { formatEther, defaultAbiCoder } from "ethers/lib/utils";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { getLivePairDataFromContracts } from "./GenericSwapUtil";
 import { SushiPolyPairManager } from "./SushiSwapUtil";
+import { ethers } from "ethers";
 
 export const SUSHI_MINICHEF = "0x0769fd68dFb93167989C6f7254cd0D766Fb2841F";
 export const MATIC_COMPLEX_REWARDER =
@@ -62,8 +63,10 @@ export async function calculatePolySushiAPY(
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;
 
   // Getting MATIC rewards
-  const provider = model.providerFor(jar.chain);
-  const totalAllocPointCREncoded = await provider.getStorageAt(
+  //const provider = model.providerFor(jar.chain);
+  const fullNodeProviderString = Chains.get(ChainNetwork.Polygon).rpcProviderUrls[0];
+  const fullNodeProvider = new ethers.providers.JsonRpcProvider(fullNodeProviderString);
+  const totalAllocPointCREncoded = await fullNodeProvider.getStorageAt(
     MATIC_COMPLEX_REWARDER,
     5,
   );
