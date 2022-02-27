@@ -7041,7 +7041,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM);
 export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 3ai",
-  contract: "0x41ed7A45350dD788637bD5C4616B998b27CE0832",
+  contract: "0x0beA755c9EcFFFE1D701C092d6DD2a12BB17EE03",
   depositToken: {
     addr: "0x8eFD36aA4Afa9F4E157bec759F1744A7FeBaEA0e",
     name: "SPIRIT DEI/USDC",
