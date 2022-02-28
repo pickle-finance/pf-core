@@ -5373,7 +5373,7 @@ export const JAR_METIS_NETSWAP_WBTC_METIS: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
+    farmAddress: "0xCEFaABd85e8bc830EE3cF29C67e67Ca81952a83A",
     farmNickname: "pNLP WBTC/METIS",
     farmDepositTokenName: "pNLP WBTC/METIS",
   },
@@ -5398,7 +5398,7 @@ export const JAR_METIS_NETSWAP_WBTC_USDT: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
+    farmAddress: "0xCEFaABd85e8bc830EE3cF29C67e67Ca81952a83A",
     farmNickname: "pNLP WBTC/USDT",
     farmDepositTokenName: "pNLP WBTC/USDT",
   },
@@ -5598,7 +5598,7 @@ export const JAR_METIS_TETHYS_WBTC_METIS: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
+    farmAddress: "0xCEFaABd85e8bc830EE3cF29C67e67Ca81952a83A",
     farmNickname: "pTLP WBTC/METIS",
     farmDepositTokenName: "pTLP WBTC/METIS",
   },
