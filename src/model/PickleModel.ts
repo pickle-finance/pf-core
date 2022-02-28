@@ -134,8 +134,8 @@ export const ADDRESSES = new Map([
       pickle: NULL_ADDRESS,
       masterChef: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
       controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
-      minichef: "0xfa601B32b0B731981845c86557B54e66D2eb23fA",
-      rewarder: "0x5118595429D6Bd9a164659f410B7d801506cF2dE"
+      minichef: "0xCEFaABd85e8bc830EE3cF29C67e67Ca81952a83A",
+      rewarder: "0xE04901aaa7c020f273E71754dd9bc9671f06BE0B"
     },
   ],
   [
