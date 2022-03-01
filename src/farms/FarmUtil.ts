@@ -40,7 +40,7 @@ export async function loadGaugeAprData(
     let rawGaugeData: IRawGaugeData[] = [];
     try {
       rawGaugeData = await loadGaugeDataEth();
-    } catch( error ) {
+    } catch (error) {
       model.logError("loadGaugeAprData", chain.toString(), error);
     }
     if (rawGaugeData && rawGaugeData.length > 0) {
@@ -55,7 +55,7 @@ export async function loadGaugeAprData(
       let rawGaugeData: IRawGaugeData[] = [];
       try {
         rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
-      } catch( error ) {
+      } catch (error) {
         model.logError("loadGaugeAprData", chain.toString(), error);
       }
       if (rawGaugeData && rawGaugeData.length > 0) {

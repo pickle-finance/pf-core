@@ -135,13 +135,8 @@ export const ADDRESSES = new Map([
       pickle: NULL_ADDRESS,
       masterChef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
       controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
-<<<<<<< HEAD
       minichef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
       rewarder: "0x57A319FBE114DC8bb0F1BaAaFB37FA6F308C639F"
-=======
-      minichef: "0xCEFaABd85e8bc830EE3cF29C67e67Ca81952a83A",
-      rewarder: "0xE04901aaa7c020f273E71754dd9bc9671f06BE0B",
->>>>>>> Self-throttle to not ddos the rpcs
     },
   ],
   [

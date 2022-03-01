@@ -1213,7 +1213,7 @@ export class ExternalTokenModel {
       "0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4".toLowerCase(),
       8,
       ExternalTokenFetchStyle.ID,
-    )
+    );
     this.addToken(
       ChainNetwork.Metis,
       "usdc",
@@ -1254,7 +1254,6 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
 
     // Moonbeam
     this.addToken(

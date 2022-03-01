@@ -1,10 +1,7 @@
 import fs from "fs";
 import fetch from "cross-fetch";
 import { Signer } from "@ethersproject/abstract-signer";
-import {
-  PickleModelJson,
-  PickleModelAssets,
-} from "./model/PickleModelJson";
+import { PickleModelJson, PickleModelAssets } from "./model/PickleModelJson";
 import { ADDRESSES } from "./model/PickleModel";
 import { ethers } from "ethers";
 import { Provider } from "@ethersproject/providers";

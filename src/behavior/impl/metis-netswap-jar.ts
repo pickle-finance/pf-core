@@ -46,13 +46,20 @@ export class NetswapJar extends AbstractJarBehavior {
       const nettApy = poolStats[0].nettApy || 0;
       const rewarderApy = poolStats[0].rewarderApy || 0;
       const retained = 1 - Chains.get(jar.chain).defaultPerformanceFee;
-      components.push(this.createAprComponent("lp", poolStats[0]?.lpApy, false));
+      components.push(
+        this.createAprComponent("lp", poolStats[0]?.lpApy, false),
+      );
       if (nettApy) {
-        components.push(this.createAprComponent("nett", nettApy, true, retained));
+        components.push(
+          this.createAprComponent("nett", nettApy, true, retained),
+        );
       }
       if (rewarderApy) {
-        const rewarderToken = poolStats[0].rewarder?.rewardToken?.symbol || "Reward Token";
-        components.push(this.createAprComponent(rewarderToken, rewarderApy, true, retained));
+        const rewarderToken =
+          poolStats[0].rewarder?.rewardToken?.symbol || "Reward Token";
+        components.push(
+          this.createAprComponent(rewarderToken, rewarderApy, true, retained),
+        );
       }
     }
     return this.aprComponentsToProjectedApr(components);
