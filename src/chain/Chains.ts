@@ -111,7 +111,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "moonriver",
     gasTokenSymbol: "movr",
     explorer: "https://moonriver.moonscan.io",
-    rpcs: ["https://rpc.moonriver.moonbeam.network"],
+    rpcs: ["https://moonriver.api.onfinality.io/public"],
     multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
     defaultPerformanceFee: 0.1,
     wrappedNativeAddress: "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
