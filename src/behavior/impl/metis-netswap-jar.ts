@@ -38,7 +38,7 @@ export class NetswapJar extends AbstractJarBehavior {
     });
 
     const json = await resp.json();
-    const poolStats = json.data.farmPools.filter(
+    const poolStats = json.data?.farmPools?.filter(
       (x) => x.pair.id.toLowerCase() === jar.depositToken.addr.toLowerCase(),
     );
     const components = [];
