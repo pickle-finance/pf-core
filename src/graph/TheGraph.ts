@@ -41,8 +41,12 @@ const SUBGRAPH_URL_LOOKS =
 const SUBGRAPH_BEAMSWAP =
   "https://api.thegraph.com/subgraphs/name/beamswap/beamswap-dex";
 const SUBGRAPH_SOLARFLARE = "https://analytics.solarflare.io/api/subgraph";
-const SUBGRAPH_BEETHOVENX =
+const SUBGRAPH_URL_BEETHOVENX =
   "https://graph-node.beets-ftm-node.com/subgraphs/name/beethovenx";
+const SUBGRAPH_URL_SPOOKYSWAP =
+  "https://api.thegraph.com/subgraphs/name/eerieeight/spookyswap";
+const SUBGRAPH_URL_SPIRITSWAP =
+  "https://api.thegraph.com/subgraphs/name/layer3org/spiritswap-analytics";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -120,8 +124,12 @@ export function graphUrlFromDetails(
       break;
     }
     case AssetProtocol.BEETHOVENX:
-      return SUBGRAPH_BEETHOVENX;
-      // ADD_PROTOCOL
+      return SUBGRAPH_URL_BEETHOVENX;
+    // ADD_PROTOCOL
+    case AssetProtocol.SPOOKYSWAP:
+      return SUBGRAPH_URL_SPOOKYSWAP;
+    case AssetProtocol.SPIRITSWAP:
+      return SUBGRAPH_URL_SPIRITSWAP;
       return undefined;
   }
 }

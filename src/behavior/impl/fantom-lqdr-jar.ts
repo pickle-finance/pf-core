@@ -1,7 +1,11 @@
 import { Contract, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { Chains, PickleModel } from "../..";
-import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
+import {
+  JarDefinition,
+  AssetProjectedApr,
+  AssetProtocol,
+} from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import lqdrFarmsAbi from "../../Contracts/ABIs/lqdr-farm.json";
@@ -15,6 +19,8 @@ import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { Contract as MulticallContract } from "ethers-multicall";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
+import { SpookyPairManager } from "../../protocols/SpookyUtil";
+import { SpiritPairManager } from "../../protocols/SpiritUtil";
 
 const LQDR_FARMS = "0x6e2ad6527901c9664f016466b8DA1357a004db0f";
 
@@ -181,6 +187,20 @@ export class LqdrJar extends AbstractJarBehavior {
       );
       aprComponents.push(rewardAprComponent);
     }
+
+    const lp =
+      jar.protocol === AssetProtocol.SPOOKYSWAP
+        ? await new SpookyPairManager().calculateLpApr(
+            model,
+            jar.depositToken.addr,
+          )
+        : jar.protocol === AssetProtocol.SPIRITSWAP
+        ? await new SpiritPairManager().calculateLpApr(
+            model,
+            jar.depositToken.addr,
+          )
+        : 0;
+    aprComponents.push(this.createAprComponent("lp", lp, false));
 
     return this.aprComponentsToProjectedApr(aprComponents);
   }
