@@ -1,30 +1,25 @@
 import { ALL_ASSETS } from "../model/JarsAndFarms";
-import { JarDefinition, PickleAsset, XYK_SWAP_PROTOCOLS } from "../model/PickleModelJson";
+import { AssetProtocol, JarDefinition, PickleAsset, XYK_SWAP_PROTOCOLS } from "../model/PickleModelJson";
 import { DocsFormat } from "..";
 import {
   AssetDocumentationDefinition,
   AssetDocumentationResult,
+  OBTAIN_KEY_MULTITOKEN_POOL,
+  OBTAIN_KEY_ONETOKEN_POOL,
+  OBTAIN_KEY_TWOTOKEN_POOL,
+  OBTAIN_KEY_UNIV3,
+  RISK_CHAIN,
+  RISK_DIVERGENCE_LOSS,
+  RISK_SMART_CONTRACT,
   SocialKeyValueObj,
   TranslationKeyProperties,
   TranslationKeyWithProperties,
+  UNI3_JAR_DESCRIPTION,
+  UNI3_REWARDS_JAR_DESCRIPTION,
+  XYK_JAR_DESCRIPTION,
 } from "./DocsInterfaces";
 import { translateSingleString } from "./DocsTranslations";
 import { PROTOCOL_SOCIAL_MODEL, TOKEN_SOCIAL_MODEL } from "./DocsDetailModel";
-
-export const XYK_JAR_DESCRIPTION = "asset.description.standard.lp";
-export const SOCIAL_KEY_DISCORD = "social.key.discord";
-export const SOCIAL_KEY_TELEGRAM = "social.key.telegram";
-export const SOCIAL_KEY_TWITTER = "social.key.twitter";
-
-export const OBTAIN_KEY_ONETOKEN_POOL = "obtain.pool.onetoken";
-export const OBTAIN_KEY_TWOTOKEN_POOL = "obtain.pool.twotoken";
-export const OBTAIN_KEY_MULTITOKEN_POOL = "obtain.pool.multitoken";
-export const OBTAIN_KEY_ZAPPER = "obtain.pool.zapper";
-
-export const RISK_DIVERGENCE_LOSS = "risk.divergence.loss";
-export const RISK_SMART_CONTRACT = "risk.smart.contract";
-export const RISK_MAINTAIN_PEG = "risk.maintain.peg";
-export const RISK_CHAIN = "risk.chain";
 
 export function documentationAssetDefinitionToResult(
   language: string,
@@ -113,6 +108,9 @@ export function generateAutomaticDefinition(keys: string[]): AssetDocumentationD
       if( XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol)) {
         const oneDefinition: AssetDocumentationDefinition = generateXykDocumentation(asset);
         ret.push(oneDefinition);
+      } else if( asset.protocol === AssetProtocol.UNISWAP_V3 ) {
+        const oneDefinition: AssetDocumentationDefinition = generateUni3Documentation(asset);
+        ret.push(oneDefinition);
       }
     }
   }
@@ -120,10 +118,7 @@ export function generateAutomaticDefinition(keys: string[]): AssetDocumentationD
 }
 
 export function generateXykDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
-  let desc = generateAutomaticDescription(asset);
-  if( !desc ) {
-    desc = {key: asset.details.apiKey + ".desc", properties: {}};
-  }
+  const desc = generateAutomaticXYKDescription(asset);
   const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
 
   const obtain = [];
@@ -158,25 +153,82 @@ export function generateXykDocumentation(asset: PickleAsset): AssetDocumentation
   }
   return oneDefinition;
 }
-export function generateAutomaticDescription(asset: PickleAsset): TranslationKeyWithProperties | undefined {
-  const protocol = asset.protocol;
-  if( XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(protocol)) {
-    const key = XYK_JAR_DESCRIPTION;
-    const pair: string[] = (asset.depositToken.components || []);
-    const toUpper = pair.map((x) => x.toUpperCase()).join("/");
-    const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
-    const rt = asset.details.rewardTokens;
-    const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
-    const properties = {
-      protocol: protocol,
-      pair: toUpper,
-      poolUrl: asset.depositToken.link,
-      stakeLocation: sl,
-      rewards: rewardString,
-    }
-    return {key: key, properties: properties};
+
+export function generateUni3Documentation(asset: PickleAsset): AssetDocumentationDefinition {
+  const desc = generateAutomaticUni3Description(asset);
+  const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
+  const obtain: TranslationKeyWithProperties[] = [];
+  const components = (asset as JarDefinition).depositToken.components;
+  if( components && components.length === 2 && components[0] && components[1]) {
+    const props: any = {
+      token1: components[0],
+      token2: components[1],
+    };
+    obtain.push({ key: OBTAIN_KEY_UNIV3, properties: props });
   }
-  return undefined;
+  // TODO zapper? When to add it?
+    // {
+    //   key: OBTAIN_KEY_ZAPPER,
+    //   properties: {
+    //     poolName: "ETH/DAI",
+    //     poolUrl:
+    //       "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f&modal=pool-deposit",
+    //   },
+    // }
+  // TODO - add pickleZap ? 
+  
+  const risks: TranslationKeyWithProperties[] = [];
+  risks.push({ key: RISK_CHAIN, properties: { chain: asset.chain }});
+  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: asset.protocol }});
+  const stake = (asset as JarDefinition).stakingProtocol;
+  if(  stake && stake !== asset.protocol )
+    risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: stake }});
+  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" }});
+  risks.push({ key: RISK_DIVERGENCE_LOSS, properties: {}});
+  
+  
+  const oneDefinition: AssetDocumentationDefinition = {
+    apiKey: asset.details.apiKey,
+    descriptionKey: desc,
+    social: socials,
+    obtain: obtain,
+    risks: risks,
+  }
+  return oneDefinition;
+}
+
+export function generateAutomaticXYKDescription(asset: PickleAsset): TranslationKeyWithProperties | undefined {
+  const key = XYK_JAR_DESCRIPTION;
+  const pair: string[] = (asset.depositToken.components || []);
+  const toUpper = pair.map((x) => x.toUpperCase()).join("/");
+  const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
+  const rt = asset.details.rewardTokens;
+  const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
+  const properties = {
+    protocol: asset.protocol,
+    pair: toUpper,
+    poolUrl: asset.depositToken.link,
+    stakeLocation: sl,
+    rewards: rewardString,
+  }
+  return {key: key, properties: properties};
+}
+
+export function generateAutomaticUni3Description(asset: PickleAsset): TranslationKeyWithProperties | undefined {
+  const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : undefined;
+  const rt = asset.details.rewardTokens ? asset.details.rewardTokens : undefined;
+  const usesStaking = sl !== undefined && rt !== undefined;
+  const key = usesStaking ? UNI3_REWARDS_JAR_DESCRIPTION : UNI3_JAR_DESCRIPTION;
+  const pair: string[] = (asset.depositToken.components || []);
+  const toUpper = pair.map((x) => x.toUpperCase()).join("/");
+  const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
+  const properties = {
+    pair: toUpper,
+    poolUrl: asset.depositToken.link,
+    stakeLocation: sl || "",
+    rewards: rewardString || "",
+  }
+  return {key: key, properties: properties};
 }
 
 export function generateAutomaticSocials(asset: PickleAsset): TranslationKeyWithProperties[] {

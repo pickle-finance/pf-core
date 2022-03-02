@@ -1,3 +1,30 @@
+
+export const XYK_JAR_DESCRIPTION = "asset.description.standard.lp";
+export const UNI3_JAR_DESCRIPTION = "asset.description.univ3.lp";
+export const UNI3_REWARDS_JAR_DESCRIPTION = "asset.description.univ3.rewards.lp";
+
+export const OBTAIN_KEY_ONETOKEN_POOL = "obtain.pool.onetoken";
+export const OBTAIN_KEY_TWOTOKEN_POOL = "obtain.pool.twotoken";
+export const OBTAIN_KEY_MULTITOKEN_POOL = "obtain.pool.multitoken";
+export const OBTAIN_KEY_UNIV3 = "obtain.pool.uni3";
+export const OBTAIN_KEY_ZAPPER = "obtain.pool.zapper";
+
+export const RISK_DIVERGENCE_LOSS = "risk.divergence.loss";
+export const RISK_SMART_CONTRACT = "risk.smart.contract";
+export const RISK_MAINTAIN_PEG = "risk.maintain.peg";
+export const RISK_CHAIN = "risk.chain";
+
+export const SOCIAL_KEY_DISCORD = "social.key.discord";
+export const SOCIAL_KEY_TELEGRAM = "social.key.telegram";
+export const SOCIAL_KEY_TWITTER = "social.key.twitter";
+
+export enum SocialKeys {
+  SOCIAL_KEY_DISCORD_NAME = "social.key.discord.withname",
+  SOCIAL_KEY_TELEGRAM_NAME = "social.key.telegram.withname",
+  SOCIAL_KEY_TWITTER_NAME = "social.key.twitter.withname",
+  SOCIAL_KEY_WEBSITE_NAME = "social.key.website.withname",
+};
+
 export interface DocumentationModelDefinition {
   [key: string]: AssetDocumentationDefinition;
 }
@@ -36,13 +63,6 @@ export enum DocsFormat {
   MD = "markdown",
   PLAIN = "plain",
 }
-
-export enum SocialKeys {
-  SOCIAL_KEY_DISCORD_NAME = "social.key.discord.withname",
-  SOCIAL_KEY_TELEGRAM_NAME = "social.key.telegram.withname",
-  SOCIAL_KEY_TWITTER_NAME = "social.key.twitter.withname",
-  SOCIAL_KEY_WEBSITE_NAME = "social.key.website.withname",
-};
 
 export type SocialKeyValueObj = {
   [key in SocialKeys]?: string;

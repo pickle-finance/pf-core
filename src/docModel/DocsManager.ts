@@ -6,7 +6,7 @@ import {
   DocsFormat,
   DocumentationModelResult,
 } from "./DocsInterfaces";
-import { ALL_ASSETS, JAR_UNI_RLY_ETH } from "../model/JarsAndFarms";
+import { ALL_ASSETS } from "../model/JarsAndFarms";
 
 export class DocsManager {
   public static getAllJarDocumentationDefinitions(): AssetDocumentationDefinition[] {
