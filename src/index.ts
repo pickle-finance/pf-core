@@ -10,9 +10,8 @@ import {
 import { JarBehaviorDiscovery } from "./behavior/JarBehaviorDiscovery";
 import {
   DocsManager,
-  DocsFormat,
-  DocumentationModelResult,
 } from "./docModel/DocsManager";
+import { DocsFormat, DocumentationModelResult } from "./docModel/DocsInterfaces";
 
 export {
   ChainNetwork,

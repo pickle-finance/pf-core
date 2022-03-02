@@ -133,7 +133,7 @@ export const ADDRESSES = new Map([
       masterChef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
       controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
       minichef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
-      rewarder: "0x57A319FBE114DC8bb0F1BaAaFB37FA6F308C639F"
+      rewarder: "0x57A319FBE114DC8bb0F1BaAaFB37FA6F308C639F",
     },
   ],
   [

@@ -1908,6 +1908,7 @@ export const JAR_POLY_SUSHI_RAIDER_MATIC: JarDefinition = {
   details: {
     apiKey: "PSLP-RAIDER-MATIC",
     harvestStyle: HarvestStyle.PASSIVE,
+    rewardTokens: ["raider"],
   },
   farm: {
     farmAddress: "0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749",
