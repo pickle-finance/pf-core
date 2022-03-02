@@ -1312,7 +1312,7 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
