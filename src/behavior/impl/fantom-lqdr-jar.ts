@@ -139,9 +139,11 @@ export class LqdrJar extends AbstractJarBehavior {
         multicallFarms.poolInfo(poolId),
         lqdrStrategyContract.balanceOfPool(),
       ]);
+    const blocksPerYear =
+      ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
     const lqdrPerYear =
       (parseFloat(formatEther(lqdrPerBlockBN)) *
-        ONE_YEAR_IN_SECONDS *
+        blocksPerYear *
         poolInfo.allocPoint.toNumber()) /
       totalAllocPointBN.toNumber();
 
@@ -173,7 +175,7 @@ export class LqdrJar extends AbstractJarBehavior {
       const rewardTotalAlloc = rewarderTotalAlloc[rewarderAddress];
       const rewardsPerYear =
         (parseFloat(formatUnits(tokenPerBlockBN, rewardToken.decimals)) *
-          ONE_YEAR_IN_SECONDS *
+          blocksPerYear *
           rewardPoolInfo.allocPoint.toNumber()) /
         rewardTotalAlloc;
       const rewardValuePerYear =
