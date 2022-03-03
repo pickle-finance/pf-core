@@ -44,6 +44,8 @@ export enum AssetProtocol {
   BEETHOVENX = "BeethovenX",
   SPIRITSWAP = "SpiritSwap",
   LIQUID = "LiquidDriver",
+  SOLID = "Solidly",
+  SEX = "Solidex",
   // ADD_PROTOCOL
 }
 
@@ -229,6 +231,13 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: false,
     pickleZapAddress: "",
     router: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+  },
+  {  // Note: zaps might be slightly different than uniswapv2
+    protocol: AssetProtocol.SOLID,
+    chain: ChainNetwork.Fantom,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
   },
   // ADD_PROTOCOL
 ];

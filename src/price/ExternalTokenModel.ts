@@ -1712,6 +1712,22 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "sex",
+      "solidex",
+      "0xD31Fcd1f7Ba190dBc75354046F6024A9b86014d7".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "solid",
+      "solidly",
+      "0x888EF71766ca594DED1F0FA3AE64eD2941740A20".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

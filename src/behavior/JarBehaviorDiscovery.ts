@@ -281,6 +281,7 @@ import {
   JAR_METIS_NETSWAP_WBTC_METIS,
   JAR_METIS_NETSWAP_WBTC_USDT,
   JAR_METIS_TETHYS_WBTC_METIS,
+  JAR_FANTOM_SEX_FTM,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -507,6 +508,7 @@ import { OxdTomb } from "./impl/fantom-oxd-tomb";
 import { LqdrJar } from "./impl/fantom-lqdr-jar";
 import { BooJar } from "./impl/fantom-boo-jar";
 import { BeetXJar } from "./impl/fantom-beetx-jar";
+import { SexJar } from "./impl/fantom-sex-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -827,6 +829,8 @@ jarToBehavior.set(
 jarToBehavior.set(JAR_FANTOM_BEETX_FTM_USDC.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_DAI_MAI.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH.id, new BeetXJar());
+
+jarToBehavior.set(JAR_FANTOM_SEX_FTM.id, new SexJar());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

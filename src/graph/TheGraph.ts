@@ -47,6 +47,8 @@ const SUBGRAPH_URL_SPOOKYSWAP =
   "https://api.thegraph.com/subgraphs/name/eerieeight/spookyswap";
 const SUBGRAPH_URL_SPIRITSWAP =
   "https://api.thegraph.com/subgraphs/name/layer3org/spiritswap-analytics";
+const SUBGRAPH_URL_SOLIDLY =
+  "https://api.thegraph.com/subgraphs/name/spartacus-finance/solidly";
 
 // ADD_CHAIN_PICKLE
 export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
@@ -125,11 +127,14 @@ export function graphUrlFromDetails(
     }
     case AssetProtocol.BEETHOVENX:
       return SUBGRAPH_URL_BEETHOVENX;
-    // ADD_PROTOCOL
     case AssetProtocol.SPOOKYSWAP:
       return SUBGRAPH_URL_SPOOKYSWAP;
     case AssetProtocol.SPIRITSWAP:
       return SUBGRAPH_URL_SPIRITSWAP;
+    case AssetProtocol.SOLID:
+      return SUBGRAPH_URL_SOLIDLY;
+
+    // ADD_PROTOCOL
       return undefined;
   }
 }
