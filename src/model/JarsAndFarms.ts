@@ -1312,7 +1312,7 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1343,7 +1343,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1377,7 +1377,7 @@ export const JAR_UNIV3_USDC_ETH_3: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1411,7 +1411,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1479,7 +1479,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -7624,6 +7624,32 @@ export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH);
+
+export const JAR_FANTOM_SEX_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5a",
+  contract: "0xFc3c538931f97458c0F44E6852768A74175DB5C2",
+  depositToken: {
+    addr: "0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
+    name: "SOLID FTM/SEX",
+    link: "https://solidly.exchange/liquidity/0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
+    components: ["ftm", "sex"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  details: {
+    apiKey: "SEX-SOLID-FTM-SEX",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID FTM-SEX",
+    farmDepositTokenName: "pSEX-SOLID FTM-SEX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_FTM);
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

@@ -736,6 +736,7 @@ export class PickleModel {
         tmpArray = [];
       }
     }
+    await Promise.all(tmpArray);
     DEBUG_OUT("End ensureDepositTokenPriceLoadedOneChain: " + chain);
   }
 
@@ -1424,6 +1425,7 @@ export class PickleModel {
         tmpArray = [];
       }
     }
+    await Promise.all(tmpArray);
   }
 
   async singleJarLoadApyComponents(asset: JarDefinition): Promise<void> {
