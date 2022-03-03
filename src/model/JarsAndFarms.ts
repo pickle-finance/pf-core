@@ -2965,6 +2965,7 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
       path: ["0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a", "0x6983D1E6DEf3690C4d616b13597A09e6193EA013"]
     }
   },
+  rewardTokens: ["sushi"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
@@ -2995,6 +2996,7 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
       path: ["0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a", "0x6983D1E6DEf3690C4d616b13597A09e6193EA013"]
     }
   },
+  rewardTokens: ["sushi"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
@@ -3020,6 +3022,7 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/ETH",
     components: ["1eth", "wone"],
   },
+  rewardTokens: ["sushi"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
   protocol: AssetProtocol.SUSHISWAP,
@@ -3047,6 +3050,7 @@ export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/ETH",
     components: ["solar", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3077,6 +3081,7 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3102,6 +3107,7 @@ export const JAR_MOVR_SOLAR_MOVR_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/ETH/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["movr", "usdc"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3132,6 +3138,7 @@ export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3162,6 +3169,7 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3192,6 +3200,7 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3222,6 +3231,7 @@ export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3252,6 +3262,7 @@ export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3282,6 +3293,7 @@ export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3307,6 +3319,7 @@ export const JAR_MOVR_SOLAR_AVAX_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x14a0243C333A5b238143068dC3A7323Ba4C30ECB/ETH",
     components: ["avax", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3337,6 +3350,7 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3367,6 +3381,7 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3392,6 +3407,7 @@ export const JAR_MOVR_SOLAR_MOVR_FTM: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/ETH/0xaD12daB5959f30b9fF3c2d6709f53C335dC39908",
     components: ["movr", "ftm"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3417,6 +3433,7 @@ export const JAR_MOVR_SOLAR_MOVR_RIB: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/ETH/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["movr", "rib"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3442,6 +3459,7 @@ export const JAR_MOVR_SOLAR_MOVR_RELAY: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/ETH/0xAd7F1844696652ddA7959a49063BfFccafafEfe7",
     components: ["movr", "relay"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3472,6 +3490,7 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B"]
     }
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3497,6 +3516,7 @@ export const JAR_MOVR_SOLAR_PETS_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x1e0F2A75Be02c025Bd84177765F89200c04337Da/ETH",
     components: ["pets", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3523,6 +3543,7 @@ export const JAR_MOVR_SOLAR_FRAX_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x1A93B23281CC1CDE4C4741353F3064709A16197d/ETH",
     components: ["frax", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3548,6 +3569,7 @@ export const JAR_MOVR_SOLAR_MIM_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/ETH",
     components: ["mim", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3573,6 +3595,7 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/ETH",
     components: ["bnb", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3598,6 +3621,7 @@ export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C/ETH",
     components: ["eth", "movr"],
   },
+  rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARSWAP,
@@ -3628,6 +3652,7 @@ export const JAR_MOVR_FINN_DOT_FINN: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756"]
     }
   },
+  rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.FINN,
@@ -3658,6 +3683,7 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080"]
     }
   },
+  rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.FINN,
@@ -3688,6 +3714,7 @@ export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
       path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xffffffFF893264794d9d57E1E0E21E0042aF5A0A"]
     }
   },
+  rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.FINN,
@@ -3713,6 +3740,7 @@ export const JAR_MOVR_FINN_MOVR_FINN: JarDefinition = {
     link: "https://www.huckleberry.finance/#/add/MOVR/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["movr", "finn"],
   },
+  rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.FINN,
@@ -3738,6 +3766,7 @@ export const JAR_MOVR_FINN_USDC_MOVR: JarDefinition = {
     link: "https://www.huckleberry.finance/#/add/0x748134b5F553F2bcBD78c6826De99a70274bDEb3/MOVR",
     components: ["usdc-2", "movr"],
   },
+  rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.FINN,
