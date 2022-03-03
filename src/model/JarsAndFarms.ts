@@ -1573,6 +1573,7 @@ export const JAR_COMETH_USDC_WETH: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["must"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.COMETHSWAP,
@@ -1603,6 +1604,7 @@ export const JAR_COMETH_PICKLE_MUST: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x9C78EE466D6Cb57A4d01Fd887D2b5dFb2D46288f"]
     }
   },
+  rewardTokens: ["must"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.COMETHSWAP,
@@ -1628,6 +1630,7 @@ export const JAR_COMETH_MATIC_MUST: JarDefinition = {
     link: "https://swap.cometh.io/#/add/0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f/0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
     components: ["matic", "must"],
   },
+  rewardTokens: ["must"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.COMETHSWAP,
@@ -1653,6 +1656,7 @@ export const JAR_AAVEDAI: JarDefinition = {
     link: "https://polygonscan.com/token/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063?a=0x5143e71982a2d5dc63a77f0a5611685cf13c5aaf",
     components: ["dai"],
   },
+  rewardTokens: ["matic"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.AAVE,
@@ -1678,6 +1682,7 @@ export const JAR_AM3CRV: JarDefinition = {
     link: "https://polygon.curve.fi/aave/deposit",
     components: [], // TODO
   },
+  rewardTokens: ["crv"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.CURVE,
@@ -1708,6 +1713,7 @@ export const JAR_POLY_SUSHI_ETH_USDT: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["sushi"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -1733,6 +1739,7 @@ export const JAR_POLY_SUSHI_MATIC_ETH: JarDefinition = {
     link: "https://app.sushi.com/add/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
     components: ["weth", "matic"],
   },
+  rewardTokens: ["sushi"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -1758,6 +1765,7 @@ export const JAR_QUICKmiMATICUSDC_old: JarDefinition = {
     link: "https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
     components: ["usdc", "mimatic"],
   },
+  rewardTokens: ["qi"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
@@ -1788,6 +1796,7 @@ export const JAR_QUICK_MIMATIC_USDC: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["qi"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
@@ -1813,6 +1822,7 @@ export const JAR_QUICK_QI_MIMATIC: JarDefinition = {
     link: "https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x580A84C73811E1839F75d86d75d88cCa0c241fF4",
     components: ["qi", "mimatic"],
   },
+  rewardTokens: ["qi"],
   enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
@@ -1839,6 +1849,7 @@ export const JAR_QUICK_QI_MATIC: JarDefinition = {
     link: "https://quickswap.exchange/#/add/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270/0x580A84C73811E1839F75d86d75d88cCa0c241fF4",
     components: ["qi", "matic"],
   },
+  rewardTokens: ["qi"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
@@ -1864,6 +1875,7 @@ export const JAR_IRON3USD: JarDefinition = {
     link: "https://app.iron.finance/swap/pools/is3usd/deposit",
     components: ["usdc", "usdt", "dai"],
   },
+  rewardTokens: ["ice"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.IRON,
@@ -1894,6 +1906,7 @@ export const JAR_SUSHI_DINO_USDC: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["dino"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -1924,6 +1937,7 @@ export const JAR_QUICK_DINO_ETH: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["dino"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
@@ -1954,6 +1968,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"]
     }
   },
+  rewardTokens: ["sushi"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
@@ -1980,6 +1995,7 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["dino"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -2000,6 +2016,7 @@ export const JAR_POLY_SUSHI_RAIDER_MATIC: JarDefinition = {
     link: "https://app.sushi.com/add/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     components: ["raider", "matic"],
   },
+  rewardTokens: ["raider"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -2030,6 +2047,7 @@ export const JAR_POLY_SUSHI_RAIDER_WETH: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["raider"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -2055,6 +2073,7 @@ export const JAR_POLY_SUSHI_AURUM_MATIC: JarDefinition = {
     link: "https://app.sushi.com/add/0x34d4ab47bee066f361fa52d792e69ac7bd05ee23/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     components: ["aurum", "matic"],
   },
+  rewardTokens: ["raider"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -2085,6 +2104,7 @@ export const JAR_POLY_SUSHI_AURUM_USDC: JarDefinition = {
       path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
     }
   },
+  rewardTokens: ["raider"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
@@ -2115,6 +2135,7 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
+  rewardTokens: ["usdc", "weth"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
@@ -2147,6 +2168,7 @@ export const JAR_POLY_UNIV3_MATIC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
+  rewardTokens: ["matic", "weth"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
@@ -2179,6 +2201,7 @@ export const JAR_POLY_UNIV3_MATIC_USDC: JarDefinition = {
     ],
     style: { erc20: false },
   },
+  rewardTokens: ["matic", "usdc"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
@@ -2211,6 +2234,7 @@ export const JAR_POLY_UNIV3_USDC_USDT: JarDefinition = {
     ],
     style: { erc20: false },
   },
+  rewardTokens: ["usdc", "usdt"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
@@ -2243,6 +2267,7 @@ export const JAR_POLY_UNIV3_WBTC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
+  rewardTokens: ["wbtc", "weth"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.UNISWAP_V3,
