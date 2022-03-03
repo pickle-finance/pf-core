@@ -327,6 +327,7 @@ export interface ExternalAssetDefinition extends PickleAsset {
 
 export interface JarDefinition extends PickleAsset {
   details: JarDetails;
+  rewardTokens: string[];
   farm?: NestedFarm;
   stakingProtocol?: AssetProtocol;
   rewardTokens?: string[];

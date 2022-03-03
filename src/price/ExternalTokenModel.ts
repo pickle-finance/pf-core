@@ -74,6 +74,18 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
+      "snx",
+      "havven",
+      "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f".toLowerCase(),
+    );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "uni",
+      "uniswap",
+      "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984".toLowerCase(),
+    );
+    this.addToken(
+      ChainNetwork.Ethereum,
       "comp",
       "compound-governance-token",
       "0xc00e94cb662c3520282e6f5717214004a7f26888".toLowerCase(),
