@@ -258,23 +258,24 @@ export async function queryUniV3TokensFromGraph() {
   const listOfInfos = Object.values(uniV3Info);
   const toFind = listOfInfos.map((x) => (x as UniV3InfoValue).nftNumber);
   const toFindAsString = toFind.flat().join('\\", \\"');
+  const fetchParams = {
+    credentials: "omit",
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0",
+      Accept: "*/*",
+      "Accept-Language": "en-US,en;q=0.5",
+      "Content-Type": "application/json",
+    },
+    referrer:
+      "https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3",
+    body: `{"query":"{\\n  positions(first: ${toFind.length.toString()}, orderDirection: desc, where: {id_in: [\\"${toFindAsString}\\"]}) {\\n    id\\n    depositedToken0\\n    depositedToken1\\n pool{id}\\n}\\n}\\n","variables":null}`,
+    method: "POST",
+    mode: "cors",
+  };
   const res = await fetch(
     "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3",
-    {
-      credentials: "omit",
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:81.0) Gecko/20100101 Firefox/81.0",
-        Accept: "*/*",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Content-Type": "application/json",
-      },
-      referrer:
-        "https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3",
-      body: `{"query":"{\\n  positions(first: ${toFind.length.toString()}, orderDirection: desc, where: {id_in: [\\"${toFindAsString}\\"]}) {\\n    id\\n    depositedToken0\\n    depositedToken1\\n pool{id}\\n}\\n}\\n","variables":null}`,
-      method: "POST",
-      mode: "cors",
-    },
+    fetchParams as RequestInit,
   ).then((x) => x.json());
   return res && res.data && res.data.positions ? res.data.positions : undefined;
 }

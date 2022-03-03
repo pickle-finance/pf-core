@@ -1402,17 +1402,14 @@ export class PickleModel {
     assets: PickleAsset[],
   ): Promise<void> {
     let tmpArray: Promise<void>[] = [];
-    let pending: string[] = [];
     for (let i = 0; i < assets.length; i++) {
       const prom1 = this.singleJarLoadApyComponents(assets[i] as JarDefinition);
       tmpArray.push(prom1);
-      pending.push(assets[i].details.apiKey);
       if (tmpArray.length === 10) {
         try {
-          DEBUG_OUT("loadApyComponentsOneChain waiting on " + pending.join(","));
+          DEBUG_OUT("loadApyComponentsOneChain waiting");
           await Promise.all(tmpArray);
           DEBUG_OUT("loadApyComponentsOneChain Done waiting");
-          pending = [];
           DEBUG_OUT("loadApyComponentsOneChain 4-second delay");
           await new Promise((resolve) => setTimeout(resolve, 4000));
           DEBUG_OUT("loadApyComponentsOneChain 4-second delay end");
@@ -1435,8 +1432,13 @@ export class PickleModel {
       .findAssetBehavior(asset)
       .getProjectedAprStats(asset as JarDefinition, this);
     try {
-      const r = await timeout(ret,7000, Symbol());
-      asset.aprStats = this.cleanAprStats(r);
+      const timeoutResult = Symbol();
+      const r = await timeout(ret,7000, timeoutResult);
+      if( r !== timeoutResult ) {
+        asset.aprStats = this.cleanAprStats(r);
+      } else {
+        this.logError("loadApyComponents", "timeout 7s for " + asset.details.apiKey, asset.details.apiKey);
+      }
     } catch (error) {
       this.logError("loadApyComponents", error, asset.details.apiKey);
     } finally {

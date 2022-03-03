@@ -1,7 +1,9 @@
 import fetch from "cross-fetch";
+import { DEBUG_OUT } from "../model/PickleModel";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "./ExternalTokenModel";
 
 export const setAllCoinMarketCapPricesOnTokens = async(): Promise<void> => {
+  DEBUG_OUT("Begin setAllCoinMarketCapPricesOnTokens");
   const all = ExternalTokenModelSingleton.getAllTokens();
   const filtered = all.filter(
     (val) => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP,
@@ -12,6 +14,7 @@ export const setAllCoinMarketCapPricesOnTokens = async(): Promise<void> => {
       filtered[i].price = ret.get(filtered[i].coingeckoId);
     }
   }
+  DEBUG_OUT("End setAllCoinMarketCapPricesOnTokens");
 }
 
 const fetchCoinmarketCapPricesBySearchIdImpl = async(
