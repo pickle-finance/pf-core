@@ -1434,7 +1434,7 @@ export class PickleModel {
     try {
       const timeoutResult = Symbol();
       const r = await timeout(ret,7000, timeoutResult);
-      if( r !== timeoutResult ) {
+      if( r && r !== timeoutResult ) {
         asset.aprStats = this.cleanAprStats(r);
       } else {
         this.logError("loadApyComponents", "timeout 7s for " + asset.details.apiKey, asset.details.apiKey);
