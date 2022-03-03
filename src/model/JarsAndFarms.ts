@@ -4097,6 +4097,7 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4122,6 +4123,7 @@ export const JAR_AURORA_TRI_NEAR_ETH: JarDefinition = {
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/ETH",
     components: ["near", "eth"],
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4152,6 +4154,7 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4182,6 +4185,7 @@ export const JAR_AURORA_TRI_NEAR_TRI: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4212,6 +4216,7 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4242,6 +4247,7 @@ export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4272,6 +4278,7 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4297,6 +4304,7 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
     link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/ETH",
     components: ["aurora", "eth"],
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4327,6 +4335,7 @@ export const JAR_AURORA_TRI_NEAR_LUNA: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }  
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4357,6 +4366,7 @@ export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4387,6 +4397,7 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4417,6 +4428,7 @@ export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4447,6 +4459,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["tri"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4477,6 +4490,7 @@ export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4507,6 +4521,7 @@ export const JAR_AURORA_WANNA_AURORA_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4532,6 +4547,7 @@ export const JAR_AURORA_WANNA_ETH_BTC: JarDefinition = {
     link: "https://wannaswap.finance/exchange/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["eth", "btc"],
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4562,6 +4578,7 @@ export const JAR_AURORA_WANNA_NEAR_BTC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4592,6 +4609,7 @@ export const JAR_AURORA_WANNA_NEAR_DAI: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4617,6 +4635,7 @@ export const JAR_AURORA_WANNA_NEAR_ETH: JarDefinition = {
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["near", "eth"],
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4647,6 +4666,7 @@ export const JAR_AURORA_WANNA_USDC_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4677,6 +4697,7 @@ export const JAR_AURORA_WANNA_USDT_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4707,6 +4728,7 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4737,6 +4759,7 @@ export const JAR_AURORA_WANNA_WANNA_USDC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4767,6 +4790,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4797,6 +4821,7 @@ export const JAR_AURORA_WANNA_NEAR_LUNA: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4827,6 +4852,7 @@ export const JAR_AURORA_WANNA_UST_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4857,6 +4883,7 @@ export const JAR_AURORA_WANNA_WANNA_AURORA: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79"]
     }
   },
+  rewardTokens: ["wanna"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
@@ -4887,6 +4914,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["pad"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
@@ -4917,6 +4945,7 @@ export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
     }
   },
+  rewardTokens: ["pad"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
@@ -4947,6 +4976,7 @@ export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
     }
   },
+  rewardTokens: ["pad"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
@@ -4972,6 +5002,7 @@ export const JAR_AURORA_PAD_PAD_ETH: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["pad", "eth"],
   },
+  rewardTokens: ["pad"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
@@ -5002,6 +5033,7 @@ export const JAR_AURORA_PAD_PAD_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["pad"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
@@ -5032,6 +5064,7 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
     }
   },
+  rewardTokens: ["pad"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.NEARPAD,
@@ -5062,6 +5095,7 @@ export const JAR_AURORA_PAD_ROSE: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
     }
   },
+  rewardTokens: ["rose"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
@@ -5087,6 +5121,7 @@ export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
     components: ["frax", "rose"],
   },
+  rewardTokens: ["rose"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
@@ -5117,6 +5152,7 @@ export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5147,6 +5183,7 @@ export const JAR_AURORA_BRL_AVAX_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5177,6 +5214,7 @@ export const JAR_AURORA_BRL_BRL_AURORA: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5202,6 +5240,7 @@ export const JAR_AURORA_BRL_BRL_ETH: JarDefinition = {
     link: "https://swap.auroraswap.net/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["brl", "eth"],
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5232,6 +5271,7 @@ export const JAR_AURORA_BRL_BRL_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5262,6 +5302,7 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5287,6 +5328,7 @@ export const JAR_AURORA_BRL_ETH_BTC: JarDefinition = {
     link: "https://swap.auroraswap.net/#/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["eth", "btc"],
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5317,6 +5359,7 @@ export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5347,6 +5390,7 @@ export const JAR_AURORA_BRL_NEAR_BTC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5372,6 +5416,7 @@ export const JAR_AURORA_BRL_NEAR_ETH: JarDefinition = {
     link: "https://swap.auroraswap.net/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["near", "eth"],
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5402,6 +5447,7 @@ export const JAR_AURORA_BRL_NEAR_LUNA: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5432,6 +5478,7 @@ export const JAR_AURORA_BRL_USDC_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5462,6 +5509,7 @@ export const JAR_AURORA_BRL_USDT_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5492,6 +5540,7 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
@@ -5522,6 +5571,7 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
       path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
     }
   },
+  rewardTokens: ["brl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
