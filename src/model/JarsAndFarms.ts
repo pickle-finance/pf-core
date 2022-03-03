@@ -1343,7 +1343,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1377,7 +1377,7 @@ export const JAR_UNIV3_USDC_ETH_3: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1411,7 +1411,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1479,7 +1479,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     ],
     style: { erc20: false },
   },
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
