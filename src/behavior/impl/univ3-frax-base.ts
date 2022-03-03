@@ -46,8 +46,8 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     definition.depositToken.totalSupply = definition.details.tokenBalance;
 
     const pJarUSD =
-      model.priceOfSync(definition.depositToken.components[0]) * jarAmount0 +
-      model.priceOfSync(definition.depositToken.components[1]) * jarAmount1;
+      model.priceOfSync(definition.depositToken.components[0], definition.chain) * jarAmount0 +
+      model.priceOfSync(definition.depositToken.components[1], definition.chain) * jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }
@@ -83,7 +83,7 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
-      harvestableUSD: (harvestable * _model.priceOfSync("fxs")) / 1e18,
+      harvestableUSD: (harvestable * _model.priceOfSync("fxs", definition.chain)) / 1e18,
     };
   }
 
@@ -98,14 +98,14 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
       definition.chain,
     ).getProviderOrSigner();
 
-    const token0Price = await model.priceOf(
-      definition.depositToken.components[0],
+    const token0Price = model.priceOfSync(
+      definition.depositToken.components[0], definition.chain
     );
-    const token1Price = await model.priceOf(
-      definition.depositToken.components[1],
+    const token1Price = model.priceOfSync(
+      definition.depositToken.components[1],definition.chain
     );
 
-    const liquidityValue = await model.priceOf(definition.depositToken.addr);
+    const liquidityValue = model.priceOfSync(definition.depositToken.addr, definition.chain);
     const jarValue =
       definition.details.ratio *
       definition.details.tokenBalance *
@@ -188,7 +188,7 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
 
     const apr =
-      ((multiplier * rewardDuration * 52 * model.priceOfSync("fxs")) /
+      ((multiplier * rewardDuration * 52 * model.priceOfSync("fxs",definition.chain)) /
         1e18 /
         (totalCombinedWeight * definition.depositToken.price)) *
       100;

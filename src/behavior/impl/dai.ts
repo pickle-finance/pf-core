@@ -11,11 +11,11 @@ import fetch from "cross-fetch";
 
 export class DaiJar extends AbstractJarBehavior {
   async getDepositTokenPrice(
-    _asset: JarDefinition,
+    asset: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
     // TODO is this correct? Is there no virtual price?
-    return model.priceOfSync("dai");
+    return model.priceOfSync("dai", asset.chain);
   }
 
   async getHarvestableUSD(
@@ -30,7 +30,7 @@ export class DaiJar extends AbstractJarBehavior {
     );
     const [matic, maticPrice] = await Promise.all([
       strategy.getMaticAccrued(),
-      await model.priceOf("matic"),
+      model.priceOfSync("matic", jar.chain),
     ]);
     const harvestable = matic.mul(maticPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
@@ -65,7 +65,7 @@ export class DaiJar extends AbstractJarBehavior {
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
-    const maticPrice = await model.priceOf("matic");
+    const maticPrice = model.priceOfSync("matic", jar.chain);
     if (!pool || !maticPrice || !multicallProvider)
       return super.aprComponentsToProjectedApr([
         super.createAprComponent("Error Loading APY", 0, false),

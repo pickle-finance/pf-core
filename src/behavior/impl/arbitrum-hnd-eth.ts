@@ -60,12 +60,12 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
 
     const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
     const totalSupply = +formatEther(totalSupplyBN);
-    const pricePerToken = model.priceOfSync(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const blocksPerYear =
       ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock;
     const dodoValueRewardedPerYear =
-      model.priceOfSync("dodo") * DODO_PER_BLOCK * blocksPerYear;
+      model.priceOfSync("dodo", jar.chain) * DODO_PER_BLOCK * blocksPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const dodoAPY = dodoValueRewardedPerYear / totalValueStaked;

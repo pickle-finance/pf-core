@@ -201,7 +201,7 @@ export async function calculateSushiRewardApr(
     model,
     lpTokenAddress,
   );
-  if (pairData && (await model.priceOf("sushi"))) {
+  if (pairData && (model.priceOfSync("sushi", chain))) {
     const poolId = sushiPoolIds[lpTokenAddress];
     const multicallSushiChef = new MulticallContract(
       SUSHI_CHEF_ADDR,
@@ -224,7 +224,7 @@ export async function calculateSushiRewardApr(
       sushiRewardsPerBlock *
       (ONE_YEAR_SECONDS / Chains.get(chain).secondsPerBlock);
     const valueRewardedPerYear =
-      (await model.priceOf("sushi")) * sushiRewardsPerYear;
+      (model.priceOfSync("sushi", chain)) * sushiRewardsPerYear;
 
     const sushiAPY = valueRewardedPerYear / pairData.reserveUSD;
     return sushiAPY * 100;
@@ -269,8 +269,8 @@ export async function calculateMCv2SushiRewards(
     sushiRewardsPerBlock *
     (ONE_YEAR_SECONDS / Chains.get(chain).secondsPerBlock);
   const valueRewardedPerYear =
-    (await model.priceOf("sushi")) * sushiRewardsPerYear;
-  const pricePerToken = await model.priceOf(lpTokenAddress);
+    (model.priceOfSync("sushi", chain)) * sushiRewardsPerYear;
+  const pricePerToken = model.priceOfSync(lpTokenAddress, chain);
   const totalValueStaked = supplyInRewarder * pricePerToken;
   const sushiAPY = valueRewardedPerYear / totalValueStaked;
   return sushiAPY * 100;
@@ -318,9 +318,9 @@ export async function calculateMCv2TokenRewards(
       parseFloat(formatUnits(tokenPerSecondBN, 8)) * ONE_YEAR_SECONDS;
   }
   const valueRewardedPerYear =
-    (await model.priceOf(rewardToken)) * rewardsPerYear;
+    (model.priceOfSync(rewardToken, chain)) * rewardsPerYear;
 
-  const pricePerToken = await model.priceOf(lpTokenAddress);
+  const pricePerToken = model.priceOfSync(lpTokenAddress, chain);
   const totalValueStaked = pricePerToken * supplyInMasterChef;
   const rewardAPR = valueRewardedPerYear / totalValueStaked;
 
@@ -353,7 +353,7 @@ export async function calculateSushiApyArbitrum(
     totalAllocPointBN.toNumber();
   const pricePerToken = jar.depositToken.price;
   const sushiRewardsPerYear = sushiRewardsPerSecond * (365 * 24 * 60 * 60);
-  const valueRewardedPerYear = model.priceOfSync("sushi") * sushiRewardsPerYear;
+  const valueRewardedPerYear = model.priceOfSync("sushi", jar.chain) * sushiRewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const sushiAPY = valueRewardedPerYear / totalValueStaked;
@@ -391,7 +391,7 @@ export async function calculateMCv2ApyArbitrum(
   const rewardsPerYear =
     parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
 
-  const valueRewardedPerYear = model.priceOfSync(rewardToken) * rewardsPerYear;
+  const valueRewardedPerYear = model.priceOfSync(rewardToken, jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const rewardAPY = valueRewardedPerYear / totalValueStaked;

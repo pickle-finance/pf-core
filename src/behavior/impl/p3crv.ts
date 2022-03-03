@@ -122,12 +122,12 @@ export class PThreeCrv extends AbstractJarBehavior {
         jar.details.strategyAddr,
         model.address("matic", ChainNetwork.Polygon),
       ),
-      await model.priceOf("matic"),
+      model.priceOfSync("matic", jar.chain),
       gauge.callStatic.claimable_reward_write(
         jar.details.strategyAddr,
         model.address("crv", ChainNetwork.Polygon),
       ),
-      await model.priceOf("crv"),
+      model.priceOfSync("crv", jar.chain),
     ]);
 
     const harvestable = matic
@@ -164,7 +164,7 @@ export class PThreeCrv extends AbstractJarBehavior {
     });
 
     if (!isMaticRewardsRetrieved) {
-      const wmaticRewardsAmount = (await model.priceOf("matic")) * 414597 * 6; // Reward rate is reverse engineered, not sure how long it will last correct!
+      const wmaticRewardsAmount = (model.priceOfSync("matic", jar.chain)) * 414597 * 6; // Reward rate is reverse engineered, not sure how long it will last correct!
       const wmaticAPY = wmaticRewardsAmount / +formatEther(lpBalance);
       rewardsAprComponents.push(
         this.createAprComponent("matic", wmaticAPY * 100, true),
@@ -189,7 +189,7 @@ export class PThreeCrv extends AbstractJarBehavior {
         aaveContracts.rewards.map(async (reward) => {
           let rewardRate: number;
           let periodFinish: number;
-          const price = model.priceOfSync(reward.token);
+          const price = model.priceOfSync(reward.token, jar.chain);
           if (reward.id === "crv") {
             const rewardStreamer = new Contract(
               reward.stream,

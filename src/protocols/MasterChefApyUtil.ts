@@ -60,7 +60,7 @@ export async function calculateMasterChefRewardsAPR(
   // TODO move average block time to the chain??
   const avgBlockTime = Chains.get(jar.chain).secondsPerBlock;
   const rewardsPerYear = rewardsPerBlock * (ONE_YEAR_IN_SECONDS / avgBlockTime);
-  const rewardTokenPrice = await model.priceOf(rewardTokenAddress);
+  const rewardTokenPrice = model.priceOfSync(rewardTokenAddress, jar.chain);
   let rewardTokenName =
     ExternalTokenModelSingleton.findTokenFromContract(rewardTokenAddress)?.id;
   if (rewardTokenName === undefined) rewardTokenName = "Reward-Token";

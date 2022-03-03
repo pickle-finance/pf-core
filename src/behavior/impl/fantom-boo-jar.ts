@@ -70,7 +70,7 @@ export class BooJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = poolIds[jar.depositToken.addr];
@@ -92,7 +92,7 @@ export class BooJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const booRewardedPerYear = (await model.priceOf("boo")) * rewardsPerYear;
+    const booRewardedPerYear = (model.priceOfSync("boo", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const booAPY = booRewardedPerYear / totalValueStaked;
 

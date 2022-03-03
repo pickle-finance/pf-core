@@ -15,7 +15,7 @@ async function generateFullApi() {
   );
 
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
-
+  model.setConfiguredChains([ChainNetwork.Ethereum]);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);

@@ -95,8 +95,8 @@ export class BalancerJar extends AbstractJarBehavior {
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
-    const depositTokenPrice: number = await model.priceOf(
-      definition.depositToken.addr,
+    const depositTokenPrice: number = model.priceOfSync(
+      definition.depositToken.addr, definition.chain
     );
     const availUSD: number =
       parseFloat(
@@ -115,8 +115,8 @@ export class BalancerJar extends AbstractJarBehavior {
   ): Promise<number> {
     const strategyAddr = jar.details.strategyAddr;
     const prices: Prices = {
-      bal: model.priceOfSync("bal"),
-      pickle: model.priceOfSync("pickle"),
+      bal: model.priceOfSync("bal", jar.chain),
+      pickle: model.priceOfSync("pickle", jar.chain),
     };
     let total = 0;
     try {
@@ -142,7 +142,7 @@ export class BalancerJar extends AbstractJarBehavior {
     }
 
     const walletBalances: any[] = await Promise.all(promises);
-    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x));
+    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x, jar.chain));
 
     walletBalances.forEach(
       (walletBalance, i) =>
@@ -185,8 +185,8 @@ export class BalancerJar extends AbstractJarBehavior {
       async run(flags: PfCoreGasFlags): Promise<TransactionResponse> {
         console.log("[" + jar.details.apiKey + "] - Harvesting a balancer jar");
         const prices: Prices = {
-          bal: model.priceOfSync("bal"),
-          pickle: model.priceOfSync("pickle"),
+          bal: model.priceOfSync("bal", jar.chain),
+          pickle: model.priceOfSync("pickle", jar.chain),
         };
         const strategyAddr = jar.details.strategyAddr;
         console.log("[" + jar.details.apiKey + "] - Fetching claim data");

@@ -56,8 +56,8 @@ export class PBammAsset implements ExternalAssetBehavior {
     const remainingLQTY = 13344950;
     const lusdInSP = await lusdContract.balanceOf(stabilityPoolAddr);
     const lqtyApr =
-      (remainingLQTY * model.priceOfSync("lqty")) /
-      (+formatEther(lusdInSP) * model.priceOfSync("lusd"));
+      (remainingLQTY * model.priceOfSync("lqty", definition.chain)) /
+      (+formatEther(lusdInSP) * model.priceOfSync("lusd", definition.chain));
     const duneData = await getOrLoadYearnDataFromDune(model);
     const liquidationRate =
       duneData?.data?.get_result_by_result_id[0].data?.apr / 100;
@@ -82,7 +82,7 @@ export class PBammAsset implements ExternalAssetBehavior {
     model: PickleModel,
   ): Promise<number> {
     if (definition && definition.depositToken && definition.depositToken.addr) {
-      return await model.priceOf(definition.depositToken.addr);
+      return model.priceOfSync(definition.depositToken.addr, definition.chain);
     }
     return undefined;
   }
@@ -110,7 +110,7 @@ export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
   );
   const lusdInStabilityPool =
     await stabilityPoolContract.getCompoundedLUSDDeposit(pBAMM);
-  const lusdPrice = await model.priceOf("lusd");
+  const lusdPrice = model.priceOfSync("lusd", asset.chain);
   const lusdValue =
     parseFloat(ethers.utils.formatEther(lusdInStabilityPool)) * lusdPrice;
 
@@ -120,7 +120,7 @@ export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
     Chains.getResolver(asset.chain),
   );
   const pLqtyTokens = await pLqtyContract.balanceOf(pBAMM);
-  const lqtyPrice = await model.priceOf("lqty");
+  const lqtyPrice = model.priceOfSync("lqty", asset.chain);
   const ratio = (model.findAsset(JAR_LQTY.id) as JarDefinition).details.ratio;
   const lqtyValue =
     parseFloat(ethers.utils.formatEther(pLqtyTokens)) * lqtyPrice * ratio;

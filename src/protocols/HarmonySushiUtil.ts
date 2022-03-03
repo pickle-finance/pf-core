@@ -58,7 +58,7 @@ export async function calculateHarmonySushiAPY(
 
   const sushiRewardsPerYear = sushiRewardsPerSecond * ONE_YEAR_IN_SECONDS;
   const valueRewardedPerYear =
-    (await model.priceOf("sushi")) * sushiRewardsPerYear;
+    (model.priceOfSync("sushi", jar.chain)) * sushiRewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;
@@ -91,7 +91,7 @@ export async function calculateHarmonySushiAPY(
     totalAllocPointCR[0].toNumber();
 
   const oneRewardsPerYear = oneRewardsPerSecond * (365 * 24 * 60 * 60);
-  const oneValueRewardedPerYear = model.priceOfSync("one") * oneRewardsPerYear;
+  const oneValueRewardedPerYear = model.priceOfSync("one", jar.chain) * oneRewardsPerYear;
   const oneAPY = (oneValueRewardedPerYear / totalValueStaked) * 100;
 
   const lpApr: number = await new SushiPolyPairManager().calculateLpApr(

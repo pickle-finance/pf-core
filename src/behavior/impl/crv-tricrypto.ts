@@ -48,8 +48,8 @@ export class CrvTricrypto extends CurveJar {
       pool.balances(1),
       pool.balances(2),
       triToken.totalSupply(),
-      model.priceOf("wbtc"),
-      model.priceOf("weth"),
+      model.priceOfSync("wbtc", definition.chain),
+      model.priceOfSync("weth", definition.chain),
       pool.get_virtual_price(),
     ]);
 
@@ -78,7 +78,7 @@ export class CrvTricrypto extends CurveJar {
         jar.details.strategyAddr,
         model.address("crv", ChainNetwork.Arbitrum),
       ),
-      await model.priceOf("curve-dao-token"),
+      model.priceOfSync("curve-dao-token", jar.chain),
     ]);
     const harvestable = crv.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
