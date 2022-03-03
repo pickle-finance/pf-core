@@ -80,7 +80,7 @@ export class FeiTribe extends AbstractJarBehavior {
       tribeRewardsPerBlock *
       (ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock);
     const valueRewardedPerYear =
-      model.priceOfSync("tribe") * tribeRewardsPerYear;
+      model.priceOfSync("tribe", jar.chain) * tribeRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const tribeAPY = 100 * (valueRewardedPerYear / totalValueStaked);

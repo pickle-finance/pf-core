@@ -60,7 +60,7 @@ export abstract class MirJar extends AbstractJarBehavior {
 
     const mirRewardsPerYear = mirRewardRate * ONE_YEAR_SECONDS;
     const valueRewardedPerYear =
-      (await model.priceOf("mir")) * mirRewardsPerYear;
+      (model.priceOfSync("mir", jar.chain)) * mirRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const mirAPY = valueRewardedPerYear / totalValueStaked;
@@ -100,7 +100,7 @@ export abstract class MirJar extends AbstractJarBehavior {
     );
     const [mir, mirPrice] = await Promise.all([
       rewards.earned(jar.details.strategyAddr),
-      await model.priceOf("mirror-protocol"),
+      model.priceOfSync("mirror-protocol", jar.chain),
     ]);
     const harvestable = mir.mul(mirPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));

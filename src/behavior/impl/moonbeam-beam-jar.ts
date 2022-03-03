@@ -74,7 +74,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = beamPoolIds[jar.depositToken.addr];
@@ -91,7 +91,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
       ONE_YEAR_IN_SECONDS;
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const beamRewardedPerYear = (await model.priceOf("beam")) * rewardsPerYear;
+    const beamRewardedPerYear = (model.priceOfSync("beam", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const beamAPY = beamRewardedPerYear / totalValueStaked;
 

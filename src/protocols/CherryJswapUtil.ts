@@ -54,12 +54,12 @@ export async function calculateCherryAPY(
       poolInfo.allocPoint.toNumber() *
       parseFloat(bonusMultiplierBN.toString())) /
     totalAllocPointBN.toNumber();
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
   const rewardsPerYear =
     rewardsPerBlock *
     ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
 
-  const valueRewardedPerYear = model.priceOfSync("cherry") * rewardsPerYear;
+  const valueRewardedPerYear = model.priceOfSync("cherry", jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const cherryAPY = valueRewardedPerYear / totalValueStaked;
@@ -89,13 +89,13 @@ export async function calculateJswapAPY(
     (parseFloat(formatEther(jfPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const rewardsPerYear =
     rewardsPerBlock *
     ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
 
-  const valueRewardedPerYear = model.priceOfSync("jswap") * rewardsPerYear;
+  const valueRewardedPerYear = model.priceOfSync("jswap", jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
 

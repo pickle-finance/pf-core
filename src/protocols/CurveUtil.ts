@@ -70,7 +70,7 @@ export async function calculateCurveApyArbitrum(
   const decimals: number[] = tokens.map((x) =>
     model.tokenDecimals(x, jar.chain),
   );
-  const prices: number[] = tokens.map((x) => model.priceOfSync(x));
+  const prices: number[] = tokens.map((x) => model.priceOfSync(x, jar.chain));
   let totalStakedUsd = 0;
   for (let i = 0; i < tokens.length; i++) {
     const oneEdec =
@@ -81,7 +81,7 @@ export async function calculateCurveApyArbitrum(
     const scaleBal = balances[i].div(oneEdec).toNumber() * prices[i];
     totalStakedUsd = totalStakedUsd += scaleBal;
   }
-  const crvPrice = model.priceOfSync("crv");
+  const crvPrice = model.priceOfSync("crv", jar.chain);
   const crvRewardsAmount = crvPrice * 3500761; // Approximation of CRV emissions
   const crvAPY = crvRewardsAmount / totalStakedUsd;
   return crvAPY * 100;

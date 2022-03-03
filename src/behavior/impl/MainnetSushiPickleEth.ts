@@ -72,7 +72,7 @@ export class MainnetSushiPickleEth implements ExternalAssetBehavior {
       erc20Abi,
       resolver,
     ).balanceOf(sushiMC);
-    const ppt = (100 * model.priceOfSync(depositToken)).toFixed();
+    const ppt = (100 * model.priceOfSync(depositToken, definition.chain)).toFixed();
     const finalBalance = bal.mul(ppt).div(1e9).div(1e9).div(1e2);
     return {
       balanceUSD: finalBalance.toNumber(),

@@ -15,7 +15,6 @@ async function generateFullApi() {
   );
 
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
-
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);

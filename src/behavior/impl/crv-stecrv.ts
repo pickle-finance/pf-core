@@ -25,7 +25,7 @@ export class SteCrv extends AbstractJarBehavior {
         "0xdc24316b9ae028f1497c275eb9192a3ea0f67022",
         asset,
         model,
-      )) * model.priceOfSync("weth")
+      )) * model.priceOfSync("weth", asset.chain)
     );
   }
 

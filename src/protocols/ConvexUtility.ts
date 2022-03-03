@@ -162,7 +162,7 @@ export async function getProjectedConvexAprStats(
 
     const poolValue =
       parseFloat(formatEther(depositLocked)) *
-      (model.priceOfSync(cvxPool.tokenPriceLookup) ||
+      (model.priceOfSync(cvxPool.tokenPriceLookup, definition.chain) ||
         (await new JarBehaviorDiscovery()
           .findAssetBehavior(definition)
           .getDepositTokenPrice(definition, model)));
@@ -171,11 +171,11 @@ export async function getProjectedConvexAprStats(
       JAR_CVXCRV.details.apiKey === definition.details.apiKey;
     if (isCvxCrvStaker) {
       const rewardRateUSD =
-        (model.priceOfSync("crv") * mcRewardRate.div(1e10).toNumber()) / 1e8;
+        (model.priceOfSync("crv", definition.chain) * mcRewardRate.div(1e10).toNumber()) / 1e8;
       crvApr = rewardRateUSD * (ONE_YEAR_SECONDS / poolValue) * 100;
     }
     const crvRewardPerDuration =
-      (crvApr * poolValue) / (duration.toNumber() * model.priceOfSync("crv"));
+      (crvApr * poolValue) / (duration.toNumber() * model.priceOfSync("crv", definition.chain));
 
     const cvxReward = await getCvxMint(
       crvRewardPerDuration * 100,
@@ -183,7 +183,7 @@ export async function getProjectedConvexAprStats(
       resolver,
     );
     const cvxValuePerYear =
-      (cvxReward * model.priceOfSync("cvx") * ONE_YEAR_SECONDS) /
+      (cvxReward * model.priceOfSync("cvx", definition.chain) * ONE_YEAR_SECONDS) /
       duration.toNumber();
     const cvxApr = cvxValuePerYear / poolValue;
 
@@ -198,7 +198,7 @@ export async function getProjectedConvexAprStats(
     );
     const extraRewardValuePerYear =
       (extraRewardAmount *
-        (model.priceOfSync(cvxPool.rewardPriceLookup) || 0) *
+        (model.priceOfSync(cvxPool.rewardPriceLookup, definition.chain) || 0) *
         ONE_YEAR_SECONDS) /
       duration.toNumber();
     let extraRewardApr = extraRewardValuePerYear / poolValue;

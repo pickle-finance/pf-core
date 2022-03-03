@@ -61,7 +61,7 @@ export class YearnJar extends AbstractJarBehavior {
     const depTokenAddr = definition.depositToken.addr;
     // Remember to break this up / move out if these jars get their own class
     if (depTokenAddr === JAR_USDC.depositToken.addr) {
-      return model.priceOfSync(depTokenAddr);
+      return model.priceOfSync(depTokenAddr, definition.chain);
     }
     if (depTokenAddr === JAR_CRV_IB.depositToken.addr) {
       return 1;

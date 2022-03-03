@@ -40,7 +40,7 @@ export async function calculateBrlFarmsAPY(
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = brlPoolIds[jar.depositToken.addr];
   const multicallBrlFarms = new MulticallContract(BRL_FARMS, brlChefAbi);
@@ -63,7 +63,7 @@ export async function calculateBrlFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const brlRewardedPerYear = (await model.priceOf("brl")) * rewardsPerYear;
+  const brlRewardedPerYear = (model.priceOfSync("brl", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const brlAPY = brlRewardedPerYear / totalValueStaked;
 

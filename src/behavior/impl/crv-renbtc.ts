@@ -23,7 +23,7 @@ export class RenBtcCRV extends CurveJar {
         "0x93054188d876f558f4a66B2EF1d97d16eDf0895B",
         definition,
         model,
-      )) * model.priceOfSync("wbtc")
+      )) * model.priceOfSync("wbtc", definition.chain)
     );
   }
   async getProjectedAprStats(
@@ -33,7 +33,7 @@ export class RenBtcCRV extends CurveJar {
     const crvApy: AssetAprComponent = await this.getCurveCrvAPY(
       definition,
       model,
-      await model.priceOf("wbtc"),
+      model.priceOfSync("wbtc", definition.chain),
       RENBTC_GAUGE_ADDR,
       RENBTC_POOL_ADDR,
     );

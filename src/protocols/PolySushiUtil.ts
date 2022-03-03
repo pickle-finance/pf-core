@@ -57,7 +57,7 @@ export async function calculatePolySushiAPY(
 
   const sushiRewardsPerYear = sushiRewardsPerSecond * ONE_YEAR_IN_SECONDS;
   const valueRewardedPerYear =
-    (await model.priceOf("sushi")) * sushiRewardsPerYear;
+    (model.priceOfSync("sushi", jar.chain)) * sushiRewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;
@@ -96,7 +96,7 @@ export async function calculatePolySushiAPY(
 
   const maticRewardsPerYear = maticRewardsPerSecond * (365 * 24 * 60 * 60);
   const maticValueRewardedPerYear =
-    model.priceOfSync("matic") * maticRewardsPerYear;
+    model.priceOfSync("matic", jar.chain) * maticRewardsPerYear;
   const maticAPY = (maticValueRewardedPerYear / totalValueStaked) * 100;
 
   const lpApr: number = await new SushiPolyPairManager().calculateLpApr(

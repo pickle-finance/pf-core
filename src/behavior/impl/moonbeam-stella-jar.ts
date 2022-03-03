@@ -62,7 +62,7 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = stellaPoolIds[jar.depositToken.addr];
@@ -88,7 +88,7 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const stellaRewardedPerYear =
-      (await model.priceOf("stella")) * rewardsPerYear;
+      (model.priceOfSync("stella", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const stellaAPY = stellaRewardedPerYear / totalValueStaked;
 

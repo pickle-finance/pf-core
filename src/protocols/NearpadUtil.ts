@@ -34,7 +34,7 @@ export async function calculatePadFarmsAPY(
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = padPoolIds[jar.depositToken.addr];
   const multicallPadFarms = new MulticallContract(PAD_FARMS, sushiChefAbi);
@@ -57,7 +57,7 @@ export async function calculatePadFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const padRewardedPerYear = (await model.priceOf("pad")) * rewardsPerYear;
+  const padRewardedPerYear = (model.priceOfSync("pad", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const padAPY = padRewardedPerYear / totalValueStaked;
 

@@ -15,10 +15,11 @@ export class ExternalToken implements IExternalToken {
   id: string;
   contractAddr: string;
   decimals: number;
-  coingeckoId?: string;
+  coingeckoId: string;
   fetchType?: ExternalTokenFetchStyle;
   swapPairs?: string[];
   isNativeToken?: boolean;
+  price?: number
   constructor(
     chain: ChainNetwork,
     id: string,
@@ -38,13 +39,20 @@ export class ExternalToken implements IExternalToken {
     this.swapPairs = swapPairs;
     this.isNativeToken = isNativeToken;
   }
+  setPrice(val: number): void {
+    this.price = val;
+  }
   toOutputFormat(): IExternalToken {
-    return {
+    const ret: IExternalToken = {
       chain: this.chain,
       id: this.id,
       contractAddr: this.contractAddr,
       decimals: this.decimals,
     };
+    if( this.price ) {
+      ret.price = this.price;
+    }
+    return ret;
   }
 }
 
@@ -62,18 +70,21 @@ export class ExternalTokenModel {
       "pickle",
       "pickle-finance",
       "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "comp",
       "compound-governance-token",
       "0xc00e94cb662c3520282e6f5717214004a7f26888".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "dai",
       "dai",
       "0x6b175474e89094c44da98b954eedeac495271d0f".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -81,6 +92,7 @@ export class ExternalTokenModel {
       "usd-coin",
       "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48".toLowerCase(),
       6,
+      ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -88,18 +100,21 @@ export class ExternalTokenModel {
       "tether",
       "0xdac17f958d2ee523a2206206994597c13d831ec7".toLowerCase(),
       6,
+      ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "susd",
       "nusd",
       "0x57ab1ec28d129707052df4df418d58a2d46d5f51".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "crv",
       "curve-dao-token",
       "0xD533a949740bb3306d119CC777fa900bA034cd52".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -117,18 +132,21 @@ export class ExternalTokenModel {
       "wrapped-bitcoin",
       "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599".toLowerCase(),
       8,
+      ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "yfi",
       "yearn-finance",
       "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "bac",
       "basis-cash",
       "0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -151,24 +169,28 @@ export class ExternalTokenModel {
       "ldo",
       "lido-dao",
       "0x5a98fcbea516cf06857215779fd812ca3bef1b32".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "yvecrv",
       "vecrv-dao-yvault",
       "0xc5bddf9843308380375a611c18b50fb9341f502a".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "bas",
       "basis-share",
       "0x106538cc16f938776c7c180186975bca23875287".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "mir",
       "mirror-protocol",
       "0x09a3ecafa817268f77be1283176b946c4ff2e608".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -183,132 +205,154 @@ export class ExternalTokenModel {
       "mtsla",
       "mirrored-tesla",
       "0x21ca39943e91d704678f5d00b6616650f066fd63".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "maapl",
       "mirrored-apple",
       "0xd36932143f6ebdedd872d5fb0651f4b72fd15a84".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "mqqq",
       "mirrored-invesco-qqq-trust",
       "0x13b02c8de71680e71f0820c996e4be43c2f57d15".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "mslv",
       "mirrored-ishares-silver-trust",
       "0x9d1555d8cb3c846bb4f7d5b1b1080872c3166676".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "mbaba",
       "mirrored-alibaba",
       "0x56aa298a19c93c6801fdde870fa63ef75cc0af72".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "sushi",
       "sushi",
       "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "fei",
       "fei-usd",
       "0x956f47f50a910163d8bf957cf5846d573e7f87ca".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "tribe",
       "tribe-2",
       "0xc7283b66eb1eb5fb86327f08e1b5816b0720212b".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "lusd",
       "liquity-usd",
       "0x5f98805a4e8be255a32880fdec7f6728c6568ba0".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "frax",
       "frax",
       "0x853d955acef822db058eb8505911ed77f175b99e".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "alcx",
       "alchemix",
       "0xdbdb4d16eda451d0503b854cf79d55697f90c8df".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "alusd",
       "alchemix-usd",
       "0xBC6DA0FE9aD5f3b0d58160288917AA56653660E9".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "luna",
       "terra-luna",
       "0x92bf969865c80eda082fd5d8b4e28da4d58e1c3a".toLowerCase(),
+      18, ExternalTokenFetchStyle.ID
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "yvboost",
       "yvboost",
       "0x9d409a0a012cfba9b15f6d4b36ac57a46966ab9a".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "cvx",
       "convex-finance",
       "0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "fxs",
       "frax-share",
       "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "lqty",
       "liquity",
       "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "3crv",
       "lp-3pool-curve",
       "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "scrv",
       "lp-scurve",
       "0xc25a3a3b969415c80451098fa907ec722572917f".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "spell",
       "spell-token",
       "0x090185f2135308bad17527004364ebcc2d37e5f6".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "mim",
       "magic-internet-money",
       "0x99d8a9c45b2eca8864373a26d1459e3dff1e17f3".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "fox",
       "shapeshift-fox-token",
       "0xc770eefad204b5180df6a14ee197d99d808ee52d".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -316,41 +360,42 @@ export class ExternalTokenModel {
       "truefi",
       "0x4C19596f5aAfF459fA38B0f7eD92F11AE6543784".toLowerCase(),
       8,
+      ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "rly",
       "rally-2",
       "0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b".toLowerCase(),
-      18,
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "cvxcrv",
       "convex-crv",
       "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7".toLowerCase(),
-      18,
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "rbn",
       "ribbon-finance",
       "0x6123b0049f904d730db3c36a31167d9d4121fa6b".toLowerCase(),
-      18,
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "newo",
       "new-order",
       "0x1b890fd37cd50bea59346fc2f8ddb7cd9f5fabd5".toLowerCase(),
-      18,
+      18, ExternalTokenFetchStyle.ID
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "looks",
       "looksrare",
       "0xf4d2888d29d722226fafa5d9b24f9164c092421e".toLowerCase(),
-      18,
+      18, ExternalTokenFetchStyle.BOTH
     );
 
     // Polygon
@@ -360,12 +405,14 @@ export class ExternalTokenModel {
       "usd-coin",
       "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(),
       6,
+      ExternalTokenFetchStyle.ID
     );
     this.addToken(
       ChainNetwork.Polygon,
       "weth",
       "weth",
       "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase(),
+      18, ExternalTokenFetchStyle.ID
     );
     this.addToken(
       ChainNetwork.Polygon,
@@ -373,6 +420,7 @@ export class ExternalTokenModel {
       "tether",
       "0xc2132d05d31c914a87c6611c10748aeb04b58e8f".toLowerCase(),
       6,
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Polygon,
@@ -380,12 +428,14 @@ export class ExternalTokenModel {
       "wrapped-bitcoin",
       "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6".toLowerCase(),
       8,
+      ExternalTokenFetchStyle.ID
     );
     this.addToken(
       ChainNetwork.Polygon,
       "dai",
       "dai",
       "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase(),
+      18, ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Polygon,
@@ -418,6 +468,8 @@ export class ExternalTokenModel {
       "sushi",
       "sushi",
       "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Polygon,
@@ -538,7 +590,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "usdt",
-      "usdt",
+      "tether",
       "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9".toLowerCase(),
       6,
       ExternalTokenFetchStyle.ID,
@@ -644,7 +696,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "usdc",
-      "usdc",
+      "usd-coin",
       "0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -652,7 +704,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "usdt",
-      "usdt",
+      "tether",
       "0x382bb369d343125bfb2117af9c149795c6c65c50".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1524,6 +1576,7 @@ export class ExternalTokenModel {
       "scream",
       "scream",
       "0xe0654c8e6fd4d733349ac7e09f6f23da256bf475".toLowerCase(),
+      18, ExternalTokenFetchStyle.ID
     );
     this.addToken(
       ChainNetwork.Fantom,
@@ -1745,8 +1798,8 @@ export class ExternalTokenModel {
     id: string,
     cgid: string,
     addr: string,
-    dec = 18,
-    style: ExternalTokenFetchStyle = ExternalTokenFetchStyle.BOTH,
+    dec,
+    style: ExternalTokenFetchStyle,
     swapPairs: string[] = [],
     isNative = false,
   ): void {
@@ -1813,6 +1866,8 @@ export class ExternalTokenModel {
     }
     return ret.length === 0 ? undefined : ret;
   }
+
+  // Bad function, should not use, this map has collisions
   findTokenFromContract(id: string): ExternalToken | undefined {
     return this.contractToToken.get(id.toLowerCase());
   }

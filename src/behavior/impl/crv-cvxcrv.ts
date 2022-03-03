@@ -16,7 +16,7 @@ export class CurveCvxCrv extends ConvexDualReward {
         "0x9D0464996170c6B9e75eED71c68B99dDEDf279e8",
         asset,
         model,
-      )) * model.priceOfSync("cvxcrv");
+      )) * model.priceOfSync("cvxcrv", asset.chain);
     return r;
   }
 }

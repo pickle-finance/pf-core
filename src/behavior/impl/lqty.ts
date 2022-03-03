@@ -22,7 +22,7 @@ export class pLqty extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return model.priceOfSync(definition.depositToken.addr);
+    return model.priceOfSync(definition.depositToken.addr, definition.chain);
   }
 
   async getHarvestableUSD(

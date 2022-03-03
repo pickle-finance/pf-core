@@ -66,7 +66,7 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
     const harvestableUSD = oneRewardSubtotal(
       pendingObj.amounts[0],
       walletFlare,
-      model.priceOfSync("flare"),
+      model.priceOfSync("flare", jar.chain),
       model.tokenDecimals("flare", jar.chain),
     );
 
@@ -93,7 +93,7 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = flarePoolIds[jar.depositToken.addr];
@@ -119,7 +119,7 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const flareRewardedPerYear =
-      (await model.priceOf("flare")) * rewardsPerYear;
+      (model.priceOfSync("flare", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const flareAPY = flareRewardedPerYear / totalValueStaked;
 

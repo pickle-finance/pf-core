@@ -62,7 +62,7 @@ export class OxdJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = poolIds[jar.depositToken.addr];
@@ -84,7 +84,7 @@ export class OxdJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const oxdRewardedPerYear = (await model.priceOf("oxd")) * rewardsPerYear;
+    const oxdRewardedPerYear = (model.priceOfSync("oxd", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const oxdAPY = oxdRewardedPerYear / totalValueStaked;
 
@@ -108,7 +108,7 @@ export class OxdJar extends AbstractJarBehavior {
     );
     await multicallProvider.init();
 
-    const baseTokenPrice = model.priceOfSync(baseToken);
+    const baseTokenPrice = model.priceOfSync(baseToken, jar.chain);
     const baseTokenAddress = model.address(baseToken, jar.chain);
 
     const multicallxToken = new MulticallContract(

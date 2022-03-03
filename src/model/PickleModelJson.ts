@@ -287,6 +287,7 @@ export interface IExternalToken {
   id: string;
   contractAddr: string;
   decimals: number;
+  price?: number;
 }
 
 export interface DepositToken {

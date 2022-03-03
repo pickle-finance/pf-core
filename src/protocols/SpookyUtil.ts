@@ -16,7 +16,6 @@ import {
   ONE_YEAR_IN_SECONDS,
 } from "../behavior/AbstractJarBehavior";
 
-
 export const BOO_FARMS = "0x2b2929E785374c651a81A63878Ab22742656DcDd";
 
 export const booPoolIds: PoolId = {
@@ -45,7 +44,10 @@ export async function calculateSpookyFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent> {
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = await model.priceOfSync(
+    jar.depositToken.addr,
+    jar.chain,
+  );
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
   const poolId = booPoolIds[jar.depositToken.addr];
@@ -68,7 +70,8 @@ export async function calculateSpookyFarmsAPY(
     totalAllocPointBN.toNumber();
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const booRewardedPerYear = (await model.priceOf("boo")) * rewardsPerYear;
+  const booRewardedPerYear =
+    (await model.priceOfSync("boo", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const booAPY = booRewardedPerYear / totalValueStaked;
 

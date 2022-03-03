@@ -57,7 +57,7 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
     const poolId = zipPoolIds[jar.depositToken.addr];
@@ -79,7 +79,7 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const zipRewardedPerYear = (await model.priceOf("zip")) * rewardsPerYear;
+    const zipRewardedPerYear = (model.priceOfSync("zip", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const zipAPY = zipRewardedPerYear / totalValueStaked;
 

@@ -84,7 +84,7 @@ export abstract class ComethJar extends AbstractJarBehavior {
 
     const rewardsPerYear =
       rewardsForDuration * (ONE_YEAR_IN_SECONDS / rewardsDuration);
-    const valueRewardedPerYear = (await model.priceOf("must")) * rewardsPerYear;
+    const valueRewardedPerYear = (model.priceOfSync("must", jar.chain)) * rewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const apy = valueRewardedPerYear / totalValueStaked;

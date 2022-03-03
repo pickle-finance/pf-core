@@ -42,7 +42,7 @@ export async function calculateWannaFarmsAPY(
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = wannaPoolIds[jar.depositToken.addr];
   const multicallWannaFarms = new MulticallContract(WANNA_FARMS, wannaChefAbi);
@@ -66,7 +66,7 @@ export async function calculateWannaFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const wannaRewardedPerYear = (await model.priceOf("wanna")) * rewardsPerYear;
+  const wannaRewardedPerYear = (model.priceOfSync("wanna", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const wannaAPY = wannaRewardedPerYear / totalValueStaked;
 
