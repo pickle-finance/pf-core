@@ -3794,6 +3794,7 @@ export const JAR_CRO_VVS_CRO_BIFI: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xe6801928061CDbE32AC5AD0634427E140EFd05F9",
     components: ["cro", "bifi"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3819,6 +3820,7 @@ export const JAR_CRO_VVS_CRO_DAI: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xF2001B145b43032AAF5Ee2884e456CCd805F677D",
     components: ["cro", "dai"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3844,6 +3846,7 @@ export const JAR_CRO_VVS_CRO_SHIB: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xbED48612BC69fA1CaB67052b42a95FB30C1bcFee",
     components: ["cro", "shib"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3869,6 +3872,7 @@ export const JAR_CRO_VVS_CRO_USDC: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59",
     components: ["cro", "usdc"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3894,6 +3898,7 @@ export const JAR_CRO_VVS_CRO_USDT: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x66e428c3f67a68878562e79A0234c1F83c208770",
     components: ["cro", "usdt"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3924,6 +3929,7 @@ export const JAR_CRO_VVS_VVS_USDC: JarDefinition = {
       path: ["0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23", "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"]
     }
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3954,6 +3960,7 @@ export const JAR_CRO_VVS_VVS_USDT: JarDefinition = {
       path: ["0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23", "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"]
     }
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -3979,6 +3986,7 @@ export const JAR_CRO_VVS_CRO_VVS: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03",
     components: ["cro", "vvs"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -4004,6 +4012,7 @@ export const JAR_CRO_VVS_CRO_BTC: JarDefinition = {
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x062E66477Faf219F25D27dCED647BF57C3107d52",
     components: ["cro", "btc"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -4029,6 +4038,7 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
     link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x66e428c3f67a68878562e79A0234c1F83c208770",
     components: ["cro", "vvs"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -4054,6 +4064,7 @@ export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
     link: "https://vvs.finance/add/CRO/0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
     components: ["cro", "weth"],
   },
+  rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
@@ -4068,6 +4079,8 @@ export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_ETH);
+
+// Aurora
 
 export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
   type: AssetType.JAR,
