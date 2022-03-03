@@ -123,7 +123,7 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     chain: ChainNetwork.Moonriver,
     zappable: false,
     pickleZapAddress: "",
-    router: "",
+    router: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
   },
   {
     protocol: AssetProtocol.VVS,

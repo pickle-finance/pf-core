@@ -1509,6 +1509,11 @@ export const JAR_COMETH_USDC_WETH: JarDefinition = {
     name: "Cometh USDC/WETH",
     link: "https://swap.cometh.io/#/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
     components: ["usdc", "weth"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, USDC
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1534,6 +1539,11 @@ export const JAR_COMETH_PICKLE_MUST: JarDefinition = {
     name: "Cometh PICKLE/MUST",
     link: "https://swap.cometh.io/#/add/0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f/0x2b88ad57897a8b496595925f43048301c37615da",
     components: ["pickle", "must"],
+    nativePath: {
+      //(comethSwap)uniswapv2router02 --> WMATIC, MUST
+      target: "0x93bcDc45f7e62f89a8e901DC4A0E2c6C427D9F25",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x9C78EE466D6Cb57A4d01Fd887D2b5dFb2D46288f"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1634,6 +1644,11 @@ export const JAR_POLY_SUSHI_ETH_USDT: JarDefinition = {
     name: "Sushi USDT/ETH",
     link: "https://app.sushi.com/#/add/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
     components: ["weth", "usdt"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, ETH
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1709,6 +1724,11 @@ export const JAR_QUICK_MIMATIC_USDC: JarDefinition = {
     name: "Quick MAI/USDC",
     link: "https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
     components: ["usdc", "mimatic"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, USDC
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1810,6 +1830,11 @@ export const JAR_SUSHI_DINO_USDC: JarDefinition = {
     name: "Sushi DINO/USDC",
     link: "https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
     components: ["dino", "usdc"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, USDC
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1835,6 +1860,11 @@ export const JAR_QUICK_DINO_ETH: JarDefinition = {
     name: "Quick DINO/ETH",
     link: "https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
     components: ["dino", "weth"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, WETH
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1860,6 +1890,11 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
     name: "Sushi PICKLE/DAI",
     link: "https://app.sushi.com/add/0x2b88aD57897A8b496595925F43048301C37615Da/0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
     components: ["pickle", "dai"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, DAI
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1881,6 +1916,11 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
     name: "Sushi WORK/USDC",
     link: "https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0x6002410dDA2Fb88b4D0dc3c1D562F7761191eA80",
     components: ["usdc", "work"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, USDC
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1926,6 +1966,11 @@ export const JAR_POLY_SUSHI_RAIDER_WETH: JarDefinition = {
     name: "Sushi RAIDER/WETH",
     link: "https://app.sushi.com/add/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
     components: ["raider", "weth"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, WETH
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -1976,6 +2021,11 @@ export const JAR_POLY_SUSHI_AURUM_USDC: JarDefinition = {
     name: "Sushi AURUM/USDC",
     link: "https://app.sushi.com/add/0x34d4ab47bee066f361fa52d792e69ac7bd05ee23/0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
     components: ["aurum", "usdc"],
+    nativePath: {
+      //(quickSwap)uniswapv2router02 --> WMATIC, USDC
+      target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+      path: ["0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
@@ -2584,6 +2634,11 @@ export const JAR_OKEX_BXH_USDT: JarDefinition = {
     name: "BXH USDT/BXH",
     link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["bxh", "usdt"],
+    nativePath: {
+      //cherry Router --> WOKT, USDT
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.OKEx,
@@ -2609,6 +2664,11 @@ export const JAR_OKEX_ETHK_BTCK: JarDefinition = {
     name: "BXH ETHK/BTCK",
     link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["ethk", "btck"],
+    nativePath: {
+      //cherry Router --> [WOKT,USDT,ETHK]
+      target: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
+      path: ["0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15", "0x382bb369d343125bfb2117af9c149795c6c65c50","0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.OKEx,
@@ -2793,6 +2853,11 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
     name: "SUSHI ETH/DAI",
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/0xEf977d2f931C1978Db5F6747666fa1eACB0d0339",
     components: ["1eth", "1dai"],
+    nativePath: {
+      //SushiSwap --> WONE, 1ETH
+      target: "0xf012702a5f0e54015362cbca26a26fc90aa832a3",
+      path: ["0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a", "0x6983D1E6DEf3690C4d616b13597A09e6193EA013"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
@@ -2818,6 +2883,11 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
     name: "SUSHI WBTC/ETH",
     link: "https://app.sushi.com/add/0x3095c7557bCb296ccc6e363DE01b760bA031F2d9/0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
     components: ["1wbtc", "1eth"],
+    nativePath: {
+      //SushiSwap --> WONE, 1ETH
+      target: "0xf012702a5f0e54015362cbca26a26fc90aa832a3",
+      path: ["0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a", "0x6983D1E6DEf3690C4d616b13597A09e6193EA013"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Harmony,
@@ -2895,6 +2965,11 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
     name: "SOLAR DAI/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["dai", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -2945,6 +3020,11 @@ export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
     name: "SOLAR SOLAR/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["solar", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -2970,6 +3050,11 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
     name: "SOLAR USDT/USDC",
     link: "https://app.solarbeam.io/exchange/add/0xB44a9B6905aF7c801311e8F4E76932ee959c663C/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["usdt", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -2995,6 +3080,11 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
     name: "SOLAR BUSD/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["busd", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3020,6 +3110,11 @@ export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
     name: "SOLAR ETH/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["eth", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3045,6 +3140,11 @@ export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
     name: "SOLAR BNB/BUSD",
     link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818",
     components: ["bnb", "busd"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, BNB]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3070,6 +3170,11 @@ export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
     name: "SOLAR WBTC/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["wbtc", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3120,6 +3225,11 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
     name: "SOLAR MAI/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x7f5a79576620C046a293F54FFCdbd8f2468174F1/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mai", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
@@ -3145,6 +3255,11 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
     name: "SOLAR MIM/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mim", "usdc"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3245,6 +3360,11 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
     name: "SOLAR SOLAR/RIB",
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["solar", "rib"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, SOLAR]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
@@ -3396,6 +3516,11 @@ export const JAR_MOVR_FINN_DOT_FINN: JarDefinition = {
     name: "FINN DOT/FINN",
     link: "https://www.huckleberry.finance/#/add/0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["dot", "finn"],
+    nativePath: {
+      //HuckleberryRouter (Huckleberry)--> [WMOVR, FINN]
+      target: "0x2d4e873f9Ab279da9f1bb2c532d4F06f67755b77",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3421,6 +3546,11 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     name: "FINN FINN/KSM",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "ksm"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, xcKSM]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3446,6 +3576,11 @@ export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
     name: "FINN FINN/RMRK",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "rmrk"],
+    nativePath: {
+      //SolarRouter02 (SolarSwap)--> [WMOVR, xcRMRK]
+      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      path: ["0x98878B06940aE243284CA214f92Bb71a2b032B8A", "0xffffffFF893264794d9d57E1E0E21E0042aF5A0A"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
@@ -3648,6 +3783,11 @@ export const JAR_CRO_VVS_VVS_USDC: JarDefinition = {
     name: "VVS VVS/USDC",
     link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59",
     components: ["vvs", "usdc"],
+    nativePath: {
+      //VVSRouter --> CRO, VVS
+      target: "0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae",
+      path: ["0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23", "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
@@ -3673,6 +3813,11 @@ export const JAR_CRO_VVS_VVS_USDT: JarDefinition = {
     name: "VVS VVS/USDT",
     link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0x66e428c3f67a68878562e79A0234c1F83c208770",
     components: ["vvs", "usdt"],
+    nativePath: {
+      //VVSRouter --> CRO, VVS
+      target: "0x145863Eb42Cf62847A6Ca784e6416C1682b1b2Ae",
+      path: ["0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23", "0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
@@ -3747,7 +3892,7 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
     addr: "0x39cC0E14795A8e6e9D02A21091b81FE0d61D82f9",
     name: "VVS CRO/VVS",
     link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x66e428c3f67a68878562e79A0234c1F83c208770",
-    components: ["usdc", "usdt"],
+    components: ["cro", "vvs"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Cronos,
@@ -3798,6 +3943,11 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
     name: "TRI NEAR/USDC",
     link: "https://www.trisolaris.io/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["near", "usdc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -3848,6 +3998,11 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
     name: "TRI NEAR/USDT",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["near", "usdt"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -3873,6 +4028,11 @@ export const JAR_AURORA_TRI_NEAR_TRI: JarDefinition = {
     name: "TRI NEAR/TRI",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
     components: ["near", "tri"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -3898,6 +4058,11 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
     name: "TRI USDT/USDC",
     link: "https://www.trisolaris.io/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, USDC]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -3923,6 +4088,11 @@ export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
     name: "TRI BTC/NEAR",
     link: "https://www.trisolaris.io/#/add/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["btc", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -3948,6 +4118,11 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
     name: "TRI AURORA/TRI",
     link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
     components: ["aurora", "tri"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH,AURORA]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -3998,6 +4173,11 @@ export const JAR_AURORA_TRI_NEAR_LUNA: JarDefinition = {
     name: "TRI NEAR/LUNA",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }  
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4023,6 +4203,11 @@ export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
     name: "TRI UST/NEAR",
     link: "https://www.trisolaris.io/#/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4048,6 +4233,11 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
     name: "TRI TRI/USDT",
     link: "https://www.trisolaris.io/#/add/0xFa94348467f64D5A457F75F8bc40495D33c65aBB/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["tri", "usdt"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, USDT]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4073,6 +4263,11 @@ export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
     name: "TRI AVAX/NEAR",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844",
     components: ["avax", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4098,6 +4293,11 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
     name: "TRI MATIC/NEAR",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8",
     components: ["matic", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4123,6 +4323,11 @@ export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
     name: "WANNA WANNA/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["wanna", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4148,6 +4353,11 @@ export const JAR_AURORA_WANNA_AURORA_NEAR: JarDefinition = {
     name: "WANNA AURORA/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["aurora", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4198,6 +4408,11 @@ export const JAR_AURORA_WANNA_NEAR_BTC: JarDefinition = {
     name: "WANNA NEAR/BTC",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["near", "btc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4223,6 +4438,11 @@ export const JAR_AURORA_WANNA_NEAR_DAI: JarDefinition = {
     name: "WANNA NEAR/DAI",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xe3520349F477A5F6EB06107066048508498A291b",
     components: ["near", "dai"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4273,6 +4493,11 @@ export const JAR_AURORA_WANNA_USDC_NEAR: JarDefinition = {
     name: "WANNA USDC/NEAR",
     link: "https://wannaswap.finance/exchange/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdc", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4298,6 +4523,11 @@ export const JAR_AURORA_WANNA_USDT_NEAR: JarDefinition = {
     name: "WANNA USDT/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdt", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4323,6 +4553,11 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
     name: "WANNA USDT/USDC",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, USDC]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4348,6 +4583,11 @@ export const JAR_AURORA_WANNA_WANNA_USDC: JarDefinition = {
     name: "WANNA WANNA/USDC",
     link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["wanna", "usdc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, USDC]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4373,6 +4613,11 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
     name: "WANNA WANNA/USDT",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22",
     components: ["usdt", "wanna"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, USDT]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x4988a896b1227218e4A686fdE5EabdcAbd91571f"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4398,6 +4643,11 @@ export const JAR_AURORA_WANNA_NEAR_LUNA: JarDefinition = {
     name: "WANNA NEAR/LUNA",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4423,6 +4673,11 @@ export const JAR_AURORA_WANNA_UST_NEAR: JarDefinition = {
     name: "WANNA UST/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4448,6 +4703,11 @@ export const JAR_AURORA_WANNA_WANNA_AURORA: JarDefinition = {
     name: "WANNA WANNA/AURORA",
     link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79",
     components: ["wanna", "aurora"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH,AURORA]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4473,6 +4733,11 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
     name: "PAD BTC/NEAR",
     link: "https://dex.nearpad.io/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["btc", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4498,6 +4763,11 @@ export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
     name: "PAD PAD/USDT",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["pad", "usdt"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4523,6 +4793,11 @@ export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
     name: "PAD PAD/USDC",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["pad", "usdc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4573,6 +4848,11 @@ export const JAR_AURORA_PAD_PAD_NEAR: JarDefinition = {
     name: "PAD PAD/NEAR",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["pad", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4598,6 +4878,11 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
     name: "PAD PAD/FRAX",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2",
     components: ["pad", "frax"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4623,6 +4908,11 @@ export const JAR_AURORA_PAD_ROSE: JarDefinition = {
     name: "PAD PAD/ROSE",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
     components: ["pad", "rose"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
@@ -4673,6 +4963,11 @@ export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
     name: "BRL AURORA/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["aurora", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4698,6 +4993,11 @@ export const JAR_AURORA_BRL_AVAX_NEAR: JarDefinition = {
     name: "BRL AVAX/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["avax", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4723,6 +5023,11 @@ export const JAR_AURORA_BRL_BRL_AURORA: JarDefinition = {
     name: "BRL BRL/AURORA",
     link: "https://swap.auroraswap.net/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79",
     components: ["brl", "aurora"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, AURORA]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4773,6 +5078,11 @@ export const JAR_AURORA_BRL_BRL_NEAR: JarDefinition = {
     name: "BRL BRL/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["brl", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4798,6 +5108,11 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
     name: "BRL BUSD/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["busd", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4848,6 +5163,11 @@ export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
     name: "BRL MATIC/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["matic", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4873,6 +5193,11 @@ export const JAR_AURORA_BRL_NEAR_BTC: JarDefinition = {
     name: "BRL NEAR/BTC",
     link: "https://swap.auroraswap.net/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["near", "btc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4923,6 +5248,11 @@ export const JAR_AURORA_BRL_NEAR_LUNA: JarDefinition = {
     name: "BRL NEAR/LUNA",
     link: "https://swap.auroraswap.net/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4948,6 +5278,11 @@ export const JAR_AURORA_BRL_USDC_NEAR: JarDefinition = {
     name: "BRL USDC/NEAR",
     link: "https://swap.auroraswap.net/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdc", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4973,6 +5308,11 @@ export const JAR_AURORA_BRL_USDT_NEAR: JarDefinition = {
     name: "BRL USDT/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdt", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -4998,6 +5338,11 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
     name: "BRL USDT/USDC",
     link: "https://swap.auroraswap.net/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, USDC]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -5023,6 +5368,11 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
     name: "BRL UST/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: ["0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB", "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
@@ -5289,6 +5639,11 @@ export const JAR_METIS_NETSWAP_NETT_USDT: JarDefinition = {
     name: "NET NETT/USDT",
     link: "https://netswap.io/#/add/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
     components: ["nett", "usdt"],
+    nativePath: {
+      //NetswapRouter --> METIS, USDT
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -5339,6 +5694,11 @@ export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
     name: "NET USDT/USDC",
     link: "https://netswap.io/#/add/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["usdt", "usdc"],
+    nativePath: {
+      //NetswapRouter --> METIS, USDC
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
@@ -5389,6 +5749,11 @@ export const JAR_METIS_NETSWAP_WBTC_USDT: JarDefinition = {
     name: "NET WBTC/USDT",
     link: "https://netswap.io/#/add/0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
     components: ["wbtc", "usdt"],
+    nativePath: {
+      //NetswapRouter --> METIS, USDT
+      target: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
+      path: ["0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000", "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
