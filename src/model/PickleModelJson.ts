@@ -330,7 +330,6 @@ export interface JarDefinition extends PickleAsset {
   rewardTokens: string[];
   farm?: NestedFarm;
   stakingProtocol?: AssetProtocol;
-  rewardTokens?: string[];
 }
 export interface StandaloneFarmDefinition extends PickleAsset {
   details: StandaloneFarmDetails;

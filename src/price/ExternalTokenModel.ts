@@ -77,12 +77,14 @@ export class ExternalTokenModel {
       "snx",
       "havven",
       "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,
       "uni",
       "uniswap",
       "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
     );
     this.addToken(
       ChainNetwork.Ethereum,

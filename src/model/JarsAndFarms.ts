@@ -8301,6 +8301,7 @@ export const JAR_FANTOM_SEX_FTM: JarDefinition = {
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SOLID,
   stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["sex"],
   details: {
     apiKey: "SEX-SOLID-FTM-SEX",
     harvestStyle: HarvestStyle.PASSIVE,
