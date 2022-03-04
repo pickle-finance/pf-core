@@ -26,13 +26,10 @@ import jarAbi from "../Contracts/ABIs/jar.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import univ3PoolAbi from "../Contracts/ABIs/univ3Pool.json";
 import { ChainNetwork, Chains, RAW_CHAIN_BUNDLED_DEF } from "../chain/Chains";
-import { PriceCache } from "../price/PriceCache";
 import {
   ExternalToken,
-  ExternalTokenFetchStyle,
   ExternalTokenModelSingleton,
 } from "../price/ExternalTokenModel";
-import { CoinGeckoPriceResolver } from "../price/CoinGeckoPriceResolver";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
 import { JarBehaviorDiscovery } from "../behavior/JarBehaviorDiscovery";
 import {
@@ -43,8 +40,8 @@ import {
 } from "../behavior/JarBehaviorResolver";
 import { loadGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
-import { CoinMarketCapPriceResolver } from "../price/CoinMarketCapPriceResolver";
-import { SwapPriceResolver } from "../price/SwapPriceResolver";
+import { setAllPricesOnTokens } from "./PriceCacheLoader";
+import { timeout } from "../util/PromiseTimeout";
 
 export interface PfDataStore {
   readData(key: string): Promise<string | undefined>;
@@ -136,7 +133,7 @@ export const ADDRESSES = new Map([
       masterChef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
       controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
       minichef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
-      rewarder: "0x57A319FBE114DC8bb0F1BaAaFB37FA6F308C639F"
+      rewarder: "0x57A319FBE114DC8bb0F1BaAaFB37FA6F308C639F",
     },
   ],
   [
@@ -177,7 +174,6 @@ export const DEBUG_OUT = (str: string): void => {
 
 export class PickleModel {
   private allAssets: PickleAsset[];
-  private prices: PriceCache;
   private dillDetails: DillDetails;
   private platformData: PlatformData;
   // A persistent data store for sharing data that is common to all executions
@@ -193,7 +189,6 @@ export class PickleModel {
     // Make a copy so the original definitions stay unchanged.
     this.allAssets = JSON.parse(JSON.stringify(allAssets));
     this.initializeChains(chains);
-    this.initializePriceCache();
     this.resourceCache = new Map<string, any>();
   }
 
@@ -224,12 +219,8 @@ export class PickleModel {
       .concat(json.assets.jars)
       .concat(json.assets.standaloneFarms);
     const model: PickleModel = new PickleModel(allAssets, chains);
-    model.setPrices(json.prices);
+    //model.setPrices(json.prices);
     return model;
-  }
-
-  setPrices(prices: any): void {
-    this.prices = new PriceCache(prices);
   }
 
   getHarvesterForAsset(
@@ -315,29 +306,45 @@ export class PickleModel {
     return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
   }
   /**
-   * Don't use this. Use the synchronous version instead `priceOfSync()`.
-   */
-  async priceOf(
-    token: string,
-    chain: ChainNetwork = undefined,
-  ): Promise<number> {
-    return this.priceOfSync(token, chain);
-  }
-  /**
    * @param token The token to look-up the price for. Can be an address, ID, or cgID.
-   * @param chain The chain on which the token is. If specified, `token` value has to be an ID (e.g., not an address/cgID) (default=undefined).
+   * @param chain The chain on which the token is.
    * @returns Returns the token price || `undefined` if token price not found.
    */
   priceOfSync(
     token: string,
-    chain: ChainNetwork | undefined = undefined,
+    chain: ChainNetwork,
   ): number {
+    const chainTokens = ExternalTokenModelSingleton.getTokens(chain);
+    let tokenObj: ExternalToken = undefined;
     if (chain && !ethers.utils.isAddress(token)) {
-      const address = this.address(token, chain);
-      return this.prices.priceOf(address);
+      // This is a label, not an address. Find the first one you can with a price
+      tokenObj = chainTokens.find(
+        (x) => x.id === token || x.coingeckoId === token && x.price !== undefined);
+      if( tokenObj === undefined ) {
+      // even if it's not on the right chain.
+      tokenObj = ExternalTokenModelSingleton.getAllTokens().find(
+          (x) => x.id === token || x.coingeckoId === token && x.price !== undefined);
+      }
+    } else {
+      // It's looking for a contract address. Most of these requests will be in the external tokens.
+      tokenObj = chainTokens.find(
+        (x) => x.contractAddr.toLowerCase() === token.toLowerCase() && x.price !== undefined);
+      if( tokenObj === undefined ) {
+        // But some of them may be deposit tokens
+        const depositTokenMatch = this.allAssets.find((x) => 
+          x.depositToken && x.depositToken.addr && 
+          x.depositToken.addr.toLowerCase() === token.toLowerCase());
+        if( depositTokenMatch ) {
+          const p = depositTokenMatch.depositToken?.price;
+          return p !== undefined ? p : undefined;
+        }
+      }
     }
-    return this.prices.priceOf(token);
+    if( tokenObj && tokenObj.price !== undefined)
+      return tokenObj.price;
+    return undefined;
   }
+
   providerFor(network: ChainNetwork): Provider {
     return Chains.get(network).getPreferredWeb3Provider();
   }
@@ -429,7 +436,7 @@ export class PickleModel {
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
       getWeeklyDistribution(this.getJars()),
-      this.prices,
+      this.priceOfSync("pickle", ChainNetwork.Ethereum),
       this,
       ChainNetwork.Ethereum,
     );
@@ -437,6 +444,7 @@ export class PickleModel {
     return this.toJson();
   }
   async loadJarAndFarmData(): Promise<void> {
+    DEBUG_OUT("Begin loadJarAndFarmData");
     this.loadSwapData();
 
     await Promise.all([
@@ -458,13 +466,14 @@ export class PickleModel {
       this.loadApyComponents(),
       this.loadProtocolApr(),
     ]);
+    DEBUG_OUT("End loadJarAndFarmData");
   }
 
   toJson(): PickleModelJson {
     const ret: PickleModelJson = {
       chains: RAW_CHAIN_BUNDLED_DEF,
       tokens: ExternalTokenModelSingleton.getAllTokensOutput(),
-      prices: Object.fromEntries(this.prices.getCache()),
+      prices: this.createLegacyPriceCacheTemporary(),
       dill: this.dillDetails,
       platform: this.platformData,
       xykSwapProtocols: XYK_SWAP_PROTOCOLS,
@@ -478,10 +487,22 @@ export class PickleModel {
     return ret;
   }
 
-  initializePriceCache(): void {
-    if (this.prices === undefined) {
-      this.prices = new PriceCache();
+  /*
+   * Once priceCache is determined not to be used in UI or api or harvestbot,
+   * this function can be removed
+   * This map will have bugs and collisions. It is not to be trusted.
+   */
+  createLegacyPriceCacheTemporary(): {[key: string]: number} {
+    const ret: {[key: string]: number} = {};
+    const tokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens();
+    for( let i = 0; i < tokens.length; i++ ) {
+      if( tokens[i].price !== undefined ) {
+        ret[tokens[i].id] = tokens[i].price;
+        ret[tokens[i].coingeckoId] = tokens[i].price;
+        ret[tokens[i].contractAddr] = tokens[i].price;
+      }
     }
+    return ret;
   }
 
   async initializeChains(
@@ -498,62 +519,9 @@ export class PickleModel {
 
   async ensurePriceCacheLoaded(): Promise<any> {
     DEBUG_OUT("Begin ensurePriceCacheLoaded");
-    if (
-      this.prices &&
-      this.prices.getCache() &&
-      this.prices.getCache().size === 0
-    ) {
-      const cgResolver = new CoinGeckoPriceResolver(
-        ExternalTokenModelSingleton,
-      );
-      const isCgFetchType = (token: ExternalToken): boolean => {
-        return (
-          token.fetchType === ExternalTokenFetchStyle.CONTRACT ||
-          token.fetchType === ExternalTokenFetchStyle.ID ||
-          token.fetchType === ExternalTokenFetchStyle.BOTH
-        );
-      };
-      const cgPromises = Promise.all(
-        this.configuredChains.map(async (x) => {
-          const r = await this.prices.getPrices(
-            ExternalTokenModelSingleton.getTokens(x)
-              .filter((val) => isCgFetchType(val))
-              .map((a) => a.coingeckoId),
-            cgResolver,
-          );
-          return r;
-        }),
-      );
-      const cmcResolver = new CoinMarketCapPriceResolver(
-        ExternalTokenModelSingleton,
-      );
-      const all = ExternalTokenModelSingleton.getAllTokens();
-      const filtered = all.filter(
-        (val) => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP,
-      );
-      const cmcPromise = this.prices.getPrices(
-        filtered.map((a) => a.coingeckoId),
-        cmcResolver,
-      );
-      const swapFiltered = all.filter(
-        (val) => val.fetchType === ExternalTokenFetchStyle.SWAP_PAIRS,
-      );
-      const swapResolver = new SwapPriceResolver(ExternalTokenModelSingleton);
-      const swapPromises = Promise.all(
-        this.configuredChains.map((chain) =>
-          this.prices.getPrices(
-            swapFiltered
-              .filter((x) => x.chain === chain)
-              .map((a) => a.coingeckoId),
-            swapResolver,
-            chain,
-          ),
-        ),
-      );
-      DEBUG_OUT("End ensurePriceCacheLoaded");
-      return Promise.all([cgPromises, cmcPromise, swapPromises]);
-    }
+    await setAllPricesOnTokens(this.configuredChains);
     DEBUG_OUT("End ensurePriceCacheLoaded");
+    console.log(JSON.stringify(ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum), null, 2));
   }
 
   async loadStrategyData(): Promise<any> {
@@ -781,7 +749,7 @@ export class PickleModel {
         ? beh.getDepositTokenPrice(asset, this)
         : getDepositTokenPrice(asset, this));
       asset.depositToken.price = val;
-      this.prices.put(asset.depositToken.addr, val);
+      //this.prices.put(asset.depositToken.addr, val);
     } catch (err) {
       this.logError(
         "ensureDepositTokenPriceLoadedOneChain ",
@@ -1436,13 +1404,16 @@ export class PickleModel {
   ): Promise<void> {
     let tmpArray: Promise<void>[] = [];
     for (let i = 0; i < assets.length; i++) {
-      tmpArray.push(
-        this.singleJarLoadApyComponents(assets[i] as JarDefinition),
-      );
+      const prom1 = this.singleJarLoadApyComponents(assets[i] as JarDefinition);
+      tmpArray.push(prom1);
       if (tmpArray.length === 10) {
         try {
+          DEBUG_OUT("loadApyComponentsOneChain waiting");
           await Promise.all(tmpArray);
+          DEBUG_OUT("loadApyComponentsOneChain Done waiting");
+          DEBUG_OUT("loadApyComponentsOneChain 4-second delay");
           await new Promise((resolve) => setTimeout(resolve, 4000));
+          DEBUG_OUT("loadApyComponentsOneChain 4-second delay end");
         } catch (error) {
           const start = Math.floor(i / 10);
           this.logError(
@@ -1463,8 +1434,13 @@ export class PickleModel {
       .findAssetBehavior(asset)
       .getProjectedAprStats(asset as JarDefinition, this);
     try {
-      const r = await ret;
-      asset.aprStats = this.cleanAprStats(r);
+      const timeoutResult = Symbol();
+      const r = await timeout(ret,7000, timeoutResult);
+      if( r && r !== timeoutResult ) {
+        asset.aprStats = this.cleanAprStats(r);
+      } else {
+        this.logError("loadApyComponents", "timeout 7s for " + asset.details.apiKey, asset.details.apiKey);
+      }
     } catch (error) {
       this.logError("loadApyComponents", error, asset.details.apiKey);
     } finally {
@@ -1496,32 +1472,32 @@ export class PickleModel {
     const withBehaviors: JarDefinition[] = this.getJars().filter(
       (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined,
     );
-    let historical: HistoricalYield[] = undefined;
     try {
-      historical = await Promise.all(
-        withBehaviors.map(async (x) => {
+        await Promise.all(withBehaviors.map(async (x) => {
           const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery()
             .findAssetBehavior(x)
             .getProtocolApy(x as JarDefinition, this);
           try {
-            return await ret;
+            x.details.protocolApr = await ret;
           } catch (error) {
             this.logError("loadProtocolApr", error, x.details.apiKey);
+            return {
+              d1: 0,
+              d3: 0,
+              d7: 0, 
+              d30: 0,
+            }
           }
         }),
       );
     } catch (error) {
-      this.logError("loadApyComponents", error);
-    }
-
-    for (let i = 0; historical !== undefined && i < withBehaviors.length; i++) {
-      if (historical[i] !== undefined)
-        withBehaviors[i].details.protocolApr = historical[i];
+      this.logError("loadProtocolApr", error);
     }
     DEBUG_OUT("End loadProtocolApr");
   }
 
   loadPlatformData(): PlatformData {
+    DEBUG_OUT("Begin loadPlatformData");
     const farms: StandaloneFarmDefinition[] = this.getStandaloneFarms();
     let tvl = 0;
     let blendedRateSum = 0;
@@ -1549,6 +1525,7 @@ export class PickleModel {
         harvestPending += pending;
       }
     }
+    DEBUG_OUT("End loadPlatformData");
     return {
       platformTVL: tvl,
       platformBlendedRate: tvl === 0 ? 0 : blendedRateSum / tvl,

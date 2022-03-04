@@ -67,7 +67,7 @@ export class HadesJar extends AbstractJarBehavior {
     const multicallProvider = model.multicallProviderFor(jar.chain);
     await multicallProvider.init();
 
-    const pricePerToken = await model.priceOf(jar.depositToken.addr);
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const poolId = hadesPoolIds[jar.depositToken.addr];
     const multicallHadesFarms = new MulticallContract(HADES_FARM, hadesFarmAbi);
@@ -89,7 +89,7 @@ export class HadesJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const hadesRewardedPerYear =
-      (await model.priceOf("hellshare")) * rewardsPerYear;
+      (model.priceOfSync("hellshare", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const hadesAPY = hadesRewardedPerYear / totalValueStaked;
 

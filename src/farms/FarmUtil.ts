@@ -142,7 +142,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
       jar.details.ratio,
       jar.depositToken.price,
       rewardPerYear,
-      model.priceOfSync("pickle"),
+      model.priceOfSync("pickle", jar.chain),
       jar.details.decimals ? jar.details.decimals : 18,
     );
     if (c && c.apr) {
@@ -169,7 +169,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
       1,
       saFarm.depositToken.price,
       gauge.rewardRatePerYear * 100,
-      model.priceOfSync("pickle"),
+      model.priceOfSync("pickle", ChainNetwork.Ethereum),
       18,
     );
     if (c && c.apr) {
@@ -194,7 +194,7 @@ export function setAssetGaugeAprMinichef(
   const jar: JarDefinition = findJarForGauge(gauge, model);
   if (jar !== undefined) {
     const apr =
-      (100 * gauge.rewardRatePerYear * model.priceOfSync("pickle")) /
+      (100 * gauge.rewardRatePerYear * model.priceOfSync("pickle", ChainNetwork.Ethereum)) /
       jar.farm.details.valueBalance;
     const c: AssetAprComponent = {
       name: "pickle",
@@ -223,7 +223,7 @@ export function setAssetGaugeAprMinichef(
       1,
       saFarm.depositToken.price,
       gauge.rewardRatePerYear,
-      model.priceOfSync("pickle"),
+      model.priceOfSync("pickle", jar.chain),
       18,
     );
     if (c && c.apr) {

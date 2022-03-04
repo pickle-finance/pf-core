@@ -206,7 +206,7 @@ export const getPoolData = async (
       const poolTotalBalanceUSD = filtered.reduce(
         (total: number, [tokenAddr, tokenAmount]: [string, number]) => {
           const tokenAddress = tokenAddr.toLowerCase();
-          const tokenPrice = model.priceOfSync(tokenAddress);
+          const tokenPrice = model.priceOfSync(tokenAddress, jar.chain);
           const tokenValueUSD = tokenAmount * tokenPrice;
           return total + tokenValueUSD;
         },
@@ -254,7 +254,7 @@ export const calculateBalPoolAPRs = async (
     ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
   const rewardsPerYear = rewardsPerBlock * blocksPerYear;
 
-  const valueRewardedPerYear = model.priceOfSync("beets") * rewardsPerYear;
+  const valueRewardedPerYear = model.priceOfSync("beets", jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const beetsAPY = valueRewardedPerYear / totalValueStaked;

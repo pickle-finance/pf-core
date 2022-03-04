@@ -75,7 +75,7 @@ export class RlyEth extends AbstractJarBehavior {
       (parseFloat(formatEther(rlyPerBlockBN)) * poolInfo.allocPoint) /
       totalAllocPointBN.toNumber();
     const pricePerToken = jar.depositToken.price;
-    const rlyPrice = model.priceOfSync("rly");
+    const rlyPrice = model.priceOfSync("rly", jar.chain);
     const rlyRewardsPerYear =
       rlyPerBlock * (ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock);
     const valueRewardedPerYear = rlyPrice * rlyRewardsPerYear;

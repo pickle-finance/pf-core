@@ -44,3 +44,12 @@ export const fulfillWithRetries = async (
   }
   return response;
 };
+
+
+export const timeout = (prom, time, exception) => {
+  let timer;
+  return Promise.race([
+    prom,
+    new Promise((_r, rej) => (timer = setTimeout(rej, time, exception))),
+  ]).finally(() => clearTimeout(timer));
+};

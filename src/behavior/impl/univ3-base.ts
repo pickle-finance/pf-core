@@ -43,8 +43,8 @@ export class Univ3Base extends AbstractJarBehavior {
     definition.depositToken.totalSupply = definition.details.tokenBalance;
 
     const pJarUSD =
-      model.priceOfSync(definition.depositToken.components[0]) * jarAmount0 +
-      model.priceOfSync(definition.depositToken.components[1]) * jarAmount1;
+      model.priceOfSync(definition.depositToken.components[0], definition.chain) * jarAmount0 +
+      model.priceOfSync(definition.depositToken.components[1], definition.chain) * jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }
@@ -84,9 +84,9 @@ export class Univ3Base extends AbstractJarBehavior {
     );
 
     const harvestableUSD =
-      _model.priceOfSync(definition.depositToken.components[0]) *
+      _model.priceOfSync(definition.depositToken.components[0], definition.chain) *
         parseFloat(ethers.utils.formatUnits(bal0, decimals0)) +
-      _model.priceOfSync(definition.depositToken.components[1]) *
+      _model.priceOfSync(definition.depositToken.components[1], definition.chain) *
         parseFloat(ethers.utils.formatUnits(bal1, decimals1));
 
     return {
@@ -107,14 +107,14 @@ export class Univ3Base extends AbstractJarBehavior {
       definition.chain,
     ).getProviderOrSigner();
 
-    const token0Price = await model.priceOf(
-      definition.depositToken.components[0],
+    const token0Price = model.priceOfSync(
+      definition.depositToken.components[0], definition.chain
     );
-    const token1Price = await model.priceOf(
-      definition.depositToken.components[1],
+    const token1Price = model.priceOfSync(
+      definition.depositToken.components[1], definition.chain
     );
 
-    const liquidityValue = await model.priceOf(definition.depositToken.addr);
+    const liquidityValue = model.priceOfSync(definition.depositToken.addr, definition.chain);
     const jarValue =
       definition.details.ratio *
       definition.details.tokenBalance *

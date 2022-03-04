@@ -16,7 +16,7 @@ export class OxdXtarot extends OxdJar {
   ): Promise<number> {
     const provider = model.providerFor(definition.chain);
 
-    const baseTokenPrice = model.priceOfSync("tarot");
+    const baseTokenPrice = model.priceOfSync("tarot", definition.chain);
 
     const xTarot = new ethers.Contract(
       definition.depositToken.addr,

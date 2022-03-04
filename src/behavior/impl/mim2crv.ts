@@ -15,12 +15,12 @@ export class Mim2Crv extends CurveJar {
   }
 
   async getDepositTokenPrice(
-    _definition: JarDefinition,
+    definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
     // TODO We can approximate the mim2crv token value
     // as mim itself bc mim is likely the weakest of the 3
-    return model.priceOfSync("mim");
+    return model.priceOfSync("mim", definition.chain);
   }
 
   async getHarvestableUSD(

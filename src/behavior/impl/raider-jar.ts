@@ -71,7 +71,7 @@ async function calculateRaiderAPY(
   const raiderRewardsPerYear = parseFloat(formatEther(dailyRewardsBN)) * 365;
 
   const raiderAPY =
-    (raiderRewardsPerYear * (await model.priceOf("raider"))) /
+    (raiderRewardsPerYear * (model.priceOfSync("raider", jar.chain))) /
     (jar.depositToken.price * totalSupply);
   return raiderAPY * 100;
 }

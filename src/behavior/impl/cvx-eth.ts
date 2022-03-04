@@ -29,7 +29,7 @@ export class CurveCvxEth extends ConvexDualReward {
     );
     const [poolCvx, cvxPrice, totalSupply] = await Promise.all([
       cvxToken.balanceOf(pool),
-      model.priceOfSync("cvx"),
+      model.priceOfSync("cvx", asset.chain),
       poolToken.totalSupply(),
     ]);
 

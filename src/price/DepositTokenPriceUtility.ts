@@ -83,7 +83,7 @@ export async function getDepositTokenPrice(
 ): Promise<number> {
   // first, always check the cache or generic tokens for deposit
   const depTokenAddr = asset.depositToken.addr;
-  const checkCache = model.priceOfSync(depTokenAddr);
+  const checkCache = model.priceOfSync(depTokenAddr, asset.chain);
   if (checkCache) return checkCache;
 
   // Next check if its a common swap utility
@@ -103,7 +103,7 @@ export async function getDepositTokenPrice(
   }
 
   if (depTokenAddr === JAR_ALETH.depositToken.addr) {
-    return model.priceOfSync("weth");
+    return model.priceOfSync("weth", asset.chain);
   }
 
   return undefined;

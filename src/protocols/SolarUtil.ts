@@ -100,9 +100,9 @@ export async function calculateSolarFarmsAPY(
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-  const solarRewardedPerYear = (await model.priceOf("solar")) * rewardsPerYear;
+  const solarRewardedPerYear = (model.priceOfSync("solar", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const solarAPY = solarRewardedPerYear / totalValueStaked;
   return { name: "solar", apr: solarAPY * 100, compoundable: true };

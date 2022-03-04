@@ -20,7 +20,7 @@ export class ThreeCrv extends CurveJar {
     const crvApy: AssetAprComponent = await this.getCurveCrvAPY(
       definition,
       model,
-      await model.priceOf("usdc"),
+      model.priceOfSync("usdc", definition.chain),
       THREE_GAUGE_ADDR,
       THREE_POOL_ADDR,
     );

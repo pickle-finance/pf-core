@@ -69,7 +69,7 @@ export async function calculateTriFarmsAPY(
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   let triPerBlockBN,
     totalAllocPointBN,
@@ -121,7 +121,7 @@ export async function calculateTriFarmsAPY(
       const auroraRewardsPerYear =
         (parseFloat(formatEther(auroraPerBlock)) *
           ONE_YEAR_IN_SECONDS *
-          (await model.priceOf("aurora"))) /
+          (model.priceOfSync("aurora", jar.chain))) /
         Chains.get(jar.chain).secondsPerBlock;
 
       const totalSupply = parseFloat(formatEther(totalSupplyBN));
@@ -138,7 +138,7 @@ export async function calculateTriFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const triRewardedPerYear = (await model.priceOf("tri")) * rewardsPerYear;
+  const triRewardedPerYear = (model.priceOfSync("tri", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const triAPY = triRewardedPerYear / totalValueStaked;
 

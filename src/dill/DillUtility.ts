@@ -8,10 +8,10 @@ import { BigNumber, ethers } from "ethers";
 import { Contract as MulticallContract } from "ethers-multicall";
 import dillAbi from "../Contracts/ABIs/dill.json";
 import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
-import { PriceCache } from "../price/PriceCache";
 import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
 import moment from "moment";
 import { ChainNetwork, PickleModel } from "..";
+import { DEBUG_OUT } from "../model/PickleModel";
 
 const week = 7 * 24 * 60 * 60;
 const firstMeaningfulDistributionTimestamp = 1619049600;
@@ -60,10 +60,12 @@ export function getWeeklyDistribution(jars: JarDefinition[]): number {
 
 export async function getDillDetails(
   thisWeekProjectedDistribution: number,
-  priceCache: PriceCache,
+  picklePrice: number,
   model: PickleModel,
   chain: ChainNetwork,
 ): Promise<DillDetails> {
+  DEBUG_OUT("Begin getDillDetails");
+
   const multicallProvider = model.multicallProviderFor(chain);
   await multicallProvider.init();
 
@@ -124,7 +126,7 @@ export async function getDillDetails(
       const isProjected = distributionTime > new Date();
 
       const weeklyPickleAmount = isProjected
-        ? thisWeekProjectedDistribution / priceCache.get("pickle")
+        ? thisWeekProjectedDistribution / picklePrice
         : payouts[index];
 
       const historicalEntry = picklePriceSeries.find((value) =>
@@ -132,7 +134,7 @@ export async function getDillDetails(
       );
       const picklePriceUsd = historicalEntry
         ? historicalEntry[1]
-        : priceCache.get("pickle");
+        : picklePrice;
 
       const totalDillAmount: number = dillAmounts[index];
       const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
@@ -157,6 +159,7 @@ export async function getDillDetails(
         distributionTime,
       };
     });
+    DEBUG_OUT("End getDillDetails");
 
     return {
       pickleLocked: picklesLockedFloat,
@@ -165,6 +168,7 @@ export async function getDillDetails(
     };
   } catch (e) {
     console.log(e);
+    DEBUG_OUT("End getDillDetails");
     return undefined;
   }
 }

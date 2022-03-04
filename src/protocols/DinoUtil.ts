@@ -40,12 +40,12 @@ export async function calculateFossilFarmsAPY(
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const rewardsPerYear =
     rewardsPerBlock *
     ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
-  const dinoRewardedPerYear = (await model.priceOf("dino")) * rewardsPerYear;
+  const dinoRewardedPerYear = (model.priceOfSync("dino", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const dinoAPY = dinoRewardedPerYear / totalValueStaked;
   return dinoAPY * 100;

@@ -37,8 +37,8 @@ export class AlcxEth extends SushiJar {
       alcxToken
         .balanceOf(jar.details.strategyAddr)
         .catch(() => BigNumber.from("0")),
-      await model.priceOf("alcx"),
-      await model.priceOf("sushi"),
+      model.priceOfSync("alcx", jar.chain),
+      model.priceOfSync("sushi", jar.chain),
     ]);
     const alcxValue = alcx.add(alcxWallet).mul(alcxPrice.toFixed());
     const sushiValue = sushi.mul(sushiPrice.toFixed());

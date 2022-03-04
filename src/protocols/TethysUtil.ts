@@ -33,7 +33,7 @@ export async function calculateTethysFarmsAPY(
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
 
-  const pricePerToken = await model.priceOf(jar.depositToken.addr);
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = tethysPoolIds[jar.depositToken.addr];
   const multicallTethysFarms = new MulticallContract(
@@ -58,7 +58,7 @@ export async function calculateTethysFarmsAPY(
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const tethysRewardedPerYear =
-    (await model.priceOf("tethys")) * rewardsPerYear;
+    (model.priceOfSync("tethys", jar.chain)) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const tethysAPY = tethysRewardedPerYear / totalValueStaked;
 

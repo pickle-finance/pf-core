@@ -210,7 +210,7 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
   const poolTotalBalanceUSD = filtered.reduce(
     (total: number, token: [string, number]) => {
       const tokenAddress = token[0].toLowerCase();
-      const tokenValueUSD = token[1] * model.priceOfSync(tokenAddress);
+      const tokenValueUSD = token[1] * model.priceOfSync(tokenAddress, jar.chain);
       return total + tokenValueUSD;
     },
     0,
@@ -257,7 +257,7 @@ export const calculateBalPoolAPRs = async (
   const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
     (reward) => {
       const rewardValue =
-        reward.amount * model.priceOfSync(reward.tokenAddress);
+        reward.amount * model.priceOfSync(reward.tokenAddress, jar.chain);
       const name = ExternalTokenModelSingleton.getToken(
         reward.tokenAddress,
         jar.chain,

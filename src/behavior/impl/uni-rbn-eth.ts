@@ -30,8 +30,8 @@ export class Uni3RbnEth extends AbstractJarBehavior {
     definition.depositToken.totalSupply = definition.details.tokenBalance;
 
     const pJarUSD =
-      model.priceOfSync("rbn") * test.depositedToken0 +
-      model.priceOfSync("weth") * test.depositedToken1;
+      model.priceOfSync("rbn", definition.chain) * test.depositedToken0 +
+      model.priceOfSync("weth", definition.chain) * test.depositedToken1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }
@@ -65,7 +65,7 @@ export class Uni3RbnEth extends AbstractJarBehavior {
     );
     const rewardTokens: BigNumber = result.reward;
     const decimals: number = model.tokenDecimals("rbn", definition.chain);
-    const rbnPrice: number = model.priceOfSync("rbn");
+    const rbnPrice: number = model.priceOfSync("rbn", definition.chain);
     const harvestable =
       BigNumber.from((rbnPrice * 1e4).toFixed())
         .mul(rewardTokens)
@@ -88,10 +88,10 @@ export class Uni3RbnEth extends AbstractJarBehavior {
       rbnContract.balanceOf(definition.contract),
     ]);
     const earnableWeth = wethBal
-      .mul((model.priceOfSync("weth") * 100).toFixed())
+      .mul((model.priceOfSync("weth", definition.chain) * 100).toFixed())
       .div(100);
     const earnableRbn = rbnBal
-      .mul((model.priceOfSync("rbn") * 1000).toFixed())
+      .mul((model.priceOfSync("rbn", definition.chain) * 1000).toFixed())
       .div(1000);
 
     return {
