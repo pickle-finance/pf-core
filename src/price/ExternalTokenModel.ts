@@ -1393,7 +1393,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonbeam,
-      "beam",
+      "glint",
       "beamswap",
       "0xcd3b51d98478d53f4515a306be565c6eebef1d58".toLowerCase(),
       18,
@@ -1798,7 +1798,7 @@ export class ExternalTokenModel {
     id: string,
     cgid: string,
     addr: string,
-    dec,
+    dec: number,
     style: ExternalTokenFetchStyle,
     swapPairs: string[] = [],
     isNative = false,

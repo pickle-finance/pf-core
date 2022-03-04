@@ -49,7 +49,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
       jar,
       model,
       resolver,
-      ["beam"],
+      ["glint"],
       this.strategyAbi,
     );
   }
@@ -65,7 +65,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     );
 
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("beam", beamApr, true),
+      this.createAprComponent("glint", beamApr, true),
       this.createAprComponent("lp", lp, false),
     ]);
   }
@@ -91,7 +91,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
       ONE_YEAR_IN_SECONDS;
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const beamRewardedPerYear = (model.priceOfSync("beam", jar.chain)) * rewardsPerYear;
+    const beamRewardedPerYear = (model.priceOfSync("glint", jar.chain)) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const beamAPY = beamRewardedPerYear / totalValueStaked;
 

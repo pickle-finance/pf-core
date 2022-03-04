@@ -329,6 +329,7 @@ export interface JarDefinition extends PickleAsset {
   details: JarDetails;
   farm?: NestedFarm;
   stakingProtocol?: AssetProtocol;
+  rewardTokens?: string[];
 }
 export interface StandaloneFarmDefinition extends PickleAsset {
   details: StandaloneFarmDetails;
@@ -357,7 +358,6 @@ export interface JarDetails extends AssetDetails {
 export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
-  rewardTokens?: string[];
 }
 export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
 
