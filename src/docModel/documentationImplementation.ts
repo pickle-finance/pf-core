@@ -202,7 +202,7 @@ export function generateAutomaticXYKDescription(asset: PickleAsset): Translation
   const pair: string[] = (asset.depositToken.components || []);
   const toUpper = pair.map((x) => x.toUpperCase()).join("/");
   const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
-  const rt = asset.details.rewardTokens;
+  const rt = (asset as JarDefinition).rewardTokens;
   const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
   const properties = {
     protocol: asset.protocol,
@@ -216,7 +216,7 @@ export function generateAutomaticXYKDescription(asset: PickleAsset): Translation
 
 export function generateAutomaticUni3Description(asset: PickleAsset): TranslationKeyWithProperties | undefined {
   const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : undefined;
-  const rt = asset.details.rewardTokens ? asset.details.rewardTokens : undefined;
+  const rt = (asset as JarDefinition).rewardTokens ? (asset as JarDefinition).rewardTokens : undefined;
   const usesStaking = sl !== undefined && rt !== undefined;
   const key = usesStaking ? UNI3_REWARDS_JAR_DESCRIPTION : UNI3_JAR_DESCRIPTION;
   const pair: string[] = (asset.depositToken.components || []);
