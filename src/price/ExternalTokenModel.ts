@@ -1430,6 +1430,12 @@ export class ExternalTokenModel {
       8,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Moonbeam,
+      "glint",
+      "beamswap",
+      "0xcd3b51d98478d53f4515a306be565c6eebef1d58".toLowerCase(),
+    );
 
     // Optimism
     this.addToken(
