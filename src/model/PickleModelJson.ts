@@ -51,15 +51,15 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.SUSHISWAP,
     chain: ChainNetwork.Polygon,
-    zappable: false,
-    pickleZapAddress: "",
-    router: "0x93bcDc45f7e62f89a8e901DC4A0E2c6C427D9F25",
+    zappable: true,
+    pickleZapAddress: "0x5c5a1735fb50beff91b41c8d026243e8bb363b3a",
+    router: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
   },
   {
     protocol: AssetProtocol.SUSHISWAP,
     chain: ChainNetwork.Arbitrum,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x8ee424b02da912c1c9491c6a33cafd5fcbb52edc",
     router: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
   },
   {
@@ -79,15 +79,15 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.COMETHSWAP,
     chain: ChainNetwork.Polygon,
-    zappable: false,
-    pickleZapAddress: "",
-    router: "",
+    zappable: true,
+    pickleZapAddress: "0x5c5a1735fb50beff91b41c8d026243e8bb363b3a",
+    router: "0x93bcDc45f7e62f89a8e901DC4A0E2c6C427D9F25",
   },
   {
     protocol: AssetProtocol.QUICKSWAP,
     chain: ChainNetwork.Polygon,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x5c5a1735fb50beff91b41c8d026243e8bb363b3a",
     router: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
   },
   {
@@ -100,8 +100,8 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.CHERRYSWAP,
     chain: ChainNetwork.OKEx,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x501ee199e02e6b548dc9cc265873a496b196b5a7",
     router: "0x865bfde337C8aFBffF144Ff4C29f9404EBb22b15",
   },
   {
@@ -114,15 +114,15 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.JSWAP,
     chain: ChainNetwork.OKEx,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x501ee199e02e6b548dc9cc265873a496b196b5a7",
     router: "0x069A306A638ac9d3a68a6BD8BE898774C073DCb3",
   },
   {
     protocol: AssetProtocol.SOLARSWAP,
     chain: ChainNetwork.Moonriver,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x1ece15911ae3b61594306fcaa45566bfc59b6b23",
     router: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
   },
   {
@@ -135,22 +135,22 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.TRISOLARIS,
     chain: ChainNetwork.Aurora,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0xd3F5Aa703C4cd40E5A4fdf701229F6080e160a9E",
     router: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
   },
   {
     protocol: AssetProtocol.NEARPAD,
     chain: ChainNetwork.Aurora,
-    pickleZapAddress: "",
-    zappable: false,
-    router: "",
+    pickleZapAddress: "0xd3F5Aa703C4cd40E5A4fdf701229F6080e160a9E",
+    zappable: true,
+    router: "0xBaE0d7DFcd03C90EBCe003C58332c1346A72836A",
   },
   {
     protocol: AssetProtocol.WANNASWAP,
     chain: ChainNetwork.Aurora,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0xd3F5Aa703C4cd40E5A4fdf701229F6080e160a9E",
     router: "0xa3a1eF5Ae6561572023363862e238aFA84C72ef5",
   },
   {
@@ -163,22 +163,22 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.AURORASWAP,
     chain: ChainNetwork.Aurora,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0xd3F5Aa703C4cd40E5A4fdf701229F6080e160a9E",
     router: "0xA1B1742e9c32C7cAa9726d8204bD5715e3419861",
   },
   {
     protocol: AssetProtocol.NETSWAP,
     chain: ChainNetwork.Metis,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0xaE95d192D545b71FE09fBdE2Bb2E5Cd069441E93",
     router: "0x1E876cCe41B7b844FDe09E38Fa1cf00f213bFf56",
   },
   {
     protocol: AssetProtocol.TETHYS,
     chain: ChainNetwork.Metis,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0xaE95d192D545b71FE09fBdE2Bb2E5Cd069441E93",
     router: "0x81b9FA50D5f5155Ee17817C21702C3AE4780AD09",
   },
   {
@@ -191,8 +191,8 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.ZIPSWAP,
     chain: ChainNetwork.Optimism,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0xd60514536195573ce4a4a78ce5706e94e9ee7917",
     router: "0xE6Df0BB08e5A97b40B21950a0A51b94c4DbA0Ff6",
   },
   {
@@ -212,8 +212,8 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.FINN,
     chain: ChainNetwork.Moonriver,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x1ece15911ae3b61594306fcaa45566bfc59b6b23",
     router: "0x2d4e873f9Ab279da9f1bb2c532d4F06f67755b77",
   },
   {
