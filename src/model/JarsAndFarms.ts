@@ -6259,6 +6259,7 @@ export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
     link: "https://zipswap.fi/#/add/ETH/0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
     components: ["eth", "usdc"],
   },
+  rewardTokens: ["zip"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
@@ -6284,6 +6285,7 @@ export const JAR_OPTIMISM_ZIP_ETH_DAI: JarDefinition = {
     link: "https://www.zipswap.fi/#/add/v2/ETH/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
     components: ["eth", "dai"],
   },
+  rewardTokens: ["zip"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
@@ -6309,6 +6311,7 @@ export const JAR_OPTIMISM_ZIP_ETH_BTC: JarDefinition = {
     link: "https://www.zipswap.fi/#/add/v2/ETH/0x68f180fcCe6836688e9084f035309E29Bf0A2095",
     components: ["eth", "btc"],
   },
+  rewardTokens: ["zip"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
@@ -6334,6 +6337,7 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
     link: "https://www.zipswap.fi/#/add/v2/ETH/0xFA436399d0458Dbe8aB890c3441256E3E09022a8",
     components: ["eth", "zip"],
   },
+  rewardTokens: ["zip"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
@@ -6348,6 +6352,8 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_ZIP);
+
+// Fantom
 
 export const JAR_FANTOM_OXD_USDC: JarDefinition = {
   type: AssetType.JAR,
