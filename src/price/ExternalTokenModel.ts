@@ -1393,7 +1393,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonbeam,
-      "beam",
+      "glint",
       "beamswap",
       "0xcd3b51d98478d53f4515a306be565c6eebef1d58".toLowerCase(),
       18,
@@ -1429,12 +1429,6 @@ export class ExternalTokenModel {
       "0x1DC78Acda13a8BC4408B207c9E48CDBc096D95e0".toLowerCase(),
       8,
       ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(
-      ChainNetwork.Moonbeam,
-      "glint",
-      "beamswap",
-      "0xcd3b51d98478d53f4515a306be565c6eebef1d58".toLowerCase(),
     );
 
     // Optimism
@@ -1804,7 +1798,7 @@ export class ExternalTokenModel {
     id: string,
     cgid: string,
     addr: string,
-    dec,
+    dec: number,
     style: ExternalTokenFetchStyle,
     swapPairs: string[] = [],
     isNative = false,

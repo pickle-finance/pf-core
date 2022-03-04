@@ -6004,7 +6004,7 @@ export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
     addr: "0x99588867e817023162F4d4829995299054a5fC57",
     name: "BEAM GLMR/GLINT",
     link: "https://app.beamswap.io/exchange/add/GLMR/0xcd3b51d98478d53f4515a306be565c6eebef1d58",
-    components: ["glmr", "beam"],
+    components: ["glmr", "glint"],
   },
   rewardTokens: ["glint"],
   enablement: AssetEnablement.ENABLED,
