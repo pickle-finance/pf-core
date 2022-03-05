@@ -14,7 +14,7 @@ export const fetchCoingeckoPricesByContractNtimes = async (
       const promise1 = await timeout(
         fetchCoingeckoPricesByContractOnce(contractIds),
         4000,
-        Symbol(),
+        new Error("PfCoreTimeoutError_fetchCoingeckoPricesByContractNtimes"),
       );
       return promise1;
     } catch (err) {

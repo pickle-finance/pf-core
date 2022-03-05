@@ -1434,7 +1434,7 @@ export class PickleModel {
       .findAssetBehavior(asset)
       .getProjectedAprStats(asset as JarDefinition, this);
     try {
-      const timeoutResult = Symbol();
+      const timeoutResult = new Error("PfCoreTimeoutError_singleJarLoadApyComponents");
       const r = await timeout(ret,7000, timeoutResult);
       if( r && r !== timeoutResult ) {
         asset.aprStats = this.cleanAprStats(r);
