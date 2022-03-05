@@ -17,6 +17,7 @@ export enum AssetProtocol {
   YEARN = "Yearn",
   SADDLE = "Saddle",
   CURVE = "Curve",
+  CONVEX = "Convex",
   COMPOUND = "Compound",
   BPROTOCOL = "B.Protocol",
   LQTY = "Liquity",

@@ -4,6 +4,8 @@ import { DocsFormat } from "..";
 import {
   AssetDocumentationDefinition,
   AssetDocumentationResult,
+  BALANCER_REWARDS_JAR_DESCRIPTION,
+  CURVE_REWARDS_JAR_DESCRIPTION,
   OBTAIN_KEY_MULTITOKEN_POOL,
   OBTAIN_KEY_ONETOKEN_POOL,
   OBTAIN_KEY_TWOTOKEN_POOL,
@@ -106,11 +108,13 @@ export function generateAutomaticDefinition(keys: string[]): AssetDocumentationD
     const asset: PickleAsset = ALL_ASSETS.find((x) => x.details?.apiKey === keys[i]);
     if( asset ) {
       if( XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol)) {
-        const oneDefinition: AssetDocumentationDefinition = generateXykDocumentation(asset);
-        ret.push(oneDefinition);
+        ret.push(generateXykDocumentation(asset));
       } else if( asset.protocol === AssetProtocol.UNISWAP_V3 ) {
-        const oneDefinition: AssetDocumentationDefinition = generateUni3Documentation(asset);
-        ret.push(oneDefinition);
+        ret.push(generateUni3Documentation(asset));
+      } else if( asset.protocol === AssetProtocol.BEETHOVENX || asset.protocol === AssetProtocol.BALANCER) {
+        ret.push(generateBalancerStyleDocumentation(asset));
+      } else if( asset.protocol === AssetProtocol.CURVE ) {
+        ret.push(generateCurveStyleDocumentation(asset));
       }
     }
   }
@@ -120,30 +124,12 @@ export function generateAutomaticDefinition(keys: string[]): AssetDocumentationD
 export function generateXykDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
   const desc = generateAutomaticXYKDescription(asset);
   const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
+  const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
 
-  const obtain = [];
+  let obtain: TranslationKeyWithProperties[] = [];
   obtain.push({ key: OBTAIN_KEY_TWOTOKEN_POOL });
-  // TODO zapper? When to add it?
-    // {
-    //   key: OBTAIN_KEY_ZAPPER,
-    //   properties: {
-    //     poolName: "ETH/DAI",
-    //     poolUrl:
-    //       "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f&modal=pool-deposit",
-    //   },
-    // }
-  // TODO - add pickleZap ? 
-  
-  const risks: TranslationKeyWithProperties[] = [];
-  risks.push({ key: RISK_CHAIN, properties: { chain: asset.chain }});
-  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: asset.protocol }});
-  const stake = (asset as JarDefinition).stakingProtocol;
-  if(  stake && stake !== asset.protocol )
-    risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: stake }});
-  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" }});
-  risks.push({ key: RISK_DIVERGENCE_LOSS, properties: {}});
-  
-  
+  obtain = obtain.concat(getZapObtains(asset));
+
   const oneDefinition: AssetDocumentationDefinition = {
     apiKey: asset.details.apiKey,
     descriptionKey: desc,
@@ -156,8 +142,7 @@ export function generateXykDocumentation(asset: PickleAsset): AssetDocumentation
 
 export function generateUni3Documentation(asset: PickleAsset): AssetDocumentationDefinition {
   const desc = generateAutomaticUni3Description(asset);
-  const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
-  const obtain: TranslationKeyWithProperties[] = [];
+  let obtain: TranslationKeyWithProperties[] = [];
   const components = (asset as JarDefinition).depositToken.components;
   if( components && components.length === 2 && components[0] && components[1]) {
     const props: any = {
@@ -166,6 +151,42 @@ export function generateUni3Documentation(asset: PickleAsset): AssetDocumentatio
     };
     obtain.push({ key: OBTAIN_KEY_UNIV3, properties: props });
   }
+  obtain = obtain.concat(getZapObtains(asset));
+  return generateAllStyleDocumentation(asset, desc, obtain);
+}
+
+export function generateBalancerStyleDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
+  const desc: TranslationKeyWithProperties = {key: BALANCER_REWARDS_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
+  let obtain: TranslationKeyWithProperties[] = [];
+  obtain.push({ key: OBTAIN_KEY_TWOTOKEN_POOL });
+  obtain = obtain.concat(getZapObtains(asset));
+  return generateAllStyleDocumentation(asset, desc, obtain);
+}
+
+export function generateCurveStyleDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
+  const desc: TranslationKeyWithProperties = {key: CURVE_REWARDS_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
+  let obtain: TranslationKeyWithProperties[] = [];
+  obtain.push({ key: OBTAIN_KEY_MULTITOKEN_POOL });
+  obtain = obtain.concat(getZapObtains(asset));
+  return generateAllStyleDocumentation(asset, desc, obtain);
+}
+
+export function generateAllStyleDocumentation(asset: PickleAsset,
+  desc: TranslationKeyWithProperties, 
+  obtain: TranslationKeyWithProperties[]): AssetDocumentationDefinition {
+    const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
+    const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
+  
+    const oneDefinition: AssetDocumentationDefinition = {
+      apiKey: asset.details.apiKey,
+      descriptionKey: desc,
+      social: socials,
+      obtain: obtain,
+      risks: risks,
+    }
+    return oneDefinition;
+}
+export function getZapObtains(_asset: PickleAsset): TranslationKeyWithProperties[] {
   // TODO zapper? When to add it?
     // {
     //   key: OBTAIN_KEY_ZAPPER,
@@ -176,7 +197,10 @@ export function generateUni3Documentation(asset: PickleAsset): AssetDocumentatio
     //   },
     // }
   // TODO - add pickleZap ? 
-  
+  return [];
+}
+
+export function getAutomaticRisks(asset: PickleAsset): TranslationKeyWithProperties[] {
   const risks: TranslationKeyWithProperties[] = [];
   risks.push({ key: RISK_CHAIN, properties: { chain: asset.chain }});
   risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: asset.protocol }});
@@ -185,20 +209,10 @@ export function generateUni3Documentation(asset: PickleAsset): AssetDocumentatio
     risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: stake }});
   risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" }});
   risks.push({ key: RISK_DIVERGENCE_LOSS, properties: {}});
-  
-  
-  const oneDefinition: AssetDocumentationDefinition = {
-    apiKey: asset.details.apiKey,
-    descriptionKey: desc,
-    social: socials,
-    obtain: obtain,
-    risks: risks,
-  }
-  return oneDefinition;
+  return risks;
 }
 
-export function generateAutomaticXYKDescription(asset: PickleAsset): TranslationKeyWithProperties | undefined {
-  const key = XYK_JAR_DESCRIPTION;
+export function generateAutomaticDescriptionProperties(asset: PickleAsset): {[key: string]: string} {
   const pair: string[] = (asset.depositToken.components || []);
   const toUpper = pair.map((x) => x.toUpperCase()).join("/");
   const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
@@ -206,29 +220,24 @@ export function generateAutomaticXYKDescription(asset: PickleAsset): Translation
   const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
   const properties = {
     protocol: asset.protocol,
-    pair: toUpper,
+    tokens: toUpper,
     poolUrl: asset.depositToken.link,
     stakeLocation: sl,
     rewards: rewardString,
   }
-  return {key: key, properties: properties};
+  return properties;
+}
+
+export function generateAutomaticXYKDescription(asset: PickleAsset): TranslationKeyWithProperties | undefined {
+  return {key: XYK_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
 }
 
 export function generateAutomaticUni3Description(asset: PickleAsset): TranslationKeyWithProperties | undefined {
-  const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : undefined;
+  const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
   const rt = (asset as JarDefinition).rewardTokens ? (asset as JarDefinition).rewardTokens : undefined;
   const usesStaking = sl !== undefined && rt !== undefined;
   const key = usesStaking ? UNI3_REWARDS_JAR_DESCRIPTION : UNI3_JAR_DESCRIPTION;
-  const pair: string[] = (asset.depositToken.components || []);
-  const toUpper = pair.map((x) => x.toUpperCase()).join("/");
-  const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
-  const properties = {
-    pair: toUpper,
-    poolUrl: asset.depositToken.link,
-    stakeLocation: sl || "",
-    rewards: rewardString || "",
-  }
-  return {key: key, properties: properties};
+  return {key: key, properties: generateAutomaticDescriptionProperties(asset)};
 }
 
 export function generateAutomaticSocials(asset: PickleAsset): TranslationKeyWithProperties[] {

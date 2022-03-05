@@ -1122,6 +1122,7 @@ export const JAR_CURVE_CVXCRVLP: JarDefinition = {
     components: ["crv", "cvxcrv"],
   },
   rewardTokens: ["cvx"],
+  stakingProtocol: AssetProtocol.CONVEX,
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE,
@@ -1148,6 +1149,7 @@ export const JAR_CVXCRV: JarDefinition = {
     components: ["cvxcrv"],
   },
   rewardTokens: ["cvx", "crv", "3crv"],
+  stakingProtocol: AssetProtocol.CONVEX,
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE, // Not actually a Curve LP but doesn't seem to matter
@@ -1177,6 +1179,7 @@ export const JAR_CURVE_CRVETHLP: JarDefinition = {
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE,
+  stakingProtocol: AssetProtocol.CONVEX,
   details: {
     apiKey: "CRVETH",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -1203,6 +1206,7 @@ export const JAR_CURVE_CVXETHLP: JarDefinition = {
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE,
+  stakingProtocol: AssetProtocol.CONVEX,
   details: {
     apiKey: "CURVECVXETH",
     harvestStyle: HarvestStyle.PASSIVE,

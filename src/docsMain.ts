@@ -1,6 +1,7 @@
 import { documentationAssetDefinitionToResult } from "./docModel/documentationImplementation";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { DocsFormat, DocsManager } from ".";
+import { AssetEnablement } from "./model/PickleModelJson";
 
 function getDocs(language: string) {
   const docs = [];
@@ -16,8 +17,9 @@ function getDocs(language: string) {
     );
   }
 
-  for (let i = 0; i < ALL_ASSETS.length; i++) {
-    const apiKey = ALL_ASSETS[i]?.details?.apiKey;
+  const toVerify = ALL_ASSETS.filter((x) => x.enablement === AssetEnablement.ENABLED || x.enablement === AssetEnablement.DEV);
+  for (let i = 0; i < toVerify.length; i++) {
+    const apiKey = toVerify[i]?.details?.apiKey;
     if (apiKey !== undefined) {
       const foundDocs = allDocs.find((x) => x.apiKey === apiKey);
       if (foundDocs === undefined) {

@@ -43,27 +43,28 @@ PROTOCOL_SOCIAL_MODEL[AssetProtocol.IRON] = {
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.YEARN] = {
     "social.key.discord.withname": "https://discord.gg/93PHbB4",
-    "social.key.website.withname": "yearn.finance",
+    "social.key.website.withname": "https://yearn.finance",
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.SADDLE] = {
     "social.key.discord.withname": "https://discord.com/invite/saddle",
-    "social.key.website.withname": "saddle.finance",
+    "social.key.website.withname": "https://saddle.finance",
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.CURVE] = {
     "social.key.discord.withname": "https://discord.gg/9uEHakc",
-    "social.key.website.withname": "curve.fi",
+    "social.key.telegram.withname": "https://t.me/curvefi",
+    "social.key.website.withname": "https://curve.fi",
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.COMPOUND] = {
     "social.key.discord.withname": "https://discord.com/invite/cU7vmVW",
-    "social.key.website.withname": "compound.finance",
+    "social.key.website.withname": "https://compound.finance",
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.BPROTOCOL] = {
     "social.key.discord.withname": "https://discord.gg/bJ4guuw",
-    "social.key.website.withname": "bprotocol.org",
+    "social.key.website.withname": "https://bprotocol.org",
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.BPROTOCOL] = {
     "social.key.discord.withname": "https://discord.gg/2up5U32",
-    "social.key.website.withname": "liquity.org",
+    "social.key.website.withname": "https://liquity.org",
 }
 PROTOCOL_SOCIAL_MODEL[AssetProtocol.CHERRYSWAP] = {
     "social.key.telegram.withname": "https://t.me/cherryswap_1st",
