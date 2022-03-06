@@ -22,6 +22,8 @@ export interface PoolInfo {
     rewardName: string;
     rewardPriceLookup: string;
     rewarder?: string;
+    extraReward?: string;
+    extraRewardPriceLookup?: string;
   };
 }
 

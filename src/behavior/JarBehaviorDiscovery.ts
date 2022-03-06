@@ -282,6 +282,7 @@ import {
   JAR_METIS_NETSWAP_WBTC_USDT,
   JAR_METIS_TETHYS_WBTC_METIS,
   JAR_FANTOM_SEX_FTM,
+  JAR_CURVE_CVXFXS_FXS_LP
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -509,6 +510,7 @@ import { LqdrJar } from "./impl/fantom-lqdr-jar";
 import { BooJar } from "./impl/fantom-boo-jar";
 import { BeetXJar } from "./impl/fantom-beetx-jar";
 import { SexJar } from "./impl/fantom-sex-jar";
+import { CvxfxsFxs } from "./impl/cvxfxs-fxs";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -567,6 +569,7 @@ jarToBehavior.set(JAR_UNIV3_USDC_ETH_3.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_LOOKS_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_USDC_USDT.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_WBTC_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());

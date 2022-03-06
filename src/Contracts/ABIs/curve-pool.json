@@ -510,6 +510,13 @@
     "gas": "152464"
   },
   {
+    "inputs": [],
+    "name": "minter",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "name": "stop_ramp_A",
     "outputs": [],
     "inputs": [],

@@ -328,6 +328,13 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
+      "cvxfxs",
+      "frax-share",
+      "0xFEEf77d3f69374f66429C91d732A244f074bdf74".toLowerCase(),
+      18, ExternalTokenFetchStyle.BOTH
+    );
+    this.addToken(
+      ChainNetwork.Ethereum,
       "lqty",
       "liquity",
       "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase(),
