@@ -1267,6 +1267,31 @@ export const JAR_LOOKS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_LOOKS);
 
+export const JAR_CURVE_CVXFXS_FXS_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0i",
+  contract: "0x5Da34d322a4b29488e711419Fea36dA0d0114d5C",
+  depositToken: {
+    addr: "0xF3A43307DcAFa93275993862Aae628fCB50dC768",
+    name: "Curve CVXFXS/FXS",
+    link: "https://curve.fi/factory-crypto/18/deposit",
+    components: ["fxs", "cvxfxs"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: "CURVECVXFXS",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x6667c53D631410649B1826D21cFdf41E7a7aE6b1",
+    farmNickname: "pCurve FXS/CVXFXS",
+    farmDepositTokenName: "pCurve FXS/CVXFXS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CURVE_CVXETHLP);
+
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar U3a",
