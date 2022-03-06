@@ -1406,7 +1406,7 @@ export class PickleModel {
     for (let i = 0; i < assets.length; i++) {
       const prom1 = this.singleJarLoadApyComponents(assets[i] as JarDefinition);
       tmpArray.push(prom1);
-      if (tmpArray.length === 10) {
+      if (tmpArray.length === 5) {
         try {
           DEBUG_OUT("loadApyComponentsOneChain waiting");
           await Promise.all(tmpArray);
@@ -1435,7 +1435,7 @@ export class PickleModel {
       .getProjectedAprStats(asset as JarDefinition, this);
     try {
       const timeoutResult = new Error("PfCoreTimeoutError_singleJarLoadApyComponents");
-      const r = await timeout(ret,7000, timeoutResult);
+      const r = await timeout(ret,12000, timeoutResult);
       if( r && r !== timeoutResult ) {
         asset.aprStats = this.cleanAprStats(r);
       } else {
