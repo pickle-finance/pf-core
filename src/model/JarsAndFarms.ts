@@ -1202,7 +1202,7 @@ export const JAR_CURVE_CVXETHLP: JarDefinition = {
     link: "https://curve.fi/cvxeth/deposit",
     components: ["cvx", "weth"],
   },
-  rewardTokens: ["cvx", "crv"],
+  rewardTokens: ["cvx", "crv", "fxs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE,
@@ -1332,6 +1332,7 @@ export const JAR_CURVE_CVXFXS_FXS_LP: JarDefinition = {
     link: "https://curve.fi/factory-crypto/18/deposit",
     components: ["fxs", "cvxfxs"],
   },
+  rewardTokens: ["rbn"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE,
@@ -1345,7 +1346,7 @@ export const JAR_CURVE_CVXFXS_FXS_LP: JarDefinition = {
     farmDepositTokenName: "pCurve FXS/CVXFXS",
   },
 };
-JAR_DEFINITIONS.push(JAR_CURVE_CVXETHLP);
+JAR_DEFINITIONS.push(JAR_CURVE_CVXFXS_FXS_LP);
 
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
