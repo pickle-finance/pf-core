@@ -1802,6 +1802,38 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "cre8r",
+      "cre8r-dao",
+      "0x2ad402655243203fcfa7dcb62f8a08cc2ba88ae0".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "bifi",
+      "beefy-finance",
+      "0xd6070ae98b8069de6B494332d1A1a81B6179D960".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "scarab",
+      "scarab-finance",
+      "0x2e79205648B85485731CFE3025d66cF2d3B059c4".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "gscarab",
+      "gscarab",
+      "0x6ab5660f0B1f174CFA84e9977c15645e4848F5D6".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

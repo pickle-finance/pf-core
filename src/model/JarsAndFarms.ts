@@ -8344,6 +8344,258 @@ export const JAR_FANTOM_SEX_FTM: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_FTM);
 
+export const JAR_FANTOM_SPIRIT_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6a",
+  contract: "0xF4cE6E6A2480BfaB373da09336f0fF107Bd9063d",
+  depositToken: {
+    addr: "0x30748322B6E34545DBe0788C421886AEB5297789",
+    name: "SPIRIT FTM/SPIRIT",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+    components: ["ftm", "spirit"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-SPIRIT",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-SPIRIT",
+    farmDepositTokenName: "pSPIRIT FTM-SPIRIT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM);
+
+export const JAR_FANTOM_SPIRIT_FTM_TREEB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6b",
+  contract: "0xf1299FC7F719A49Fc015C8A758823d8fE5526110",
+  depositToken: {
+    addr: "0x2cEfF1982591c8B0a73b36D2A6C2A6964Da0E869",
+    name: "SPIRIT FTM/TREEB",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xc60d7067dfbc6f2caf30523a064f416a5af52963",
+    components: ["ftm", "treeb"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-TREEB",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-TREEB",
+    farmDepositTokenName: "pSPIRIT FTM-TREEB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_TREEB);
+
+export const JAR_FANTOM_SPIRIT_FTM_MAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6c",
+  contract: "0xC92445C06E705403b3696814C133AA18511d220E",
+  depositToken: {
+    addr: "0x51Eb93ECfEFFbB2f6fE6106c4491B5a0B944E8bd",
+    name: "SPIRIT FTM/MAI",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xfb98b335551a418cd0737375a2ea0ded62ea213b",
+    components: ["ftm", "mimatic"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-MAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-MAI",
+    farmDepositTokenName: "pSPIRIT FTM-MAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_MAI);
+
+export const JAR_FANTOM_SPIRIT_FTM_LQDR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6d",
+  contract: "0x6593178bFc883A57C3fcB4516276494a29B1c49B",
+  depositToken: {
+    addr: "0x4Fe6f19031239F105F753D1DF8A0d24857D0cAA2",
+    name: "SPIRIT FTM/LQDR",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+    components: ["ftm", "lqdr"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-LQDR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-LQDR",
+    farmDepositTokenName: "pSPIRIT FTM-LQDR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_LQDR);
+
+export const JAR_FANTOM_SPIRIT_FTM_FRAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6e",
+  contract: "0x43982D86a5f42ad48D2c4130FF4BB03c98414937",
+  depositToken: {
+    addr: "0x7ed0cdDB9BB6c6dfEa6fB63E117c8305479B8D7D",
+    name: "SPIRIT FTM/FRAX",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
+    components: ["ftm", "frax"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-FRAX",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-FRAX",
+    farmDepositTokenName: "pSPIRIT FTM-FRAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_FRAX);
+
+export const JAR_FANTOM_SPIRIT_FTM_DEUS: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6f",
+  contract: "0x1F16C280ad81dc9f6aF845A0aEE0b6F481De4b77",
+  depositToken: {
+    addr: "0x2599Eba5fD1e49F294C76D034557948034d6C96E",
+    name: "SPIRIT FTM/DEUS",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
+    components: ["ftm", "deus"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-DEUS",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-DEUS",
+    farmDepositTokenName: "pSPIRIT FTM-DEUS",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_DEUS);
+
+export const JAR_FANTOM_SPIRIT_FTM_CRE8R: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6g",
+  contract: "0xf90F53896a561A4eBAD71f5C10B74026e62661D5",
+  depositToken: {
+    addr: "0x459e7c947E04d73687e786E4A48815005dFBd49A",
+    name: "SPIRIT FTM/CRE8R",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0x2ad402655243203fcfa7dcb62f8a08cc2ba88ae0",
+    components: ["ftm", "cre8r"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-CRE8R",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-CRE8R",
+    farmDepositTokenName: "pSPIRIT FTM-CRE8R",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_CRE8R);
+
+export const JAR_FANTOM_SPIRIT_FTM_BIFI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6h",
+  contract: "0xE9cE4c7EA009AbC1427B7d4501eee26186b923f4",
+  depositToken: {
+    addr: "0xc28cf9aeBfe1A07A27B3A4d722C841310e504Fe3",
+    name: "SPIRIT FTM/BIFI",
+    link: "https://swap.spiritswap.finance/#/add/FTM/0xd6070ae98b8069de6B494332d1A1a81B6179D960",
+    components: ["ftm", "bifi"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-FTM-BIFI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT FTM-BIFI",
+    farmDepositTokenName: "pSPIRIT FTM-BIFI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_BIFI);
+
+export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 6i",
+  contract: "0x46C232c456d090776212C360eD63Ed192cCa560d",
+  depositToken: {
+    addr: "0x8e38543d4c764DBd8f8b98C73407457a3D3b4999",
+    name: "SPIRIT GSCARAB/SCARAB",
+    link: "https://swap.spiritswap.finance/#/add/0x6ab5660f0B1f174CFA84e9977c15645e4848F5D6/0x2e79205648B85485731CFE3025d66cF2d3B059c4",
+    components: ["gscarab", "scarab"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SPIRITSWAP,
+  stakingProtocol: AssetProtocol.SPIRITSWAP,
+  rewardTokens: ["spirit"],
+  details: {
+    apiKey: "SPIRIT-GSCARAB-SCARAB",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSPIRIT GSCARAB-SCARAB",
+    farmDepositTokenName: "pSPIRIT GSCARAB-SCARAB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

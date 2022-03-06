@@ -282,7 +282,16 @@ import {
   JAR_METIS_NETSWAP_WBTC_USDT,
   JAR_METIS_TETHYS_WBTC_METIS,
   JAR_FANTOM_SEX_FTM,
-  JAR_CURVE_CVXFXS_FXS_LP
+  JAR_CURVE_CVXFXS_FXS_LP,
+  JAR_FANTOM_SPIRIT_FTM,
+  JAR_FANTOM_SPIRIT_FTM_TREEB,
+  JAR_FANTOM_SPIRIT_FTM_MAI,
+  JAR_FANTOM_SPIRIT_FTM_LQDR,
+  JAR_FANTOM_SPIRIT_FTM_FRAX,
+  JAR_FANTOM_SPIRIT_FTM_DEUS,
+  JAR_FANTOM_SPIRIT_FTM_CRE8R,
+  JAR_FANTOM_SPIRIT_FTM_BIFI,
+  JAR_FANTOM_SPIRIT_GSCARAB_SCARAB,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -511,6 +520,7 @@ import { BooJar } from "./impl/fantom-boo-jar";
 import { BeetXJar } from "./impl/fantom-beetx-jar";
 import { SexJar } from "./impl/fantom-sex-jar";
 import { CvxfxsFxs } from "./impl/cvxfxs-fxs";
+import { SpiritJar } from "./impl/fantom-spirit-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -834,6 +844,17 @@ jarToBehavior.set(JAR_FANTOM_BEETX_USDC_DAI_MAI.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH.id, new BeetXJar());
 
 jarToBehavior.set(JAR_FANTOM_SEX_FTM.id, new SexJar());
+
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_TREEB.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_MAI.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_LQDR.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_FRAX.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_DEUS.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_CRE8R.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_BIFI.id, new SpiritJar);
+jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar);
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
