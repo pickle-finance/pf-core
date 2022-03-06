@@ -726,11 +726,11 @@ export class PickleModel {
           await Promise.all(tmpArray);
           await new Promise((resolve) => setTimeout(resolve, 4000));
         } catch (error) {
-          const start = Math.floor(i / 10);
+          const start = Math.floor(i / 10) * 10;
           this.logError(
             "ensureDepositTokenPriceLoadedOneChain ",
             error,
-            chain + " items " + start + " to " + (start + 10),
+            chain + " items " + start + " to " + (start + 9),
           );
         }
         tmpArray = [];
@@ -1415,11 +1415,11 @@ export class PickleModel {
           await new Promise((resolve) => setTimeout(resolve, 4000));
           DEBUG_OUT("loadApyComponentsOneChain 4-second delay end");
         } catch (error) {
-          const start = Math.floor(i / 10);
+          const start = Math.floor(i / 10) * 10;
           this.logError(
             "loadApyComponents ",
             error,
-            chain + " items " + start + " to " + (start + 10),
+            chain + " items " + start + " to " + (start + 9),
           );
         }
         tmpArray = [];
