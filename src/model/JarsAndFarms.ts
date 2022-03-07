@@ -6680,6 +6680,11 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
     name: "BOO 0XD/USDC",
     link: "https://spookyswap.finance/add/0xc165d941481e68696f43EE6E99BFB2B23E0E3114/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["oxd", "usdc"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, USDC
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
+    }
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
@@ -7270,6 +7275,11 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
     name: "BOO BTC/ETH",
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["btc", "eth"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, ETH
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x74b23882a30290451A17c44f4F05243b6b58C76d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -7322,6 +7332,11 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
     name: "BOO YFI/ETH",
     link: "https://spookyswap.finance/add/0x29b0Da86e484E1C0029B56e817912d778aC0EC69/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["yfi", "eth"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, ETH
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x74b23882a30290451A17c44f4F05243b6b58C76d"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -7582,6 +7597,11 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
     name: "SPIRIT DEI/USDC",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3",
     components: ["dei", "usdc"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, USDC
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
