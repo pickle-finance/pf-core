@@ -1,4 +1,4 @@
-import { AssetDocumentationDefinition, OBTAIN_KEY_MULTITOKEN_POOL, OBTAIN_KEY_ONETOKEN_POOL, OBTAIN_KEY_TWOTOKEN_POOL, OBTAIN_KEY_ZAPPER, RISK_CHAIN, RISK_MAINTAIN_PEG, RISK_SMART_CONTRACT, SOCIAL_KEY_DISCORD, SOCIAL_KEY_TELEGRAM, SOCIAL_KEY_TWITTER } from "./DocsInterfaces";
+import { AssetDocumentationDefinition, OBTAIN_KEY_MULTITOKEN_POOL_ALL, OBTAIN_KEY_MULTITOKEN_POOL_ANY, OBTAIN_KEY_ONETOKEN_POOL, OBTAIN_KEY_TWOTOKEN_POOL, OBTAIN_KEY_ZAPPER, RISK_CHAIN, RISK_MAINTAIN_PEG, RISK_SMART_CONTRACT, SocialKeys, SOCIAL_KEY_DISCORD, SOCIAL_KEY_TELEGRAM} from "./DocsInterfaces";
 
 
 export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
@@ -16,7 +16,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "USDC, USDT, DAI, sUSD",
           poolName: "sUSD",
@@ -56,7 +56,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "renBTC, wBTC",
           poolName: "renBTC",
@@ -99,7 +99,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "USDC, USDT, DAI",
           poolName: "3pool",
@@ -137,7 +137,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "ETH, stETH",
           poolName: "stETH",
@@ -173,7 +173,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "ETH, alETH",
           poolName: "alETH",
@@ -201,7 +201,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_TWOTOKEN_POOL,
         properties: {
           tokens: "LQTY",
           poolName: "Pickle jar 0.98l",
@@ -211,161 +211,6 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     risks: [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Liquity" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-    ],
-  },
-  {
-    apiKey: "SLP-DAI",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/CD2YdZzb7Z" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/DAI",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "DAI", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "SLP-USDC",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/CD2YdZzb7Z" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/USDC",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0x397ff1542f962076d0bfe58ea045ffa2d347aca0&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "SLP-USDT",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/CD2YdZzb7Z" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/USDT",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0x06da0fd433c1a5d7a4faa01111c044910a184553&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "SLP-WBTC",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/CD2YdZzb7Z" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/WBTC",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xceff51756c56ceffca006cd410b03ffc46dd3a58&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      {
-        key: RISK_MAINTAIN_PEG,
-        properties: { token: "WBTC", target: "1 BTC" },
-      },
-    ],
-  },
-  {
-    apiKey: "SLP-YFI",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/CD2YdZzb7Z" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/YFI",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0x088ee5007c98a9677165d78dd2109ae4a3d04d0c&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-    ],
-  },
-  {
-    apiKey: "FOX-ETH",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discordapp.com/invite/dVVkMhb" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/shapeshiftofficial" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/FOX",
-          poolUrl:
-            "https://zapper.fi/invest?appId=uniswap-v2&contractAddress=0x470e8de2ebaef52014a47cb5e6af86884947f08c&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Uniswap" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
     ],
   },
@@ -481,7 +326,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "USDC/USDT/DAI/MIM",
           poolName: "MIM",
@@ -504,62 +349,6 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
       { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
       { key: RISK_MAINTAIN_PEG, properties: { token: "DAI", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "SPELL-ETH",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.com/invite/wcsUNxYrFM" },
-      },
-      {
-        key: SOCIAL_KEY_TWITTER,
-        properties: { url: "https://twitter.com/MIM_Spell" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/SPELL",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xb5de0c3753b6e1b4dba616db82767f17513e6d4e&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-    ],
-  },
-  {
-    apiKey: "MIM-ETH",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.com/invite/wcsUNxYrFM" },
-      },
-      {
-        key: SOCIAL_KEY_TWITTER,
-        properties: { url: "https://twitter.com/MIM_Spell" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/MIM",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0x07d5695a24904cc1b6e3bd57cc7780b90618e3c4&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
     ],
   },
   {
@@ -662,30 +451,6 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
         key: RISK_MAINTAIN_PEG,
         properties: { token: "MBABA", target: "BABA stock" },
       },
-    ],
-  },
-  {
-    apiKey: "SUSHI-ETH",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/CD2YdZzb7Z" },
-      },
-    ],
-    obtain: [
-      { key: OBTAIN_KEY_TWOTOKEN_POOL },
-      {
-        key: OBTAIN_KEY_ZAPPER,
-        properties: {
-          poolName: "ETH/SUSHI",
-          poolUrl:
-            "https://zapper.fi/invest?appId=sushiswap&contractAddress=0x795065dcc9f64b5614c407a6efdc400da6221fb0&modal=pool-deposit",
-        },
-      },
-    ],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushiswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
     ],
   },
   {
@@ -906,61 +671,72 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
   },
   {
-    apiKey: "COMETH-USDC",
+    apiKey: "LOOKS",
     social: [
       {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/mcXn2R2QRx" },
+        key: SocialKeys.SOCIAL_KEY_DISCORD_NAME,
+        properties: { name: "LOOKSRARE", url: "https://discord.gg/looksrare" },
       },
       {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/cometh_io" },
+        key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
+        properties: { name: "LOOKSRARE", url: "https://twitter.com/looksrarenft" },
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
+        properties: { name: "LOOKSRARE", url: "https://looksrare.org/"},
       },
     ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
+    obtain: [
+      {
+        key: OBTAIN_KEY_ONETOKEN_POOL,
+        properties: {
+          token: "looks",
+        },
+      },
+    ],
     risks: [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "LooksRare" } },
     ],
-  },
+  },  
   {
-    apiKey: "COMETH-PICKLE",
+    apiKey: "saddled4",
     social: [
       {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/mcXn2R2QRx" },
+        key: SocialKeys.SOCIAL_KEY_DISCORD_NAME,
+        properties: { name: "Saddle", url: "https://discord.gg/saddle" },
       },
       {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/cometh_io" },
+        key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
+        properties: { name: "Saddle", url: "https://twitter.com/saddlefinance" },
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
+        properties: { name: "Saddle", url: "https://saddle.finance/#/"},
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_TELEGRAM_NAME,
+        properties: { name: "Saddle", url: "https://t.me/saddle_finance"},
       },
     ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
+    obtain: [
+      {
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ALL,
+        properties: {
+          tokens: "alusd, fei, frax, and lusd",
+          protocol: "Saddle Finance",
+          link: "https://saddle.exchange/#/pools/d4/deposit",
+          poolName: "D-4",
+        },
+      },
+    ],
     risks: [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-    ],
-  },
-  {
-    apiKey: "COMETH-MATIC",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/mcXn2R2QRx" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/cometh_io" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Cometh" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Saddle" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "AlUSD", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "Fei", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "Frax", target: "$1" } },
+      { key: RISK_MAINTAIN_PEG, properties: { token: "LUSD", target: "$1" } },
     ],
   },
   {
@@ -981,7 +757,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "AAVE" } },
       { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
     ],
-  },
+  },    
   {
     apiKey: "am3CRV",
     social: [
@@ -996,7 +772,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "DAI, USDC, USDT",
           poolName: "am3CRV",
@@ -1015,104 +791,6 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
   },
   {
-    apiKey: "PSLP-USDT",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.com/invite/6PNv2nF" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/yearnfinance" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "PSLP-MATIC",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.com/invite/6PNv2nF" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/yearnfinance" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-    ],
-  },
-  {
-    apiKey: "PSLP-PICKLE",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.com/invite/6PNv2nF" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/yearnfinance" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-    ],
-  },
-  {
-    apiKey: "QLP-MIMATIC",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/mQq55j65xJ" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/QiDaoProtocol" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Quickswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Qi Dao" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-    ],
-  },
-  {
-    apiKey: "QLP-QI",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/mQq55j65xJ" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/QiDaoProtocol" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Quickswap" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Qi Dao" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-    ],
-  },
-  {
     apiKey: "IS3USD",
     social: [
       {
@@ -1126,7 +804,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "USDC, USDT, DAI",
           poolName: "IS3USD",
@@ -1144,76 +822,6 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
   },
   {
-    apiKey: "DINO-USDC",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/MMcNJJQy4y" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/DinoSwapOfficial" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "DINO-WETH",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/MMcNJJQy4y" },
-      },
-      {
-        key: SOCIAL_KEY_TELEGRAM,
-        properties: { url: "https://t.me/DinoSwapOfficial" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
-    ],
-  },
-  {
-    apiKey: "ArbitrumSlpMimEth",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/wcsUNxYrFM" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Arbitrum" } },
-      { key: RISK_MAINTAIN_PEG, properties: { token: "MIM", target: "$1" } },
-    ],
-  },
-  {
-    apiKey: "ArbitrumSlpSpellEth",
-    social: [
-      {
-        key: SOCIAL_KEY_DISCORD,
-        properties: { url: "https://discord.gg/wcsUNxYrFM" },
-      },
-    ],
-    obtain: [{ key: OBTAIN_KEY_TWOTOKEN_POOL }],
-    risks: [
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
-      { key: RISK_SMART_CONTRACT, properties: { protocol: "Sushi" } },
-      { key: RISK_CHAIN, properties: { protocol: "Arbitrum" } },
-    ],
-  },
-  {
     apiKey: "Mim2CRV",
     social: [
       {
@@ -1227,7 +835,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_MULTITOKEN_POOL,
+        key: OBTAIN_KEY_MULTITOKEN_POOL_ANY,
         properties: {
           tokens: "USDC, USDT, MIM",
           poolName: "Mim2CRV",

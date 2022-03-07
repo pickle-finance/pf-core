@@ -6,7 +6,8 @@ import {
   AssetDocumentationResult,
   BALANCER_REWARDS_JAR_DESCRIPTION,
   CURVE_REWARDS_JAR_DESCRIPTION,
-  OBTAIN_KEY_MULTITOKEN_POOL,
+  OBTAIN_KEY_MULTITOKEN_POOL_ALL,
+  OBTAIN_KEY_MULTITOKEN_POOL_ANY,
   OBTAIN_KEY_ONETOKEN_POOL,
   OBTAIN_KEY_TWOTOKEN_POOL,
   OBTAIN_KEY_UNIV3,
@@ -83,7 +84,7 @@ export function getObtainTranslationProperties(asset: PickleAsset, obtainKey: st
         link: asset.depositToken.link,
       };
     }
-  } else if (obtainKey === OBTAIN_KEY_MULTITOKEN_POOL) {
+  } else if (obtainKey === OBTAIN_KEY_MULTITOKEN_POOL_ANY || obtainKey === OBTAIN_KEY_MULTITOKEN_POOL_ALL) {
     properties = properties ? properties : {};
     properties.protocol = properties.protocol
       ? properties.protocol
@@ -166,7 +167,7 @@ export function generateBalancerStyleDocumentation(asset: PickleAsset): AssetDoc
 export function generateCurveStyleDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
   const desc: TranslationKeyWithProperties = {key: CURVE_REWARDS_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
   let obtain: TranslationKeyWithProperties[] = [];
-  obtain.push({ key: OBTAIN_KEY_MULTITOKEN_POOL });
+  obtain.push({ key: OBTAIN_KEY_MULTITOKEN_POOL_ANY });
   obtain = obtain.concat(getZapObtains(asset));
   return generateAllStyleDocumentation(asset, desc, obtain);
 }

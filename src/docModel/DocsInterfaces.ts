@@ -6,8 +6,10 @@ export const BALANCER_REWARDS_JAR_DESCRIPTION = "asset.description.balancer.rewa
 export const CURVE_REWARDS_JAR_DESCRIPTION = "asset.description.curve.rewards.lp";
 
 export const OBTAIN_KEY_ONETOKEN_POOL = "obtain.pool.onetoken";
+export const OBTAIN_KEY_ONETOKEN_JAR = "obtain.pool.onetoken.jar";
 export const OBTAIN_KEY_TWOTOKEN_POOL = "obtain.pool.twotoken";
-export const OBTAIN_KEY_MULTITOKEN_POOL = "obtain.pool.multitoken";
+export const OBTAIN_KEY_MULTITOKEN_POOL_ANY = "obtain.pool.multitoken";
+export const OBTAIN_KEY_MULTITOKEN_POOL_ALL = "obtain.pool.multitoken.all";
 export const OBTAIN_KEY_UNIV3 = "obtain.pool.uni3";
 export const OBTAIN_KEY_ZAPPER = "obtain.pool.zapper";
 
