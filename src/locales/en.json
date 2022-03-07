@@ -10,7 +10,7 @@
   "obtain.pool.multitoken": "Deposit any of {{tokens}} into {{protocol}}'s PFLINK<{{poolName}}><{{{link}}}> pool.",
   "obtain.pool.multitoken.all": "Deposit all of {{tokens}} into {{protocol}}'s PFLINK<{{poolName}}><{{{link}}}> pool.",
   "obtain.pool.onetoken": "Deposit {{token}} in {{protocol}}'s PFLINK<{{poolName}}><{{{link}}}> pool.",
-  "obtain.pool.onetoken.jar": "Deposit {{token}} into this jar directly.",
+  "obtain.pool.onetoken.jar": "Deposit {{token}} into this asset directly.",
   "obtain.pool.zapper": "Zap using Zapper's PFLINK<{{poolName}}><{{{poolUrl}}}> pool.",
   "obtain.pool.uni3": "Deposit {{token1}} and {{token2}} into the pickle jar directly.",
   "risk.smart.contract": "Smart contract issues with {{protocol}}.",
@@ -50,5 +50,6 @@
   "IS3USD.desc": "A Curve strategy for PFLINK<IS3USD><https://app.iron.finance/swap/pools/is3usd/deposit> pool (IS3USD pool employs the 3 most popular stablecoins to peg to US$1 and the switching between them to be stable at $1, learn more about PFLINK<DAI><https://makerdao.com/en/>, PFLINK<USDC><https://www.circle.com/en/usdc>, and PFLINK<USDT><https://tether.to>. Read more about Iron Finance PFLINK<here><https://docs.iron.finance>. ICE reward is reinvested for more LP.",
   "Mim2CRV.desc": "A Curve strategy for PFLINK<MIM2CRV><https://arbitrum.curve.fi/factory/0/deposit> MIM2CRV pool employs a basket of 3 stablecoins to peg to US$1 and the switching between them to be stable at $1, learn more about PFLINK<MIM><https://docs.abracadabra.money>. SPELL reward is reinvested for more MIM2CRV.",
   "LOOKS.desc": "A LooksRare strategy for single-staking the PFLINK<looks><https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xf4d2888d29d722226fafa5d9b24f9164c092421e> token into a LooksRare reward contract. Stakers earn a share of the platform's ETH fees. This strategy sells the ETH to buy more LOOKS.",
-  "saddled4.desc": "A Saddle strategy for earning yield on 4 dollar-coins (AlUSD, Fei, Frax, and LUSD). This strategy accepts the PFLINK<deposit token><https://saddle.exchange/#/pools/d4/deposit> and stakes it in the rewarder contract, which earns FXS, LQTY, ALCX, and Tribe rewards. All rewards are then sold off and used to buy more LP."
+  "saddled4.desc": "A Saddle strategy for earning yield on 4 dollar-coins (AlUSD, Fei, Frax, and LUSD). This strategy accepts the PFLINK<deposit token><https://saddle.exchange/#/pools/d4/deposit> and stakes it in the rewarder contract, which earns FXS, LQTY, ALCX, and Tribe rewards. All rewards are then sold off and used to buy more LP.",
+  "PBAMM.desc": "This jar deposits into B.Protocol's Backstop AMM. All ETH liquidations are automatically sold back into users' LUSD positions and all LQTY rewards are staked in the Pickle Jar, which compounds ETH and LUSD rewards. pLQTY is automatically harvested upon withdrawing or depositing."
 }

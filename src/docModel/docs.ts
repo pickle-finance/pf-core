@@ -1,4 +1,4 @@
-import { AssetDocumentationDefinition, OBTAIN_KEY_MULTITOKEN_POOL_ALL, OBTAIN_KEY_MULTITOKEN_POOL_ANY, OBTAIN_KEY_ONETOKEN_POOL, OBTAIN_KEY_TWOTOKEN_POOL, OBTAIN_KEY_ZAPPER, RISK_CHAIN, RISK_MAINTAIN_PEG, RISK_SMART_CONTRACT, SocialKeys, SOCIAL_KEY_DISCORD, SOCIAL_KEY_TELEGRAM} from "./DocsInterfaces";
+import { AssetDocumentationDefinition, OBTAIN_KEY_MULTITOKEN_POOL_ALL, OBTAIN_KEY_MULTITOKEN_POOL_ANY, OBTAIN_KEY_ONETOKEN_JAR, OBTAIN_KEY_ONETOKEN_POOL, OBTAIN_KEY_TWOTOKEN_POOL, OBTAIN_KEY_ZAPPER, RISK_CHAIN, RISK_MAINTAIN_PEG, RISK_SMART_CONTRACT, SocialKeys, SOCIAL_KEY_DISCORD, SOCIAL_KEY_TELEGRAM} from "./DocsInterfaces";
 
 
 export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
@@ -851,6 +851,35 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_MAINTAIN_PEG, properties: { token: "USDC", target: "$1" } },
       { key: RISK_MAINTAIN_PEG, properties: { token: "USDT", target: "$1" } },
       { key: RISK_MAINTAIN_PEG, properties: { token: "MIM", target: "$1" } },
+    ],
+  },
+  {
+    apiKey: "PBAMM",
+    social: [
+      {
+        key: SocialKeys.SOCIAL_KEY_DISCORD_NAME,
+        properties: { name: "B.Protocol", url: "https://discord.gg/bJ4guuw" },
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
+        properties: { name: "B.Protocol", url: "https://twitter.com/bprotocoleth" },
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
+        properties: { name: "B.Protocol", url: "https://www.bprotocol.org/"},
+      },
+    ],
+    obtain: [
+      {
+        key: OBTAIN_KEY_ONETOKEN_JAR,
+        properties: {
+          token: "LUSD",
+        },
+      },
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "B.Protocol" } },
     ],
   },
 ];
