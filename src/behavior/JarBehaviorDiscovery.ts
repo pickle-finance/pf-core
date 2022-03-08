@@ -281,7 +281,7 @@ import {
   JAR_METIS_NETSWAP_WBTC_METIS,
   JAR_METIS_NETSWAP_WBTC_USDT,
   JAR_METIS_TETHYS_WBTC_METIS,
-  JAR_FANTOM_SEX_FTM,
+  JAR_FANTOM_V_SEX_FTM,
   JAR_CURVE_CVXFXS_FXS_LP,
   JAR_FANTOM_SPIRIT_FTM,
   JAR_FANTOM_SPIRIT_FTM_TREEB,
@@ -292,6 +292,43 @@ import {
   JAR_FANTOM_SPIRIT_FTM_CRE8R,
   JAR_FANTOM_SPIRIT_FTM_BIFI,
   JAR_FANTOM_SPIRIT_GSCARAB_SCARAB,
+  JAR_FANTOM_SEX_S_BTC_RENBTC,
+  JAR_FANTOM_SEX_S_USDC_MIM,
+  JAR_FANTOM_SEX_V_FTM_TOMB,
+  JAR_FANTOM_SEX_V_FTM_CRV,
+  JAR_FANTOM_SEX_V_FXS_FRAX,
+  JAR_FANTOM_SEX_V_USDC_OXD,
+  JAR_FANTOM_SEX_V_YFI_WOOFY,
+  JAR_FANTOM_SEX_V_USDC_SYN,
+  JAR_FANTOM_SEX_V_FTM_YFI,
+  JAR_FANTOM_SEX_V_FTM_OATH,
+  JAR_FANTOM_SEX_V_FTM_MULTI,
+  JAR_FANTOM_SEX_S_SOLID_SOLIDSEX,
+  JAR_FANTOM_SEX_V_FTM_LQDR,
+  JAR_FANTOM_SEX_V_FTM_HND,
+  JAR_FANTOM_SEX_V_FTM_IB,
+  JAR_FANTOM_SEX_V_FTM_GEIST,
+  JAR_FANTOM_SEX_V_BIFI_MAI,
+  // JAR_FANTOM_SEX_V_FTM_SCREAM,
+  JAR_FANTOM_SEX_V_CRV_G3CRV,
+  JAR_FANTOM_SEX_S_FTM_BEFTM,
+  JAR_FANTOM_SEX_V_FTM_SOLIDSEX,
+  JAR_FANTOM_SEX_S_USDC_DAI,
+  JAR_FANTOM_SEX_V_FTM_SYN,
+  JAR_FANTOM_SEX_V_TAROT_XTAROT,
+  JAR_FANTOM_SEX_S_USDC_DEI,
+  JAR_FANTOM_SEX_V_FTM_RDL,
+  JAR_FANTOM_SEX_V_GEIST_G3CRV,
+  JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV,
+  JAR_FANTOM_SEX_V_FTM_USDC,
+  JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT,
+  JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT,
+  JAR_FANTOM_SEX_V_FTM_SOLID,
+  JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT,
+  JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT,
+  JAR_FANTOM_SEX_V_USDC_DAI,
+  JAR_FANTOM_SEX_V_FTM_TAROT,
+  JAR_FANTOM_SEX_V_CRE8R_BOMB,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -843,7 +880,45 @@ jarToBehavior.set(JAR_FANTOM_BEETX_FTM_USDC.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_DAI_MAI.id, new BeetXJar());
 jarToBehavior.set(JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH.id, new BeetXJar());
 
-jarToBehavior.set(JAR_FANTOM_SEX_FTM.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_V_SEX_FTM.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_BTC_RENBTC.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_USDC_MIM.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_TOMB.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_CRV.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FXS_FRAX.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_USDC_OXD.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_YFI_WOOFY.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_USDC_SYN.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_YFI.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_OATH.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_MULTI.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_SOLID_SOLIDSEX.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_LQDR.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_HND.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_IB.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_GEIST.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_BIFI_MAI.id, new SexJar());
+// jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_SCREAM.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_CRV_G3CRV.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_FTM_BEFTM.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_SOLIDSEX.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_USDC_DAI.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_SYN.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_TAROT_XTAROT.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_USDC_DEI.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_RDL.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_GEIST_G3CRV.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_USDC.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_SOLID.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_USDC_DAI.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_TAROT.id, new SexJar());
+jarToBehavior.set(JAR_FANTOM_SEX_V_CRE8R_BOMB.id, new SexJar());
+
 
 jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM.id, new SpiritJar);
 jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_TREEB.id, new SpiritJar);
