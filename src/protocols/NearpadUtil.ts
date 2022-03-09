@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import sushiChefAbi from "../Contracts/ABIs/sushi-chef.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -31,22 +31,22 @@ export async function calculatePadFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
-
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = padPoolIds[jar.depositToken.addr];
-  const multicallPadFarms = new MulticallContract(PAD_FARMS, sushiChefAbi);
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallPadFarms = new MultiContract(PAD_FARMS, sushiChefAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [padPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallPadFarms.sushiPerBlock(),
-      multicallPadFarms.totalAllocPoint(),
-      multicallPadFarms.poolInfo(poolId),
-      lpToken.balanceOf(PAD_FARMS),
-    ]);
+    await model.comMan.call(
+      [
+        () => multicallPadFarms.sushiPerBlock(),
+        () => multicallPadFarms.totalAllocPoint(),
+        () => multicallPadFarms.poolInfo(poolId),
+        () => lpToken.balanceOf(PAD_FARMS),
+      ],
+      jar.chain,
+    );
 
   const rewardsPerBlock =
     (parseFloat(formatEther(padPerBlockBN)) * poolInfo.allocPoint.toNumber()) /

@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import {
   AssetAprComponent,
   AssetProjectedApr,
@@ -11,7 +9,6 @@ import {
   aprComponentsToProjectedAprImpl,
   createAprComponentImpl,
 } from "../AbstractJarBehavior";
-import { Chains } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateMCv2SushiRewards,
@@ -29,12 +26,10 @@ export abstract class SushiJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["sushi"],
       this.strategyAbi,
     );
@@ -101,7 +96,6 @@ export const chefV2AprStatsStatic = async (
     definition.depositToken.addr,
     rewardToken,
     model,
-    Chains.get(definition.chain).getProviderOrSigner(),
     definition.chain,
   );
   const tokenAprComp: AssetAprComponent = createAprComponentImpl(

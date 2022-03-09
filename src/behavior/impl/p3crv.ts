@@ -1,6 +1,4 @@
-import { Contract, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
+import { ethers } from "ethers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   AbstractJarBehavior,
@@ -9,7 +7,7 @@ import {
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import { getCurveRawStats } from "./curve-jar";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
@@ -91,6 +89,21 @@ const aaveContracts = {
   ],
 };
 
+// changed stateMutability to view to allow calling the function as constant
+const curveThirdPartyGaugeAbi = [
+  {
+    stateMutability: "view",
+    type: "function",
+    name: "claimable_reward_write",
+    inputs: [
+      { name: "_addr", type: "address" },
+      { name: "_token", type: "address" },
+    ],
+    outputs: [{ name: "", type: "uint256" }],
+    // gas: "2067577",
+  },
+];
+
 export class PThreeCrv extends AbstractJarBehavior {
   constructor() {
     super();
@@ -110,25 +123,28 @@ export class PThreeCrv extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const gauge = new ethers.Contract(
+    const gauge = new MultiContract(
       "0x19793B454D3AfC7b454F206Ffe95aDE26cA6912c",
       curveThirdPartyGaugeAbi,
-      resolver,
     );
-    const [matic, maticPrice, crv, crvPrice] = await Promise.all([
-      gauge.callStatic.claimable_reward_write(
-        jar.details.strategyAddr,
-        model.address("matic", ChainNetwork.Polygon),
-      ),
-      model.priceOfSync("matic", jar.chain),
-      gauge.callStatic.claimable_reward_write(
-        jar.details.strategyAddr,
-        model.address("crv", ChainNetwork.Polygon),
-      ),
-      model.priceOfSync("crv", jar.chain),
-    ]);
+    const [matic, crv] = await model.comMan.call(
+      [
+        () =>
+          gauge.claimable_reward_write(
+            jar.details.strategyAddr,
+            model.address("matic", ChainNetwork.Polygon),
+          ),
+        () =>
+          gauge.claimable_reward_write(
+            jar.details.strategyAddr,
+            model.address("crv", ChainNetwork.Polygon),
+          ),
+      ],
+      jar.chain,
+    );
+    const maticPrice = model.priceOfSync("matic", jar.chain);
+    const crvPrice = model.priceOfSync("crv", jar.chain);
 
     const harvestable = matic
       .mul(maticPrice.toFixed())
@@ -140,16 +156,13 @@ export class PThreeCrv extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-
-    const [
-      lpBalance, // Balance staked in gauge
-    ] = await multicallProvider.all([
-      lpToken.balanceOf(aaveContracts.gauge_address),
-    ]);
+    const lpBalance = await model.comMan.call(
+      // Balance staked in gauge
+      () => lpToken.balanceOf(aaveContracts.gauge_address),
+      jar.chain,
+    );
 
     const yearlyRewards = await this.getRewardsAprs(jar, model);
     const rewardsAprComponents = yearlyRewards.map((reward) => {
@@ -192,25 +205,23 @@ export class PThreeCrv extends AbstractJarBehavior {
           let periodFinish: number;
           const price = model.priceOfSync(reward.token, jar.chain);
           if (reward.id === "crv") {
-            const rewardStreamer = new Contract(
-              reward.stream,
-              reward.abi,
-              model.providerFor(jar.chain),
-            );
+            const rewardStreamer = new MultiContract(reward.stream, reward.abi);
             const { period_finish: periodFinishBN, rate: rateBN } =
-              await rewardStreamer.reward_data(reward.token);
+              await model.comMan.call(
+                () => rewardStreamer.reward_data(reward.token),
+                jar.chain,
+              );
             rewardRate = +formatUnits(rateBN, reward.decimals);
             periodFinish = +formatUnits(periodFinishBN, 0);
           } else {
-            const rewardStreamer = new Contract(
-              reward.stream,
-              reward.abi,
-              model.providerFor(jar.chain),
+            const rewardStreamer = new MultiContract(reward.stream, reward.abi);
+            const [periodFinishBN, rateBN] = await model.comMan.call(
+              [
+                () => rewardStreamer.period_finish(),
+                () => rewardStreamer.reward_rate(),
+              ],
+              jar.chain,
             );
-            const [periodFinishBN, rateBN] = await Promise.all([
-              rewardStreamer.period_finish(),
-              rewardStreamer.reward_rate(),
-            ]);
             rewardRate = +formatUnits(rateBN, reward.decimals);
             periodFinish = +formatUnits(periodFinishBN, 0);
           }

@@ -1,10 +1,10 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateTriFarmsAPY,
+  triPoolIds,
   triPoolV2Ids,
+  TRI_FARMS,
   TRI_V2_FARMS,
 } from "../../protocols/TrisolarisUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
@@ -18,27 +18,31 @@ export abstract class AuroraTriDualJar extends AuroraMultistepHarvestJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const harvestable =
-      (await this.getHarvestableUSDDefaultImplementation(
-        jar,
-        model,
-        resolver,
-        ["tri", "aurora"],
-        this.strategyAbi,
-      )) ||
-      (await this.getHarvestableUSDMasterchefImplementation(
-        jar,
-        model,
-        resolver,
-        ["tri"],
-        TRI_V2_FARMS,
-        "pendingTri",
-        triPoolV2Ids[jar.depositToken.addr].poolId,
-      ));
+    let chefAddress: string;
+    let poolId: number;
+    if (triPoolIds[jar.depositToken.addr] !== undefined) {
+      chefAddress = TRI_FARMS;
+      poolId = triPoolIds[jar.depositToken.addr];
+    } else if (triPoolV2Ids[jar.depositToken.addr] !== undefined) {
+      chefAddress = TRI_V2_FARMS;
+      poolId = triPoolV2Ids[jar.depositToken.addr].poolId;
+    } else {
+      model.logError(
+        `getHarvestableUSD [${jar.details.apiKey}]`,
+        `Token ${jar.depositToken.addr} has no registered poolId`,
+      );
+    }
 
-    return harvestable;
+    // Some strategies' getHarvestable is broken, using default implementation is not possible
+    return this.getHarvestableUSDMasterchefComManImplementation(
+      jar,
+      model,
+      ["tri" /* "aurora" */], // Trisolaris Aurora bonus rewards has ended
+      chefAddress,
+      "pendingTri",
+      poolId,
+    );
   }
 
   async getProjectedAprStats(

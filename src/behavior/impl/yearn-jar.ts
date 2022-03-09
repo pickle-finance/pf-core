@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import {
   AssetProjectedApr,
@@ -16,6 +16,7 @@ import {
   JAR_USDC,
 } from "../../model/JarsAndFarms";
 import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export class YearnJar extends AbstractJarBehavior {
   constructor() {
@@ -27,16 +28,13 @@ export class YearnJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<HistoricalYield> {
     const yearnData = await getYearnData(model);
-    const yearnRegistry = new ethers.Contract(
+    const yearnRegistry = new MultiContract(
       "0x50c1a2ea0a861a967d9d0ffe2ae4012c2e053804",
       YearnRegistryABI,
-      model.providerFor(definition.chain),
     );
-    const vaultAddress = await yearnRegistry.latestVault(
-      definition.depositToken.addr,
-      {
-        gasLimit: 1000000,
-      },
+    const vaultAddress = await model.comMan.call(
+      () => yearnRegistry.latestVault(definition.depositToken.addr),
+      definition.chain,
     );
     const vaultData = yearnData.find(
       (vault) => vault.address.toLowerCase() == vaultAddress.toLowerCase(),
@@ -53,6 +51,41 @@ export class YearnJar extends AbstractJarBehavior {
       };
     }
   }
+
+  /*
+      This is the old getProtocolApy implementation, leaving it here for historical reference
+  */
+  // async getProtocolApy(
+  //   definition: JarDefinition,
+  //   model: PickleModel,
+  // ): Promise<HistoricalYield> {
+  //   const yearnData = await getYearnData(model);
+  //   const yearnRegistry = new ethers.Contract(
+  //     "0x50c1a2ea0a861a967d9d0ffe2ae4012c2e053804",
+  //     YearnRegistryABI,
+  //     model.providerFor(definition.chain),
+  //   );
+  //   const vaultAddress = await yearnRegistry.latestVault(
+  //     definition.depositToken.addr,
+  //     {
+  //       gasLimit: 1000000,
+  //     },
+  //   );
+  //   const vaultData = yearnData.find(
+  //     (vault) => vault.address.toLowerCase() == vaultAddress.toLowerCase(),
+  //   );
+  //   if (vaultData) {
+  //     const v = vaultData
+  //       ? Math.floor(vaultData.apy.net_apy * 100 * 100) / 100
+  //       : 0;
+  //     return {
+  //       d1: v,
+  //       d3: v,
+  //       d7: v,
+  //       d30: v,
+  //     };
+  //   }
+  // }
 
   async getDepositTokenPrice(
     definition: JarDefinition,

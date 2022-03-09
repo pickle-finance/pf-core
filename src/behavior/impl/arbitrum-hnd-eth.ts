@@ -1,9 +1,4 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
@@ -31,12 +26,10 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["dodo"],
       this.strategyAbi,
     );
@@ -46,17 +39,17 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const multicallProvider: MulticallProvider = model.multicallProviderFor(
+    const rewardsAddr = "0x23fFB3687d3800FDDde75E7e604392fEa15c8757"; // HND-ETH
+    const mcDodoRewards = new MultiContract(rewardsAddr, mcdodoAbi);
+
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const [dodoInfo, totalSupplyBN] = await model.comMan.call(
+      [
+        () => mcDodoRewards.rewardTokenInfos(0),
+        () => lpToken.balanceOf(rewardsAddr),
+      ],
       jar.chain,
     );
-    const rewardsAddr = "0x23fFB3687d3800FDDde75E7e604392fEa15c8757"; // HND-ETH
-    const mcDodoRewards = new MulticallContract(rewardsAddr, mcdodoAbi);
-
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-    const [dodoInfo, totalSupplyBN] = await multicallProvider.all([
-      mcDodoRewards.rewardTokenInfos(0),
-      lpToken.balanceOf(rewardsAddr),
-    ]);
 
     const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
     const totalSupply = +formatEther(totalSupplyBN);

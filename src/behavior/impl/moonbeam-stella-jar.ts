@@ -1,10 +1,8 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import stellaFarmsAbi from "../../Contracts/ABIs/stella-farms.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
@@ -36,12 +34,10 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["stella"],
       this.strategyAbi,
     );
@@ -63,22 +59,23 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
     const poolId = stellaPoolIds[jar.depositToken.addr];
-    const multicallStellaFarms = new MulticallContract(
+    const multicallStellaFarms = new MultiContract(
       STELLA_FARMS,
       stellaFarmsAbi,
     );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [stellaPerBlockBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallStellaFarms.stellaPerBlock(),
-        multicallStellaFarms.totalAllocPoint(),
-        multicallStellaFarms.poolInfo(poolId),
-        lpToken.balanceOf(STELLA_FARMS),
-      ]);
+      await model.comMan.call(
+        [
+          () => multicallStellaFarms.stellaPerBlock(),
+          () => multicallStellaFarms.totalAllocPoint(),
+          () => multicallStellaFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(STELLA_FARMS),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerYear =
       (parseFloat(formatEther(stellaPerBlockBn)) *

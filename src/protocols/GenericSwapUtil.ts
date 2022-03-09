@@ -1,5 +1,5 @@
 import { ChainNetwork, PickleModel } from "..";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import {
   AssetProtocol,
   HistoricalYield,
@@ -219,8 +219,6 @@ export async function getLivePairDataFromContracts(
   model: PickleModel,
   depositTokenDecimals: number,
 ): Promise<IPairData> {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
   const pairAddress: string = jar.depositToken.addr;
 
   const componentA = jar.depositToken.components[0];
@@ -229,16 +227,18 @@ export async function getLivePairDataFromContracts(
   const addressB = model.address(componentB, jar.chain);
 
   // setup contracts
-  const tokenA = new MulticallContract(addressA, erc20Abi);
-  const tokenB = new MulticallContract(addressB, erc20Abi);
-  const pair = new MulticallContract(pairAddress, erc20Abi);
+  const tokenA = new MultiContract(addressA, erc20Abi);
+  const tokenB = new MultiContract(addressB, erc20Abi);
+  const pair = new MultiContract(pairAddress, erc20Abi);
 
-  const [numAInPairBN, numBInPairBN, totalSupplyBN] =
-    await multicallProvider?.all([
-      tokenA.balanceOf(pairAddress),
-      tokenB.balanceOf(pairAddress),
-      pair.totalSupply(),
-    ]);
+  const [numAInPairBN, numBInPairBN, totalSupplyBN] = await model.comMan.call(
+    [
+      () => tokenA.balanceOf(pairAddress),
+      () => tokenB.balanceOf(pairAddress),
+      () => pair.totalSupply(),
+    ],
+    jar.chain,
+  );
   // get num of tokens
   const numAInPair =
     numAInPairBN / Math.pow(10, model.tokenDecimals(componentA, jar.chain));

@@ -1,5 +1,4 @@
 import { ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import {
   AssetAprComponent,
@@ -8,15 +7,13 @@ import {
 } from "../../model/PickleModelJson";
 import curveGaugeAbi from "../../Contracts/ABIs/curve-gauge.json";
 import poolAbi from "../../Contracts/ABIs/pool.json";
-import { Contract as MulticallContract } from "ethers-multicall";
-import { ChainNetwork, Chains } from "../../chain/Chains";
-import {
-  GaugeController,
-  GaugeController__factory,
-} from "../../Contracts/ContractsImpl";
+import controllerAbi from "../../Contracts/ABIs/gauge-controller.json";
+import { Contract as MultiContract } from "ethers-multicall";
+import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import fetch from "cross-fetch";
 import { getCurvePerformance } from "../../protocols/CurveUtil";
+import { Provider } from "@ethersproject/providers";
 
 export const GAUGE_CONTROLLER_ADDR =
   "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB";
@@ -111,26 +108,24 @@ export abstract class CurveJar extends AbstractJarBehavior {
     gauge: string,
     pool: string,
   ): Promise<AssetAprComponent> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-    const mcGauge = new MulticallContract(gauge, curveGaugeAbi);
-    const mcPool = new MulticallContract(pool, poolAbi);
+    const mcGauge = new MultiContract(gauge, curveGaugeAbi);
+    const mcPool = new MultiContract(pool, poolAbi);
 
     const [workingSupply, gaugeRate, virtualPrice] = (
-      await multicallProvider.all([
-        mcGauge.working_supply(),
-        mcGauge.inflation_rate(),
-        mcPool.get_virtual_price(),
-      ])
+      await model.comMan.call(
+        [
+          () => mcGauge.working_supply(),
+          () => mcGauge.inflation_rate(),
+          () => mcPool.get_virtual_price(),
+        ],
+        jar.chain,
+      )
     ).map((x) => parseFloat(ethers.utils.formatUnits(x)));
 
-    const ctrlr: GaugeController = GaugeController__factory.connect(
-      GAUGE_CONTROLLER_ADDR,
-      Chains.getResolver(jar.chain),
-    );
-    const weight = await ctrlr["gauge_relative_weight(address)"](gauge).then(
-      (x) => parseFloat(ethers.utils.formatUnits(x)),
-    );
+    const ctrlr = new MultiContract(GAUGE_CONTROLLER_ADDR, controllerAbi);
+    const weight = await model.comMan
+      .call(() => ctrlr.gauge_relative_weight(gauge), jar.chain)
+      .then((x) => parseFloat(ethers.utils.formatUnits(x)));
 
     // https://github.com/curvefi/curve-dao/blob/b7d6d2b6633fd64aa44e80094f6fb5f17f5e771a/src/components/minter/gaugeStore.js#L212
     const rate =
@@ -151,10 +146,8 @@ export abstract class CurveJar extends AbstractJarBehavior {
       curveGaugeAbi,
       resolver,
     );
-    const [crv, crvPrice] = await Promise.all([
-      gauge.callStatic.claimable_tokens(jar.details.strategyAddr),
-      model.priceOfSync("curve-dao-token", jar.chain),
-    ]);
+    const crv = await gauge.callStatic.claimable_tokens(jar.details.strategyAddr);  // state-mutating call. cannot be multicalled :(
+    const crvPrice = model.priceOfSync("curve-dao-token", jar.chain);
     const harvestable = crv.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }

@@ -1,11 +1,9 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
@@ -23,12 +21,10 @@ export class NewoUsdc extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["newo"],
       this.strategyAbi,
     );
@@ -58,18 +54,18 @@ export class NewoUsdc extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
-    const multicallUniStakingRewards = new MulticallContract(
+    const multicallUniStakingRewards = new MultiContract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await multicallProvider.all([
-      multicallUniStakingRewards.rewardRate(),
-      multicallUniStakingRewards.totalSupply(),
-    ]);
+    const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+      [
+        () => multicallUniStakingRewards.rewardRate(),
+        () => multicallUniStakingRewards.totalSupply(),
+      ],
+      jar.chain,
+    );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rewardRate = parseFloat(formatEther(rewardRateBN));

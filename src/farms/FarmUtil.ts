@@ -1,14 +1,10 @@
 import { ChainNetwork, IChain } from "..";
 import { Chains } from "../chain/Chains";
 import { ADDRESSES, NULL_ADDRESS, PickleModel } from "../model/PickleModel";
-import { Provider } from "@ethersproject/providers";
-import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
 import MinichefAbi from "../Contracts/ABIs/minichef.json";
-import { Contract, ethers } from "ethers";
+import { ethers } from "ethers";
 import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
@@ -42,7 +38,7 @@ export async function loadGaugeAprData(
   if (chain === ChainNetwork.Ethereum) {
     let rawGaugeData: IRawGaugeData[] = [];
     try {
-      rawGaugeData = await loadGaugeDataEth(tokens);
+      rawGaugeData = await loadGaugeDataEth(tokens, model);
     } catch (error) {
       model.logError("loadGaugeAprData", chain.toString(), error);
     }
@@ -61,6 +57,7 @@ export async function loadGaugeAprData(
           minichefAddr,
           chain,
           tokens,
+          model,
         );
       } catch (error) {
         model.logError("loadGaugeAprData", chain.toString(), error);
@@ -247,76 +244,74 @@ export function setAssetGaugeAprMinichef(
   }
 }
 
-const sleep = (waitTimeInMs) =>
-  new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
-
 export async function loadGaugeDataEth(
   tokensToQuery: string[] | undefined,
+  model: PickleModel,
 ): Promise<IRawGaugeData[]> {
   if (tokensToQuery && tokensToQuery.length === 0) {
     return [];
   }
-
   const ethAddresses = ADDRESSES.get(ChainNetwork.Ethereum);
-  const resolver: Provider = Chains.get(
-    ChainNetwork.Ethereum,
-  ).getPreferredWeb3Provider();
-  const multicallProvider = new MulticallProvider(resolver);
-  await multicallProvider.init();
 
-  const proxy: Contract = new Contract(
+  const proxy: MultiContract = new MultiContract(
     ethAddresses.gaugeProxy,
     gaugeProxyAbi,
-    Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider(),
   );
-  const masterChef: Contract = new Contract(
+  const masterChef: MultiContract = new MultiContract(
     ethAddresses.masterChef,
     MasterchefAbi,
-    Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider(),
   );
-  const [tokensOnProxy, totalWeight, ppb] = await Promise.all([
-    proxy.tokens(),
-    proxy.totalWeight(),
-    masterChef.picklePerBlock(),
-  ]);
+  const [tokensOnProxy, totalWeight, ppb] = await model.comMan.call(
+    [
+      () => proxy.tokens(),
+      () => proxy.totalWeight(),
+      () => masterChef.picklePerBlock(),
+    ],
+    ChainNetwork.Ethereum,
+  );
 
-  const mcGaugeProxy = new MulticallContract(
+  const mcGaugeProxy = new MultiContract(
     ethAddresses.gaugeProxy,
     gaugeProxyAbi,
   );
   const tokens = tokensToQuery ? tokensToQuery : tokensOnProxy;
-  const gaugeAddresses = await multicallProvider.all(
+  const gaugeAddressesPromises = model.comMan.call(
     tokens.map((token) => {
-      return mcGaugeProxy.getGauge(token);
+      return () => mcGaugeProxy.getGauge(token);
     }),
+    ChainNetwork.Ethereum,
   );
-  await sleep(500);
-  const gaugeWeights = await multicallProvider.all(
+  const gaugeWeightsPromises = model.comMan.call(
     tokens.map((token) => {
-      return mcGaugeProxy.weights(token);
+      return () => mcGaugeProxy.weights(token);
     }),
+    ChainNetwork.Ethereum,
   );
-  await sleep(500);
 
-  const gaugeRewardRates = await multicallProvider.all(
-    tokens.map((_token, index) => {
-      return new MulticallContract(
-        gaugeAddresses[index],
-        gaugeAbi,
-      ).rewardRate();
-    }),
-  );
-  await sleep(500);
+  const [gaugeAddresses, gaugeWeights] = await Promise.all([
+    gaugeAddressesPromises,
+    gaugeWeightsPromises,
+  ]);
 
-  const derivedSupplies = await multicallProvider.all(
+  const gaugeRewardRatesPromises = model.comMan.call(
     tokens.map((_token, index) => {
-      return new MulticallContract(
-        gaugeAddresses[index],
-        gaugeAbi,
-      ).derivedSupply();
+      return () =>
+        new MultiContract(gaugeAddresses[index], gaugeAbi).rewardRate();
     }),
+    ChainNetwork.Ethereum,
   );
-  await sleep(500);
+  const derivedSuppliesPromises = model.comMan.call(
+    tokens.map((_token, index) => {
+      return () =>
+        new MultiContract(gaugeAddresses[index], gaugeAbi).derivedSupply();
+    }),
+    ChainNetwork.Ethereum,
+  );
+
+  const [gaugeRewardRates, derivedSupplies] = await Promise.all([
+    gaugeRewardRatesPromises,
+    derivedSuppliesPromises,
+  ]);
 
   /*
     const totalSupplies = await multicallProvider.all(
@@ -358,34 +353,36 @@ export async function loadGaugeDataForMinichef(
   minichefAddr: string,
   chain: ChainNetwork,
   tokens: string[] | undefined,
+  model: PickleModel,
 ): Promise<IRawGaugeData[]> {
   // TODO this implementation is not efficient if requesting only a single jar
   if (tokens !== undefined && tokens.length === 0) return [];
-
-  const provider: Provider = Chains.get(chain).getPreferredWeb3Provider();
-  const minichef = new Contract(minichefAddr, MinichefAbi, provider);
+  const minichef = new MultiContract(minichefAddr, MinichefAbi);
   const [ppsBN, poolLengthBN] = await Promise.all([
-    minichef.picklePerSecond().catch(() => ethers.BigNumber.from(0)),
-    minichef.poolLength().catch(() => ethers.BigNumber.from(0)),
+    model.comMan
+      .call(() => minichef.picklePerSecond(), chain)
+      .catch(() => ethers.BigNumber.from(0)),
+    model.comMan
+      .call(() => minichef.poolLength(), chain)
+      .catch(() => ethers.BigNumber.from(0)),
   ]);
   const poolLength = parseFloat(poolLengthBN.toString());
   const picklePerSecond = parseFloat(ethers.utils.formatEther(ppsBN));
 
   // load pool infos
-  const multicallProvider = new MulticallProvider(provider);
-  await multicallProvider.init();
-
-  const miniChefMulticall = new MulticallContract(minichefAddr, MinichefAbi);
+  const miniChefMulticall = new MultiContract(minichefAddr, MinichefAbi);
   const poolIds: number[] = Array.from(Array(poolLength).keys());
-  const lpTokens: any[] = await multicallProvider.all(
+  const lpTokens: any[] = await model.comMan.call(
     poolIds.map((id) => {
-      return miniChefMulticall.lpToken(id);
+      return () => miniChefMulticall.lpToken(id);
     }),
+    chain,
   );
-  const poolInfo: any[] = await multicallProvider.all(
+  const poolInfo: any[] = await model.comMan.call(
     poolIds.map((id) => {
-      return miniChefMulticall.poolInfo(id);
+      return () => miniChefMulticall.poolInfo(id);
     }),
+    chain,
   );
   const totalAllocPoints = poolInfo.reduce((acc, curr) => {
     return acc + curr.allocPoint.toNumber();

@@ -1,5 +1,5 @@
 import { PoolId } from "./ProtocolUtil";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
 import { PickleModel } from "..";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
@@ -26,27 +26,23 @@ export async function calculateHarmonySushiAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  try {
-    await multicallProvider.init();
-  } catch (e) {
-    console.log("calculateHarmonySushiAPY: " + e);
-  }
-
   const poolId = harmonySushiPoolIds[jar.depositToken.addr];
-  const multicallsushiMinichef = new MulticallContract(
+  const multicallsushiMinichef = new MultiContract(
     SUSHI_MINICHEF,
     sushiMiniChefAbi,
   );
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [sushiPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallsushiMinichef.sushiPerSecond(),
-      multicallsushiMinichef.totalAllocPoint(),
-      multicallsushiMinichef.poolInfo(poolId),
-      lpToken.balanceOf(SUSHI_MINICHEF),
-    ]);
+    await model.comMan.call(
+      [
+        () => multicallsushiMinichef.sushiPerSecond(),
+        () => multicallsushiMinichef.totalAllocPoint(),
+        () => multicallsushiMinichef.poolInfo(poolId),
+        () => lpToken.balanceOf(SUSHI_MINICHEF),
+      ],
+      jar.chain,
+    );
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const sushiRewardsPerSecond =
@@ -69,16 +65,21 @@ export async function calculateHarmonySushiAPY(
     ONE_COMPLEX_REWARDER,
     5,
   );
-  const [poolInfoCR, onePerSecondBN] = await multicallProvider.all([
-    new MulticallContract(
-      ONE_COMPLEX_REWARDER,
-      sushiComplexRewarderAbi,
-    ).poolInfo(poolId),
-    new MulticallContract(
-      ONE_COMPLEX_REWARDER,
-      sushiComplexRewarderAbi,
-    ).rewardPerSecond(),
-  ]);
+  const [poolInfoCR, onePerSecondBN] = await model.comMan.call(
+    [
+      () =>
+        new MultiContract(
+          ONE_COMPLEX_REWARDER,
+          sushiComplexRewarderAbi,
+        ).poolInfo(poolId),
+      () =>
+        new MultiContract(
+          ONE_COMPLEX_REWARDER,
+          sushiComplexRewarderAbi,
+        ).rewardPerSecond(),
+    ],
+    jar.chain,
+  );
 
   const totalAllocPointCR = defaultAbiCoder.decode(
     ["uint256"],

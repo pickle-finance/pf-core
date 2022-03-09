@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import rallyRewardPoolsAbi from "../../Contracts/ABIs/rally-reward-pools.json";
@@ -9,7 +7,7 @@ import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 import { PoolId } from "../../protocols/ProtocolUtil";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { Chains } from "../../chain/Chains";
 
 const rallyIds: PoolId = {
@@ -21,12 +19,10 @@ export class RlyEth extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    return this.getHarvestableUSDMasterchefComManImplementation(
       jar,
       model,
-      resolver,
       ["rly"],
       "0x9CF178df8DDb65B9ea7d4C2f5d1610eB82927230",
       "pendingRally",
@@ -53,22 +49,23 @@ export class RlyEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-    const multicallRallyRewardPools = new MulticallContract(
+    const multicallRallyRewardPools = new MultiContract(
       RALLY_REWARD_POOLS,
       rallyRewardPoolsAbi,
     );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const poolId = rallyIds[jar.depositToken.addr];
     const [rlyPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallRallyRewardPools.rallyPerBlock(),
-        multicallRallyRewardPools.totalAllocPoint(),
-        multicallRallyRewardPools.poolInfo(poolId),
-        lpToken.balanceOf(multicallRallyRewardPools.address),
-      ]);
+      await model.comMan.call(
+        [
+          () => multicallRallyRewardPools.rallyPerBlock(),
+          () => multicallRallyRewardPools.totalAllocPoint(),
+          () => multicallRallyRewardPools.poolInfo(poolId),
+          () => lpToken.balanceOf(multicallRallyRewardPools.address),
+        ],
+        jar.chain,
+      );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rlyPerBlock =

@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { Chains, PickleModel } from "../..";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
@@ -11,10 +9,7 @@ import {
 } from "../AbstractJarBehavior";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther } from "ethers/lib/utils";
-import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 
 const OXD_FARMS = "0xa7821C3e9fC1bF961e280510c471031120716c3d";
 
@@ -47,12 +42,10 @@ export class OxdJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["oxd"],
       this.strategyAbi,
     );
@@ -63,20 +56,21 @@ export class OxdJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
     const poolId = poolIds[jar.depositToken.addr];
 
-    const multicallFarms = new MulticallContract(OXD_FARMS, oxdFarmsAbi);
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallFarms = new MultiContract(OXD_FARMS, oxdFarmsAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [oxdPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallFarms.oxdPerSecond(),
-        multicallFarms.totalAllocPoint(),
-        multicallFarms.poolInfo(poolId),
-        lpToken.balanceOf(OXD_FARMS),
-      ]);
+      await model.comMan.call(
+        [
+          () => multicallFarms.oxdPerSecond(),
+          () => multicallFarms.totalAllocPoint(),
+          () => multicallFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(OXD_FARMS),
+        ],
+        jar.chain,
+      );
     const rewardsPerYear =
       (parseFloat(formatEther(oxdPerSecondBN)) *
         ONE_YEAR_IN_SECONDS *
@@ -104,27 +98,19 @@ export class OxdJar extends AbstractJarBehavior {
     model: PickleModel,
     baseToken: string,
   ): Promise<number> {
-    const multicallProvider: MulticallProvider = model.multicallProviderFor(
-      jar.chain,
-    );
-    await multicallProvider.init();
-
     const baseTokenPrice = model.priceOfSync(baseToken, jar.chain);
     const baseTokenAddress = model.address(baseToken, jar.chain);
 
-    const multicallxToken = new MulticallContract(
-      jar.depositToken.addr,
-      erc20Abi,
-    );
-    const multicallBaseToken = new MulticallContract(
-      baseTokenAddress,
-      erc20Abi,
-    );
+    const multicallxToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallBaseToken = new MultiContract(baseTokenAddress, erc20Abi);
 
-    const [xTokenSupplyBN, baseTokenBalanceBN] = await multicallProvider.all([
-      multicallxToken.totalSupply(),
-      multicallBaseToken.balanceOf(jar.depositToken.addr),
-    ]);
+    const [xTokenSupplyBN, baseTokenBalanceBN] = await model.comMan.call(
+      [
+        () => multicallxToken.totalSupply(),
+        () => multicallBaseToken.balanceOf(jar.depositToken.addr),
+      ],
+      jar.chain,
+    );
 
     const ratioNum = parseFloat(
       formatEther(baseTokenBalanceBN.mul((1e18).toFixed()).div(xTokenSupplyBN)),

@@ -1,6 +1,4 @@
-import { Signer } from "ethers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
-import { Provider } from "@ethersproject/providers";
 import { PickleModel } from "../..";
 import {
   JarDefinition,
@@ -14,7 +12,7 @@ import {
   createAprComponentImpl,
   ONE_YEAR_IN_SECONDS,
 } from "../AbstractJarBehavior";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { TethysPairManager } from "../../protocols/TethysUtil";
 import { formatEther } from "ethers/lib/utils";
 
@@ -35,12 +33,10 @@ export class HadesJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["hellshare"],
       this.strategyAbi,
     );
@@ -64,22 +60,22 @@ export class HadesJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetAprComponent> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const poolId = hadesPoolIds[jar.depositToken.addr];
-    const multicallHadesFarms = new MulticallContract(HADES_FARM, hadesFarmAbi);
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallHadesFarms = new MultiContract(HADES_FARM, hadesFarmAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [hadesPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallHadesFarms.tSharePerSecond(),
-        multicallHadesFarms.totalAllocPoint(),
-        multicallHadesFarms.poolInfo(poolId),
-        lpToken.balanceOf(HADES_FARM),
-      ]);
+      await model.comMan.call(
+        [
+          () => multicallHadesFarms.tSharePerSecond(),
+          () => multicallHadesFarms.totalAllocPoint(),
+          () => multicallHadesFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(HADES_FARM),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerYear =
       (parseFloat(formatEther(hadesPerSecBn)) *

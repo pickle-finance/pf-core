@@ -1,9 +1,8 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber } from "@ethersproject/bignumber";
-import { Contract, ethers } from "ethers";
+import { ethers } from "ethers";
 import { PickleModel } from "../..";
-import { Chains } from "../../chain/Chains";
 import { JAR_LQTY } from "../../model/JarsAndFarms";
 import {
   JarDefinition,
@@ -18,9 +17,9 @@ import {
   JarHarvestStats,
 } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import stabilityPool from "../../Contracts/ABIs/stability-pool.json";
 import { formatEther } from "ethers/lib/utils";
 import { getOrLoadYearnDataFromDune } from "../../protocols/DuneDataUtility";
+import { Contract as MultiContract } from "ethers-multicall";
 
 const stabilityPoolAddr = "0x66017D22b0f8556afDd19FC67041899Eb65a21bb";
 const pBAMM = "0x54bC9113f1f55cdBDf221daf798dc73614f6D972";
@@ -47,14 +46,13 @@ export class PBammAsset implements ExternalAssetBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     // LQTY APR calc
-    const lusdContract = new Contract(
-      model.addr("lusd"),
-      erc20Abi,
-      model.providerFor(definition.chain),
-    );
+    const lusdContract = new MultiContract(model.addr("lusd"), erc20Abi);
 
     const remainingLQTY = 13344950;
-    const lusdInSP = await lusdContract.balanceOf(stabilityPoolAddr);
+    const lusdInSP = await model.comMan.call(
+      () => lusdContract.balanceOf(stabilityPoolAddr),
+      definition.chain,
+    );
     const lqtyApr =
       (remainingLQTY * model.priceOfSync("lqty", definition.chain)) /
       (+formatEther(lusdInSP) * model.priceOfSync("lusd", definition.chain));
@@ -103,23 +101,35 @@ export class PBammAsset implements ExternalAssetBehavior {
 }
 
 export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
-  const stabilityPoolContract = new ethers.Contract(
+  // ethers-multicall doesn't seem to like stability-pool.json
+  const stabilityPoolAbi = [
+    {
+      "inputs": [
+        { "internalType": "address", "name": "_depositor", "type": "address" }
+      ],
+      "name": "getCompoundedLUSDDeposit",
+      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+  ]
+  const stabilityPoolContract = new MultiContract(
     stabilityPoolAddr,
-    stabilityPool,
-    Chains.getResolver(asset.chain),
+    stabilityPoolAbi,
   );
-  const lusdInStabilityPool =
-    await stabilityPoolContract.getCompoundedLUSDDeposit(pBAMM);
+  const lusdInStabilityPool = await model.comMan.call(
+    () => stabilityPoolContract.getCompoundedLUSDDeposit(pBAMM),
+    asset.chain,
+  );
   const lusdPrice = model.priceOfSync("lusd", asset.chain);
   const lusdValue =
     parseFloat(ethers.utils.formatEther(lusdInStabilityPool)) * lusdPrice;
 
-  const pLqtyContract = new ethers.Contract(
-    pLQTY,
-    erc20Abi,
-    Chains.getResolver(asset.chain),
+  const pLqtyContract = new MultiContract(pLQTY, erc20Abi);
+  const pLqtyTokens = await model.comMan.call(
+    () => pLqtyContract.balanceOf(pBAMM),
+    asset.chain,
   );
-  const pLqtyTokens = await pLqtyContract.balanceOf(pBAMM);
   const lqtyPrice = model.priceOfSync("lqty", asset.chain);
   const ratio = (model.findAsset(JAR_LQTY.id) as JarDefinition).details.ratio;
   const lqtyValue =

@@ -1,6 +1,6 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber, Contract } from "ethers";
+import { BigNumber } from "ethers";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
@@ -14,6 +14,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import univ3StakerAbi from "../../Contracts/ABIs/univ3Staking.json";
 import { oneEParam } from "../../util/BnUtil";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export class Uni3RbnEth extends AbstractJarBehavior {
   async getDepositTokenPrice(
@@ -49,19 +50,17 @@ export class Uni3RbnEth extends AbstractJarBehavior {
     model: PickleModel,
     _balance: BigNumber,
     _available: BigNumber,
-    resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
     // TODO  0x1f98407aab862cddef78ed252d6f557aa5b0f00d  is the reward staking contract
-    const rewardStaking = new Contract(
+    const rewardStaking = new MultiContract(
       "0x1f98407aab862cddef78ed252d6f557aa5b0f00d",
       univ3StakerAbi,
-      resolver,
     );
     const rbnAddr = "0x6123b0049f904d730db3c36a31167d9d4121fa6b";
     const val: UniV3InfoValue = getUniV3Info(definition.depositToken.addr);
-    const result = await rewardStaking.getRewardInfo(
-      val.incentiveKey,
-      val.nftNumber,
+    const result = await model.comMan.call(
+      () => rewardStaking.getRewardInfo(val.incentiveKey, val.nftNumber),
+      definition.chain,
     );
     const rewardTokens: BigNumber = result.reward;
     const decimals: number = model.tokenDecimals("rbn", definition.chain);
@@ -73,20 +72,21 @@ export class Uni3RbnEth extends AbstractJarBehavior {
         .toNumber() / 1e4;
 
     // Earnable
-    const wethContract = new Contract(
+    const wethContract = new MultiContract(
       model.address("weth", definition.chain),
       erc20Abi,
-      resolver,
     );
-    const rbnContract = new Contract(
+    const rbnContract = new MultiContract(
       model.address("rbn", definition.chain),
       erc20Abi,
-      resolver,
     );
-    const [wethBal, rbnBal] = await Promise.all([
-      wethContract.balanceOf(definition.contract),
-      rbnContract.balanceOf(definition.contract),
-    ]);
+    const [wethBal, rbnBal] = await model.comMan.call(
+      [
+        () => wethContract.balanceOf(definition.contract),
+        () => rbnContract.balanceOf(definition.contract),
+      ],
+      definition.chain,
+    );
     const earnableWeth = wethBal
       .mul((model.priceOfSync("weth", definition.chain) * 100).toFixed())
       .div(100);

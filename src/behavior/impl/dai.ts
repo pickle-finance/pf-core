@@ -1,11 +1,10 @@
-import { ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { foldingStrategyAbi } from "../../Contracts/ABIs/folding-strategy.abi";
 import AaveStrategyAbi from "../../Contracts/ABIs/aave-strategy.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork } from "../../chain/Chains";
 import fetch from "cross-fetch";
 
@@ -21,17 +20,16 @@ export class DaiJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
+    const strategy = new MultiContract(
       jar.details.strategyAddr,
       foldingStrategyAbi,
-      resolver,
     );
-    const [matic, maticPrice] = await Promise.all([
-      strategy.getMaticAccrued(),
-      model.priceOfSync("matic", jar.chain),
-    ]);
+    const matic = await model.comMan.call(
+      () => strategy.getMaticAccrued(),
+      jar.chain,
+    );
+    const maticPrice = model.priceOfSync("matic", jar.chain);
     const harvestable = matic.mul(maticPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
@@ -62,25 +60,22 @@ export class DaiJar extends AbstractJarBehavior {
         pool.underlyingAsset.toUpperCase() === assetAddress.toUpperCase(),
     );
 
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
     const maticPrice = model.priceOfSync("matic", jar.chain);
-    if (!pool || !maticPrice || !multicallProvider)
+    if (!pool || !maticPrice)
       return super.aprComponentsToProjectedApr([
         super.createAprComponent("Error Loading APY", 0, false),
       ]);
 
-    const aaveStrategy = new MulticallContract(
-      strategyAddress,
-      AaveStrategyAbi,
-    );
+    const aaveStrategy = new MultiContract(strategyAddress, AaveStrategyAbi);
     const [supplied, borrowed, balance] = (
-      await multicallProvider.all([
-        aaveStrategy.getSuppliedView(),
-        aaveStrategy.getBorrowedView(),
-        aaveStrategy.balanceOfPool(),
-      ])
+      await model.comMan.call(
+        [
+          () => aaveStrategy.getSuppliedView(),
+          () => aaveStrategy.getBorrowedView(),
+          () => aaveStrategy.balanceOfPool(),
+        ],
+        jar.chain,
+      )
     ).map((x) => parseFloat(ethers.utils.formatEther(x)));
 
     let rawSupplyAPY = +pool["avg1DaysLiquidityRate"];

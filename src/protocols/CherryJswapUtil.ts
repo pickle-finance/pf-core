@@ -1,5 +1,5 @@
 import erc20Abi from "../Contracts/ABIs/erc20.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { Chains, PickleModel } from "..";
 import { JarDefinition } from "../model/PickleModelJson";
@@ -30,24 +30,25 @@ export async function calculateCherryAPY(
   jar: JarDefinition,
   model: PickleModel,
 ) {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
   const poolId = cherryPoolIds[jar.depositToken.addr];
-  const multicallCherrychef = new MulticallContract(CHERRYCHEF, cherryChefAbi);
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallCherrychef = new MultiContract(CHERRYCHEF, cherryChefAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const [
     cherryPerBlockBN,
     totalAllocPointBN,
     poolInfo,
     bonusMultiplierBN,
     totalSupplyBN,
-  ] = await multicallProvider.all([
-    multicallCherrychef.cherryPerBlock(),
-    multicallCherrychef.totalAllocPoint(),
-    multicallCherrychef.poolInfo(poolId),
-    multicallCherrychef.BONUS_MULTIPLIER(),
-    lpToken.balanceOf(CHERRYCHEF),
-  ]);
+  ] = await model.comMan.call(
+    [
+      () => multicallCherrychef.cherryPerBlock(),
+      () => multicallCherrychef.totalAllocPoint(),
+      () => multicallCherrychef.poolInfo(poolId),
+      () => multicallCherrychef.BONUS_MULTIPLIER(),
+      () => lpToken.balanceOf(CHERRYCHEF),
+    ],
+    jar.chain,
+  );
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const rewardsPerBlock =
     (parseFloat(formatEther(cherryPerBlockBN)) *
@@ -71,19 +72,20 @@ export async function calculateJswapAPY(
   jar: JarDefinition,
   model: PickleModel,
 ) {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
   const poolId = jswapPoolIds[jar.depositToken.addr.toLowerCase()];
-  const multicallJswapchef = new MulticallContract(JSWAPCHEF, jswapchefAbi);
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallJswapchef = new MultiContract(JSWAPCHEF, jswapchefAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [jfPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallJswapchef.jfPerBlock(),
-      multicallJswapchef.totalAllocPoint(),
-      multicallJswapchef.poolInfo(poolId),
-      lpToken.balanceOf(JSWAPCHEF),
-    ]);
+    await model.comMan.call(
+      [
+        () => multicallJswapchef.jfPerBlock(),
+        () => multicallJswapchef.totalAllocPoint(),
+        () => multicallJswapchef.poolInfo(poolId),
+        () => lpToken.balanceOf(JSWAPCHEF),
+      ],
+      jar.chain,
+    );
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const rewardsPerBlock =
