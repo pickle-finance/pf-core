@@ -3132,7 +3132,7 @@ export const JAR_MOVR_SOLAR_MOVR_USDC: JarDefinition = {
   id: "moonJar 1c",
   contract: "0x8f32bd87ba00954b9f89296db90ff66183a5dbb1",
   depositToken: {
-    addr: "0xe537f70a8b62204832b8ba91940b77d3f79aeb81",
+    addr: "0xe537f70a8b62204832B8Ba91940B77d3f79AEb81",
     name: "SOLAR MOVR/USDC",
     link: "https://app.solarbeam.io/exchange/add/ETH/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["movr", "usdc"],
