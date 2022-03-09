@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import {
   AssetAprComponent,
   AssetProjectedApr,
@@ -8,7 +6,6 @@ import {
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { calculateAbradabraApy } from "../../protocols/AbraCadabraUtil";
-import { Chains } from "../../chain/Chains";
 import { SushiEthPairManager } from "../../protocols/SushiSwapUtil";
 
 export class SpellEth extends AbstractJarBehavior {
@@ -16,9 +13,8 @@ export class SpellEth extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const chainSigner = Chains.get(definition.chain).getProviderOrSigner();
     const [abraApr, lpApr] = await Promise.all([
-      calculateAbradabraApy(definition, model, chainSigner),
+      calculateAbradabraApy(definition, model),
       new SushiEthPairManager().calculateLpApr(
         model,
         definition.depositToken.addr,
@@ -41,12 +37,10 @@ export class SpellEth extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    return this.getHarvestableUSDMasterchefComManImplementation(
       jar,
       model,
-      resolver,
       ["spell"],
       "0xf43480afe9863da4acbd4419a47d9cc7d25a647f",
       "pendingIce",

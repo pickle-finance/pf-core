@@ -1,13 +1,11 @@
 import { Chains } from "../chain/Chains";
 import { PickleModel } from "../model/PickleModel";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
-import { Contract } from "ethers";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
-import { Provider } from "@ethersproject/providers";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { getLivePairDataFromContracts } from "./GenericSwapUtil";
@@ -22,31 +20,39 @@ export async function calculateMasterChefRewardsAPR(
     return undefined;
   }
 
-  const resolver: Provider = Chains.get(jar.chain).getPreferredWeb3Provider();
-  const controller = new Contract(controllerAddr, controllerAbi, resolver);
-  const jarStrategy = await controller.strategies(jar.depositToken.addr);
-  const strategyContract = new Contract(jarStrategy, strategyAbi, resolver);
-  const masterchefAddress = await strategyContract.masterChef();
-  const poolId = await strategyContract.poolId();
-  const rewardTokenAddress = await strategyContract.rewardToken();
+  const controller = new MultiContract(controllerAddr, controllerAbi);
+  const strategyAddr = await model.comMan.call(
+    () => controller.strategies(jar.depositToken.addr),
+    jar.chain,
+  );
+  const strategyContract = new MultiContract(strategyAddr, strategyAbi);
+  const [masterchefAddress, poolId, rewardTokenAddress] =
+    await model.comMan.call(
+      [
+        () => strategyContract.masterChef(),
+        () => strategyContract.poolId(),
+        () => strategyContract.rewardToken(),
+      ],
+      jar.chain,
+    );
 
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
-
-  const multicallMasterchef = new MulticallContract(
+  const multicallMasterchef = new MultiContract(
     masterchefAddress,
     MasterchefAbi,
   );
 
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [sushiPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallMasterchef.rewardPerBlock(),
-      multicallMasterchef.totalAllocPoint(),
-      multicallMasterchef.poolInfo(poolId),
-      lpToken.balanceOf(masterchefAddress),
-    ]);
+    await model.comMan.call(
+      [
+        () => multicallMasterchef.rewardPerBlock(),
+        () => multicallMasterchef.totalAllocPoint(),
+        () => multicallMasterchef.poolInfo(poolId),
+        () => lpToken.balanceOf(masterchefAddress),
+      ],
+      jar.chain,
+    );
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const rewardsPerBlock =

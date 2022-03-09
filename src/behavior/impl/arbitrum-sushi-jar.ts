@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
@@ -22,12 +20,10 @@ export abstract class ArbitrumSushiJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["sushi", this.rewardToken],
       this.strategyAbi,
     );

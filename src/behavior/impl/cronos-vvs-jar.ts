@@ -27,14 +27,13 @@ export abstract class CronosVvsJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
     const isDualRewards = Number.isInteger(vvsPoolIdsV2[jar.depositToken.addr]);
     if (!isDualRewards) {
       return this.getHarvestableUSDMasterchefImplementation(
         jar,
         model,
-        resolver,
+        model.providerFor(jar.chain),
         ["vvs"],
         VVS_FARMS,
         "pendingVVS",

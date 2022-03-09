@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import booChefAbi from "../Contracts/ABIs/boo-farm.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -44,24 +44,22 @@ export async function calculateSpookyFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent> {
-  const pricePerToken = await model.priceOfSync(
-    jar.depositToken.addr,
-    jar.chain,
-  );
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
   const poolId = booPoolIds[jar.depositToken.addr];
 
-  const multicallBooFarms = new MulticallContract(BOO_FARMS, booChefAbi);
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallBooFarms = new MultiContract(BOO_FARMS, booChefAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [booPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallBooFarms.booPerSecond(),
-      multicallBooFarms.totalAllocPoint(),
-      multicallBooFarms.poolInfo(poolId),
-      lpToken.balanceOf(BOO_FARMS),
-    ]);
+    await model.comMan.call(
+      [
+        () => multicallBooFarms.booPerSecond(),
+        () => multicallBooFarms.totalAllocPoint(),
+        () => multicallBooFarms.poolInfo(poolId),
+        () => lpToken.balanceOf(BOO_FARMS),
+      ],
+      jar.chain,
+    );
 
   const rewardsPerYear =
     (parseFloat(formatEther(booPerSecondBN)) *
@@ -71,7 +69,7 @@ export async function calculateSpookyFarmsAPY(
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const booRewardedPerYear =
-    (await model.priceOfSync("boo", jar.chain)) * rewardsPerYear;
+    model.priceOfSync("boo", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const booAPY = booRewardedPerYear / totalValueStaked;
 

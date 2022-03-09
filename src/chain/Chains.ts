@@ -189,7 +189,10 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "fantom",
     gasTokenSymbol: "ftm",
     explorer: "https://ftmscan.com",
-    rpcs: ["https://rpc.ftm.tools/"],
+    rpcs: [
+      "https://rpc.ankr.com/fantom",
+      // "https://rpc.ftm.tools/"
+    ],
     multicallAddress: "0x11473D6E641dF17cd6331D45b135E35B49edBea8",
     defaultPerformanceFee: 0.042,
     wrappedNativeAddress: "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",

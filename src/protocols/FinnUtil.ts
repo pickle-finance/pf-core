@@ -2,7 +2,7 @@ import { AssetProtocol, JarDefinition } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import finnFarmsAbi from "../Contracts/ABIs/finn-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -23,18 +23,19 @@ export async function calculateFinnFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ) {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
   const poolId = finnPoolIds[jar.depositToken.addr];
-  const multicallFinnFarms = new MulticallContract(FINN_FARMS, finnFarmsAbi);
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallFinnFarms = new MultiContract(FINN_FARMS, finnFarmsAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const [finnPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallFinnFarms.finnPerSecond(),
-      multicallFinnFarms.totalAllocPoint(),
-      multicallFinnFarms.poolInfo(poolId),
-      lpToken.balanceOf(FINN_FARMS),
-    ]);
+    await model.comMan.call(
+      [
+        () => multicallFinnFarms.finnPerSecond(),
+        () => multicallFinnFarms.totalAllocPoint(),
+        () => multicallFinnFarms.poolInfo(poolId),
+        () => lpToken.balanceOf(FINN_FARMS),
+      ],
+      jar.chain,
+    );
 
   const rewardsPerSec =
     (parseFloat(formatEther(finnPerSecBN)) * poolInfo.allocPoint.toNumber()) /

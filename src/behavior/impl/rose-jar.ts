@@ -1,11 +1,9 @@
-import { Signer } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import roseFarmAbi from "../../Contracts/ABIs/rose-farm.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
@@ -20,12 +18,10 @@ export abstract class RoseJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["rose"],
       strategyAbi,
     );
@@ -46,18 +42,18 @@ export abstract class RoseJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
-    const multicallRoseRewards = new MulticallContract(
+    const multicallRoseRewards = new MultiContract(
       this.rewarderAddress,
       roseFarmAbi,
     );
 
-    const [rewardData, totalSupplyBN] = await multicallProvider.all([
-      multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
-      multicallRoseRewards.totalSupply(),
-    ]);
+    const [rewardData, totalSupplyBN] = await model.comMan.call(
+      [
+        () => multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
+        () => multicallRoseRewards.totalSupply(),
+      ],
+      jar.chain,
+    );
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const roseRewardsPerYear =
       parseFloat(formatEther(rewardData[3])) * ONE_YEAR_SECONDS;

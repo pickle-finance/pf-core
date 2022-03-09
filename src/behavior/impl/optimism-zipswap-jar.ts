@@ -1,10 +1,8 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import zipFarms from "../../Contracts/ABIs/zip-farms.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
@@ -31,12 +29,10 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["zip"],
       this.strategyAbi,
     );
@@ -58,19 +54,20 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
     const poolId = zipPoolIds[jar.depositToken.addr];
-    const multicallZipFarms = new MulticallContract(ZIP_FARMS, zipFarms);
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallZipFarms = new MultiContract(ZIP_FARMS, zipFarms);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [zipPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallZipFarms.zipPerSecond(),
-        multicallZipFarms.totalAllocPoint(),
-        multicallZipFarms.poolInfo(poolId),
-        lpToken.balanceOf(ZIP_FARMS),
-      ]);
+      await model.comMan.call(
+        [
+          () => multicallZipFarms.zipPerSecond(),
+          () => multicallZipFarms.totalAllocPoint(),
+          () => multicallZipFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(ZIP_FARMS),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerYear =
       (parseFloat(formatEther(zipPerSecondBN)) *

@@ -1,4 +1,3 @@
-import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber } from "@ethersproject/bignumber";
 import { PickleModel } from "../..";
@@ -18,7 +17,7 @@ import { GenericSwapUtility } from "../../protocols/GenericSwapUtil";
 import { getSwapUtilityForAsset } from "../../protocols/ProtocolUtil";
 import { getDepositTokenPrice } from "../../price/DepositTokenPriceUtility";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { Contract } from "ethers";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export class MainnetSushiPickleEth implements ExternalAssetBehavior {
   getCustomHarvester(
@@ -63,19 +62,18 @@ export class MainnetSushiPickleEth implements ExternalAssetBehavior {
     model: PickleModel,
     _balance: BigNumber,
     _available: BigNumber,
-    resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
     const depositToken = definition.depositToken.addr;
-    const sushiMC = definition.contract;
-    const bal: BigNumber = await new Contract(
-      depositToken,
-      erc20Abi,
-      resolver,
-    ).balanceOf(sushiMC);
-    const ppt = (
+    const sushiMCAddr = definition.contract;
+    const sushiMC = new MultiContract(depositToken, erc20Abi);
+    const bal: BigNumber = await model.comMan.call(
+      () => sushiMC.balanceOf(sushiMCAddr),
+      definition.chain,
+    );
+    const pricePerToken = (
       100 * model.priceOfSync(depositToken, definition.chain)
     ).toFixed();
-    const finalBalance = bal.mul(ppt).div(1e9).div(1e9).div(1e2);
+    const finalBalance = bal.mul(pricePerToken).div(1e9).div(1e9).div(1e2);
     return {
       balanceUSD: finalBalance.toNumber(),
       earnableUSD: 0,

@@ -1,5 +1,3 @@
-import { ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import {
   AssetProjectedApr,
@@ -12,6 +10,7 @@ import { readQueryFromGraphDetails } from "../../graph/TheGraph";
 import { ChainNetwork, Chains } from "../..";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
+import { Contract as MultiContract } from "ethers-multicall";
 
 const LOOKS_STAKING = "0xbcd7254a1d759efa08ec7c3291b2e85c5dcc12ce";
 const LOOKS_DISTRIBUTOR = "0x465a790b428268196865a3ae2648481ad7e0d3b1";
@@ -31,12 +30,10 @@ export class pLooks extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["weth"],
       this.strategyAbi,
     );
@@ -46,12 +43,11 @@ export class pLooks extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const distributor = new ethers.Contract(
-      LOOKS_DISTRIBUTOR,
-      distributorAbi,
-      model.providerFor(jar.chain),
+    const distributor = new MultiContract(LOOKS_DISTRIBUTOR, distributorAbi);
+    const [totalLooksStaked] = await model.comMan.call(
+      () => distributor.userInfo(LOOKS_STAKING),
+      jar.chain,
     );
-    const [totalLooksStaked] = await distributor.userInfo(LOOKS_STAKING);
     return (
       +formatEther(totalLooksStaked) * model.priceOfSync("looks", jar.chain)
     );
@@ -103,12 +99,11 @@ export class pLooks extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const distributor = new ethers.Contract(
-      LOOKS_DISTRIBUTOR,
-      distributorAbi,
-      model.providerFor(jar.chain),
+    const distributor = new MultiContract(LOOKS_DISTRIBUTOR, distributorAbi);
+    const rewardPerBlock = await model.comMan.call(
+      () => distributor.rewardPerBlockForStaking(),
+      jar.chain,
     );
-    const rewardPerBlock = await distributor.rewardPerBlockForStaking();
     const lookRewardsPerYear =
       (+formatEther(rewardPerBlock) *
         ONE_YEAR_SECONDS *

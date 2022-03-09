@@ -7,11 +7,12 @@ import {
   AssetAprComponent,
 } from "../../model/PickleModelJson";
 import { CurveJar, getCurveRawStats } from "./curve-jar";
-import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
+// import { curveThirdPartyGaugeAbi } from "../../Contracts/ABIs/curve-external-gauge.abi";
 import { formatEther } from "ethers/lib/utils";
 import curvePoolAbi from "../../Contracts/ABIs/curve-pool.json";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateCurveApyArbitrum } from "../../protocols/CurveUtil";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export class CrvTricrypto extends CurveJar {
   constructor() {
@@ -66,20 +67,32 @@ export class CrvTricrypto extends CurveJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const gauge = new ethers.Contract(
-      this.gaugeAddress,
-      curveThirdPartyGaugeAbi,
-      resolver,
+    // changed stateMutability to view to allow calling the function as constant
+    const curveThirdPartyGaugeAbi = [
+      {
+        stateMutability: "view",
+        type: "function",
+        name: "claimable_reward_write",
+        inputs: [
+          { name: "_addr", type: "address" },
+          { name: "_token", type: "address" },
+        ],
+        outputs: [{ name: "", type: "uint256" }],
+        // gas: "2067577",
+      },
+    ];
+    
+    const gauge = new MultiContract(this.gaugeAddress, curveThirdPartyGaugeAbi);
+    const crv = await model.comMan.call(
+      () =>
+        gauge.claimable_reward_write(
+          jar.details.strategyAddr,
+          model.address("crv", ChainNetwork.Arbitrum),
+        ),
+      jar.chain,
     );
-    const [crv, crvPrice] = await Promise.all([
-      gauge.callStatic.claimable_reward_write(
-        jar.details.strategyAddr,
-        model.address("crv", ChainNetwork.Arbitrum),
-      ),
-      model.priceOfSync("curve-dao-token", jar.chain),
-    ]);
+    const crvPrice = model.priceOfSync("curve-dao-token", jar.chain);
     const harvestable = crv.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }

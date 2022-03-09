@@ -1,10 +1,10 @@
-import { BigNumber, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { BigNumber, ethers } from "ethers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { alcxStrategyAbi } from "../../Contracts/ABIs/alcx-strategy.abi";
 import { PickleModel } from "../../model/PickleModel";
 import { SushiJar } from "./sushi-jar";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export class AlcxEth extends SushiJar {
   constructor() {
@@ -13,33 +13,26 @@ export class AlcxEth extends SushiJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const strategy = new ethers.Contract(
+    const strategy = new MultiContract(
       jar.details.strategyAddr,
       alcxStrategyAbi,
-      resolver,
     );
-    const alcxToken = new ethers.Contract(
-      model.addr("alcx"),
-      erc20Abi,
-      resolver,
-    );
-    const [alcx, sushi, alcxWallet, alcxPrice, sushiPrice]: [
-      BigNumber,
-      BigNumber,
-      BigNumber,
-      number,
-      number,
-    ] = await Promise.all([
-      strategy.getHarvestableAlcx().catch(() => BigNumber.from("0")),
-      strategy.getHarvestableSushi().catch(() => BigNumber.from("0")),
-      alcxToken
-        .balanceOf(jar.details.strategyAddr)
-        .catch(() => BigNumber.from("0")),
-      model.priceOfSync("alcx", jar.chain),
-      model.priceOfSync("sushi", jar.chain),
-    ]);
+    const alcxToken = new MultiContract(model.addr("alcx"), erc20Abi);
+    const [alcx, sushi, alcxWallet]: [BigNumber, BigNumber, BigNumber] =
+      await Promise.all([
+        model.comMan
+          .call(() => strategy.getHarvestableAlcx(), jar.chain)
+          .catch(() => BigNumber.from("0")),
+        model.comMan
+          .call(() => strategy.getHarvestableSushi(), jar.chain)
+          .catch(() => BigNumber.from("0")),
+        model.comMan
+          .call(() => alcxToken.balanceOf(jar.details.strategyAddr), jar.chain)
+          .catch(() => BigNumber.from("0")),
+      ]);
+    const alcxPrice = model.priceOfSync("alcx", jar.chain);
+    const sushiPrice = model.priceOfSync("sushi", jar.chain);
     const alcxValue = alcx.add(alcxWallet).mul(alcxPrice.toFixed());
     const sushiValue = sushi.mul(sushiPrice.toFixed());
     const harvestable = alcxValue.add(sushiValue);

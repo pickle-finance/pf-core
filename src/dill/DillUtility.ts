@@ -5,7 +5,7 @@ import {
   JarDefinition,
 } from "../model/PickleModelJson";
 import { BigNumber, ethers } from "ethers";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import dillAbi from "../Contracts/ABIs/dill.json";
 import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
 import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
@@ -70,28 +70,27 @@ export async function getDillDetails(
   await multicallProvider.init();
 
   try {
-    const dillContract = new MulticallContract(DILL_CONTRACT, dillAbi);
-    const [picklesLocked, dillSupply]: number[] = await multicallProvider.all<
-      number[]
-    >([dillContract.supply(), dillContract.totalSupply()]);
-
-    const picklesLockedFloat = parseFloat(
-      ethers.utils.formatEther(picklesLocked),
-    );
-    const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
-
-    // Ignore initial negligible distributions that distort
-    // PICKLE/DILL ratio range.
-    const feeDistContract = new MulticallContract(
+    const dillContract = new MultiContract(DILL_CONTRACT, dillAbi);
+    const feeDistContract = new MultiContract(
       FEE_DISTRIBUTOR,
       feeDistributorAbi,
     );
+
+    // Ignore initial negligible distributions that distort
+    // PICKLE/DILL ratio range.
     const startTime = ethers.BigNumber.from(
       firstMeaningfulDistributionTimestamp,
     );
-    const [endTime] = await multicallProvider.all<BigNumber[]>([
-      feeDistContract.time_cursor(),
-    ]);
+    const [picklesLocked, dillSupply, endTime]: BigNumber[] =
+      await model.comMan.call(
+        [
+          () => dillContract.supply(),
+          () => dillContract.totalSupply(),
+          () => feeDistContract.time_cursor(),
+        ],
+        chain,
+      );
+
     const payoutTimes: BigNumber[] = [];
     for (
       let time = startTime;
@@ -101,17 +100,30 @@ export async function getDillDetails(
       payoutTimes.push(time);
     }
 
-    const payouts: number[] = (
-      await multicallProvider.all<BigNumber[]>(
-        payoutTimes.map((time) => feeDistContract.tokens_per_week(time)),
-      )
-    ).map((x) => parseFloat(ethers.utils.formatEther(x)));
+    const [payoutsBN, dillAmountsBN]: [BigNumber[], BigNumber[]] =
+      await Promise.all([
+        model.comMan.call(
+          payoutTimes.map(
+            (time) => () => feeDistContract.tokens_per_week(time),
+          ),
+          chain,
+        ),
+        model.comMan.call(
+          payoutTimes.map((time) => () => feeDistContract.ve_supply(time)),
+          chain,
+        ),
+      ]);
 
-    const dillAmounts: number[] = (
-      await multicallProvider.all<BigNumber[]>(
-        payoutTimes.map((time) => feeDistContract.ve_supply(time)),
-      )
-    ).map((x) => parseFloat(ethers.utils.formatEther(x)));
+    const picklesLockedFloat = parseFloat(
+      ethers.utils.formatEther(picklesLocked),
+    );
+    const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
+    const payouts: number[] = payoutsBN.map((x: BigNumber) =>
+      parseFloat(ethers.utils.formatEther(x)),
+    );
+    const dillAmounts: number[] = dillAmountsBN.map((x: BigNumber) =>
+      parseFloat(ethers.utils.formatEther(x)),
+    );
 
     const picklePriceSeries = await fetchHistoricalPriceSeries({
       from: new Date(firstMeaningfulDistributionTimestamp * 1000),

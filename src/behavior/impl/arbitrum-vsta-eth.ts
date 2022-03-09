@@ -6,11 +6,10 @@ import {
 } from "../../model/PickleModelJson";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { BalancerJar } from "./balancer-jar";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import { BigNumber, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { BigNumber, ethers } from "ethers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 
 export class BalancerVstaEth extends BalancerJar {
@@ -25,18 +24,18 @@ export class BalancerVstaEth extends BalancerJar {
   ): Promise<AssetProjectedApr> {
     // const lp = await getBalancerPoolDayAPY(jar, model);
 
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
-    const multicallUniStakingRewards = new MulticallContract(
+    const multicallUniStakingRewards = new MultiContract(
       this.rewardAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await multicallProvider.all([
-      multicallUniStakingRewards.rewardRate(),
-      multicallUniStakingRewards.totalStaked(),
-    ]);
+    const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+      [
+        () => multicallUniStakingRewards.rewardRate(),
+        () => multicallUniStakingRewards.totalStaked(),
+      ],
+      jar.chain,
+    );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rewardRate = parseFloat(formatEther(rewardRateBN));
@@ -71,12 +70,10 @@ export class BalancerVstaEth extends BalancerJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["vsta"],
       sushiStrategyAbi,
     );
@@ -88,12 +85,10 @@ export class BalancerVstaEth extends BalancerJar {
     model: PickleModel,
     balance: BigNumber,
     available: BigNumber,
-    resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
     const harvestableUSD: number = await this.getHarvestableUSD(
       definition,
       model,
-      resolver,
     );
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals

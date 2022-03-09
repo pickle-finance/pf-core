@@ -1,5 +1,4 @@
-import { ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
@@ -27,12 +26,10 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["dodo"],
       this.strategyAbi,
     );

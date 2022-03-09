@@ -1,12 +1,12 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import {
+  triPoolIds,
+  TRI_FARMS,
   calculateTriFarmsAPY,
   triPoolV2Ids,
+  TRI_V2_FARMS,
 } from "../../protocols/TrisolarisUtil";
-import { triPoolIds, TRI_FARMS } from "../../protocols/TrisolarisUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
 export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
@@ -18,16 +18,30 @@ export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    let chefAddress: string;
+    let poolId: number;
+    if (triPoolIds[jar.depositToken.addr] !== undefined) {
+      chefAddress = TRI_FARMS;
+      poolId = triPoolIds[jar.depositToken.addr];
+    } else if (triPoolV2Ids[jar.depositToken.addr] !== undefined) {
+      chefAddress = TRI_V2_FARMS;
+      poolId = triPoolV2Ids[jar.depositToken.addr].poolId;
+    } else {
+      model.logError(
+        `getHarvestableUSD [${jar.details.apiKey}]`,
+        `Token ${jar.depositToken.addr} has no registered poolId`,
+      );
+    }
+
+    // Some strategies' getHarvestable is broken, using default implementation is not possible
+    return this.getHarvestableUSDMasterchefComManImplementation(
       jar,
       model,
-      resolver,
-      ["tri"],
-      TRI_FARMS,
+      ["tri" /* "aurora" */], // Trisolaris Aurora bonus rewards has ended
+      chefAddress,
       "pendingTri",
-      triPoolIds[jar.depositToken.addr] || triPoolV2Ids[jar.depositToken.addr],
+      poolId,
     );
   }
 

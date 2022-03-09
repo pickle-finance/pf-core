@@ -1,5 +1,4 @@
-import { ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { mirRewardAbi } from "../../Contracts/ABIs/mir-reward.abi";
@@ -7,7 +6,7 @@ import { PickleModel } from "../../model/PickleModel";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 
 export const MIRROR_MIR_UST_STAKING_REWARDS =
@@ -35,18 +34,18 @@ export abstract class MirJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ) {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
-    const multicallUniStakingRewards = new MulticallContract(
+    const multicallUniStakingRewards = new MultiContract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await multicallProvider.all([
-      multicallUniStakingRewards.rewardRate(),
-      multicallUniStakingRewards.totalSupply(),
-    ]);
+    const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+      [
+        () => multicallUniStakingRewards.rewardRate(),
+        () => multicallUniStakingRewards.totalSupply(),
+      ],
+      jar.chain,
+    );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const mirRewardRate = parseFloat(formatEther(rewardRateBN));
@@ -85,17 +84,13 @@ export abstract class MirJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const rewards = new ethers.Contract(
-      this.rewardAddress,
-      mirRewardAbi,
-      resolver,
+    const rewards = new MultiContract(this.rewardAddress, mirRewardAbi);
+    const mir = await model.comMan.call(
+      () => rewards.earned(jar.details.strategyAddr),
+      jar.chain,
     );
-    const [mir, mirPrice] = await Promise.all([
-      rewards.earned(jar.details.strategyAddr),
-      model.priceOfSync("mirror-protocol", jar.chain),
-    ]);
+    const mirPrice = model.priceOfSync("mirror-protocol", jar.chain);
     const harvestable = mir.mul(mirPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }

@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import {
   AssetAprComponent,
@@ -28,12 +26,10 @@ export class pLqty extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["lusd", "weth"],
       this.strategyAbi,
     );

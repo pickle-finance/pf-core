@@ -1,11 +1,9 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import masterchefAbi from "../../Contracts/ABIs/masterchef.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
@@ -25,12 +23,10 @@ export class LooksEth extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDComManImplementation(
       jar,
       model,
-      resolver,
       ["looks"],
       this.strategyAbi,
     );
@@ -60,19 +56,19 @@ export class LooksEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
-    const multicallRewards = new MulticallContract(
+    const multicallRewards = new MultiContract(
       this.rewardAddress,
       masterchefAbi,
     );
-    const multicallLp = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallLp = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-    const [rewardPerBlockBN, totalSupplyBN] = await multicallProvider.all([
-      multicallRewards.rewardPerBlock(),
-      multicallLp.balanceOf(rewardsAddress),
-    ]);
+    const [rewardPerBlockBN, totalSupplyBN] = await model.comMan.call(
+      [
+        () => multicallRewards.rewardPerBlock(),
+        () => multicallLp.balanceOf(rewardsAddress),
+      ],
+      jar.chain,
+    );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
