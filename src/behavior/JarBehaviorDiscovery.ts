@@ -409,8 +409,11 @@ import {
   JAR_AURORA_PAD_PAD_DAI_LP,
   JAR_AURORA_PAD_PAD_AURORA_LP,
   JAR_AURORA_PAD_NEAR_ETH_LP,
-  JAR_AURORA_PAD_PAD_TRI_LP
+  JAR_AURORA_PAD_PAD_TRI_LP,
   // JAR_AURORA_ROSE_FRAXPOOL_LP,
+  JAR_AURORA_TRISOLARIS_NEAR_USDT_LP,
+  JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP,
+  JAR_AURORA_TRISOLARIS_NEAR_USDC_LP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -674,6 +677,9 @@ import { PadPadDai } from "./impl/aurora-pad-pad-dai";
 import { PadPadAurora } from "./impl/aurora-pad-pad-aurora";
 import { PadNearEth } from "./impl/aurora-pad-near-eth";
 import { PadPadTri } from "./impl/aurora-pad-pad-tri";
+import { TriNearUsdtV2 } from "./impl/aurora-tri-near-usdt-2";
+import { TriAuroraNear } from "./impl/aurora-tri-aurora-near";
+import { TriNearUsdcV2 } from "./impl/aurora-tri-near-usdc-2";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -926,6 +932,9 @@ jarToBehavior.set(JAR_AURORA_PAD_PAD_DAI_LP.id, new PadPadDai());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_AURORA_LP.id, new PadPadAurora());
 jarToBehavior.set(JAR_AURORA_PAD_NEAR_ETH_LP.id, new PadNearEth());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_TRI_LP.id, new PadPadTri());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDT_LP.id, new TriNearUsdtV2());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP.id, new TriAuroraNear());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP.id, new TriNearUsdcV2());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

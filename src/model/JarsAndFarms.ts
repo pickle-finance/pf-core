@@ -4883,7 +4883,7 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -4945,7 +4945,7 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -5694,6 +5694,90 @@ export const JAR_AURORA_TRISOLARIS_XNL_NEAR_LP: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_XNL_NEAR_LP);
+
+export const JAR_AURORA_TRISOLARIS_NEAR_USDT_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1ab",
+  contract: "0x372d3dBE547f220311Ac996998B18eB287251644",
+  startBlock: 64899522,
+  depositToken: {
+    addr: "0x03B666f3488a7992b2385B12dF7f35156d7b29cD",
+    name: "TrisolarisLP NEAR/USDT",
+    link: "https://www.trisolaris.io/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["near", "usdt"],
+  },
+  rewardTokens: ["tri", "aurora"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-NEAR-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP NEAR/USDT",
+    farmDepositTokenName: "pTrisolarisLP NEAR/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_NEAR_USDT_LP);
+
+export const JAR_AURORA_TRISOLARIS_NEAR_USDC_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1ad",
+  contract: "0x0FfE6fDf78450F777488678a03Fc6c99BA3C2cE0",
+  startBlock: 64902495,
+  depositToken: {
+    addr: "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
+    name: "TrisolarisLP NEAR/USDC",
+    link: "https://www.trisolaris.io/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["near", "usdc"],
+  },
+  rewardTokens: ["tri", "aurora"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-NEAR-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP NEAR/USDC",
+    farmDepositTokenName: "pTrisolarisLP NEAR/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP);
+
+export const JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1ac",
+  contract: "0x708C457199A699Ce7219d778353F9e82f5C49DC3",
+  startBlock: 64898205,
+  depositToken: {
+    addr: "0x1e0e812FBcd3EB75D8562AD6F310Ed94D258D008",
+    name: "TrisolarisLP AURORA/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["aurora", "near"],
+  },
+  rewardTokens: ["tri", "aurora"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-AURORA-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP AURORA/NEAR",
+    farmDepositTokenName: "pTrisolarisLP AURORA/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP);
 
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
