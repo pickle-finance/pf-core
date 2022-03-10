@@ -22,7 +22,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   id: "Uniswap Pickle/Eth",
   farmNickname: "Pickle Power",
   contract: "0xfAA267C3Bb25a82CFDB604136a29895D30fd3fd8",
-  startBlock: 0000000,
+  startBlock: 12248852,
   depositToken: {
     addr: "0xdc98556ce24f007a5ef6dc1ce96322d65832a819",
     name: "UniV2 PICKLE/ETH",
@@ -251,7 +251,6 @@ export const JAR_ALETH: JarDefinition = {
     addr: "0xc9da65931ABf0Ed1b74Ce5ad8c041C4220940368",
     name: "Saddle ETH/alETH",
     link: "https://saddle.exchange/#/pools/aleth/deposit",
-    components: ["eth", "aleth"],
   },
   rewardTokens: ["alcx"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
@@ -3163,7 +3162,7 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
   type: AssetType.JAR,
   id: "oneJar 1a",
   contract: "0xce9075ab4158aa05447df12e5bf09d51e21516e9",
-  startBlock: 0000000,
+  startBlock: 19300856,
   depositToken: {
     addr: "0xc5B8129B411EF5f5BE22e74De6fE86C3b69e641d",
     name: "SUSHI ETH/DAI",
@@ -3198,7 +3197,7 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "oneJar 1b",
   contract: "0xbe6300c2ffc26f8c6cdd3a468867caf8bb01cfce",
-  startBlock: 0000000,
+  startBlock: 19300859,
   depositToken: {
     addr: "0x39bE7c95276954a6f7070F9BAa38db2123691Ed0",
     name: "SUSHI WBTC/ETH",
@@ -3233,7 +3232,7 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
   type: AssetType.JAR,
   id: "oneJar 1c",
   contract: "0xab1a9bf446c77a9873023646147e36ea34279c72",
-  startBlock: 0000000,
+  startBlock: 19300863,
   depositToken: {
     addr: "0xeb049F1eD546F8efC3AD57f6c7D22F081CcC7375",
     name: "SUSHI ETH/ONE",
@@ -4530,7 +4529,7 @@ export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
   type: AssetType.JAR,
   id: "croJar 2a",
   contract: "0xeC15DA7019C3d0C91E9e36d1adBa22357AF732C3",
-  startBlock: 0000000,
+  startBlock: 1954028,
   depositToken: {
     addr: "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
     name: "WETH",
@@ -4557,7 +4556,7 @@ export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
   type: AssetType.JAR,
   id: "croJar 2b",
   contract: "0x6fe9d20f64723cb714e0ae90293c6dba7ee23db9",
-  startBlock: 0000000,
+  startBlock: 2026209,
   depositToken: {
     addr: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
     name: "CRO",
@@ -6925,7 +6924,7 @@ export const JAR_METIS_TETHYS_METIS_DAI: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 2h",
   contract: "0x4bDA2B3862116d6C26B858354667A981BDCcA047",
-  startBlock: 00000000,
+  startBlock: 1687592,
   depositToken: {
     addr: "0xCc15d8f93be780aD78fD1A016fB0F15F2543b5Dc",
     name: "TETHYS METIS/DAI",
@@ -6952,7 +6951,7 @@ export const JAR_METIS_TETHYS_METIS_AVAX: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 2i",
   contract: "0x97C2df1D75632A5d2D0237B5c46e2fB58185a7fD",
-  startBlock: 0000000,
+  startBlock: 1688168,
   depositToken: {
     addr: "0x3Ca47677e7D8796e6470307Ad15c1fBFd43f0D6F",
     name: "TETHYS METIS/AVAX",
@@ -6979,7 +6978,7 @@ export const JAR_METIS_TETHYS_METIS_FTM: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 2j",
   contract: "0x909eD0407D21ADa0E8336c24f19C1a177827d156",
-  startBlock: 0000000,
+  startBlock: 1688704,
   depositToken: {
     addr: "0x74Ca39F7aB9B685B8eA8c4ab19E7Ab6b474Dd22D",
     name: "TETHYS METIS/FTM",
@@ -10764,7 +10763,7 @@ export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   type: AssetType.EXTERNAL,
   id: "Sushi Pickle/Eth",
   contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
-  startBlock: 0000000,
+  startBlock: 11021240,
   depositToken: {
     addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
     name: "Sushi PICKLE/ETH",
