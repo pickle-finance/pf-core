@@ -243,6 +243,13 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     pickleZapAddress: "0xE9B3E153Ea1277bCD6214DA500126c67Dd9AD32e",
     router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
   },
+  {
+    protocol: AssetProtocol.TECTONIC,
+    chain: ChainNetwork.Cronos,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "",
+  }
   // ADD_PROTOCOL
 ];
 
