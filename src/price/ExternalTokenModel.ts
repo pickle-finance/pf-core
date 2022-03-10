@@ -2215,6 +2215,41 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Fantom,
+      "wftm",
+      "wrapped-fantom",
+      "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "mai",
+      "mimatic",
+      "0xfB98B335551a418cD0737375a2ea0ded62Ea213b".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "weve",
+      "vedao",
+      "0x911da02c1232a3c3e1418b834a311921143b04d7".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "pgunk",
+      "",
+      "0xf8Fc059dAfDCe4EF2EdFc72cbBAF410d7531E610".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0xf8Fc059dAfDCe4EF2EdFc72cbBAF410d7531E610", // SPIRIT PGUNK-WFTM
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83" // SPIRIT WFTM-USDC
+      ]);
+    this.addToken(
+      ChainNetwork.Fantom,
       "fbeets",
       "",
       "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1".toLowerCase(),
