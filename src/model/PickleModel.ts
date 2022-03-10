@@ -62,6 +62,7 @@ export const ADDRESSES = new Map([
       dill: "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf",
       feeDistributor: "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc",
       gaugeProxy: "0x2e57627ACf6c1812F99e274d0ac61B786c19E74f",
+      treasury: "0x066419eaef5de53cc5da0d8702b990c5bc7d1ab3",
     },
   ],
   [
@@ -71,6 +72,7 @@ export const ADDRESSES = new Map([
       masterChef: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
       controller: "0x83074F0aB8EDD2c1508D3F657CeB5F27f6092d09",
       minichef: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+      treasury: "0xeae55893cc8637c16cf93d43b38aa022d689fa62",
     },
   ],
   [
@@ -80,6 +82,7 @@ export const ADDRESSES = new Map([
       masterChef: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
       controller: "0x55d5bcef2bfd4921b8790525ff87919c2e26bd03",
       minichef: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+      treasury: "0xf02ceb58d549e4b403e8f85fbbaee4c5dfa47c01",
     },
   ],
   [
@@ -89,6 +92,7 @@ export const ADDRESSES = new Map([
       masterChef: NULL_ADDRESS,
       controller: "0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4",
       minichef: NULL_ADDRESS,
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
     },
   ],
   [
@@ -107,6 +111,7 @@ export const ADDRESSES = new Map([
       masterChef: NULL_ADDRESS,
       controller: "0xc3f393fb40f8cc499c1fe7fa5781495dc6fac9e9",
       minichef: NULL_ADDRESS,
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
     },
   ],
   [
@@ -125,6 +130,7 @@ export const ADDRESSES = new Map([
       masterChef: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
       controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
       minichef: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
     },
   ],
   [
@@ -135,6 +141,7 @@ export const ADDRESSES = new Map([
       controller: "0xD556018E7b37e66f618A65737144A2ae2B98127f",
       minichef: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
       rewarder: "0x57A319FBE114DC8bb0F1BaAaFB37FA6F308C639F",
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
     },
   ],
   [
@@ -144,6 +151,7 @@ export const ADDRESSES = new Map([
       masterChef: NULL_ADDRESS,
       controller: "0x95ca4584eA2007D578fa2693CCC76D930a96d165",
       minichef: NULL_ADDRESS,
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
     },
   ],
   [
@@ -153,6 +161,7 @@ export const ADDRESSES = new Map([
       masterChef: NULL_ADDRESS,
       controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
       minichef: NULL_ADDRESS,
+      treasury: "0x7A79e2e867d36a91Bb47e0929787305c95E793C5"
     },
   ],
   [
@@ -162,6 +171,7 @@ export const ADDRESSES = new Map([
       masterChef: NULL_ADDRESS,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
       minichef: NULL_ADDRESS,
+      treasury: "0xe4ee7edddbebda077975505d11decb16498264fb",
     },
   ],
 
@@ -201,15 +211,15 @@ export class PickleModel {
     return this.permanentDataStore
       ? this.permanentDataStore
       : // Return a no-op data store
-        {
-          readData(_key: string): Promise<string> {
-            return undefined;
-          },
-          writeData(_key: string, _value: string): Promise<void> {
-            // do nothing
-            return;
-          },
-        };
+      {
+        readData(_key: string): Promise<string> {
+          return undefined;
+        },
+        writeData(_key: string, _value: string): Promise<void> {
+          // do nothing
+          return;
+        },
+      };
   }
 
   static fromJson(
@@ -321,27 +331,27 @@ export class PickleModel {
       // This is a label, not an address. Find the first one you can with a price
       tokenObj = chainTokens.find(
         (x) => x.id === token || x.coingeckoId === token && x.price !== undefined);
-      if( tokenObj === undefined ) {
-      // even if it's not on the right chain.
-      tokenObj = ExternalTokenModelSingleton.getAllTokens().find(
+      if (tokenObj === undefined) {
+        // even if it's not on the right chain.
+        tokenObj = ExternalTokenModelSingleton.getAllTokens().find(
           (x) => x.id === token || x.coingeckoId === token && x.price !== undefined);
       }
     } else {
       // It's looking for a contract address. Most of these requests will be in the external tokens.
       tokenObj = chainTokens.find(
         (x) => x.contractAddr.toLowerCase() === token.toLowerCase() && x.price !== undefined);
-      if( tokenObj === undefined ) {
+      if (tokenObj === undefined) {
         // But some of them may be deposit tokens
-        const depositTokenMatch = this.allAssets.find((x) => 
-          x.depositToken && x.depositToken.addr && 
+        const depositTokenMatch = this.allAssets.find((x) =>
+          x.depositToken && x.depositToken.addr &&
           x.depositToken.addr.toLowerCase() === token.toLowerCase());
-        if( depositTokenMatch ) {
+        if (depositTokenMatch) {
           const p = depositTokenMatch.depositToken?.price;
           return p !== undefined ? p : undefined;
         }
       }
     }
-    if( tokenObj && tokenObj.price !== undefined)
+    if (tokenObj && tokenObj.price !== undefined)
       return tokenObj.price;
     return undefined;
   }
@@ -501,11 +511,11 @@ export class PickleModel {
    * this function can be removed
    * This map will have bugs and collisions. It is not to be trusted.
    */
-  createLegacyPriceCacheTemporary(): {[key: string]: number} {
-    const ret: {[key: string]: number} = {};
+  createLegacyPriceCacheTemporary(): { [key: string]: number } {
+    const ret: { [key: string]: number } = {};
     const tokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens();
-    for( let i = 0; i < tokens.length; i++ ) {
-      if( tokens[i].price !== undefined ) {
+    for (let i = 0; i < tokens.length; i++) {
+      if (tokens[i].price !== undefined) {
         ret[tokens[i].id] = tokens[i].price;
         ret[tokens[i].coingeckoId] = tokens[i].price;
         ret[tokens[i].contractAddr] = tokens[i].price;
@@ -959,13 +969,13 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? new MulticallContract(
-                oneJar.depositToken.addr,
-                univ3PoolAbi,
-              ).liquidity()
+              oneJar.depositToken.addr,
+              univ3PoolAbi,
+            ).liquidity()
             : new MulticallContract(
-                oneJar.depositToken.addr,
-                erc20Abi,
-              ).totalSupply(),
+              oneJar.depositToken.addr,
+              erc20Abi,
+            ).totalSupply(),
         ),
       );
     } catch (error) {
@@ -1166,8 +1176,8 @@ export class PickleModel {
       ) {
         console.log(
           "Error loading harvest data for jar " +
-            harvestableJars[i].id +
-            ":  multicall for prereqs failed",
+          harvestableJars[i].id +
+          ":  multicall for prereqs failed",
         );
         continue;
       }
@@ -1187,9 +1197,9 @@ export class PickleModel {
       } catch (e) {
         console.log(
           "Error loading harvest data for jar " +
-            harvestableJars[i].id +
-            ":  " +
-            e,
+          harvestableJars[i].id +
+          ":  " +
+          e,
         );
       }
     }
@@ -1444,8 +1454,8 @@ export class PickleModel {
       .getProjectedAprStats(asset as JarDefinition, this);
     try {
       const timeoutResult = new Error("PfCoreTimeoutError_singleJarLoadApyComponents");
-      const r = await timeout(ret,12000, timeoutResult);
-      if( r && r !== timeoutResult ) {
+      const r = await timeout(ret, 12000, timeoutResult);
+      if (r && r !== timeoutResult) {
         asset.aprStats = this.cleanAprStats(r);
       } else {
         this.logError("loadApyComponents", "timeout 7s for " + asset.details.apiKey, asset.details.apiKey);
@@ -1482,22 +1492,22 @@ export class PickleModel {
       (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined,
     );
     try {
-        await Promise.all(withBehaviors.map(async (x) => {
-          const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery()
-            .findAssetBehavior(x)
-            .getProtocolApy(x as JarDefinition, this);
-          try {
-            x.details.protocolApr = await ret;
-          } catch (error) {
-            this.logError("loadProtocolApr", error, x.details.apiKey);
-            return {
-              d1: 0,
-              d3: 0,
-              d7: 0, 
-              d30: 0,
-            }
+      await Promise.all(withBehaviors.map(async (x) => {
+        const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery()
+          .findAssetBehavior(x)
+          .getProtocolApy(x as JarDefinition, this);
+        try {
+          x.details.protocolApr = await ret;
+        } catch (error) {
+          this.logError("loadProtocolApr", error, x.details.apiKey);
+          return {
+            d1: 0,
+            d3: 0,
+            d7: 0,
+            d30: 0,
           }
-        }),
+        }
+      }),
       );
     } catch (error) {
       this.logError("loadProtocolApr", error);
@@ -1538,7 +1548,7 @@ export class PickleModel {
 
     const masterChef = ADDRESSES.get(ChainNetwork.Ethereum)?.masterChef;
     let ppb = BigNumber.from(0);
-    if( masterChef ) {
+    if (masterChef) {
       const contract = new ethers.Contract(masterChef, MasterchefAbi, this.providerFor(ChainNetwork.Ethereum));
       ppb = await contract.picklePerBlock();
     }
@@ -1554,10 +1564,10 @@ export class PickleModel {
     // TODO store somewhere?
     console.log(
       "ERROR: Failed at " +
-        where +
-        (context !== undefined ? " [" + context + "]" : "") +
-        "\n" +
-        error,
+      where +
+      (context !== undefined ? " [" + context + "]" : "") +
+      "\n" +
+      error,
     );
   }
 }
