@@ -71,6 +71,11 @@ export const triPoolV2Ids = {
     rewarder: "0x42b950FB4dd822ef04C4388450726EFbF1C3CF63",
     reward: "flx",
   },
+  "0xdDAdf88b007B95fEb42DDbd110034C9a8e9746F2": {
+    poolId: 10,
+    rewarder: "0xbbE41F699B0fB747cd4bA21067F6b27e0698Bc30",
+    reward: "solace",
+  },
   "0x5913f644A10d98c79F2e0b609988640187256373": {
     poolId: 11,
     rewarder: "0x7B9e31BbEdbfdc99e3CC8b879b9a3B1e379Ce530",
@@ -201,6 +206,8 @@ export async function calculateTriFarmsAPY(
     }
   }
 
+
+
   const rewardsPerBlock =
     (parseFloat(formatEther(triPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
@@ -228,6 +235,77 @@ export async function calculateTriFarmsAPY(
       : []),
   ];
 }
+
+export async function calculateTriEcoFarmsAPY(
+  jar: JarDefinition,
+  model: PickleModel,
+): Promise<AssetAprComponent[]> {
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+
+  let
+    poolInfo,
+    totalSupplyBN,
+    rewarder,
+    extraRewardAPY = 0;
+  if (Number.isInteger(triPoolV2Ids[jar.depositToken.addr]?.poolId)) {
+    const poolId = triPoolV2Ids[jar.depositToken.addr]?.poolId;
+    const multicallTriV2Farms = new MultiContract(TRI_V2_FARMS, triv2FarmsAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+
+    [poolInfo, totalSupplyBN, rewarder] =
+      await model.callMulti(
+        [
+          () => multicallTriV2Farms.poolInfo(poolId),
+          () => lpToken.balanceOf(TRI_V2_FARMS),
+          () => multicallTriV2Farms.rewarder(poolId),
+        ],
+        jar.chain,
+      );
+
+    // Return extraReward APY of 0 if there's no rewarder
+    if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
+      extraRewardAPY = 0;
+    } else {
+      // Get extraReward APY
+      const rewarderContract = new MultiContract(
+        triPoolV2Ids[jar.depositToken.addr]?.rewarder,
+        sushiComplexRewarderAbi,
+      );
+
+      const extraRewardPerBlock = await model.callMulti(
+        () => rewarderContract.tokenPerBlock(),
+        jar.chain,
+      );
+
+      const rewardId = triPoolV2Ids[jar.depositToken.addr]?.reward;
+      const extraRewardRewardsPerYear =
+        (parseFloat(
+          formatUnits(
+            extraRewardPerBlock,
+            model.tokenDecimals(rewardId, jar.chain),
+          ),
+        ) *
+          ONE_YEAR_IN_SECONDS *
+          model.priceOfSync(rewardId, jar.chain)) /
+        Chains.get(jar.chain).secondsPerBlock;
+
+      const totalSupply = parseFloat(formatEther(totalSupplyBN));
+
+      extraRewardAPY =
+        extraRewardRewardsPerYear / (totalSupply * pricePerToken);
+    }
+  }
+
+  return [
+    createAprComponentImpl(
+      triPoolV2Ids[jar.depositToken.addr]?.reward,
+      extraRewardAPY * 100,
+      true,
+      0.9,
+    ),
+  ]
+}
+
 
 const TRI_PAIR_CACHE_KEY = "triswap.pair.data.cache.key";
 

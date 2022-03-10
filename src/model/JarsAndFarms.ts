@@ -5527,6 +5527,34 @@ export const JAR_AURORA_TRI_LINEAR_NEAR_LP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_LINEAR_NEAR_LP);
 
+export const JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1v",
+  contract: "0x0EA5D709851ae7A6856677b880b8c56e87e7877B",
+  startBlock: 64160109,
+  depositToken: {
+    addr: "0xdDAdf88b007B95fEb42DDbd110034C9a8e9746F2",
+    name: "TrisolarisLP SOLACE/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x501acE9c35E60f03A2af4d484f49F9B1EFde9f40/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["solace", "near"],
+  },
+  rewardTokens: ["solace"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-SOLACE-NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "",
+    farmNickname: "pTrisolarisLP SOLACE/NEAR",
+    farmDepositTokenName: "pTrisolarisLP SOLACE/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP);
+
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",

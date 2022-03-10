@@ -1439,6 +1439,15 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "solace",
+      null,
+      "solace",
+      "0x501acE9c35E60f03A2af4d484f49F9B1EFde9f40".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "linear",
       null,
       "linear-protocol",

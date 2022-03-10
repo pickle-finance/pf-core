@@ -393,12 +393,9 @@ import {
   JAR_METIS_HUMMUS_USDT,
   JAR_AURORA_TRI_BSTN_NEAR_LP,
   JAR_CURVE_STG_USDC_LP,
-<<<<<<< HEAD
   BRINERY_VEFXS,
-=======
   JAR_AURORA_TRI_RUSD_NEAR_LP,
   JAR_AURORA_TRI_LINEAR_NEAR_LP,
->>>>>>> 81186ef (added ROSE-NEAR, RUSD-NEAR, LINEAR-NEAR)
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -643,13 +640,10 @@ import { TriXtriStnear } from "./impl/aurora-tri-xtri-stnear";
 import { TriStnearNear } from "./impl/aurora-tri-stnear-near";
 import { TriBstnNear } from "./impl/aurora-tri-bstn-near";
 import { CurveStgUsdc } from "./impl/curve-stg-usdc";
-<<<<<<< HEAD
 import { PveFxsAsset } from "./impl/vefxs";
-=======
 import { TriRoseNear } from "./impl/aurora-tri-rose-near";
 import { TriRusdNear } from "./impl/aurora-tri-rusd-near";
 import { TriLinearNear } from "./impl/aurora-tri-linear-near";
->>>>>>> 81186ef (added ROSE-NEAR, RUSD-NEAR, LINEAR-NEAR)
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
