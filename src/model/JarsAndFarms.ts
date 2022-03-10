@@ -10827,7 +10827,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-CRV-G3CRV",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10855,7 +10855,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-MULTI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10883,7 +10883,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-LQDR-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10911,7 +10911,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-IB-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10939,7 +10939,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-XTAROT-TAROT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10967,7 +10967,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-DEI-SCREAM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10995,7 +10995,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SYN",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11023,7 +11023,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SOLID",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11050,8 +11050,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
-    apiKey: "OXDSOLIDLYLP YFI/WOOFY",
-    harvestStyle: HarvestStyle.CUSTOM,
+    apiKey: "OXDSOLIDLYLP-YFI-WOOFY",
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11079,7 +11079,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-BOMB-PGUNK",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11107,7 +11107,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SOLIDSEX-SOLID",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11135,7 +11135,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-FXS-FRAX",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11163,7 +11163,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-OXD-DEI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11191,7 +11191,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-TAROT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11219,7 +11219,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-YFI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11247,7 +11247,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SEX-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11275,7 +11275,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-DEI-DEUS",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11303,7 +11303,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-WEVE",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11331,7 +11331,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-SYN",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11359,7 +11359,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SOLIDSEX",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11387,7 +11387,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-MIM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11415,7 +11415,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-DEI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11443,7 +11443,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-OXD2",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11471,7 +11471,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-SINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11499,7 +11499,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-RAINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11527,7 +11527,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-BINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11555,7 +11555,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-LINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11583,7 +11583,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-GEIST",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11611,7 +11611,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-HND",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11639,7 +11639,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SOLID-OXSOLID",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11667,7 +11667,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-RDL",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11695,7 +11695,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SEX-G3CRV",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11723,7 +11723,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-CRV-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11751,7 +11751,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-BIFI-MAI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11779,7 +11779,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SCREAM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11807,7 +11807,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-BEETS-FBEETS",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
