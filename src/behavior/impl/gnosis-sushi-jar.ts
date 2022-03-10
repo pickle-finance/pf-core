@@ -52,42 +52,32 @@ export async function calculateGnosisSushiAPY(
     );
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  console.log("PING1")
   const sushiRewardsPerSecond =
     (parseFloat(formatEther(sushiPerSecondBN)) *
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
-  console.log("PING2")
 
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-  console.log("PING3")
 
   const sushiRewardsPerYear = sushiRewardsPerSecond * ONE_YEAR_IN_SECONDS;
-  console.log("PING4")
 
   const valueRewardedPerYear =
     model.priceOfSync("sushi", jar.chain) * sushiRewardsPerYear;
-  console.log("PING5");
 
   const totalValueStaked = totalSupply * pricePerToken;
-  console.log("PING7")
 
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;
-  console.log("PING8")
 
 
   // Getting GNO rewards
   const provider = model.providerFor(jar.chain);
-  console.log("PING9")
 
   const totalAllocPointCREncoded = await provider.getStorageAt(
     GNO_COMPLEX_REWARDER,
     5,
   );
-  console.log("PING10");
 
   const rewarderContract = new MultiContract(GNO_COMPLEX_REWARDER, sushiComplexRewarderAbi);
-  console.log("PING11", rewarderContract);
 
   const [poolInfoCR, gnoPerSecondBN] = await model.callMulti(
     [
@@ -96,37 +86,22 @@ export async function calculateGnosisSushiAPY(
     ],
     jar.chain,
   );
-  console.log("PING12", poolInfoCR, gnoPerSecondBN);
-
 
   const totalAllocPointCR = defaultAbiCoder.decode(
     ["uint256"],
     totalAllocPointCREncoded,
   );
-  console.log("PING13")
-
 
   const gnoRewardsPerSecond =
     (parseFloat(formatEther(gnoPerSecondBN)) *
       poolInfoCR.allocPoint.toNumber()) /
     totalAllocPointCR[0].toNumber();
-  console.log("PING14")
-
 
   const gnoRewardsPerYear = gnoRewardsPerSecond * (365 * 24 * 60 * 60);
-  console.log("PING15")
 
   const gnoValueRewardedPerYear =
     model.priceOfSync("gno", jar.chain) * gnoRewardsPerYear;
   const gnoAPY = (gnoValueRewardedPerYear / totalValueStaked) * 100;
-  console.log("PING16")
-
-
-  // const lpApr: number = await new SushiPolyPairManager().calculateLpApr(
-  //   model,
-  //   jar.depositToken.addr,
-  // );
-  console.log("PING17", sushiAPY, gnoAPY)
 
   return [
     createAprComponentImpl("sushi", sushiAPY, true, 0.958),
@@ -148,15 +123,14 @@ export abstract class GnosisSushiJar extends AbstractJarBehavior {
     let poolId: number;
     chefAddress = SUSHI_MINICHEF;
     poolId = gnosisSushiPoolIds[jar.depositToken.addr];
-    console.log("DING")
     let extraRewardsValue = 0;
     try {
       // Check if there is a rewarder for this pool, call can fail if no provider, so we use normal ethers provider
       const provider = model.providerFor(jar.chain);
-      const mcContract = new Contract(chefAddress,sushiMiniChefAbi,provider);
-      const rewarderAddr = await model.call(()=>mcContract.rewarder(poolId),jar.chain,true);
+      const mcContract = new Contract(chefAddress, sushiMiniChefAbi, provider);
+      const rewarderAddr = await model.call(() => mcContract.rewarder(poolId), jar.chain, true);
       const rewarderContract = new MultiContract(rewarderAddr, sushiComplexRewarderAbi);
-      const pendingGnoBN = await model.callMulti(()=>rewarderContract.pendingToken(poolId, jar.details.strategyAddr),jar.chain);
+      const pendingGnoBN = await model.callMulti(() => rewarderContract.pendingToken(poolId, jar.details.strategyAddr), jar.chain);
       const gnoPrice = model.priceOfSync("gno", jar.chain);
       const pendingGnoValue = gnoPrice * parseFloat(formatEther(pendingGnoBN));
       extraRewardsValue += pendingGnoValue;
@@ -171,7 +145,7 @@ export abstract class GnosisSushiJar extends AbstractJarBehavior {
       "pendingSushi",
       poolId,
     );
-    
+
     return totalHarvestable + extraRewardsValue;
   }
 
@@ -179,7 +153,6 @@ export abstract class GnosisSushiJar extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    console.log("SING")
     return this.aprComponentsToProjectedApr(
       await calculateGnosisSushiAPY(definition, model),
     );
