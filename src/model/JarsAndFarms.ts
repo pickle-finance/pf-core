@@ -22,7 +22,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   id: "Uniswap Pickle/Eth",
   farmNickname: "Pickle Power",
   contract: "0xfAA267C3Bb25a82CFDB604136a29895D30fd3fd8",
-  startBlock:,
+  startBlock: 0000000,
   depositToken: {
     addr: "0xdc98556ce24f007a5ef6dc1ce96322d65832a819",
     name: "UniV2 PICKLE/ETH",
@@ -10733,7 +10733,7 @@ depositToken: {
       type: AssetType.EXTERNAL,
       id: "B.Protocol BAMM",
       contract: "0x54bC9113f1f55cdBDf221daf798dc73614f6D972",
-      startBlock:,
+      startBlock: 12787025,
       depositToken: {
         addr: "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
         name: "LUSD",
@@ -10753,7 +10753,7 @@ depositToken: {
       type: AssetType.EXTERNAL,
       id: "Sushi Pickle/Eth",
       contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
-      startBlock:,
+      startBlock: 0000000,
       depositToken: {
         addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
         name: "Sushi PICKLE/ETH",
