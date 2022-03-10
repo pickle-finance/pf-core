@@ -86,6 +86,21 @@ export const triPoolV2Ids = {
     rewarder: "0x170431D69544a1BC97855C6564E8460d39508844",
     reward: "near",
   },
+  "0xbe753E99D0dBd12FB39edF9b884eBF3B1B09f26C": {
+    poolId: 20,
+    rewarder: "0xfe9B7A3bf38cE0CA3D5fA25d371Ff5C6598663d4",
+    reward: "rose",
+  },
+  "0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700": {
+    poolId: 21,
+    rewarder: "0x87a03aFA70302a5a0F6156eBEd27f230ABF0e69C",
+    reward: "rose",
+  },
+  "0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1": {
+    poolId: 22,
+    rewarder: "0x1616B20534d1d1d731C31Ca325F4e909b8f3E0f0",
+    reward: "linear",
+  },
   "0xBBf3D4281F10E537d5b13CA80bE22362310b2bf9": {
     poolId: 23,
     rewarder: "0xDc6d09f5CC085E29972d192cB3AdCDFA6495a741",
@@ -203,13 +218,13 @@ export async function calculateTriFarmsAPY(
     createAprComponentImpl("tri", triAPY * 100, true, 0.9),
     ...(extraRewardAPY > 0
       ? [
-          createAprComponentImpl(
-            triPoolV2Ids[jar.depositToken.addr]?.reward,
-            extraRewardAPY * 100,
-            true,
-            0.9,
-          ),
-        ]
+        createAprComponentImpl(
+          triPoolV2Ids[jar.depositToken.addr]?.reward,
+          extraRewardAPY * 100,
+          true,
+          0.9,
+        ),
+      ]
       : []),
   ];
 }

@@ -5443,6 +5443,90 @@ export const JAR_AURORA_TRI_BSTN_NEAR_LP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_BSTN_NEAR_LP);
 
+export const JAR_AURORA_TRI_ROSE_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1s",
+  contract: "0xFb56aecFb7eF86c524E70E090B15CD4a643BBEc5",
+  startBlock: 64156232,
+  depositToken: {
+    addr: "0xbe753E99D0dBd12FB39edF9b884eBF3B1B09f26C",
+    name: "TLP ROSE/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["rose", "near"],
+  },
+  rewardTokens: ["tri", "rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-ROSE-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTRI ROSE/NEAR",
+    farmDepositTokenName: "pTRI ROSE/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_ROSE_NEAR_LP);
+
+export const JAR_AURORA_TRI_RUSD_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1t",
+  contract: "0x471a605E4E2Eca369065da90110685d073CBFf1D",
+  startBlock: 64156815,
+  depositToken: {
+    addr: "0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700",
+    name: "TLP RUSD/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x19cc40283B057D6608C22F1D20F17e16C245642E/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["rusd", "near"],
+  },
+  rewardTokens: ["tri", "rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-RUSD-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTRI RUSD/NEAR",
+    farmDepositTokenName: "pTRI RUSD/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_RUSD_NEAR_LP);
+
+export const JAR_AURORA_TRI_LINEAR_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1u",
+  contract: "0x52C7Bc8a7F8dFF855ed4a8cEF6196c36D00E5cAA",
+  startBlock: 64157710,
+  depositToken: {
+    addr: "0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1",
+    name: "TLP LINEAR/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x19cc40283B057D6608C22F1D20F17e16C245642E/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["linear", "near"],
+  },
+  rewardTokens: ["tri", "linear"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-LINEAR-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTRI LINEAR/NEAR",
+    farmDepositTokenName: "pTRI LINEAR/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_LINEAR_NEAR_LP);
+
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",

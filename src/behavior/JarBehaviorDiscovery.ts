@@ -171,6 +171,7 @@ import {
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
   JAR_AURORA_ROSE_FRAX,
+  JAR_AURORA_TRI_ROSE_NEAR_LP,
   JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH,
   JAR_POLY_UNIV3_MATIC_ETH,
@@ -392,7 +393,12 @@ import {
   JAR_METIS_HUMMUS_USDT,
   JAR_AURORA_TRI_BSTN_NEAR_LP,
   JAR_CURVE_STG_USDC_LP,
+<<<<<<< HEAD
   BRINERY_VEFXS,
+=======
+  JAR_AURORA_TRI_RUSD_NEAR_LP,
+  JAR_AURORA_TRI_LINEAR_NEAR_LP,
+>>>>>>> 81186ef (added ROSE-NEAR, RUSD-NEAR, LINEAR-NEAR)
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -637,7 +643,13 @@ import { TriXtriStnear } from "./impl/aurora-tri-xtri-stnear";
 import { TriStnearNear } from "./impl/aurora-tri-stnear-near";
 import { TriBstnNear } from "./impl/aurora-tri-bstn-near";
 import { CurveStgUsdc } from "./impl/curve-stg-usdc";
+<<<<<<< HEAD
 import { PveFxsAsset } from "./impl/vefxs";
+=======
+import { TriRoseNear } from "./impl/aurora-tri-rose-near";
+import { TriRusdNear } from "./impl/aurora-tri-rusd-near";
+import { TriLinearNear } from "./impl/aurora-tri-linear-near";
+>>>>>>> 81186ef (added ROSE-NEAR, RUSD-NEAR, LINEAR-NEAR)
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -873,6 +885,9 @@ jarToBehavior.set(JAR_AURORA_TRI_STNEAR_NEAR_LP.id, new TriStnearNear());
 jarToBehavior.set(JAR_AURORA_TRI_STNEAR_XTRI_LP.id, new TriXtriStnear());
 jarToBehavior.set(JAR_AURORA_TRI_USDO_USDT_LP.id, new TriUsdoUsdt());
 jarToBehavior.set(JAR_AURORA_TRI_BSTN_NEAR_LP.id, new TriBstnNear());
+jarToBehavior.set(JAR_AURORA_TRI_ROSE_NEAR_LP.id, new TriRoseNear());
+jarToBehavior.set(JAR_AURORA_TRI_RUSD_NEAR_LP.id, new TriRusdNear());
+jarToBehavior.set(JAR_AURORA_TRI_LINEAR_NEAR_LP.id, new TriLinearNear());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

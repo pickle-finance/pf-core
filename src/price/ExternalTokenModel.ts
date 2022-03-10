@@ -1439,6 +1439,16 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "linear",
+      null,
+      "linear-protocol",
+      "0x918dbe087040a41b786f0da83190c293dae24749".toLowerCase(),
+      24,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "pad",
       null,
       "nearpad",
@@ -1473,16 +1483,6 @@ export class ExternalTokenModel {
       "0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(
-      ChainNetwork.Aurora,
-      "rose",
-      null,
-      "rose",
-      "0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.SWAP_PAIRS,
-      ["0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707"],
     );
     this.addToken(
       ChainNetwork.Aurora,
@@ -1537,6 +1537,25 @@ export class ExternalTokenModel {
       "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "rose",
+      null,
+      "rose",
+      "0xdcd6d4e2b3e1d1e1e6fa8c21c8a323dcbecff970".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "rusd",
+      null,
+      "",
+      "0x19cc40283B057D6608C22F1D20F17e16C245642E".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]
     );
     this.addToken(
       ChainNetwork.Aurora,
