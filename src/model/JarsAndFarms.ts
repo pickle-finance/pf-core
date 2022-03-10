@@ -6630,7 +6630,7 @@ export const JAR_AURORA_ROSE_FRAXPOOL_LP: JarDefinition = {
   contract: "0xF25466cadAD7ACd09249A8e4baDF62C43c6e0375",
   startBlock: 64237051,
   depositToken: {
-    addr: "0xfF79D5bff48e1C01b722560D6ffDfCe9FC883587",
+    addr: "0x4463A118A2fB34640ff8eF7Fe1B3abAcd4aC9fB7",
     name: "RoseLP FRAXPOOL",
     link: "https://app.rose.fi/#/pools/pools/frax",
     components: ["rose3pool", "frax"],
