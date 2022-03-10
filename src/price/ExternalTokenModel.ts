@@ -1148,10 +1148,6 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-<<<<<<< HEAD
-=======
-
->>>>>>> 0ca68df (add new tethys jars to pf-core)
 
     // Aurora
     this.addToken(

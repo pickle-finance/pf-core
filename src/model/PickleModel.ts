@@ -941,7 +941,7 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? () =>
-                new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
+              new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
             : () => new MultiContract(oneJar.contract, jarAbi).balance(),
         ),
         chain,
@@ -970,27 +970,16 @@ export class PickleModel {
       supply = await this.callMulti(
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
-<<<<<<< HEAD
             ? () =>
-                new MultiContract(
-                  oneJar.depositToken.addr,
-                  univ3PoolAbi,
-                ).liquidity()
+              new MultiContract(
+                oneJar.depositToken.addr,
+                univ3PoolAbi,
+              ).liquidity()
             : () =>
-                new MultiContract(
-                  oneJar.depositToken.addr,
-                  erc20Abi,
-                ).totalSupply(),
-=======
-            ? new MulticallContract(
-              oneJar.depositToken.addr,
-              univ3PoolAbi,
-            ).liquidity()
-            : new MulticallContract(
-              oneJar.depositToken.addr,
-              erc20Abi,
-            ).totalSupply(),
->>>>>>> 0ca68df (add new tethys jars to pf-core)
+              new MultiContract(
+                oneJar.depositToken.addr,
+                erc20Abi,
+              ).totalSupply(),
         ),
         chain,
       );
@@ -1365,7 +1354,7 @@ export class PickleModel {
   }
 
   /*
-  We could probably split out the loading vs the setting here 
+  We could probably split out the loading vs the setting here
   */
   async setGaugeAprDataOnAsset(): Promise<any> {
     DEBUG_OUT("Begin setGaugeAprDataOnAsset");
