@@ -586,7 +586,13 @@ import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 =======
 import { TectonicJar } from "./impl/tectonic-folding";
+<<<<<<< HEAD
 >>>>>>> 7387ec3 (Add Tectonic folding (#160))
+=======
+import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
+import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
+import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
+>>>>>>> ddc8500 (add new tethys jars to pf-core)
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(

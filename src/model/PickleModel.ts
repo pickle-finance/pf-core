@@ -976,6 +976,7 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
 <<<<<<< HEAD
+<<<<<<< HEAD
             ? new MulticallContract(
               oneJar.depositToken.addr,
               univ3PoolAbi,
@@ -985,6 +986,8 @@ export class PickleModel {
               erc20Abi,
             ).totalSupply(),
 =======
+=======
+>>>>>>> ddc8500 (add new tethys jars to pf-core)
             ? () =>
                 new MultiContract(
                   oneJar.depositToken.addr,
@@ -995,7 +998,20 @@ export class PickleModel {
                   oneJar.depositToken.addr,
                   erc20Abi,
                 ).totalSupply(),
+<<<<<<< HEAD
 >>>>>>> ac39bfc (Format and lint)
+=======
+=======
+            ? new MulticallContract(
+              oneJar.depositToken.addr,
+              univ3PoolAbi,
+            ).liquidity()
+            : new MulticallContract(
+              oneJar.depositToken.addr,
+              erc20Abi,
+            ).totalSupply(),
+>>>>>>> 0ca68df (add new tethys jars to pf-core)
+>>>>>>> ddc8500 (add new tethys jars to pf-core)
         ),
         chain,
       );
