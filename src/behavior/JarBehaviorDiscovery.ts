@@ -185,6 +185,8 @@ import {
   JAR_METIS_NETSWAP_USDT_METIS,
   JAR_METIS_NETSWAP_USDT_USDC,
   JAR_METIS_NETSWAP_METIS_RELAY,
+  JAR_METIS_NETSWAP_BYTE_USDC,
+  JAR_METIS_NETSWAP_BUSD_USDC,
   JAR_METIS_TETHYS_METIS,
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
@@ -514,6 +516,8 @@ import { NetswapUsdtUsdc } from "./impl/metis-netswap-usdt-usdc";
 import { NetswapBtcMetis } from "./impl/metis-netswap-btc-metis";
 import { NetswapBtcUsdt } from "./impl/metis-netswap-btc-usdt";
 import { NetswapMetisRelay } from "./impl/metis-netswap-metis-relay";
+import { NetswapByteUsdc } from "./impl/metis-netswap-byte-usdc";
+import { NetswapBusdUsdc } from "./impl/metis-netswap-busd-usdc";
 import { TethysMetis } from "./impl/metis-tethys";
 import { TethysEthMetis } from "./impl/metis-tethys-eth-metis";
 import { TethysMetisUsdc } from "./impl/metis-tethys-metis-usdc";
@@ -810,6 +814,8 @@ jarToBehavior.set(JAR_METIS_NETSWAP_USDT_USDC.id, new NetswapUsdtUsdc());
 jarToBehavior.set(JAR_METIS_NETSWAP_WBTC_METIS.id, new NetswapBtcMetis());
 jarToBehavior.set(JAR_METIS_NETSWAP_WBTC_USDT.id, new NetswapBtcUsdt());
 jarToBehavior.set(JAR_METIS_NETSWAP_METIS_RELAY.id, new NetswapMetisRelay());
+jarToBehavior.set(JAR_METIS_NETSWAP_BYTE_USDC.id, new NetswapByteUsdc());
+jarToBehavior.set(JAR_METIS_NETSWAP_BUSD_USDC.id, new NetswapBusdUsdc());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS.id, new TethysMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_ETH_METIS.id, new TethysEthMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_USDC.id, new TethysMetisUsdc());
