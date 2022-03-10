@@ -1435,14 +1435,12 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     apiKey: "UNIV3-USDC-ETH-05",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  //TODO
-  /*
   farm: {
-    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
-    farmNickname: "pUNIv3 FRAX/DAI",
-    farmDepositTokenName: "pUNIv3 FRAX/DAI",
+    farmAddress: "0x162cec141e6703d08b4844c9246e7aa56726e8c6",
+    farmNickname: "pUNIv3 USDC/ETH",
+    farmDepositTokenName: "pUNIv3 USDC/ETH",
   },
-  */
+
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_USDC_ETH_05);
 
@@ -1462,7 +1460,7 @@ export const JAR_UNIV3_USDC_ETH_3: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1470,14 +1468,6 @@ export const JAR_UNIV3_USDC_ETH_3: JarDefinition = {
     apiKey: "UNIV3-USDC-ETH-3",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  //TODO
-  /*
-  farm: {
-    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
-    farmNickname: "pUNIv3 FRAX/DAI",
-    farmDepositTokenName: "pUNIv3 FRAX/DAI",
-  },
-  */
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_USDC_ETH_3);
 
@@ -1505,14 +1495,11 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     apiKey: "UNIV3-LOOKS-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  //TODO
-  /*
   farm: {
-    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
-    farmNickname: "pUNIv3 FRAX/DAI",
-    farmDepositTokenName: "pUNIv3 FRAX/DAI",
+    farmAddress: "0xcfcc3f6fd9f627d5ebbbd9e9b639b35f35a62ecf",
+    farmNickname: "pUNIv3 LOOKS/ETH",
+    farmDepositTokenName: "pUNIv3 LOOKS/ETH",
   },
-  */
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_LOOKS_ETH);
 
@@ -1540,14 +1527,11 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     apiKey: "UNIV3-USDC-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  //TODO
-  /*
   farm: {
-    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
-    farmNickname: "pUNIv3 FRAX/DAI",
-    farmDepositTokenName: "pUNIv3 FRAX/DAI",
+    farmAddress: "0xfe7a1dad74f1cbee137353d52b4a42936c54e28c",
+    farmNickname: "pUNIv3 USDC/USDT",
+    farmDepositTokenName: "pUNIv3 USDC/USDT",
   },
-  */
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_USDC_USDT);
 
@@ -1575,14 +1559,11 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     apiKey: "UNIV3-WBTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  //TODO
-  /*
   farm: {
-    farmAddress: "0xa50e005c3f2f3cd1f56b09df558816cfce25e934",
-    farmNickname: "pUNIv3 FRAX/DAI",
-    farmDepositTokenName: "pUNIv3 FRAX/DAI",
+    farmAddress: "0xcb405e52b8cb9276d5cd01d6b5f7135f53c5535d",
+    farmNickname: "pUNIv3 WBTC/ETH",
+    farmDepositTokenName: "pUNIv3 WBTC/ETH",
   },
-  */
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_WBTC_ETH);
 
