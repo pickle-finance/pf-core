@@ -73,7 +73,8 @@ export class ExternalTokenModel {
     }
     this.addToken(
       ChainNetwork.Ethereum,
-      "pickle", "Pickle",
+      "pickle",
+      "Pickle",
       "pickle-finance",
       "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5".toLowerCase(),
       18,
@@ -98,6 +99,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "uni",
+      null,
       "uniswap",
       "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984".toLowerCase(),
       18,
@@ -106,6 +108,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "comp",
+      null,
       "compound-governance-token",
       "0xc00e94cb662c3520282e6f5717214004a7f26888".toLowerCase(),
       18,
@@ -113,8 +116,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wbtc",
       "0x6b175474e89094c44da98b954eedeac495271d0f".toLowerCase(),
       18,
       ExternalTokenFetchStyle.BOTH,
@@ -122,6 +126,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "usdc",
+      null,
       "usd-coin",
       "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48".toLowerCase(),
       6,
@@ -130,6 +135,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "usdt",
+      null,
       "tether",
       "0xdac17f958d2ee523a2206206994597c13d831ec7".toLowerCase(),
       6,
@@ -138,6 +144,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "susd",
+      "sUSD",
       "nusd",
       "0x57ab1ec28d129707052df4df418d58a2d46d5f51".toLowerCase(),
       18,
@@ -146,6 +153,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "crv",
+      null,
       "curve-dao-token",
       "0xD533a949740bb3306d119CC777fa900bA034cd52".toLowerCase(),
       18,
@@ -154,6 +162,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "weth",
+      "wETH",
       "weth",
       "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2".toLowerCase(),
       18,
@@ -164,6 +173,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "wbtc",
+      null,
       "wrapped-bitcoin",
       "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599".toLowerCase(),
       8,
@@ -172,6 +182,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "yfi",
+      null,
       "yearn-finance",
       "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase(),
       18,
@@ -180,6 +191,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "renbtc",
+      "renBTC",
       "renbtc",
       "0xeb4c2781e4eba804ce9a9803c67d0893436bb27d".toLowerCase(),
       8,
@@ -188,6 +200,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "bac",
+      null,
       "basis-cash",
       "0x3449fc1cd036255ba1eb19d65ff4ba2b8903a69a".toLowerCase(),
       18,
@@ -196,6 +209,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mic",
+      null,
       "mith-cash",
       "0x368b3a58b5f49392e5c9e4c998cb0bb966752e51".toLowerCase(),
       18,
@@ -204,6 +218,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mis",
+      null,
       "mithril-share",
       "0x4b4d2e899658fb59b1d518b68fe836b100ee8958".toLowerCase(),
       18,
@@ -212,6 +227,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "ldo",
+      null,
       "lido-dao",
       "0x5a98fcbea516cf06857215779fd812ca3bef1b32".toLowerCase(),
       18,
@@ -220,6 +236,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "yvecrv",
+      "yveCRV",
       "vecrv-dao-yvault",
       "0xc5bddf9843308380375a611c18b50fb9341f502a".toLowerCase(),
       18,
@@ -228,6 +245,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "bas",
+      null,
       "basis-share",
       "0x106538cc16f938776c7c180186975bca23875287".toLowerCase(),
       18,
@@ -236,6 +254,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mir",
+      null,
       "mirror-protocol",
       "0x09a3ecafa817268f77be1283176b946c4ff2e608".toLowerCase(),
       18,
@@ -244,6 +263,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "ust",
+      null,
       "terrausd",
       "0xa47c8bf37f92abed4a126bda807a7b7498661acd".toLowerCase(),
       18,
@@ -252,6 +272,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mtsla",
+      null,
       "mirrored-tesla",
       "0x21ca39943e91d704678f5d00b6616650f066fd63".toLowerCase(),
       18,
@@ -260,6 +281,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "maapl",
+      "mAPPL",
       "mirrored-apple",
       "0xd36932143f6ebdedd872d5fb0651f4b72fd15a84".toLowerCase(),
       18,
@@ -268,6 +290,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mqqq",
+      "mQQQ",
       "mirrored-invesco-qqq-trust",
       "0x13b02c8de71680e71f0820c996e4be43c2f57d15".toLowerCase(),
       18,
@@ -276,6 +299,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mslv",
+      "mSLV",
       "mirrored-ishares-silver-trust",
       "0x9d1555d8cb3c846bb4f7d5b1b1080872c3166676".toLowerCase(),
       18,
@@ -284,6 +308,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mbaba",
+      "mBABA",
       "mirrored-alibaba",
       "0x56aa298a19c93c6801fdde870fa63ef75cc0af72".toLowerCase(),
       18,
@@ -292,6 +317,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "sushi",
+      null,
       "sushi",
       "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2".toLowerCase(),
       18,
@@ -300,6 +326,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "fei",
+      null,
       "fei-usd",
       "0x956f47f50a910163d8bf957cf5846d573e7f87ca".toLowerCase(),
       18,
@@ -308,6 +335,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "tribe",
+      null,
       "tribe-2",
       "0xc7283b66eb1eb5fb86327f08e1b5816b0720212b".toLowerCase(),
       18,
@@ -316,6 +344,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "lusd",
+      "lUSD",
       "liquity-usd",
       "0x5f98805a4e8be255a32880fdec7f6728c6568ba0".toLowerCase(),
       18,
@@ -324,6 +353,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "frax",
+      null,
       "frax",
       "0x853d955acef822db058eb8505911ed77f175b99e".toLowerCase(),
       18,
@@ -332,6 +362,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "alcx",
+      null,
       "alchemix",
       "0xdbdb4d16eda451d0503b854cf79d55697f90c8df".toLowerCase(),
       18,
@@ -340,6 +371,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "alusd",
+      "alUSD",
       "alchemix-usd",
       "0xBC6DA0FE9aD5f3b0d58160288917AA56653660E9".toLowerCase(),
       18,
@@ -348,6 +380,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "luna",
+      null,
       "terra-luna",
       "0x92bf969865c80eda082fd5d8b4e28da4d58e1c3a".toLowerCase(),
       18,
@@ -356,6 +389,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "yvboost",
+      "yvBOOST",
       "yvboost",
       "0x9d409a0a012cfba9b15f6d4b36ac57a46966ab9a".toLowerCase(),
       18,
@@ -364,6 +398,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "cvx",
+      null,
       "convex-finance",
       "0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b".toLowerCase(),
       18,
@@ -372,6 +407,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "fxs",
+      null,
       "frax-share",
       "0x3432b6a60d23ca0dfca7761b7ab56459d9c964d0".toLowerCase(),
       18,
@@ -380,6 +416,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "cvxfxs",
+      "cvxFXS",
       "frax-share",
       "0xFEEf77d3f69374f66429C91d732A244f074bdf74".toLowerCase(),
       18,
@@ -388,6 +425,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "lqty",
+      null,
       "liquity",
       "0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d".toLowerCase(),
       18,
@@ -396,6 +434,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "3crv",
+      null,
       "lp-3pool-curve",
       "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490".toLowerCase(),
       18,
@@ -404,6 +443,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "scrv",
+      "sCRV",
       "lp-scurve",
       "0xc25a3a3b969415c80451098fa907ec722572917f".toLowerCase(),
       18,
@@ -412,6 +452,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "spell",
+      null,
       "spell-token",
       "0x090185f2135308bad17527004364ebcc2d37e5f6".toLowerCase(),
       18,
@@ -420,6 +461,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "mim",
+      null,
       "magic-internet-money",
       "0x99d8a9c45b2eca8864373a26d1459e3dff1e17f3".toLowerCase(),
       18,
@@ -428,6 +470,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "fox",
+      null,
       "shapeshift-fox-token",
       "0xc770eefad204b5180df6a14ee197d99d808ee52d".toLowerCase(),
       18,
@@ -436,6 +479,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "tru",
+      null,
       "truefi",
       "0x4C19596f5aAfF459fA38B0f7eD92F11AE6543784".toLowerCase(),
       8,
@@ -444,6 +488,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "rly",
+      null,
       "rally-2",
       "0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b".toLowerCase(),
       18,
@@ -452,6 +497,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "cvxcrv",
+      "cvxCRV",
       "convex-crv",
       "0x62b9c7356a2dc64a1969e19c23e4f579f9810aa7".toLowerCase(),
       18,
@@ -460,6 +506,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "rbn",
+      null,
       "ribbon-finance",
       "0x6123b0049f904d730db3c36a31167d9d4121fa6b".toLowerCase(),
       18,
@@ -468,6 +515,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "newo",
+      null,
       "new-order",
       "0x1b890fd37cd50bea59346fc2f8ddb7cd9f5fabd5".toLowerCase(),
       18,
@@ -476,6 +524,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "looks",
+      null,
       "looksrare",
       "0xf4d2888d29d722226fafa5d9b24f9164c092421e".toLowerCase(),
       18,
@@ -484,6 +533,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "cow",
+      null,
       "cow",
       "0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB".toLowerCase(),
       18,
@@ -492,6 +542,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "ape",
+      null,
       "ape",
       "0x4d224452801ACEd8B2F0aebE155379bb5D594381".toLowerCase(),
       18,
@@ -500,6 +551,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "stg",
+      null,
       "stargate-finance",
       "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6".toLowerCase(),
       18,
@@ -508,6 +560,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "cadc",
+      null,
       "cad-coin",
       "0xcadc0acd4b445166f12d2c07eac6e2544fbe2eef".toLowerCase(),
       18,
@@ -518,6 +571,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "usdc",
+      null,
       "usd-coin",
       "0x2791bca1f2de4661ed88a30c99a7a9449aa84174".toLowerCase(),
       6,
@@ -526,6 +580,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "weth",
+      "wETH",
       "weth",
       "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619".toLowerCase(),
       18,
@@ -534,6 +589,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "usdt",
+      null,
       "tether",
       "0xc2132d05d31c914a87c6611c10748aeb04b58e8f".toLowerCase(),
       6,
@@ -542,6 +598,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "wbtc",
+      null,
       "wrapped-bitcoin",
       "0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6".toLowerCase(),
       8,
@@ -549,8 +606,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Polygon,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wrapped-bitcoin",
       "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -558,6 +616,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "must",
+      null,
       "must",
       "0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f".toLowerCase(),
       18,
@@ -566,6 +625,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "pickle",
+      "Pickle",
       "pickle-finance",
       "0x2b88ad57897a8b496595925f43048301c37615da".toLowerCase(),
       18,
@@ -574,6 +634,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "matic",
+      null,
       "matic-network",
       "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270".toLowerCase(),
       18,
@@ -584,6 +645,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "sushi",
+      null,
       "sushi",
       "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a".toLowerCase(),
       18,
@@ -592,6 +654,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "mimatic",
+      "miMATIC",
       "mimatic",
       "0xa3fa99a148fa48d14ed51d610c367c61876997f1".toLowerCase(),
       18,
@@ -600,6 +663,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "qi",
+      null,
       "qi-dao",
       "0x580a84c73811e1839f75d86d75d88cca0c241ff4".toLowerCase(),
       18,
@@ -608,6 +672,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "crv",
+      null,
       "curve-dao-token",
       "0x172370d5cd63279efa6d502dab29171933a610af".toLowerCase(),
       18,
@@ -616,6 +681,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "dino",
+      null,
       "dinoswap",
       "0xAa9654BECca45B5BDFA5ac646c939C62b527D394".toLowerCase(),
       18,
@@ -624,6 +690,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "ice",
+      null,
       "iron-finance",
       "0x4a81f8796e0c6ad4877a51c86693b0de8093f2ef".toLowerCase(),
       18,
@@ -632,6 +699,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "work",
+      null,
       "the-employment-commons-work-token",
       "0x6002410dda2fb88b4d0dc3c1d562f7761191ea80".toLowerCase(),
       18,
@@ -640,6 +708,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "raider",
+      null,
       "crypto-raiders",
       "0xcd7361ac3307d1c5a46b63086a90742ff44c63b3".toLowerCase(),
       18,
@@ -648,6 +717,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "aurum",
+      null,
       "raider-aurum",
       "0x34d4ab47bee066f361fa52d792e69ac7bd05ee23".toLowerCase(),
       18,
@@ -656,6 +726,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Polygon,
       "stg",
+      null,
       "stargate-finance",
       "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
       18,
@@ -666,6 +737,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "spell",
+      null,
       "spell-token",
       "0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af".toLowerCase(),
       18,
@@ -674,6 +746,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "weth",
+      "wETH",
       "weth",
       "0x82af49447d8a07e3bd95bd0d56f35241523fbab1".toLowerCase(),
       18,
@@ -684,6 +757,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "sushi",
+      null,
       "sushi",
       "0xd4d42f0b6def4ce0383636770ef773390d85c61a".toLowerCase(),
       18,
@@ -692,6 +766,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "mim",
+      null,
       "magic-internet-money",
       "0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a".toLowerCase(),
       18,
@@ -700,6 +775,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "crv",
+      null,
       "curve-dao-token",
       "0x11cdb42b0eb46d95f990bedd4695a6e3fa034978".toLowerCase(),
       18,
@@ -708,6 +784,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "wbtc",
+      null,
       "wrapped-bitcoin",
       "0x2f2a2543b76a4166549f7aab2e75bef0aefc5b0f".toLowerCase(),
       8,
@@ -716,6 +793,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "usdt",
+      null,
       "tether",
       "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9".toLowerCase(),
       6,
@@ -724,6 +802,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "2crv",
+      null,
       "2crv",
       "0xbf7e49483881c76487b0989cd7d9a8239b20ca41".toLowerCase(),
       18,
@@ -732,6 +811,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "dodo",
+      null,
       "dodo",
       "0x69eb4fa4a2fbd498c257c57ea8b7655a2559a581".toLowerCase(),
       18,
@@ -740,6 +820,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "hnd",
+      null,
       "hundred-finance",
       "0x10010078a54396f62c96df8532dc2b4847d47ed3".toLowerCase(),
       18,
@@ -748,6 +829,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "pickle",
+      "Pickle",
       "pickle-finance",
       "0x965772e0E9c84b6f359c8597C891108DcF1c5B1A".toLowerCase(),
       18,
@@ -756,6 +838,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "bal",
+      null,
       "balancer",
       "0x040d1edc9569d4bab2d15287dc5a4f10f56a56b8".toLowerCase(),
       18,
@@ -764,6 +847,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "usdc",
+      null,
       "usd-coin",
       "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),
       6,
@@ -772,6 +856,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "usdc",
+      null,
       "usd-coin",
       "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8".toLowerCase(),
       6,
@@ -780,6 +865,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "gohm",
+      "gOHM",
       "governance-ohm",
       "0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1".toLowerCase(),
       18,
@@ -788,6 +874,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "magic",
+      null,
       "magic",
       "0x539bde0d7dbd336b79148aa742883198bbf60342".toLowerCase(),
       18,
@@ -796,6 +883,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "vsta",
+      null,
       "vesta-finance",
       "0xa684cd057951541187f288294a1e1C2646aA2d24".toLowerCase(),
       18,
@@ -804,6 +892,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Arbitrum,
       "stg",
+      null,
       "stargate-finance",
       "0x6694340fc020c5E6B96567843da2df01b2CE1eb6".toLowerCase(),
       18,
@@ -814,6 +903,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "btck",
+      null,
       "oec-btc",
       "0x54e4622DC504176b3BB432dCCAf504569699a7fF".toLowerCase(),
       18,
@@ -822,6 +912,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "bxh",
+      null,
       "bxh",
       "0x145ad28a42bf334104610f7836d0945dffb6de63".toLowerCase(),
       18,
@@ -830,6 +921,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "usdc",
+      null,
       "usd-coin",
       "0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85".toLowerCase(),
       18,
@@ -838,6 +930,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "usdt",
+      null,
       "tether",
       "0x382bb369d343125bfb2117af9c149795c6c65c50".toLowerCase(),
       18,
@@ -846,6 +939,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "cherry",
+      null,
       "cherryswap",
       "0x8179D97Eb6488860d816e3EcAFE694a4153F216c".toLowerCase(),
       18,
@@ -854,6 +948,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "ethk",
+      "ETHk",
       "oec-eth",
       "0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C".toLowerCase(),
       18,
@@ -862,6 +957,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "wokt",
+      "WOKT",
       "wrapped-okt",
       "0x8F8526dbfd6E38E3D8307702cA8469Bae6C56C15".toLowerCase(),
       18,
@@ -872,6 +968,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "jswap",
+      null,
       "jswap-finance",
       "0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A".toLowerCase(),
       18,
@@ -880,7 +977,8 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "daik",
-      "dai",
+      "wbtc",
+      null,
       "0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -890,6 +988,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Harmony,
       "wone",
+      "wONE",
       "harmony",
       "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a".toLowerCase(),
       18,
@@ -900,6 +999,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Harmony,
       "1eth",
+      null,
       "ethereum",
       "0x6983D1E6DEf3690C4d616b13597A09e6193EA013".toLowerCase(),
       18,
@@ -908,7 +1008,8 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Harmony,
       "1dai",
-      "dai",
+      "wbtc",
+      null,
       "0xEf977d2f931C1978Db5F6747666fa1eACB0d0339".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -916,6 +1017,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Harmony,
       "1wbtc",
+      null,
       "wrapped-bitcoin",
       "0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(),
       18,
@@ -924,6 +1026,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Harmony,
       "sushi",
+      null,
       "sushi",
       "0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(),
       18,
@@ -934,6 +1037,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "movr",
+      null,
       "moonriver",
       "0x98878B06940aE243284CA214f92Bb71a2b032B8A".toLowerCase(),
       18,
@@ -944,6 +1048,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "solar",
+      null,
       "solarbeam",
       "0x6bd193ee6d2104f14f94e2ca6efefae561a4334b".toLowerCase(),
       18,
@@ -952,6 +1057,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "eth",
+      null,
       "ethereum",
       "0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C".toLowerCase(),
       18,
@@ -960,6 +1066,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "avax",
+      null,
       "avalanche-2",
       "0x14a0243C333A5b238143068dC3A7323Ba4C30ECB".toLowerCase(),
       18,
@@ -968,6 +1075,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "bnb",
+      null,
       "binancecoin",
       "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(),
       18,
@@ -976,6 +1084,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "busd",
+      null,
       "binance-usd",
       "0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(),
       18,
@@ -984,6 +1093,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "usdc",
+      null,
       "usd-coin",
       "0xE3F5a90F9cb311505cd691a46596599aA1A0AD7D".toLowerCase(),
       6,
@@ -992,6 +1102,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "usdc-2",
+      null,
       "usd-coin",
       "0x748134b5f553f2bcbd78c6826de99a70274bdeb3".toLowerCase(),
       6,
@@ -1000,8 +1111,9 @@ export class ExternalTokenModel {
     // the second "dai" field is the Coingecko price ID of that token
     this.addToken(
       ChainNetwork.Moonriver,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wrapped-bitcoin",
       "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1009,6 +1121,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "wbtc",
+      null,
       "wrapped-bitcoin",
       "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(),
       8,
@@ -1017,6 +1130,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "mai",
+      null,
       "mimatic",
       "0x7f5a79576620C046a293F54FFCdbd8f2468174F1".toLowerCase(),
       18,
@@ -1025,6 +1139,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "mim",
+      null,
       "magic-internet-money",
       "0x0caE51e1032e8461f4806e26332c030E34De3aDb".toLowerCase(),
       18,
@@ -1033,6 +1148,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "ftm",
+      null,
       "fantom",
       "0xaD12daB5959f30b9fF3c2d6709f53C335dC39908".toLowerCase(),
       18,
@@ -1041,6 +1157,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "rib",
+      null,
       "riverboat",
       "0xbD90A6125a84E5C512129D622a75CDDE176aDE5E".toLowerCase(),
       18,
@@ -1049,6 +1166,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "pets",
+      null,
       "polkapet-world",
       "0x1e0F2A75Be02c025Bd84177765F89200c04337Da".toLowerCase(),
       18,
@@ -1057,6 +1175,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "relay",
+      null,
       "relay-token",
       "0xad7f1844696652dda7959a49063bffccafafefe7".toLowerCase(),
       18,
@@ -1065,6 +1184,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "usdt",
+      null,
       "tether",
       "0xb44a9b6905af7c801311e8f4e76932ee959c663c".toLowerCase(),
       6,
@@ -1073,6 +1193,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "frax",
+      null,
       "frax",
       "0x1A93B23281CC1CDE4C4741353F3064709A16197d".toLowerCase(),
       18,
@@ -1081,6 +1202,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "ksm",
+      null,
       "kusama",
       "0xffffffff1fcacbd218edc0eba20fc2308c778080".toLowerCase(),
       12,
@@ -1089,6 +1211,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "finn",
+      null,
       "huckleberry",
       "0x9a92b5ebf1f6f6f7d93696fcd44e5cf75035a756".toLowerCase(),
       18,
@@ -1097,6 +1220,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "rmrk",
+      null,
       "rmrk",
       "0xffffffff893264794d9d57e1e0e21e0042af5a0a".toLowerCase(),
       10,
@@ -1105,6 +1229,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonriver,
       "dot",
+      null,
       "polkadot",
       "0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445".toLowerCase(),
       10,
@@ -1115,6 +1240,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "weth",
+      "wETH",
       "ethereum",
       "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a".toLowerCase(),
       18,
@@ -1123,6 +1249,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "cro",
+      null,
       "crypto-com-chain",
       "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23".toLowerCase(),
       18,
@@ -1133,6 +1260,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "vvs",
+      null,
       "vvs-finance",
       "0x2d03bece6747adc00e1a131bba1469c15fd11e03".toLowerCase(),
       18,
@@ -1141,6 +1269,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "btc",
+      null,
       "wrapped-bitcoin",
       "0x062E66477Faf219F25D27dCED647BF57C3107d52".toLowerCase(),
       8,
@@ -1148,8 +1277,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Cronos,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wrapped-bitcoin",
       "0xF2001B145b43032AAF5Ee2884e456CCd805F677D".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1157,6 +1287,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "shib",
+      null,
       "shiba-inu",
       "0xbED48612BC69fA1CaB67052b42a95FB30C1bcFee".toLowerCase(),
       18,
@@ -1165,6 +1296,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "usdc",
+      null,
       "usd-coin",
       "0xc21223249CA28397B4B6541dfFaEcC539BfF0c59".toLowerCase(),
       6,
@@ -1173,6 +1305,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "usdt",
+      null,
       "tether",
       "0x66e428c3f67a68878562e79A0234c1F83c208770".toLowerCase(),
       6,
@@ -1181,6 +1314,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "bifi",
+      null,
       "beefy-finance",
       "0xe6801928061CDbE32AC5AD0634427E140EFd05F9".toLowerCase(),
       18,
@@ -1189,6 +1323,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "doge",
+      null,
       "dogecoin",
       "0x1a8E39ae59e5556B56b76fCBA98d22c9ae557396".toLowerCase(),
       8,
@@ -1197,6 +1332,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "atom",
+      null,
       "cosmos",
       "0xB888d8Dd1733d72681b30c00ee76BDE93ae7aa93".toLowerCase(),
       6,
@@ -1205,6 +1341,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "tonic",
+      null,
       "tectonic",
       "0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2".toLowerCase(),
       18,
@@ -1213,6 +1350,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Cronos,
       "single",
+      null,
       "single-finance",
       "0x0804702a4E749d39A35FDe73d1DF0B1f1D6b8347".toLowerCase(),
       18,
@@ -1223,6 +1361,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "tri",
+      null,
       "trisolaris",
       "0xFa94348467f64D5A457F75F8bc40495D33c65aBB".toLowerCase(),
       18,
@@ -1235,6 +1374,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "near",
+      null,
       "near",
       "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d".toLowerCase(),
       24,
@@ -1243,6 +1383,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "usdc",
+      null,
       "usd-coin",
       "0xB12BFcA5A55806AaF64E99521918A4bf0fC40802".toLowerCase(),
       6,
@@ -1251,6 +1392,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "eth",
+      null,
       "ethereum",
       "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB".toLowerCase(),
       18,
@@ -1261,6 +1403,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "usdt",
+      null,
       "tether",
       "0x4988a896b1227218e4A686fdE5EabdcAbd91571f".toLowerCase(),
       6,
@@ -1269,6 +1412,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "btc",
+      null,
       "wrapped-bitcoin",
       "0xF4eB217Ba2454613b15dBdea6e5f22276410e89e".toLowerCase(),
       8,
@@ -1277,6 +1421,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "aurora",
+      null,
       "aurora-near",
       "0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79".toLowerCase(),
       18,
@@ -1285,6 +1430,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "pad",
+      null,
       "nearpad",
       "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781".toLowerCase(),
       18,
@@ -1293,6 +1439,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "wanna",
+      null,
       "wanna",
       "0x7faA64Faf54750a2E3eE621166635fEAF406Ab22".toLowerCase(),
       18,
@@ -1301,8 +1448,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wbtc",
       "0xe3520349F477A5F6EB06107066048508498A291b".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1310,6 +1458,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "frax",
+      null,
       "frax",
       "0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2".toLowerCase(),
       18,
@@ -1318,6 +1467,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "rose",
+      null,
       "rose",
       "0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970".toLowerCase(),
       18,
@@ -1327,6 +1477,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "luna",
+      null,
       "terra-luna",
       "0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096".toLowerCase(),
       18,
@@ -1335,6 +1486,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "ust",
+      null,
       "terrausd",
       "0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC".toLowerCase(),
       18,
@@ -1343,6 +1495,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "brl",
+      null,
       "borealis",
       "0x12c87331f086c3C926248f964f8702C0842Fd77F".toLowerCase(),
       18,
@@ -1351,6 +1504,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "avax",
+      null,
       "avalanche-2",
       "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844".toLowerCase(),
       18,
@@ -1359,6 +1513,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "matic",
+      null,
       "matic-network",
       "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(),
       18,
@@ -1367,6 +1522,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "bnb",
+      null,
       "binancecoin",
       "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(),
       18,
@@ -1375,6 +1531,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "busd",
+      null,
       "binance-usd",
       "0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818".toLowerCase(),
       18,
@@ -1443,6 +1600,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "nett",
+      null,
       "netswap",
       "0x90fe084f877c65e1b577c7b2ea64b8d8dd1ab278".toLowerCase(),
       18,
@@ -1451,6 +1609,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "metis",
+      null,
       "metis-token",
       "0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000".toLowerCase(),
       18,
@@ -1461,6 +1620,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "tethys",
+      null,
       "tethys-finance",
       "0x69fdb77064ec5c84fa2f21072973eb28441f43f3".toLowerCase(),
       18,
@@ -1469,6 +1629,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "bnb",
+      null,
       "binancecoin",
       "0x2692BE44A6E38B698731fDDf417d060f0d20A0cB".toLowerCase(),
       18,
@@ -1477,6 +1638,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "eth",
+      null,
       "ethereum",
       "0x420000000000000000000000000000000000000A".toLowerCase(),
       18,
@@ -1485,6 +1647,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "wbtc",
+      null,
       "bitcoin",
       "0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4".toLowerCase(),
       8,
@@ -1493,6 +1656,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "usdc",
+      null,
       "usd-coin",
       "0xEA32A96608495e54156Ae48931A7c20f0dcc1a21".toLowerCase(),
       6,
@@ -1501,6 +1665,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "usdt",
+      null,
       "tether",
       "0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC".toLowerCase(),
       6,
@@ -1509,6 +1674,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "hades",
+      null,
       "hades-money",
       "0x88c37e0bc6a237e96bc4a82774a38bbc30eff3cf".toLowerCase(),
       18,
@@ -1517,6 +1683,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "hellshare",
+      null,
       "hellshare",
       "0xefb15ef34f85632fd1d4c17fc130ccee3d3d48ae".toLowerCase(),
       18,
@@ -1525,6 +1692,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "relay",
+      null,
       "relay-token",
       "0xfe282Af5f9eB59C30A3f78789EEfFA704188bdD4".toLowerCase(),
       18,
@@ -1533,6 +1701,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "byte",
+      null,
       "binaryDAO",
       "0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7".toLowerCase(),
       18,
@@ -1542,6 +1711,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "busd",
+      null,
       "binance-usd",
       "0x12D84f1CFe870cA9C9dF9785f8954341d7fbb249".toLowerCase(),
       18,
@@ -1549,8 +1719,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Metis,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wbtc",
       "0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1558,6 +1729,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "avax",
+      null,
       "avalanche-2",
       "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844".toLowerCase(),
       18,
@@ -1566,6 +1738,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "ftm",
+      null,
       "fantom",
       "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(),
       18,
@@ -1574,6 +1747,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "hera",
+      null,
       "hera-finance",
       "0x6F05709bc91Bad933346F9E159f0D3FdBc2c9DCE".toLowerCase(),
       18,
@@ -1591,6 +1765,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "glmr",
+      null,
       "moonbeam",
       "0xAcc15dC74880C9944775448304B263D191c6077F".toLowerCase(),
       18,
@@ -1601,6 +1776,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "stella",
+      null,
       "stellaswap",
       "0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2".toLowerCase(),
       18,
@@ -1610,6 +1786,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "usdc",
+      null,
       "usd-coin",
       "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b".toLowerCase(),
       6,
@@ -1618,6 +1795,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "usdc-2",
+      null,
       "usd-coin",
       "0x8f552a71efe5eefc207bf75485b356a0b3f01ec9".toLowerCase(),
       6,
@@ -1626,6 +1804,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "bnb",
+      null,
       "binancecoin",
       "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055".toLowerCase(),
       18,
@@ -1634,6 +1813,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "busd",
+      null,
       "binance-usd",
       "0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F".toLowerCase(),
       18,
@@ -1641,8 +1821,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonbeam,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wbtc",
       "0x765277EebeCA2e31912C9946eAe1021199B39C61".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1650,6 +1831,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "eth",
+      null,
       "ethereum",
       "0xfA9343C3897324496A05fC75abeD6bAC29f8A40f".toLowerCase(),
       18,
@@ -1658,6 +1840,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "eth-2",
+      null,
       "ethereum",
       "0x30D2a9F5FDf90ACe8c17952cbb4eE48a55D916A7".toLowerCase(),
       18,
@@ -1666,6 +1849,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "usdt",
+      null,
       "tether",
       "0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73".toLowerCase(),
       6,
@@ -1674,6 +1858,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "glint",
+      null,
       "beamswap",
       "0xcd3b51d98478d53f4515a306be565c6eebef1d58".toLowerCase(),
       18,
@@ -1686,6 +1871,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "flare",
+      null,
       "solarflare",
       "0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7".toLowerCase(),
       18,
@@ -1697,6 +1883,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "movr",
+      null,
       "moonriver",
       "0x1d4C2a246311bB9f827F4C768e277FF5787B7D7E".toLowerCase(),
       18,
@@ -1705,6 +1892,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Moonbeam,
       "wbtc",
+      null,
       "wrapped-bitcoin",
       "0x1DC78Acda13a8BC4408B207c9E48CDBc096D95e0".toLowerCase(),
       8,
@@ -1715,6 +1903,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Optimism,
       "zip",
+      null,
       "zipswap",
       "0xFA436399d0458Dbe8aB890c3441256E3E09022a8".toLowerCase(),
       18,
@@ -1727,6 +1916,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Optimism,
       "eth",
+      null,
       "ethereum",
       "0x4200000000000000000000000000000000000006".toLowerCase(),
       18,
@@ -1737,6 +1927,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Optimism,
       "usdc",
+      null,
       "usd-coin",
       "0x7F5c764cBc14f9669B88837ca1490cCa17c31607".toLowerCase(),
       6,
@@ -1745,6 +1936,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Optimism,
       "btc",
+      null,
       "bitcoin",
       "0x68f180fcCe6836688e9084f035309E29Bf0A2095".toLowerCase(),
       8,
@@ -1752,8 +1944,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Optimism,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wbtc",
       "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1761,6 +1954,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Optimism,
       "stg",
+      null,
       "stargate-finance",
       "0x296f55f8fb28e498b858d0bcda06d955b2cb3f97".toLowerCase(),
       18,
@@ -1770,6 +1964,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "oxdv1",
+      "OXDv1",
       "0xdao",
       "0xc165d941481e68696f43ee6e99bfb2b23e0e3114".toLowerCase(),
       18,
@@ -1781,6 +1976,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "ftm",
+      null,
       "fantom",
       "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83".toLowerCase(),
       18,
@@ -1791,6 +1987,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "usdc",
+      null,
       "usd-coin",
       "0x04068da6c83afcfa0e13ba15a6696662335d5b75".toLowerCase(),
       6,
@@ -1799,6 +1996,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "tomb",
+      null,
       "tomb",
       "0x6c021ae822bea943b2e66552bde1d2696a53fbb7".toLowerCase(),
       18,
@@ -1807,6 +2005,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "ice",
+      null,
       "ice-token",
       "0xf16e81dce15B08F326220742020379B855B87DF9".toLowerCase(),
       18,
@@ -1815,6 +2014,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "lqdr",
+      null,
       "liquiddriver",
       "0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9".toLowerCase(),
       18,
@@ -1823,6 +2023,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "spell",
+      null,
       "spell-token",
       "0x468003B688943977e6130F4F68F23aad939a1040".toLowerCase(),
       18,
@@ -1831,6 +2032,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "boo",
+      null,
       "spookyswap",
       "0x841fad6eae12c286d1fd18d1d525dffa75c7effe".toLowerCase(),
       18,
@@ -1839,6 +2041,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "crv",
+      null,
       "curve-dao-token",
       "0x1E4F97b9f9F913c46F1632781732927B9019C68b".toLowerCase(),
       18,
@@ -1847,6 +2050,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "credit",
+      null,
       "creditum",
       "0x77128dfdd0ac859b33f44050c6fa272f34872b5e".toLowerCase(),
       18,
@@ -1855,6 +2059,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "avax",
+      null,
       "avalanche-2",
       "0x511d35c52a3c244e7b8bd92c0c297755fbd89212".toLowerCase(),
       18,
@@ -1863,6 +2068,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "scream",
+      null,
       "scream",
       "0xe0654c8e6fd4d733349ac7e09f6f23da256bf475".toLowerCase(),
       18,
@@ -1871,6 +2077,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "eth",
+      null,
       "ethereum",
       "0x74b23882a30290451A17c44f4F05243b6b58C76d".toLowerCase(),
       18,
@@ -1879,6 +2086,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "tarot",
+      null,
       "tarot",
       "0xc5e2b037d30a390e62180970b3aa4e91868764cd".toLowerCase(),
       18,
@@ -1886,8 +2094,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Fantom,
-      "dai",
-      "dai",
+      "wbtc",
+      null,
+      "wbtc",
       "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1895,6 +2104,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "usdt",
+      null,
       "tether",
       "0x049d68029688eabf473097a2fc38ef61633a3c7a".toLowerCase(),
       6,
@@ -1903,6 +2113,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "bnb",
+      null,
       "binancecoin",
       "0xd67de0e0a0fd7b15dc8348bb9be742f3c5850454".toLowerCase(),
       6,
@@ -1911,6 +2122,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "bnb",
+      null,
       "binancecoin",
       "0xd67de0e0a0fd7b15dc8348bb9be742f3c5850454".toLowerCase(),
       18,
@@ -1919,6 +2131,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "btc",
+      null,
       "bitcoin",
       "0x321162Cd933E2Be498Cd2267a90534A804051b11".toLowerCase(),
       8,
@@ -1927,6 +2140,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "mim",
+      null,
       "magic-internet-money",
       "0x82f0b8b456c1a451378467398982d4834b6829c1".toLowerCase(),
       18,
@@ -1935,6 +2149,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "link",
+      null,
       "chainlink",
       "0xb3654dc3d10ea7645f8319668e8f54d2574fbdc8".toLowerCase(),
       18,
@@ -1943,6 +2158,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "sushi",
+      null,
       "sushi",
       "0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC".toLowerCase(),
       18,
@@ -1951,6 +2167,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "yfi",
+      null,
       "yearn-finance",
       "0x29b0Da86e484E1C0029B56e817912d778aC0EC69".toLowerCase(),
       18,
@@ -1959,6 +2176,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "treeb",
+      null,
       "treeb",
       "0xc60d7067dfbc6f2caf30523a064f416a5af52963".toLowerCase(),
       18,
@@ -1967,6 +2185,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "any",
+      null,
       "anyswap",
       "0xddcb3ffd12750b45d32e084887fdf1aabab34239".toLowerCase(),
       18,
@@ -1975,6 +2194,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "matic",
+      null,
       "matic-network",
       "0x40df1ae6074c35047bff66675488aa2f9f6384f3".toLowerCase(),
       18,
@@ -1983,6 +2203,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "beets",
+      null,
       "beethoven-x",
       "0xF24Bcf4d1e507740041C9cFd2DddB29585aDCe1e".toLowerCase(),
       18,
@@ -1991,6 +2212,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "mimatic",
+      "miMATIC",
       "mimatic",
       "0xfb98b335551a418cd0737375a2ea0ded62ea213b".toLowerCase(),
       18,
@@ -1999,6 +2221,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "spirit",
+      null,
       "spiritswap",
       "0x5cc61a78f164885776aa610fb0fe1257df78e59b".toLowerCase(),
       18,
@@ -2007,6 +2230,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "pills",
+      null,
       "morpheus-token",
       "0xb66b5d38e183de42f21e92abcaf3c712dd5d6286".toLowerCase(),
       18,
@@ -2018,6 +2242,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "frax",
+      null,
       "frax",
       "0xdc301622e621166bd8e82f2ca0a26c13ad0be355".toLowerCase(),
       18,
@@ -2026,6 +2251,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "deus",
+      null,
       "deus-finance-2",
       "0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44".toLowerCase(),
       18,
@@ -2034,6 +2260,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "sol",
+      null,
       "solana",
       "0x44F7237df00E386af8e79B817D05ED9f6FE0f296".toLowerCase(),
       18,
@@ -2042,6 +2269,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "luna",
+      null,
       "terra-luna",
       "0x95dD59343a893637BE1c3228060EE6afBf6F0730".toLowerCase(),
       6,
@@ -2050,6 +2278,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "dei",
+      null,
       "dei-token",
       "0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3".toLowerCase(),
       18,
@@ -2058,6 +2287,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "sex",
+      null,
       "solidex",
       "0xD31Fcd1f7Ba190dBc75354046F6024A9b86014d7".toLowerCase(),
       18,
@@ -2066,6 +2296,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "solid",
+      null,
       "solidly",
       "0x888EF71766ca594DED1F0FA3AE64eD2941740A20".toLowerCase(),
       18,
@@ -2074,6 +2305,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "cre8r",
+      null,
       "cre8r-dao",
       "0x2ad402655243203fcfa7dcb62f8a08cc2ba88ae0".toLowerCase(),
       18,
@@ -2082,6 +2314,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "bifi",
+      null,
       "beefy-finance",
       "0xd6070ae98b8069de6B494332d1A1a81B6179D960".toLowerCase(),
       18,
@@ -2090,6 +2323,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "scarab",
+      null,
       "scarab-finance",
       "0x2e79205648B85485731CFE3025d66cF2d3B059c4".toLowerCase(),
       18,
@@ -2098,6 +2332,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "gscarab",
+      null,
       "gscarab",
       "0x6ab5660f0B1f174CFA84e9977c15645e4848F5D6".toLowerCase(),
       18,
@@ -2106,6 +2341,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "renbtc",
+      "renBTC",
       "renbtc",
       "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501".toLowerCase(),
       8,
@@ -2114,6 +2350,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "fxs",
+      null,
       "frax-share",
       "0x7d016eec9c25232b01F23EF992D98ca97fc2AF5a".toLowerCase(),
       18,
@@ -2122,6 +2359,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "woofy",
+      null,
       "woofy",
       "0xD0660cD418a64a1d44E9214ad8e459324D8157f1".toLowerCase(),
       12,
@@ -2130,6 +2368,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "syn",
+      null,
       "synapse-2",
       "0xE55e19Fb4F2D85af758950957714292DAC1e25B2".toLowerCase(),
       18,
@@ -2138,6 +2377,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "oath",
+      null,
       "oath",
       "0x21Ada0D2aC28C3A5Fa3cD2eE30882dA8812279B6".toLowerCase(),
       18,
@@ -2146,6 +2386,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "multi",
+      null,
       "multichain",
       "0x9Fb9a33956351cf4fa040f65A13b835A3C8764E3".toLowerCase(),
       18,
@@ -2154,6 +2395,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "solidsex",
+      "SOLIDsex",
       "solidsex-tokenized-vesolid",
       "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B".toLowerCase(),
       18,
@@ -2165,6 +2407,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "hnd",
+      null,
       "hundred-finance",
       "0x10010078a54396F62c96dF8532dc2B4847d47ED3".toLowerCase(),
       18,
@@ -2173,6 +2416,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "ib",
+      null,
       "iron-bank",
       "0x00a35FD824c717879BF370E70AC6868b95870Dfb".toLowerCase(),
       18,
@@ -2181,6 +2425,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "geist",
+      null,
       "geist-finance",
       "0xd8321AA83Fb0a4ECd6348D4577431310A6E0814d".toLowerCase(),
       18,
@@ -2189,6 +2434,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "g3crv",
+      null,
       "",
       "0xD02a30d33153877BC20e5721ee53DeDEE0422B2F".toLowerCase(),
       18,
@@ -2200,6 +2446,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "rdl",
+      null,
       "",
       "0x79360aF49edd44F3000303ae212671ac94bB8ba7".toLowerCase(),
       18,
@@ -2211,6 +2458,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "rainspirit",
+      "rainSPIRIT",
       "",
       "0xf9c6e3C123f0494A4447100bD7dbd536F43CC33A".toLowerCase(),
       18,
@@ -2222,6 +2470,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "linspirit",
+      "linSPIRIT",
       "",
       "0xc5713B6a0F26bf0fdC1c52B90cd184D950be515C".toLowerCase(),
       18,
@@ -2233,6 +2482,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "sinspirit",
+      "sinSPIRIT",
       "",
       "0x749F2B95f950c4f175E17aa80aa029CC69a30f09".toLowerCase(),
       18,
@@ -2244,6 +2494,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "binspirit",
+      "binSPIRIT",
       "",
       "0x44e314190D9E4cE6d4C0903459204F8E21ff940A".toLowerCase(),
       18,
@@ -2255,6 +2506,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "bomb",
+      null,
       "fbomb",
       "0x8503eb4A136bDBeB323E37Aa6e0FA0C772228378".toLowerCase(),
       0,
@@ -2266,6 +2518,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "xtarot",
+      "xTAROT",
       "",
       "0x74D1D2A851e339B8cB953716445Be7E8aBdf92F4".toLowerCase(),
       18,
@@ -2277,6 +2530,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "beftm",
+      "beFTM",
       "",
       "0x7381eD41F6dE418DdE5e84B55590422a57917886".toLowerCase(),
       18,
@@ -2288,6 +2542,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "stg",
+      null,
       "stargate-finance",
       "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
       18,
@@ -2296,6 +2551,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "oxd",
+      null,
       "0xdao-v2",
       "0xc5A9848b9d145965d821AaeC8fA32aaEE026492d".toLowerCase(),
       18,
@@ -2304,6 +2560,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "oxsolid",
+      "oxSOLID",
       "oxsolid",
       "0xda0053f0befcbcac208a3f867bb243716734d809".toLowerCase(),
       18,
@@ -2312,6 +2569,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "weve",
+      null,
       "vedao",
       "0x911da02c1232a3c3e1418b834a311921143b04d7".toLowerCase(),
       18,
@@ -2320,6 +2578,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "pgunk",
+      null,
       "",
       "0xf8Fc059dAfDCe4EF2EdFc72cbBAF410d7531E610".toLowerCase(),
       18,
@@ -2332,6 +2591,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Fantom,
       "fbeets",
+      "fBEETS",
       "",
       "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1".toLowerCase(),
       18,
