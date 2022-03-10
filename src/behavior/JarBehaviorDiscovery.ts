@@ -170,7 +170,6 @@ import {
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
-  JAR_AURORA_ROSE_FRAX,
   JAR_AURORA_TRI_ROSE_NEAR_LP,
   JAR_AURORA_TRI_USDT,
   JAR_POLY_UNIV3_USDC_ETH,
@@ -410,10 +409,15 @@ import {
   JAR_AURORA_PAD_PAD_AURORA_LP,
   JAR_AURORA_PAD_NEAR_ETH_LP,
   JAR_AURORA_PAD_PAD_TRI_LP,
-  // JAR_AURORA_ROSE_FRAXPOOL_LP,
+  JAR_AURORA_ROSE_FRAXPOOL_LP,
+  JAR_AURORA_ROSE_BUSDPOOL_LP,
+  JAR_AURORA_ROSE_MAIPOOL_LP,
+  JAR_AURORA_ROSE_RUSDPOOL_LP,
   JAR_AURORA_TRISOLARIS_NEAR_USDT_LP,
   JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP,
   JAR_AURORA_TRISOLARIS_NEAR_USDC_LP,
+  JAR_AURORA_ROSE_PAD_ROSE_PAD_LP,
+  JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -672,6 +676,9 @@ import { Rose3Pool } from "./impl/aurora-rose-3pool";
 import { WannaWannaxStnear } from "./impl/aurora-wanna-wannax-stnear";
 import { RoseFraxpool } from "./impl/aurora-rose-fraxpool";
 import { RoseUstpool } from "./impl/aurora-rose-ustpool";
+import { RoseMaipool } from "./impl/aurora-rose-maipool";
+import { RoseBusdpool } from "./impl/aurora-rose-busdpool";
+import { RoseRusdpool } from "./impl/aurora-rose-rusdpool";
 import { PadModaPad } from "./impl/aurora-pad-moda-pad";
 import { PadPadDai } from "./impl/aurora-pad-pad-dai";
 import { PadPadAurora } from "./impl/aurora-pad-pad-aurora";
@@ -680,6 +687,8 @@ import { PadPadTri } from "./impl/aurora-pad-pad-tri";
 import { TriNearUsdtV2 } from "./impl/aurora-tri-near-usdt-2";
 import { TriAuroraNear } from "./impl/aurora-tri-aurora-near";
 import { TriNearUsdcV2 } from "./impl/aurora-tri-near-usdc-2";
+import { RosePadRose } from "./impl/aurora-rose-pad-pad-rose";
+import { RoseFraxRose } from "./impl/aurora-rose-pad-rose-frax";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -893,7 +902,6 @@ jarToBehavior.set(JAR_AURORA_PAD_PAD_USDC.id, new PadPadUsdc());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_ETH.id, new PadPadEth());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_NEAR.id, new PadPadNear());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_FRAX.id, new PadPadFrax());
-jarToBehavior.set(JAR_AURORA_ROSE_FRAX.id, new PadRoseFrax());
 jarToBehavior.set(JAR_AURORA_BRL_AURORA_NEAR.id, new BrlAuroraNear());
 jarToBehavior.set(JAR_AURORA_BRL_AVAX_NEAR.id, new BrlAvaxNear());
 jarToBehavior.set(JAR_AURORA_BRL_BRL_AURORA.id, new BrlBrlAurora());
@@ -925,8 +933,11 @@ jarToBehavior.set(JAR_AURORA_TRISOLARIS_XNL_NEAR_LP.id, new TriXnlNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP.id, new TriUsdcShitzu());
 jarToBehavior.set(JAR_AURORA_ROSE_3POOL_LP.id, new Rose3Pool());
 jarToBehavior.set(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP.id, new WannaWannaxStnear());
-// jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
+jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
 jarToBehavior.set(JAR_AURORA_ROSE_USTPOOL_LP.id, new RoseUstpool());
+jarToBehavior.set(JAR_AURORA_ROSE_BUSDPOOL_LP.id, new RoseBusdpool());
+jarToBehavior.set(JAR_AURORA_ROSE_RUSDPOOL_LP.id, new RoseRusdpool());
+jarToBehavior.set(JAR_AURORA_ROSE_MAIPOOL_LP.id, new RoseMaipool());
 jarToBehavior.set(JAR_AURORA_PAD_MODA_PAD_LP.id, new PadModaPad());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_DAI_LP.id, new PadPadDai());
 jarToBehavior.set(JAR_AURORA_PAD_PAD_AURORA_LP.id, new PadPadAurora());
@@ -935,6 +946,8 @@ jarToBehavior.set(JAR_AURORA_PAD_PAD_TRI_LP.id, new PadPadTri());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDT_LP.id, new TriNearUsdtV2());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP.id, new TriAuroraNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP.id, new TriNearUsdcV2());
+jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP.id, new RoseFraxRose());
+jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_PAD_LP.id, new RosePadRose());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

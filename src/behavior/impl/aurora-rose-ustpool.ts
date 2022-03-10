@@ -30,6 +30,7 @@ export class RoseUstpool extends RoseJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetAprComponent[]> {
+    // TRI calcs first
     const multicallRosePool = new MultiContract(poolAddress, poolAbi);
     const pricePerToken = (
       await model.callMulti(
@@ -44,32 +45,32 @@ export class RoseUstpool extends RoseJar {
       rewarderAddress,
       roseFarmAbi,
     );
-    const [rewardData, totalSupplyBN] = await model.callMulti(
+    const [roseRewardData, lunaRewardData, totalSupplyBN] = await model.callMulti(
       [
         () => multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
+        () => multicallRoseRewards.rewardData(model.address("luna", jar.chain)),
         () => multicallRoseRewards.totalSupply(),
       ],
       jar.chain,
     );
-    console.log("rewardData", rewardData)
-    console.log("totalSupplyBN", totalSupplyBN);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    console.log("totalSupply", totalSupply)
 
     const roseRewardsPerYear =
-      parseFloat(formatEther(rewardData[3])) * ONE_YEAR_SECONDS;
-    console.log("roseRewardsPerYear", roseRewardsPerYear);
-
-    const valueRewardedPerYear =
+      parseFloat(formatEther(roseRewardData[3])) * ONE_YEAR_SECONDS;
+    const roseValueRewardedPerYear =
       model.priceOfSync("rose", jar.chain) * roseRewardsPerYear;
-    console.log("valueRewardedPerYear", valueRewardedPerYear);
 
 
     const totalValueStaked = (totalSupply * pricePerToken);
-    console.log("totalValueStaked", totalValueStaked);
-    const roseAPY = (valueRewardedPerYear / totalValueStaked);
-    console.log("roseAPY", roseAPY);
+    const roseAPY = (roseValueRewardedPerYear / totalValueStaked);
+
+    //Then LUNA calcs
+    const lunaRewardsPerYear =
+      parseFloat(formatEther(lunaRewardData[3])) * ONE_YEAR_SECONDS;
+    const lunaValueRewardedPerYear =
+      model.priceOfSync("luna", jar.chain) * lunaRewardsPerYear;
+    const lunaAPY = (lunaValueRewardedPerYear / totalValueStaked)
 
     return [
       createAprComponentImpl(
@@ -78,6 +79,12 @@ export class RoseUstpool extends RoseJar {
         true,
         0.9,
       ),
+      createAprComponentImpl(
+        "luna",
+        lunaAPY * 100,
+        true,
+        0.9,
+      )
     ]
   }
 }

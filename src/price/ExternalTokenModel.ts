@@ -1567,6 +1567,15 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "mai",
+      null,
+      "mimatic",
+      "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "rose",
       null,
       "rose",

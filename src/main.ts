@@ -15,7 +15,7 @@ async function generateFullApi() {
     new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
   );
 
-  const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x => x.protocol === AssetProtocol.TRISOLARIS), map);
+  const model: PickleModel = new PickleModel(ALL_ASSETS, map);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);

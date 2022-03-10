@@ -3,11 +3,11 @@ import { PickleModel } from "../../model/PickleModel";
 import { JarDefinition } from "../../model/PickleModelJson";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
-const rewarderAddress = "0xB9D873cDc15e462f5414CCdFe618a679a47831b4";
-const poolAddress = "0xa34315F1ef49392387Dd143f4578083A9Bd33E94";
+const rewarderAddress = "0x226991aADeEfDe03bF557eF067da95fc613aBfFc";
+const poolAddress = "0x65a761136815B45A9d78d9781d22d47247B49D23";
 
 
-export class RoseFraxpool extends RoseJar {
+export class RoseMaipool extends RoseJar {
   constructor() {
     super(rewarderAddress);
   }
