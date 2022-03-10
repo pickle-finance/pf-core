@@ -1415,7 +1415,7 @@ export class ExternalTokenModel {
       ChainNetwork.Metis,
       "busd",
       "binance-usd",
-      "0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7".toLowerCase(),
+      "0x12D84f1CFe870cA9C9dF9785f8954341d7fbb249".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
