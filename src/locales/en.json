@@ -213,4 +213,5 @@
 	"token.all.1eth.desc": "1ETH is a wrapper version of ETH. It is maintained by the Harmony ONE team and primarily used on the Harmony chain.",
 	"token.all.1dai.desc": "1DAI is a wrapper version of DAI. It is maintained by the Harmony ONE team and primarily used on the Harmony chain.",
 	"token.all.1wbtc.desc": "1WBTC is a wrapper version of WBTC. It is maintained by the Harmony ONE team and primarily used on the Harmony chain.",
+	"token.all.eth-2.desc": "WETH or 'wrapped ether' is Ethereum that has been converted to an ERC-20 token to faciliate development and composability with other ERC-20 tokens/protocols"
 }
