@@ -235,8 +235,10 @@ export const JAR_pDAI: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.COMPOUND,
-  details: undefined,
-  farm: undefined,
+  details: {
+    apiKey: "evil-dai",
+    harvestStyle: HarvestStyle.NONE
+  }, farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_pDAI);
 
@@ -1483,7 +1485,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1536,7 +1538,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "looks"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1565,7 +1567,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1594,7 +1596,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["wbtc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1623,7 +1625,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["pickle", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -4944,7 +4946,7 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP TRI/USDT",
-    farmDepositTokenName: "pTLP UST/NEAR",
+    farmDepositTokenName: "pTLP TRI/USDT",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT);
