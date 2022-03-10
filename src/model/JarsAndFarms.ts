@@ -6652,6 +6652,84 @@ export const JAR_METIS_TETHYS_WBTC_METIS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_TETHYS_WBTC_METIS);
 
+export const JAR_METIS_TETHYS_METIS_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2h",
+  contract: "0x4bDA2B3862116d6C26B858354667A981BDCcA047",
+  depositToken: {
+    addr: "0xCc15d8f93be780aD78fD1A016fB0F15F2543b5Dc",
+    name: "TETHYS METIS/DAI",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A",
+    components: ["metis", "dai"],
+  },
+  rewardTokens: ["tethys"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
+    farmNickname: "pTLP METIS/DAI",
+    farmDepositTokenName: "pTLP METIS/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_DAI);
+
+export const JAR_METIS_TETHYS_METIS_AVAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2i",
+  contract: "0x97C2df1D75632A5d2D0237B5c46e2fB58185a7fD",
+  depositToken: {
+    addr: "0x3Ca47677e7D8796e6470307Ad15c1fBFd43f0D6F",
+    name: "TETHYS METIS/AVAX",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xE253E0CeA0CDD43d9628567d097052B33F98D611",
+    components: ["metis", "avax"],
+  },
+  rewardTokens: ["tethys"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS-AVAX",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
+    farmNickname: "pTLP METIS/AVAX",
+    farmDepositTokenName: "pTLP METIS/AVAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_AVAX);
+
+export const JAR_METIS_TETHYS_METIS_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2j",
+  contract: "0x909eD0407D21ADa0E8336c24f19C1a177827d156",
+  depositToken: {
+    addr: "0x74Ca39F7aB9B685B8eA8c4ab19E7Ab6b474Dd22D",
+    name: "TETHYS METIS/FTM",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xa9109271abcf0C4106Ab7366B4eDB34405947eED",
+    components: ["metis", "ftm"],
+  },
+  rewardTokens: ["tethys"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
+    farmNickname: "pTLP METIS/FTM",
+    farmDepositTokenName: "pTLP METIS/FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_FTM);
+
 // Moonbeam
 
 export const JAR_MOONBEAM_STELLA_GLMR: JarDefinition = {

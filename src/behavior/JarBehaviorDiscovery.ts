@@ -190,6 +190,9 @@ import {
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
   JAR_METIS_TETHYS_USDT_METIS,
+  JAR_METIS_TETHYS_METIS_DAI,
+  JAR_METIS_TETHYS_METIS_AVAX,
+  JAR_METIS_TETHYS_METIS_FTM,
   JAR_POLY_SUSHI_RAIDER_MATIC,
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
@@ -577,7 +580,13 @@ import { VvsCroTonic } from "./impl/vvs-cro-tonic";
 import { VvsVvsSingle } from "./impl/vvs-vvs-single";
 import { VvsUsdcSingle } from "./impl/vvs-usdc-single";
 import { VvsVvsTonic } from "./impl/vvs-vvs-tonic";
+<<<<<<< HEAD
 import { TectonicJar } from "./impl/tectonic-folding";
+=======
+import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
+import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
+import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
+>>>>>>> 0ca68df (add new tethys jars to pf-core)
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -822,6 +831,9 @@ jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_WBTC_METIS.id, new TethysBtcMetis());
 jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
 jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_DAI.id, new TethysMetisDai());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_AVAX.id, new TethysMetisAvax());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_FTM.id, new TethysMetisFtm());
 
 // Moonbeam
 jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());
