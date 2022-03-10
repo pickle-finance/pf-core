@@ -87,10 +87,39 @@ export const triPoolV2Ids = {
     rewarder: "0xf267212F1D8888e0eD20BbB0c7C87A089cDe6E88",
     reward: "meta",
   },
+  "0xb419ff9221039Bdca7bb92A131DD9CF7DEb9b8e5": {
+    poolId: 13,
+    rewarder: "0xb84293D04137c9061afe34118Dac9931df153826",
+    reward: "xnl",
+    eco: true,
+  },
+  "0xFBc4C42159A5575a772BebA7E3BF91DB508E127a": {
+    poolId: 14,
+    rewarder: "0x028Fbc4BB5787e340524EF41d95875Ac2C382101",
+    reward: "xnl",
+    eco: true,
+  },
+  "0x7B273238C6DD0453C160f305df35c350a123E505": {
+    poolId: 15,
+    rewarder: "0xDAc58A615E2A1a94D7fb726a96C273c057997D50",
+    reward: "gba",
+    eco: true,
+  },
   "0x6277f94a69Df5df0Bc58b25917B9ECEFBf1b846A": {
     poolId: 16,
     rewarder: "0x170431D69544a1BC97855C6564E8460d39508844",
     reward: "near",
+  },
+  "0xadAbA7E2bf88Bd10ACb782302A568294566236dC": {
+    poolId: 17,
+    rewarder: "0xABE01A6b6922130C982E221681EB4C4aD07A21dA",
+    reward: "bbt",
+    eco: true,
+  },
+  "0x5E74D85311fe2409c341Ce49Ce432BB950D221DE": {
+    poolId: 19,
+    rewarder: "",
+    reward: "",
   },
   "0xbe753E99D0dBd12FB39edF9b884eBF3B1B09f26C": {
     poolId: 20,
@@ -173,11 +202,6 @@ export async function calculateTriFarmsAPY(
         () => rewarderContract.tokenPerBlock(),
         jar.chain,
       );
-
-      // const extraReward = await model.callMulti(
-      //   () => rewarderContract.pendingTokens(),
-      //   jar.chain
-      // );
 
       const rewardId = triPoolV2Ids[jar.depositToken.addr]?.reward;
       const extraRewardRewardsPerYear =

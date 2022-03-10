@@ -396,6 +396,15 @@ import {
   BRINERY_VEFXS,
   JAR_AURORA_TRI_RUSD_NEAR_LP,
   JAR_AURORA_TRI_LINEAR_NEAR_LP,
+<<<<<<< HEAD
+=======
+  JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP,
+  JAR_AURORA_TRISOLARIS_XNL_AURORA_LP,
+  JAR_AURORA_TRISOLARIS_BBT_NEAR_LP,
+  JAR_AURORA_TRISOLARIS_GBA_USDT_LP,
+  JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP,
+  JAR_AURORA_TRISOLARIS_XNL_NEAR_LP,
+>>>>>>> a77dc1f (trisolaris jars working and tested)
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -644,6 +653,15 @@ import { PveFxsAsset } from "./impl/vefxs";
 import { TriRoseNear } from "./impl/aurora-tri-rose-near";
 import { TriRusdNear } from "./impl/aurora-tri-rusd-near";
 import { TriLinearNear } from "./impl/aurora-tri-linear-near";
+<<<<<<< HEAD
+=======
+import { TriSolaceNear } from "./impl/aurora-tri-solace-near";
+import { TriXnlAurora } from "./impl/aurora-tri-xnl-aurora";
+import { TriBbtNear } from "./impl/aurora-tri-bbt-near";
+import { TriGbaUsdt } from "./impl/aurora-tri-gba-usdt";
+import { TriUsdcShitzu } from "./impl/aurora-tri-usdc-shitzu";
+import { TriXnlNear } from "./impl/aurora-tri-xnl-near";
+>>>>>>> a77dc1f (trisolaris jars working and tested)
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -882,6 +900,11 @@ jarToBehavior.set(JAR_AURORA_TRI_BSTN_NEAR_LP.id, new TriBstnNear());
 jarToBehavior.set(JAR_AURORA_TRI_ROSE_NEAR_LP.id, new TriRoseNear());
 jarToBehavior.set(JAR_AURORA_TRI_RUSD_NEAR_LP.id, new TriRusdNear());
 jarToBehavior.set(JAR_AURORA_TRI_LINEAR_NEAR_LP.id, new TriLinearNear());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_XNL_AURORA_LP.id, new TriXnlAurora());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_BBT_NEAR_LP.id, new TriBbtNear());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_GBA_USDT_LP.id, new TriGbaUsdt());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_XNL_NEAR_LP.id, new TriXnlNear());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP.id, new TriUsdcShitzu())
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

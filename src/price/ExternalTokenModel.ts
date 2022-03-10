@@ -1558,6 +1558,42 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "shitzu",
+      null,
+      "shitzu",
+      "0x68e401B61eA53889505cc1366710f733A60C2d41".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "xnl",
+      null,
+      "chronicle",
+      "0x7cA1C28663b76CFDe424A9494555B94846205585".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "gba",
+      null,
+      "golden-banana",
+      "0xc2ac78ffddf39e5cd6d83bbd70c1d67517c467ef".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "bbt",
+      null,
+      "bluebit",
+      "0x4148d2ce7816f0ae378d98b40eb3a7211e1fcf0d".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "rusd",
       null,
       "",
