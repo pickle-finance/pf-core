@@ -12738,6 +12738,92 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS);
 
+// Gnosis
+
+export const JAR_GNOSIS_SUSHI_XDAI_GNO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "gnosisJar 1a",
+  contract: "0x64574f47A59722862aF13be8375E4D0008c407dD",
+  startBlock: 22013009,
+  depositToken: {
+    addr: "0x0f9D54D9eE044220A3925f9b97509811924fD269",
+    name: "Sushi XDAI/GNO",
+    link: "https://app.sushi.com/add/ETH/0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb?tokens=ETH&tokens=0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb&chainId=100",
+    components: ["xdai", "gno"],
+  },
+  rewardTokens: ["gno", "sushi"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Gnosis,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "SUSHISWAP-XDAI-GNO",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xe5E231De20C68AabB8D669f87971aE57E2AbF680",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSushi XDAI/GNO",
+    farmDepositTokenName: "pSushi XDAI/GNO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_GNOSIS_SUSHI_XDAI_GNO);
+
+export const JAR_GNOSIS_SUSHI_LINK_XDAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "gnosisJar 1b",
+  contract: "0xfA09E6CE60c02eB0D6F333Fc6aA6A3595A4Acc2a",
+  startBlock: 22042322,
+  depositToken: {
+    addr: "0xB320609F2Bf3ca98754c14Db717307c6d6794d8b",
+    name: "Sushi LINK/XDAI",
+    link: "https://app.sushi.com/add/ETH/0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2?tokens=ETH&tokens=0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2&chainId=100",
+    components: ["xdai", "link"],
+  },
+  rewardTokens: ["sushi", "gno"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Gnosis,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "SUSHISWAP-LINK-XDAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xe5E231De20C68AabB8D669f87971aE57E2AbF680",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSushi LINK/XDAI",
+    farmDepositTokenName: "pSushi LINK/XDAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_GNOSIS_SUSHI_LINK_XDAI);
+
+export const JAR_GNOSIS_SUSHI_SUSHI_GNO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "gnosisJar 1c",
+  contract: "0xcD59f36bfeFFC5B38FeE585e20E2E32052b679d9",
+  startBlock: 22044084,
+  depositToken: {
+    addr: "0xF38c5b39F29600765849cA38712F302b1522C9B8",
+    name: "Sushi SUSHI/GNO",
+    link: "https://app.sushi.com/add/0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE/0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb?tokens=0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE&tokens=0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb&chainId=100",
+    components: ["sushi", "gno"],
+  },
+  rewardTokens: ["sushi", "gno"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Gnosis,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "SUSHISWAP-SUSHI-GNO",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xe5E231De20C68AabB8D669f87971aE57E2AbF680",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSushi SUSHI/GNO",
+    farmDepositTokenName: "pSushi SUSHI/GNO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_GNOSIS_SUSHI_SUSHI_GNO);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

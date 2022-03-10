@@ -102,7 +102,7 @@ export async function calculateHarmonySushiAPY(
   );
   return [
     { name: "sushi", apr: sushiAPY, compoundable: true },
-    { name: "one", apr: oneAPY, compoundable: true },
+    { name: "gno", apr: oneAPY, compoundable: true },
     { name: "lp", apr: lpApr, compoundable: false },
   ];
 }

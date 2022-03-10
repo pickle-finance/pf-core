@@ -1732,7 +1732,7 @@ export class ExternalTokenModel {
       [
         "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7", // PLY-NEAR
         "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67", // NEAR-USDT
-      ],    );
+      ]);
 
     // Metis
     this.addToken(
@@ -2738,6 +2738,80 @@ export class ExternalTokenModel {
       [
         "0x5A3AA3284EE642152D4a2B55BE1160051c5eB932", // vSOLID BEETS-FBEETS
       ],
+    );
+
+    // Gnosis
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "link",
+      null,
+      "chainlink",
+      "0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "xdai",
+      "xDAI",
+      "dai",
+      "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "gno",
+      null,
+      "gnosis",
+      "0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "sushi",
+      null,
+      "sushi",
+      "0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "usdc",
+      null,
+      "usd-coin",
+      "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "usdt",
+      null,
+      "tether",
+      "0x4ECaBa5870353805a9F068101A40E0f32ed605C6".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "weth",
+      "wETH",
+      "weth",
+      "0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "wbtc",
+      "wBTC",
+      "wrapped-bitcoin",
+      "0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID
     );
 
     // Make the reverse map to fascilitate contract lookups

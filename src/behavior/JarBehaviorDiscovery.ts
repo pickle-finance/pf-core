@@ -410,6 +410,9 @@ import {
   JAR_AURORA_ROSE_PAD_ROSE_PAD_LP,
   JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP,
   JAR_AURORA_TRI_PLY_NEAR,
+  JAR_GNOSIS_SUSHI_LINK_XDAI,
+  JAR_GNOSIS_SUSHI_SUSHI_GNO,
+  JAR_GNOSIS_SUSHI_XDAI_GNO,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -675,6 +678,9 @@ import { RosePadRose } from "./impl/aurora-rose-pad-pad-rose";
 import { RoseFraxRose } from "./impl/aurora-rose-pad-rose-frax";
 import { RoseUstpool } from "./impl/aurora-rose-ustpool";
 import { AuroraAurigamiJar } from "./impl/aurora-aurigami";
+import { GnosisSushiLinkXdai } from "./impl/gnosis-sushi-link-xdai";
+import { GnosisSushiSushiGno } from "./impl/gnosis-sushi-sushi-gno";
+import { GnosisSushiXdaiGno } from "./impl/gnosis-sushi-xdai-gno";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1128,6 +1134,11 @@ jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV.id, new OxdSolidlyJa
 jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS.id, new OxdSolidlyJar());
 jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM.id, new OxdSolidlyJar());
 jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyJar());
+
+// Gnosis
+jarToBehavior.set(JAR_GNOSIS_SUSHI_LINK_XDAI.id, new GnosisSushiLinkXdai());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_SUSHI_GNO.id, new GnosisSushiSushiGno());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_XDAI_GNO.id, new GnosisSushiXdaiGno());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());

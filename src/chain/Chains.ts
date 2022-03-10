@@ -31,6 +31,7 @@ export enum ChainNetwork {
   Moonbeam = "moonbeam",
   Optimism = "optimism",
   Fantom = "fantom",
+  Gnosis = "gnosis",
   // ADD_CHAIN
   //Binance
 }
@@ -209,6 +210,21 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     multicallAddress: "0x11473D6E641dF17cd6331D45b135E35B49edBea8",
     defaultPerformanceFee: 0.042,
     wrappedNativeAddress: "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
+  },
+  {
+    chainId: 100,
+    network: ChainNetwork.Gnosis,
+    networkVisible: "Gnosis",
+    secondsPerBlock: 5,
+    gasToken: "xDai",
+    gasTokenSymbol: "xDAI",
+    explorer: "https://blockscout.com/xdai/mainnet",
+    rpcs: [
+      "https://rpc.xdaichain.com",
+    ],
+    multicallAddress: "0x88b373B83166E72FD55648Ce114712633f1782E2",
+    defaultPerformanceFee: 0.042,
+    wrappedNativeAddress: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
   },
   // ADD_CHAIN
 ];
