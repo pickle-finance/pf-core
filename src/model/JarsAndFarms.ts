@@ -4331,6 +4331,58 @@ export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_TONIC);
 
+export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 2a",
+  contract: "0xeC15DA7019C3d0C91E9e36d1adBa22357AF732C3",
+  depositToken: {
+    addr: "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
+    name: "WETH",
+    link: "https://cronoscan.com/address/0xe44fd7fcb2b1581822d0c862b68222998a0c299a",
+    components: ["weth"],
+  },
+  rewardTokens: ["tonic"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.TECTONIC,
+  details: {
+    apiKey: "TECTONIC-WETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTectonic WETH",
+    farmDepositTokenName: "pTectonic WETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_WETH);
+
+export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 2b",
+  contract: "0x6fe9d20f64723cb714e0ae90293c6dba7ee23db9",
+  depositToken: {
+    addr: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
+    name: "CRO",
+    link: "https://cronoscan.com/address/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
+    components: ["cro"],
+  },
+  rewardTokens: ["tonic"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.TECTONIC,
+  details: {
+    apiKey: "TECTONIC-CRO",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTectonic CRO",
+    farmDepositTokenName: "pTectonic CRO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_CRO);
+
 // Aurora
 
 export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
@@ -8876,8 +8928,11 @@ export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
     nativePath: {
       //SpookyRouter --> WFTM, BTC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x321162Cd933E2Be498Cd2267a90534A804051b11"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x321162Cd933E2Be498Cd2267a90534A804051b11",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9213,8 +9268,11 @@ export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
     nativePath: {
       // spooky--> WFTM, sSOLID
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x888EF71766ca594DED1F0FA3AE64eD2941740A20"]
-    }   
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x888EF71766ca594DED1F0FA3AE64eD2941740A20",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -10258,8 +10316,11 @@ export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
     nativePath: {
       //(SpiritSwap)SpiritRouter --> WFTM, SCARAB
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x2e79205648B85485731CFE3025d66cF2d3B059c4"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x2e79205648B85485731CFE3025d66cF2d3B059c4",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,

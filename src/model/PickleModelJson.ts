@@ -48,6 +48,7 @@ export enum AssetProtocol {
   LIQUID = "LiquidDriver",
   SOLID = "Solidly",
   SEX = "Solidex",
+  TECTONIC = "Tectonic",
   // ADD_PROTOCOL
 }
 
