@@ -12,9 +12,9 @@ import { ethers } from "ethers";
 import { Contract as MultiContract } from "ethers-multicall";
 
 /*
-    Most of this class has been moved into the jar behavior classes directly. 
-    What remains are either generic functions that cover wide swaths of jars 
-    (sushi, uni, curve, etc) or the few leftovers with no home. 
+    Most of this class has been moved into the jar behavior classes directly.
+    What remains are either generic functions that cover wide swaths of jars
+    (sushi, uni, curve, etc) or the few leftovers with no home.
 */
 function isGenericSwapProtocol(protocol: string): boolean {
   return (
@@ -42,12 +42,12 @@ export async function getStableswapPrice(
 
 /*
     This function only returns the virtual price!
-    It is important for callers to multiply the result by the 
+    It is important for callers to multiply the result by the
     lowest value asset in the pool!
 
     ie, for eth-steth, you should multiply this result by min(weth, steth)
     and for crv/cvxcrv you should multiply this result by min(cvx, cvxcrv)
-    and so on... 
+    and so on...
 */
 export async function getStableswapPriceAddress(
   addr: string,
@@ -56,7 +56,7 @@ export async function getStableswapPriceAddress(
 ): Promise<number> {
   const curveStyle =
     asset.protocol === AssetProtocol.CURVE ||
-    asset.protocol === AssetProtocol.YEARN;
+    asset.protocol === AssetProtocol.YEARN || asset.protocol === AssetProtocol.ROSE;
   const PoolABI = curveStyle ? CurvePoolABI : MetaPoolABI;
 
   const pool = new MultiContract(addr, PoolABI);
@@ -72,9 +72,9 @@ export async function getStableswapPriceAddress(
 }
 
 /*
-     Most of this has been moved to the actual jar behavior classes. 
-     What remains here is mostly junk with no home or generic methods 
-     in use by many that I haven't had a chance to move yet. 
+     Most of this has been moved to the actual jar behavior classes.
+     What remains here is mostly junk with no home or generic methods
+     in use by many that I haven't had a chance to move yet.
     */
 export async function getDepositTokenPrice(
   asset: PickleAsset,

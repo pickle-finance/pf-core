@@ -6489,6 +6489,60 @@ export const JAR_AURORA_ROSE_3POOL_LP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_ROSE_3POOL_LP);
 
+// export const JAR_AURORA_ROSE_FRAXPOOL_LP: JarDefinition = {
+//   type: AssetType.JAR,
+//   id: "nearJar 4d",
+//   contract: "0x0FeEc68AFB4716Af45349bcFdc317E872BD50335",
+//   startBlock: 64237051,
+//   depositToken: {
+//     addr: "0xfF79D5bff48e1C01b722560D6ffDfCe9FC883587",
+//     name: "RoseLP FRAXPOOL",
+//     link: "https://app.rose.fi/#/pools/pools/frax",
+//     components: ["rose3pool", "frax"],
+//   },
+//   rewardTokens: ["rose"],
+//   enablement: AssetEnablement.ENABLED,
+//   chain: ChainNetwork.Aurora,
+//   protocol: AssetProtocol.ROSE,
+//   details: {
+//     apiKey: "ROSELP-FRAXPOOL",
+//     harvestStyle: HarvestStyle.PASSIVE,
+//   },
+//   farm: {
+//     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+//     farmNickname: "pROSELP-FRAXPOOL",
+//     farmDepositTokenName: "pROSELP-FRAXPOOL",
+//   },
+// };
+// JAR_DEFINITIONS.push(JAR_AURORA_ROSE_FRAXPOOL_LP);
+
+export const JAR_AURORA_ROSE_USTPOOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4e",
+  contract: "0x85E9aB988dC79D4b83E2F4C38b372C1EFfb7fC15",
+  startBlock: 64238136,
+  depositToken: {
+    addr: "0x94A7644E4D9CA0e685226254f88eAdc957D3c263",
+    name: "RoseLP USTPOOL",
+    link: "https://app.rose.fi/#/pools/pools/ust",
+    components: ["rose3pool", "ust"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-USTPOOL",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-USTPOOL",
+    farmDepositTokenName: "pROSELP-USTPOOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_USTPOOL_LP);
+
 export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 5a",

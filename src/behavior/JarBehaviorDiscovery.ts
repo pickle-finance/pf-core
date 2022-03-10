@@ -402,6 +402,10 @@ import {
   JAR_AURORA_TRISOLARIS_GBA_USDT_LP,
   JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP,
   JAR_AURORA_TRISOLARIS_XNL_NEAR_LP,
+  JAR_AURORA_ROSE_3POOL_LP,
+  JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP,
+  JAR_AURORA_ROSE_USTPOOL_LP,
+  // JAR_AURORA_ROSE_FRAXPOOL_LP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -656,6 +660,10 @@ import { TriBbtNear } from "./impl/aurora-tri-bbt-near";
 import { TriGbaUsdt } from "./impl/aurora-tri-gba-usdt";
 import { TriUsdcShitzu } from "./impl/aurora-tri-usdc-shitzu";
 import { TriXnlNear } from "./impl/aurora-tri-xnl-near";
+import { Rose3Pool } from "./impl/aurora-rose-3pool";
+import { WannaWannaxStnear } from "./impl/aurora-wanna-wannax-stnear";
+import { RoseFraxpool } from "./impl/aurora-rose-fraxpool";
+import { RoseUstpool } from "./impl/aurora-rose-ustpool";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -898,7 +906,11 @@ jarToBehavior.set(JAR_AURORA_TRISOLARIS_XNL_AURORA_LP.id, new TriXnlAurora());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_BBT_NEAR_LP.id, new TriBbtNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_GBA_USDT_LP.id, new TriGbaUsdt());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_XNL_NEAR_LP.id, new TriXnlNear());
-jarToBehavior.set(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP.id, new TriUsdcShitzu())
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP.id, new TriUsdcShitzu());
+jarToBehavior.set(JAR_AURORA_ROSE_3POOL_LP.id, new Rose3Pool());
+jarToBehavior.set(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP.id, new WannaWannaxStnear());
+// jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
+jarToBehavior.set(JAR_AURORA_ROSE_USTPOOL_LP.id, new RoseUstpool());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

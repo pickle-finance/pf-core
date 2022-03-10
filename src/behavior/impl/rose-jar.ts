@@ -6,16 +6,23 @@ import { PickleModel } from "../../model/PickleModel";
 import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 import {
   createAprComponentImpl,
 } from "../../behavior/AbstractJarBehavior";
+import gaugeAbi from "../../Contracts/ABIs/curve-factory-gauge.json"
+import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
+
+const metaPoolIds = {
+  "0x8fe44f5cce02D5BE44e3446bBc2e8132958d22B8": "ustpool",
+}
 
 export abstract class RoseJar extends AbstractJarBehavior {
   rewarderAddress: string;
-  constructor(rewarderAddress: string) {
+  poolAddress: string;
+  constructor(rewarderAddress: string, poolAddress: string = null) {
     super();
     this.rewarderAddress = rewarderAddress;
+    this.poolAddress = poolAddress;
   }
 
   async getHarvestableUSD(
@@ -43,11 +50,24 @@ export abstract class RoseJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetAprComponent[]> {
+    let pricePerToken;
+    if (metaPoolIds[this.poolAddress].length > 0) {
+      const multicallRosePool = new MultiContract(this.poolAddress, gaugeAbi);
+      pricePerToken = await model.callMulti(
+        () => multicallRosePool.get_virtual_price(),
+        jar.chain
+      );
+    } else {
+      pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+    }
+
+    // const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+
+
     const multicallRoseRewards = new MultiContract(
       this.rewarderAddress,
       roseFarmAbi,
     );
-
     const [rewardData, totalSupplyBN] = await model.callMulti(
       [
         () => multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
@@ -55,21 +75,20 @@ export abstract class RoseJar extends AbstractJarBehavior {
       ],
       jar.chain,
     );
+
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
+
     const roseRewardsPerYear =
       parseFloat(formatEther(rewardData[3])) * ONE_YEAR_SECONDS;
-
-    const { pricePerToken } = await getLivePairDataFromContracts(
-      jar,
-      model,
-      18,
-    );
 
     const valueRewardedPerYear =
       model.priceOfSync("rose", jar.chain) * roseRewardsPerYear;
 
+
+
     const totalValueStaked = totalSupply * pricePerToken;
     const roseAPY = 100 * (valueRewardedPerYear / totalValueStaked);
+
     return [
       createAprComponentImpl(
         "rose",
