@@ -119,7 +119,7 @@ export class OxdSolidlyJar extends AbstractJarBehavior {
     );
 
     return this.aprComponentsToProjectedApr([
-      await calculateOxdFarmsAPY(jar, model),
+      ...(await calculateOxdFarmsAPY(jar, model)),
       this.createAprComponent("lp", lp, false),
     ]);
   }
