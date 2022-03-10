@@ -6,14 +6,16 @@ import swaprRewarderAbi from "../../Contracts/ABIs/swapr-rewarder.json";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
 
+// Info for individual rewarder contracts
 const swaprRewarders = {
   "0xD7b118271B1B7d26C9e044Fc927CA31DccB22a5a": {
+    name: "GNO-XDAI",
     rewarder: "0x070386C4d038FE96ECC9D7fB722b3378Aace4863",
     rewards: ["0x532801ed6f82fffd2dab70a19fc2d7b2772c4f4b", "0x9c58bacc331c9aa871afd802db6379a98e80cedb"],
-    name: "GNO-XDAI"
   }
 }
 
+// All reward tokens available on the swapr platform
 const swaprRewardTokens = {
   "0x532801ed6f82fffd2dab70a19fc2d7b2772c4f4b": "swapr",
   "0x9c58bacc331c9aa871afd802db6379a98e80cedb": "gnosis",
