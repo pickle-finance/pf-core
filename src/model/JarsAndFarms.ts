@@ -4866,7 +4866,7 @@ JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_CRO);
 export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 1a",
-  contract: "0xbD59171dA1c3a2624D60421bcb6c3c3270111656",
+  contract: "0x0000000000000000000000000000000000000001",
   startBlock: 54665671,
   depositToken: {
     addr: "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
@@ -4883,7 +4883,7 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -4928,7 +4928,7 @@ JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_ETH);
 export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 1c",
-  contract: "0xfc258cF7f1bf3739A04992D1c790aF20d60f44E9",
+  contract: "0x0000000000000000000000000000000000000000",
   startBlock: 54736703,
   depositToken: {
     addr: "0x03B666f3488a7992b2385B12dF7f35156d7b29cD",
@@ -4945,7 +4945,7 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -5544,7 +5544,7 @@ export const JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP: JarDefinition = {
   protocol: AssetProtocol.TRISOLARIS,
   details: {
     apiKey: "TRISOLARISLP-SOLACE-NEAR",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
   },
   farm: {
@@ -5614,7 +5614,7 @@ JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP);
 export const JAR_AURORA_TRISOLARIS_NEAR_USDT_LP: JarDefinition = {
   type: AssetType.JAR,
   id: "auroraJar 1ab",
-  contract: "0x372d3dBE547f220311Ac996998B18eB287251644",
+  contract: "0xfc258cF7f1bf3739A04992D1c790aF20d60f44E9",
   startBlock: 64899522,
   depositToken: {
     addr: "0x03B666f3488a7992b2385B12dF7f35156d7b29cD",
@@ -5642,7 +5642,7 @@ JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_NEAR_USDT_LP);
 export const JAR_AURORA_TRISOLARIS_NEAR_USDC_LP: JarDefinition = {
   type: AssetType.JAR,
   id: "auroraJar 1ad",
-  contract: "0x0FfE6fDf78450F777488678a03Fc6c99BA3C2cE0",
+  contract: "0xbD59171dA1c3a2624D60421bcb6c3c3270111656",
   startBlock: 64902495,
   depositToken: {
     addr: "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
@@ -6456,7 +6456,7 @@ JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_DAI_LP);
 
 export const JAR_AURORA_PAD_PAD_AURORA_LP: JarDefinition = {
   type: AssetType.JAR,
-  id: "nearJar 3h",
+  id: "nearJar 3k",
   contract: "0x655552A4c0138dc92a997A16B7a3C10373DfC6a0",
   startBlock: 64189815,
   depositToken: {
