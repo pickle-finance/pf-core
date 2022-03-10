@@ -75,6 +75,7 @@ export const triPoolV2Ids = {
     poolId: 10,
     rewarder: "0xbbE41F699B0fB747cd4bA21067F6b27e0698Bc30",
     reward: "solace",
+    eco: true,
   },
   "0x5913f644A10d98c79F2e0b609988640187256373": {
     poolId: 11,
@@ -157,15 +158,6 @@ export async function calculateTriFarmsAPY(
         ],
         jar.chain,
       );
-    if (rewarder != "0x0000000000000000000000000000000000000000") {
-      //WIP
-      const multicallRewarder = new MultiContract(
-        rewarder,
-        sushiComplexRewarderAbi,
-      );
-      // const extraReward = await model.callMulti([() => multicallRewarder.rewardToken()], jar.chain);
-      //WIP
-    }
 
     // Return extraReward APY of 0 if there's no rewarder
     if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
@@ -206,8 +198,6 @@ export async function calculateTriFarmsAPY(
     }
   }
 
-
-
   const rewardsPerBlock =
     (parseFloat(formatEther(triPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
@@ -221,89 +211,30 @@ export async function calculateTriFarmsAPY(
   const totalValueStaked = totalSupply * pricePerToken;
   const triAPY = triRewardedPerYear / totalValueStaked;
 
-  return [
-    createAprComponentImpl("tri", triAPY * 100, true, 0.9),
-    ...(extraRewardAPY > 0
-      ? [
-        createAprComponentImpl(
-          triPoolV2Ids[jar.depositToken.addr]?.reward,
-          extraRewardAPY * 100,
-          true,
-          0.9,
-        ),
-      ]
-      : []),
-  ];
-}
-
-export async function calculateTriEcoFarmsAPY(
-  jar: JarDefinition,
-  model: PickleModel,
-): Promise<AssetAprComponent[]> {
-  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-
-  let
-    poolInfo,
-    totalSupplyBN,
-    rewarder,
-    extraRewardAPY = 0;
-  if (Number.isInteger(triPoolV2Ids[jar.depositToken.addr]?.poolId)) {
-    const poolId = triPoolV2Ids[jar.depositToken.addr]?.poolId;
-    const multicallTriV2Farms = new MultiContract(TRI_V2_FARMS, triv2FarmsAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
-
-    [poolInfo, totalSupplyBN, rewarder] =
-      await model.callMulti(
-        [
-          () => multicallTriV2Farms.poolInfo(poolId),
-          () => lpToken.balanceOf(TRI_V2_FARMS),
-          () => multicallTriV2Farms.rewarder(poolId),
-        ],
-        jar.chain,
-      );
-
-    // Return extraReward APY of 0 if there's no rewarder
-    if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
-      extraRewardAPY = 0;
-    } else {
-      // Get extraReward APY
-      const rewarderContract = new MultiContract(
-        triPoolV2Ids[jar.depositToken.addr]?.rewarder,
-        sushiComplexRewarderAbi,
-      );
-
-      const extraRewardPerBlock = await model.callMulti(
-        () => rewarderContract.tokenPerBlock(),
-        jar.chain,
-      );
-
-      const rewardId = triPoolV2Ids[jar.depositToken.addr]?.reward;
-      const extraRewardRewardsPerYear =
-        (parseFloat(
-          formatUnits(
-            extraRewardPerBlock,
-            model.tokenDecimals(rewardId, jar.chain),
+  if (triPoolV2Ids[jar.depositToken.addr]?.eco === true) {
+    return [
+      createAprComponentImpl(
+        triPoolV2Ids[jar.depositToken.addr]?.reward,
+        extraRewardAPY * 100,
+        true,
+        0.9,
+      ),
+    ]
+  } else {
+    return [
+      createAprComponentImpl("tri", triAPY * 100, true, 0.9),
+      ...(extraRewardAPY > 0
+        ? [
+          createAprComponentImpl(
+            triPoolV2Ids[jar.depositToken.addr]?.reward,
+            extraRewardAPY * 100,
+            true,
+            0.9,
           ),
-        ) *
-          ONE_YEAR_IN_SECONDS *
-          model.priceOfSync(rewardId, jar.chain)) /
-        Chains.get(jar.chain).secondsPerBlock;
-
-      const totalSupply = parseFloat(formatEther(totalSupplyBN));
-
-      extraRewardAPY =
-        extraRewardRewardsPerYear / (totalSupply * pricePerToken);
-    }
+        ]
+        : []),
+    ];
   }
-
-  return [
-    createAprComponentImpl(
-      triPoolV2Ids[jar.depositToken.addr]?.reward,
-      extraRewardAPY * 100,
-      true,
-      0.9,
-    ),
-  ]
 }
 
 

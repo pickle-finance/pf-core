@@ -4,6 +4,7 @@ import { Provider } from "@ethersproject/providers";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
 import fs from "fs";
+import { AssetProtocol } from "./model/PickleModelJson";
 
 // This is an example of the code you'd want to run in a client
 async function generateFullApi() {
@@ -14,7 +15,7 @@ async function generateFullApi() {
     new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
   );
 
-  const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x => x.chain === ChainNetwork.Aurora), map);
+  const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x => x.protocol === AssetProtocol.TRISOLARIS), map);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);

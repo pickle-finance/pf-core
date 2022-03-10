@@ -1,7 +1,7 @@
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
-import { AuroraTriEcosystemJar } from "./aurora-tri-ecosystem-jar";
+import { AuroraTriDualJar } from "./aurora-tri-dual-jar";
 
-export class TriSolaceNear extends AuroraTriEcosystemJar {
+export class TriSolaceNear extends AuroraTriDualJar {
   constructor() {
     super(multiSushiStrategyAbi, 4, 2);
   }
