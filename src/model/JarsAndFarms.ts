@@ -27,7 +27,7 @@ export const FARM_UNI_PICKLE_ETH: StandaloneFarmDefinition = {
   startBlock: 12248852,
   depositToken: {
     addr: "0xdc98556ce24f007a5ef6dc1ce96322d65832a819",
-    name: "UniV2 PICKLE/ETH",
+    name: "UniV2LP PICKLE/ETH",
     link: "https://app.uniswap.org/#/add/v2/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH",
     components: ["pickle", "weth"],
   },
@@ -150,7 +150,7 @@ export const JAR_UNIV2_ETH_DAI: JarDefinition = {
   startBlock: 10960588,
   depositToken: {
     addr: "0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11",
-    name: "UniV2 DAI/ETH",
+    name: "UniV2LP DAI/ETH",
     link: "https://app.uniswap.org/#/add/v2/0x6b175474e89094c44da98b954eedeac495271d0f/ETH",
     components: ["dai", "weth"],
   },
@@ -170,7 +170,7 @@ export const JAR_UNIV2_ETH_USDC: JarDefinition = {
   startBlock: 10960599,
   depositToken: {
     addr: "0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc",
-    name: "UniV2 USDC/ETH",
+    name: "UniV2LP USDC/ETH",
     link: "https://app.uniswap.org/#/add/v2/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/ETH",
     components: ["usdc", "weth"],
   },
@@ -190,7 +190,7 @@ export const JAR_UNIV2_ETH_USDT: JarDefinition = {
   startBlock: 10960612,
   depositToken: {
     addr: "0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852",
-    name: "UniV2 USDT/ETH",
+    name: "UniV2LP USDT/ETH",
     link: "https://app.uniswap.org/#/add/v2/ETH/0xdac17f958d2ee523a2206206994597c13d831ec7",
     components: ["usdt", "weth"],
   },
@@ -210,7 +210,7 @@ export const JAR_UNIV2_ETH_WBTC: JarDefinition = {
   startBlock: 11010902,
   depositToken: {
     addr: "0xBb2b8038a1640196FbE3e38816F3e67Cba72D940",
-    name: "UniV2 WBTC/ETH",
+    name: "UniV2LP WBTC/ETH",
     link: "https://app.uniswap.org/#/add/v2/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/ETH",
     components: ["wbtc", "weth"],
   },
@@ -442,7 +442,7 @@ export const JAR_UNI_BAC_DAI: JarDefinition = {
   startBlock: 12253324,
   depositToken: {
     addr: "0xd4405F0704621DBe9d4dEA60E128E0C3b26bddbD",
-    name: "UniV2 BAC/DAI",
+    name: "UniV2LP BAC/DAI",
     link: undefined,
     components: ["bac", "dai"],
   },
@@ -550,7 +550,7 @@ export const JAR_UNI_BAS_DAI: JarDefinition = {
   startBlock: 12253421,
   depositToken: {
     addr: "0x3E78F2E7daDe07ea685F8612F00477FD97162F1e",
-    name: "UniV2 BAS/DAI",
+    name: "UniV2LP BAS/DAI",
     link: undefined,
     components: ["bas", "dai"],
   },
@@ -577,7 +577,7 @@ export const JAR_UNIV2_MIR_UST: JarDefinition = {
   startBlock: 11888779,
   depositToken: {
     addr: "0x87dA823B6fC8EB8575a235A824690fda94674c88",
-    name: "UniV2 MIR/UST",
+    name: "UniV2LP MIR/UST",
     link: "https://app.uniswap.org/#/add/v2/0x09a3ecafa817268f77be1283176b946c4ff2e608/0xa47c8bf37f92aBed4A126BDA807A7b7498661acD",
     components: ["mir", "ust"],
   },
@@ -604,7 +604,7 @@ export const JAR_UNIV2_MTSLA_UST: JarDefinition = {
   startBlock: 12053691,
   depositToken: {
     addr: "0x5233349957586A8207c52693A959483F9aeAA50C",
-    name: "UniV2 MTSLA/UST",
+    name: "UniV2LP MTSLA/UST",
     link: "https://app.uniswap.org/#/add/v2/0x21cA39943E91d704678F5D00b6616650F066fD63/0xa47c8bf37f92aBed4A126BDA807A7b7498661acD",
     components: ["mtsla", "ust"],
   },
@@ -631,7 +631,7 @@ export const JAR_UNIV2_MAAPL_UST: JarDefinition = {
   startBlock: 12055550,
   depositToken: {
     addr: "0xB022e08aDc8bA2dE6bA4fECb59C6D502f66e953B",
-    name: "UniV2 MAAPL/UST",
+    name: "UniV2LP MAAPL/UST",
     link: "https://app.uniswap.org/#/add/v2/0xd36932143F6eBDEDD872D5Fb0651f4B72Fd15a84/0xa47c8bf37f92aBed4A126BDA807A7b7498661acD",
     components: ["maapl", "ust"],
   },
@@ -645,8 +645,8 @@ export const JAR_UNIV2_MAAPL_UST: JarDefinition = {
   },
   farm: {
     farmAddress: "0x2Df015B117343e24AEC9AC99909A4c097a2828Ab",
-    farmNickname: "UniV2 MAAPL/UST",
-    farmDepositTokenName: "UniV2 MAAPL/UST",
+    farmNickname: "UniV2LP MAAPL/UST",
+    farmDepositTokenName: "UniV2LP MAAPL/UST",
   },
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_MAAPL_UST);
@@ -658,7 +658,7 @@ export const JAR_UNIV2_MQQQ_UST: JarDefinition = {
   startBlock: 12055602,
   depositToken: {
     addr: "0x9E3B47B861B451879d43BBA404c35bdFb99F0a6c",
-    name: "UniV2 MQQQ/UST",
+    name: "UniV2LP MQQQ/UST",
     link: "https://app.uniswap.org/#/add/v2/0x13B02c8dE71680e71F0820c996E4bE43c2F57d15/0xa47c8bf37f92aBed4A126BDA807A7b7498661acD",
     components: ["mqqq", "ust"],
   },
@@ -685,7 +685,7 @@ export const JAR_UNIV2_MSLV_UST: JarDefinition = {
   startBlock: 12056041,
   depositToken: {
     addr: "0x860425bE6ad1345DC7a3e287faCBF32B18bc4fAe",
-    name: "UniV2 MSLV/UST",
+    name: "UniV2LP MSLV/UST",
     link: "https://app.uniswap.org/#/add/v2/0x9d1555d8cB3C846Bb4f7D5B1B1080872c3166676/0xa47c8bf37f92aBed4A126BDA807A7b7498661acD",
     components: ["mslv", "ust"],
   },
@@ -712,7 +712,7 @@ export const JAR_UNIV2_MBABA_UST: JarDefinition = {
   startBlock: 12056041,
   depositToken: {
     addr: "0x676Ce85f66aDB8D7b8323AeEfe17087A3b8CB363",
-    name: "UniV2 MBABA/UST",
+    name: "UniV2LP MBABA/UST",
     link: "https://app.uniswap.org/#/add/v2/0x56aA298a19C93c6801FDde870fA63EF75Cc0aF72/0xa47c8bf37f92aBed4A126BDA807A7b7498661acD",
     components: ["mbaba", "ust"],
   },
@@ -766,7 +766,7 @@ export const JAR_UNIV2_FEI_TRIBE: JarDefinition = {
   startBlock: 12185238,
   depositToken: {
     addr: "0x9928e4046d7c6513326cCeA028cD3e7a91c7590A",
-    name: "UniV2 FEI/TRIBE",
+    name: "UniV2LP FEI/TRIBE",
     link: "https://app.uniswap.org/#/add/v2/0x956f47f50a910163d8bf957cf5846d573e7f87ca/0xc7283b66eb1eb5fb86327f08e1b5816b0720212b",
     components: ["fei", "tribe"],
   },
@@ -820,7 +820,7 @@ export const JAR_UNIV2_LUSD_ETH: JarDefinition = {
   startBlock: 12254395,
   depositToken: {
     addr: "0xF20EF17b889b437C151eB5bA15A47bFc62bfF469",
-    name: "UniV2 LUSD/ETH",
+    name: "UniV2LP LUSD/ETH",
     link: "https://app.uniswap.org/#/add/v2/0x5f98805A4E8be255a32880FDeC7F6728C6568bA0/ETH",
     components: ["lusd", "weth"],
   },
@@ -928,7 +928,7 @@ export const JAR_UNI_RLY_ETH: JarDefinition = {
   startBlock: 13238837,
   depositToken: {
     addr: "0x27fD0857F0EF224097001E87e61026E39e1B04d1",
-    name: "UniV2 RLY/ETH",
+    name: "UniV2LP RLY/ETH",
     link: "https://app.uniswap.org/#/add/v2/0xf1f955016ecbcd7321c7266bccfb96c68ea5e49b/ETH",
     components: ["rly", "weth"],
     decimals: 18,
@@ -1149,7 +1149,7 @@ export const JAR_FOXETH: JarDefinition = {
   startBlock: 12953084,
   depositToken: {
     addr: "0x470e8de2eBaef52014A47Cb5E6aF86884947F08c",
-    name: "UniV2 FOX/ETH",
+    name: "UniV2LP FOX/ETH",
     link: "https://app.uniswap.org/#/add/v2/0xc770eefad204b5180df6a14ee197d99d808ee52d/ETH",
     components: ["fox", "weth"],
   },
@@ -1372,7 +1372,7 @@ export const JAR_UNIV2_LOOKS_ETH: JarDefinition = {
   startBlock: 13989733,
   depositToken: {
     addr: "0xDC00bA87Cc2D99468f7f34BC04CBf72E111A32f7",
-    name: "UniV2 LOOKS/ETH",
+    name: "UniV2LP LOOKS/ETH",
     link: "https://app.uniswap.org/#/add/v2/ETH/0xf4d2888d29D722226FafA5d9B24F9164c092421E",
     components: ["weth", "looks"],
   },
@@ -1482,7 +1482,7 @@ export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   // in the strategy is the univ3 pool token. Kinda fuzzy here
   depositToken: {
     addr: "0x94981F69F7483AF3ae218CbfE65233cC3c60d93a",
-    name: "UniV3 RBN/ETH",
+    name: "UniV3LP RBN/ETH",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6123b0049f904d730db3c36a31167d9d4121fa6b",
     components: ["rbn", "weth"],
     style: { erc20: false },
@@ -1512,7 +1512,7 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
   startBlock: 14194675,
   depositToken: {
     addr: "0x97e7d56A0408570bA1a7852De36350f7713906ec",
-    name: "UniV3 FRAX/DAI",
+    name: "UniV3LP FRAX/DAI",
     link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0x6B175474E89094C44Da98b954EedeAC495271d0F/500",
     components: ["dai", "frax"],
     style: { erc20: false },
@@ -1542,7 +1542,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
   startBlock: 14286023,
   depositToken: {
     addr: "0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640",
-    name: "UniV3 USDC/ETH 0.05%",
+    name: "UniV3LP USDC/ETH 0.05%",
     link: "https://app.uniswap.org/#/add/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/500",
     components: ["usdc", "weth"],
     style: { erc20: false },
@@ -1571,7 +1571,7 @@ export const JAR_UNIV3_USDC_ETH_3: JarDefinition = {
   startBlock: 14286059,
   depositToken: {
     addr: "0x8ad599c3A0ff1De082011EFDDc58f1908eb6e6D8",
-    name: "UniV3 USDC/ETH 0.3%",
+    name: "UniV3LP USDC/ETH 0.3%",
     link: "https://app.uniswap.org/#/add/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/3000",
     components: ["usdc", "weth"],
     style: { erc20: false },
@@ -1595,7 +1595,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
   startBlock: 14286123,
   depositToken: {
     addr: "0x4b5Ab61593A2401B1075b90c04cBCDD3F87CE011",
-    name: "UniV3 LOOKS/ETH 0.3%",
+    name: "UniV3LP LOOKS/ETH 0.3%",
     link: "https://app.uniswap.org/#/add/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/0xf4d2888d29D722226FafA5d9B24F9164c092421E/3000",
     components: ["weth", "looks"],
     style: { erc20: false },
@@ -1624,7 +1624,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
   startBlock: 14286139,
   depositToken: {
     addr: "0x3416cF6C708Da44DB2624D63ea0AAef7113527C6",
-    name: "UniV3 USDC/USDT 0.01%",
+    name: "UniV3LP USDC/USDT 0.01%",
     link: "https://app.uniswap.org/#/add/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/0xdAC17F958D2ee523a2206206994597C13D831ec7/100",
     components: ["usdc", "usdt"],
     style: { erc20: false },
@@ -1654,7 +1654,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
   startBlock: 14286147,
   depositToken: {
     addr: "0x4585FE77225b41b697C938B018E2Ac67Ac5a20c0",
-    name: "UniV3 WBTC/ETH 0.05%",
+    name: "UniV3LP WBTC/ETH 0.05%",
     link: "https://app.uniswap.org/#/add/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/500",
     components: ["wbtc", "weth"],
     style: { erc20: false },
@@ -1684,7 +1684,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
   startBlock: 14357274,
   depositToken: {
     addr: "0x11c4D3b9cd07807F455371d56B3899bBaE662788",
-    name: "UniV3 PICKLE/ETH 1%",
+    name: "UniV3LP PICKLE/ETH 1%",
     link: "https://app.uniswap.org/#/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/10000",
     components: ["pickle", "weth"],
     style: { erc20: false },
@@ -1714,7 +1714,7 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
   startBlock: 14398496,
   depositToken: {
     addr: "0xc63B0708E2F7e69CB8A1df0e1389A98C35A76D52",
-    name: "UniV3 FRAX/USDC",
+    name: "UniV3LP FRAX/USDC",
     link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/500",
     components: ["frax", "usdc"],
     style: { erc20: false },
@@ -1744,7 +1744,7 @@ export const JAR_UNIV3_COW_ETH: JarDefinition = {
   startBlock: 14478453,
   depositToken: {
     addr: "0xFCfDFC98062d13a11cec48c44E4613eB26a34293",
-    name: "UniV3 COW/ETH 1%",
+    name: "UniV3LP COW/ETH 1%",
     link: "https://app.uniswap.org/#/add/0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/10000",
     components: ["weth", "cow"],
     style: { erc20: false },
@@ -1773,7 +1773,7 @@ export const JAR_UNIV3_APE_ETH: JarDefinition = {
   startBlock: 14478453,
   depositToken: {
     addr: "0xAc4b3DacB91461209Ae9d41EC517c2B9Cb1B7DAF",
-    name: "UniV3 APE/ETH 0.3%",
+    name: "UniV3LP APE/ETH 0.3%",
     link: "https://app.uniswap.org/#/add/0x4d224452801ACEd8B2F0aebE155379bb5D594381/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/3000",
     components: ["ape", "weth"],
     style: { erc20: false },
@@ -2479,7 +2479,7 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   startBlock: 23839377,
   depositToken: {
     addr: "0x45dDa9cb7c25131DF268515131f647d726f50608",
-    name: "UniV3 USDC/ETH",
+    name: "UniV3LP USDC/ETH",
     link: "https://app.uniswap.org/#/add/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/500",
     components: ["usdc", "weth"],
     style: { erc20: false },
@@ -2508,7 +2508,7 @@ export const JAR_POLY_UNIV3_MATIC_ETH: JarDefinition = {
   startBlock: 24524019,
   depositToken: {
     addr: "0x167384319B41F7094e62f7506409Eb38079AbfF8",
-    name: "UniV3 MATIC/ETH",
+    name: "UniV3LP MATIC/ETH",
     link: "https://app.uniswap.org/#/add/ETH/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/3000",
     components: ["matic", "weth"],
     style: { erc20: false },
@@ -2537,7 +2537,7 @@ export const JAR_POLY_UNIV3_MATIC_USDC: JarDefinition = {
   startBlock: 24523952,
   depositToken: {
     addr: "0x88f3C15523544835fF6c738DDb30995339AD57d6",
-    name: "UniV3 MATIC/USDC",
+    name: "UniV3LP MATIC/USDC",
     link: "https://app.uniswap.org/#/add/ETH/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/3000",
     components: ["matic", "usdc"],
     style: { erc20: false },
@@ -2566,7 +2566,7 @@ export const JAR_POLY_UNIV3_USDC_USDT: JarDefinition = {
   startBlock: 24277253,
   depositToken: {
     addr: "0x3F5228d0e7D75467366be7De2c31D0d098bA2C23",
-    name: "UniV3 USDC/USDT",
+    name: "UniV3LP USDC/USDT",
     link: "https://app.uniswap.org/#/add/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174/0xc2132D05D31c914a87C6611C10748AEb04B58e8F/500",
     components: ["usdc", "usdt"],
     style: { erc20: false },
@@ -2596,7 +2596,7 @@ export const JAR_POLY_UNIV3_WBTC_ETH: JarDefinition = {
   startBlock: 24277508,
   depositToken: {
     addr: "0x50eaEDB835021E4A108B7290636d62E9765cc6d7",
-    name: "UniV3 WBTC/ETH",
+    name: "UniV3LP WBTC/ETH",
     link: "https://app.uniswap.org/#/add/0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/500",
     components: ["wbtc", "weth"],
     style: { erc20: false },
