@@ -49,6 +49,7 @@ export const JAR_sCRV: JarDefinition = {
     addr: "0xC25a3A3b969415c80451098fa907EC722572917F",
     name: "Curve sCRV",
     link: "https://www.curve.fi/susdv2/deposit",
+    components: ["dai", "usdc", "usdt", "susd"],
   },
   rewardTokens: ["crv", "snx"],
   enablement: AssetEnablement.DISABLED,
@@ -71,6 +72,7 @@ export const JAR_renCRV: JarDefinition = {
     addr: "0x49849C98ae39Fff122806C06791Fa73784FB3675",
     name: "Curve REN/BTC",
     link: "https://www.curve.fi/ren/deposit",
+    components: ["renbtc", "wbtc"],
   },
   rewardTokens: ["crv"],
   enablement: AssetEnablement.DISABLED,
@@ -93,6 +95,7 @@ export const JAR_3CRV: JarDefinition = {
     addr: "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
     name: "Curve 3pool",
     link: "https://www.curve.fi/3pool/deposit",
+    components: ["dai", "usdc", "usdt"],
   },
   rewardTokens: ["crv"],
   enablement: AssetEnablement.ENABLED,
@@ -119,6 +122,7 @@ export const JAR_steCRV: JarDefinition = {
     addr: "0x06325440D014e39736583c165C2963BA99fAf14E",
     name: "Curve ETH/stETH",
     link: "https://www.curve.fi/steth/deposit",
+    components: ['weth', 'steth'],
   },
   rewardTokens: ["cvx", "crv", "ldo"],
   enablement: AssetEnablement.ENABLED,
@@ -225,6 +229,7 @@ export const JAR_pDAI: JarDefinition = {
     addr: "0x6b175474e89094c44da98b954eedeac495271d0f",
     name: "DAI",
     link: "https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f",
+    components: ["dai"],
   },
   rewardTokens: ["comp"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
@@ -244,6 +249,7 @@ export const JAR_ALETH: JarDefinition = {
     addr: "0xc9da65931ABf0Ed1b74Ce5ad8c041C4220940368",
     name: "Saddle ETH/alETH",
     link: "https://saddle.exchange/#/pools/aleth/deposit",
+    components: ["eth", "aleth"],
   },
   rewardTokens: ["alcx"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
@@ -270,6 +276,7 @@ export const JAR_LQTY: JarDefinition = {
     addr: "0x6DEA81C8171D0bA574754EF6F8b412F2Ed88c54D",
     name: "LQTY",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d",
+    components: ["lqty"],
   },
   rewardTokens: ["weth", "lusd"],
   enablement: AssetEnablement.ENABLED,
@@ -1357,6 +1364,7 @@ export const JAR_LOOKS: JarDefinition = {
     addr: "0xf4d2888d29D722226FafA5d9B24F9164c092421E",
     name: "LOOKS",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xf4d2888d29d722226fafa5d9b24f9164c092421e",
+    components: ["looks"],
   },
   rewardTokens: ["weth"],
   enablement: AssetEnablement.ENABLED,
@@ -1475,7 +1483,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1528,7 +1536,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "looks"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1557,7 +1565,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1586,7 +1594,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["wbtc", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1615,7 +1623,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["pickle", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1660,34 +1668,6 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_USDC);
-
-export const JAR_UNIV3_COW_ETH: JarDefinition = {
-  type: AssetType.JAR,
-  id: "pJar U3j",
-  contract: "0xf0Fb82757B9f8A3A3AE3524e385E2E9039633948",
-  depositToken: {
-    addr: "0xFCfDFC98062d13a11cec48c44E4613eB26a34293",
-    name: "UniV3 COW/ETH 1%",
-    link: "https://app.uniswap.org/#/add/0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/10000",
-    components: ["cow", "weth"],
-    style: { erc20: false },
-  },
-  rewardTokens: ["cow", "weth"],
-  enablement: AssetEnablement.DEV,
-  chain: ChainNetwork.Ethereum,
-  protocol: AssetProtocol.UNISWAP_V3,
-  details: {
-    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
-    apiKey: "UNIV3-COW-ETH",
-    harvestStyle: HarvestStyle.PASSIVE,
-  },
-  farm: {
-    farmAddress: "0xbb813d44f8b5a4e033bdc126a9ff2800b7037230",
-    farmNickname: "pUNIv3 COW/ETH",
-    farmDepositTokenName: "pUNIv3 COW/ETH",
-  },
-};
-JAR_DEFINITIONS.push(JAR_UNIV3_COW_ETH);
 
 // Polygon
 
@@ -1824,7 +1804,7 @@ export const JAR_AM3CRV: JarDefinition = {
     addr: "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171",
     name: "Curve am3CRV",
     link: "https://polygon.curve.fi/aave/deposit",
-    components: [], // TODO
+    components: ["dai", "usdc", "usdt"], // TODO
   },
   rewardTokens: ["crv"],
   enablement: AssetEnablement.ENABLED,
