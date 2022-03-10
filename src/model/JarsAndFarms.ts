@@ -6170,6 +6170,34 @@ export const JAR_AURORA_WANNA_WANNA_AURORA: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_WANNA_WANNA_AURORA);
 
+export const JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 2o",
+  contract: "0x527F243112Cc6DE5A9879c93c2091C23E9a3afa5",
+  startBlock: 64263363,
+  depositToken: {
+    addr: "0xE22606659ec950E0328Aa96c7f616aDC4907cBe3",
+    name: "WannaswapLP WANNAX/STNEAR",
+    link: "https://wannaswap.finance/exchange/add/0x5205c30bf2E37494F8cF77D2c19C6BA4d2778B9B/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30",
+    components: ["wannax", "stnear"],
+  },
+  rewardTokens: ["wanna"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.WANNASWAP,
+  details: {
+    apiKey: "WANNASWAPLP-WANNAX-STNEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pWannaswapLP WANNAX/STNEAR",
+    farmDepositTokenName: "pWannaswapLP WANNAX/STNEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP);
+
 export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 3a",
@@ -6433,6 +6461,33 @@ export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_ROSE_FRAX);
+
+export const JAR_AURORA_ROSE_3POOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4c",
+  contract: "0x0FeEc68AFB4716Af45349bcFdc317E872BD50335",
+  startBlock: 64237051,
+  depositToken: {
+    addr: "0xfF79D5bff48e1C01b722560D6ffDfCe9FC883587",
+    name: "RoseLP 3POOL",
+    link: "https://app.rose.fi/#/pools/pools/stables",
+    components: ["rose3pool"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-3POOL",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-3POOL",
+    farmDepositTokenName: "pROSELP-3POOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_3POOL_LP);
 
 export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
   type: AssetType.JAR,

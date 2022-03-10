@@ -1467,6 +1467,15 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "wannax",
+      null,
+      "wanna",
+      "0x5205c30bf2E37494F8cF77D2c19C6BA4d2778B9B".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "wanna",
       null,
       "wanna",
@@ -1553,6 +1562,15 @@ export class ExternalTokenModel {
       null,
       "rose",
       "0xdcd6d4e2b3e1d1e1e6fa8c21c8a323dcbecff970".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "rose3pool",
+      null,
+      "lp-3pool-curve",
+      "0xfF79D5bff48e1C01b722560D6ffDfCe9FC883587".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
