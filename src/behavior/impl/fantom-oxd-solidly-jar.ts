@@ -14,6 +14,7 @@ import {
 
 const OXD_LENS = "0xDA00137c79B30bfE06d04733349d98Cf06320e69";
 
+
 export async function calculateOxdFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
@@ -23,7 +24,6 @@ export async function calculateOxdFarmsAPY(
     () => multicallOxdFarms.stakingRewardsBySolidPool(jar.depositToken.addr),
     jar.chain,
   );
-    
 
   const multicallOxdMultiRewards = new MultiContract(oxdPool, oxdMultiRewardsAbi);
 
@@ -61,7 +61,10 @@ export async function calculateOxdFarmsAPY(
   const totalSupply = (parseFloat(formatEther(totalSupplyBN)));
 
   // Price of LP token.
-  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+  const pricePerToken = jar.depositToken.price!;
+  console.log("PING", pricePerToken);
+  console.log("DING", jar);
+
 
   // Total value of LP tokens staked in rewards contract.
   const totalValueStaked = totalSupply * pricePerToken;

@@ -11015,7 +11015,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
   startBlock: 35197442,
   depositToken: {
     addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-    name: "OXD_SOLIDLY_WFTM_MULTI",
+    name: "OxdSolidexLP_WFTM_MULTI",
     link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
     components: ["wftm", "multi"],
   },
@@ -11043,7 +11043,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
   startBlock: 35198431,
   depositToken: {
     addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
-    name: "OXD_SOLIDLY_LQDR_WFTM",
+    name: "OxdSolidexLP_LQDR_WFTM",
     link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
     components: ["lqdr", "wftm"],
   },
@@ -11071,7 +11071,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
   startBlock: 35222912,
   depositToken: {
     addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-    name: "OXD_SOLIDLY_IB_WFTM",
+    name: "OxdSolidexLP_IB_WFTM",
     link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
     components: ["ib", "wftm"],
   },
@@ -11099,7 +11099,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
   startBlock: 35225781,
   depositToken: {
     addr: "0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
-    name: "OXD_SOLIDLY_XTAROT_TAROT",
+    name: "OxdSolidexLP_XTAROT_TAROT",
     link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
     components: ["xtarot", "tarot"],
   },
@@ -11127,7 +11127,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
   startBlock: 35227195,
   depositToken: {
     addr: "0xd11e940c42e03d927cfd7426718bb4cA21d6015f",
-    name: "OXD_SOLIDLY_DEI_SCREAM",
+    name: "OxdSolidexLP_DEI_SCREAM",
     link: "https://solidly.exchange/liquidity/0xd11e940c42e03d927cfd7426718bb4cA21d6015f",
     components: ["dei", "scream"],
   },
@@ -11155,7 +11155,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
   startBlock: 35239253,
   depositToken: {
     addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-    name: "OXD_SOLIDLY_WFTM_SYN",
+    name: "OxdSolidexLP_WFTM_SYN",
     link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
     components: ["wftm", "syn"],
   },
@@ -11183,7 +11183,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   startBlock: 35240455,
   depositToken: {
     addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-    name: "OXD_SOLIDLY_WFTM_SOLID",
+    name: "OxdSolidexLP_WFTM_SOLID",
     link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
     components: ["wftm", "solid"],
   },
@@ -11211,7 +11211,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   startBlock: 35247603,
   depositToken: {
     addr: "0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
-    name: "OXD_SOLIDLY_YFI_WOOFY",
+    name: "OxdSolidexLP_YFI_WOOFY",
     link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
     components: ["yfi", "woofy"],
   },
@@ -11239,7 +11239,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
   startBlock: 35249600,
   depositToken: {
     addr: "0x270b4cdEAebC4E0522AA4371a9BE38c624193cEe",
-    name: "OXD_SOLIDLY_BOMB_PGUNK",
+    name: "OxdSolidexLP_BOMB_PGUNK",
     link: "https://solidly.exchange/liquidity/0x270b4cdEAebC4E0522AA4371a9BE38c624193cEe",
     components: ["bomb", "pgunk"],
   },
@@ -11267,7 +11267,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
   startBlock: 35254844,
   depositToken: {
     addr: "0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
-    name: "OXD_SOLIDLY_SOLIDSEX_SOLID",
+    name: "OxdSolidexLP_SOLIDSEX_SOLID",
     link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
     components: ["solidsex", "solid"],
   },
@@ -11295,7 +11295,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
   startBlock: 35257074,
   depositToken: {
     addr: "0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
-    name: "OXD_SOLIDLY_FXS_FRAX",
+    name: "OxdSolidexLP_FXS_FRAX",
     link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
     components: ["fxs", "frax"],
   },
@@ -11323,7 +11323,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
   startBlock: 35257396,
   depositToken: {
     addr: "0x4303eDB91d23FC648bFEEb65349596bcf4DF0742",
-    name: "OXD_SOLIDLY_OXD_DEI",
+    name: "OxdSolidexLP_OXD_DEI",
     link: "https://solidly.exchange/liquidity/0x4303eDB91d23FC648bFEEb65349596bcf4DF0742",
     components: ["oxd", "dei"],
   },
@@ -11351,7 +11351,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
   startBlock: 35257995,
   depositToken: {
     addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-    name: "OXD_SOLIDLY_WFTM_TAROT",
+    name: "OxdSolidexLP_WFTM_TAROT",
     link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
     components: ["wftm", "tarot"],
   },
@@ -11379,7 +11379,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
   startBlock: 35262157,
   depositToken: {
     addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-    name: "OXD_SOLIDLY_WFTM_YFI",
+    name: "OxdSolidexLP_WFTM_YFI",
     link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
     components: ["wftm", "yfi"],
   },
@@ -11407,7 +11407,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
   startBlock: 35262872,
   depositToken: {
     addr: "0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
-    name: "OXD_SOLIDLY_SEX_WFTM",
+    name: "OxdSolidexLP_SEX_WFTM",
     link: "https://solidly.exchange/liquidity/0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
     components: ["sex", "wftm"],
   },
@@ -11435,7 +11435,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
   startBlock: 35269742,
   depositToken: {
     addr: "0xF42dBcf004a93ae6D5922282B304E2aEFDd50058",
-    name: "OXD_SOLIDLY_DEI_DEUS",
+    name: "OxdSolidexLP_DEI_DEUS",
     link: "https://solidly.exchange/liquidity/0xF42dBcf004a93ae6D5922282B304E2aEFDd50058",
     components: ["dei", "deus"],
   },
@@ -11456,34 +11456,6 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS);
 
-export const JAR_OXD_SOLIDEX_G3CRV_SEX: JarDefinition = {
-  type: AssetType.JAR,
-  id: "fantomJar 8r",
-  contract: "0x9C849226382860E6D41d2254D3AF06A0a2E9bed5",
-  startBlock: 35582675,
-  depositToken: {
-    addr: "0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
-    name: "OXD_SOLIDEX_G3CRV_SEX",
-    link: "https://solidly.exchange/liquidity/0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
-    components: ["g3crv", "sex"],
-  },
-  rewardTokens: ["oxd", "solid"],
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
-  details: {
-    apiKey: "OxdSolidexLP-G3CRV-SEX",
-    harvestStyle: HarvestStyle.CUSTOM,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
-  },
-  farm: {
-    farmAddress: NULL_ADDRESS,
-    farmNickname: "pOxdSolidexLP G3CRV/SEX",
-    farmDepositTokenName: "pOxdSolidexLP G3CRV/SEX",
-  },
-};
-JAR_DEFINITIONS.push(JAR_OXD_SOLIDEX_G3CRV_SEX);
-
 export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   type: AssetType.JAR,
   id: "fantomJar 8s",
@@ -11491,12 +11463,12 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   startBlock: 35270373,
   depositToken: {
     addr: "0xbF1c168fd5cb65C6A3c31d3d48b222104258ba70",
-    name: "OXD_SOLIDLY_USDC_WEVE",
+    name: "OxdSolidexLP_USDC_WEVE",
     link: "https://solidly.exchange/liquidity/0xbF1c168fd5cb65C6A3c31d3d48b222104258ba70",
     components: ["usdc", "weve"],
   },
   rewardTokens: ["oxd", "solid"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -11519,7 +11491,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
   startBlock: 35270702,
   depositToken: {
     addr: "0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
-    name: "OXD_SOLIDLY_USDC_SYN",
+    name: "OxdSolidexLP_USDC_SYN",
     link: "https://solidly.exchange/liquidity/0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
     components: ["usdc", "syn"],
   },
@@ -11547,7 +11519,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
   startBlock: 35271544,
   depositToken: {
     addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-    name: "OXD_SOLIDLY_WFTM_SOLIDSEX",
+    name: "OxdSolidexLP_WFTM_SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
     components: ["wftm", "solidsex"],
   },
@@ -11575,7 +11547,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
   startBlock: 35273767,
   depositToken: {
     addr: "0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
-    name: "OXD_SOLIDLY_USDC_MIM",
+    name: "OxdSolidexLP_USDC_MIM",
     link: "https://solidly.exchange/liquidity/0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
     components: ["usdc", "mim"],
   },
@@ -11603,7 +11575,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
   startBlock: 35274138,
   depositToken: {
     addr: "0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
-    name: "OXD_SOLIDLY_USDC_DEI",
+    name: "OxdSolidexLP_USDC_DEI",
     link: "https://solidly.exchange/liquidity/0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
     components: ["usdc", "dei"],
   },
@@ -11631,7 +11603,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
   startBlock: 34990610,
   depositToken: {
     addr: "0xcB6eAB779780c7FD6d014ab90d8b10e97A1227E2",
-    name: "OXD_SOLIDLY_WFTM_OXD",
+    name: "OxdSolidexLP_WFTM_OXD",
     link: "https://solidly.exchange/liquidity/0xcB6eAB779780c7FD6d014ab90d8b10e97A1227E2",
     components: ["wftm", "oxd"],
   },
@@ -11659,7 +11631,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
   startBlock: 34990610,
   depositToken: {
     addr: "0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
-    name: "OXD_SOLIDLY_SPIRIT_SINSPIRIT",
+    name: "OxdSolidexLP_SPIRIT_SINSPIRIT",
     link: "https://solidly.exchange/liquidity/0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
     components: ["spirit", "sinspirit"],
   },
@@ -11687,7 +11659,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   startBlock: 35161588,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "OXD_SOLIDLY_SPIRIT_SINSPIRIT",
+    name: "OxdSolidexLP_SPIRIT_SINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "rainspirit"],
   },
@@ -11711,16 +11683,16 @@ JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT);
 export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
   type: AssetType.JAR,
   id: "fantomJar 8aa",
-  contract: "0x7dc94678224e047961Ee07c6Ac62e225f20E3523",
+  contract: "0xaC7c330fBeAb825d4260Ea904a99911FCb86c202",
   startBlock: 35161588,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "OXD_SOLIDLY_SPIRIT_SINSPIRIT",
+    name: "OxdSolidexLP_SPIRIT_BINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "binspirit"],
   },
   rewardTokens: ["oxd", "solid"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -11739,16 +11711,16 @@ JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT);
 export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
   type: AssetType.JAR,
   id: "fantomJar 8ab",
-  contract: "0xaC7c330fBeAb825d4260Ea904a99911FCb86c202",
+  contract: "0x11889EEc2b9f42A5817ef4104b97f4680B1C3be8",
   startBlock: 35162503,
   depositToken: {
-    addr: "0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
-    name: "OXD_SOLIDLY_SPIRIT_LINSPIRIT",
-    link: "https://solidly.exchange/liquidity/0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
+    addr: "0xd6be7592E5C424623c8C9557738970aE19ab5de2",
+    name: "OxdSolidexLP_SPIRIT_LINSPIRIT",
+    link: "https://solidly.exchange/liquidity/0xd6be7592E5C424623c8C9557738970aE19ab5de2",
     components: ["spirit", "linspirit"],
   },
   rewardTokens: ["oxd", "solid"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
@@ -11771,7 +11743,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
   startBlock: 35162503,
   depositToken: {
     addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    name: "OXD_SOLIDLY_SPIRIT_LINSPIRIT",
+    name: "OxdSolidexLP_WFTM_GEIST",
     link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
     components: ["wftm", "geist"],
   },
@@ -11799,7 +11771,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
   startBlock: 35188273,
   depositToken: {
     addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-    name: "OXD_SOLIDLY_HND_WFTM",
+    name: "OxdSolidexLP_HND_WFTM",
     link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
     components: ["wftm", "hnd"],
   },
@@ -11827,7 +11799,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
   startBlock: 35190359,
   depositToken: {
     addr: "0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
-    name: "OXD_SOLIDLY_SOLID_OXSOLID",
+    name: "OxdSolidexLP_SOLID_OXSOLID",
     link: "https://solidly.exchange/liquidity/0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
     components: ["solid", "oxsolid"],
   },
@@ -11855,7 +11827,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   startBlock: 35190359,
   depositToken: {
     addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-    name: "OXD_SOLIDLY_SOLID_OXSOLID",
+    name: "OxdSolidexLP_SOLID_OXSOLID",
     link: "https://solidly.exchange/liquidity/0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
     components: ["wftm", "rdl"],
   },
@@ -11883,7 +11855,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   startBlock: 35582675,
   depositToken: {
     addr: "0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
-    name: "OXD_SOLIDLY_SEX_G3CRV",
+    name: "OxdSolidexLP_SEX_G3CRV",
     link: "https://solidly.exchange/liquidity/0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
     components: ["sex", "g3crv"],
   },
@@ -11911,7 +11883,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
   startBlock: 35201316,
   depositToken: {
     addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-    name: "OXD_SOLIDLY_CRV_WFTM",
+    name: "OxdSolidexLP_CRV_WFTM",
     link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
     components: ["crv", "wftm"],
   },
@@ -11939,7 +11911,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
   startBlock: 35241469,
   depositToken: {
     addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-    name: "OXD_SOLIDLY_BIFI_MAI",
+    name: "OxdSolidexLP_BIFI_MAI",
     link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
     components: ["bifi", "mai"],
   },
@@ -11966,8 +11938,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
   contract: "0x93f6C9262Fb98299D54EA67180B56fbDe57a9044",
   startBlock: 35249600,
   depositToken: {
-    addr: "0x270b4cdEAebC4E0522AA4371a9BE38c624193cEe",
-    name: "OXD_SOLIDLY_WFTM_SCREAM",
+    addr: "0x86dD79265814756713e631Dde7E162bdD538b7B1",
+    name: "OxdSolidexLP_WFTM_SCREAM",
     link: "https://solidly.exchange/liquidity/0x270b4cdEAebC4E0522AA4371a9BE38c624193cEe",
     components: ["wftm", "scream"],
   },
@@ -11991,27 +11963,27 @@ JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM);
 export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
   type: AssetType.JAR,
   id: "fantomJar 8ak",
-  contract: "0x1C52EC9cd329395c9cA91F1E30486ded9485B012",
+  contract: "0xcB2Fd1F031183142B8086431e8b4a162b8b36A2f",
   startBlock: 35162503,
   depositToken: {
-    addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    name: "OXD_SOLIDLY_SPIRIT_LINSPIRIT",
+    addr: "0x5A3AA3284EE642152D4a2B55BE1160051c5eB932",
+    name: "OxdSolidexLP_BEETS_FBEETS",
     link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    components: ["wftm", "geist"],
+    components: ["beets", "fbeets"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
-    apiKey: "OxdSolidexLP-WFTM-GEIST",
+    apiKey: "OxdSolidexLP-BEETS-FBEETS",
     harvestStyle: HarvestStyle.CUSTOM,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
     farmAddress: NULL_ADDRESS,
-    farmNickname: "pOxdSolidexLP WFTM/GEIST",
-    farmDepositTokenName: "pOxdSolidexLP WFTM/GEIST",
+    farmNickname: "pOxdSolidexLP BEETS/FBEETS",
+    farmDepositTokenName: "pOxdSolidexLP BEETS/FBEETS",
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS);
