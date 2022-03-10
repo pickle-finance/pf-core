@@ -444,6 +444,14 @@ export class PickleModel {
     this.platformData = await this.loadPlatformData();
     return this.toJson();
   }
+
+
+  async generateMinimalApi(): Promise<PickleModelJson> {
+    await this.checkConfiguredChainsConnections();
+    await this.loadJarAndFarmData();
+    return this.toJson();
+  }
+
   async loadJarAndFarmData(): Promise<void> {
     DEBUG_OUT("Begin loadJarAndFarmData");
     this.loadSwapData();

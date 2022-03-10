@@ -8,9 +8,8 @@ import {
   JarHarvestStats,
 } from "./behavior/JarBehaviorResolver";
 import { JarBehaviorDiscovery } from "./behavior/JarBehaviorDiscovery";
-import {
-  DocsManager,
-} from "./docModel/DocsManager";
+import { DocsManager } from "./docModel/DocsManager";
+import { PFCore } from "./core/PFCore";
 import { DocsFormat, DocumentationModelResult } from "./docModel/DocsInterfaces";
 
 export {
@@ -26,4 +25,5 @@ export {
   DocsManager,
   DocsFormat,
   DocumentationModelResult,
+  PFCore, 
 };

@@ -1,10 +1,11 @@
 import fetch from "cross-fetch";
+import { ChainNetwork } from "..";
 import { DEBUG_OUT } from "../model/PickleModel";
 import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "./ExternalTokenModel";
 
-export const setAllCoinMarketCapPricesOnTokens = async(): Promise<void> => {
+export const setAllCoinMarketCapPricesOnTokens = async(chains: ChainNetwork[]): Promise<void> => {
   DEBUG_OUT("Begin setAllCoinMarketCapPricesOnTokens");
-  const all = ExternalTokenModelSingleton.getAllTokens();
+  const all = ExternalTokenModelSingleton.getAllTokens().filter((x) => chains.includes(x.chain));
   const filtered = all.filter(
     (val) => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP,
   );

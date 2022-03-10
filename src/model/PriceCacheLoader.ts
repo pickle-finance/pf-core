@@ -21,8 +21,8 @@ export const isCgFetchTypeContract = (token: ExternalToken): boolean => {
 export const setAllPricesOnTokens = async (chains: ChainNetwork[]): Promise<void> => {
   let promises = [];
   promises = promises.concat(chains.map((x) => setCoingeckoPricesOnTokens(x)));
-  promises.push(setAllCoinMarketCapPricesOnTokens());
-  promises.push(calculateSwapTokenPrices());
+  promises.push(setAllCoinMarketCapPricesOnTokens(chains));
+  promises.push(calculateSwapTokenPrices(chains));
   try {
     await Promise.all(promises);
   } catch(error) {

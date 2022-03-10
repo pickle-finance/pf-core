@@ -219,6 +219,13 @@ const jarsTable = (assets: PickleModelAssets, chain: ChainNetwork) => {
   const body = assets.jars
     .filter((jar) => jar.chain === chain)
     .map((jar) => {
+      const stratName = jar.details?.strategyName
+      ? jar.details.strategyName
+      : "Strategy-" + jar.depositToken.name;
+      const stratAddr = jar.details?.strategyAddr
+      ? url + jar.details.strategyAddr
+      : "undefined";
+
       const row =
         `| ${(jar as any).chefPID ? (jar as any).chefPID : "-"} ` +
         `| ${jar.id} | [${jar.depositToken.name}](${
@@ -226,11 +233,7 @@ const jarsTable = (assets: PickleModelAssets, chain: ChainNetwork) => {
           url + jar.depositToken.addr
         }) ` +
         `| [p${jar.depositToken.name}](${url + jar.contract}) ` +
-        `| [${
-          jar.details.strategyName
-            ? jar.details.strategyName
-            : "Strategy-" + jar.depositToken.name
-        }](${url + jar.details.strategyAddr}) |\n`;
+        `| [${stratName}](${stratAddr}) |\n`;
       return row;
     })
     .join("");
@@ -249,17 +252,20 @@ const jarsTableNoIndex = (assets: PickleModelAssets, chain: ChainNetwork) => {
   const body = assets.jars
     .filter((jar) => jar.chain === chain)
     .map((jar) => {
+      const stratName = jar.details?.strategyName
+      ? jar.details.strategyName
+      : "Strategy-" + jar.depositToken.name;
+      const stratAddr = jar.details?.strategyAddr
+      ? url + jar.details.strategyAddr
+      : "undefined";
+      
       const row =
         `| ${jar.id} | [${jar.depositToken.name}](${
           // some old jars are registered in the masterchef contract by their wants
           url + jar.depositToken.addr
         }) ` +
         `| [p${jar.depositToken.name}](${url + jar.contract}) ` +
-        `| [${
-          jar.details.strategyName
-            ? jar.details.strategyName
-            : "Strategy-" + jar.depositToken.name
-        }](${url + jar.details.strategyAddr}) |\n`;
+        `| [${stratName}](${stratAddr}) |\n`;
       return row;
     })
     .join("");

@@ -3,6 +3,7 @@ import {
   ActiveJarHarvestStats,
   JarHarvestStats,
 } from "../behavior/JarBehaviorResolver";
+import { UserData, UserModel } from "../client/UserModel";
 
 // TODO move these out i guess?
 export enum AssetProtocol {
@@ -306,6 +307,11 @@ export interface DepositToken {
     path: string[];
     target: string;
   };
+}
+
+export interface PickleAndUserModel {
+  pickleModel: PickleModelJson,
+  userModel: UserData,
 }
 
 export interface PickleAsset {

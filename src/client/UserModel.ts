@@ -7,7 +7,7 @@ import {
 import { BigNumber } from "@ethersproject/bignumber";
 import { ChainNetwork, Chains, PickleModelJson } from "..";
 import { getUserJarSummary, IUserEarningsSummary } from "./UserEarnings";
-import { JAR_DEFINITIONS, NULL_ADDRESS } from "../model/JarsAndFarms";
+import { NULL_ADDRESS } from "../model/JarsAndFarms";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
@@ -83,6 +83,7 @@ export class UserModel {
   callback: IUserModelCallback | undefined;
   walletId: string;
   workingData: UserData;
+  configuredChains: ChainNetwork[];
   constructor(
     model: PickleModelJson.PickleModelJson,
     walletId: string,
@@ -97,6 +98,7 @@ export class UserModel {
     this.model = model;
     this.walletId = walletId;
     Chains.globalInitialize(rpcs);
+    this.configuredChains = Chains.list();
   }
 
   async sendUpdate(): Promise<void> {
@@ -119,8 +121,22 @@ export class UserModel {
     return this.workingData;
   }
 
+  async generateMinimalModel(): Promise<UserData> {
+    await Promise.all([
+      this.getUserTokens(),
+      this.getUserEarningsSummary(),
+    ]);
+    if (this.callback !== undefined) {
+      this.callback.modelFinished(this.workingData);
+    }
+    return this.workingData;
+  }
+
   getChainsToRun(): ChainNetwork[] {
-    return Chains.list();
+    return this.configuredChains;
+  }
+  setChainsToRun(chains: ChainNetwork[]): void {
+    this.configuredChains = chains;;
   }
 
   async getUserPickles(): Promise<UserPickles> {
@@ -216,7 +232,7 @@ export class UserModel {
     chain: ChainNetwork,
   ): Promise<UserTokenData[]> {
     const ret = [];
-    const chainAssets = JAR_DEFINITIONS.filter(
+    const chainAssets = this.model.assets.jars.filter(
       (x) =>
         x.chain === chain &&
         x.enablement !== AssetEnablement.PERMANENTLY_DISABLED &&

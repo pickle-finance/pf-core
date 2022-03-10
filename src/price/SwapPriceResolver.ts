@@ -1,4 +1,4 @@
-import { Chains } from "../chain/Chains";
+import { ChainNetwork, Chains } from "../chain/Chains";
 import { ethers, Contract, BigNumber } from "ethers";
 import v2PoolABI from "../Contracts/ABIs/uniswapv2-pair.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
@@ -25,8 +25,10 @@ async function getPairReserves(contract: Contract) {
   };
 }
 
-export const calculateSwapTokenPrices = async(): Promise<void> => {
+export const calculateSwapTokenPrices = async(chains: ChainNetwork[]): Promise<void> => {
   const swapFiltered = ExternalTokenModelSingleton.getAllTokens().filter(
+    (x) => chains.includes(x.chain)
+  ).filter(
     (val) => val.fetchType === ExternalTokenFetchStyle.SWAP_PAIRS,
   );
   await calculateSwapTokenPricesImpl(swapFiltered);

@@ -4,6 +4,7 @@ import { ChainNetwork, PickleModelJson } from ".";
 import fetch from "cross-fetch";
 import { IUserModelCallback, UserData, UserModel } from "./client/UserModel";
 import { ethers } from "ethers";
+import { PFCore } from "./core/PFCore"
 
 async function generateUserData(walletId: string) {
   const core = await fetch(
