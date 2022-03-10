@@ -11050,7 +11050,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
-    apiKey: "OxdSolidlyLP YFI-WOOFY",
+    apiKey: "OxdSolidlyLP-YFI-WOOFY",
     harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
