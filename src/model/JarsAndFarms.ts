@@ -12823,6 +12823,7 @@ export const BRINERY_VEFXS: BrineryDefinition = {
     distributionAddr: "0xc6764e58b36e26b08Fd1d2AeD4538c02171fA872",
     strategyAddr: "0x552D92Ad2bb3Aba00872491ea2DC5d6EC3B8A31D",
     lockerAddr: "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
+    rewardToken: "",
   },
 };
 
