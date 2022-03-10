@@ -948,6 +948,7 @@ jarToBehavior.set(JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP.id, new TriAuroraNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP.id, new TriNearUsdcV2());
 jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP.id, new RoseFraxRose());
 jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_PAD_LP.id, new RosePadRose());
+jarToBehavior.set(JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP.id, new TriSolaceNear());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());
