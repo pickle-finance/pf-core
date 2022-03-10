@@ -404,6 +404,7 @@ export interface PlatformData {
   platformTVL: number;
   platformBlendedRate: number;
   harvestPending: number;
+  picklePerBlock: string;
 }
 export interface PickleModelJson {
   assets: PickleModelAssets;

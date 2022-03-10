@@ -1,3 +1,4 @@
+import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
 import {
   AssetEnablement,
   AssetProjectedApr,
@@ -440,7 +441,7 @@ export class PickleModel {
       this,
       ChainNetwork.Ethereum,
     );
-    this.platformData = this.loadPlatformData();
+    this.platformData = await this.loadPlatformData();
     return this.toJson();
   }
   async loadJarAndFarmData(): Promise<void> {
@@ -1496,7 +1497,7 @@ export class PickleModel {
     DEBUG_OUT("End loadProtocolApr");
   }
 
-  loadPlatformData(): PlatformData {
+  async loadPlatformData(): Promise<PlatformData> {
     DEBUG_OUT("Begin loadPlatformData");
     const farms: StandaloneFarmDefinition[] = this.getStandaloneFarms();
     let tvl = 0;
@@ -1526,10 +1527,18 @@ export class PickleModel {
       }
     }
     DEBUG_OUT("End loadPlatformData");
+
+    const masterChef = ADDRESSES.get(ChainNetwork.Ethereum)?.masterChef;
+    let ppb = BigNumber.from(0);
+    if( masterChef ) {
+      const contract = new ethers.Contract(masterChef, MasterchefAbi, this.providerFor(ChainNetwork.Ethereum));
+      ppb = await contract.picklePerBlock();
+    }
     return {
       platformTVL: tvl,
       platformBlendedRate: tvl === 0 ? 0 : blendedRateSum / tvl,
       harvestPending: harvestPending,
+      picklePerBlock: ppb.toString(),
     };
   }
 
