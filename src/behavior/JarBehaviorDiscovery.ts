@@ -391,6 +391,7 @@ import {
   JAR_METIS_HUMMUS_USDC,
   JAR_METIS_HUMMUS_USDT,
   JAR_AURORA_TRI_BSTN_NEAR_LP,
+  JAR_CURVE_STG_USDC_LP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -634,6 +635,7 @@ import { TriUsdoUsdt } from "./impl/aurora-tri-usdo-usdt";
 import { TriXtriStnear } from "./impl/aurora-tri-xtri-stnear";
 import { TriStnearNear } from "./impl/aurora-tri-stnear-near";
 import { TriBstnNear } from "./impl/aurora-tri-bstn-near";
+import { CurveStgUsdc } from "./impl/curve-stg-usdc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -699,6 +701,7 @@ jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
 jarToBehavior.set(JAR_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_STAR_USDT.id, new StargateJar());
 jarToBehavior.set(JAR_CURVE_CADCUSDC.id, new CurveCadcUsdc());
+jarToBehavior.set(JAR_CURVE_STG_USDC_LP.id, new CurveStgUsdc());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
