@@ -3,13 +3,10 @@ import { JarDefinition, AssetProjectedApr, AssetAprComponent } from "../../model
 import strategyABI from "../../Contracts/ABIs/strategy-dual.json";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { SolidlyPairManager } from "../../protocols/SolidUtil";
-import { Multicall } from "@uniswap/v3-sdk";
-import { multicallContract } from "../../protocols/BalancerUtil/config";
 import { formatEther } from "ethers/lib/utils";
 import { Contract as MultiContract } from "ethers-multicall";
 import oxdLensAbi from "../../../src/Contracts/ABIs/oxd-lens.json";
-import oxdMultiRewards from "../../../src/Contracts/ABIs/oxd-multirewards.json"
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import oxdMultiRewardsAbi from "../../../src/Contracts/ABIs/oxd-multirewards.json"
 import {
   createAprComponentImpl,
   ONE_YEAR_IN_SECONDS,
@@ -20,16 +17,17 @@ const OXD_LENS = "0xDA00137c79B30bfE06d04733349d98Cf06320e69";
 export async function calculateOxdFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
-): Promise<AssetAprComponent> {
+): Promise<AssetAprComponent[]> {
   const multicallOxdFarms = new MultiContract(OXD_LENS, oxdLensAbi);
-  const oxdPool = multicallOxdFarms.oxdPoolBySolidPool(jar.depositToken.addr);
+  const oxdPool = multicallOxdFarms.stakingRewardsBySolidPool(jar.depositToken.addr);
 
-  const multicallOxdMultiRewards = new MultiContract(oxdPool, oxdMultiRewards);
+  const multicallOxdMultiRewards = new MultiContract(oxdPool, oxdMultiRewardsAbi);
 
-  const [oxdToken, solidToken] = await model.callMulti(
+  const [oxdToken, solidToken, totalSupplyBN] = await model.callMulti(
     [
       () => multicallOxdMultiRewards.rewardTokens()[0],
-      () => multicallOxdMultiRewards.rewardTokens()[1]
+      () => multicallOxdMultiRewards.rewardTokens()[1],
+      () => multicallOxdMultiRewards.totalSupply()
     ],
     jar.chain
   );
@@ -63,9 +61,6 @@ export async function calculateOxdFarmsAPY(
 
   // SOLID Rewards paid out in one year at current rate.
   const solidRewardedPerYear = model.priceOfSync("solid", jar.chain) * solidPerSec * ONE_YEAR_IN_SECONDS;
-
-  // Total supply of LP tokens staked in contract measured in Wei.
-  const totalSupplyBN = multicallOxdMultiRewards.totalSupply();
 
   // Total supply of LP tokens staked in contract measured in Ether.
   const totalSupply = (parseFloat(formatEther(totalSupplyBN)));
