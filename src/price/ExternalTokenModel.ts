@@ -1513,6 +1513,15 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "moda",
+      null,
+      "moda-dao",
+      "0x74974575D2f1668C63036D51ff48dbaa68E52408".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "ust",
       null,
       "terrausd",

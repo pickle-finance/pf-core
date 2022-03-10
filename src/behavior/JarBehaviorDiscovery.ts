@@ -405,6 +405,11 @@ import {
   JAR_AURORA_ROSE_3POOL_LP,
   JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP,
   JAR_AURORA_ROSE_USTPOOL_LP,
+  JAR_AURORA_PAD_MODA_PAD_LP,
+  JAR_AURORA_PAD_PAD_DAI_LP,
+  JAR_AURORA_PAD_PAD_AURORA_LP,
+  JAR_AURORA_PAD_NEAR_ETH_LP,
+  JAR_AURORA_PAD_PAD_TRI_LP
   // JAR_AURORA_ROSE_FRAXPOOL_LP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
@@ -664,6 +669,11 @@ import { Rose3Pool } from "./impl/aurora-rose-3pool";
 import { WannaWannaxStnear } from "./impl/aurora-wanna-wannax-stnear";
 import { RoseFraxpool } from "./impl/aurora-rose-fraxpool";
 import { RoseUstpool } from "./impl/aurora-rose-ustpool";
+import { PadModaPad } from "./impl/aurora-pad-moda-pad";
+import { PadPadDai } from "./impl/aurora-pad-pad-dai";
+import { PadPadAurora } from "./impl/aurora-pad-pad-aurora";
+import { PadNearEth } from "./impl/aurora-pad-near-eth";
+import { PadPadTri } from "./impl/aurora-pad-pad-tri";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -911,6 +921,11 @@ jarToBehavior.set(JAR_AURORA_ROSE_3POOL_LP.id, new Rose3Pool());
 jarToBehavior.set(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP.id, new WannaWannaxStnear());
 // jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
 jarToBehavior.set(JAR_AURORA_ROSE_USTPOOL_LP.id, new RoseUstpool());
+jarToBehavior.set(JAR_AURORA_PAD_MODA_PAD_LP.id, new PadModaPad());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_DAI_LP.id, new PadPadDai());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_AURORA_LP.id, new PadPadAurora());
+jarToBehavior.set(JAR_AURORA_PAD_NEAR_ETH_LP.id, new PadNearEth());
+jarToBehavior.set(JAR_AURORA_PAD_PAD_TRI_LP.id, new PadPadTri());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

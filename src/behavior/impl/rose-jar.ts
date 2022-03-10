@@ -9,20 +9,13 @@ import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import {
   createAprComponentImpl,
 } from "../../behavior/AbstractJarBehavior";
-import gaugeAbi from "../../Contracts/ABIs/curve-factory-gauge.json"
 import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
-
-const metaPoolIds = {
-  "0x8fe44f5cce02D5BE44e3446bBc2e8132958d22B8": "ustpool",
-}
 
 export abstract class RoseJar extends AbstractJarBehavior {
   rewarderAddress: string;
-  poolAddress: string;
-  constructor(rewarderAddress: string, poolAddress: string = null) {
+  constructor(rewarderAddress: string) {
     super();
     this.rewarderAddress = rewarderAddress;
-    this.poolAddress = poolAddress;
   }
 
   async getHarvestableUSD(
@@ -50,19 +43,7 @@ export abstract class RoseJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetAprComponent[]> {
-    let pricePerToken;
-    if (metaPoolIds[this.poolAddress].length > 0) {
-      const multicallRosePool = new MultiContract(this.poolAddress, gaugeAbi);
-      pricePerToken = await model.callMulti(
-        () => multicallRosePool.get_virtual_price(),
-        jar.chain
-      );
-    } else {
-      pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-    }
-
-    // const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const multicallRoseRewards = new MultiContract(
       this.rewarderAddress,
@@ -77,18 +58,14 @@ export abstract class RoseJar extends AbstractJarBehavior {
     );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-
     const roseRewardsPerYear =
       parseFloat(formatEther(rewardData[3])) * ONE_YEAR_SECONDS;
 
     const valueRewardedPerYear =
       model.priceOfSync("rose", jar.chain) * roseRewardsPerYear;
 
-
-
     const totalValueStaked = totalSupply * pricePerToken;
     const roseAPY = 100 * (valueRewardedPerYear / totalValueStaked);
-
     return [
       createAprComponentImpl(
         "rose",
