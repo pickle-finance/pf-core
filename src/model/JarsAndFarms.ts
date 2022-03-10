@@ -6631,7 +6631,7 @@ export const JAR_AURORA_ROSE_FRAXPOOL_LP: JarDefinition = {
   startBlock: 64237051,
   depositToken: {
     addr: "0x4463A118A2fB34640ff8eF7Fe1B3abAcd4aC9fB7",
-    name: "RoseLP FRAXPOOL",
+    name: "RoseMP FRAXPOOL",
     link: "https://app.rose.fi/#/pools/pools/frax",
     components: ["rose3pool", "frax"],
   },
@@ -6658,7 +6658,7 @@ export const JAR_AURORA_ROSE_USTPOOL_LP: JarDefinition = {
   startBlock: 64238136,
   depositToken: {
     addr: "0x94A7644E4D9CA0e685226254f88eAdc957D3c263",
-    name: "RoseLP USTPOOL",
+    name: "RoseMP USTPOOL",
     link: "https://app.rose.fi/#/pools/pools/ust",
     components: ["rose3pool", "ust"],
   },
@@ -6685,7 +6685,7 @@ export const JAR_AURORA_ROSE_BUSDPOOL_LP: JarDefinition = {
   startBlock: 64829885,
   depositToken: {
     addr: "0x158f57CF9A4DBFCD1Bc521161d86AeCcFC5aF3Bc",
-    name: "RoseLP BUSDPOOL",
+    name: "RoseMP BUSDPOOL",
     link: "https://app.rose.fi/#/pools/pools/busd",
     components: ["rose3pool", "busd"],
   },
@@ -6712,7 +6712,7 @@ export const JAR_AURORA_ROSE_MAIPOOL_LP: JarDefinition = {
   startBlock: 64828260,
   depositToken: {
     addr: "0xA7ae42224Bf48eCeFc5f838C230EE339E5fd8e62",
-    name: "RoseLP MAIPOOL",
+    name: "RoseMP MAIPOOL",
     link: "https://app.rose.fi/#/pools/pools/mai",
     components: ["rose3pool", "mai"],
   },
@@ -6739,7 +6739,7 @@ export const JAR_AURORA_ROSE_RUSDPOOL_LP: JarDefinition = {
   startBlock: 64833747,
   depositToken: {
     addr: "0x56f87a0cB4713eB513BAf57D5E81750433F5fcB9",
-    name: "RoseLP RUSDPOOL",
+    name: "RoseMP RUSDPOOL",
     link: "https://app.rose.fi/#/pools/pools/rusd",
     components: ["rose3pool", "rusd"],
   },
