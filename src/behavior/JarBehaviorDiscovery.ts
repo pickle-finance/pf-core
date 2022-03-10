@@ -580,13 +580,10 @@ import { VvsCroTonic } from "./impl/vvs-cro-tonic";
 import { VvsVvsSingle } from "./impl/vvs-vvs-single";
 import { VvsUsdcSingle } from "./impl/vvs-usdc-single";
 import { VvsVvsTonic } from "./impl/vvs-vvs-tonic";
-<<<<<<< HEAD
-import { TectonicJar } from "./impl/tectonic-folding";
-=======
 import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
 import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
->>>>>>> 0ca68df (add new tethys jars to pf-core)
+import { TectonicJar } from "./impl/tectonic-folding";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
