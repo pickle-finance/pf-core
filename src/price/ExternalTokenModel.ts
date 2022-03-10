@@ -90,7 +90,8 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
-      "steth", "stETH",
+      "steth",
+      "stETH",
       "staked-ether",
       "0xae7ab96520de3a18e5e111b5eaab095312d7fe84".toLowerCase(),
       18,
@@ -116,9 +117,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
-      "wbtc",
+      "dai",
       null,
-      "wbtc",
+      "dai",
       "0x6b175474e89094c44da98b954eedeac495271d0f".toLowerCase(),
       18,
       ExternalTokenFetchStyle.BOTH,
@@ -606,9 +607,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Polygon,
-      "wbtc",
+      "dai",
       null,
-      "wrapped-bitcoin",
+      "dai",
       "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -977,8 +978,8 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.OKEx,
       "daik",
-      "wbtc",
       null,
+      "dai",
       "0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1008,8 +1009,8 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Harmony,
       "1dai",
-      "wbtc",
       null,
+      "dai",
       "0xEf977d2f931C1978Db5F6747666fa1eACB0d0339".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1111,9 +1112,9 @@ export class ExternalTokenModel {
     // the second "dai" field is the Coingecko price ID of that token
     this.addToken(
       ChainNetwork.Moonriver,
-      "wbtc",
+      "dai",
       null,
-      "wrapped-bitcoin",
+      "dai",
       "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1277,9 +1278,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Cronos,
-      "wbtc",
+      "dai",
       null,
-      "wrapped-bitcoin",
+      "dai",
       "0xF2001B145b43032AAF5Ee2884e456CCd805F677D".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1448,9 +1449,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
-      "wbtc",
+      "dai",
       null,
-      "wbtc",
+      "dai",
       "0xe3520349F477A5F6EB06107066048508498A291b".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1648,7 +1649,7 @@ export class ExternalTokenModel {
       ChainNetwork.Metis,
       "wbtc",
       null,
-      "bitcoin",
+      "wrapped-bitcoin",
       "0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4".toLowerCase(),
       8,
       ExternalTokenFetchStyle.ID,
@@ -1719,9 +1720,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Metis,
-      "wbtc",
+      "dai",
       null,
-      "wbtc",
+      "dai",
       "0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1756,6 +1757,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Metis,
       "hum",
+      null,
       "hummus",
       "0x4aac94985cd83be30164dfe7e9af7c054d7d2121".toLowerCase(),
       18,
@@ -1821,9 +1823,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonbeam,
-      "wbtc",
+      "dai",
       null,
-      "wbtc",
+      "dai",
       "0x765277EebeCA2e31912C9946eAe1021199B39C61".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1944,9 +1946,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Optimism,
-      "wbtc",
+      "dai",
       null,
-      "wbtc",
+      "dai",
       "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -2094,9 +2096,9 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Fantom,
-      "wbtc",
+      "dai",
       null,
-      "wbtc",
+      "dai",
       "0x8d11ec38a3eb5e956b052f67da8bdc9bef8abf3e".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
