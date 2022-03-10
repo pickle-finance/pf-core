@@ -9211,11 +9211,581 @@ JAR_DEFINITIONS.push(JAR_FANTOM_V_SEX_FTM);
 //   id: "fanJar 5b",
 //   contract: "0x217714bAcF2312D3A5A74b434bb6Ce8f8b19859C",
 //   startBlock:,
+// depositToken: {
+//     addr: "0x154eA0E896695824C87985a52230674C2BE7731b",
+//     name: "SOLID sUSDC/FRAX",
+//     link: "https://solidly.exchange/liquidity/0x154eA0E896695824C87985a52230674C2BE7731b",
+//     components: ["usdc", "frax"],
+//   },
+//   enablement: AssetEnablement.DEV,
+//   chain: ChainNetwork.Fantom,
+//   protocol: AssetProtocol.SOLID,
+//   stakingProtocol: AssetProtocol.SEX,
+//   rewardTokens: ["solid", "sex"],
+//   details: {
+//     apiKey: "SEX-SOLID-sUSDC-FRAX",
+//     harvestStyle: HarvestStyle.PASSIVE,
+//     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+//   },
+//   farm: {
+//     farmAddress: NULL_ADDRESS,
+//     farmNickname: "pSEX-SOLID sUSDC-FRAX",
+//     farmDepositTokenName: "pSEX-SOLID sUSDC-FRAX",
+//   },
+// };
+// JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_FRAX);
+
+export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5c",
+  contract: "0xC58902B6573082D4be4D1CA0D2Ea8b4Ed596870f",
+  startBlock: 32513558,
+  depositToken: {
+    addr: "0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
+    name: "SOLID sBTC/RENBTC",
+    link: "https://solidly.exchange/liquidity/0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
+    components: ["btc", "renbtc"],
+    nativePath: {
+      //SpookyRouter --> WFTM, BTC
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x321162Cd933E2Be498Cd2267a90534A804051b11",
+      ],
+    },
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-sBTC-RENBTC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID sBTC-RENBTC",
+    farmDepositTokenName: "pSEX-SOLID sBTC-RENBTC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_BTC_RENBTC);
+
+export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5d",
+  contract: "0x6Bf1768482808C43853Dd5D864C3812BAbE7A939",
+  startBlock: 32652856,
+  depositToken: {
+    addr: "0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
+    name: "SOLID sUSDC/MIM",
+    link: "https://solidly.exchange/liquidity/0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
+    components: ["usdc", "mim"],
+    nativePath: {
+      //Spookyswap: uniswapv2router02--> WFTM, MIM
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x82f0B8B456c1A451378467398982d4834b6829c1",
+      ],
+    },
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-sUSDC-MIM",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID sUSDC-MIM",
+    farmDepositTokenName: "pSEX-SOLID sUSDC-MIM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_MIM);
+
+export const JAR_FANTOM_SEX_V_FTM_TOMB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5e",
+  contract: "0x7aC8eB8158B1d50475FAC83bB77f24c0F6Df06f7",
+  startBlock: 32652856,
+  depositToken: {
+    addr: "0x60a861Cd30778678E3d613db96139440Bd333143",
+    name: "SOLID vFTM/TOMB",
+    link: "https://solidly.exchange/liquidity/0x60a861Cd30778678E3d613db96139440Bd333143",
+    components: ["ftm", "tomb"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-TOMB",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-TOMB",
+    farmDepositTokenName: "pSEX-SOLID vFTM-TOMB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_TOMB);
+
+export const JAR_FANTOM_SEX_V_FTM_CRV: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5f",
+  contract: "0xaa4191091973FA3FaB3fdEAE7a65062B46972581",
+  startBlock: 32655009,
+  depositToken: {
+    addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
+    name: "SOLID vFTM/CRV",
+    link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
+    components: ["ftm", "crv"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-CRV",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-CRV",
+    farmDepositTokenName: "pSEX-SOLID vFTM-CRV",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_CRV);
+
+export const JAR_FANTOM_SEX_V_FXS_FRAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5g",
+  contract: "0xC888126f9805975cCCE9A5eae5cbEdF163e2761d",
+  startBlock: 32675050,
+  depositToken: {
+    addr: "0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
+    name: "SOLID vFXS/FRAX",
+    link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
+    components: ["fxs", "frax"],
+    nativePath: {
+      //spiritSwap--> WFTM, FRAX
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xdc301622e621166bd8e82f2ca0a26c13ad0be355",
+      ],
+    },
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFXS-FRAX",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFXS-FRAX",
+    farmDepositTokenName: "pSEX-SOLID vFXS-FRAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FXS_FRAX);
+
+export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5h",
+  contract: "0xE985B5Cf5d020408271C2Fae20311967a27ff5C8",
+  startBlock: 32676235,
+  depositToken: {
+    addr: "0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
+    name: "SOLID vUSDC/OXD",
+    link: "https://solidly.exchange/liquidity/0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
+    components: ["usdc", "oxd"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vUSDC-OXD",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vUSDC-OXD",
+    farmDepositTokenName: "pSEX-SOLID vUSDC-OXD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_OXD);
+
+export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5i",
+  contract: "0xee6A2f840F30A99759f94536fB0Cd8cb95100A31",
+  startBlock: 32677507,
+  depositToken: {
+    addr: "0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
+    name: "SOLID vYFI/WOOFY",
+    link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
+    components: ["yfi", "woofy"],
+    nativePath: {
+      // spiritSwap--> WFTM, YFI
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x29b0Da86e484E1C0029B56e817912d778aC0EC69",
+      ],
+    },
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vYFI-WOOFY",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vYFI-WOOFY",
+    farmDepositTokenName: "pSEX-SOLID vYFI-WOOFY",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_YFI_WOOFY);
+
+export const JAR_FANTOM_SEX_V_USDC_SYN: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5j",
+  contract: "0x0CA957F137c9809cAEFFC9cf985dbd413c56c795",
+  startBlock: 32678517,
+  depositToken: {
+    addr: "0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
+    name: "SOLID vUSDC/SYN",
+    link: "https://solidly.exchange/liquidity/0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
+    components: ["usdc", "syn"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vUSDC-SYN",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vUSDC-SYN",
+    farmDepositTokenName: "pSEX-SOLID vUSDC-SYN",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_SYN);
+
+export const JAR_FANTOM_SEX_V_FTM_YFI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5k",
+  contract: "0x1Eb19bAd944d463C7a2e6e4ca8eB5535d87886dB",
+  startBlock: 32680351,
+  depositToken: {
+    addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
+    name: "SOLID vFTM/YFI",
+    link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
+    components: ["ftm", "yfi"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-YFI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-YFI",
+    farmDepositTokenName: "pSEX-SOLID vFTM-YFI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_YFI);
+
+export const JAR_FANTOM_SEX_V_FTM_OATH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5l",
+  contract: "0x1a467F2e1BcD81b866B959D0043a713C9ab34E1F",
+  startBlock: 32687038,
+  depositToken: {
+    addr: "0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
+    name: "SOLID vFTM/OATH",
+    link: "https://solidly.exchange/liquidity/0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
+    components: ["ftm", "oath"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-OATH",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-OATH",
+    farmDepositTokenName: "pSEX-SOLID vFTM-OATH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_OATH);
+
+export const JAR_FANTOM_SEX_V_FTM_MULTI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5m",
+  contract: "0x0ab8C90e54260468AE41DB2b2515b4a16c87c8d0",
+  startBlock: 32688709,
+  depositToken: {
+    addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
+    name: "SOLID vFTM/MULTI",
+    link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
+    components: ["ftm", "multi"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-MULTI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-MULTI",
+    farmDepositTokenName: "pSEX-SOLID vFTM-MULTI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_MULTI);
+
+export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5n",
+  contract: "0xa4Cc925E7Ff8322114c38822456c5B23cC87790b",
+  startBlock: 32690372,
+  depositToken: {
+    addr: "0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
+    name: "SOLID sSOLID/SOLIDSEX",
+    link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
+    components: ["solid", "solidsex"],
+    nativePath: {
+      // spooky--> WFTM, sSOLID
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x888EF71766ca594DED1F0FA3AE64eD2941740A20",
+      ],
+    },
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-sSOLID-SOLIDSEX",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID sSOLID-SOLIDSEX",
+    farmDepositTokenName: "pSEX-SOLID sSOLID-SOLIDSEX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SOLID_SOLIDSEX);
+
+export const JAR_FANTOM_SEX_V_FTM_LQDR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5o",
+  contract: "0x8723DC0e08fAdAf7e8Ac251eAAAC279486670B67",
+  startBlock: 32690926,
+  depositToken: {
+    addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
+    name: "SOLID vFTM/LQDR",
+    link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
+    components: ["ftm", "lqdr"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-LQDR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-LQDR",
+    farmDepositTokenName: "pSEX-SOLID vFTM-LQDR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_LQDR);
+
+export const JAR_FANTOM_SEX_V_FTM_HND: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5p",
+  contract: "0x8090850e82A35B32D5B01C3Fdfd4594A96F6A694",
+  startBlock: 32691451,
+  depositToken: {
+    addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
+    name: "SOLID vFTM/HND",
+    link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
+    components: ["ftm", "hnd"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-HND",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-HND",
+    farmDepositTokenName: "pSEX-SOLID vFTM-HND",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_HND);
+
+export const JAR_FANTOM_SEX_V_FTM_IB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5q",
+  contract: "0x2A8e36CD7aA560706B22883d6EaA0bEF0cBdC70C",
+  startBlock: 32691922,
+  depositToken: {
+    addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
+    name: "SOLID vFTM/IB",
+    link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
+    components: ["ftm", "ib"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-IB",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-IB",
+    farmDepositTokenName: "pSEX-SOLID vFTM-IB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_IB);
+
+export const JAR_FANTOM_SEX_V_FTM_GEIST: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5r",
+  contract: "0x88d509f5bFd5aA31e4C249A4086ad0024D6b47c0",
+  startBlock: 32695198,
+  depositToken: {
+    addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
+    name: "SOLID vFTM/GEIST",
+    link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
+    components: ["ftm", "geist"],
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vFTM-GEIST",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vFTM-GEIST",
+    farmDepositTokenName: "pSEX-SOLID vFTM-GEIST",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_GEIST);
+
+export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 5s",
+  contract: "0xbd6796eC68ee2c8669eB147dC6610072aF0d4D37",
+  startBlock: 32688280,
+  depositToken: {
+    addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
+    name: "SOLID vBIFI/MAI",
+    link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
+    components: ["bifi", "mimatic"],
+    nativePath: {
+      //spritSwap--> WFTM, miMATIC
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xfB98B335551a418cD0737375a2ea0ded62Ea213b",
+      ],
+    },
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.SEX,
+  rewardTokens: ["solid", "sex"],
+  details: {
+    apiKey: "SEX-SOLID-vBIFI-MAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSEX-SOLID vBIFI-MAI",
+    farmDepositTokenName: "pSEX-SOLID vBIFI-MAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_BIFI_MAI);
+
+// export const JAR_FANTOM_SEX_V_FTM_SCREAM: JarDefinition = {
+//   type: AssetType.JAR,
+//   id: "fanJar 5t",
+//   contract: "0x11098Bb2BEF7619F9Cf741d0a24D699db0f79198",
+//   startBlock:,
 depositToken: {
-  //     addr: "0x154eA0E896695824C87985a52230674C2BE7731b",
-  //     name: "SOLID sUSDC/FRAX",
-  //     link: "https://solidly.exchange/liquidity/0x154eA0E896695824C87985a52230674C2BE7731b",
-  //     components: ["usdc", "frax"],
+  //     addr: "0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
+  //     name: "SOLID vFTM/SCREAM",
+  //     link: "https://solidly.exchange/liquidity/0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
+  //     components: ["ftm", "scream"],
   //   },
   //   enablement: AssetEnablement.DEV,
   //   chain: ChainNetwork.Fantom,
@@ -9223,34 +9793,34 @@ depositToken: {
   //   stakingProtocol: AssetProtocol.SEX,
   //   rewardTokens: ["solid", "sex"],
   //   details: {
-  //     apiKey: "SEX-SOLID-sUSDC-FRAX",
+  //     apiKey: "SEX-SOLID-vFTM-SCREAM",
   //     harvestStyle: HarvestStyle.PASSIVE,
   //     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
   //   },
   //   farm: {
   //     farmAddress: NULL_ADDRESS,
-  //     farmNickname: "pSEX-SOLID sUSDC-FRAX",
-  //     farmDepositTokenName: "pSEX-SOLID sUSDC-FRAX",
+  //     farmNickname: "pSEX-SOLID vFTM-SCREAM",
+  //     farmDepositTokenName: "pSEX-SOLID vFTM-SCREAM",
   //   },
   // };
-  // JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_FRAX);
+  // JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SCREAM);
 
-  export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
+  export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5c",
-    contract: "0xC58902B6573082D4be4D1CA0D2Ea8b4Ed596870f",
-    startBlock: 32513558,
+    id: "fanJar 5u",
+    contract: "0x2a1fF1Dd09EEB7095e2CA0b1dba67d792250ab0a",
+    startBlock: 32752906,
     depositToken: {
-      addr: "0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
-      name: "SOLID sBTC/RENBTC",
-      link: "https://solidly.exchange/liquidity/0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
-      components: ["btc", "renbtc"],
+      addr: "0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
+      name: "SOLID vCRV/G3CRV",
+      link: "https://solidly.exchange/liquidity/0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
+      components: ["crv", "g3crv"],
       nativePath: {
-        //SpookyRouter --> WFTM, BTC
+        //spookySwap--> WFTM, CRV
         target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
         path: [
           "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-          "0x321162Cd933E2Be498Cd2267a90534A804051b11",
+          "0x1E4F97b9f9F913c46F1632781732927B9019C68b",
         ],
       },
     },
@@ -9260,34 +9830,92 @@ depositToken: {
     stakingProtocol: AssetProtocol.SEX,
     rewardTokens: ["solid", "sex"],
     details: {
-      apiKey: "SEX-SOLID-sBTC-RENBTC",
+      apiKey: "SEX-SOLID-vCRV-G3CRV",
       harvestStyle: HarvestStyle.PASSIVE,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID sBTC-RENBTC",
-      farmDepositTokenName: "pSEX-SOLID sBTC-RENBTC",
+      farmNickname: "pSEX-SOLID vCRV-G3CRV",
+      farmDepositTokenName: "pSEX-SOLID vCRV-G3CRV",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_BTC_RENBTC);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_CRV_G3CRV);
 
-  export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
+  export const JAR_FANTOM_SEX_S_FTM_BEFTM: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5d",
-    contract: "0x6Bf1768482808C43853Dd5D864C3812BAbE7A939",
-    startBlock: 32652856,
+    id: "fanJar 5v",
+    contract: "0xE4dd453e7D115CcAeA756cd0977b3E571D4e2b4B",
+    startBlock: 32753558,
     depositToken: {
-      addr: "0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
-      name: "SOLID sUSDC/MIM",
-      link: "https://solidly.exchange/liquidity/0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
-      components: ["usdc", "mim"],
+      addr: "0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
+      name: "SOLID sFTM/BEFTM",
+      link: "https://solidly.exchange/liquidity/0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
+      components: ["ftm", "beftm"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-sFTM-BEFTM",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID sFTM-BEFTM",
+      farmDepositTokenName: "pSEX-SOLID sFTM-BEFTM",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_FTM_BEFTM);
+
+  export const JAR_FANTOM_SEX_V_FTM_SOLIDSEX: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5w",
+    contract: "0x71D36Ee3D59413E9e5FD8FDF349D2f200fF9495f",
+    startBlock: 32754199,
+    depositToken: {
+      addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
+      name: "SOLID vFTM/SOLIDSEX",
+      link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
+      components: ["ftm", "solidsex"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vFTM-SOLIDSEX",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vFTM-SOLIDSEX",
+      farmDepositTokenName: "pSEX-SOLID vFTM-SOLIDSEX",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SOLIDSEX);
+
+  export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5x",
+    contract: "0x805A28E9F02C7CaB064E4c450904F8B336bD3E0b",
+    startBlock: 32755499,
+    depositToken: {
+      addr: "0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
+      name: "SOLID sUSDC/DAI",
+      link: "https://solidly.exchange/liquidity/0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
+      components: ["usdc", "dai"],
       nativePath: {
-        //Spookyswap: uniswapv2router02--> WFTM, MIM
+        //Spookyswap: uniswapv2router02--> WFTM, DAI
         target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
         path: [
           "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-          "0x82f0B8B456c1A451378467398982d4834b6829c1",
+          "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
         ],
       },
     },
@@ -9297,28 +9925,28 @@ depositToken: {
     stakingProtocol: AssetProtocol.SEX,
     rewardTokens: ["solid", "sex"],
     details: {
-      apiKey: "SEX-SOLID-sUSDC-MIM",
+      apiKey: "SEX-SOLID-sUSDC-DAI",
       harvestStyle: HarvestStyle.PASSIVE,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID sUSDC-MIM",
-      farmDepositTokenName: "pSEX-SOLID sUSDC-MIM",
+      farmNickname: "pSEX-SOLID sUSDC-DAI",
+      farmDepositTokenName: "pSEX-SOLID sUSDC-DAI",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_MIM);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_DAI);
 
-  export const JAR_FANTOM_SEX_V_FTM_TOMB: JarDefinition = {
+  export const JAR_FANTOM_SEX_V_FTM_SYN: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5e",
-    contract: "0x7aC8eB8158B1d50475FAC83bB77f24c0F6Df06f7",
-    startBlock: 32652856,
+    id: "fanJar 5y",
+    contract: "0xa6e8D4a3bE37b7bA214D55BDC9FeC5923766E7AE",
+    startBlock: 32756110,
     depositToken: {
-      addr: "0x60a861Cd30778678E3d613db96139440Bd333143",
-      name: "SOLID vFTM/TOMB",
-      link: "https://solidly.exchange/liquidity/0x60a861Cd30778678E3d613db96139440Bd333143",
-      components: ["ftm", "tomb"],
+      addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
+      name: "SOLID vFTM/SYN",
+      link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
+      components: ["ftm", "syn"],
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
@@ -9326,63 +9954,34 @@ depositToken: {
     stakingProtocol: AssetProtocol.SEX,
     rewardTokens: ["solid", "sex"],
     details: {
-      apiKey: "SEX-SOLID-vFTM-TOMB",
+      apiKey: "SEX-SOLID-vFTM-SYN",
       harvestStyle: HarvestStyle.PASSIVE,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-TOMB",
-      farmDepositTokenName: "pSEX-SOLID vFTM-TOMB",
+      farmNickname: "pSEX-SOLID vFTM-SYN",
+      farmDepositTokenName: "pSEX-SOLID vFTM-SYN",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_TOMB);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SYN);
 
-  export const JAR_FANTOM_SEX_V_FTM_CRV: JarDefinition = {
+  export const JAR_FANTOM_SEX_V_TAROT_XTAROT: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5f",
-    contract: "0xaa4191091973FA3FaB3fdEAE7a65062B46972581",
-    startBlock: 32655009,
+    id: "fanJar 5z",
+    contract: "0xE785318c44F7F013FdBa2E0DEf2a0381b5622e1D",
+    startBlock: 32756803,
     depositToken: {
-      addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-      name: "SOLID vFTM/CRV",
-      link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-      components: ["ftm", "crv"],
-    },
-    enablement: AssetEnablement.ENABLED,
-    chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
-    details: {
-      apiKey: "SEX-SOLID-vFTM-CRV",
-      harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    },
-    farm: {
-      farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-CRV",
-      farmDepositTokenName: "pSEX-SOLID vFTM-CRV",
-    },
-  };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_CRV);
-
-  export const JAR_FANTOM_SEX_V_FXS_FRAX: JarDefinition = {
-    type: AssetType.JAR,
-    id: "fanJar 5g",
-    contract: "0xC888126f9805975cCCE9A5eae5cbEdF163e2761d",
-    startBlock: 32675050,
-    depositToken: {
-      addr: "0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
-      name: "SOLID vFXS/FRAX",
-      link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
-      components: ["fxs", "frax"],
+      addr: "0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
+      name: "SOLID vTAROT/XTAROT",
+      link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
+      components: ["tarot", "xtarot"],
       nativePath: {
-        //spiritSwap--> WFTM, FRAX
+        //spritSwap--> WFTM, TAROT
         target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
         path: [
           "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-          "0xdc301622e621166bd8e82f2ca0a26c13ad0be355",
+          "0xc5e2b037d30a390e62180970b3aa4e91868764cd",
         ],
       },
     },
@@ -9392,28 +9991,28 @@ depositToken: {
     stakingProtocol: AssetProtocol.SEX,
     rewardTokens: ["solid", "sex"],
     details: {
-      apiKey: "SEX-SOLID-vFXS-FRAX",
+      apiKey: "SEX-SOLID-vTAROT-XTAROT",
       harvestStyle: HarvestStyle.PASSIVE,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFXS-FRAX",
-      farmDepositTokenName: "pSEX-SOLID vFXS-FRAX",
+      farmNickname: "pSEX-SOLID vTAROT-XTAROT",
+      farmDepositTokenName: "pSEX-SOLID vTAROT-XTAROT",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FXS_FRAX);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_TAROT_XTAROT);
 
-  export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
+  export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5h",
-    contract: "0xE985B5Cf5d020408271C2Fae20311967a27ff5C8",
-    startBlock: 32676235,
+    id: "fanJar 5aa",
+    contract: "0xe5F0A614d4C63f535D36a5871bf6dC3CA01C5d0c",
+    startBlock: 32757865,
     depositToken: {
-      addr: "0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
-      name: "SOLID vUSDC/OXD",
-      link: "https://solidly.exchange/liquidity/0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
-      components: ["usdc", "oxd"],
+      addr: "0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
+      name: "SOLID sUSDC/DEI",
+      link: "https://solidly.exchange/liquidity/0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
+      components: ["usdc", "dei"],
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
@@ -9421,187 +10020,63 @@ depositToken: {
     stakingProtocol: AssetProtocol.SEX,
     rewardTokens: ["solid", "sex"],
     details: {
-      apiKey: "SEX-SOLID-vUSDC-OXD",
+      apiKey: "SEX-SOLID-sUSDC-DEI",
       harvestStyle: HarvestStyle.PASSIVE,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vUSDC-OXD",
-      farmDepositTokenName: "pSEX-SOLID vUSDC-OXD",
+      farmNickname: "pSEX-SOLID sUSDC-DEI",
+      farmDepositTokenName: "pSEX-SOLID sUSDC-DEI",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_OXD);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_DEI);
 
-  export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
+  export const JAR_FANTOM_SEX_V_FTM_RDL: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5i",
-    contract: "0xee6A2f840F30A99759f94536fB0Cd8cb95100A31",
-    startBlock: 32677507,
+    id: "fanJar 5ab",
+    contract: "0xac1201bd98E20F7231d22c82E3c5fA9d98EC30c7",
+    startBlock: 32758395,
     depositToken: {
-      addr: "0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
-      name: "SOLID vYFI/WOOFY",
-      link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
-      components: ["yfi", "woofy"],
+      addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
+      name: "SOLID vFTM/RDL",
+      link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
+      components: ["ftm", "rdl"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vFTM-RDL",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vFTM-RDL",
+      farmDepositTokenName: "pSEX-SOLID vFTM-RDL",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_RDL);
+
+  export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5ac",
+    contract: "0xB155DbD56bBE5Fec5Ca6414e0e9Ef0b8691574e2",
+    startBlock: 32759165,
+    depositToken: {
+      addr: "0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
+      name: "SOLID vGEIST/G3CRV",
+      link: "https://solidly.exchange/liquidity/0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
+      components: ["geist", "g3crv"],
       nativePath: {
-        // spiritSwap--> WFTM, YFI
-        target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-        path: [
-          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-          "0x29b0Da86e484E1C0029B56e817912d778aC0EC69",
-        ],
-      },
-    },
-    enablement: AssetEnablement.ENABLED,
-    chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
-    details: {
-      apiKey: "SEX-SOLID-vYFI-WOOFY",
-      harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    },
-    farm: {
-      farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vYFI-WOOFY",
-      farmDepositTokenName: "pSEX-SOLID vYFI-WOOFY",
-    },
-  };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_YFI_WOOFY);
-
-  export const JAR_FANTOM_SEX_V_USDC_SYN: JarDefinition = {
-    type: AssetType.JAR,
-    id: "fanJar 5j",
-    contract: "0x0CA957F137c9809cAEFFC9cf985dbd413c56c795",
-    startBlock: 32678517,
-    depositToken: {
-      addr: "0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
-      name: "SOLID vUSDC/SYN",
-      link: "https://solidly.exchange/liquidity/0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
-      components: ["usdc", "syn"],
-    },
-    enablement: AssetEnablement.ENABLED,
-    chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
-    details: {
-      apiKey: "SEX-SOLID-vUSDC-SYN",
-      harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    },
-    farm: {
-      farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vUSDC-SYN",
-      farmDepositTokenName: "pSEX-SOLID vUSDC-SYN",
-    },
-  };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_SYN);
-
-  export const JAR_FANTOM_SEX_V_FTM_YFI: JarDefinition = {
-    type: AssetType.JAR,
-    id: "fanJar 5k",
-    contract: "0x1Eb19bAd944d463C7a2e6e4ca8eB5535d87886dB",
-    startBlock: 32680351,
-    depositToken: {
-      addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-      name: "SOLID vFTM/YFI",
-      link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-      components: ["ftm", "yfi"],
-    },
-    enablement: AssetEnablement.ENABLED,
-    chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
-    details: {
-      apiKey: "SEX-SOLID-vFTM-YFI",
-      harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    },
-    farm: {
-      farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-YFI",
-      farmDepositTokenName: "pSEX-SOLID vFTM-YFI",
-    },
-  };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_YFI);
-
-  export const JAR_FANTOM_SEX_V_FTM_OATH: JarDefinition = {
-    type: AssetType.JAR,
-    id: "fanJar 5l",
-    contract: "0x1a467F2e1BcD81b866B959D0043a713C9ab34E1F",
-    startBlock: 32687038,
-    depositToken: {
-      addr: "0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
-      name: "SOLID vFTM/OATH",
-      link: "https://solidly.exchange/liquidity/0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
-      components: ["ftm", "oath"],
-    },
-    enablement: AssetEnablement.ENABLED,
-    chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
-    details: {
-      apiKey: "SEX-SOLID-vFTM-OATH",
-      harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    },
-    farm: {
-      farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-OATH",
-      farmDepositTokenName: "pSEX-SOLID vFTM-OATH",
-    },
-  };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_OATH);
-
-  export const JAR_FANTOM_SEX_V_FTM_MULTI: JarDefinition = {
-    type: AssetType.JAR,
-    id: "fanJar 5m",
-    contract: "0x0ab8C90e54260468AE41DB2b2515b4a16c87c8d0",
-    startBlock: 32688709,
-    depositToken: {
-      addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-      name: "SOLID vFTM/MULTI",
-      link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-      components: ["ftm", "multi"],
-    },
-    enablement: AssetEnablement.ENABLED,
-    chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
-    details: {
-      apiKey: "SEX-SOLID-vFTM-MULTI",
-      harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    },
-    farm: {
-      farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-MULTI",
-      farmDepositTokenName: "pSEX-SOLID vFTM-MULTI",
-    },
-  };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_MULTI);
-
-  export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
-    type: AssetType.JAR,
-    id: "fanJar 5n",
-    contract: "0xa4Cc925E7Ff8322114c38822456c5B23cC87790b",
-    startBlock: 32690372,
-    depositToken: {
-      addr: "0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
-      name: "SOLID sSOLID/SOLIDSEX",
-      link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
-      components: ["solid", "solidsex"],
-      nativePath: {
-        // spooky--> WFTM, sSOLID
+        // SpookySwap--> WFTM, GEIST
         target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
         path: [
           "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-          "0x888EF71766ca594DED1F0FA3AE64eD2941740A20",
+          "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
         ],
       },
     },
@@ -9611,1146 +10086,671 @@ depositToken: {
     stakingProtocol: AssetProtocol.SEX,
     rewardTokens: ["solid", "sex"],
     details: {
-      apiKey: "SEX-SOLID-sSOLID-SOLIDSEX",
+      apiKey: "SEX-SOLID-vGEIST-G3CRV",
       harvestStyle: HarvestStyle.PASSIVE,
       controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID sSOLID-SOLIDSEX",
-      farmDepositTokenName: "pSEX-SOLID sSOLID-SOLIDSEX",
+      farmNickname: "pSEX-SOLID vGEIST-G3CRV",
+      farmDepositTokenName: "pSEX-SOLID vGEIST-G3CRV",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SOLID_SOLIDSEX);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_GEIST_G3CRV);
 
-  export const JAR_FANTOM_SEX_V_FTM_LQDR: JarDefinition = {
+  export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5o",
-    contract: "0x8723DC0e08fAdAf7e8Ac251eAAAC279486670B67",
+    id: "fanJar 5ad",
+    contract: "0x6C2A1cBF315eb75e2482d81629c0d54Be1725c88",
+    startBlock: 32759165,
+    depositToken: {
+      addr: "0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
+      name: "SOLID vSOLIDSEX/G3CRV",
+      link: "https://solidly.exchange/liquidity/0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
+      components: ["solidsex", "g3crv"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vSOLIDSEX-G3CRV",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vSOLIDSEX-G3CRV",
+      farmDepositTokenName: "pSEX-SOLID vSOLIDSEX-G3CRV",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV);
+
+  export const JAR_FANTOM_SEX_V_FTM_USDC: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5ae",
+    contract: "0xcb0e7a3eAA1D817ad73406101e0B4F8AE92A309C",
+    startBlock: 32760328,
+    depositToken: {
+      addr: "0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
+      name: "SOLID vFTM/USDC",
+      link: "https://solidly.exchange/liquidity/0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
+      components: ["ftm", "usdc"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vFTM-USDC",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vFTM-USDC",
+      farmDepositTokenName: "pSEX-SOLID vFTM-USDC",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_USDC);
+
+  export const JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5af",
+    contract: "0x2034254BD25fc55F6D1dA47085b59d38A752a615",
+    startBlock: 32760874,
+    depositToken: {
+      addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
+      name: "SOLID sSPIRIT/RAINSPIRIT",
+      link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
+      components: ["spirit", "rainspirit"],
+      nativePath: {
+        //SpritSwap : SpiritRouter--> WFTM, SPIRIT
+        target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+        path: [
+          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+          "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+        ],
+      },
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-sSPIRIT-RAINSPIRIT",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID sSPIRIT-RAINSPIRIT",
+      farmDepositTokenName: "pSEX-SOLID sSPIRIT-RAINSPIRIT",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT);
+
+  export const JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5ag",
+    contract: "0x71E7974e6Fa0c4407BF2EA4244A265319971C4Dd",
+    startBlock: 32761481,
+    depositToken: {
+      addr: "0xd6be7592E5C424623c8C9557738970aE19ab5de2",
+      name: "SOLID sSPIRIT/LINSPIRIT",
+      link: "https://solidly.exchange/liquidity/0xd6be7592E5C424623c8C9557738970aE19ab5de2",
+      components: ["spirit", "linspirit"],
+      nativePath: {
+        //SpritSwap : SpiritRouter--> WFTM, SPIRIT
+        target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+        path: [
+          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+          "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+        ],
+      },
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-sSPIRIT-LINSPIRIT",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID sSPIRIT-LINSPIRIT",
+      farmDepositTokenName: "pSEX-SOLID sSPIRIT-LINSPIRIT",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT);
+
+  export const JAR_FANTOM_SEX_V_FTM_SOLID: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5ah",
+    contract: "0xCEdC1583a1380FB1BD71fF14a11AF9E3c77D9994",
+    startBlock: 32762078,
+    depositToken: {
+      addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
+      name: "SOLID vFTM/SOLID",
+      link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
+      components: ["ftm", "solid"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vFTM-SOLID",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vFTM-SOLID",
+      farmDepositTokenName: "pSEX-SOLID vFTM-SOLID",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SOLID);
+
+  export const JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5ai",
+    contract: "0x3831d7BD0A6d969A821703CAF8ee21310FFA2FB7",
+    startBlock: 32762744,
+    depositToken: {
+      addr: "0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
+      name: "SOLID sSPIRIT/SINSPIRIT",
+      link: "https://solidly.exchange/liquidity/0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
+      components: ["spirit", "sinspirit"],
+      nativePath: {
+        //SpritSwap : SpiritRouter--> WFTM, SPIRIT
+        target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+        path: [
+          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+          "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+        ],
+      },
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-sSPIRIT-SINSPIRIT",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID sSPIRIT-SINSPIRIT",
+      farmDepositTokenName: "pSEX-SOLID sSPIRIT-SINSPIRIT",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT);
+
+  export const JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5aj",
+    contract: "0x82775DE4283A80e1c80D3416695C27DA00D269F4",
+    startBlock: 32764321,
+    depositToken: {
+      addr: "0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
+      name: "SOLID sSPIRIT/BINSPIRIT",
+      link: "https://solidly.exchange/liquidity/0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
+      components: ["spirit", "binspirit"],
+      nativePath: {
+        //SpritSwap : SpiritRouter--> WFTM, SPIRIT
+        target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+        path: [
+          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+          "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+        ],
+      },
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-sSPIRIT-BINSPIRIT",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID sSPIRIT-BINSPIRIT",
+      farmDepositTokenName: "pSEX-SOLID sSPIRIT-BINSPIRIT",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT);
+
+  export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5ak",
+    contract: "0x684d7C203a68fB38AB0F8194BdBD225f3d8Da416",
+    startBlock: 32764921,
+    depositToken: {
+      addr: "0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
+      name: "SOLID vUSDC/DAI",
+      link: "https://solidly.exchange/liquidity/0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
+      components: ["usdc", "dai"],
+      nativePath: {
+        //Spookyswap: uniswapv2router02--> WFTM, USDC
+        target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+        path: [
+          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+          "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+        ],
+      },
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vUSDC-DAI",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vUSDC-DAI",
+      farmDepositTokenName: "pSEX-SOLID vUSDC-DAI",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_DAI);
+
+  export const JAR_FANTOM_SEX_V_FTM_TAROT: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5al",
+    contract: "0x2c4afD3e2FFe7Db30758Bc982fda771eAE5ea88c",
+    startBlock: 32830912,
+    depositToken: {
+      addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
+      name: "SOLID vFTM/TAROT",
+      link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
+      components: ["ftm", "tarot"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vFTM-TAROT",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vFTM-TAROT",
+      farmDepositTokenName: "pSEX-SOLID vFTM-TAROT",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_TAROT);
+
+  export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 5am",
+    contract: "0x62e58b10D306ffE35B1924f6CeaaaF0EdFF70D3F",
+    startBlock: 32831565,
+    depositToken: {
+      addr: "0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
+      name: "SOLID vCRE8R/BOMB",
+      link: "https://solidly.exchange/liquidity/0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
+      components: ["cre8r", "bomb"],
+      nativePath: {
+        //spritSwap : --> WFTM, BOMB
+        target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+        path: [
+          "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+          "0x8503eb4a136bdbeb323e37aa6e0fa0c772228378",
+        ],
+      },
+    },
+    enablement: AssetEnablement.PERMANENTLY_DISABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SOLID,
+    stakingProtocol: AssetProtocol.SEX,
+    rewardTokens: ["solid", "sex"],
+    details: {
+      apiKey: "SEX-SOLID-vCRE8R-BOMB",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSEX-SOLID vCRE8R-BOMB",
+      farmDepositTokenName: "pSEX-SOLID vCRE8R-BOMB",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_CRE8R_BOMB);
+
+  export const JAR_FANTOM_SPIRIT_FTM: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 6a",
+    contract: "0xF4cE6E6A2480BfaB373da09336f0fF107Bd9063d",
+    startBlock: 32698813,
+    depositToken: {
+      addr: "0x30748322B6E34545DBe0788C421886AEB5297789",
+      name: "SPIRIT FTM/SPIRIT",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+      components: ["ftm", "spirit"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
+    details: {
+      apiKey: "SPIRIT-FTM-SPIRIT",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSPIRIT FTM-SPIRIT",
+      farmDepositTokenName: "pSPIRIT FTM-SPIRIT",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM);
+
+  export const JAR_FANTOM_SPIRIT_FTM_TREEB: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 6b",
+    contract: "0xf1299FC7F719A49Fc015C8A758823d8fE5526110",
+    startBlock: 32699104,
+    depositToken: {
+      addr: "0x2cEfF1982591c8B0a73b36D2A6C2A6964Da0E869",
+      name: "SPIRIT FTM/TREEB",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0xc60d7067dfbc6f2caf30523a064f416a5af52963",
+      components: ["ftm", "treeb"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
+    details: {
+      apiKey: "SPIRIT-FTM-TREEB",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSPIRIT FTM-TREEB",
+      farmDepositTokenName: "pSPIRIT FTM-TREEB",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_TREEB);
+
+  export const JAR_FANTOM_SPIRIT_FTM_MAI: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 6c",
+    contract: "0xC92445C06E705403b3696814C133AA18511d220E",
+    startBlock: 32699399,
+    depositToken: {
+      addr: "0x51Eb93ECfEFFbB2f6fE6106c4491B5a0B944E8bd",
+      name: "SPIRIT FTM/MAI",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0xfb98b335551a418cd0737375a2ea0ded62ea213b",
+      components: ["ftm", "mimatic"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
+    details: {
+      apiKey: "SPIRIT-FTM-MAI",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSPIRIT FTM-MAI",
+      farmDepositTokenName: "pSPIRIT FTM-MAI",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_MAI);
+
+  export const JAR_FANTOM_SPIRIT_FTM_LQDR: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 6d",
+    contract: "0x6593178bFc883A57C3fcB4516276494a29B1c49B",
     startBlock: 32690926,
     depositToken: {
-      addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
-      name: "SOLID vFTM/LQDR",
-      link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
+      addr: "0x4Fe6f19031239F105F753D1DF8A0d24857D0cAA2",
+      name: "SPIRIT FTM/LQDR",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
       components: ["ftm", "lqdr"],
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
     details: {
-      apiKey: "SEX-SOLID-vFTM-LQDR",
+      apiKey: "SPIRIT-FTM-LQDR",
       harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-LQDR",
-      farmDepositTokenName: "pSEX-SOLID vFTM-LQDR",
+      farmNickname: "pSPIRIT FTM-LQDR",
+      farmDepositTokenName: "pSPIRIT FTM-LQDR",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_LQDR);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_LQDR);
 
-  export const JAR_FANTOM_SEX_V_FTM_HND: JarDefinition = {
+  export const JAR_FANTOM_SPIRIT_FTM_FRAX: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5p",
-    contract: "0x8090850e82A35B32D5B01C3Fdfd4594A96F6A694",
-    startBlock: 32691451,
+    id: "fanJar 6e",
+    contract: "0x43982D86a5f42ad48D2c4130FF4BB03c98414937",
+    startBlock: 32699984,
     depositToken: {
-      addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-      name: "SOLID vFTM/HND",
-      link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-      components: ["ftm", "hnd"],
+      addr: "0x7ed0cdDB9BB6c6dfEa6fB63E117c8305479B8D7D",
+      name: "SPIRIT FTM/FRAX",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
+      components: ["ftm", "frax"],
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
     details: {
-      apiKey: "SEX-SOLID-vFTM-HND",
+      apiKey: "SPIRIT-FTM-FRAX",
       harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-HND",
-      farmDepositTokenName: "pSEX-SOLID vFTM-HND",
+      farmNickname: "pSPIRIT FTM-FRAX",
+      farmDepositTokenName: "pSPIRIT FTM-FRAX",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_HND);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_FRAX);
 
-  export const JAR_FANTOM_SEX_V_FTM_IB: JarDefinition = {
+  export const JAR_FANTOM_SPIRIT_FTM_DEUS: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5q",
-    contract: "0x2A8e36CD7aA560706B22883d6EaA0bEF0cBdC70C",
-    startBlock: 32691922,
+    id: "fanJar 6f",
+    contract: "0x1F16C280ad81dc9f6aF845A0aEE0b6F481De4b77",
+    startBlock: 32700275,
     depositToken: {
-      addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-      name: "SOLID vFTM/IB",
-      link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-      components: ["ftm", "ib"],
+      addr: "0x2599Eba5fD1e49F294C76D034557948034d6C96E",
+      name: "SPIRIT FTM/DEUS",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
+      components: ["ftm", "deus"],
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
     details: {
-      apiKey: "SEX-SOLID-vFTM-IB",
+      apiKey: "SPIRIT-FTM-DEUS",
       harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-IB",
-      farmDepositTokenName: "pSEX-SOLID vFTM-IB",
+      farmNickname: "pSPIRIT FTM-DEUS",
+      farmDepositTokenName: "pSPIRIT FTM-DEUS",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_IB);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_DEUS);
 
-  export const JAR_FANTOM_SEX_V_FTM_GEIST: JarDefinition = {
+  export const JAR_FANTOM_SPIRIT_FTM_CRE8R: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5r",
-    contract: "0x88d509f5bFd5aA31e4C249A4086ad0024D6b47c0",
-    startBlock: 32695198,
+    id: "fanJar 6g",
+    contract: "0xf90F53896a561A4eBAD71f5C10B74026e62661D5",
+    startBlock: 32700560,
     depositToken: {
-      addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-      name: "SOLID vFTM/GEIST",
-      link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-      components: ["ftm", "geist"],
+      addr: "0x459e7c947E04d73687e786E4A48815005dFBd49A",
+      name: "SPIRIT FTM/CRE8R",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0x2ad402655243203fcfa7dcb62f8a08cc2ba88ae0",
+      components: ["ftm", "cre8r"],
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
     details: {
-      apiKey: "SEX-SOLID-vFTM-GEIST",
+      apiKey: "SPIRIT-FTM-CRE8R",
       harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vFTM-GEIST",
-      farmDepositTokenName: "pSEX-SOLID vFTM-GEIST",
+      farmNickname: "pSPIRIT FTM-CRE8R",
+      farmDepositTokenName: "pSPIRIT FTM-CRE8R",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_GEIST);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_CRE8R);
 
-  export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
+  export const JAR_FANTOM_SPIRIT_FTM_BIFI: JarDefinition = {
     type: AssetType.JAR,
-    id: "fanJar 5s",
-    contract: "0xbd6796eC68ee2c8669eB147dC6610072aF0d4D37",
-    startBlock: 32688280,
+    id: "fanJar 6h",
+    contract: "0xE9cE4c7EA009AbC1427B7d4501eee26186b923f4",
+    startBlock: 32700862,
     depositToken: {
-      addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-      name: "SOLID vBIFI/MAI",
-      link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-      components: ["bifi", "mimatic"],
+      addr: "0xc28cf9aeBfe1A07A27B3A4d722C841310e504Fe3",
+      name: "SPIRIT FTM/BIFI",
+      link: "https://swap.spiritswap.finance/#/add/FTM/0xd6070ae98b8069de6B494332d1A1a81B6179D960",
+      components: ["ftm", "bifi"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Fantom,
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
+    details: {
+      apiKey: "SPIRIT-FTM-BIFI",
+      harvestStyle: HarvestStyle.PASSIVE,
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
+    },
+    farm: {
+      farmAddress: NULL_ADDRESS,
+      farmNickname: "pSPIRIT FTM-BIFI",
+      farmDepositTokenName: "pSPIRIT FTM-BIFI",
+    },
+  };
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_BIFI);
+
+  export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
+    type: AssetType.JAR,
+    id: "fanJar 6i",
+    contract: "0x46C232c456d090776212C360eD63Ed192cCa560d",
+    startBlock: 32701154,
+    depositToken: {
+      addr: "0x8e38543d4c764DBd8f8b98C73407457a3D3b4999",
+      name: "SPIRIT GSCARAB/SCARAB",
+      link: "https://swap.spiritswap.finance/#/add/0x6ab5660f0B1f174CFA84e9977c15645e4848F5D6/0x2e79205648B85485731CFE3025d66cF2d3B059c4",
+      components: ["gscarab", "scarab"],
       nativePath: {
-        //spritSwap--> WFTM, miMATIC
+        //(SpiritSwap)SpiritRouter --> WFTM, SCARAB
         target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
         path: [
           "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-          "0xfB98B335551a418cD0737375a2ea0ded62Ea213b",
+          "0x2e79205648B85485731CFE3025d66cF2d3B059c4",
         ],
       },
     },
     enablement: AssetEnablement.ENABLED,
     chain: ChainNetwork.Fantom,
-    protocol: AssetProtocol.SOLID,
-    stakingProtocol: AssetProtocol.SEX,
-    rewardTokens: ["solid", "sex"],
+    protocol: AssetProtocol.SPIRITSWAP,
+    stakingProtocol: AssetProtocol.SPIRITSWAP,
+    rewardTokens: ["spirit"],
     details: {
-      apiKey: "SEX-SOLID-vBIFI-MAI",
+      apiKey: "SPIRIT-GSCARAB-SCARAB",
       harvestStyle: HarvestStyle.PASSIVE,
-      controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+      controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
     },
     farm: {
       farmAddress: NULL_ADDRESS,
-      farmNickname: "pSEX-SOLID vBIFI-MAI",
-      farmDepositTokenName: "pSEX-SOLID vBIFI-MAI",
+      farmNickname: "pSPIRIT GSCARAB-SCARAB",
+      farmDepositTokenName: "pSPIRIT GSCARAB-SCARAB",
     },
   };
-  JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_BIFI_MAI);
+  JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB);
 
-  // export const JAR_FANTOM_SEX_V_FTM_SCREAM: JarDefinition = {
-  //   type: AssetType.JAR,
-  //   id: "fanJar 5t",
-  //   contract: "0x11098Bb2BEF7619F9Cf741d0a24D699db0f79198",
-  //   startBlock:,
-  depositToken: {
-    //     addr: "0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-    //     name: "SOLID vFTM/SCREAM",
-    //     link: "https://solidly.exchange/liquidity/0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-    //     components: ["ftm", "scream"],
-    //   },
-    //   enablement: AssetEnablement.DEV,
-    //   chain: ChainNetwork.Fantom,
-    //   protocol: AssetProtocol.SOLID,
-    //   stakingProtocol: AssetProtocol.SEX,
-    //   rewardTokens: ["solid", "sex"],
-    //   details: {
-    //     apiKey: "SEX-SOLID-vFTM-SCREAM",
-    //     harvestStyle: HarvestStyle.PASSIVE,
-    //     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-    //   },
-    //   farm: {
-    //     farmAddress: NULL_ADDRESS,
-    //     farmNickname: "pSEX-SOLID vFTM-SCREAM",
-    //     farmDepositTokenName: "pSEX-SOLID vFTM-SCREAM",
-    //   },
-    // };
-    // JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SCREAM);
+  // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
-    export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5u",
-      contract: "0x2a1fF1Dd09EEB7095e2CA0b1dba67d792250ab0a",
-      startBlock: 32752906,
-      depositToken: {
-        addr: "0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
-        name: "SOLID vCRV/G3CRV",
-        link: "https://solidly.exchange/liquidity/0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
-        components: ["crv", "g3crv"],
-        nativePath: {
-          //spookySwap--> WFTM, CRV
-          target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x1E4F97b9f9F913c46F1632781732927B9019C68b",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vCRV-G3CRV",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vCRV-G3CRV",
-        farmDepositTokenName: "pSEX-SOLID vCRV-G3CRV",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_CRV_G3CRV);
+  // External Assets
+  export const EXTERNAL_DEFINITIONS: ExternalAssetDefinition[] = [];
+  export const ASSET_PBAMM: ExternalAssetDefinition = {
+    type: AssetType.EXTERNAL,
+    id: "B.Protocol BAMM",
+    contract: "0x54bC9113f1f55cdBDf221daf798dc73614f6D972",
+    startBlock: 12787025,
+    depositToken: {
+      addr: "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
+      name: "LUSD",
+      link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Ethereum,
+    protocol: AssetProtocol.BPROTOCOL,
+    details: {
+      apiKey: "PBAMM",
+      includeInTvl: false,
+    },
+  };
+  EXTERNAL_DEFINITIONS.push(ASSET_PBAMM);
 
-    export const JAR_FANTOM_SEX_S_FTM_BEFTM: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5v",
-      contract: "0xE4dd453e7D115CcAeA756cd0977b3E571D4e2b4B",
-      startBlock: 32753558,
-      depositToken: {
-        addr: "0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
-        name: "SOLID sFTM/BEFTM",
-        link: "https://solidly.exchange/liquidity/0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
-        components: ["ftm", "beftm"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sFTM-BEFTM",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sFTM-BEFTM",
-        farmDepositTokenName: "pSEX-SOLID sFTM-BEFTM",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_FTM_BEFTM);
+  export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
+    type: AssetType.EXTERNAL,
+    id: "Sushi Pickle/Eth",
+    contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
+    startBlock: 0000000,
+    depositToken: {
+      addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
+      name: "Sushi PICKLE/ETH",
+      link: "https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH",
+      components: ["pickle", "weth"],
+    },
+    enablement: AssetEnablement.ENABLED,
+    chain: ChainNetwork.Ethereum,
+    protocol: AssetProtocol.SUSHISWAP,
+    details: {
+      apiKey: "sushi-pickle-eth",
+    },
+    tags: ["pool2"],
+  };
+  EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
 
-    export const JAR_FANTOM_SEX_V_FTM_SOLIDSEX: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5w",
-      contract: "0x71D36Ee3D59413E9e5FD8FDF349D2f200fF9495f",
-      startBlock: 32754199,
-      depositToken: {
-        addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-        name: "SOLID vFTM/SOLIDSEX",
-        link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-        components: ["ftm", "solidsex"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vFTM-SOLIDSEX",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vFTM-SOLIDSEX",
-        farmDepositTokenName: "pSEX-SOLID vFTM-SOLIDSEX",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SOLIDSEX);
-
-    export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5x",
-      contract: "0x805A28E9F02C7CaB064E4c450904F8B336bD3E0b",
-      startBlock: 32755499,
-      depositToken: {
-        addr: "0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
-        name: "SOLID sUSDC/DAI",
-        link: "https://solidly.exchange/liquidity/0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
-        components: ["usdc", "dai"],
-        nativePath: {
-          //Spookyswap: uniswapv2router02--> WFTM, DAI
-          target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sUSDC-DAI",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sUSDC-DAI",
-        farmDepositTokenName: "pSEX-SOLID sUSDC-DAI",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_DAI);
-
-    export const JAR_FANTOM_SEX_V_FTM_SYN: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5y",
-      contract: "0xa6e8D4a3bE37b7bA214D55BDC9FeC5923766E7AE",
-      startBlock: 32756110,
-      depositToken: {
-        addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-        name: "SOLID vFTM/SYN",
-        link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-        components: ["ftm", "syn"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vFTM-SYN",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vFTM-SYN",
-        farmDepositTokenName: "pSEX-SOLID vFTM-SYN",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SYN);
-
-    export const JAR_FANTOM_SEX_V_TAROT_XTAROT: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5z",
-      contract: "0xE785318c44F7F013FdBa2E0DEf2a0381b5622e1D",
-      startBlock: 32756803,
-      depositToken: {
-        addr: "0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
-        name: "SOLID vTAROT/XTAROT",
-        link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
-        components: ["tarot", "xtarot"],
-        nativePath: {
-          //spritSwap--> WFTM, TAROT
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0xc5e2b037d30a390e62180970b3aa4e91868764cd",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vTAROT-XTAROT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vTAROT-XTAROT",
-        farmDepositTokenName: "pSEX-SOLID vTAROT-XTAROT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_TAROT_XTAROT);
-
-    export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5aa",
-      contract: "0xe5F0A614d4C63f535D36a5871bf6dC3CA01C5d0c",
-      startBlock: 32757865,
-      depositToken: {
-        addr: "0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
-        name: "SOLID sUSDC/DEI",
-        link: "https://solidly.exchange/liquidity/0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
-        components: ["usdc", "dei"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sUSDC-DEI",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sUSDC-DEI",
-        farmDepositTokenName: "pSEX-SOLID sUSDC-DEI",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_DEI);
-
-    export const JAR_FANTOM_SEX_V_FTM_RDL: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ab",
-      contract: "0xac1201bd98E20F7231d22c82E3c5fA9d98EC30c7",
-      startBlock: 32758395,
-      depositToken: {
-        addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-        name: "SOLID vFTM/RDL",
-        link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-        components: ["ftm", "rdl"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vFTM-RDL",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vFTM-RDL",
-        farmDepositTokenName: "pSEX-SOLID vFTM-RDL",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_RDL);
-
-    export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ac",
-      contract: "0xB155DbD56bBE5Fec5Ca6414e0e9Ef0b8691574e2",
-      startBlock: 32759165,
-      depositToken: {
-        addr: "0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
-        name: "SOLID vGEIST/G3CRV",
-        link: "https://solidly.exchange/liquidity/0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
-        components: ["geist", "g3crv"],
-        nativePath: {
-          // SpookySwap--> WFTM, GEIST
-          target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vGEIST-G3CRV",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vGEIST-G3CRV",
-        farmDepositTokenName: "pSEX-SOLID vGEIST-G3CRV",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_GEIST_G3CRV);
-
-    export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ad",
-      contract: "0x6C2A1cBF315eb75e2482d81629c0d54Be1725c88",
-      startBlock: 32759165,
-      depositToken: {
-        addr: "0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
-        name: "SOLID vSOLIDSEX/G3CRV",
-        link: "https://solidly.exchange/liquidity/0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
-        components: ["solidsex", "g3crv"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vSOLIDSEX-G3CRV",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vSOLIDSEX-G3CRV",
-        farmDepositTokenName: "pSEX-SOLID vSOLIDSEX-G3CRV",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV);
-
-    export const JAR_FANTOM_SEX_V_FTM_USDC: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ae",
-      contract: "0xcb0e7a3eAA1D817ad73406101e0B4F8AE92A309C",
-      startBlock: 32760328,
-      depositToken: {
-        addr: "0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
-        name: "SOLID vFTM/USDC",
-        link: "https://solidly.exchange/liquidity/0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
-        components: ["ftm", "usdc"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vFTM-USDC",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vFTM-USDC",
-        farmDepositTokenName: "pSEX-SOLID vFTM-USDC",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_USDC);
-
-    export const JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5af",
-      contract: "0x2034254BD25fc55F6D1dA47085b59d38A752a615",
-      startBlock: 32760874,
-      depositToken: {
-        addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-        name: "SOLID sSPIRIT/RAINSPIRIT",
-        link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
-        components: ["spirit", "rainspirit"],
-        nativePath: {
-          //SpritSwap : SpiritRouter--> WFTM, SPIRIT
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sSPIRIT-RAINSPIRIT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sSPIRIT-RAINSPIRIT",
-        farmDepositTokenName: "pSEX-SOLID sSPIRIT-RAINSPIRIT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT);
-
-    export const JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ag",
-      contract: "0x71E7974e6Fa0c4407BF2EA4244A265319971C4Dd",
-      startBlock: 32761481,
-      depositToken: {
-        addr: "0xd6be7592E5C424623c8C9557738970aE19ab5de2",
-        name: "SOLID sSPIRIT/LINSPIRIT",
-        link: "https://solidly.exchange/liquidity/0xd6be7592E5C424623c8C9557738970aE19ab5de2",
-        components: ["spirit", "linspirit"],
-        nativePath: {
-          //SpritSwap : SpiritRouter--> WFTM, SPIRIT
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sSPIRIT-LINSPIRIT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sSPIRIT-LINSPIRIT",
-        farmDepositTokenName: "pSEX-SOLID sSPIRIT-LINSPIRIT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT);
-
-    export const JAR_FANTOM_SEX_V_FTM_SOLID: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ah",
-      contract: "0xCEdC1583a1380FB1BD71fF14a11AF9E3c77D9994",
-      startBlock: 32762078,
-      depositToken: {
-        addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-        name: "SOLID vFTM/SOLID",
-        link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-        components: ["ftm", "solid"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vFTM-SOLID",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vFTM-SOLID",
-        farmDepositTokenName: "pSEX-SOLID vFTM-SOLID",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SOLID);
-
-    export const JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ai",
-      contract: "0x3831d7BD0A6d969A821703CAF8ee21310FFA2FB7",
-      startBlock: 32762744,
-      depositToken: {
-        addr: "0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
-        name: "SOLID sSPIRIT/SINSPIRIT",
-        link: "https://solidly.exchange/liquidity/0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
-        components: ["spirit", "sinspirit"],
-        nativePath: {
-          //SpritSwap : SpiritRouter--> WFTM, SPIRIT
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sSPIRIT-SINSPIRIT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sSPIRIT-SINSPIRIT",
-        farmDepositTokenName: "pSEX-SOLID sSPIRIT-SINSPIRIT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT);
-
-    export const JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5aj",
-      contract: "0x82775DE4283A80e1c80D3416695C27DA00D269F4",
-      startBlock: 32764321,
-      depositToken: {
-        addr: "0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
-        name: "SOLID sSPIRIT/BINSPIRIT",
-        link: "https://solidly.exchange/liquidity/0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
-        components: ["spirit", "binspirit"],
-        nativePath: {
-          //SpritSwap : SpiritRouter--> WFTM, SPIRIT
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-sSPIRIT-BINSPIRIT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID sSPIRIT-BINSPIRIT",
-        farmDepositTokenName: "pSEX-SOLID sSPIRIT-BINSPIRIT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT);
-
-    export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5ak",
-      contract: "0x684d7C203a68fB38AB0F8194BdBD225f3d8Da416",
-      startBlock: 32764921,
-      depositToken: {
-        addr: "0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
-        name: "SOLID vUSDC/DAI",
-        link: "https://solidly.exchange/liquidity/0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
-        components: ["usdc", "dai"],
-        nativePath: {
-          //Spookyswap: uniswapv2router02--> WFTM, USDC
-          target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vUSDC-DAI",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vUSDC-DAI",
-        farmDepositTokenName: "pSEX-SOLID vUSDC-DAI",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_DAI);
-
-    export const JAR_FANTOM_SEX_V_FTM_TAROT: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5al",
-      contract: "0x2c4afD3e2FFe7Db30758Bc982fda771eAE5ea88c",
-      startBlock: 32830912,
-      depositToken: {
-        addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-        name: "SOLID vFTM/TAROT",
-        link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-        components: ["ftm", "tarot"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vFTM-TAROT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vFTM-TAROT",
-        farmDepositTokenName: "pSEX-SOLID vFTM-TAROT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_TAROT);
-
-    export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 5am",
-      contract: "0x62e58b10D306ffE35B1924f6CeaaaF0EdFF70D3F",
-      startBlock: 32831565,
-      depositToken: {
-        addr: "0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
-        name: "SOLID vCRE8R/BOMB",
-        link: "https://solidly.exchange/liquidity/0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
-        components: ["cre8r", "bomb"],
-        nativePath: {
-          //spritSwap : --> WFTM, BOMB
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x8503eb4a136bdbeb323e37aa6e0fa0c772228378",
-          ],
-        },
-      },
-      enablement: AssetEnablement.PERMANENTLY_DISABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SOLID,
-      stakingProtocol: AssetProtocol.SEX,
-      rewardTokens: ["solid", "sex"],
-      details: {
-        apiKey: "SEX-SOLID-vCRE8R-BOMB",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSEX-SOLID vCRE8R-BOMB",
-        farmDepositTokenName: "pSEX-SOLID vCRE8R-BOMB",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_CRE8R_BOMB);
-
-    export const JAR_FANTOM_SPIRIT_FTM: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6a",
-      contract: "0xF4cE6E6A2480BfaB373da09336f0fF107Bd9063d",
-      startBlock: 32698813,
-      depositToken: {
-        addr: "0x30748322B6E34545DBe0788C421886AEB5297789",
-        name: "SPIRIT FTM/SPIRIT",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
-        components: ["ftm", "spirit"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-SPIRIT",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-SPIRIT",
-        farmDepositTokenName: "pSPIRIT FTM-SPIRIT",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM);
-
-    export const JAR_FANTOM_SPIRIT_FTM_TREEB: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6b",
-      contract: "0xf1299FC7F719A49Fc015C8A758823d8fE5526110",
-      startBlock: 32699104,
-      depositToken: {
-        addr: "0x2cEfF1982591c8B0a73b36D2A6C2A6964Da0E869",
-        name: "SPIRIT FTM/TREEB",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0xc60d7067dfbc6f2caf30523a064f416a5af52963",
-        components: ["ftm", "treeb"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-TREEB",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-TREEB",
-        farmDepositTokenName: "pSPIRIT FTM-TREEB",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_TREEB);
-
-    export const JAR_FANTOM_SPIRIT_FTM_MAI: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6c",
-      contract: "0xC92445C06E705403b3696814C133AA18511d220E",
-      startBlock: 32699399,
-      depositToken: {
-        addr: "0x51Eb93ECfEFFbB2f6fE6106c4491B5a0B944E8bd",
-        name: "SPIRIT FTM/MAI",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0xfb98b335551a418cd0737375a2ea0ded62ea213b",
-        components: ["ftm", "mimatic"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-MAI",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-MAI",
-        farmDepositTokenName: "pSPIRIT FTM-MAI",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_MAI);
-
-    export const JAR_FANTOM_SPIRIT_FTM_LQDR: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6d",
-      contract: "0x6593178bFc883A57C3fcB4516276494a29B1c49B",
-      startBlock: 32690926,
-      depositToken: {
-        addr: "0x4Fe6f19031239F105F753D1DF8A0d24857D0cAA2",
-        name: "SPIRIT FTM/LQDR",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
-        components: ["ftm", "lqdr"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-LQDR",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-LQDR",
-        farmDepositTokenName: "pSPIRIT FTM-LQDR",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_LQDR);
-
-    export const JAR_FANTOM_SPIRIT_FTM_FRAX: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6e",
-      contract: "0x43982D86a5f42ad48D2c4130FF4BB03c98414937",
-      startBlock: 32699984,
-      depositToken: {
-        addr: "0x7ed0cdDB9BB6c6dfEa6fB63E117c8305479B8D7D",
-        name: "SPIRIT FTM/FRAX",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
-        components: ["ftm", "frax"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-FRAX",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-FRAX",
-        farmDepositTokenName: "pSPIRIT FTM-FRAX",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_FRAX);
-
-    export const JAR_FANTOM_SPIRIT_FTM_DEUS: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6f",
-      contract: "0x1F16C280ad81dc9f6aF845A0aEE0b6F481De4b77",
-      startBlock: 32700275,
-      depositToken: {
-        addr: "0x2599Eba5fD1e49F294C76D034557948034d6C96E",
-        name: "SPIRIT FTM/DEUS",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
-        components: ["ftm", "deus"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-DEUS",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-DEUS",
-        farmDepositTokenName: "pSPIRIT FTM-DEUS",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_DEUS);
-
-    export const JAR_FANTOM_SPIRIT_FTM_CRE8R: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6g",
-      contract: "0xf90F53896a561A4eBAD71f5C10B74026e62661D5",
-      startBlock: 32700560,
-      depositToken: {
-        addr: "0x459e7c947E04d73687e786E4A48815005dFBd49A",
-        name: "SPIRIT FTM/CRE8R",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0x2ad402655243203fcfa7dcb62f8a08cc2ba88ae0",
-        components: ["ftm", "cre8r"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-CRE8R",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-CRE8R",
-        farmDepositTokenName: "pSPIRIT FTM-CRE8R",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_CRE8R);
-
-    export const JAR_FANTOM_SPIRIT_FTM_BIFI: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6h",
-      contract: "0xE9cE4c7EA009AbC1427B7d4501eee26186b923f4",
-      startBlock: 32700862,
-      depositToken: {
-        addr: "0xc28cf9aeBfe1A07A27B3A4d722C841310e504Fe3",
-        name: "SPIRIT FTM/BIFI",
-        link: "https://swap.spiritswap.finance/#/add/FTM/0xd6070ae98b8069de6B494332d1A1a81B6179D960",
-        components: ["ftm", "bifi"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-FTM-BIFI",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT FTM-BIFI",
-        farmDepositTokenName: "pSPIRIT FTM-BIFI",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_FTM_BIFI);
-
-    export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
-      type: AssetType.JAR,
-      id: "fanJar 6i",
-      contract: "0x46C232c456d090776212C360eD63Ed192cCa560d",
-      startBlock: 32701154,
-      depositToken: {
-        addr: "0x8e38543d4c764DBd8f8b98C73407457a3D3b4999",
-        name: "SPIRIT GSCARAB/SCARAB",
-        link: "https://swap.spiritswap.finance/#/add/0x6ab5660f0B1f174CFA84e9977c15645e4848F5D6/0x2e79205648B85485731CFE3025d66cF2d3B059c4",
-        components: ["gscarab", "scarab"],
-        nativePath: {
-          //(SpiritSwap)SpiritRouter --> WFTM, SCARAB
-          target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-          path: [
-            "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-            "0x2e79205648B85485731CFE3025d66cF2d3B059c4",
-          ],
-        },
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Fantom,
-      protocol: AssetProtocol.SPIRITSWAP,
-      stakingProtocol: AssetProtocol.SPIRITSWAP,
-      rewardTokens: ["spirit"],
-      details: {
-        apiKey: "SPIRIT-GSCARAB-SCARAB",
-        harvestStyle: HarvestStyle.PASSIVE,
-        controller: "0xb1698a97b497c998b2b2291bb5c48d1d6075836a",
-      },
-      farm: {
-        farmAddress: NULL_ADDRESS,
-        farmNickname: "pSPIRIT GSCARAB-SCARAB",
-        farmDepositTokenName: "pSPIRIT GSCARAB-SCARAB",
-      },
-    };
-    JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB);
-
-    // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
-
-    // External Assets
-    export const EXTERNAL_DEFINITIONS: ExternalAssetDefinition[] = [];
-    export const ASSET_PBAMM: ExternalAssetDefinition = {
-      type: AssetType.EXTERNAL,
-      id: "B.Protocol BAMM",
-      contract: "0x54bC9113f1f55cdBDf221daf798dc73614f6D972",
-      startBlock: 12787025,
-      depositToken: {
-        addr: "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
-        name: "LUSD",
-        link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Ethereum,
-      protocol: AssetProtocol.BPROTOCOL,
-      details: {
-        apiKey: "PBAMM",
-        includeInTvl: false,
-      },
-    };
-    EXTERNAL_DEFINITIONS.push(ASSET_PBAMM);
-
-    export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
-      type: AssetType.EXTERNAL,
-      id: "Sushi Pickle/Eth",
-      contract: "0xEF0881eC094552b2e128Cf945EF17a6752B4Ec5d", // sushi masterchef v2
-      startBlock: 0000000,
-      depositToken: {
-        addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
-        name: "Sushi PICKLE/ETH",
-        link: "https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH",
-        components: ["pickle", "weth"],
-      },
-      enablement: AssetEnablement.ENABLED,
-      chain: ChainNetwork.Ethereum,
-      protocol: AssetProtocol.SUSHISWAP,
-      details: {
-        apiKey: "sushi-pickle-eth",
-      },
-      tags: ["pool2"],
-    };
-    EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
-
-    export const ALL_ASSETS: PickleAsset[] = []
-      .concat(JAR_DEFINITIONS)
-      .concat(STANDALONE_FARM_DEFINITIONS)
-      .concat(EXTERNAL_DEFINITIONS);
+  export const ALL_ASSETS: PickleAsset[] = []
+    .concat(JAR_DEFINITIONS)
+    .concat(STANDALONE_FARM_DEFINITIONS)
+    .concat(EXTERNAL_DEFINITIONS);
