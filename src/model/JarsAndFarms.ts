@@ -9611,7 +9611,7 @@ export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
     components: ["cre8r", "bomb"],
   },
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.SOLID,
   stakingProtocol: AssetProtocol.SEX,
