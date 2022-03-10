@@ -111,6 +111,7 @@ export const JAR_3CRV: JarDefinition = {
     farmNickname: "pCurve 3pool",
     farmDepositTokenName: "pCurve 3pool",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_3CRV);
 
@@ -1082,6 +1083,7 @@ export const JAR_MIM3CRV: JarDefinition = {
     farmNickname: "pCurve MIM/3CRV",
     farmDepositTokenName: "pCurve MIM/3CRV",
   },
+  tags: ["stablecoins"]
 };
 JAR_DEFINITIONS.push(JAR_MIM3CRV);
 
@@ -1219,6 +1221,7 @@ export const JAR_CURVE_CADCUSDC: JarDefinition = {
     farmNickname: "pCurve CADC/USDC",
     farmDepositTokenName: "pCurve CADC/USDC",
   },
+  tags: ["stablecoins"]
 };
 JAR_DEFINITIONS.push(JAR_CURVE_CADCUSDC);
 
@@ -1500,6 +1503,7 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
     farmNickname: "pUNIv3 FRAX/DAI",
     farmDepositTokenName: "pUNIv3 FRAX/DAI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_DAI);
 
@@ -1611,6 +1615,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     farmNickname: "pUNIv3 USDC/USDT",
     farmDepositTokenName: "pUNIv3 USDC/USDT",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_USDC_USDT);
 
@@ -1640,6 +1645,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     farmNickname: "pUNIv3 WBTC/ETH",
     farmDepositTokenName: "pUNIv3 WBTC/ETH",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_WBTC_ETH);
 
@@ -1699,6 +1705,7 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
     farmNickname: "pUNIv3 FRAX/USDC",
     farmDepositTokenName: "pUNIv3 FRAX/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_USDC);
 
@@ -2096,6 +2103,7 @@ export const JAR_QUICK_MIMATIC_USDC: JarDefinition = {
     farmNickname: "pQuick MAI/USDC",
     farmDepositTokenName: "pQuick MAI/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_QUICK_MIMATIC_USDC);
 
@@ -2553,6 +2561,7 @@ export const JAR_POLY_UNIV3_USDC_USDT: JarDefinition = {
     farmNickname: "pUNIv3 RBN/ETH",
     farmDepositTokenName: "pUNIv3 RBN/ETH",
   },*/
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_USDT);
 
@@ -2726,6 +2735,7 @@ export const JAR_ARBITRUM_MIM2CRV: JarDefinition = {
     farmNickname: "pCurve MIM/2CRV",
     farmDepositTokenName: "pCurve MIM/2CRV",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_MIM2CRV);
 
@@ -3559,6 +3569,7 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
     farmNickname: "pSOLAR DAI/USDC",
     farmDepositTokenName: "pSOLAR DAI/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_DAI_USDC);
 
@@ -3656,6 +3667,7 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
     farmNickname: "pSOLAR USDT/USDC",
     farmDepositTokenName: "pSOLAR USDT/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_USDT_USDC);
 
@@ -3691,6 +3703,7 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
     farmNickname: "pSOLAR BUSD/USDC",
     farmDepositTokenName: "pSOLAR BUSD/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_BUSD_USDC);
 
@@ -3858,6 +3871,7 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
     farmNickname: "pSOLAR MAI/USDC",
     farmDepositTokenName: "pSOLAR MAI/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MAI_USDC);
 
@@ -3893,6 +3907,7 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
     farmNickname: "pSOLAR MIM/USDC",
     farmDepositTokenName: "pSOLAR MIM/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_MIM_USDC);
 
@@ -4603,6 +4618,7 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
     farmNickname: "pVVS USDC/USDT",
     farmDepositTokenName: "pVVS USDC/USDT",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_USDC_USDT);
 
@@ -4988,6 +5004,7 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
     farmNickname: "pTLP USDT/USDC",
     farmDepositTokenName: "pTLP USDT/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT_USDC);
 
@@ -5699,6 +5716,7 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
     farmNickname: "pWLP USDT/USDC",
     farmDepositTokenName: "pWLP USDT/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_AURORA_WANNA_USDT_USDC);
 
@@ -6604,6 +6622,7 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
     farmNickname: "pALP USDT/USDC",
     farmDepositTokenName: "pALP USDT/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_USDT_USDC);
 
@@ -6993,6 +7012,7 @@ export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
     farmNickname: "pNLP USDT/USDC",
     farmDepositTokenName: "pNLP USDT/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_USDT_USDC);
 
@@ -7111,6 +7131,7 @@ export const JAR_METIS_NETSWAP_BUSD_USDC: JarDefinition = {
     farmNickname: "pNLP BUSD/USDC",
     farmDepositTokenName: "pNLP BUSD/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_BUSD_USDC);
 
@@ -7626,6 +7647,7 @@ export const JAR_MOONBEAM_STELLA_USDC_DAI: JarDefinition = {
     farmNickname: "pSLP USDC/DAI",
     farmDepositTokenName: "pSLP USDC/DAI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_USDC_DAI);
 
@@ -7750,6 +7772,7 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
     farmNickname: "pSLP USDC/USDT",
     farmDepositTokenName: "pSLP USDC/USDT",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_STELLA_USDC_USDT);
 
@@ -7847,6 +7870,7 @@ export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
     farmNickname: "pBLP BUSD/USDC",
     farmDepositTokenName: "pBLP BUSD/USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_BUSD_USDC);
 
@@ -7971,6 +7995,7 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
     farmNickname: "pBLP USDC/USDT",
     farmDepositTokenName: "pBLP USDC/USDT",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MOONBEAM_BEAM_USDC_USDT);
 
@@ -9091,6 +9116,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
     farmNickname: "pLQDR-SPIRIT DEI-USDC",
     farmDepositTokenName: "pLQDR-SPIRIT DEI-USDC",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_LQDR_SPIRIT_DEI_USDC);
 
@@ -9491,6 +9517,7 @@ export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
     farmNickname: "pBEETX USDC-DAI-MAI",
     farmDepositTokenName: "pBEETX USDC-DAI-MAI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_BEETX_USDC_DAI_MAI);
 
@@ -9651,6 +9678,7 @@ export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
     farmNickname: "pSEX-SOLID sUSDC-MIM",
     farmDepositTokenName: "pSEX-SOLID sUSDC-MIM",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_MIM);
 
@@ -10279,6 +10307,7 @@ export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
     farmNickname: "pSEX-SOLID sUSDC-DAI",
     farmDepositTokenName: "pSEX-SOLID sUSDC-DAI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_DAI);
 
@@ -10374,6 +10403,7 @@ export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
     farmNickname: "pSEX-SOLID sUSDC-DEI",
     farmDepositTokenName: "pSEX-SOLID sUSDC-DEI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_DEI);
 
@@ -10712,6 +10742,7 @@ export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
     farmNickname: "pSEX-SOLID vUSDC-DAI",
     farmDepositTokenName: "pSEX-SOLID vUSDC-DAI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_USDC_DAI);
 
@@ -11666,6 +11697,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
     farmNickname: "pOxdSolidlyLP USDC/MIM",
     farmDepositTokenName: "pOxdSolidlyLP USDC/MIM",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM);
 
@@ -11694,6 +11726,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
     farmNickname: "pOxdSolidlyLP USDC/DEI",
     farmDepositTokenName: "pOxdSolidlyLP USDC/DEI",
   },
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI);
 
