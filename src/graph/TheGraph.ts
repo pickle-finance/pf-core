@@ -17,6 +17,8 @@ const SUBGRAPH_URL_UNISWAP =
   "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2";
 const SUBGRAPH_URL_UNISWAP_V3_POLYGON =
   "https://api.thegraph.com/subgraphs/name/kalinbas/uniswap-v3-polygon";
+const SUBGRAPH_URL_UNISWAP_V3_MAINNET =
+"https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-subgraph";
 const SUBGRAPH_URL_SUSHISWAP =
   "https://api.thegraph.com/subgraphs/name/croco-finance/sushiswap";
 const SUBGRAPH_URL_SUSHISWAP_POLYGON =
@@ -84,6 +86,8 @@ export function graphUrlFromDetails(
       switch (chain) {
         case ChainNetwork.Polygon:
           return SUBGRAPH_URL_UNISWAP_V3_POLYGON;
+        case ChainNetwork.Ethereum:
+          return SUBGRAPH_URL_UNISWAP_V3_MAINNET;
       }
       break;
     }
@@ -134,7 +138,7 @@ export function graphUrlFromDetails(
     case AssetProtocol.SOLID:
       return SUBGRAPH_URL_SOLIDLY;
 
-    // ADD_PROTOCOL
+      // ADD_PROTOCOL
       return undefined;
   }
 }
