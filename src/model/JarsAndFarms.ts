@@ -49,7 +49,7 @@ export const JAR_sCRV: JarDefinition = {
   startBlock: 10960581,
   depositToken: {
     addr: "0xC25a3A3b969415c80451098fa907EC722572917F",
-    name: "Curve sCRV",
+    name: "CurveLP sCRV",
     link: "https://www.curve.fi/susdv2/deposit",
     components: ["dai", "usdc", "usdt", "susd"],
   },
@@ -72,7 +72,7 @@ export const JAR_renCRV: JarDefinition = {
   startBlock: 11010898,
   depositToken: {
     addr: "0x49849C98ae39Fff122806C06791Fa73784FB3675",
-    name: "Curve REN/BTC",
+    name: "CurveLP REN/BTC",
     link: "https://www.curve.fi/ren/deposit",
     components: ["renbtc", "wbtc"],
   },
@@ -95,7 +95,7 @@ export const JAR_3CRV: JarDefinition = {
   startBlock: 11010885,
   depositToken: {
     addr: "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
-    name: "Curve 3pool",
+    name: "CurveLP 3POOL",
     link: "https://www.curve.fi/3pool/deposit",
     components: ["dai", "usdc", "usdt"],
   },
@@ -123,7 +123,7 @@ export const JAR_steCRV: JarDefinition = {
   startBlock: 11739119,
   depositToken: {
     addr: "0x06325440D014e39736583c165C2963BA99fAf14E",
-    name: "Curve ETH/stETH",
+    name: "CurveLP ETH/stETH",
     link: "https://www.curve.fi/steth/deposit",
     components: ["weth", "steth"],
   },
@@ -253,7 +253,7 @@ export const JAR_ALETH: JarDefinition = {
   startBlock: 12723415,
   depositToken: {
     addr: "0xc9da65931ABf0Ed1b74Ce5ad8c041C4220940368",
-    name: "Saddle ETH/alETH",
+    name: "SaddleLP ETH/alETH",
     link: "https://saddle.exchange/#/pools/aleth/deposit",
   },
   rewardTokens: ["alcx"],
@@ -279,7 +279,7 @@ export const JAR_LQTY: JarDefinition = {
   startBlock: 12649112,
   depositToken: {
     addr: "0x6DEA81C8171D0bA574754EF6F8b412F2Ed88c54D",
-    name: "LQTY",
+    name: "LqtySS",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d",
     components: ["lqty"],
   },
@@ -307,7 +307,7 @@ export const JAR_SUSHI_ETH_DAI: JarDefinition = {
   startBlock: 11471457,
   depositToken: {
     addr: "0xC3D03e4F041Fd4cD388c549Ee2A29a9E5075882f",
-    name: "Sushi DAI/ETH",
+    name: "SushiLP DAI/ETH",
     link: "https://app.sushi.com/add/0x6b175474e89094c44da98b954eedeac495271d0f/ETH",
     components: ["dai", "weth"],
   },
@@ -334,7 +334,7 @@ export const JAR_SUSHI_ETH_USDC: JarDefinition = {
   startBlock: 11474355,
   depositToken: {
     addr: "0x397FF1542f962076d0BFE58eA045FfA2d347ACa0",
-    name: "Sushi USDC/ETH",
+    name: "SushiLP USDC/ETH",
     link: "https://app.sushi.com/add/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48/ETH",
     components: ["usdc", "weth"],
   },
@@ -361,7 +361,7 @@ export const JAR_SUSHI_ETH_USDT: JarDefinition = {
   startBlock: 11474365,
   depositToken: {
     addr: "0x06da0fd433C1A5d7a4faa01111c044910A184553",
-    name: "Sushi USDT/ETH",
+    name: "SushiLP USDT/ETH",
     link: "https://app.sushi.com/add/ETH/0xdac17f958d2ee523a2206206994597c13d831ec7",
     components: ["weth", "usdt"],
   },
@@ -388,7 +388,7 @@ export const JAR_SUSHI_ETH_WBTC: JarDefinition = {
   startBlock: 11474413,
   depositToken: {
     addr: "0xCEfF51756c56CeFFCA006cD410B03FFC46dd3a58",
-    name: "Sushi WBTC/ETH",
+    name: "SushiLP WBTC/ETH",
     link: "https://app.sushi.com/add/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599/ETH",
     components: ["wbtc", "weth"],
   },
@@ -415,7 +415,7 @@ export const JAR_SUSHI_ETH_YFI: JarDefinition = {
   startBlock: 11478789,
   depositToken: {
     addr: "0x088ee5007C98a9677165D78dD2109AE4a3D04d0C",
-    name: "Sushi YFI/ETH",
+    name: "SushiLP YFI/ETH",
     link: "https://app.sushi.com/add/0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e/ETH",
     components: ["yfi", "weth"],
   },
@@ -469,7 +469,7 @@ export const JAR_SUSHI_MIC_USDT: JarDefinition = {
   startBlock: 11616981,
   depositToken: {
     addr: "0xC9cB53B48A2f3A9e75982685644c1870F1405CCb",
-    name: "Sushi MIC/USDT",
+    name: "SushiLP MIC/USDT",
     link: undefined,
     components: ["mic", "usdt"],
   },
@@ -496,7 +496,7 @@ export const JAR_SUSHI_MIS_USDT: JarDefinition = {
   startBlock: 11732925,
   depositToken: {
     addr: "0x066f3a3b7c8fa077c71b9184d862ed0a4d5cf3e0",
-    name: "Sushi MIS/USDT",
+    name: "SushiLP MIS/USDT",
     link: undefined,
     components: ["mis", "usdt"],
   },
@@ -523,7 +523,7 @@ export const JAR_SUSHI_ETH_YVECRV: JarDefinition = {
   startBlock: 11804602,
   depositToken: {
     addr: "0x10B47177E92Ef9D5C6059055d92DdF6290848991",
-    name: "Sushi yveCRV/ETH",
+    name: "SushiLPYearnSS yveCRV/ETH",
     link: "https://app.sushi.com/add/0xc5bddf9843308380375a611c18b50fb9341f502a/ETH",
     components: ["weth", "yvecrv"],
   },
@@ -739,7 +739,7 @@ export const JAR_SUSHI_ETH: JarDefinition = {
   startBlock: 12107605,
   depositToken: {
     addr: "0x795065dCc9f64b5614C407a6EFDC400DA6221FB0",
-    name: "Sushi ETH/SUSHI",
+    name: "SushiLP ETH/SUSHI",
     link: "https://app.sushi.com/add/0x6b3595068778dd592e39a122f4f5a5cf09c90fe2/ETH",
     components: ["sushi", "weth"],
   },
@@ -793,7 +793,7 @@ export const JAR_SADDLE_D4: JarDefinition = {
   startBlock: 12820459,
   depositToken: {
     addr: "0xd48cf4d7fb0824cc8bae055df3092584d0a1726a",
-    name: "Saddle D4",
+    name: "SaddleLP D4",
     link: "https://saddle.exchange/#/pools/d4/deposit",
     components: ["alusd", "fei", "frax", "lusd"],
   },
@@ -847,7 +847,7 @@ export const JAR_SUSHI_ETH_ALCX: JarDefinition = {
   startBlock: 12294044,
   depositToken: {
     addr: "0xC3f279090a47e80990Fe3a9c30d24Cb117EF91a8",
-    name: "Sushi ALCX/ETH",
+    name: "SushiLP ALCX/ETH",
     link: "https://app.sushi.com/add/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2/0xdbdb4d16eda451d0503b854cf79d55697f90c8df",
     components: ["weth", "alcx"],
   },
@@ -874,7 +874,7 @@ export const JAR_SUSHI_ETH_YVBOOST: JarDefinition = {
   startBlock: 12205849,
   depositToken: {
     addr: "0x9461173740D27311b176476FA27e94C681b1Ea6b",
-    name: "Sushi yvBOOST/ETH",
+    name: "SushiLPYearnSS yvBOOST/ETH",
     link: "https://app.sushi.com/add/0x9d409a0A012CFbA9B15F6D4B36Ac57A46966Ab9a/ETH",
     components: ["weth", "yvboost"],
   },
@@ -901,7 +901,7 @@ export const JAR_SUSHI_CVX_ETH: JarDefinition = {
   startBlock: 12602174,
   depositToken: {
     addr: "0x05767d9EF41dC40689678fFca0608878fb3dE906",
-    name: "Sushi CVX/ETH",
+    name: "SushiLP CVX/ETH",
     link: "https://app.sushi.com/add/0x4e3fbd56cd56c3e72c1403e103b45db9da5b9d2b/ETH",
     components: ["cvx", "weth"],
   },
@@ -957,7 +957,7 @@ export const JAR_USDC: JarDefinition = {
   startBlock: 12389759,
   depositToken: {
     addr: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-    name: "Yearn USDC",
+    name: "YearnSS USDC",
     link: "https://etherscan.io/token/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     components: ["usdc"],
     decimals: 6,
@@ -986,7 +986,7 @@ export const JAR_lusdCRV: JarDefinition = {
   startBlock: 12389563,
   depositToken: {
     addr: "0xEd279fDD11cA84bEef15AF5D39BB4d4bEE23F0cA",
-    name: "Yearn LUSD/3CRV",
+    name: "CurveMP LUSD/3CRV",
     link: "https://curve.fi/lusd/deposit",
     components: ["lusd", "3crv"],
   },
@@ -1013,7 +1013,7 @@ export const JAR_fraxCRV: JarDefinition = {
   startBlock: 12746744,
   depositToken: {
     addr: "0xd632f22692FaC7611d2AA1C0D552930D43CAEd3B",
-    name: "Yearn FRAX/3CRV",
+    name: "CurveMP FRAX/3CRV",
     link: "https://curve.fi/frax/deposit",
     components: ["frax", "3crv"],
   },
@@ -1040,7 +1040,7 @@ export const JAR_CRV_IB: JarDefinition = {
   startBlock: 13042523,
   depositToken: {
     addr: "0x5282a4ef67d9c33135340fb3289cc1711c13638c",
-    name: "Yearn Ironbank",
+    name: "CurveLP Ironbank",
     link: "https://curve.fi/ib/deposit",
     components: ["dai", "usdc", "usdt"],
   },
@@ -1067,7 +1067,7 @@ export const JAR_MIM3CRV: JarDefinition = {
   startBlock: 12877157,
   depositToken: {
     addr: "0x5a6A4D54456819380173272A5E8E9B9904BdF41B",
-    name: "Curve MIM/3CRV",
+    name: "CurveMP MIM/3CRV",
     link: "https://curve.fi/mim/deposit",
     components: ["mim", "3crv"], // TODO
   },
@@ -1095,7 +1095,7 @@ export const JAR_SPELLETH: JarDefinition = {
   startBlock: 12877133,
   depositToken: {
     addr: "0xb5De0C3753b6E1B4dBA616Db82767F17513E6d4E",
-    name: "Sushi SPELL/ETH",
+    name: "SushiLP SPELL/ETH",
     link: "https://app.sushi.com/add/ETH/0x090185f2135308BaD17527004364eBcC2D37e5F6",
     components: ["spell", "weth"], // TODO
   },
@@ -1122,7 +1122,7 @@ export const JAR_MIMETH: JarDefinition = {
   startBlock: 12877132,
   depositToken: {
     addr: "0x07D5695a24904CC1B6e3bd57cC7780B90618e3c4",
-    name: "Sushi MIM/ETH",
+    name: "SushiLP MIM/ETH",
     link: "https://app.sushi.com/add/ETH/0x99D8a9C45b2ecA8864373A26D1459e3Dff1e17F3",
     components: ["mim", "weth"],
   },
@@ -1176,7 +1176,7 @@ export const JAR_CURVE_CVXCRVLP: JarDefinition = {
   startBlock: 13373540,
   depositToken: {
     addr: "0x9D0464996170c6B9e75eED71c68B99dDEDf279e8",
-    name: "Curve cvxCRV/CRV",
+    name: "CurveLPConvexSS CRV/cvxCRV",
     link: "https://curve.fi/factory/22/deposit",
     components: ["crv", "cvxcrv"],
   },
@@ -1204,7 +1204,7 @@ export const JAR_CURVE_CADCUSDC: JarDefinition = {
   startBlock: 14568187,
   depositToken: {
     addr: "0x1054Ff2ffA34c055a13DCD9E0b4c0cA5b3aecEB9",
-    name: "Curve CADC/USDC",
+    name: "CurveLP CADC/USDC",
     link: "https://curve.fi/factory-crypto/12/deposit",
     components: ["cadc", "usdc"],
   },
@@ -1233,9 +1233,9 @@ export const JAR_CVXCRV: JarDefinition = {
   startBlock: 13406257,
   depositToken: {
     addr: "0x62B9c7356A2Dc64a1969e19C23e4f579F9810Aa7",
-    name: "Curve cvxCRV",
+    name: "CurveLPConvexSS cvxCRV/CRV",
     link: "https://curve.fi/factory/22",
-    components: ["cvxcrv"],
+    components: ["cvxcrv", "crv"],
   },
   rewardTokens: ["cvx", "crv", "3crv"],
   stakingProtocol: AssetProtocol.CONVEX,
@@ -1262,7 +1262,7 @@ export const JAR_CURVE_CRVETHLP: JarDefinition = {
   startBlock: 13743179,
   depositToken: {
     addr: "0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d",
-    name: "Curve CRV/ETH",
+    name: "CurveLP CRV/ETH",
     link: "https://curve.fi/crveth/deposit",
     components: ["crv", "weth"],
   },
@@ -1290,7 +1290,7 @@ export const JAR_CURVE_CVXETHLP: JarDefinition = {
   startBlock: 13886154,
   depositToken: {
     addr: "0x3A283D9c08E8b55966afb64C515f5143cf907611",
-    name: "Curve CVX/ETH",
+    name: "CurveLP CVX/ETH",
     link: "https://curve.fi/cvxeth/deposit",
     components: ["cvx", "weth"],
   },
@@ -1318,7 +1318,7 @@ export const JAR_SUSHI_ETH_TRU: JarDefinition = {
   startBlock: 12968282,
   depositToken: {
     addr: "0xfCEAAf9792139BF714a694f868A215493461446D",
-    name: "Sushi TRU/ETH",
+    name: "SushiLP TRU/ETH",
     link: "https://app.sushi.com/add/ETH/0x4C19596f5aAfF459fA38B0f7eD92F11AE6543784",
     components: ["tru", "weth"],
   },
@@ -1345,7 +1345,7 @@ export const JAR_SUSHI_NEWO_USDC: JarDefinition = {
   startBlock: 13975836,
   depositToken: {
     addr: "0xB264dC9D22ece51aAa6028C5CBf2738B684560D6",
-    name: "Sushi NEWO/USDC",
+    name: "SushiLP NEWO/USDC",
     link: "https://app.sushi.com/add/0x1b890fd37cd50bea59346fc2f8ddb7cd9f5fabd5/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
     components: ["newo", "usdc"],
   },
@@ -1399,7 +1399,7 @@ export const JAR_LOOKS: JarDefinition = {
   startBlock: 14027712,
   depositToken: {
     addr: "0xf4d2888d29D722226FafA5d9B24F9164c092421E",
-    name: "LOOKS",
+    name: "LooksrareSS LOOKS",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xf4d2888d29d722226fafa5d9b24f9164c092421e",
     components: ["looks"],
   },
@@ -1426,7 +1426,7 @@ export const JAR_CURVE_CVXFXS_FXS_LP: JarDefinition = {
   startBlock: 14318341,
   depositToken: {
     addr: "0xF3A43307DcAFa93275993862Aae628fCB50dC768",
-    name: "Curve CVXFXS/FXS",
+    name: "CurveLPConvexSS cvxFXS/FXS",
     link: "https://curve.fi/factory-crypto/18/deposit",
     components: ["fxs", "cvxfxs"],
   },
@@ -1453,7 +1453,7 @@ export const JAR_CURVE_STG_USDC_LP: JarDefinition = {
   startBlock: 14663933,
   depositToken: {
     addr: "0xdf55670e27bE5cDE7228dD0A6849181891c9ebA1",
-    name: "Curve STG/USDC",
+    name: "CurveLP STG/USDC",
     link: "https://curve.fi/factory-crypto/37/deposit",
     components: ["stg", "usdc"],
   },
@@ -1802,7 +1802,7 @@ export const JAR_STAR_USDC: JarDefinition = {
   startBlock: 14490890,
   depositToken: {
     addr: "0xdf0770dF86a8034b3EFEf0A1Bb3c889B8332FF56",
-    name: "STARGATE USDC",
+    name: "StargateSS USDC",
     link: "https://stargate.finance/pool/USDC-ETH/add",
     components: ["usdc"],
     decimals: 6,
@@ -1833,7 +1833,7 @@ export const JAR_STAR_USDT: JarDefinition = {
   startBlock: 14490878,
   depositToken: {
     addr: "0x38EA452219524Bb87e18dE1C24D3bB59510BD783",
-    name: "STARGATE USDT",
+    name: "StargateSS USDT",
     link: "https://stargate.finance/pool/USDT-ETH/add",
     components: ["usdt"],
     decimals: 6,
@@ -1866,7 +1866,7 @@ export const JAR_COMETH_USDC_WETH: JarDefinition = {
   startBlock: 13624727,
   depositToken: {
     addr: "0x1Edb2D8f791D2a51D56979bf3A25673D6E783232",
-    name: "Cometh USDC/WETH",
+    name: "ComethLP USDC/WETH",
     link: "https://swap.cometh.io/#/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
     components: ["usdc", "weth"],
     nativePath: {
@@ -1901,7 +1901,7 @@ export const JAR_COMETH_PICKLE_MUST: JarDefinition = {
   startBlock: 15164840,
   depositToken: {
     addr: "0xb0b5e3bd18eb1e316bcd0bba876570b3c1779c55",
-    name: "Cometh PICKLE/MUST",
+    name: "ComethLP PICKLE/MUST",
     link: "https://swap.cometh.io/#/add/0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f/0x2b88ad57897a8b496595925f43048301c37615da",
     components: ["pickle", "must"],
     nativePath: {
@@ -1936,7 +1936,7 @@ export const JAR_COMETH_MATIC_MUST: JarDefinition = {
   startBlock: 15164454,
   depositToken: {
     addr: "0x80676b414a905de269d0ac593322af821b683b92",
-    name: "Cometh MATIC/MUST",
+    name: "ComethLP MATIC/MUST",
     link: "https://swap.cometh.io/#/add/0x9c78ee466d6cb57a4d01fd887d2b5dfb2d46288f/0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
     components: ["matic", "must"],
   },
@@ -1963,7 +1963,7 @@ export const JAR_AAVEDAI: JarDefinition = {
   startBlock: 14164165,
   depositToken: {
     addr: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
-    name: "DAI",
+    name: "AaveSS DAI",
     link: "https://polygonscan.com/token/0x8f3cf7ad23cd3cadbd9735aff958023239c6a063?a=0x5143e71982a2d5dc63a77f0a5611685cf13c5aaf",
     components: ["dai"],
   },
@@ -1990,7 +1990,7 @@ export const JAR_AM3CRV: JarDefinition = {
   startBlock: 14172938,
   depositToken: {
     addr: "0xE7a24EF0C5e95Ffb0f6684b813A78F2a3AD7D171",
-    name: "Curve am3CRV",
+    name: "AaveSSCurveLP am3CRV",
     link: "https://polygon.curve.fi/aave/deposit",
     components: ["dai", "usdc", "usdt"], // TODO
   },
@@ -2017,7 +2017,7 @@ export const JAR_POLY_SUSHI_ETH_USDT: JarDefinition = {
   startBlock: 15165384,
   depositToken: {
     addr: "0xc2755915a85c6f6c1c0f3a86ac8c058f11caa9c9",
-    name: "Sushi USDT/ETH",
+    name: "SushiLP USDT/ETH",
     link: "https://app.sushi.com/#/add/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/0xc2132d05d31c914a87c6611c10748aeb04b58e8f",
     components: ["weth", "usdt"],
     nativePath: {
@@ -2052,7 +2052,7 @@ export const JAR_POLY_SUSHI_MATIC_ETH: JarDefinition = {
   startBlock: 15208969,
   depositToken: {
     addr: "0xc4e595acdd7d12fec385e5da5d43160e8a0bac0e",
-    name: "Sushi MATIC/ETH",
+    name: "SushiLP MATIC/ETH",
     link: "https://app.sushi.com/add/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619/0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
     components: ["weth", "matic"],
   },
@@ -2079,7 +2079,7 @@ export const JAR_QUICKmiMATICUSDC_old: JarDefinition = {
   startBlock: 15597905,
   depositToken: {
     addr: "0x160532d2536175d65c03b97b0630a9802c274dad",
-    name: "Quick MAI/USDC",
+    name: "QuickLP MAI/USDC",
     link: "https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
     components: ["usdc", "mimatic"],
   },
@@ -2106,7 +2106,7 @@ export const JAR_QUICK_MIMATIC_USDC: JarDefinition = {
   startBlock: 16364140,
   depositToken: {
     addr: "0x160532d2536175d65c03b97b0630a9802c274dad",
-    name: "Quick MAI/USDC",
+    name: "QuickLP MAI/USDC",
     link: "https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
     components: ["usdc", "mimatic"],
     nativePath: {
@@ -2142,7 +2142,7 @@ export const JAR_QUICK_QI_MIMATIC: JarDefinition = {
   startBlock: 16651328,
   depositToken: {
     addr: "0x7AfcF11F3e2f01e71B7Cc6b8B5e707E42e6Ea397",
-    name: "Quick QI/MIMATIC",
+    name: "QuickLP QI/MIMATIC",
     link: "https://quickswap.exchange/#/add/0xa3Fa99A148fA48D14Ed51d610c367C61876997F1/0x580A84C73811E1839F75d86d75d88cCa0c241fF4",
     components: ["qi", "mimatic"],
   },
@@ -2170,7 +2170,7 @@ export const JAR_QUICK_QI_MATIC: JarDefinition = {
   startBlock: 18894454,
   depositToken: {
     addr: "0x9a8b2601760814019b7e6ee0052e25f1c623d1e6",
-    name: "Quick QI/MATIC",
+    name: "QuickLP QI/MATIC",
     link: "https://quickswap.exchange/#/add/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270/0x580A84C73811E1839F75d86d75d88cCa0c241fF4",
     components: ["qi", "matic"],
   },
@@ -2224,7 +2224,7 @@ export const JAR_SUSHI_DINO_USDC: JarDefinition = {
   startBlock: 17630603,
   depositToken: {
     addr: "0x3324af8417844e70b81555A6D1568d78f4D4Bf1f",
-    name: "Sushi DINO/USDC",
+    name: "SushiLP DINO/USDC",
     link: "https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
     components: ["dino", "usdc"],
     nativePath: {
@@ -2259,7 +2259,7 @@ export const JAR_QUICK_DINO_ETH: JarDefinition = {
   startBlock: 17666490,
   depositToken: {
     addr: "0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11",
-    name: "Quick DINO/ETH",
+    name: "QuickLP DINO/ETH",
     link: "https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
     components: ["dino", "weth"],
     nativePath: {
@@ -2294,7 +2294,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
   startBlock: 18639788,
   depositToken: {
     addr: "0x57602582eB5e82a197baE4E8b6B80E39abFC94EB",
-    name: "Sushi PICKLE/DAI",
+    name: "SushiLP PICKLE/DAI",
     link: "https://app.sushi.com/add/0x2b88aD57897A8b496595925F43048301C37615Da/0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
     components: ["pickle", "dai"],
     nativePath: {
@@ -2325,7 +2325,7 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
   startBlock: 19901812,
   depositToken: {
     addr: "0xab0454b98daf4a02ea29292e6a8882fb2c787dd4",
-    name: "Sushi WORK/USDC",
+    name: "SushiLP WORK/USDC",
     link: "https://app.sushi.com/add/0x2791bca1f2de4661ed88a30c99a7a9449aa84174/0x6002410dDA2Fb88b4D0dc3c1D562F7761191eA80",
     components: ["usdc", "work"],
     nativePath: {
@@ -2355,7 +2355,7 @@ export const JAR_POLY_SUSHI_RAIDER_MATIC: JarDefinition = {
   startBlock: 23688904,
   depositToken: {
     addr: "0x2E7d6490526C7d7e2FDEa5c6Ec4b0d1b9F8b25B7",
-    name: "Sushi RAIDER/MATIC",
+    name: "SushiLP RAIDER/MATIC",
     link: "https://app.sushi.com/add/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     components: ["raider", "matic"],
   },
@@ -2382,7 +2382,7 @@ export const JAR_POLY_SUSHI_RAIDER_WETH: JarDefinition = {
   startBlock: 23689010,
   depositToken: {
     addr: "0x426a56F6923c2B8A488407fc1B38007317ECaFB1",
-    name: "Sushi RAIDER/WETH",
+    name: "SushiLP RAIDER/WETH",
     link: "https://app.sushi.com/add/0xcd7361ac3307d1c5a46b63086a90742ff44c63b3/0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
     components: ["raider", "weth"],
     nativePath: {
@@ -2417,7 +2417,7 @@ export const JAR_POLY_SUSHI_AURUM_MATIC: JarDefinition = {
   startBlock: 23688802,
   depositToken: {
     addr: "0x91670a2A69554c61d814CD7f406D7793387E68Ef",
-    name: "Sushi AURUM/MATIC",
+    name: "SushiLP AURUM/MATIC",
     link: "https://app.sushi.com/add/0x34d4ab47bee066f361fa52d792e69ac7bd05ee23/0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     components: ["aurum", "matic"],
   },
@@ -2444,7 +2444,7 @@ export const JAR_POLY_SUSHI_AURUM_USDC: JarDefinition = {
   startBlock: 23689116,
   depositToken: {
     addr: "0xaBEE7668a96C49D27886D1a8914a54a5F9805041",
-    name: "Sushi AURUM/USDC",
+    name: "SushiLP AURUM/USDC",
     link: "https://app.sushi.com/add/0x34d4ab47bee066f361fa52d792e69ac7bd05ee23/0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
     components: ["aurum", "usdc"],
     nativePath: {
@@ -2625,7 +2625,7 @@ export const JAR_POLY_STAR_USDT: JarDefinition = {
   startBlock: 26557778,
   depositToken: {
     addr: "0x29e38769f23701A2e4A8Ef0492e19dA4604Be62c",
-    name: "STARGATE USDT",
+    name: "StargateSS USDT",
     link: "https://stargate.finance/pool/USDT-MATIC/add",
     components: ["usdt"],
     decimals: 6,
@@ -2655,7 +2655,7 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
   startBlock: 26556897,
   depositToken: {
     addr: "0x1205f31718499dBf1fCa446663B532Ef87481fe1",
-    name: "STARGATE USDC",
+    name: "StargateSS USDC",
     link: "https://stargate.finance/pool/USDC-MATIC/add",
     components: ["usdc"],
     decimals: 6,
@@ -2687,7 +2687,7 @@ export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition = {
   startBlock: 1176280,
   depositToken: {
     addr: "0xb6DD51D5425861C808Fd60827Ab6CFBfFE604959",
-    name: "Sushi MIM/ETH",
+    name: "SushiLP MIM/ETH",
     link: "https://app.sushi.com/add/0xFEa7a6a0B346362BF88A9e4A88416B77a57D6c2A/ETH",
     components: ["mim", "weth"],
   },
@@ -2714,7 +2714,7 @@ export const JAR_ARBITRUM_SLP_SPELL_ETH: JarDefinition = {
   startBlock: 1394180,
   depositToken: {
     addr: "0x8f93Eaae544e8f5EB077A1e09C1554067d9e2CA8",
-    name: "Sushi SPELL/ETH",
+    name: "SushiLP SPELL/ETH",
     link: "https://app.sushi.com/add/0x3e6648c5a70a150a88bce65f4ad4d506fe15d2af/ETH",
     components: ["spell", "weth"],
   },
@@ -2741,7 +2741,7 @@ export const JAR_ARBITRUM_MIM2CRV: JarDefinition = {
   startBlock: 1539551,
   depositToken: {
     addr: "0x30dF229cefa463e991e29D42DB0bae2e122B2AC7",
-    name: "Curve MIM/2CRV",
+    name: "CurveMP MIM/2CRV",
     link: "https://arbitrum.curve.fi/factory/0/deposit",
     components: ["mim", "2crv"],
   },
@@ -2769,7 +2769,7 @@ export const JAR_ARBITRUM_SLP_GOHM_ETH: JarDefinition = {
   startBlock: 4032750,
   depositToken: {
     addr: "0xaa5bD49f2162ffdC15634c87A77AC67bD51C6a6D",
-    name: "Sushi GOHM/ETH",
+    name: "SushiLP GOHM/ETH",
     link: "https://app.sushi.com/add/0x8d9ba570d6cb60c7e3e0f31343efe75ab8e65fb1/ETH",
     components: ["gohm", "weth"],
   },
@@ -2796,7 +2796,7 @@ export const JAR_ARBITRUM_SLP_MAGIC_ETH: JarDefinition = {
   startBlock: 4032975,
   depositToken: {
     addr: "0xB7E50106A5bd3Cf21AF210A755F9C8740890A8c9",
-    name: "Sushi MAGIC/ETH",
+    name: "SushiLP MAGIC/ETH",
     link: "https://app.sushi.com/add/0x539bde0d7dbd336b79148aa742883198bbf60342/ETH",
     components: ["magic", "weth"],
   },
@@ -2823,7 +2823,7 @@ export const JAR_ARBITRUM_DODO_HND_ETH: JarDefinition = {
   startBlock: 1927492,
   depositToken: {
     addr: "0x65E17c52128396443d4A9A61EaCf0970F05F8a20",
-    name: "Dodo HND/ETH",
+    name: "DodoLP HND/ETH",
     link: "https://app.dodoex.io/liquidity?poolAddress=0x65e17c52128396443d4a9a61eacf0970f05f8a20",
     components: ["hnd", "weth"],
   },
@@ -2850,7 +2850,7 @@ export const JAR_ARBITRUM_DODO_USDC: JarDefinition = {
   startBlock: 2794134,
   depositToken: {
     addr: "0x6a58c68FF5C4e4D90EB6561449CC74A64F818dA5",
-    name: "Dodo DODO/USDC",
+    name: "DodoLP DODO/USDC",
     link: "https://app.dodoex.io/liquidity?network=arbitrum&poolAddress=0x6a58c68ff5c4e4d90eb6561449cc74a64f818da5",
     components: ["dodo", "usdc"],
   },
@@ -2877,7 +2877,7 @@ export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition = {
   startBlock: 1704755,
   depositToken: {
     addr: "0x8e0b8c8bb9db49a46697f3a5bb8a308e744821d2",
-    name: "Curve Tricrypto",
+    name: "CurveLP Tricrypto",
     link: "https://arbitrum.curve.fi/tricrypto/deposit",
     components: ["usdt", "wbtc", "weth"],
   },
@@ -2891,8 +2891,8 @@ export const JAR_ARBITRUM_CRV_TRICRYPTO: JarDefinition = {
   },
   farm: {
     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-    farmNickname: "Curve Tricrypto",
-    farmDepositTokenName: "Curve Tricrypto",
+    farmNickname: "CurveLP Tricrypto",
+    farmDepositTokenName: "CurveLP Tricrypto",
   },
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_CRV_TRICRYPTO);
@@ -2904,7 +2904,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
   startBlock: 1489610,
   depositToken: {
     addr: "0x64541216bafffeec8ea535bb71fbc927831d0595",
-    name: "Balancer Tricrypto",
+    name: "BalancerLP USDC/wBTC/wETH",
     link: "https://arbitrum.balancer.fi/#/pool/0x64541216bafffeec8ea535bb71fbc927831d0595000100000000000000000002/invest",
     components: ["usdc", "wbtc", "weth"],
   },
@@ -2918,8 +2918,8 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
   },
   farm: {
     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-    farmNickname: "Balancer Tricrypto",
-    farmDepositTokenName: "Balancer Tricrypto",
+    farmNickname: "BalancerLP USDC/wBTC/wETH",
+    farmDepositTokenName: "BalancerLP USDC/wBTC/wETH",
   },
   tags: ["cooldown"],
 };
@@ -2932,7 +2932,7 @@ export const JAR_ARBITRUM_BAL_PICKLE_ETH: JarDefinition = {
   startBlock: 4449395,
   depositToken: {
     addr: "0xc2F082d33b5B8eF3A7E3de30da54EFd3114512aC",
-    name: "Balancer PICKLE/ETH",
+    name: "BalancerLP PICKLE/ETH",
     link: "https://arbitrum.balancer.fi/#/pool/0xc2f082d33b5b8ef3a7e3de30da54efd3114512ac000200000000000000000017/invest",
     components: ["pickle", "weth"],
   },
@@ -2946,8 +2946,8 @@ export const JAR_ARBITRUM_BAL_PICKLE_ETH: JarDefinition = {
   },
   farm: {
     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-    farmNickname: "Balancer PICKLE/ETH",
-    farmDepositTokenName: "Balancer PICKLE/ETH",
+    farmNickname: "BalancerLP PICKLE/ETH",
+    farmDepositTokenName: "BalancerLP PICKLE/ETH",
   },
   tags: ["pool2", "cooldown"],
 };
@@ -2960,7 +2960,7 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
   startBlock: 4479885,
   depositToken: {
     addr: "0xcC65A812ce382aB909a11E434dbf75B34f1cc59D",
-    name: "Balancer BAL/ETH",
+    name: "BalancerLP BAL/ETH",
     link: "https://arbitrum.balancer.fi/#/pool/0xcc65a812ce382ab909a11e434dbf75b34f1cc59d000200000000000000000001/invest",
     components: ["bal", "weth"],
   },
@@ -2974,8 +2974,8 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
   },
   farm: {
     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-    farmNickname: "Balancer BAL/ETH",
-    farmDepositTokenName: "Balancer BAL/ETH",
+    farmNickname: "BalancerLP BAL/ETH",
+    farmDepositTokenName: "BalancerLP BAL/ETH",
   },
   tags: ["cooldown"],
 };
@@ -2988,7 +2988,7 @@ export const JAR_ARBITRUM_BAL_VSTA_ETH: JarDefinition = {
   startBlock: 5711179,
   depositToken: {
     addr: "0xC61ff48f94D801c1ceFaCE0289085197B5ec44F0",
-    name: "Balancer VSTA/ETH",
+    name: "BalancerLP VSTA/ETH",
     link: "https://arbitrum.balancer.fi/#/pool/0xc61ff48f94d801c1ceface0289085197b5ec44f000020000000000000000004d/invest",
     components: ["vsta", "weth"],
   },
@@ -3002,8 +3002,8 @@ export const JAR_ARBITRUM_BAL_VSTA_ETH: JarDefinition = {
   },
   farm: {
     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-    farmNickname: "Balancer VSTA/ETH",
-    farmDepositTokenName: "Balancer VSTA/ETH",
+    farmNickname: "BalancerLP VSTA/ETH",
+    farmDepositTokenName: "BalancerLP VSTA/ETH",
   },
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_BAL_VSTA_ETH);
@@ -3015,7 +3015,7 @@ export const JAR_ARBITRUM_STAR_USDC: JarDefinition = {
   startBlock: 8778855,
   depositToken: {
     addr: "0x892785f33CdeE22A30AEF750F285E18c18040c3e",
-    name: "STARGATE USDC",
+    name: "StargateSS USDC",
     link: "https://stargate.finance/pool/USDC-ARBITRUM/add",
     components: ["usdc"],
     decimals: 6,
@@ -3045,7 +3045,7 @@ export const JAR_ARBITRUM_STAR_USDT: JarDefinition = {
   startBlock: 8792774,
   depositToken: {
     addr: "0xb6cfcf89a7b22988bfc96632ac2a9d6dab60d641",
-    name: "STARGATE USDT",
+    name: "StargateSS USDT",
     link: "https://stargate.finance/pool/USDT-ARBITRUM/add",
     components: ["usdt"],
     decimals: 6,
@@ -3077,7 +3077,7 @@ export const JAR_OKEX_OKT_CHE: JarDefinition = {
   startBlock: 4794097,
   depositToken: {
     addr: "0x8E68C0216562BCEA5523b27ec6B9B6e1cCcBbf88",
-    name: "Cherry OKT/CHE",
+    name: "CherryLP OKT/CHE",
     link: "https://www.cherryswap.net/#/add/ETH/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
     components: ["wokt", "cherry"],
   },
@@ -3104,7 +3104,7 @@ export const JAR_OKEX_USDT_CHE: JarDefinition = {
   startBlock: 5125777,
   depositToken: {
     addr: "0x089dedbFD12F2aD990c55A2F1061b8Ad986bFF88",
-    name: "Cherry USDT/CHE",
+    name: "CherryLP USDT/CHE",
     link: "https://www.cherryswap.net/#/add/0x382bb369d343125bfb2117af9c149795c6c65c50/0x8179D97Eb6488860d816e3EcAFE694a4153F216c",
     components: ["usdt", "cherry"],
     nativePath: {
@@ -3139,7 +3139,7 @@ export const JAR_OKEX_OKT_USDT: JarDefinition = {
   startBlock: 5149060,
   depositToken: {
     addr: "0xF3098211d012fF5380A03D80f150Ac6E5753caA8",
-    name: "Cherry OKT/USDT",
+    name: "CherryLP OKT/USDT",
     link: "https://www.cherryswap.net/#/add/ETH/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["wokt", "usdt"],
   },
@@ -3166,7 +3166,7 @@ export const JAR_OKEX_ETHK_USDT: JarDefinition = {
   startBlock: 5149047,
   depositToken: {
     addr: "0x407F7a2F61E5bAB199F7b9de0Ca330527175Da93",
-    name: "Cherry ETHK/USDT",
+    name: "CherryLP ETHK/USDT",
     link: "https://www.cherryswap.net/#/add/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["ethk", "usdt"],
     nativePath: {
@@ -3201,7 +3201,7 @@ export const JAR_OKEX_BXH_USDT: JarDefinition = {
   startBlock: 5291418,
   depositToken: {
     addr: "0x04b2C23Ca7e29B71fd17655eb9Bd79953fA79faF",
-    name: "BXH USDT/BXH",
+    name: "BxhLP USDT/BXH",
     link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["bxh", "usdt"],
     nativePath: {
@@ -3236,7 +3236,7 @@ export const JAR_OKEX_ETHK_BTCK: JarDefinition = {
   startBlock: 5418700,
   depositToken: {
     addr: "0x3799Fb39b7fA01E23338C1C3d652FB1AB6E7D5BC",
-    name: "BXH ETHK/BTCK",
+    name: "BxhLP ETHK/BTCK",
     link: "https://okswap.bxh.com/#/add/0x145ad28a42bf334104610f7836d0945dffb6de63/0x382bb369d343125bfb2117af9c149795c6c65c50",
     components: ["ethk", "btck"],
     nativePath: {
@@ -3272,7 +3272,7 @@ export const JAR_OKEX_JSWAP_JF_USDT: JarDefinition = {
   startBlock: 6606240,
   depositToken: {
     addr: "0x8009edebBBdeb4A3BB3003c79877fCd98ec7fB45",
-    name: "JSWAP JF/USDT",
+    name: "JswapLP JF/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A",
     components: ["jswap", "usdt"],
     nativePath: {
@@ -3307,7 +3307,7 @@ export const JAR_OKEX_JSWAP_BTCK_USDT: JarDefinition = {
   startBlock: 6619152,
   depositToken: {
     addr: "0x838a7a7f3e16117763c109d98c79ddcd69f6fd6e",
-    name: "JSWAP BTCK/USDT",
+    name: "JswapLP BTCK/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0x54e4622DC504176b3BB432dCCAf504569699a7fF",
     components: ["btck", "usdt"],
     nativePath: {
@@ -3342,7 +3342,7 @@ export const JAR_OKEX_JSWAP_ETHK_USDT: JarDefinition = {
   startBlock: 6619212,
   depositToken: {
     addr: "0xeb02a695126b998e625394e43dfd26ca4a75ce2b",
-    name: "JSWAP ETHK/USDT",
+    name: "JswapLP ETHK/USDT",
     link: "https://app.jswap.finance/#/add/0x382bB369d343125BfB2117af9c149795C6C65C50/0xEF71CA2EE68F45B9Ad6F72fbdb33d707b872315C",
     components: ["ethk", "usdt"],
     nativePath: {
@@ -3377,7 +3377,7 @@ export const JAR_OKEX_JSWAP_USDT_DAIK: JarDefinition = {
   startBlock: 6878063,
   depositToken: {
     addr: "0xE9313b7dea9cbaBd2df710C25bef44A748Ab38a9",
-    name: "JSWAP DAIK/USDT",
+    name: "JswapLP DAIK/USDT",
     link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0x382bB369d343125BfB2117af9c149795C6C65C50",
     components: ["daik", "usdt"],
     nativePath: {
@@ -3412,7 +3412,7 @@ export const JAR_OKEX_JSWAP_DAIK_USDC: JarDefinition = {
   startBlock: 6878122,
   depositToken: {
     addr: "0xa25E1C05c58EDE088159cc3cD24f49445d0BE4b2",
-    name: "JSWAP DAIK/USDC",
+    name: "JswapLP DAIK/USDC",
     link: "https://app.jswap.finance/#/add/0x21cDE7E32a6CAF4742d00d44B07279e7596d26B9/0xc946DAf81b08146B1C7A8Da2A851Ddf2B3EAaf85",
     components: ["daik", "usdc"],
   },
@@ -3441,7 +3441,7 @@ export const JAR_ONE_SUSHI_ETH_DAI: JarDefinition = {
   startBlock: 19300856,
   depositToken: {
     addr: "0xc5B8129B411EF5f5BE22e74De6fE86C3b69e641d",
-    name: "SUSHI ETH/DAI",
+    name: "SushiLP ETH/DAI",
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/0xEf977d2f931C1978Db5F6747666fa1eACB0d0339",
     components: ["1eth", "1dai"],
     nativePath: {
@@ -3476,7 +3476,7 @@ export const JAR_ONE_SUSHI_WBTC_ETH: JarDefinition = {
   startBlock: 19300859,
   depositToken: {
     addr: "0x39bE7c95276954a6f7070F9BAa38db2123691Ed0",
-    name: "SUSHI WBTC/ETH",
+    name: "SushiLP WBTC/ETH",
     link: "https://app.sushi.com/add/0x3095c7557bCb296ccc6e363DE01b760bA031F2d9/0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
     components: ["1wbtc", "1eth"],
     nativePath: {
@@ -3511,7 +3511,7 @@ export const JAR_ONE_SUSHI_ETH_ONE: JarDefinition = {
   startBlock: 19300863,
   depositToken: {
     addr: "0xeb049F1eD546F8efC3AD57f6c7D22F081CcC7375",
-    name: "SUSHI ETH/ONE",
+    name: "SushiLP ETH/ONE",
     link: "https://app.sushi.com/add/0x6983D1E6DEf3690C4d616b13597A09e6193EA013/ETH",
     components: ["1eth", "wone"],
   },
@@ -3540,7 +3540,7 @@ export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
   startBlock: 946063,
   depositToken: {
     addr: "0x7eDA899b3522683636746a2f3a7814e6fFca75e1",
-    name: "SOLAR SOLAR/MOVR",
+    name: "SolarLP SOLAR/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/ETH",
     components: ["solar", "movr"],
   },
@@ -3567,7 +3567,7 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
   startBlock: 954716,
   depositToken: {
     addr: "0xFE1b71BDAEE495dCA331D28F5779E87bd32FbE53",
-    name: "SOLAR DAI/USDC",
+    name: "SolarLP DAI/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["dai", "usdc"],
     nativePath: {
@@ -3603,7 +3603,7 @@ export const JAR_MOVR_SOLAR_MOVR_USDC: JarDefinition = {
   startBlock: 949593,
   depositToken: {
     addr: "0xe537f70a8b62204832B8Ba91940B77d3f79AEb81",
-    name: "SOLAR MOVR/USDC",
+    name: "SolarLP MOVR/USDC",
     link: "https://app.solarbeam.io/exchange/add/ETH/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["movr", "usdc"],
   },
@@ -3630,7 +3630,7 @@ export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
   startBlock: 950113,
   depositToken: {
     addr: "0xdb66BE1005f5Fe1d2f486E75cE3C50B52535F886",
-    name: "SOLAR SOLAR/USDC",
+    name: "SolarLP SOLAR/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["solar", "usdc"],
     nativePath: {
@@ -3665,7 +3665,7 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
   startBlock: 955172,
   depositToken: {
     addr: "0x2a44696DDc050f14429bd8a4A05c750C6582bF3b",
-    name: "SOLAR USDT/USDC",
+    name: "SolarLP USDT/USDC",
     link: "https://app.solarbeam.io/exchange/add/0xB44a9B6905aF7c801311e8F4E76932ee959c663C/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["usdt", "usdc"],
     nativePath: {
@@ -3701,7 +3701,7 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
   startBlock: 955281,
   depositToken: {
     addr: "0x384704557F73fBFAE6e9297FD1E6075FC340dbe5",
-    name: "SOLAR BUSD/USDC",
+    name: "SolarLP BUSD/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["busd", "usdc"],
     nativePath: {
@@ -3737,7 +3737,7 @@ export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
   startBlock: 955846,
   depositToken: {
     addr: "0xA0D8DFB2CC9dFe6905eDd5B71c56BA92AD09A3dC",
-    name: "SOLAR ETH/USDC",
+    name: "SolarLP ETH/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["eth", "usdc"],
     nativePath: {
@@ -3772,7 +3772,7 @@ export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
   startBlock: 955906,
   depositToken: {
     addr: "0xfb1d0D6141Fc3305C63f189E39Cc2f2F7E58f4c2",
-    name: "SOLAR BNB/BUSD",
+    name: "SolarLP BNB/BUSD",
     link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818",
     components: ["bnb", "busd"],
     nativePath: {
@@ -3807,7 +3807,7 @@ export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
   startBlock: 955968,
   depositToken: {
     addr: "0x83d7a3fc841038E8c8F46e6192BBcCA8b19Ee4e7",
-    name: "SOLAR WBTC/USDC",
+    name: "SolarLP WBTC/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["wbtc", "usdc"],
     nativePath: {
@@ -3842,7 +3842,7 @@ export const JAR_MOVR_SOLAR_AVAX_MOVR: JarDefinition = {
   startBlock: 956046,
   depositToken: {
     addr: "0xb9a61ac826196AbC69A3C66ad77c563D6C5bdD7b",
-    name: "SOLAR AVAX/MOVR",
+    name: "SolarLP AVAX/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x14a0243C333A5b238143068dC3A7323Ba4C30ECB/ETH",
     components: ["avax", "movr"],
   },
@@ -3869,7 +3869,7 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
   startBlock: 956096,
   depositToken: {
     addr: "0x55Ee073B38BF1069D5F1Ed0AA6858062bA42F5A9",
-    name: "SOLAR MAI/USDC",
+    name: "SolarLP MAI/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x7f5a79576620C046a293F54FFCdbd8f2468174F1/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mai", "usdc"],
     nativePath: {
@@ -3905,7 +3905,7 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
   startBlock: 956704,
   depositToken: {
     addr: "0x9051fB701d6D880800e397e5B5d46FdDfAdc7056",
-    name: "SOLAR MIM/USDC",
+    name: "SolarLP MIM/USDC",
     link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mim", "usdc"],
     nativePath: {
@@ -3941,7 +3941,7 @@ export const JAR_MOVR_SOLAR_MOVR_FTM: JarDefinition = {
   startBlock: 961182,
   depositToken: {
     addr: "0x1eebed8F28A6865a76D91189FD6FC45F4F774d67",
-    name: "SOLAR MOVR/FTM",
+    name: "SolarLP MOVR/FTM",
     link: "https://app.solarbeam.io/exchange/add/ETH/0xaD12daB5959f30b9fF3c2d6709f53C335dC39908",
     components: ["movr", "ftm"],
   },
@@ -3968,7 +3968,7 @@ export const JAR_MOVR_SOLAR_MOVR_RIB: JarDefinition = {
   startBlock: 961317,
   depositToken: {
     addr: "0x0acDB54E610dAbC82b8FA454b21AD425ae460DF9",
-    name: "SOLAR MOVR/RIB",
+    name: "SolarLP MOVR/RIB",
     link: "https://app.solarbeam.io/exchange/add/ETH/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["movr", "rib"],
   },
@@ -3995,7 +3995,7 @@ export const JAR_MOVR_SOLAR_MOVR_RELAY: JarDefinition = {
   startBlock: 961547,
   depositToken: {
     addr: "0x9e0d90ebB44c22303Ee3d331c0e4a19667012433",
-    name: "SOLAR MOVR/RELAY",
+    name: "SolarLP MOVR/RELAY",
     link: "https://app.solarbeam.io/exchange/add/ETH/0xAd7F1844696652ddA7959a49063BfFccafafEfe7",
     components: ["movr", "relay"],
   },
@@ -4022,7 +4022,7 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
   startBlock: 961688,
   depositToken: {
     addr: "0xf9b7495b833804e4d894fC5f7B39c10016e0a911",
-    name: "SOLAR SOLAR/RIB",
+    name: "SolarLP SOLAR/RIB",
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["solar", "rib"],
     nativePath: {
@@ -4057,7 +4057,7 @@ export const JAR_MOVR_SOLAR_PETS_MOVR: JarDefinition = {
   startBlock: 961830,
   depositToken: {
     addr: "0x9f9a7a3f8F56AFB1a2059daE1E978165816cea44",
-    name: "SOLAR PETS/MOVR",
+    name: "SolarLP PETS/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x1e0F2A75Be02c025Bd84177765F89200c04337Da/ETH",
     components: ["pets", "movr"],
   },
@@ -4085,7 +4085,7 @@ export const JAR_MOVR_SOLAR_FRAX_MOVR: JarDefinition = {
   startBlock: 995445,
   depositToken: {
     addr: "0x2cc54b4A3878e36E1C754871438113C1117a3ad7",
-    name: "SOLAR FRAX/MOVR",
+    name: "SolarLP FRAX/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x1A93B23281CC1CDE4C4741353F3064709A16197d/ETH",
     components: ["frax", "movr"],
   },
@@ -4112,7 +4112,7 @@ export const JAR_MOVR_SOLAR_MIM_MOVR: JarDefinition = {
   startBlock: 995536,
   depositToken: {
     addr: "0x9432B25fBD8a37e5A1300e36a96BD14E1E6f5c90",
-    name: "SOLAR MIM/MOVR",
+    name: "SolarLP MIM/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/ETH",
     components: ["mim", "movr"],
   },
@@ -4139,7 +4139,7 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
   startBlock: 995601,
   depositToken: {
     addr: "0xBe2aBe58eDAae96B4303F194d2fAD5233BaD3d87",
-    name: "SOLAR BNB/MOVR",
+    name: "SolarLP BNB/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/ETH",
     components: ["bnb", "movr"],
   },
@@ -4166,7 +4166,7 @@ export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
   startBlock: 952413,
   depositToken: {
     addr: "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888",
-    name: "SOLAR ETH/MOVR",
+    name: "SolarLP ETH/MOVR",
     link: "https://app.solarbeam.io/exchange/add/0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C/ETH",
     components: ["eth", "movr"],
   },
@@ -4193,7 +4193,7 @@ export const JAR_MOVR_FINN_DOT_FINN: JarDefinition = {
   startBlock: 1424435,
   depositToken: {
     addr: "0xF09211fb5eD5019b072774cfD7Db0c9f4ccd5Be0",
-    name: "FINN DOT/FINN",
+    name: "FinnLP DOT/FINN",
     link: "https://www.huckleberry.finance/#/add/0x15B9CA9659F5dfF2b7d35a98dd0790a3CBb3D445/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["dot", "finn"],
     nativePath: {
@@ -4228,7 +4228,7 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
   startBlock: 1424443,
   depositToken: {
     addr: "0x14BE4d09c5A8237403b83A8A410bAcE16E8667DC",
-    name: "FINN FINN/KSM",
+    name: "FinnLP FINN/KSM",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "ksm"],
   },
@@ -4255,7 +4255,7 @@ export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
   startBlock: 1424449,
   depositToken: {
     addr: "0xd9e98aD7AE9E5612b90cd0bdcD82df4FA5b943b8",
-    name: "FINN FINN/RMRK",
+    name: "FinnLP FINN/RMRK",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "rmrk"],
   },
@@ -4282,7 +4282,7 @@ export const JAR_MOVR_FINN_MOVR_FINN: JarDefinition = {
   startBlock: 1424486,
   depositToken: {
     addr: "0xbBe2f34367972Cb37ae8dea849aE168834440685",
-    name: "FINN MOVR/FINN",
+    name: "FinnLP MOVR/FINN",
     link: "https://www.huckleberry.finance/#/add/MOVR/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["movr", "finn"],
   },
@@ -4309,7 +4309,7 @@ export const JAR_MOVR_FINN_USDC_MOVR: JarDefinition = {
   startBlock: 1424496,
   depositToken: {
     addr: "0x7128C61Da34c27eAD5419B8EB50c71CE0B15CD50",
-    name: "FINN USDC/MOVR",
+    name: "FinnLP USDC/MOVR",
     link: "https://www.huckleberry.finance/#/add/0x748134b5F553F2bcBD78c6826De99a70274bDEb3/MOVR",
     components: ["usdc-2", "movr"],
   },
@@ -4338,7 +4338,7 @@ export const JAR_CRO_VVS_CRO_BIFI: JarDefinition = {
   startBlock: 454767,
   depositToken: {
     addr: "0x1803E360393A472beC6E1A688BDF7048d3076b1A",
-    name: "VVS CRO/BIFI",
+    name: "VvsLP CRO/BIFI",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xe6801928061CDbE32AC5AD0634427E140EFd05F9",
     components: ["cro", "bifi"],
   },
@@ -4365,7 +4365,7 @@ export const JAR_CRO_VVS_CRO_DAI: JarDefinition = {
   startBlock: 456990,
   depositToken: {
     addr: "0x3Eb9FF92e19b73235A393000C176c8bb150F1B20",
-    name: "VVS CRO/DAI",
+    name: "VvsLP CRO/DAI",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xF2001B145b43032AAF5Ee2884e456CCd805F677D",
     components: ["cro", "dai"],
   },
@@ -4392,7 +4392,7 @@ export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
   startBlock: 450727,
   depositToken: {
     addr: "0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9",
-    name: "VVS CRO/ETH",
+    name: "VvsLP CRO/ETH",
     link: "https://vvs.finance/add/CRO/0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
     components: ["cro", "weth"],
   },
@@ -4419,7 +4419,7 @@ export const JAR_CRO_VVS_CRO_SHIB: JarDefinition = {
   startBlock: 457108,
   depositToken: {
     addr: "0xc9eA98736dbC94FAA91AbF9F4aD1eb41e7fb40f4",
-    name: "VVS CRO/SHIB",
+    name: "VvsLP CRO/SHIB",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xbED48612BC69fA1CaB67052b42a95FB30C1bcFee",
     components: ["cro", "shib"],
   },
@@ -4446,7 +4446,7 @@ export const JAR_CRO_VVS_CRO_USDC: JarDefinition = {
   startBlock: 457270,
   depositToken: {
     addr: "0xe61Db569E231B3f5530168Aa2C9D50246525b6d6",
-    name: "VVS CRO/USDC",
+    name: "VvsLP CRO/USDC",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59",
     components: ["cro", "usdc"],
   },
@@ -4473,7 +4473,7 @@ export const JAR_CRO_VVS_CRO_USDT: JarDefinition = {
   startBlock: 457371,
   depositToken: {
     addr: "0x3d2180DB9E1B909f35C398BC39EF36108C0FC8c3",
-    name: "VVS CRO/USDT",
+    name: "VvsLP CRO/USDT",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x66e428c3f67a68878562e79A0234c1F83c208770",
     components: ["cro", "usdt"],
   },
@@ -4500,7 +4500,7 @@ export const JAR_CRO_VVS_VVS_USDC: JarDefinition = {
   startBlock: 457592,
   depositToken: {
     addr: "0x814920D1b8007207db6cB5a2dD92bF0b082BDBa1",
-    name: "VVS VVS/USDC",
+    name: "VvsLP VVS/USDC",
     link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59",
     components: ["vvs", "usdc"],
     nativePath: {
@@ -4535,7 +4535,7 @@ export const JAR_CRO_VVS_VVS_USDT: JarDefinition = {
   startBlock: 457657,
   depositToken: {
     addr: "0x280aCAD550B2d3Ba63C8cbff51b503Ea41a1c61B",
-    name: "VVS VVS/USDT",
+    name: "VvsLP VVS/USDT",
     link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0x66e428c3f67a68878562e79A0234c1F83c208770",
     components: ["vvs", "usdt"],
     nativePath: {
@@ -4570,7 +4570,7 @@ export const JAR_CRO_VVS_CRO_VVS: JarDefinition = {
   startBlock: 457455,
   depositToken: {
     addr: "0xbf62c67eA509E86F07c8c69d0286C0636C50270b",
-    name: "VVS CRO/VVS",
+    name: "VvsLP CRO/VVS",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03",
     components: ["cro", "vvs"],
   },
@@ -4597,7 +4597,7 @@ export const JAR_CRO_VVS_CRO_BTC: JarDefinition = {
   startBlock: 456815,
   depositToken: {
     addr: "0x8F09fFf247B8fDB80461E5Cf5E82dD1aE2EBd6d7",
-    name: "VVS CRO/BTC",
+    name: "VvsLP CRO/BTC",
     link: "https://vvs.finance/add/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23/0x062E66477Faf219F25D27dCED647BF57C3107d52",
     components: ["cro", "btc"],
   },
@@ -4624,7 +4624,7 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
   startBlock: 457531,
   depositToken: {
     addr: "0x39cC0E14795A8e6e9D02A21091b81FE0d61D82f9",
-    name: "VVS USDC/USDT",
+    name: "VvsLP USDC/USDT",
     link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x66e428c3f67a68878562e79A0234c1F83c208770",
     components: ["usdc", "usdt"],
   },
@@ -4652,7 +4652,7 @@ export const JAR_CRO_VVS_CRO_DOGE: JarDefinition = {
   startBlock: 1922674,
   depositToken: {
     addr: "0x2A560f2312CB56327AD5D65a03F1bfEC10b62075",
-    name: "VVS CRO/DOGE",
+    name: "VvsLP CRO/DOGE",
     link: "https://vvs.finance/add/CRO/0x1a8E39ae59e5556B56b76fCBA98d22c9ae557396",
     components: ["cro", "doge"],
   },
@@ -4679,7 +4679,7 @@ export const JAR_CRO_VVS_CRO_ATOM: JarDefinition = {
   startBlock: 1922786,
   depositToken: {
     addr: "0x9e5bd780dff875Dd85848a65549791445AE25De0",
-    name: "VVS CRO/ATOM",
+    name: "VvsLP CRO/ATOM",
     link: "https://vvs.finance/add/CRO/0xB888d8Dd1733d72681b30c00ee76BDE93ae7aa93",
     components: ["cro", "atom"],
   },
@@ -4706,7 +4706,7 @@ export const JAR_CRO_VVS_CRO_TONIC: JarDefinition = {
   startBlock: 1923066,
   depositToken: {
     addr: "0x4B377121d968Bf7a62D51B96523d59506e7c2BF0",
-    name: "VVS CRO/TONIC",
+    name: "VvsLP CRO/TONIC",
     link: "https://vvs.finance/add/CRO/0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2",
     components: ["cro", "tonic"],
   },
@@ -4733,7 +4733,7 @@ export const JAR_CRO_VVS_VVS_SINGLE: JarDefinition = {
   startBlock: 1923126,
   depositToken: {
     addr: "0x6f72a3f6dB6F486B50217f6e721f4388994B1FBe",
-    name: "VVS VVS/SINGLE",
+    name: "VvsLP VVS/SINGLE",
     link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0x0804702a4E749d39A35FDe73d1DF0B1f1D6b8347",
     components: ["vvs", "single"],
   },
@@ -4760,7 +4760,7 @@ export const JAR_CRO_VVS_USDC_SINGLE: JarDefinition = {
   startBlock: 1923629,
   depositToken: {
     addr: "0x0fBAB8A90CAC61b481530AAd3a64fE17B322C25d",
-    name: "VVS USDC/SINGLE",
+    name: "VvsLP USDC/SINGLE",
     link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x0804702a4E749d39A35FDe73d1DF0B1f1D6b8347",
     components: ["usdc", "single"],
   },
@@ -4787,7 +4787,7 @@ export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
   startBlock: 1923837,
   depositToken: {
     addr: "0xA922530960A1F94828A7E132EC1BA95717ED1eab",
-    name: "VVS VVS/TONIC",
+    name: "VvsLP VVS/TONIC",
     link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2",
     components: ["vvs", "tonic"],
   },
@@ -4814,7 +4814,7 @@ export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
   startBlock: 1954028,
   depositToken: {
     addr: "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
-    name: "Tectonic WETH",
+    name: "TectonicSS WETH",
     link: "https://cronoscan.com/address/0xe44fd7fcb2b1581822d0c862b68222998a0c299a",
     components: ["weth"],
   },
@@ -4841,7 +4841,7 @@ export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
   startBlock: 2026209,
   depositToken: {
     addr: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
-    name: "Tectonic CRO",
+    name: "TectonicSS CRO",
     link: "https://cronoscan.com/address/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
     components: ["cro"],
   },
@@ -4866,11 +4866,11 @@ JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_CRO);
 export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 1a",
-  contract: "0xbD59171dA1c3a2624D60421bcb6c3c3270111656",
+  contract: "0x0FfE6fDf78450F777488678a03Fc6c99BA3C2cE0",
   startBlock: 54665671,
   depositToken: {
     addr: "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
-    name: "TRI NEAR/USDC",
+    name: "TrisolarisLP NEAR/USDC",
     link: "https://www.trisolaris.io/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["near", "usdc"],
     nativePath: {
@@ -4905,7 +4905,7 @@ export const JAR_AURORA_TRI_NEAR_ETH: JarDefinition = {
   startBlock: 54735587,
   depositToken: {
     addr: "0x63da4DB6Ef4e7C62168aB03982399F9588fCd198",
-    name: "TRI NEAR/ETH",
+    name: "TrisolarisLP NEAR/ETH",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/ETH",
     components: ["near", "eth"],
   },
@@ -4928,11 +4928,11 @@ JAR_DEFINITIONS.push(JAR_AURORA_TRI_NEAR_ETH);
 export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 1c",
-  contract: "0xfc258cF7f1bf3739A04992D1c790aF20d60f44E9",
+  contract: "0x372d3dBE547f220311Ac996998B18eB287251644",
   startBlock: 54736703,
   depositToken: {
     addr: "0x03B666f3488a7992b2385B12dF7f35156d7b29cD",
-    name: "TRI NEAR/USDT",
+    name: "TrisolarisLP NEAR/USDT",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["near", "usdt"],
     nativePath: {
@@ -4967,7 +4967,7 @@ export const JAR_AURORA_TRI_NEAR_TRI: JarDefinition = {
   startBlock: 54737072,
   depositToken: {
     addr: "0x84b123875F0F36B966d0B6Ca14b31121bd9676AD",
-    name: "TRI NEAR/TRI",
+    name: "TrisolarisLP NEAR/TRI",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
     components: ["near", "tri"],
     nativePath: {
@@ -5002,7 +5002,7 @@ export const JAR_AURORA_TRI_USDT_USDC: JarDefinition = {
   startBlock: 54737828,
   depositToken: {
     addr: "0x2fe064B6c7D274082aa5d2624709bC9AE7D16C77",
-    name: "TRI USDT/USDC",
+    name: "TrisolarisLP USDT/USDC",
     link: "https://www.trisolaris.io/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
     nativePath: {
@@ -5038,7 +5038,7 @@ export const JAR_AURORA_TRI_BTC_NEAR: JarDefinition = {
   startBlock: 54735839,
   depositToken: {
     addr: "0xbc8A244e8fb683ec1Fd6f88F3cc6E565082174Eb",
-    name: "TRI BTC/NEAR",
+    name: "TrisolarisLP BTC/NEAR",
     link: "https://www.trisolaris.io/#/add/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["btc", "near"],
     nativePath: {
@@ -5073,7 +5073,7 @@ export const JAR_AURORA_TRI_LP: JarDefinition = {
   startBlock: 55123879,
   depositToken: {
     addr: "0xd1654a7713617d41A8C9530Fb9B948d00e162194",
-    name: "TRI AURORA/TRI",
+    name: "TrisolarisLP AURORA/TRI",
     link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
     components: ["aurora", "tri"],
     nativePath: {
@@ -5108,7 +5108,7 @@ export const JAR_AURORA_TRI_AURORA_ETH: JarDefinition = {
   startBlock: 55154027,
   depositToken: {
     addr: "0x5eeC60F348cB1D661E4A5122CF4638c7DB7A886e",
-    name: "TRI AURORA/ETH",
+    name: "TrisolarisLP AURORA/ETH",
     link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/ETH",
     components: ["aurora", "eth"],
   },
@@ -5135,7 +5135,7 @@ export const JAR_AURORA_TRI_NEAR_LUNA: JarDefinition = {
   startBlock: 56127375,
   depositToken: {
     addr: "0xdF8CbF89ad9b7dAFdd3e37acEc539eEcC8c47914",
-    name: "TRI NEAR/LUNA",
+    name: "TrisolarisLP NEAR/LUNA",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
     nativePath: {
@@ -5170,7 +5170,7 @@ export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
   startBlock: 56129799,
   depositToken: {
     addr: "0xa9eded3E339b9cd92bB6DEF5c5379d678131fF90",
-    name: "TRI UST/NEAR",
+    name: "TrisolarisLP UST/NEAR",
     link: "https://www.trisolaris.io/#/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
     nativePath: {
@@ -5205,7 +5205,7 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
   startBlock: 56705597,
   depositToken: {
     addr: "0x61C9E05d1Cdb1b70856c7a2c53fA9c220830633c",
-    name: "TRI TRI/USDT",
+    name: "TrisolarisLP TRI/USDT",
     link: "https://www.trisolaris.io/#/add/0xFa94348467f64D5A457F75F8bc40495D33c65aBB/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["tri", "usdt"],
     nativePath: {
@@ -5240,7 +5240,7 @@ export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
   startBlock: 57672974,
   depositToken: {
     addr: "0x6443532841a5279cb04420E61Cf855cBEb70dc8C",
-    name: "TRI AVAX/NEAR",
+    name: "TrisolarisLP AVAX/NEAR",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844",
     components: ["avax", "near"],
     nativePath: {
@@ -5275,7 +5275,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
   startBlock: 57673326,
   depositToken: {
     addr: "0x3dC236Ea01459F57EFc737A12BA3Bb5F3BFfD071",
-    name: "TRI MATIC/NEAR",
+    name: "TrisolarisLP MATIC/NEAR",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8",
     components: ["matic", "near"],
     nativePath: {
@@ -5288,7 +5288,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -5310,7 +5310,7 @@ export const JAR_AURORA_TRI_STNEAR_NEAR_LP: JarDefinition = {
   startBlock: 64018341,
   depositToken: {
     addr: "0x47924Ae4968832984F4091EEC537dfF5c38948a4",
-    name: "TLP STNEAR/NEAR",
+    name: "TrisolarisLP STNEAR/NEAR",
     link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30",
     components: ["stnear", "near"],
   },
@@ -5338,7 +5338,7 @@ export const JAR_AURORA_TRI_STNEAR_XTRI_LP: JarDefinition = {
   startBlock: 64019954,
   depositToken: {
     addr: "0x5913f644A10d98c79F2e0b609988640187256373",
-    name: "TLP STNEAR/XTRI",
+    name: "TrisolarisLP STNEAR/XTRI",
     link: "https://www.trisolaris.io/#/add/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30/0x802119e4e253D5C19aA06A5d567C5a41596D6803",
     components: ["stnear", "xtri"],
   },
@@ -5366,7 +5366,7 @@ export const JAR_AURORA_TRI_USDO_USDT_LP: JarDefinition = {
   startBlock: 64020364,
   depositToken: {
     addr: "0x6277f94a69Df5df0Bc58b25917B9ECEFBf1b846A",
-    name: "TLP USDO/USDT",
+    name: "TrisolarisLP USDO/USDT",
     link: "https://www.trisolaris.io/#/add/0x293074789b247cab05357b08052468B5d7A23c5a/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["usdo", "usdt"],
   },
@@ -5394,7 +5394,7 @@ export const JAR_AURORA_TRI_FLX_NEAR_LP: JarDefinition = {
   startBlock: 64027042,
   depositToken: {
     addr: "0x48887cEEA1b8AD328d5254BeF774Be91B90FaA09",
-    name: "TLP FLX/NEAR",
+    name: "TrisolarisLP FLX/NEAR",
     link: "https://www.trisolaris.io/#/add/0xea62791aa682d455614eaA2A12Ba3d9A2fD197af/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["flx", "near"],
   },
@@ -5422,7 +5422,7 @@ export const JAR_AURORA_TRI_BSTN_NEAR_LP: JarDefinition = {
   startBlock: 64092739,
   depositToken: {
     addr: "0xBBf3D4281F10E537d5b13CA80bE22362310b2bf9",
-    name: "TLP BSTN/NEAR",
+    name: "TrisolarisLP BSTN/NEAR",
     link: "https://www.trisolaris.io/#/add/0x9f1f933c660a1dc856f0e0fe058435879c5ccef0/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["bstn", "near"],
   },
@@ -5450,7 +5450,7 @@ export const JAR_AURORA_TRI_ROSE_NEAR_LP: JarDefinition = {
   startBlock: 64156232,
   depositToken: {
     addr: "0xbe753E99D0dBd12FB39edF9b884eBF3B1B09f26C",
-    name: "TLP ROSE/NEAR",
+    name: "TrisolarisLP ROSE/NEAR",
     link: "https://www.trisolaris.io/#/add/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["rose", "near"],
   },
@@ -5478,7 +5478,7 @@ export const JAR_AURORA_TRI_RUSD_NEAR_LP: JarDefinition = {
   startBlock: 64156815,
   depositToken: {
     addr: "0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700",
-    name: "TLP RUSD/NEAR",
+    name: "TrisolarisLP RUSD/NEAR",
     link: "https://www.trisolaris.io/#/add/0x19cc40283B057D6608C22F1D20F17e16C245642E/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["rusd", "near"],
   },
@@ -5506,7 +5506,7 @@ export const JAR_AURORA_TRI_LINEAR_NEAR_LP: JarDefinition = {
   startBlock: 64157710,
   depositToken: {
     addr: "0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1",
-    name: "TLP LINEAR/NEAR",
+    name: "TrisolarisLP LINEAR/NEAR",
     link: "https://www.trisolaris.io/#/add/0x19cc40283B057D6608C22F1D20F17e16C245642E/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["linear", "near"],
   },
@@ -5611,6 +5611,62 @@ export const JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP);
 
+// export const JAR_AURORA_TRISOLARIS_NEAR_USDT_LP: JarDefinition = {
+//   type: AssetType.JAR,
+//   id: "auroraJar 1ab",
+//   contract: "0xfc258cF7f1bf3739A04992D1c790aF20d60f44E9",
+//   startBlock: 64899522,
+//   depositToken: {
+//     addr: "0x03B666f3488a7992b2385B12dF7f35156d7b29cD",
+//     name: "TrisolarisLP NEAR/USDT",
+//     link: "https://www.trisolaris.io/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+//     components: ["near", "usdt"],
+//   },
+//   rewardTokens: ["tri", "aurora"],
+//   enablement: AssetEnablement.ENABLED,
+//   chain: ChainNetwork.Aurora,
+//   protocol: AssetProtocol.TRISOLARIS,
+//   details: {
+//     apiKey: "TRISOLARISLP-NEAR-USDT",
+//     harvestStyle: HarvestStyle.PASSIVE,
+//     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+//   },
+//   farm: {
+//     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+//     farmNickname: "pTrisolarisLP NEAR/USDT",
+//     farmDepositTokenName: "pTrisolarisLP NEAR/USDT",
+//   },
+// };
+// JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_NEAR_USDT_LP);
+
+// export const JAR_AURORA_TRISOLARIS_NEAR_USDC_LP: JarDefinition = {
+//   type: AssetType.JAR,
+//   id: "auroraJar 1ad",
+//   contract: "0xbD59171dA1c3a2624D60421bcb6c3c3270111656",
+//   startBlock: 64902495,
+//   depositToken: {
+//     addr: "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
+//     name: "TrisolarisLP NEAR/USDC",
+//     link: "https://www.trisolaris.io/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+//     components: ["near", "usdc"],
+//   },
+//   rewardTokens: ["tri", "aurora"],
+//   enablement: AssetEnablement.ENABLED,
+//   chain: ChainNetwork.Aurora,
+//   protocol: AssetProtocol.TRISOLARIS,
+//   details: {
+//     apiKey: "TRISOLARISLP-NEAR-USDC",
+//     harvestStyle: HarvestStyle.PASSIVE,
+//     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+//   },
+//   farm: {
+//     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+//     farmNickname: "pTrisolarisLP NEAR/USDC",
+//     farmDepositTokenName: "pTrisolarisLP NEAR/USDC",
+//   },
+// };
+// JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP);
+
 export const JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP: JarDefinition = {
   type: AssetType.JAR,
   id: "auroraJar 1ac",
@@ -5646,7 +5702,7 @@ export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   startBlock: 55236886,
   depositToken: {
     addr: "0xbf9Eef63139b67fd0ABf22bD5504ACB0519a4212",
-    name: "WANNA WANNA/NEAR",
+    name: "WannaLP WANNA/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["wanna", "near"],
     nativePath: {
@@ -5681,7 +5737,7 @@ export const JAR_AURORA_WANNA_AURORA_NEAR: JarDefinition = {
   startBlock: 55212979,
   depositToken: {
     addr: "0x7E9EA10E5984a09D19D05F31ca3cB65BB7df359d",
-    name: "WANNA AURORA/NEAR",
+    name: "WannaLP AURORA/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["aurora", "near"],
     nativePath: {
@@ -5716,7 +5772,7 @@ export const JAR_AURORA_WANNA_ETH_BTC: JarDefinition = {
   startBlock: 55236580,
   depositToken: {
     addr: "0xf56997948d4235514Dcc50fC0EA7C0e110EC255d",
-    name: "WANNA ETH/BTC",
+    name: "WannaLP ETH/BTC",
     link: "https://wannaswap.finance/exchange/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["eth", "btc"],
   },
@@ -5743,7 +5799,7 @@ export const JAR_AURORA_WANNA_NEAR_BTC: JarDefinition = {
   startBlock: 55236886,
   depositToken: {
     addr: "0xbF58062D23f869a90c6Eb04B9655f0dfCA345947",
-    name: "WANNA NEAR/BTC",
+    name: "WannaLP NEAR/BTC",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["near", "btc"],
     nativePath: {
@@ -5778,7 +5834,7 @@ export const JAR_AURORA_WANNA_NEAR_DAI: JarDefinition = {
   startBlock: 55237184,
   depositToken: {
     addr: "0xE6c47B036f6Fd0684B109B484aC46094e633aF2e",
-    name: "WANNA NEAR/DAI",
+    name: "WannaLP NEAR/DAI",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xe3520349F477A5F6EB06107066048508498A291b",
     components: ["near", "dai"],
     nativePath: {
@@ -5813,7 +5869,7 @@ export const JAR_AURORA_WANNA_NEAR_ETH: JarDefinition = {
   startBlock: 55237461,
   depositToken: {
     addr: "0x256d03607eeE0156b8A2aB84da1D5B283219Fe97",
-    name: "WANNA NEAR/ETH",
+    name: "WannaLP NEAR/ETH",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["near", "eth"],
   },
@@ -5840,7 +5896,7 @@ export const JAR_AURORA_WANNA_USDC_NEAR: JarDefinition = {
   startBlock: 55237979,
   depositToken: {
     addr: "0xBf560771B6002a58477EFBCDD6774A5a1947587B",
-    name: "WANNA USDC/NEAR",
+    name: "WannaLP USDC/NEAR",
     link: "https://wannaswap.finance/exchange/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdc", "near"],
     nativePath: {
@@ -5875,7 +5931,7 @@ export const JAR_AURORA_WANNA_USDT_NEAR: JarDefinition = {
   startBlock: 55239010,
   depositToken: {
     addr: "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67",
-    name: "WANNA USDT/NEAR",
+    name: "WannaLP USDT/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdt", "near"],
     nativePath: {
@@ -5910,7 +5966,7 @@ export const JAR_AURORA_WANNA_USDT_USDC: JarDefinition = {
   startBlock: 55238372,
   depositToken: {
     addr: "0x3502eaC6Fa27bEebDC5cd3615B7CB0784B0Ce48f",
-    name: "WANNA USDT/USDC",
+    name: "WannaLP USDT/USDC",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
     nativePath: {
@@ -5946,7 +6002,7 @@ export const JAR_AURORA_WANNA_WANNA_USDC: JarDefinition = {
   startBlock: 55239342,
   depositToken: {
     addr: "0x523faE29D7ff6FD38842c8F271eDf2ebd3150435",
-    name: "WANNA WANNA/USDC",
+    name: "WannaLP WANNA/USDC",
     link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["wanna", "usdc"],
     nativePath: {
@@ -5981,7 +6037,7 @@ export const JAR_AURORA_WANNA_USDT_WANNA: JarDefinition = {
   startBlock: 55239679,
   depositToken: {
     addr: "0xcA461686C711AeaaDf0B516f9C2ad9d9B645a940",
-    name: "WANNA WANNA/USDT",
+    name: "WannaLP WANNA/USDT",
     link: "https://wannaswap.finance/exchange/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22",
     components: ["usdt", "wanna"],
     nativePath: {
@@ -6016,7 +6072,7 @@ export const JAR_AURORA_WANNA_NEAR_LUNA: JarDefinition = {
   startBlock: 56120427,
   depositToken: {
     addr: "0x24f6c59747e4AcEB3DBA365df77D68c2A3aA4fB1",
-    name: "WANNA NEAR/LUNA",
+    name: "WannaLP NEAR/LUNA",
     link: "https://wannaswap.finance/exchange/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
     nativePath: {
@@ -6051,7 +6107,7 @@ export const JAR_AURORA_WANNA_UST_NEAR: JarDefinition = {
   startBlock: 56121153,
   depositToken: {
     addr: "0x436C525D536adC447c7775575f88D357634734C1",
-    name: "WANNA UST/NEAR",
+    name: "WannaLP UST/NEAR",
     link: "https://wannaswap.finance/exchange/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
     nativePath: {
@@ -6086,7 +6142,7 @@ export const JAR_AURORA_WANNA_WANNA_AURORA: JarDefinition = {
   startBlock: 56253481,
   depositToken: {
     addr: "0xddCcf2F096fa400ce90ba0568908233e6A950961",
-    name: "WANNA WANNA/AURORA",
+    name: "WannaLP WANNA/AURORA",
     link: "https://wannaswap.finance/exchange/add/0x7faA64Faf54750a2E3eE621166635fEAF406Ab22/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79",
     components: ["wanna", "aurora"],
     nativePath: {
@@ -6121,7 +6177,7 @@ export const JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP: JarDefinition = {
   startBlock: 64263363,
   depositToken: {
     addr: "0xE22606659ec950E0328Aa96c7f616aDC4907cBe3",
-    name: "WannaswapLP WANNAX/STNEAR",
+    name: "WannaLP WANNAX/STNEAR",
     link: "https://wannaswap.finance/exchange/add/0x5205c30bf2E37494F8cF77D2c19C6BA4d2778B9B/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30",
     components: ["wannax", "stnear"],
   },
@@ -6149,7 +6205,7 @@ export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   startBlock: 54743730,
   depositToken: {
     addr: "0xA188D79D6bdbc1120a662DE9eB72384E238AF104",
-    name: "PAD BTC/NEAR",
+    name: "NearpadLP BTC/NEAR",
     link: "https://dex.nearpad.io/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["btc", "near"],
     nativePath: {
@@ -6184,7 +6240,7 @@ export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
   startBlock: 55132882,
   depositToken: {
     addr: "0x1FD6CBBFC0363AA394bd77FC74F64009BF54A7e9",
-    name: "PAD PAD/USDT",
+    name: "NearpadLP PAD/USDT",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["pad", "usdt"],
     nativePath: {
@@ -6219,7 +6275,7 @@ export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
   startBlock: 55132324,
   depositToken: {
     addr: "0x73155e476D6b857fE7722AEfeBAD50F9F8bd0b38",
-    name: "PAD PAD/USDC",
+    name: "NearpadLP PAD/USDC",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["pad", "usdc"],
     nativePath: {
@@ -6254,7 +6310,7 @@ export const JAR_AURORA_PAD_PAD_ETH: JarDefinition = {
   startBlock: 55112571,
   depositToken: {
     addr: "0x63b4a0538CE8D90876B201af1020d13308a8B253",
-    name: "PAD PAD/ETH",
+    name: "NearpadLP PAD/ETH",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["pad", "eth"],
   },
@@ -6281,7 +6337,7 @@ export const JAR_AURORA_PAD_PAD_NEAR: JarDefinition = {
   startBlock: 55115233,
   depositToken: {
     addr: "0xc374776Cf5C497Adeef6b505588b00cB298531FD",
-    name: "PAD PAD/NEAR",
+    name: "NearpadLP PAD/NEAR",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["pad", "near"],
     nativePath: {
@@ -6316,7 +6372,7 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
   startBlock: 55114627,
   depositToken: {
     addr: "0xB53bC2537e641C37c7B7A8D33aba1B30283CDA2f",
-    name: "PAD PAD/FRAX",
+    name: "NearpadLP PAD/FRAX",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2",
     components: ["pad", "frax"],
     nativePath: {
@@ -6351,7 +6407,7 @@ export const JAR_AURORA_PAD_MODA_PAD_LP: JarDefinition = {
   startBlock: 64186807,
   depositToken: {
     addr: "0xC8F45738e2900fCaB9B72EA624F48aE2c222e248",
-    name: "PAD PAD/MODA",
+    name: "NearpadLP PAD/MODA",
     link: "https://pad.fi/dex/add/0x74974575D2f1668C63036D51ff48dbaa68E52408/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
     components: ["pad", "moda"],
   },
@@ -6378,7 +6434,7 @@ export const JAR_AURORA_PAD_PAD_DAI_LP: JarDefinition = {
   startBlock: 64189372,
   depositToken: {
     addr: "0xaf3f197Ce82bf524dAb0e9563089d443cB950048",
-    name: "PAD PAD/DAI",
+    name: "NearpadLP PAD/DAI",
     link: "https://pad.fi/dex/add/0xe3520349F477A5F6EB06107066048508498A291b/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
     components: ["pad", "dai"],
   },
@@ -6405,7 +6461,7 @@ export const JAR_AURORA_PAD_PAD_AURORA_LP: JarDefinition = {
   startBlock: 64189815,
   depositToken: {
     addr: "0xFE28a27a95e51BB2604aBD65375411A059371616",
-    name: "PAD PAD/DAI",
+    name: "NearpadLP PAD/DAI",
     link: "https://pad.fi/dex/add/0xe3520349F477A5F6EB06107066048508498A291b/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
     components: ["pad", "aurora"],
   },
@@ -6432,7 +6488,7 @@ export const JAR_AURORA_PAD_NEAR_ETH_LP: JarDefinition = {
   startBlock: 64190817,
   depositToken: {
     addr: "0x24886811d2d5E362FF69109aed0A6EE3EeEeC00B",
-    name: "PAD NEAR/ETH",
+    name: "NearpadLP NEAR/ETH",
     link: "https://pad.fi/dex/add/ETH/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["near", "eth"],
   },
@@ -6459,7 +6515,7 @@ export const JAR_AURORA_PAD_PAD_TRI_LP: JarDefinition = {
   startBlock: 64191709,
   depositToken: {
     addr: "0x50F63D48a52397C1a469Ccd057905CC8d2609B85",
-    name: "PAD PAD/TRI",
+    name: "NearpadLP PAD/TRI",
     link: "https://pad.fi/dex/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
     components: ["pad", "tri"],
   },
@@ -6486,7 +6542,7 @@ export const JAR_AURORA_ROSE_PAD_ROSE_PAD_LP: JarDefinition = {
   startBlock: 64255592,
   depositToken: {
     addr: "0xC6C3cc84EabD4643C382C988fA2830657fc70a6B",
-    name: "PAD PAD/ROSE",
+    name: "NearpadLP PAD/ROSE",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
     components: ["pad", "rose"],
     nativePath: {
@@ -6521,7 +6577,7 @@ export const JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP: JarDefinition = {
   startBlock: 64255996,
   depositToken: {
     addr: "0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707",
-    name: "PAD FRAX/ROSE",
+    name: "NearpadLP FRAX/ROSE",
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970",
     components: ["frax", "rose"],
   },
@@ -6710,7 +6766,7 @@ export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
   startBlock: 56681359,
   depositToken: {
     addr: "0x84567E7511E0d97DE676d236AEa7aE688221799e",
-    name: "BRL AURORA/NEAR",
+    name: "AuroraLP AURORA/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["aurora", "near"],
     nativePath: {
@@ -6745,7 +6801,7 @@ export const JAR_AURORA_BRL_AVAX_NEAR: JarDefinition = {
   startBlock: 56681555,
   depositToken: {
     addr: "0x8F6e13B3D28B09535EB82BE539c1E4802B0c25B7",
-    name: "BRL AVAX/NEAR",
+    name: "AuroraLP AVAX/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["avax", "near"],
     nativePath: {
@@ -6780,7 +6836,7 @@ export const JAR_AURORA_BRL_BRL_AURORA: JarDefinition = {
   startBlock: 56682349,
   depositToken: {
     addr: "0xDB0363ee28a5B40BDc2f4701e399c63E00f91Aa8",
-    name: "BRL BRL/AURORA",
+    name: "AuroraLP BRL/AURORA",
     link: "https://swap.auroraswap.net/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79",
     components: ["brl", "aurora"],
     nativePath: {
@@ -6815,7 +6871,7 @@ export const JAR_AURORA_BRL_BRL_ETH: JarDefinition = {
   startBlock: 56682573,
   depositToken: {
     addr: "0xEfCF518CA36DC3362F539965807b42A77DC26Be0",
-    name: "BRL BRL/ETH",
+    name: "AuroraLP BRL/ETH",
     link: "https://swap.auroraswap.net/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["brl", "eth"],
   },
@@ -6842,7 +6898,7 @@ export const JAR_AURORA_BRL_BRL_NEAR: JarDefinition = {
   startBlock: 56682808,
   depositToken: {
     addr: "0x5BdAC608cd38C5C8738f5bE20813194A3150d4Ff",
-    name: "BRL BRL/NEAR",
+    name: "AuroraLP BRL/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x12c87331f086c3C926248f964f8702C0842Fd77F/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["brl", "near"],
     nativePath: {
@@ -6877,7 +6933,7 @@ export const JAR_AURORA_BRL_BUSD_NEAR: JarDefinition = {
   startBlock: 56683145,
   depositToken: {
     addr: "0x1C393468D95ADF8960E64939bCDd6eE602DE221C",
-    name: "BRL BUSD/NEAR",
+    name: "AuroraLP BUSD/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["busd", "near"],
     nativePath: {
@@ -6912,7 +6968,7 @@ export const JAR_AURORA_BRL_ETH_BTC: JarDefinition = {
   startBlock: 56683363,
   depositToken: {
     addr: "0xcb8584360Dc7A4eAC4878b48fB857AA794E46Fa8",
-    name: "BRL ETH/BTC",
+    name: "AuroraLP ETH/BTC",
     link: "https://swap.auroraswap.net/#/add/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["eth", "btc"],
   },
@@ -6939,7 +6995,7 @@ export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
   startBlock: 56683787,
   depositToken: {
     addr: "0x8298B8C863c2213B9698A08de009cC0aB0F87FEe",
-    name: "BRL MATIC/NEAR",
+    name: "AuroraLP MATIC/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["matic", "near"],
     nativePath: {
@@ -6974,7 +7030,7 @@ export const JAR_AURORA_BRL_NEAR_BTC: JarDefinition = {
   startBlock: 56702384,
   depositToken: {
     addr: "0xe11A3f2BAB372d88D133b64487D1772847Eec4eA",
-    name: "BRL NEAR/BTC",
+    name: "AuroraLP NEAR/BTC",
     link: "https://swap.auroraswap.net/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xF4eB217Ba2454613b15dBdea6e5f22276410e89e",
     components: ["near", "btc"],
     nativePath: {
@@ -7009,7 +7065,7 @@ export const JAR_AURORA_BRL_NEAR_ETH: JarDefinition = {
   startBlock: 56702591,
   depositToken: {
     addr: "0xc57eCc341aE4df32442Cf80F34f41Dc1782fE067",
-    name: "BRL NEAR/ETH",
+    name: "AuroraLP NEAR/ETH",
     link: "https://swap.auroraswap.net/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
     components: ["near", "eth"],
   },
@@ -7036,7 +7092,7 @@ export const JAR_AURORA_BRL_NEAR_LUNA: JarDefinition = {
   startBlock: 56703254,
   depositToken: {
     addr: "0x388D5EE199aC8dAD049B161b57487271Cd787941",
-    name: "BRL NEAR/LUNA",
+    name: "AuroraLP NEAR/LUNA",
     link: "https://swap.auroraswap.net/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096",
     components: ["near", "luna"],
     nativePath: {
@@ -7071,7 +7127,7 @@ export const JAR_AURORA_BRL_USDC_NEAR: JarDefinition = {
   startBlock: 56703657,
   depositToken: {
     addr: "0x480A68bA97d70495e80e11e05D59f6C659749F27",
-    name: "BRL USDC/NEAR",
+    name: "AuroraLP USDC/NEAR",
     link: "https://swap.auroraswap.net/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdc", "near"],
     nativePath: {
@@ -7106,7 +7162,7 @@ export const JAR_AURORA_BRL_USDT_NEAR: JarDefinition = {
   startBlock: 56704057,
   depositToken: {
     addr: "0xF3DE9dc38f62608179c45fE8943a0cA34Ba9CEfc",
-    name: "BRL USDT/NEAR",
+    name: "AuroraLP USDT/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["usdt", "near"],
     nativePath: {
@@ -7141,7 +7197,7 @@ export const JAR_AURORA_BRL_USDT_USDC: JarDefinition = {
   startBlock: 56704433,
   depositToken: {
     addr: "0xEc538fAfaFcBB625C394c35b11252cef732368cd",
-    name: "BRL USDT/USDC",
+    name: "AuroraLP USDT/USDC",
     link: "https://swap.auroraswap.net/#/add/0x4988a896b1227218e4A686fdE5EabdcAbd91571f/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["usdt", "usdc"],
     nativePath: {
@@ -7177,7 +7233,7 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
   startBlock: 56704663,
   depositToken: {
     addr: "0x729dB9dB6d3cA82EF7e4c886C352749758BaD0eb",
-    name: "BRL UST/NEAR",
+    name: "AuroraLP UST/NEAR",
     link: "https://swap.auroraswap.net/#/add/0x5ce9F0B6AFb36135b5ddBF11705cEB65E634A9dC/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
     components: ["ust", "near"],
     nativePath: {
@@ -7205,41 +7261,6 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
 
-export const JAR_AURORA_TRI_PLY_NEAR: JarDefinition = {
-  type: AssetType.JAR,
-  id: "auroraJar 3a",
-  contract: "0x46d42C3DcCC38B92f40b021008AcDc76ab463B12",
-  startBlock: 64969978,
-  depositToken: {
-    addr: "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7",
-    name: "TRI PLY/NEAR",
-    link: "https://www.trisolaris.io/#/add/0x09C9D464b58d96837f8d8b6f4d9fE4aD408d3A4f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
-    components: ["ply", "near"],
-    nativePath: {
-      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
-      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
-      path: [
-        "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
-        "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
-      ],
-    },
-  },
-  rewardTokens: ["ply"],
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.TRISOLARIS,
-  details: {
-    apiKey: "TRI-PLY-NEAR",
-    harvestStyle: HarvestStyle.CUSTOM,
-  },
-  farm: {
-    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
-    farmNickname: "pTRI PLY/NEAR",
-    farmDepositTokenName: "pTRI PLY/NEAR",
-  },
-};
-JAR_DEFINITIONS.push(JAR_AURORA_TRI_PLY_NEAR);
-
 // Metis
 export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
   type: AssetType.JAR,
@@ -7248,7 +7269,7 @@ export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
   startBlock: 318292,
   depositToken: {
     addr: "0x60312d4EbBF3617d3D33841906b5868A86931Cbd",
-    name: "NET NETT/METIS",
+    name: "NetswapLP NETT/METIS",
     link: "https://netswap.io/#/add/0x90fe084f877c65e1b577c7b2ea64b8d8dd1ab278/0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000",
     components: ["nett", "metis"],
   },
@@ -7275,7 +7296,7 @@ export const JAR_METIS_NETSWAP_BNB_NETT: JarDefinition = {
   startBlock: 328085,
   depositToken: {
     addr: "0x3bF77b9192579826f260Bc48F2214Dfba840fcE5",
-    name: "NET BNB/NETT",
+    name: "NetswapLP BNB/NETT",
     link: "https://netswap.io/#/add/0x2692BE44A6E38B698731fDDf417d060f0d20A0cB/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
     components: ["bnb", "nett"],
     nativePath: {
@@ -7310,7 +7331,7 @@ export const JAR_METIS_NETSWAP_ETH_METIS: JarDefinition = {
   startBlock: 328085,
   depositToken: {
     addr: "0x59051b5f5172b69e66869048dc69d35db0b3610d",
-    name: "NET ETH/METIS",
+    name: "NetswapLP ETH/METIS",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
     components: ["eth", "metis"],
   },
@@ -7337,7 +7358,7 @@ export const JAR_METIS_NETSWAP_ETH_NETT: JarDefinition = {
   startBlock: 328150,
   depositToken: {
     addr: "0xC8aE82A0ab6AdA2062B812827E1556c0fa448dd0",
-    name: "NET ETH/NETT",
+    name: "NetswapLP ETH/NETT",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278",
     components: ["eth", "nett"],
     nativePath: {
@@ -7372,7 +7393,7 @@ export const JAR_METIS_NETSWAP_ETH_USDC: JarDefinition = {
   startBlock: 328173,
   depositToken: {
     addr: "0xF5988809ac97C65121e2c34f5D49558e3D12C253",
-    name: "NET ETH/USDC",
+    name: "NetswapLP ETH/USDC",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["eth", "usdc"],
     nativePath: {
@@ -7407,7 +7428,7 @@ export const JAR_METIS_NETSWAP_ETH_USDT: JarDefinition = {
   startBlock: 328197,
   depositToken: {
     addr: "0x4Db4CE7f5b43A6B455D3c3057b63A083b09b8376",
-    name: "NET ETH/USDT",
+    name: "NetswapLP ETH/USDT",
     link: "https://netswap.io/#/add/0x420000000000000000000000000000000000000A/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
     components: ["eth", "usdt"],
     nativePath: {
@@ -7442,7 +7463,7 @@ export const JAR_METIS_NETSWAP_METIS_USDC: JarDefinition = {
   startBlock: 328228,
   depositToken: {
     addr: "0x5Ae3ee7fBB3Cb28C17e7ADc3a6Ae605ae2465091",
-    name: "NET METIS/USDC",
+    name: "NetswapLP METIS/USDC",
     link: "https://netswap.io/#/add/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["metis", "usdc"],
   },
@@ -7469,7 +7490,7 @@ export const JAR_METIS_NETSWAP_NETT_USDC: JarDefinition = {
   startBlock: 328276,
   depositToken: {
     addr: "0x0724d37522585E87d27C802728E824862Dc72861",
-    name: "NET NETT/USDC",
+    name: "NetswapLP NETT/USDC",
     link: "https://netswap.io/#/add/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["nett", "usdc"],
     nativePath: {
@@ -7504,7 +7525,7 @@ export const JAR_METIS_NETSWAP_NETT_USDT: JarDefinition = {
   startBlock: 328315,
   depositToken: {
     addr: "0x7D02ab940d7dD2B771e59633bBC1ed6EC2b99Af1",
-    name: "NET NETT/USDT",
+    name: "NetswapLP NETT/USDT",
     link: "https://netswap.io/#/add/0x90fE084F877C65e1b577c7b2eA64B8D8dd1AB278/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
     components: ["nett", "usdt"],
     nativePath: {
@@ -7539,7 +7560,7 @@ export const JAR_METIS_NETSWAP_USDT_METIS: JarDefinition = {
   startBlock: 328357,
   depositToken: {
     addr: "0x3D60aFEcf67e6ba950b499137A72478B2CA7c5A1",
-    name: "NET USDT/METIS",
+    name: "NetswapLP USDT/METIS",
     link: "https://netswap.io/#/add/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
     components: ["usdt", "metis"],
   },
@@ -7566,7 +7587,7 @@ export const JAR_METIS_NETSWAP_USDT_USDC: JarDefinition = {
   startBlock: 328438,
   depositToken: {
     addr: "0x1caD5f8f5D4C0AD49646B2565CC0cA725E4280EA",
-    name: "NET USDT/USDC",
+    name: "NetswapLP USDT/USDC",
     link: "https://netswap.io/#/add/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["usdt", "usdc"],
     nativePath: {
@@ -7602,7 +7623,7 @@ export const JAR_METIS_NETSWAP_WBTC_METIS: JarDefinition = {
   startBlock: 991482,
   depositToken: {
     addr: "0xE0cc462fe369146BAef2306EC6B4BF26704eE84e",
-    name: "NET WBTC/METIS",
+    name: "NetswapLP WBTC/METIS",
     link: "https://netswap.io/#/add/0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000",
     components: ["wbtc", "metis"],
   },
@@ -7629,7 +7650,7 @@ export const JAR_METIS_NETSWAP_WBTC_USDT: JarDefinition = {
   startBlock: 993242,
   depositToken: {
     addr: "0xAd9b903451dfdc3D79d2021289F9d864fd8c8119",
-    name: "NET WBTC/USDT",
+    name: "NetswapLP WBTC/USDT",
     link: "https://netswap.io/#/add/0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4/0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC",
     components: ["wbtc", "usdt"],
     nativePath: {
@@ -7664,7 +7685,7 @@ export const JAR_METIS_NETSWAP_BYTE_USDC: JarDefinition = {
   startBlock: 1692531,
   depositToken: {
     addr: "0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c",
-    name: "NET BYTE/USDC",
+    name: "NetswapLP BYTE/USDC",
     link: "https://netswap.io/#/add/0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["byte", "usdc"],
   },
@@ -7692,7 +7713,7 @@ export const JAR_METIS_NETSWAP_BUSD_USDC: JarDefinition = {
   startBlock: 1788844,
   depositToken: {
     addr: "0x8014c801F6cF32445D503f7BaC30976B3161eE52",
-    name: "NET BUSD/USDC",
+    name: "NetswapLP BUSD/USDC",
     link: "https://netswap.io/#/add/0x12D84f1CFe870cA9C9dF9785f8954341d7fbb249/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["busd", "usdc"],
   },
@@ -7721,7 +7742,7 @@ export const JAR_METIS_NETSWAP_HERA_USDC: JarDefinition = {
   startBlock: 2232251,
   depositToken: {
     addr: "0x948f9614628d761f86B672F134Fc273076C4D623",
-    name: "NET HERA/USDC",
+    name: "NetswapLP HERA/USDC",
     link: "https://netswap.io/#/add/0x6F05709bc91Bad933346F9E159f0D3FdBc2c9DCE/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["hera", "usdc"],
   },
@@ -7748,7 +7769,7 @@ export const JAR_METIS_TETHYS_METIS: JarDefinition = {
   startBlock: 184213,
   depositToken: {
     addr: "0xc9b290FF37fA53272e9D71A0B13a444010aF4497",
-    name: "TETHYS TETHYS/METIS",
+    name: "TethysLP TETHYS/METIS",
     link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0x69fdb77064ec5c84FA2F21072973eB28441F43F3",
     components: ["tethys", "metis"],
   },
@@ -7775,7 +7796,7 @@ export const JAR_METIS_TETHYS_ETH_METIS: JarDefinition = {
   startBlock: 309786,
   depositToken: {
     addr: "0xEE5adB5b0DfC51029Aca5Ad4Bc684Ad676b307F7",
-    name: "TETHYS ETH/METIS",
+    name: "TethysLP ETH/METIS",
     link: "https://tethys.finance/pool/add?inputCurrency=0x420000000000000000000000000000000000000A&outputCurrency=METIS",
     components: ["eth", "metis"],
   },
@@ -7802,7 +7823,7 @@ export const JAR_METIS_TETHYS_METIS_USDC: JarDefinition = {
   startBlock: 327898,
   depositToken: {
     addr: "0xDd7dF3522a49e6e1127bf1A1d3bAEa3bc100583B",
-    name: "TETHYS METIS/USDC",
+    name: "TethysLP METIS/USDC",
     link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
     components: ["metis", "usdc"],
   },
@@ -7829,7 +7850,7 @@ export const JAR_METIS_TETHYS_USDT_METIS: JarDefinition = {
   startBlock: 328045,
   depositToken: {
     addr: "0x8121113eB9952086deC3113690Af0538BB5506fd",
-    name: "TETHYS USDT/METIS",
+    name: "TethysLP USDT/METIS",
     link: "https://tethys.finance/pool/add?inputCurrency=0xbB06DCA3AE6887fAbF931640f67cab3e3a16F4dC&outputCurrency=METIS",
     components: ["usdt", "metis"],
   },
@@ -7856,7 +7877,7 @@ export const JAR_METIS_HADES_METIS: JarDefinition = {
   startBlock: 525691,
   depositToken: {
     addr: "0x586f616Bb811F1b0dFa953FBF6DE3569e7919752",
-    name: "TETHYS HADES/METIS",
+    name: "TethysLP HADES/METIS",
     link: "https://tethys.finance/pool/add?inputCurrency=0x88c37e0bc6a237e96bc4a82774a38bbc30eff3cf&outputCurrency=METIS",
     components: ["hades", "metis"],
   },
@@ -7883,7 +7904,7 @@ export const JAR_METIS_HELLSHARE_METIS: JarDefinition = {
   startBlock: 525764,
   depositToken: {
     addr: "0xCD1cc85DC7b4Deef34247CCB5d7C42A58039b1bA",
-    name: "TETHYS HELLSHARE/METIS",
+    name: "TethysLP HELLSHARE/METIS",
     link: "https://tethys.finance/pool/add?inputCurrency=0xefb15ef34f85632fd1d4c17fc130ccee3d3d48ae&outputCurrency=METIS",
     components: ["hellshare", "metis"],
   },
@@ -7910,7 +7931,7 @@ export const JAR_METIS_TETHYS_WBTC_METIS: JarDefinition = {
   startBlock: 993312,
   depositToken: {
     addr: "0xA0081C6D591c53Ae651bD71B8d90C83C1F1106C2",
-    name: "TETHYS WBTC/METIS",
+    name: "TethysLP WBTC/METIS",
     link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xa5B55ab1dAF0F8e1EFc0eB1931a957fd89B918f4",
     components: ["wbtc", "metis"],
   },
@@ -7937,7 +7958,7 @@ export const JAR_METIS_TETHYS_METIS_DAI: JarDefinition = {
   startBlock: 1687592,
   depositToken: {
     addr: "0xCc15d8f93be780aD78fD1A016fB0F15F2543b5Dc",
-    name: "TETHYS METIS/DAI",
+    name: "TethysLP METIS/DAI",
     link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A",
     components: ["metis", "dai"],
   },
@@ -7965,7 +7986,7 @@ export const JAR_METIS_TETHYS_METIS_AVAX: JarDefinition = {
   startBlock: 1688168,
   depositToken: {
     addr: "0x3Ca47677e7D8796e6470307Ad15c1fBFd43f0D6F",
-    name: "TETHYS METIS/AVAX",
+    name: "TethysLP METIS/AVAX",
     link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xE253E0CeA0CDD43d9628567d097052B33F98D611",
     components: ["metis", "avax"],
   },
@@ -7993,7 +8014,7 @@ export const JAR_METIS_TETHYS_METIS_FTM: JarDefinition = {
   startBlock: 1688704,
   depositToken: {
     addr: "0x74Ca39F7aB9B685B8eA8c4ab19E7Ab6b474Dd22D",
-    name: "TETHYS METIS/FTM",
+    name: "TethysLP METIS/FTM",
     link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xa9109271abcf0C4106Ab7366B4eDB34405947eED",
     components: ["metis", "ftm"],
   },
@@ -8021,7 +8042,7 @@ export const JAR_METIS_HUMMUS_USDT: JarDefinition = {
   startBlock: 2375823,
   depositToken: {
     addr: "0x9F51f0D7F500343E969D28010C7Eb0Db1bCaAEf9",
-    name: "HUMMUS m.USDT",
+    name: "HummusSS USDT",
     link: "https://app.hummus.exchange/pool",
     components: ["usdt"],
     decimals: 6,
@@ -8051,7 +8072,7 @@ export const JAR_METIS_HUMMUS_USDC: JarDefinition = {
   startBlock: 2375823,
   depositToken: {
     addr: "0x9E3F3Be65fEc3731197AFF816489eB1Eb6E6b830",
-    name: "HUMMUS m.USDC",
+    name: "HummusSS USDC",
     link: "https://app.hummus.exchange/pool",
     components: ["usdc"],
     decimals: 6,
@@ -8081,7 +8102,7 @@ export const JAR_METIS_HUMMUS_DAI: JarDefinition = {
   startBlock: 2375823,
   depositToken: {
     addr: "0xd5A0760D55ad46B6A1C46D28725e4C117312a7aD",
-    name: "HUMMUS m.DAI",
+    name: "HummusSS DAI",
     link: "https://app.hummus.exchange/pool",
     components: ["dai"],
   },
@@ -8111,7 +8132,7 @@ export const JAR_MOONBEAM_STELLA_GLMR: JarDefinition = {
   startBlock: 220187,
   depositToken: {
     addr: "0x7F5Ac0FC127bcf1eAf54E3cd01b00300a0861a62",
-    name: "STELLA STELLA/GLMR",
+    name: "StellaLP STELLA/GLMR",
     link: "https://app.stellaswap.com/exchange/add/ETH/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2",
     components: ["stella", "glmr"],
   },
@@ -8138,7 +8159,7 @@ export const JAR_MOONBEAM_STELLA_USDC_BNB: JarDefinition = {
   startBlock: 223431,
   depositToken: {
     addr: "0xAc2657ba28768FE5F09052f07A9B7ea867A4608f",
-    name: "STELLA USDC/BNB",
+    name: "StellaLP USDC/BNB",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055",
     components: ["usdc", "bnb"],
     nativePath: {
@@ -8173,7 +8194,7 @@ export const JAR_MOONBEAM_STELLA_BUSD_GLMR: JarDefinition = {
   startBlock: 223523,
   depositToken: {
     addr: "0x367c36dAE9ba198A4FEe295c22bC98cB72f77Fe1",
-    name: "STELLA BUSD/GLMR",
+    name: "StellaLP BUSD/GLMR",
     link: "https://app.stellaswap.com/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/ETH",
     components: ["busd", "glmr"],
   },
@@ -8200,7 +8221,7 @@ export const JAR_MOONBEAM_STELLA_USDC_DAI: JarDefinition = {
   startBlock: 223576,
   depositToken: {
     addr: "0x5Ced2f8DD70dc25cbA10ad18c7543Ad9ad5AEeDD",
-    name: "STELLA USDC/DAI",
+    name: "StellaLP USDC/DAI",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0x765277EebeCA2e31912C9946eAe1021199B39C61",
     components: ["usdc", "dai"],
     nativePath: {
@@ -8236,7 +8257,7 @@ export const JAR_MOONBEAM_STELLA_ETH_GLMR: JarDefinition = {
   startBlock: 223604,
   depositToken: {
     addr: "0x49a1cC58dCf28D0139dAEa9c18A3ca23108E78B3",
-    name: "STELLA ETH/GLMR",
+    name: "StellaLP ETH/GLMR",
     link: "https://app.stellaswap.com/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/ETH",
     components: ["eth", "glmr"],
   },
@@ -8263,7 +8284,7 @@ export const JAR_MOONBEAM_STELLA_USDC_GLMR: JarDefinition = {
   startBlock: 223668,
   depositToken: {
     addr: "0x555B74dAFC4Ef3A5A1640041e3244460Dc7610d1",
-    name: "STELLA USDC/GLMR",
+    name: "StellaLP USDC/GLMR",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/ETH",
     components: ["usdc", "glmr"],
   },
@@ -8290,7 +8311,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   startBlock: 223694,
   depositToken: {
     addr: "0x81e11a9374033d11Cc7e7485A7192AE37D0795D6",
-    name: "STELLA STELLA/USDC",
+    name: "StellaLP STELLA/USDC",
     link: "https://app.stellaswap.com/exchange/add/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["stella", "usdc"],
     nativePath: {
@@ -8325,7 +8346,7 @@ export const JAR_MOONBEAM_STELLA_USDC_USDT: JarDefinition = {
   startBlock: 223788,
   depositToken: {
     addr: "0x8BC3CceeF43392B315dDD92ba30b435F79b66b9e",
-    name: "STELLA USDC/USDT",
+    name: "StellaLP USDC/USDT",
     link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73",
     components: ["usdc", "usdt"],
     nativePath: {
@@ -8361,7 +8382,7 @@ export const JAR_MOONBEAM_BEAM_BNB_BUSD: JarDefinition = {
   startBlock: 250044,
   depositToken: {
     addr: "0x34A1F4AB3548A92C6B32cd778Eed310FcD9A340D",
-    name: "BEAM BNB/BUSD",
+    name: "BeamLP BNB/BUSD",
     link: "https://app.beamswap.io/exchange/add/0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F",
     components: ["bnb", "busd"],
     nativePath: {
@@ -8396,7 +8417,7 @@ export const JAR_MOONBEAM_BEAM_BUSD_GLMR: JarDefinition = {
   startBlock: 250354,
   depositToken: {
     addr: "0xfC422EB0A2C7a99bAd330377497FD9798c9B1001",
-    name: "BEAM BUSD/GLMR",
+    name: "BeamLP BUSD/GLMR",
     link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/GLMR",
     components: ["busd", "glmr"],
   },
@@ -8423,7 +8444,7 @@ export const JAR_MOONBEAM_BEAM_BUSD_USDC: JarDefinition = {
   startBlock: 250570,
   depositToken: {
     addr: "0xa0799832FB2b9F18Acf44B92FbbEDCfD6442DD5e",
-    name: "BEAM BUSD/USDC",
+    name: "BeamLP BUSD/USDC",
     link: "https://app.beamswap.io/exchange/add/0xA649325Aa7C5093d12D6F98EB4378deAe68CE23F/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["busd", "usdc"],
     nativePath: {
@@ -8459,7 +8480,7 @@ export const JAR_MOONBEAM_BEAM_ETH_USDC: JarDefinition = {
   startBlock: 250621,
   depositToken: {
     addr: "0x6BA3071760d46040FB4dc7B627C9f68efAca3000",
-    name: "BEAM ETH/USDC",
+    name: "BeamLP ETH/USDC",
     link: "https://app.beamswap.io/exchange/add/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["eth", "usdc"],
     nativePath: {
@@ -8494,7 +8515,7 @@ export const JAR_MOONBEAM_BEAM_GLMR_GLINT: JarDefinition = {
   startBlock: 239536,
   depositToken: {
     addr: "0x99588867e817023162F4d4829995299054a5fC57",
-    name: "BEAM GLMR/GLINT",
+    name: "BeamLP GLMR/GLINT",
     link: "https://app.beamswap.io/exchange/add/GLMR/0xcd3b51d98478d53f4515a306be565c6eebef1d58",
     components: ["glmr", "glint"],
   },
@@ -8521,7 +8542,7 @@ export const JAR_MOONBEAM_BEAM_GLMR_USDC: JarDefinition = {
   startBlock: 250718,
   depositToken: {
     addr: "0xb929914B89584b4081C7966AC6287636F7EfD053",
-    name: "BEAM GLMR/USDC",
+    name: "BeamLP GLMR/USDC",
     link: "https://app.beamswap.io/exchange/add/GLMR/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
     components: ["glmr", "usdc"],
   },
@@ -8548,7 +8569,7 @@ export const JAR_MOONBEAM_BEAM_USDC_USDT: JarDefinition = {
   startBlock: 250786,
   depositToken: {
     addr: "0xA35B2c07Cb123EA5E1B9c7530d0812e7e03eC3c1",
-    name: "BEAM USDC/USDT",
+    name: "BeamLP USDC/USDT",
     link: "https://app.beamswap.io/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/0xeFAeeE334F0Fd1712f9a8cc375f427D9Cdd40d73",
     components: ["usdc", "usdt"],
     nativePath: {
@@ -8584,7 +8605,7 @@ export const JAR_FLARE_FLARE_GLMR: JarDefinition = {
   startBlock: 324558,
   depositToken: {
     addr: "0x26A2abD79583155EA5d34443b62399879D42748A",
-    name: "FLARE FLARE/GLMR",
+    name: "SolarflareLP FLARE/GLMR",
     link: "https://solarflare.io/exchange/add/ETH/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7",
     components: ["flare", "glmr"],
   },
@@ -8611,7 +8632,7 @@ export const JAR_FLARE_FLARE_USDC: JarDefinition = {
   startBlock: 328224,
   depositToken: {
     addr: "0x976888647affb4b2d7Ac1952cB12ca048cD67762",
-    name: "FLARE FLARE/USDC",
+    name: "SolarflareLP FLARE/USDC",
     link: "https://solarflare.io/exchange/add/0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7/0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
     components: ["flare", "usdc-2"],
     nativePath: {
@@ -8647,7 +8668,7 @@ export const JAR_FLARE_GLMR_MOVR: JarDefinition = {
   startBlock: 329380,
   depositToken: {
     addr: "0xa65949fa1053903fcc019ac21b0335aa4b4b1bfa",
-    name: "FLARE GLMR/MOVR",
+    name: "SolarflareLP GLMR/MOVR",
     link: "https://solarflare.io/exchange/add/ETH/0x1d4C2a246311bB9f827F4C768e277FF5787B7D7E",
     components: ["glmr", "movr"],
   },
@@ -8674,7 +8695,7 @@ export const JAR_FLARE_GLMR_USDC: JarDefinition = {
   startBlock: 329459,
   depositToken: {
     addr: "0xAb89eD43D10c7CE0f4D6F21616556AeCb71b9c5f",
-    name: "FLARE GLMR/USDC",
+    name: "SolarflareLP GLMR/USDC",
     link: "https://solarflare.io/exchange/add/ETH/0x8f552a71efe5eefc207bf75485b356a0b3f01ec9",
     components: ["glmr", "usdc-2"],
   },
@@ -8701,7 +8722,7 @@ export const JAR_FLARE_GLMR_ETH: JarDefinition = {
   startBlock: 329631,
   depositToken: {
     addr: "0xb521C0aCf67390C1364f1e940e44dB25828E5Ef9",
-    name: "FLARE GLMR/ETH",
+    name: "SolarflareLP GLMR/ETH",
     link: "https://solarflare.io/exchange/add/ETH/0x30D2a9F5FDf90ACe8c17952cbb4eE48a55D916A7",
     components: ["glmr", "eth-2"],
   },
@@ -8728,7 +8749,7 @@ export const JAR_FLARE_GLMR_WBTC: JarDefinition = {
   startBlock: 329493,
   depositToken: {
     addr: "0xDF74D67a4Fe29d9D5e0bfAaB3516c65b21a5d7cf",
-    name: "FLARE GLMR/WBTC",
+    name: "SolarflareLP GLMR/WBTC",
     link: "https://solarflare.io/exchange/add/ETH/0x1DC78Acda13a8BC4408B207c9E48CDBc096D95e0",
     components: ["glmr", "wbtc"],
   },
@@ -8756,7 +8777,7 @@ export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
   startBlock: 2450241,
   depositToken: {
     addr: "0x1A981dAa7967C66C3356Ad044979BC82E4a478b9",
-    name: "ZIP ETH/USDC",
+    name: "ZipLP ETH/USDC",
     link: "https://zipswap.fi/#/add/ETH/0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
     components: ["eth", "usdc"],
   },
@@ -8783,7 +8804,7 @@ export const JAR_OPTIMISM_ZIP_ETH_DAI: JarDefinition = {
   startBlock: 2456276,
   depositToken: {
     addr: "0x53790B6C7023786659D11ed82eE03079F3bD6976",
-    name: "ZIP ETH/DAI",
+    name: "ZipLP ETH/DAI",
     link: "https://www.zipswap.fi/#/add/v2/ETH/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
     components: ["eth", "dai"],
   },
@@ -8810,7 +8831,7 @@ export const JAR_OPTIMISM_ZIP_ETH_BTC: JarDefinition = {
   startBlock: 2456201,
   depositToken: {
     addr: "0x251de0f0368c472Bba2E1C8f5Db5aC7582B5f847",
-    name: "ZIP ETH/BTC",
+    name: "ZipLP ETH/BTC",
     link: "https://www.zipswap.fi/#/add/v2/ETH/0x68f180fcCe6836688e9084f035309E29Bf0A2095",
     components: ["eth", "btc"],
   },
@@ -8837,7 +8858,7 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
   startBlock: 2456491,
   depositToken: {
     addr: "0xD7F6ECF4371eddBd60C1080BfAEc3d1d60D415d0",
-    name: "ZIP ETH/ZIP",
+    name: "ZipLP ETH/ZIP",
     link: "https://www.zipswap.fi/#/add/v2/ETH/0xFA436399d0458Dbe8aB890c3441256E3E09022a8",
     components: ["eth", "zip"],
   },
@@ -8864,7 +8885,7 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   startBlock: 4810772,
   depositToken: {
     addr: "0xDecC0c09c3B5f6e92EF4184125D5648a66E35298",
-    name: "STARGATE USDC",
+    name: "StargateSS USDC",
     link: "https://stargate.finance/pool/USDC-Optimism",
     components: ["usdc"],
     decimals: 6,
@@ -8895,7 +8916,7 @@ export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   startBlock: 30665577,
   depositToken: {
     addr: "0xEc7178F4C41f346b2721907F5cF7628E388A7a58",
-    name: "BOO FTM/BOO",
+    name: "SpookyLP FTM/BOO",
     link: "https://spookyswap.finance/add/FTM/0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
     components: ["ftm", "boo"],
   },
@@ -8923,7 +8944,7 @@ export const JAR_FANTOM_BOO_FTM_ICE: JarDefinition = {
   startBlock: 30677495,
   depositToken: {
     addr: "0x623EE4a7F290d11C11315994dB70FB148b13021d",
-    name: "BOO FTM/ICE",
+    name: "SpookyLP FTM/ICE",
     link: "https://spookyswap.finance/add/FTM/0xf16e81dce15B08F326220742020379B855B87DF9",
     components: ["ftm", "ice"],
   },
@@ -8951,7 +8972,7 @@ export const JAR_FANTOM_BOO_FTM_SPELL: JarDefinition = {
   startBlock: 30679774,
   depositToken: {
     addr: "0x78f82c16992932EfDd18d93f889141CcF326DBc2",
-    name: "BOO FTM/SPELL",
+    name: "SpookyLP FTM/SPELL",
     link: "https://spookyswap.finance/add/FTM/0x468003B688943977e6130F4F68F23aad939a1040",
     components: ["ftm", "spell"],
   },
@@ -8979,7 +9000,7 @@ export const JAR_FANTOM_BOO_CRV_FTM: JarDefinition = {
   startBlock: 30689942,
   depositToken: {
     addr: "0xB471Ac6eF617e952b84C6a9fF5de65A9da96C93B",
-    name: "BOO FTM/CRV",
+    name: "SpookyLP FTM/CRV",
     link: "https://spookyswap.finance/add/FTM/0x1E4F97b9f9F913c46F1632781732927B9019C68b",
     components: ["ftm", "crv"],
   },
@@ -9007,7 +9028,7 @@ export const JAR_FANTOM_BOO_FTM_AVAX: JarDefinition = {
   startBlock: 30711093,
   depositToken: {
     addr: "0x5DF809e410d9CC577f0d01b4E623C567C7aD56c1",
-    name: "BOO FTM/AVAX",
+    name: "SpookyLP FTM/AVAX",
     link: "https://spookyswap.finance/add/FTM/0x511D35c52a3C244E7b8bd92c0C297755FbD89212",
     components: ["ftm", "avax"],
   },
@@ -9035,7 +9056,7 @@ export const JAR_FANTOM_BOO_FTM_ETH: JarDefinition = {
   startBlock: 30720157,
   depositToken: {
     addr: "0xf0702249F4D3A25cD3DED7859a165693685Ab577",
-    name: "BOO FTM/ETH",
+    name: "SpookyLP FTM/ETH",
     link: "https://spookyswap.finance/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["ftm", "eth"],
   },
@@ -9063,7 +9084,7 @@ export const JAR_FANTOM_BOO_USDC_FTM: JarDefinition = {
   startBlock: 30719842,
   depositToken: {
     addr: "0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c",
-    name: "BOO USDC/FTM",
+    name: "SpookyLP USDC/FTM",
     link: "https://spookyswap.finance/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["usdc", "ftm"],
   },
@@ -9091,7 +9112,7 @@ export const JAR_FANTOM_BOO_USDT_FTM: JarDefinition = {
   startBlock: 30763619,
   depositToken: {
     addr: "0x5965E53aa80a0bcF1CD6dbDd72e6A9b2AA047410",
-    name: "BOO USDT/FTM",
+    name: "SpookyLP USDT/FTM",
     link: "https://spookyswap.finance/add/FTM/0x049d68029688eAbF473097a2fC38ef61633A3C7A",
     components: ["usdt", "ftm"],
   },
@@ -9119,7 +9140,7 @@ export const JAR_FANTOM_BOO_FTM_BNB: JarDefinition = {
   startBlock: 30766780,
   depositToken: {
     addr: "0x956DE13EA0FA5b577E4097Be837BF4aC80005820",
-    name: "BOO FTM/BNB",
+    name: "SpookyLP FTM/BNB",
     link: "https://spookyswap.finance/add/FTM/0xD67de0e0a0Fd7b15dC8348Bb9BE742F3c5850454",
     components: ["ftm", "bnb"],
   },
@@ -9147,7 +9168,7 @@ export const JAR_FANTOM_BOO_FTM_BTC: JarDefinition = {
   startBlock: 30823739,
   depositToken: {
     addr: "0xFdb9Ab8B9513Ad9E419Cf19530feE49d412C3Ee3",
-    name: "BOO FTM/BTC",
+    name: "SpookyLP FTM/BTC",
     link: "https://spookyswap.finance/add/FTM/0x321162Cd933E2Be498Cd2267a90534A804051b11",
     components: ["ftm", "btc"],
   },
@@ -9175,7 +9196,7 @@ export const JAR_FANTOM_BOO_FTM_MIM: JarDefinition = {
   startBlock: 30823999,
   depositToken: {
     addr: "0x6f86e65b255c9111109d2D2325ca2dFc82456efc",
-    name: "BOO FTM/MIM",
+    name: "SpookyLP FTM/MIM",
     link: "https://spookyswap.finance/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
     components: ["ftm", "mim"],
   },
@@ -9203,7 +9224,7 @@ export const JAR_FANTOM_BOO_FTM_LINK: JarDefinition = {
   startBlock: 30824910,
   depositToken: {
     addr: "0x89d9bC2F2d091CfBFc31e333D6Dc555dDBc2fd29",
-    name: "BOO FTM/LINK",
+    name: "SpookyLP FTM/LINK",
     link: "https://spookyswap.finance/add/FTM/0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8",
     components: ["ftm", "link"],
   },
@@ -9231,7 +9252,7 @@ export const JAR_FANTOM_BOO_FTM_SUSHI: JarDefinition = {
   startBlock: 30865053,
   depositToken: {
     addr: "0xf84E313B36E86315af7a06ff26C8b20e9EB443C3",
-    name: "BOO FTM/SUSHI",
+    name: "SpookyLP FTM/SUSHI",
     link: "https://spookyswap.finance/add/FTM/0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC",
     components: ["ftm", "sushi"],
   },
@@ -9259,7 +9280,7 @@ export const JAR_FANTOM_BOO_FTM_TREEB: JarDefinition = {
   startBlock: 31008576,
   depositToken: {
     addr: "0xe8b72a866b8D59F5c13D2ADEF96E40A3EF5b3152",
-    name: "BOO FTM/TREEB",
+    name: "SpookyLP FTM/TREEB",
     link: "https://spookyswap.finance/add/FTM/0xc60D7067dfBc6f2caf30523a064f416A5Af52963",
     components: ["ftm", "treeb"],
   },
@@ -9287,7 +9308,7 @@ export const JAR_FANTOM_BOO_FTM_ANY: JarDefinition = {
   startBlock: 30900888,
   depositToken: {
     addr: "0x5c021D9cfaD40aaFC57786b409A9ce571de375b4",
-    name: "BOO FTM/ANY",
+    name: "SpookyLP FTM/ANY",
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["ftm", "any"],
   },
@@ -9315,7 +9336,7 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
   startBlock: 30976525,
   depositToken: {
     addr: "0xEc454EdA10accdD66209C57aF8C12924556F3aBD",
-    name: "BOO BTC/ETH",
+    name: "SpookyLP BTC/ETH",
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["btc", "eth"],
     nativePath: {
@@ -9351,7 +9372,7 @@ export const JAR_FANTOM_BOO_FTM_DAI: JarDefinition = {
   startBlock: 30760347,
   depositToken: {
     addr: "0xe120ffBDA0d14f3Bb6d6053E90E63c572A66a428",
-    name: "BOO FTM/DAI",
+    name: "SpookyLP FTM/DAI",
     link: "https://spookyswap.finance/add/FTM/0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     components: ["ftm", "dai"],
   },
@@ -9379,7 +9400,7 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
   startBlock: 30865304,
   depositToken: {
     addr: "0x0845c0bFe75691B1e21b24351aAc581a7FB6b7Df",
-    name: "BOO YFI/ETH",
+    name: "SpookyLP YFI/ETH",
     link: "https://spookyswap.finance/add/0x29b0Da86e484E1C0029B56e817912d778aC0EC69/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["yfi", "eth"],
     nativePath: {
@@ -9415,7 +9436,7 @@ export const JAR_FANTOM_BOO_FTM_MATIC: JarDefinition = {
   startBlock: 30916080,
   depositToken: {
     addr: "0x7051C6F0C1F1437498505521a3bD949654923fE1",
-    name: "BOO FTM/MATIC",
+    name: "SpookyLP FTM/MATIC",
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["ftm", "matic"],
   },
@@ -9443,7 +9464,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEUS_FTM: JarDefinition = {
   startBlock: 31171220,
   depositToken: {
     addr: "0x2599Eba5fD1e49F294C76D034557948034d6C96E",
-    name: "SPIRIT DEUS/FTM",
+    name: "SpiritLP DEUS/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
     components: ["deus", "ftm"],
   },
@@ -9471,7 +9492,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FRAX_FTM: JarDefinition = {
   startBlock: 31172509,
   depositToken: {
     addr: "0x7ed0cdDB9BB6c6dfEa6fB63E117c8305479B8D7D",
-    name: "SPIRIT FRAX/FTM",
+    name: "SpiritLP FRAX/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
     components: ["frax", "ftm"],
   },
@@ -9499,7 +9520,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_MIM_FTM: JarDefinition = {
   startBlock: 31172760,
   depositToken: {
     addr: "0xB32b31DfAfbD53E310390F641C7119b5B9Ea0488",
-    name: "SPIRIT MIM/FTM",
+    name: "SpiritLP MIM/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
     components: ["mim", "ftm"],
   },
@@ -9527,7 +9548,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_USDC_FTM: JarDefinition = {
   startBlock: 31172863,
   depositToken: {
     addr: "0xe7E90f5a767406efF87Fdad7EB07ef407922EC1D",
-    name: "SPIRIT USDC/FTM",
+    name: "SpiritLP USDC/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["usdc", "ftm"],
   },
@@ -9555,7 +9576,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_PILLS_FTM: JarDefinition = {
   startBlock: 31175157,
   depositToken: {
     addr: "0x9C775D3D66167685B2A3F4567B548567D2875350",
-    name: "SPIRIT PILLS/FTM",
+    name: "SpiritLP PILLS/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["pills", "ftm"],
   },
@@ -9583,7 +9604,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_ETH_FTM: JarDefinition = {
   startBlock: 31176288,
   depositToken: {
     addr: "0x613BF4E46b4817015c01c6Bb31C7ae9edAadc26e",
-    name: "SPIRIT ETH/FTM",
+    name: "SpiritLP ETH/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["eth", "ftm"],
   },
@@ -9611,7 +9632,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_FTM: JarDefinition = {
   startBlock: 31176781,
   depositToken: {
     addr: "0x30748322B6E34545DBe0788C421886AEB5297789",
-    name: "SPIRIT SPIRIT/FTM",
+    name: "SpiritLP SPIRIT/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
     components: ["spirit", "ftm"],
   },
@@ -9639,7 +9660,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_LQDR_FTM: JarDefinition = {
   startBlock: 31176917,
   depositToken: {
     addr: "0x4Fe6f19031239F105F753D1DF8A0d24857D0cAA2",
-    name: "SPIRIT LQDR/FTM",
+    name: "SpiritLP LQDR/FTM",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
     components: ["lqdr", "ftm"],
   },
@@ -9667,7 +9688,7 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
   startBlock: 32082789,
   depositToken: {
     addr: "0x8eFD36aA4Afa9F4E157bec759F1744A7FeBaEA0e",
-    name: "SPIRIT DEI/USDC",
+    name: "SpiritLP DEI/USDC",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3",
     components: ["dei", "usdc"],
     nativePath: {
@@ -9705,7 +9726,7 @@ export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
   startBlock: 31191414,
   depositToken: {
     addr: "0xe120ffBDA0d14f3Bb6d6053E90E63c572A66a428",
-    name: "BOO DAI/FTM",
+    name: "SpookyLP DAI/FTM",
     link: "https://spookyswap.finance/add/FTM/0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     components: ["dai", "ftm"],
   },
@@ -9734,7 +9755,7 @@ export const JAR_FANTOM_LQDR_BOO_FTM: JarDefinition = {
   startBlock: 31192191,
   depositToken: {
     addr: "0xEc7178F4C41f346b2721907F5cF7628E388A7a58",
-    name: "BOO BOO/FTM",
+    name: "SpookyLP BOO/FTM",
     link: "https://spookyswap.finance/add/FTM/0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
     components: ["boo", "ftm"],
   },
@@ -9763,7 +9784,7 @@ export const JAR_FANTOM_LQDR_BOO_ETH_FTM: JarDefinition = {
   startBlock: 31193550,
   depositToken: {
     addr: "0xf0702249F4D3A25cD3DED7859a165693685Ab577",
-    name: "BOO ETH/FTM",
+    name: "SpookyLP ETH/FTM",
     link: "https://spookyswap.finance/add/FTM/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["eth", "ftm"],
   },
@@ -9792,7 +9813,7 @@ export const JAR_FANTOM_LQDR_BOO_MIM_FTM: JarDefinition = {
   startBlock: 31192948,
   depositToken: {
     addr: "0x6f86e65b255c9111109d2D2325ca2dFc82456efc",
-    name: "BOO MIM/FTM",
+    name: "SpookyLP MIM/FTM",
     link: "https://spookyswap.finance/add/FTM/0x82f0B8B456c1A451378467398982d4834b6829c1",
     components: ["mim", "ftm"],
   },
@@ -9821,7 +9842,7 @@ export const JAR_FANTOM_LQDR_BOO_LINK_FTM: JarDefinition = {
   startBlock: 31192704,
   depositToken: {
     addr: "0x89d9bC2F2d091CfBFc31e333D6Dc555dDBc2fd29",
-    name: "BOO LINK/FTM",
+    name: "SpookyLP LINK/FTM",
     link: "https://spookyswap.finance/add/FTM/0xb3654dc3D10Ea7645f8319668E8F54d2574FBdC8",
     components: ["link", "ftm"],
   },
@@ -9850,7 +9871,7 @@ export const JAR_FANTOM_LQDR_BOO_USDC_FTM: JarDefinition = {
   startBlock: 31193202,
   depositToken: {
     addr: "0x2b4C76d0dc16BE1C31D4C1DC53bF9B45987Fc75c",
-    name: "BOO USDC/FTM",
+    name: "SpookyLP USDC/FTM",
     link: "https://spookyswap.finance/add/FTM/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["usdc", "ftm"],
   },
@@ -9879,7 +9900,7 @@ export const JAR_FANTOM_LQDR_BOO_USDT_FTM: JarDefinition = {
   startBlock: 31192423,
   depositToken: {
     addr: "0x5965E53aa80a0bcF1CD6dbDd72e6A9b2AA047410",
-    name: "BOO USDT/FTM",
+    name: "SpookyLP USDT/FTM",
     link: "https://spookyswap.finance/add/FTM/0x049d68029688eAbF473097a2fC38ef61633A3C7A",
     components: ["usdt", "ftm"],
   },
@@ -9908,7 +9929,7 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
   startBlock: 31193785,
   depositToken: {
     addr: "0xf84E313B36E86315af7a06ff26C8b20e9EB443C3",
-    name: "BOO SUSHI/FTM",
+    name: "SpookyLP SUSHI/FTM",
     link: "https://spookyswap.finance/add/FTM/0xae75A438b2E0cB8Bb01Ec1E1e376De11D44477CC",
     components: ["sushi", "ftm"],
   },
@@ -9965,7 +9986,7 @@ export const JAR_FANTOM_BEETX_FTM_BTC_ETH: JarDefinition = {
   startBlock: 31357683,
   depositToken: {
     addr: "0xd47D2791d3B46f9452709Fa41855a045304D6f9d",
-    name: "BEETX FTM/BTC/ETH",
+    name: "BeethovenxLP FTM/BTC/ETH",
     link: "https://beets.fi/#/pool/0xd47d2791d3b46f9452709fa41855a045304d6f9d000100000000000000000004",
     components: ["ftm", "btc", "eth"],
   },
@@ -9993,7 +10014,7 @@ export const JAR_FANTOM_BEETX_LQDR_FTM: JarDefinition = {
   startBlock: 31366828,
   depositToken: {
     addr: "0x5E02aB5699549675A6d3BEEb92A62782712D0509",
-    name: "BEETX LQDR/FTM",
+    name: "BeethovenxLP LQDR/FTM",
     link: "https://beets.fi/#/pool/0x5e02ab5699549675a6d3beeb92a62782712d0509000200000000000000000138",
     components: ["lqdr", "ftm"],
   },
@@ -10021,7 +10042,7 @@ export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
   startBlock: 31366941,
   depositToken: {
     addr: "0x9af1F0e9aC9C844A4a4439d446c1437807183075",
-    name: "BEETX FTM/MATIC/SOL/AVAX/LUNA/BNB",
+    name: "BeethovenxLP FTM/MATIC/SOL/AVAX/LUNA/BNB",
     link: "https://beets.fi/#/pool/0x9af1f0e9ac9c844a4a4439d446c14378071830750001000000000000000000da",
     components: ["ftm", "matic", "sol", "avax", "luna", "bnb"],
   },
@@ -10049,7 +10070,7 @@ export const JAR_FANTOM_BEETX_FTM_USDC: JarDefinition = {
   startBlock: 31372390,
   depositToken: {
     addr: "0xcdF68a4d525Ba2E90Fe959c74330430A5a6b8226",
-    name: "BEETX FTM/USDC",
+    name: "BeethovenxLP FTM/USDC",
     link: "https://beets.fi/#/pool/0xcdf68a4d525ba2e90fe959c74330430a5a6b8226000200000000000000000008",
     components: ["ftm", "usdc"],
   },
@@ -10077,7 +10098,7 @@ export const JAR_FANTOM_BEETX_USDC_DAI_MAI: JarDefinition = {
   startBlock: 31366857,
   depositToken: {
     addr: "0x2C580C6F08044D6dfACA8976a66C8fAddDBD9901",
-    name: "BEETX USDC/DAI/MAI",
+    name: "BeethovenxLP USDC/DAI/MAI",
     link: "https://beets.fi/#/pool/0x2c580c6f08044d6dfaca8976a66c8fadddbd9901000000000000000000000038",
     components: ["usdc", "dai", "mimatic"],
   },
@@ -10106,7 +10127,7 @@ export const JAR_FANTOM_BEETX_USDC_FTM_BTC_ETH: JarDefinition = {
   startBlock: 31366902,
   depositToken: {
     addr: "0xf3A602d30dcB723A74a0198313a7551FEacA7DAc",
-    name: "BEETX USDC/FTM/BTC/ETH",
+    name: "BeethovenxLP USDC/FTM/BTC/ETH",
     link: "https://beets.fi/#/pool/0xf3a602d30dcb723a74a0198313a7551feaca7dac00010000000000000000005f",
     components: ["usdc", "ftm", "btc", "eth"],
   },
@@ -10134,7 +10155,7 @@ export const JAR_FANTOM_V_SEX_FTM: JarDefinition = {
   startBlock: 32386067,
   depositToken: {
     addr: "0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
-    name: "SOLID vFTM/SEX",
+    name: "vSolidlyLP FTM/SEX",
     link: "https://solidly.exchange/liquidity/0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
     components: ["ftm", "sex"],
   },
@@ -10163,7 +10184,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_V_SEX_FTM);
 //   startBlock:,
 // depositToken: {
 //     addr: "0x154eA0E896695824C87985a52230674C2BE7731b",
-//     name: "SOLID sUSDC/FRAX",
+//     name: "sSolidlyLP USDC/FRAX",
 //     link: "https://solidly.exchange/liquidity/0x154eA0E896695824C87985a52230674C2BE7731b",
 //     components: ["usdc", "frax"],
 //   },
@@ -10192,7 +10213,7 @@ export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
   startBlock: 32513558,
   depositToken: {
     addr: "0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
-    name: "SOLID sBTC/RENBTC",
+    name: "sSolidlyLP BTC/RENBTC",
     link: "https://solidly.exchange/liquidity/0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
     components: ["btc", "renbtc"],
     nativePath: {
@@ -10229,7 +10250,7 @@ export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
   startBlock: 32652856,
   depositToken: {
     addr: "0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
-    name: "SOLID sUSDC/MIM",
+    name: "sSolidlyLP USDC/MIM",
     link: "https://solidly.exchange/liquidity/0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
     components: ["usdc", "mim"],
     nativePath: {
@@ -10267,7 +10288,7 @@ export const JAR_FANTOM_SEX_V_FTM_TOMB: JarDefinition = {
   startBlock: 32652856,
   depositToken: {
     addr: "0x60a861Cd30778678E3d613db96139440Bd333143",
-    name: "SOLID vFTM/TOMB",
+    name: "vSolidlyLP FTM/TOMB",
     link: "https://solidly.exchange/liquidity/0x60a861Cd30778678E3d613db96139440Bd333143",
     components: ["ftm", "tomb"],
   },
@@ -10296,7 +10317,7 @@ export const JAR_FANTOM_SEX_V_FTM_CRV: JarDefinition = {
   startBlock: 32655009,
   depositToken: {
     addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-    name: "SOLID vFTM/CRV",
+    name: "vSolidlyLP FTM/CRV",
     link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
     components: ["ftm", "crv"],
   },
@@ -10325,7 +10346,7 @@ export const JAR_FANTOM_SEX_V_FXS_FRAX: JarDefinition = {
   startBlock: 32675050,
   depositToken: {
     addr: "0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
-    name: "SOLID vFXS/FRAX",
+    name: "vSolidlyLP FXS/FRAX",
     link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
     components: ["fxs", "frax"],
     nativePath: {
@@ -10362,7 +10383,7 @@ export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
   startBlock: 32676235,
   depositToken: {
     addr: "0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
-    name: "SOLID vUSDC/OXD",
+    name: "vSolidlyLP USDC/OXD",
     link: "https://solidly.exchange/liquidity/0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
     components: ["usdc", "oxdv1"],
   },
@@ -10391,7 +10412,7 @@ export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
   startBlock: 32677507,
   depositToken: {
     addr: "0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
-    name: "SOLID vYFI/WOOFY",
+    name: "vSolidlyLP YFI/WOOFY",
     link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
     components: ["yfi", "woofy"],
     nativePath: {
@@ -10428,7 +10449,7 @@ export const JAR_FANTOM_SEX_V_USDC_SYN: JarDefinition = {
   startBlock: 32678517,
   depositToken: {
     addr: "0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
-    name: "SOLID vUSDC/SYN",
+    name: "vSolidlyLP USDC/SYN",
     link: "https://solidly.exchange/liquidity/0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
     components: ["usdc", "syn"],
   },
@@ -10457,7 +10478,7 @@ export const JAR_FANTOM_SEX_V_FTM_YFI: JarDefinition = {
   startBlock: 32680351,
   depositToken: {
     addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-    name: "SOLID vFTM/YFI",
+    name: "vSolidlyLP FTM/YFI",
     link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
     components: ["ftm", "yfi"],
   },
@@ -10486,7 +10507,7 @@ export const JAR_FANTOM_SEX_V_FTM_OATH: JarDefinition = {
   startBlock: 32687038,
   depositToken: {
     addr: "0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
-    name: "SOLID vFTM/OATH",
+    name: "vSolidlyLP FTM/OATH",
     link: "https://solidly.exchange/liquidity/0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
     components: ["ftm", "oath"],
   },
@@ -10515,7 +10536,7 @@ export const JAR_FANTOM_SEX_V_FTM_MULTI: JarDefinition = {
   startBlock: 32688709,
   depositToken: {
     addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-    name: "SOLID vFTM/MULTI",
+    name: "vSolidlyLP FTM/MULTI",
     link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
     components: ["ftm", "multi"],
   },
@@ -10544,7 +10565,7 @@ export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
   startBlock: 32690372,
   depositToken: {
     addr: "0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
-    name: "SOLID sSOLID/SOLIDSEX",
+    name: "sSolidlyLP SOLID/SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
     components: ["solid", "solidsex"],
     nativePath: {
@@ -10581,7 +10602,7 @@ export const JAR_FANTOM_SEX_V_FTM_LQDR: JarDefinition = {
   startBlock: 32690926,
   depositToken: {
     addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
-    name: "SOLID vFTM/LQDR",
+    name: "vSolidlyLP FTM/LQDR",
     link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
     components: ["ftm", "lqdr"],
   },
@@ -10610,7 +10631,7 @@ export const JAR_FANTOM_SEX_V_FTM_HND: JarDefinition = {
   startBlock: 32691451,
   depositToken: {
     addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-    name: "SOLID vFTM/HND",
+    name: "vSolidlyLP FTM/HND",
     link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
     components: ["ftm", "hnd"],
   },
@@ -10639,7 +10660,7 @@ export const JAR_FANTOM_SEX_V_FTM_IB: JarDefinition = {
   startBlock: 32691922,
   depositToken: {
     addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-    name: "SOLID vFTM/IB",
+    name: "vSolidlyLP FTM/IB",
     link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
     components: ["ftm", "ib"],
   },
@@ -10668,7 +10689,7 @@ export const JAR_FANTOM_SEX_V_FTM_GEIST: JarDefinition = {
   startBlock: 32695198,
   depositToken: {
     addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    name: "SOLID vFTM/GEIST",
+    name: "vSolidlyLP FTM/GEIST",
     link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
     components: ["ftm", "geist"],
   },
@@ -10697,7 +10718,7 @@ export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
   startBlock: 32688280,
   depositToken: {
     addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-    name: "SOLID vBIFI/MAI",
+    name: "vSolidlyLP BIFI/MAI",
     link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
     components: ["bifi", "mimatic"],
     nativePath: {
@@ -10734,7 +10755,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_BIFI_MAI);
 //   startBlock:,
 // depositToken: {
 //     addr: "0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-//     name: "SOLID vFTM/SCREAM",
+//     name: "vSolidlyLP FTM/SCREAM",
 //     link: "https://solidly.exchange/liquidity/0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
 //     components: ["ftm", "scream"],
 //   },
@@ -10763,7 +10784,7 @@ export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
   startBlock: 32752906,
   depositToken: {
     addr: "0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
-    name: "SOLID vCRV/G3CRV",
+    name: "vSolidlyLP CRV/G3CRV",
     link: "https://solidly.exchange/liquidity/0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
     components: ["crv", "g3crv"],
     nativePath: {
@@ -10800,7 +10821,7 @@ export const JAR_FANTOM_SEX_S_FTM_BEFTM: JarDefinition = {
   startBlock: 32753558,
   depositToken: {
     addr: "0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
-    name: "SOLID sFTM/BEFTM",
+    name: "sSolidlyLP FTM/BEFTM",
     link: "https://solidly.exchange/liquidity/0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
     components: ["ftm", "beftm"],
   },
@@ -10829,7 +10850,7 @@ export const JAR_FANTOM_SEX_V_FTM_SOLIDSEX: JarDefinition = {
   startBlock: 32754199,
   depositToken: {
     addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-    name: "SOLID vFTM/SOLIDSEX",
+    name: "vSolidlyLP FTM/SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
     components: ["ftm", "solidsex"],
   },
@@ -10858,7 +10879,7 @@ export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
   startBlock: 32755499,
   depositToken: {
     addr: "0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
-    name: "SOLID sUSDC/DAI",
+    name: "sSolidlyLP USDC/DAI",
     link: "https://solidly.exchange/liquidity/0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
     components: ["usdc", "dai"],
     nativePath: {
@@ -10896,7 +10917,7 @@ export const JAR_FANTOM_SEX_V_FTM_SYN: JarDefinition = {
   startBlock: 32756110,
   depositToken: {
     addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-    name: "SOLID vFTM/SYN",
+    name: "vSolidlyLP FTM/SYN",
     link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
     components: ["ftm", "syn"],
   },
@@ -10925,7 +10946,7 @@ export const JAR_FANTOM_SEX_V_TAROT_XTAROT: JarDefinition = {
   startBlock: 32756803,
   depositToken: {
     addr: "0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
-    name: "SOLID vTAROT/XTAROT",
+    name: "vSolidlyLP TAROT/XTAROT",
     link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
     components: ["tarot", "xtarot"],
     nativePath: {
@@ -10962,7 +10983,7 @@ export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
   startBlock: 32757865,
   depositToken: {
     addr: "0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
-    name: "SOLID sUSDC/DEI",
+    name: "sSolidlyLP USDC/DEI",
     link: "https://solidly.exchange/liquidity/0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
     components: ["usdc", "dei"],
   },
@@ -10992,7 +11013,7 @@ export const JAR_FANTOM_SEX_V_FTM_RDL: JarDefinition = {
   startBlock: 32758395,
   depositToken: {
     addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-    name: "SOLID vFTM/RDL",
+    name: "vSolidlyLP FTM/RDL",
     link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
     components: ["ftm", "rdl"],
   },
@@ -11021,7 +11042,7 @@ export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
   startBlock: 32759165,
   depositToken: {
     addr: "0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
-    name: "SOLID vGEIST/G3CRV",
+    name: "vSolidlyLP GEIST/G3CRV",
     link: "https://solidly.exchange/liquidity/0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
     components: ["geist", "g3crv"],
     nativePath: {
@@ -11058,7 +11079,7 @@ export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
   startBlock: 32759165,
   depositToken: {
     addr: "0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
-    name: "SOLID vSOLIDSEX/G3CRV",
+    name: "vSolidlyLP SOLIDSEX/G3CRV",
     link: "https://solidly.exchange/liquidity/0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
     components: ["solidsex", "g3crv"],
   },
@@ -11087,7 +11108,7 @@ export const JAR_FANTOM_SEX_V_FTM_USDC: JarDefinition = {
   startBlock: 32760328,
   depositToken: {
     addr: "0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
-    name: "SOLID vFTM/USDC",
+    name: "vSolidlyLP FTM/USDC",
     link: "https://solidly.exchange/liquidity/0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
     components: ["ftm", "usdc"],
   },
@@ -11116,7 +11137,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT: JarDefinition = {
   startBlock: 32760874,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "SOLID sSPIRIT/RAINSPIRIT",
+    name: "sSolidlyLP SPIRIT/RAINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "rainspirit"],
     nativePath: {
@@ -11153,7 +11174,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT: JarDefinition = {
   startBlock: 32761481,
   depositToken: {
     addr: "0xd6be7592E5C424623c8C9557738970aE19ab5de2",
-    name: "SOLID sSPIRIT/LINSPIRIT",
+    name: "sSolidlyLP SPIRIT/LINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xd6be7592E5C424623c8C9557738970aE19ab5de2",
     components: ["spirit", "linspirit"],
     nativePath: {
@@ -11190,7 +11211,7 @@ export const JAR_FANTOM_SEX_V_FTM_SOLID: JarDefinition = {
   startBlock: 32762078,
   depositToken: {
     addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-    name: "SOLID vFTM/SOLID",
+    name: "vSolidlyLP FTM/SOLID",
     link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
     components: ["ftm", "solid"],
   },
@@ -11219,7 +11240,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT: JarDefinition = {
   startBlock: 32762744,
   depositToken: {
     addr: "0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
-    name: "SOLID sSPIRIT/SINSPIRIT",
+    name: "sSolidlyLP SPIRIT/SINSPIRIT",
     link: "https://solidly.exchange/liquidity/0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
     components: ["spirit", "sinspirit"],
     nativePath: {
@@ -11256,7 +11277,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT: JarDefinition = {
   startBlock: 32764321,
   depositToken: {
     addr: "0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
-    name: "SOLID sSPIRIT/BINSPIRIT",
+    name: "sSolidlyLP SPIRIT/BINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
     components: ["spirit", "binspirit"],
     nativePath: {
@@ -11293,7 +11314,7 @@ export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
   startBlock: 32764921,
   depositToken: {
     addr: "0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
-    name: "SOLID vUSDC/DAI",
+    name: "vSolidlyLP USDC/DAI",
     link: "https://solidly.exchange/liquidity/0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
     components: ["usdc", "dai"],
     nativePath: {
@@ -11331,7 +11352,7 @@ export const JAR_FANTOM_SEX_V_FTM_TAROT: JarDefinition = {
   startBlock: 32830912,
   depositToken: {
     addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-    name: "SOLID vFTM/TAROT",
+    name: "vSolidlyLP FTM/TAROT",
     link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
     components: ["ftm", "tarot"],
   },
@@ -11360,7 +11381,7 @@ export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
   startBlock: 32831565,
   depositToken: {
     addr: "0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
-    name: "SOLID vCRE8R/BOMB",
+    name: "vSolidlyLP CRE8R/BOMB",
     link: "https://solidly.exchange/liquidity/0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
     components: ["cre8r", "bomb"],
     nativePath: {
@@ -11397,7 +11418,7 @@ export const JAR_FANTOM_SPIRIT_FTM: JarDefinition = {
   startBlock: 32698813,
   depositToken: {
     addr: "0x30748322B6E34545DBe0788C421886AEB5297789",
-    name: "SPIRIT FTM/SPIRIT",
+    name: "SpiritLP FTM/SPIRIT",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
     components: ["ftm", "spirit"],
   },
@@ -11426,7 +11447,7 @@ export const JAR_FANTOM_SPIRIT_FTM_TREEB: JarDefinition = {
   startBlock: 32699104,
   depositToken: {
     addr: "0x2cEfF1982591c8B0a73b36D2A6C2A6964Da0E869",
-    name: "SPIRIT FTM/TREEB",
+    name: "SpiritLP FTM/TREEB",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xc60d7067dfbc6f2caf30523a064f416a5af52963",
     components: ["ftm", "treeb"],
   },
@@ -11455,7 +11476,7 @@ export const JAR_FANTOM_SPIRIT_FTM_MAI: JarDefinition = {
   startBlock: 32699399,
   depositToken: {
     addr: "0x51Eb93ECfEFFbB2f6fE6106c4491B5a0B944E8bd",
-    name: "SPIRIT FTM/MAI",
+    name: "SpiritLP FTM/MAI",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xfb98b335551a418cd0737375a2ea0ded62ea213b",
     components: ["ftm", "mimatic"],
   },
@@ -11484,7 +11505,7 @@ export const JAR_FANTOM_SPIRIT_FTM_LQDR: JarDefinition = {
   startBlock: 32690926,
   depositToken: {
     addr: "0x4Fe6f19031239F105F753D1DF8A0d24857D0cAA2",
-    name: "SPIRIT FTM/LQDR",
+    name: "SpiritLP FTM/LQDR",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
     components: ["ftm", "lqdr"],
   },
@@ -11513,7 +11534,7 @@ export const JAR_FANTOM_SPIRIT_FTM_FRAX: JarDefinition = {
   startBlock: 32699984,
   depositToken: {
     addr: "0x7ed0cdDB9BB6c6dfEa6fB63E117c8305479B8D7D",
-    name: "SPIRIT FTM/FRAX",
+    name: "SpiritLP FTM/FRAX",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
     components: ["ftm", "frax"],
   },
@@ -11542,7 +11563,7 @@ export const JAR_FANTOM_SPIRIT_FTM_DEUS: JarDefinition = {
   startBlock: 32700275,
   depositToken: {
     addr: "0x2599Eba5fD1e49F294C76D034557948034d6C96E",
-    name: "SPIRIT FTM/DEUS",
+    name: "SpiritLP FTM/DEUS",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE5ed76E7c05eC5e4572CfC88d1ACEA165109E44",
     components: ["ftm", "deus"],
   },
@@ -11571,7 +11592,7 @@ export const JAR_FANTOM_SPIRIT_FTM_CRE8R: JarDefinition = {
   startBlock: 32700560,
   depositToken: {
     addr: "0x459e7c947E04d73687e786E4A48815005dFBd49A",
-    name: "SPIRIT FTM/CRE8R",
+    name: "SpiritLP FTM/CRE8R",
     link: "https://swap.spiritswap.finance/#/add/FTM/0x2ad402655243203fcfa7dcb62f8a08cc2ba88ae0",
     components: ["ftm", "cre8r"],
   },
@@ -11600,7 +11621,7 @@ export const JAR_FANTOM_SPIRIT_FTM_BIFI: JarDefinition = {
   startBlock: 32700862,
   depositToken: {
     addr: "0xc28cf9aeBfe1A07A27B3A4d722C841310e504Fe3",
-    name: "SPIRIT FTM/BIFI",
+    name: "SpiritLP FTM/BIFI",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xd6070ae98b8069de6B494332d1A1a81B6179D960",
     components: ["ftm", "bifi"],
   },
@@ -11629,7 +11650,7 @@ export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
   startBlock: 32701154,
   depositToken: {
     addr: "0x8e38543d4c764DBd8f8b98C73407457a3D3b4999",
-    name: "SPIRIT GSCARAB/SCARAB",
+    name: "SpiritLP GSCARAB/SCARAB",
     link: "https://swap.spiritswap.finance/#/add/0x6ab5660f0B1f174CFA84e9977c15645e4848F5D6/0x2e79205648B85485731CFE3025d66cF2d3B059c4",
     components: ["gscarab", "scarab"],
     nativePath: {
@@ -11666,7 +11687,7 @@ export const JAR_FANTOM_STAR_USDC: JarDefinition = {
   startBlock: 34398357,
   depositToken: {
     addr: "0x12edeA9cd262006cC3C4E77c90d2CD2DD4b1eb97",
-    name: "STARGATE USDC",
+    name: "StargateSS USDC",
     link: "https://stargate.finance/pool/USDC-FTM/add",
     components: ["usdc"],
     decimals: 6,
@@ -11697,7 +11718,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV: JarDefinition = {
   startBlock: 35196486,
   depositToken: {
     addr: "0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
-    name: "OxdSolidlyLP CRV/G3CRV",
+    name: "vSolidlyLP CRV/G3CRV",
     link: "https://solidly.exchange/liquidity//0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
     components: ["crv", "g3crv"],
   },
@@ -11725,7 +11746,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
   startBlock: 35197442,
   depositToken: {
     addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-    name: "OxdSolidlyLP WFTM/MULTI",
+    name: "vSolidlyLP WFTM/MULTI",
     link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
     components: ["ftm", "multi"],
   },
@@ -11753,7 +11774,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
   startBlock: 35198431,
   depositToken: {
     addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
-    name: "OxdSolidlyLP LQDR/WFTM",
+    name: "vSolidlyLP LQDR/WFTM",
     link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
     components: ["lqdr", "ftm"],
   },
@@ -11781,7 +11802,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
   startBlock: 35222912,
   depositToken: {
     addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-    name: "OxdSolidlyLP IB/WFTM",
+    name: "vSolidlyLP IB/WFTM",
     link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
     components: ["ib", "ftm"],
   },
@@ -11809,7 +11830,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
   startBlock: 35225781,
   depositToken: {
     addr: "0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
-    name: "OxdSolidlyLP XTAROT/TAROT",
+    name: "vSolidlyLP XTAROT/TAROT",
     link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
     components: ["xtarot", "tarot"],
   },
@@ -11837,7 +11858,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
   startBlock: 35227195,
   depositToken: {
     addr: "0xd11e940c42e03d927cfd7426718bb4cA21d6015f",
-    name: "OxdSolidlyLP DEI/SCREAM",
+    name: "vSolidlyLP DEI/SCREAM",
     link: "https://solidly.exchange/liquidity/0xd11e940c42e03d927cfd7426718bb4cA21d6015f",
     components: ["dei", "scream"],
   },
@@ -11865,7 +11886,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
   startBlock: 35239253,
   depositToken: {
     addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-    name: "OxdSolidlyLP WFTM/SYN",
+    name: "vSolidlyLP WFTM/SYN",
     link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
     components: ["ftm", "syn"],
   },
@@ -11893,7 +11914,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   startBlock: 35240455,
   depositToken: {
     addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-    name: "OxdSolidlyLP WFTM/SOLID",
+    name: "vSolidlyLP WFTM/SOLID",
     link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
     components: ["ftm", "solid"],
   },
@@ -11921,7 +11942,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   startBlock: 35247603,
   depositToken: {
     addr: "0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
-    name: "OxdSolidlyLP YFI/WOOFY",
+    name: "vSolidlyLP YFI/WOOFY",
     link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
     components: ["yfi", "woofy"],
   },
@@ -11949,7 +11970,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
   startBlock: 35249600,
   depositToken: {
     addr: "0x270b4cdEAebC4E0522AA4371a9BE38c624193cEe",
-    name: "OxdSolidlyLP BOMB/PGUNK",
+    name: "vSolidlyLP BOMB/PGUNK",
     link: "https://solidly.exchange/liquidity/0x270b4cdEAebC4E0522AA4371a9BE38c624193cEe",
     components: ["bomb", "pgunk"],
   },
@@ -11977,7 +11998,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
   startBlock: 35254844,
   depositToken: {
     addr: "0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
-    name: "OxdSolidlyLP SOLIDSEX/SOLID",
+    name: "sSolidlyLP SOLIDSEX/SOLID",
     link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
     components: ["solidsex", "solid"],
   },
@@ -12005,7 +12026,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
   startBlock: 35257074,
   depositToken: {
     addr: "0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
-    name: "OxdSolidlyLP FXS/FRAX",
+    name: "vSolidlyLP FXS/FRAX",
     link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
     components: ["fxs", "frax"],
   },
@@ -12033,7 +12054,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
   startBlock: 35257396,
   depositToken: {
     addr: "0x4303eDB91d23FC648bFEEb65349596bcf4DF0742",
-    name: "OxdSolidlyLP OXD/DEI",
+    name: "vSolidlyLP OXD/DEI",
     link: "https://solidly.exchange/liquidity/0x4303eDB91d23FC648bFEEb65349596bcf4DF0742",
     components: ["oxd", "dei"],
   },
@@ -12061,7 +12082,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
   startBlock: 35257995,
   depositToken: {
     addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-    name: "OxdSolidlyLP WFTM/TAROT",
+    name: "vSolidlyLP WFTM/TAROT",
     link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
     components: ["ftm", "tarot"],
   },
@@ -12089,7 +12110,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
   startBlock: 35262157,
   depositToken: {
     addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-    name: "OxdSolidlyLP WFTM/YFI",
+    name: "vSolidlyLP WFTM/YFI",
     link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
     components: ["ftm", "yfi"],
   },
@@ -12117,7 +12138,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
   startBlock: 35262872,
   depositToken: {
     addr: "0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
-    name: "OxdSolidlyLP SEX/WFTM",
+    name: "vSolidlyLP SEX/WFTM",
     link: "https://solidly.exchange/liquidity/0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
     components: ["sex", "ftm"],
   },
@@ -12145,7 +12166,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
   startBlock: 35269742,
   depositToken: {
     addr: "0xF42dBcf004a93ae6D5922282B304E2aEFDd50058",
-    name: "OxdSolidlyLP DEI/DEUS",
+    name: "vSolidlyLP DEI/DEUS",
     link: "https://solidly.exchange/liquidity/0xF42dBcf004a93ae6D5922282B304E2aEFDd50058",
     components: ["dei", "deus"],
   },
@@ -12173,7 +12194,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   startBlock: 35270373,
   depositToken: {
     addr: "0xbF1c168fd5cb65C6A3c31d3d48b222104258ba70",
-    name: "OxdSolidlyLP USDC/WEVE",
+    name: "vSolidlyLP USDC/WEVE",
     link: "https://solidly.exchange/liquidity/0xbF1c168fd5cb65C6A3c31d3d48b222104258ba70",
     components: ["usdc", "weve"],
   },
@@ -12201,7 +12222,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
   startBlock: 35270702,
   depositToken: {
     addr: "0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
-    name: "OxdSolidlyLP USDC/SYN",
+    name: "vSolidlyLP USDC/SYN",
     link: "https://solidly.exchange/liquidity/0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
     components: ["usdc", "syn"],
   },
@@ -12229,7 +12250,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
   startBlock: 35271544,
   depositToken: {
     addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-    name: "OxdSolidlyLP WFTM/SOLIDSEX",
+    name: "vSolidlyLP WFTM/SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
     components: ["ftm", "solidsex"],
   },
@@ -12257,7 +12278,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
   startBlock: 35273767,
   depositToken: {
     addr: "0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
-    name: "OxdSolidlyLP USDC/MIM",
+    name: "sSolidlyLP USDC/MIM",
     link: "https://solidly.exchange/liquidity/0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
     components: ["usdc", "mim"],
   },
@@ -12286,7 +12307,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
   startBlock: 35274138,
   depositToken: {
     addr: "0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
-    name: "OxdSolidlyLP USDC/DEI",
+    name: "sSolidlyLP USDC/DEI",
     link: "https://solidly.exchange/liquidity/0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
     components: ["usdc", "dei"],
   },
@@ -12315,7 +12336,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
   startBlock: 34990610,
   depositToken: {
     addr: "0xcB6eAB779780c7FD6d014ab90d8b10e97A1227E2",
-    name: "OxdSolidlyLP WFTM/OXD",
+    name: "vSolidlyLP WFTM/OXD",
     link: "https://solidly.exchange/liquidity/0xcB6eAB779780c7FD6d014ab90d8b10e97A1227E2",
     components: ["ftm", "oxd"],
   },
@@ -12343,7 +12364,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
   startBlock: 34990610,
   depositToken: {
     addr: "0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
-    name: "OxdSolidlyLP SPIRIT/SINSPIRIT",
+    name: "sSolidlyLP SPIRIT/SINSPIRIT",
     link: "https://solidly.exchange/liquidity/0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
     components: ["spirit", "sinspirit"],
   },
@@ -12371,7 +12392,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   startBlock: 35161588,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "OxdSolidlyLP SPIRIT/RAINSPIRIT",
+    name: "sSolidlyLP SPIRIT/RAINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "rainspirit"],
   },
@@ -12399,7 +12420,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
   startBlock: 35161588,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "OxdSolidlyLP SPIRIT/BINSPIRIT",
+    name: "sSolidlyLP SPIRIT/BINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "binspirit"],
   },
@@ -12427,7 +12448,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
   startBlock: 35162503,
   depositToken: {
     addr: "0xd6be7592E5C424623c8C9557738970aE19ab5de2",
-    name: "OxdSolidlyLP SPIRIT/LINSPIRIT",
+    name: "sSolidlyLP SPIRIT/LINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xd6be7592E5C424623c8C9557738970aE19ab5de2",
     components: ["spirit", "linspirit"],
   },
@@ -12455,7 +12476,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
   startBlock: 35162503,
   depositToken: {
     addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    name: "OxdSolidlyLP WFTM/GEIST",
+    name: "vSolidlyLP WFTM/GEIST",
     link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
     components: ["ftm", "geist"],
   },
@@ -12483,7 +12504,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
   startBlock: 35188273,
   depositToken: {
     addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-    name: "OxdSolidlyLP HND/WFTM",
+    name: "vSolidlyLP HND/WFTM",
     link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
     components: ["ftm", "hnd"],
   },
@@ -12511,7 +12532,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
   startBlock: 35190359,
   depositToken: {
     addr: "0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
-    name: "OxdSolidlyLP SOLID/OXSOLID",
+    name: "vSolidlyLP SOLID/OXSOLID",
     link: "https://solidly.exchange/liquidity/0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
     components: ["solid", "oxsolid"],
   },
@@ -12539,7 +12560,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   startBlock: 35190359,
   depositToken: {
     addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-    name: "OxdSolidlyLP FTM/RDL",
+    name: "vSolidlyLP FTM/RDL",
     link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
     components: ["ftm", "rdl"],
   },
@@ -12567,7 +12588,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   startBlock: 35582675,
   depositToken: {
     addr: "0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
-    name: "OxdSolidlyLP SEX/G3CRV",
+    name: "vSolidlyLP SEX/G3CRV",
     link: "https://solidly.exchange/liquidity/0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
     components: ["sex", "g3crv"],
   },
@@ -12595,7 +12616,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
   startBlock: 35201316,
   depositToken: {
     addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-    name: "OxdSolidlyLP CRV/WFTM",
+    name: "vSolidlyLP CRV/WFTM",
     link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
     components: ["crv", "ftm"],
   },
@@ -12623,7 +12644,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
   startBlock: 35241469,
   depositToken: {
     addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-    name: "OxdSolidlyLP BIFI/MAI",
+    name: "vSolidlyLP BIFI/MAI",
     link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
     components: ["bifi", "mimatic"],
   },
@@ -12651,7 +12672,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
   startBlock: 35249600,
   depositToken: {
     addr: "0x86dD79265814756713e631Dde7E162bdD538b7B1",
-    name: "OxdSolidlyLP WFTM/SCREAM",
+    name: "vSolidlyLP WFTM/SCREAM",
     link: "https://solidly.exchange/liquidity/0x86dD79265814756713e631Dde7E162bdD538b7B1",
     components: ["ftm", "scream"],
   },
@@ -12679,7 +12700,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
   startBlock: 35162503,
   depositToken: {
     addr: "0x5A3AA3284EE642152D4a2B55BE1160051c5eB932",
-    name: "OxdSolidlyLP BEETS/FBEETS",
+    name: "vSolidlyLP BEETS/FBEETS",
     link: "https://solidly.exchange/liquidity/0x5A3AA3284EE642152D4a2B55BE1160051c5eB932",
     components: ["beets", "fbeets"],
   },
@@ -12731,7 +12752,7 @@ export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
   startBlock: 11021240,
   depositToken: {
     addr: "0x269db91fc3c7fcc275c2e6f22e5552504512811c",
-    name: "Sushi PICKLE/ETH",
+    name: "SushiLP PICKLE/ETH",
     link: "https://app.sushi.com/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/ETH",
     components: ["pickle", "weth"],
   },
@@ -12767,7 +12788,6 @@ export const BRINERY_VEFXS: BrineryDefinition = {
     distributionAddr: "0xc6764e58b36e26b08Fd1d2AeD4538c02171fA872",
     strategyAddr: "0x552D92Ad2bb3Aba00872491ea2DC5d6EC3B8A31D",
     lockerAddr: "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
-    rewardToken: "fxs"
   },
 };
 
