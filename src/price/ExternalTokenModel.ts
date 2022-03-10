@@ -170,7 +170,7 @@ export class ExternalTokenModel {
       "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase(),
       18,
       ExternalTokenFetchStyle.BOTH,
-    );  
+    );
     this.addToken(
       ChainNetwork.Ethereum,
       "renbtc",
@@ -2197,6 +2197,32 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "oxd",
+      "0xdao-v2",
+      "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "oxsolid",
+      "oxsolid",
+      "0xda0053f0befcbcac208a3f867bb243716734d809".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "fbeets",
+      "",
+      "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x2Cea0dA40cF133721377bB2b0bF4aDc43715BFC3", // BEETHOVENX FBEETS-USDC
+      ]);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
