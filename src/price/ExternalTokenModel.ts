@@ -1541,6 +1541,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "stnear",
+      "stNEAR",
       "staked-near",
       "0x07f9f7f963c5cd2bbffd30ccfb964be114332e30".toLowerCase(),
       24,
@@ -1549,6 +1550,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "bstn",
+      null,
       "bastion-protocol",
       "0x9f1f933c660a1dc856f0e0fe058435879c5ccef0".toLowerCase(),
       18,
@@ -1557,6 +1559,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "meta",
+      null,
       "meta",
       "0xc21Ff01229e982d7c8b8691163B0A3Cb8F357453".toLowerCase(),
       24,
@@ -1570,6 +1573,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "xtri",
+      "xTRI",
       "xtri",
       "0x802119e4e253D5C19aA06A5d567C5a41596D6803".toLowerCase(),
       18,
@@ -1583,6 +1587,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "flx",
+      null,
       "flux-token",
       "0xea62791aa682d455614eaA2A12Ba3d9A2fD197af".toLowerCase(),
       18,
@@ -1591,6 +1596,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Aurora,
       "usdo",
+      null,
       "usdo",
       "0x293074789b247cab05357b08052468B5d7A23c5a".toLowerCase(),
       8,
