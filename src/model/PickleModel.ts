@@ -212,15 +212,15 @@ export class PickleModel {
     return this.permanentDataStore
       ? this.permanentDataStore
       : // Return a no-op data store
-        {
-          readData(_key: string): Promise<string> {
-            return undefined;
-          },
-          writeData(_key: string, _value: string): Promise<void> {
-            // do nothing
-            return;
-          },
-        };
+      {
+        readData(_key: string): Promise<string> {
+          return undefined;
+        },
+        writeData(_key: string, _value: string): Promise<void> {
+          // do nothing
+          return;
+        },
+      };
   }
 
   static fromJson(
@@ -780,9 +780,9 @@ export class PickleModel {
     await Promise.all(tmpArray);
     DEBUG_OUT(
       "End ensureDepositTokenPriceLoadedOneChain: " +
-        chain +
-        ": " +
-        (Date.now() - start),
+      chain +
+      ": " +
+      (Date.now() - start),
     );
   }
 
@@ -806,9 +806,9 @@ export class PickleModel {
     }
     DEBUG_OUT(
       "End ensureDepositTokenLoadedOneJar: " +
-        asset.details.apiKey +
-        ": " +
-        (Date.now() - start),
+      asset.details.apiKey +
+      ": " +
+      (Date.now() - start),
     );
   }
 
@@ -1002,13 +1002,13 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? new MulticallContract(
-                oneJar.depositToken.addr,
-                univ3PoolAbi,
-              ).liquidity()
+              oneJar.depositToken.addr,
+              univ3PoolAbi,
+            ).liquidity()
             : new MulticallContract(
-                oneJar.depositToken.addr,
-                erc20Abi,
-              ).totalSupply(),
+              oneJar.depositToken.addr,
+              erc20Abi,
+            ).totalSupply(),
         ),
       );
     } catch (error) {
@@ -1210,8 +1210,8 @@ export class PickleModel {
       ) {
         console.log(
           "Error loading harvest data for jar " +
-            harvestableJars[i].id +
-            ":  multicall for prereqs failed",
+          harvestableJars[i].id +
+          ":  multicall for prereqs failed",
         );
         continue;
       }
@@ -1231,9 +1231,9 @@ export class PickleModel {
       } catch (e) {
         console.log(
           "Error loading harvest data for jar " +
-            harvestableJars[i].id +
-            ":  " +
-            e,
+          harvestableJars[i].id +
+          ":  " +
+          e,
         );
       }
     }
@@ -1527,9 +1527,9 @@ export class PickleModel {
     } finally {
       DEBUG_OUT(
         "end loadApyComponents for " +
-          asset.details.apiKey +
-          ": " +
-          (Date.now() - start),
+        asset.details.apiKey +
+        ": " +
+        (Date.now() - start),
       );
     }
   }
@@ -1638,10 +1638,10 @@ export class PickleModel {
     // TODO store somewhere?
     console.log(
       "ERROR: Failed at " +
-        where +
-        (context !== undefined ? " [" + context + "]" : "") +
-        "\n" +
-        error,
+      where +
+      (context !== undefined ? " [" + context + "]" : "") +
+      "\n" +
+      error,
     );
   }
 }
