@@ -5263,6 +5263,118 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_MATIC_NEAR);
 
+export const JAR_AURORA_TRI_STNEAR_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1n",
+  contract: "0xbD41Da79B1bA18195e184a6eA983CE87BE33D4Ad",
+  startBlock: 64018341,
+  depositToken: {
+    addr: "0x47924Ae4968832984F4091EEC537dfF5c38948a4",
+    name: "TrisolarisLP STNEAR/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30",
+    components: ["stnear", "near"],
+  },
+  rewardTokens: ["tri", "meta"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-STNEAR-NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTrisolarisLP STNEAR/NEAR",
+    farmDepositTokenName: "pTrisolarisLP STNEAR/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_STNEAR_NEAR_LP);
+
+export const JAR_AURORA_TRI_STNEAR_XTRI_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1o",
+  contract: "0x86c125a1AfB4a656Ee1EadAB85BfB2bB26180360",
+  startBlock: 64019954,
+  depositToken: {
+    addr: "0x5913f644A10d98c79F2e0b609988640187256373",
+    name: "TrisolarisLP STNEAR/XTRI",
+    link: "https://www.trisolaris.io/#/add/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30/0x802119e4e253D5C19aA06A5d567C5a41596D6803",
+    components: ["stnear", "xtri"],
+  },
+  rewardTokens: ["tri", "meta"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-STNEAR-XTRI",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTrisolarisLP STNEAR/XTRI",
+    farmDepositTokenName: "pTrisolarisLP STNEAR/XTRI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_STNEAR_XTRI_LP);
+
+export const JAR_AURORA_TRI_USDO_USDT_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1p",
+  contract: "0x663E01A89CF0C7F40E1FA892A157f870EDF55245",
+  startBlock: 64020364,
+  depositToken: {
+    addr: "0x6277f94a69Df5df0Bc58b25917B9ECEFBf1b846A",
+    name: "TrisolarisLP USDO/USDT",
+    link: "https://www.trisolaris.io/#/add/0x293074789b247cab05357b08052468B5d7A23c5a/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
+    components: ["usdo", "usdt"],
+  },
+  rewardTokens: ["tri", "near"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-USDO-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTrisolarisLP USDO/USDT",
+    farmDepositTokenName: "pTrisolarisLP USDO/USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDO_USDT_LP);
+
+export const JAR_AURORA_TRI_FLX_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1q",
+  contract: "0x4062A67B641f96000334Af3012BEF2D8087534C4",
+  startBlock: 64027042,
+  depositToken: {
+    addr: "0x48887cEEA1b8AD328d5254BeF774Be91B90FaA09",
+    name: "TrisolarisLP FLX/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xea62791aa682d455614eaA2A12Ba3d9A2fD197af/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["flx", "near"],
+  },
+  rewardTokens: ["tri", "flx"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-FLX-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTrisolarisLP FLX/NEAR",
+    farmDepositTokenName: "pTrisolarisLP FLX/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_FLX_NEAR_LP);
+
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 2a",

@@ -163,6 +163,10 @@ import {
   JAR_AURORA_BRL_USDT_NEAR,
   JAR_AURORA_BRL_USDT_USDC,
   JAR_AURORA_BRL_UST_NEAR,
+  JAR_AURORA_TRI_FLX_NEAR_LP,
+  JAR_AURORA_TRI_STNEAR_NEAR_LP,
+  JAR_AURORA_TRI_USDO_USDT_LP,
+  JAR_AURORA_TRI_STNEAR_XTRI_LP,
   JAR_ARBITRUM_SLP_GOHM_ETH,
   JAR_ARBITRUM_SLP_MAGIC_ETH,
   JAR_CURVE_CVXETHLP,
@@ -624,6 +628,10 @@ import { OxdSolidlyJar } from "./impl/fantom-oxd-solidly-jar";
 import { NetswapJar } from "./impl/metis-netswap-jar";
 import { CurveCadcUsdc } from "./impl/crv-cadcusdc";
 import { HummusJar } from "./impl/hummus-jar";
+import { TriFlxNear } from "./impl/aurora-tri-flx-near";
+import { TriUsdoUsdt } from "./impl/aurora-tri-usdo-usdt";
+import { TriXtriStnear } from "./impl/aurora-tri-xtri-stnear";
+import { TriStnearNear } from "./impl/aurora-tri-stnear-near";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -853,6 +861,10 @@ jarToBehavior.set(JAR_AURORA_BRL_USDT_NEAR.id, new BrlUsdtNear());
 jarToBehavior.set(JAR_AURORA_BRL_USDT_USDC.id, new BrlUsdtUsdc());
 jarToBehavior.set(JAR_AURORA_BRL_UST_NEAR.id, new BrlUstNear());
 jarToBehavior.set(JAR_AURORA_TRI_USDT.id, new TriTriUsdt());
+jarToBehavior.set(JAR_AURORA_TRI_FLX_NEAR_LP.id, new TriFlxNear());
+jarToBehavior.set(JAR_AURORA_TRI_STNEAR_NEAR_LP.id, new TriStnearNear());
+jarToBehavior.set(JAR_AURORA_TRI_STNEAR_XTRI_LP.id, new TriXtriStnear());
+jarToBehavior.set(JAR_AURORA_TRI_USDO_USDT_LP.id, new TriUsdoUsdt());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

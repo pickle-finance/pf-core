@@ -1374,6 +1374,48 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "stnear",
+      "staked-near",
+      "0x07f9f7f963c5cd2bbffd30ccfb964be114332e30".toLowerCase(),
+      24,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "meta",
+      "meta",
+      "0xc21Ff01229e982d7c8b8691163B0A3Cb8F357453".toLowerCase(),
+      24,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0x98fD5BA5B53faDF0784410Fe51DDA041f91aCc8e"]
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "xtri",
+      "xtri",
+      "0x802119e4e253D5C19aA06A5d567C5a41596D6803".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0x5913f644A10d98c79F2e0b609988640187256373"]
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "flx",
+      "flux-token",
+      "0xea62791aa682d455614eaA2A12Ba3d9A2fD197af".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "usdo",
+      "usdo",
+      "0x293074789b247cab05357b08052468B5d7A23c5a".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID
+    );
 
     // Metis
     this.addToken(
