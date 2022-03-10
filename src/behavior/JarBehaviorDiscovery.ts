@@ -413,6 +413,12 @@ import {
   JAR_GNOSIS_SUSHI_LINK_XDAI,
   JAR_GNOSIS_SUSHI_SUSHI_GNO,
   JAR_GNOSIS_SUSHI_XDAI_GNO,
+  JAR_GNOSIS_SUSHI_USDC_XDAI,
+  JAR_GNOSIS_SUSHI_USDC_USDT,
+  JAR_GNOSIS_SUSHI_WETH_BTC,
+  JAR_GNOSIS_SUSHI_WETH_GNO,
+  JAR_GNOSIS_SUSHI_WETH_XDAI,
+  JAR_GNOSIS_SUSHI_XDAI_USDT,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -681,6 +687,12 @@ import { AuroraAurigamiJar } from "./impl/aurora-aurigami";
 import { GnosisSushiLinkXdai } from "./impl/gnosis-sushi-link-xdai";
 import { GnosisSushiSushiGno } from "./impl/gnosis-sushi-sushi-gno";
 import { GnosisSushiXdaiGno } from "./impl/gnosis-sushi-xdai-gno";
+import { GnosisSushiUsdcXdai } from "./impl/gnosis-sushi-usdc-xdai";
+import { GnosisSushiUsdcUsdt } from "./impl/gnosis-sushi-usdc-usdt";
+import { GnosisSushiWethBtc } from "./impl/gnosis-sushi-weth-btc";
+import { GnosisSushiWethGno } from "./impl/gnosis-sushi-weth-gno";
+import { GnosisSushiWethXdai } from "./impl/gnosis-sushi-weth-xdai";
+import { GnosisSushiXdaiUsdt } from "./impl/gnosis-sushi-xdai-usdt";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1139,6 +1151,12 @@ jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyJar()
 jarToBehavior.set(JAR_GNOSIS_SUSHI_LINK_XDAI.id, new GnosisSushiLinkXdai());
 jarToBehavior.set(JAR_GNOSIS_SUSHI_SUSHI_GNO.id, new GnosisSushiSushiGno());
 jarToBehavior.set(JAR_GNOSIS_SUSHI_XDAI_GNO.id, new GnosisSushiXdaiGno());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_USDC_XDAI.id, new GnosisSushiUsdcXdai());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_USDC_USDT.id, new GnosisSushiUsdcUsdt());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_BTC.id, new GnosisSushiWethBtc());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_GNO.id, new GnosisSushiWethGno());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_XDAI.id, new GnosisSushiWethXdai());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_XDAI_USDT.id, new GnosisSushiXdaiUsdt());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());

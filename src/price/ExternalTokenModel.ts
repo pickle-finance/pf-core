@@ -2799,7 +2799,7 @@ export class ExternalTokenModel {
       ChainNetwork.Gnosis,
       "weth",
       "wETH",
-      "weth",
+      "ethereum",
       "0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID

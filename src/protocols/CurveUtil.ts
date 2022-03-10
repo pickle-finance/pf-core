@@ -16,10 +16,12 @@ export const curveApiPoly =
   "https://stats.curve.fi/raw-stats-polygon/apys.json";
 export const curveApiArbitrum =
   "https://stats.curve.fi/raw-stats-arbitrum/apys.json";
+export const curveApiXdai = "https://stats.curve.fi/raw-stats-xdai/apys.json";
 export const apiUrls = new Map<string, string>();
 apiUrls.set(ChainNetwork.Ethereum, curveApi);
 apiUrls.set(ChainNetwork.Polygon, curveApiPoly);
 apiUrls.set(ChainNetwork.Arbitrum, curveApiArbitrum);
+apiUrls.set(ChainNetwork.Gnosis, curveApiXdai);
 
 // Map between our jar/farm 'api' keys used in our db and the names provided by curve api
 const apyMapping = {
