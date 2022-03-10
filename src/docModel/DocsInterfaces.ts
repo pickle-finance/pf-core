@@ -16,6 +16,7 @@ export const OBTAIN_KEY_MULTITOKEN_POOL_ANY = "obtain.pool.multitoken";
 export const OBTAIN_KEY_MULTITOKEN_POOL_ALL = "obtain.pool.multitoken.all";
 export const OBTAIN_KEY_UNIV3 = "obtain.pool.uni3";
 export const OBTAIN_KEY_ZAPPER = "obtain.pool.zapper";
+export const OBTAIN_KEY_PVEFXS = "obtain.pool.pvefxs";
 
 export const RISK_DIVERGENCE_LOSS = "risk.divergence.loss";
 export const RISK_SMART_CONTRACT = "risk.smart.contract";

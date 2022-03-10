@@ -4,6 +4,7 @@ import {
   OBTAIN_KEY_MULTITOKEN_POOL_ANY,
   OBTAIN_KEY_ONETOKEN_JAR,
   OBTAIN_KEY_ONETOKEN_POOL,
+  OBTAIN_KEY_PVEFXS,
   OBTAIN_KEY_TWOTOKEN_POOL,
   OBTAIN_KEY_ZAPPER,
   RISK_CHAIN,
@@ -900,6 +901,30 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     risks: [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "B.Protocol" } },
+    ],
+  },
+  {
+    apiKey: "pveFXS",
+    social: [
+      {
+        key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
+        properties: { name: "Frax", url: "https://twitter.com/fraxfinance" },
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
+        properties: { name: "Frax", url: "https://frax.finance/" },
+      },
+      {
+        key: SocialKeys.SOCIAL_KEY_TELEGRAM_NAME,
+        properties: { name: "Frax", url: "https://t.me/fraxfinance" }
+      },
+    ],
+    obtain: [
+      { key: OBTAIN_KEY_PVEFXS },
+    ],
+    risks: [
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Frax" } },
+      { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
     ],
   },
 ];
