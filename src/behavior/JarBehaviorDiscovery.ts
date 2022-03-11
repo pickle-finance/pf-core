@@ -70,6 +70,7 @@ import {
   JAR_UNIV3_LOOKS_ETH,
   JAR_UNIV3_USDC_USDT,
   JAR_UNIV3_WBTC_ETH,
+  JAR_UNIV3_PICKLE_ETH,
   JAR_UNIV3_FRAX_DAI,
   JAR_SUSHI_NEWO_USDC,
   JAR_OKEX_JSWAP_BTCK_USDT,
@@ -616,6 +617,7 @@ jarToBehavior.set(JAR_UNIV3_USDC_ETH_3.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_LOOKS_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_USDC_USDT.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_WBTC_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_PICKLE_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
 
 // Polygon
@@ -919,17 +921,15 @@ jarToBehavior.set(JAR_FANTOM_SEX_V_USDC_DAI.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_TAROT.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_CRE8R_BOMB.id, new SexJar());
 
-
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_TREEB.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_MAI.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_LQDR.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_FRAX.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_DEUS.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_CRE8R.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_BIFI.id, new SpiritJar);
-jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar);
-
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_TREEB.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_MAI.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_LQDR.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_FRAX.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_DEUS.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_CRE8R.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_BIFI.id, new SpiritJar());
+jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

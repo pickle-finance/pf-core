@@ -1440,7 +1440,6 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     farmNickname: "pUNIv3 USDC/ETH",
     farmDepositTokenName: "pUNIv3 USDC/ETH",
   },
-
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_USDC_ETH_05);
 
@@ -1566,6 +1565,39 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_WBTC_ETH);
+
+export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar U3h",
+  contract: "0x575a9E386c33732880DEF8BE1BAD9dbc5dDDf7D7",
+  depositToken: {
+    addr: "0x11c4D3b9cd07807F455371d56B3899bBaE662788",
+    name: "UniV3 PICKLE/ETH 1%",
+    link: "https://app.uniswap.org/#/add/0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/10000",
+    components: ["pickle", "weth"],
+    componentAddresses: [
+      "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5",
+      "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    ],
+    style: { erc20: false },
+  },
+  rewardTokens: ["pickle", "weth"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
+    apiKey: "UNIV3-PICKLE-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+
+  farm: {
+    farmAddress: "0xc0a78102caA4Ed3b64bB39DFC935D744E940d67A",
+    farmNickname: "pUNIv3 PICKLE/ETH",
+    farmDepositTokenName: "pUNIv3 PICKLE/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UNIV3_PICKLE_ETH);
 
 // Polygon
 
