@@ -1847,7 +1847,7 @@ export const JAR_QUICK_MIMATIC_USDC: JarDefinition = {
       target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
       path: [
         "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-        "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
       ],
     },
   },
@@ -1960,7 +1960,7 @@ export const JAR_SUSHI_DINO_USDC: JarDefinition = {
       target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
       path: [
         "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-        "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
       ],
     },
   },
@@ -2058,7 +2058,7 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
       target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
       path: [
         "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-        "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
       ],
     },
   },
@@ -2173,7 +2173,7 @@ export const JAR_POLY_SUSHI_AURUM_USDC: JarDefinition = {
       target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
       path: [
         "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-        "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
+        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
       ],
     },
   },
@@ -3797,11 +3797,11 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "ksm"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, xcKSM]
-      target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
+      // (huckleberry)--> [WMOVR, FINN]
+      target: "0x2d4e873f9Ab279da9f1bb2c532d4F06f67755b77",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
-        "0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080",
+        "0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
       ],
     },
   },
@@ -5143,8 +5143,8 @@ export const JAR_AURORA_PAD_PAD_USDT: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0x4988a896b1227218e4A686fdE5EabdcAbd91571f",
     components: ["pad", "usdt"],
     nativePath: {
-      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
-      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      //nearpad router--> [WETH, PAD]
+      target: "0xBaE0d7DFcd03C90EBCe003C58332c1346A72836A",
       path: [
         "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
         "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
@@ -5177,8 +5177,8 @@ export const JAR_AURORA_PAD_PAD_USDC: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802",
     components: ["pad", "usdc"],
     nativePath: {
-      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
-      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      //Nearpad router--> [WETH, PAD]
+      target: "0xBaE0d7DFcd03C90EBCe003C58332c1346A72836A",
       path: [
         "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
         "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
@@ -5271,8 +5271,8 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
     link: "https://dex.nearpad.io/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xDA2585430fEf327aD8ee44Af8F1f989a2A91A3d2",
     components: ["pad", "frax"],
     nativePath: {
-      //UniswapV2Router02 (Trisolaris)--> [WETH, PAD]
-      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      //Nearpad router--> [WETH, PAD]
+      target: "0xBaE0d7DFcd03C90EBCe003C58332c1346A72836A",
       path: [
         "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
         "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
@@ -7189,6 +7189,11 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
     name: "BOO 0XD/USDC",
     link: "https://spookyswap.finance/add/0xc165d941481e68696f43EE6E99BFB2B23E0E3114/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
     components: ["oxd", "usdc"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, USDC
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
+    }
   },
   rewardTokens: ["boo"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
@@ -7802,6 +7807,11 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
     name: "BOO BTC/ETH",
     link: "https://spookyswap.finance/add/FTM/0xdDcb3fFD12750B45d32E084887fdf1aABAb34239",
     components: ["btc", "eth"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, ETH
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x74b23882a30290451A17c44f4F05243b6b58C76d"]
+    }
   },
   rewardTokens: ["boo"],
   enablement: AssetEnablement.ENABLED,
@@ -7856,6 +7866,11 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
     name: "BOO YFI/ETH",
     link: "https://spookyswap.finance/add/0x29b0Da86e484E1C0029B56e817912d778aC0EC69/0x74b23882a30290451A17c44f4F05243b6b58C76d",
     components: ["yfi", "eth"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, ETH
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x74b23882a30290451A17c44f4F05243b6b58C76d"]
+    }
   },
   rewardTokens: ["boo"],
   enablement: AssetEnablement.ENABLED,
@@ -8126,6 +8141,11 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
     name: "SPIRIT DEI/USDC",
     link: "https://swap.spiritswap.finance/#/add/FTM/0xDE12c7959E1a72bbe8a5f7A1dc8f8EeF9Ab011B3",
     components: ["dei", "usdc"],
+    nativePath: {
+      //(Spookyswap)uniswapv2router02 --> WFTM, USDC
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
+    }
   },
   rewardTokens: ["spirit", "lqdr"],
   enablement: AssetEnablement.ENABLED,

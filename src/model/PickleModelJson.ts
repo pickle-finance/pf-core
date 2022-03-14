@@ -223,22 +223,22 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
   {
     protocol: AssetProtocol.SPOOKYSWAP,
     chain: ChainNetwork.Fantom,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x403FB2d31722B10aC4d3a05d13532Dd7cF6D2169",
     router: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
   },
   {
     protocol: AssetProtocol.SPIRITSWAP,
     chain: ChainNetwork.Fantom,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x403FB2d31722B10aC4d3a05d13532Dd7cF6D2169",
     router: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
   },
   {  // Note: zaps might be slightly different than uniswapv2
     protocol: AssetProtocol.SOLID,
     chain: ChainNetwork.Fantom,
-    zappable: false,
-    pickleZapAddress: "",
+    zappable: true,
+    pickleZapAddress: "0x7899CFAAd7E440A9cD994546457c38ED01bf84a8",
     router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
   },
   // ADD_PROTOCOL
