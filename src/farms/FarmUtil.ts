@@ -18,12 +18,12 @@ import {
   StandaloneFarmDefinition,
 } from "../model/PickleModelJson";
 
-export function minichefAddressForChain(network: ChainNetwork) {
+export function minichefAddressForChain(network: ChainNetwork): string | undefined {
   const c = ADDRESSES.get(network);
   return c ? c.minichef : undefined;
 }
 
-export function secondsPerBlock(network: ChainNetwork) {
+export function secondsPerBlock(network: ChainNetwork): number | undefined {
   const chain: IChain = Chains.get(network);
   if (chain) {
     return chain.secondsPerBlock;
@@ -34,12 +34,13 @@ export function secondsPerBlock(network: ChainNetwork) {
 export async function loadGaugeAprData(
   model: PickleModel,
   chain: ChainNetwork,
-) {
+  tokens: string[] | undefined,
+): Promise<void> {
   // TODO ADD_CHAIN_STYLE
   if (chain === ChainNetwork.Ethereum) {
     let rawGaugeData: IRawGaugeData[] = [];
     try {
-      rawGaugeData = await loadGaugeDataEth();
+      rawGaugeData = await loadGaugeDataEth(tokens);
     } catch (error) {
       model.logError("loadGaugeAprData", chain.toString(), error);
     }
@@ -54,7 +55,7 @@ export async function loadGaugeAprData(
     if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
       let rawGaugeData: IRawGaugeData[] = [];
       try {
-        rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain);
+        rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain, tokens);
       } catch (error) {
         model.logError("loadGaugeAprData", chain.toString(), error);
       }
@@ -241,7 +242,11 @@ export function setAssetGaugeAprMinichef(
 const sleep = (waitTimeInMs) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
-export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
+export async function loadGaugeDataEth(tokensToQuery: string[] | undefined): Promise<IRawGaugeData[]> {
+  if( tokensToQuery && tokensToQuery.length === 0 ) {
+    return [];
+  }
+
   const ethAddresses = ADDRESSES.get(ChainNetwork.Ethereum);
   const resolver: Provider = Chains.get(
     ChainNetwork.Ethereum,
@@ -259,7 +264,7 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
     MasterchefAbi,
     Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider(),
   );
-  const [tokens, totalWeight, ppb] = await Promise.all([
+  const [tokensOnProxy, totalWeight, ppb] = await Promise.all([
     proxy.tokens(),
     proxy.totalWeight(),
     masterChef.picklePerBlock(),
@@ -269,7 +274,7 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
     ethAddresses.gaugeProxy,
     gaugeProxyAbi,
   );
-
+  const tokens = tokensToQuery ? tokensToQuery : tokensOnProxy;
   const gaugeAddresses = await multicallProvider.all(
     tokens.map((token) => {
       return mcGaugeProxy.getGauge(token);
@@ -339,17 +344,15 @@ export async function loadGaugeDataEth(): Promise<IRawGaugeData[]> {
   return gauges;
 }
 
-export async function loadArbitrumGaugeData(): Promise<IRawGaugeData[]> {
-  return loadGaugeDataForMinichef(
-    minichefAddressForChain(ChainNetwork.Arbitrum),
-    ChainNetwork.Arbitrum,
-  );
-}
-
 export async function loadGaugeDataForMinichef(
   minichefAddr: string,
   chain: ChainNetwork,
+  tokens: string[] | undefined,
 ): Promise<IRawGaugeData[]> {
+  // TODO this implementation is not efficient if requesting only a single jar
+  if( tokens !== undefined && tokens.length === 0 ) 
+    return [];
+
   const provider: Provider = Chains.get(chain).getPreferredWeb3Provider();
   const minichef = new Contract(minichefAddr, MinichefAbi, provider);
   const [ppsBN, poolLengthBN] = await Promise.all([

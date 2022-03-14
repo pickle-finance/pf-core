@@ -5,6 +5,7 @@ import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "./External
 
 export const setAllCoinMarketCapPricesOnTokens = async(chains: ChainNetwork[]): Promise<void> => {
   DEBUG_OUT("Begin setAllCoinMarketCapPricesOnTokens");
+  const start = Date.now();
   const all = ExternalTokenModelSingleton.getAllTokens().filter((x) => chains.includes(x.chain));
   const filtered = all.filter(
     (val) => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP,
@@ -15,7 +16,7 @@ export const setAllCoinMarketCapPricesOnTokens = async(chains: ChainNetwork[]): 
       filtered[i].price = ret.get(filtered[i].coingeckoId);
     }
   }
-  DEBUG_OUT("End setAllCoinMarketCapPricesOnTokens");
+  DEBUG_OUT("End setAllCoinMarketCapPricesOnTokens: " + (Date.now() - start));
 }
 
 const fetchCoinmarketCapPricesBySearchIdImpl = async(

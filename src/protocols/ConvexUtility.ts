@@ -17,7 +17,7 @@ import fxsPoolABI from "../Contracts/ABIs/fxs-pool.json"
 import curvePoolAbi from "../Contracts/ABIs/curve-pool.json";
 import { PoolInfo } from "./ProtocolUtil";
 import { createAprComponentImpl } from "../behavior/AbstractJarBehavior";
-import { JAR_CURVE_CVXFXS_FXS_LP, JAR_CVXCRV } from "../model/JarsAndFarms";
+import { JAR_CVXCRV } from "../model/JarsAndFarms";
 
 const CVX_BOOSTER = "0xF403C135812408BFbE8713b5A23a04b3D48AAE31";
 
@@ -190,7 +190,10 @@ export async function getProjectedConvexAprStats(
       );
 
       priceMultiplier = +formatEther(await minter.lp_price());
-    } catch (e) {}
+    } catch (e) {
+      // TODO do something here??
+      console.log("Unknown error in ConvexUtility.getProjectedConvexAprStats(): " + e);
+    }
 
     const poolValue =
       parseFloat(formatEther(depositLocked)) *

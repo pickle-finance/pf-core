@@ -19,6 +19,7 @@ async function generateFullApi() {
   // store.load();
   // model.setDataStore(store);
   const result = await model.generateFullApi();
+  //const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, walletPublicKey, map);
   const resultString = JSON.stringify(result, null, 2);
   process.stdout.write(resultString);
 }

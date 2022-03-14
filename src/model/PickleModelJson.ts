@@ -3,7 +3,7 @@ import {
   ActiveJarHarvestStats,
   JarHarvestStats,
 } from "../behavior/JarBehaviorResolver";
-import { UserData, UserModel } from "../client/UserModel";
+import { UserData } from "../client/UserModel";
 
 // TODO move these out i guess?
 export enum AssetProtocol {

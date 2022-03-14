@@ -13,7 +13,7 @@ import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import minichefAbi from "../Contracts/ABIs/minichef.json";
 import { AssetEnablement, JarDefinition } from "../model/PickleModelJson";
-import { ADDRESSES } from "../model/PickleModel";
+import { ADDRESSES, DEBUG_OUT } from "../model/PickleModel";
 import { Contract } from "@ethersproject/contracts";
 import {
   Dill,
@@ -140,6 +140,8 @@ export class UserModel {
   }
 
   async getUserPickles(): Promise<UserPickles> {
+    DEBUG_OUT("Begin getUserPickles");
+    const start = Date.now();
     try {
       const ret: UserPickles = {};
       await Promise.all(
@@ -173,17 +175,21 @@ export class UserModel {
       );
       this.workingData.pickles = ret;
       this.sendUpdate();
+      DEBUG_OUT("End getUserPickles: " + (Date.now() - start));
       return ret;
     } catch (err) {
       const msg = "Error loading user pickles: " + err;
       console.log(msg);
       this.workingData.errors.push(msg);
       this.sendUpdate();
+      DEBUG_OUT("End getUserPickles: " + (Date.now() - start));
       return {};
     }
   }
 
   async getUserTokens(): Promise<UserTokenData[]> {
+    DEBUG_OUT("Begin getUserTokens");
+    const start = Date.now();
     try {
       const ret: UserTokenData[] = [];
       const result = await Promise.all(
@@ -194,12 +200,14 @@ export class UserModel {
       }
       this.workingData.tokens = ret;
       this.sendUpdate();
+      DEBUG_OUT("End getUserTokens: " + (Date.now() - start));
       return ret;
     } catch (err) {
       const msg = "getUserTokens failed: " + err;
       console.log(msg);
       this.workingData.errors.push(msg);
       this.sendUpdate();
+      DEBUG_OUT("End getUserTokens: " + (Date.now() - start));
       return [];
     }
   }
@@ -457,16 +465,20 @@ export class UserModel {
   }
 
   async getUserGaugeVotesGuard(): Promise<IUserVote[]> {
+    DEBUG_OUT("Begin getUserGaugeVotesGuard");
+    const start = Date.now();
     try {
       const r = await this.getUserGaugeVotes();
       this.workingData.votes = r;
       this.sendUpdate();
+      DEBUG_OUT("End getUserGaugeVotesGuard: " + (Date.now() - start));
       return r;
     } catch (error) {
       const msg = "Error loading user votes";
       console.log(msg);
       this.workingData.errors.push(msg);
       this.sendUpdate();
+      DEBUG_OUT("End getUserGaugeVotesGuard: " + (Date.now() - start));
       return [];
     }
   }
@@ -497,6 +509,8 @@ export class UserModel {
   }
 
   async getUserEarningsSummary(): Promise<IUserEarningsSummary> {
+    DEBUG_OUT("Begin getUserEarningsSummary");
+    const start = Date.now();
     try {
       const r = await getUserJarSummary(
         this.walletId.toLowerCase(),
@@ -504,12 +518,14 @@ export class UserModel {
       );
       this.workingData.earnings = r;
       this.sendUpdate();
+      DEBUG_OUT("End getUserEarningsSummary: " + (Date.now() - start));
       return r;
     } catch (error) {
       const msg = "Error in getUserEarningsSummary: " + error;
       console.log(msg);
       this.workingData.errors.push(msg);
       this.sendUpdate();
+      DEBUG_OUT("End getUserEarningsSummary: " + (Date.now() - start));
       return {
         userId: this.walletId,
         earnings: 0,
@@ -519,16 +535,20 @@ export class UserModel {
   }
 
   async getUserDillStatsGuard(): Promise<IUserDillStats> {
+    DEBUG_OUT("Begin getUserDillStatsGuard");
+    const start = Date.now();
     try {
       const r = await this.getUserDillStats();
       this.workingData.dill = r;
       this.sendUpdate();
+      DEBUG_OUT("End getUserDillStatsGuard: " + (Date.now() - start));
       return r;
     } catch (error) {
       const msg = "Error in getUserDillStats: " + error;
       console.log(msg);
       this.workingData.errors.push(msg);
       this.sendUpdate();
+      DEBUG_OUT("End getUserDillStatsGuard: " + (Date.now() - start));
       return {
         pickleLocked: "0",
         lockEnd: "0",

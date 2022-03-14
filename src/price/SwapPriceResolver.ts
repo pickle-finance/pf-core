@@ -37,7 +37,8 @@ export const calculateSwapTokenPrices = async(chains: ChainNetwork[]): Promise<v
 export const calculateSwapTokenPricesImpl = async(
   tokens: ExternalToken[]
 ): Promise<void> => {
-  DEBUG_OUT("calculateSwapTokenPricesImpl - start");
+  DEBUG_OUT("Begin calculateSwapTokenPricesImpl");
+  const start = Date.now();
   const promises = [];
   for( let i = 0; i < tokens.length; i++ ) {
     promises.push(fetchSingleTokenSwapPairPriceAndSave(tokens[i]));
@@ -47,7 +48,7 @@ export const calculateSwapTokenPricesImpl = async(
   } catch( error ) {
     console.log("Error loading SwapPrice resolver for tokens");
   }
-  DEBUG_OUT("calculateSwapTokenPricesImpl - end");
+  DEBUG_OUT("End calculateSwapTokenPricesImpl: " + (Date.now() - start));
 }
 
 export const fetchSingleTokenSwapPairPriceAndSave = async(token: ExternalToken): Promise<void> => {

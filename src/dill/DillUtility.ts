@@ -65,7 +65,7 @@ export async function getDillDetails(
   chain: ChainNetwork,
 ): Promise<DillDetails> {
   DEBUG_OUT("Begin getDillDetails");
-
+  const start = Date.now();
   const multicallProvider = model.multicallProviderFor(chain);
   await multicallProvider.init();
 
@@ -159,7 +159,7 @@ export async function getDillDetails(
         distributionTime,
       };
     });
-    DEBUG_OUT("End getDillDetails");
+    DEBUG_OUT("End getDillDetails: " + (Date.now() - start));
 
     return {
       pickleLocked: picklesLockedFloat,
@@ -168,7 +168,7 @@ export async function getDillDetails(
     };
   } catch (e) {
     console.log(e);
-    DEBUG_OUT("End getDillDetails");
+    DEBUG_OUT("End getDillDetails" + (Date.now() - start));
     return undefined;
   }
 }

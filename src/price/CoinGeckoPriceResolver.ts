@@ -100,6 +100,7 @@ export const getDayDiff = (date1: Date, date2: Date): number => {
 
 export const setCoingeckoPricesOnTokens = async (chain: ChainNetwork): Promise<void> => {
   DEBUG_OUT("Begin setCoingeckoPricesOnTokens for chain " + chain);
+  const start = Date.now();
 
   const tokens: ExternalToken[] = ExternalTokenModelSingleton.getTokens(chain).filter((val) => isCgFetchType(val));
   const withContractIds = tokens.filter((x) => isCgFetchTypeContract(x));
@@ -120,7 +121,7 @@ export const setCoingeckoPricesOnTokens = async (chain: ChainNetwork): Promise<v
     if( price ) 
       withCoinGeckoIds[j].price = price;
   }
-  DEBUG_OUT("End setCoingeckoPricesOnTokens for chain " + chain);
+  DEBUG_OUT("End setCoingeckoPricesOnTokens for chain " + chain + ": " + (Date.now() - start));
   //const missing = withContractIds.filter((x) => result.get(x.contractAddr) === undefined);
   //const missingIds = withCoinGeckoIds.filter((x) => idResult.get(x.coingeckoId) === undefined);
   // console.log(`${chain} contractids requests ${contractIds.length} and got ${result.size}`);
