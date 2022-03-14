@@ -26,7 +26,9 @@ export interface UserTokenData {
   assetKey: string;
   depositTokenBalance: string;
   pAssetBalance: string;
+  jarAllowance: string;
   pStakedBalance: string;
+  farmAllowance: string;
   picklePending: string;
 }
 export interface UserData {
@@ -267,6 +269,26 @@ export class UserModel {
       }),
     );
 
+    const provider3: MulticallProvider = this.multicallProviderFor(chain);
+    const jarAllowancePromise: Promise<BigNumber[]> = provider3.all(
+      chainAssets.map((x) => {
+        const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
+        return mcContract.allowance(this.walletId, x.contract);
+      }),
+    );
+
+    const provider4: MulticallProvider = this.multicallProviderFor(chain);
+    const farmAllowancePromise: Promise<BigNumber[]> = provider4.all(
+      chainAssets.map((x) => {
+        if( x.farm && x.farm.farmAddress) {
+          const mcContract = new MulticallContract(x.contract, erc20Abi);
+          return mcContract.allowance(this.walletId, x.farm.farmAddress);
+        } else {
+          return BigNumber.from(0);
+        }
+      }),
+    );
+
     let stakedInFarmPromise: Promise<BigNumber[]> = undefined;
     let picklePendingPromise: Promise<BigNumber[]> = undefined;
     if (chain === ChainNetwork.Ethereum) {
@@ -322,21 +344,25 @@ export class UserModel {
       }
     }
 
-    const [depositTokenBalances, pTokenBalances, stakedInFarm, picklePending] =
+    const [depositTokenBalances, pTokenBalances, stakedInFarm, picklePending, jarAllowance, farmAllowance] =
       await Promise.all([
         depositTokenBalancesPromise,
         pTokenBalancesPromise,
         stakedInFarmPromise,
         picklePendingPromise,
+        jarAllowancePromise,
+        farmAllowancePromise,
       ]);
 
     for (let j = 0; j < chainAssets.length; j++) {
-      const toAdd = {
+      const toAdd: UserTokenData = {
         assetKey: chainAssets[j].details.apiKey,
         depositTokenBalance: depositTokenBalances[j]?.toString() || "0",
         pAssetBalance: pTokenBalances[j]?.toString() || "0",
         pStakedBalance: stakedInFarm[j]?.toString() || "0",
         picklePending: picklePending[j]?.toString() || "0",
+        jarAllowance: jarAllowance[j]?.toString() || "0",
+        farmAllowance: farmAllowance[j]?.toString() || "0",
       };
       const allZeros: boolean =
         toAdd.depositTokenBalance === "0" &&
