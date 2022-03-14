@@ -77,13 +77,8 @@ export abstract class MirJar extends AbstractJarBehavior {
       definition,
       model,
     );
-    const lp: number = await calculateUniswapLpApr(
-      model,
-      definition.depositToken.addr,
-    );
 
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("lp", lp, false),
       this.createAprComponent("mir", mir, true),
     ]);
   }

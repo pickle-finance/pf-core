@@ -36,7 +36,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const chefComponent: AssetAprComponent = await calculateSolarFarmsAPY(
+    const chefComponent: AssetAprComponent[] = await calculateSolarFarmsAPY(
       definition,
       model,
     );
@@ -47,11 +47,8 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     );
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
-      this.createAprComponent(
-        chefComponent.name,
-        chefComponent.apr,
-        chefComponent.compoundable,
-        0.9,
+      ...chefComponent.map((x) =>
+        this.createAprComponent(x.name, x.apr, x.compoundable, 0.9),
       ),
     ]);
   }

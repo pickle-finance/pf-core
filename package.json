@@ -1,6 +1,6 @@
 {
   "name": "picklefinance-core",
-  "version": "0.3.60",
+  "version": "0.3.63",
   "description": "A repository for all picklefinance core code",
   "engines": {
     "node": ">= 14.16"
@@ -59,7 +59,7 @@
     "@types/coingecko-api": "^1.0.0",
     "@types/i18n": "^0.13.1",
     "@uniswap/sdk-core": "^3.0.1",
-    "@uniswap/v3-sdk": "^3.6.3",
+    "@uniswap/v3-sdk": "^3.8.2",
     "bignumber.js": "^9.0.2",
     "coingecko-api": "^1.0.10",
     "cross-fetch": "^3.1.4",

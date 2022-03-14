@@ -8,15 +8,16 @@ import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
+import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 
 export const SOLAR_FARMS = "0xf03b75831397D4695a6b9dDdEEA0E578faa30907";
 export const SOLAR_V2_FARMS = "0xA3Dce528195b8D15ea166C623DB197B2C3f8D127";
+export const SOLAR_V3_FARMS = "0x0329867a8c457e9f75e25b0685011291cd30904f";
 
 export const solarPoolIds: PoolId = {
   "0x7eDA899b3522683636746a2f3a7814e6fFca75e1": 0,
   "0xf9b7495b833804e4d894fC5f7B39c10016e0a911": 3,
   "0x0acDB54E610dAbC82b8FA454b21AD425ae460DF9": 4,
-  "0xe537f70a8b62204832b8ba91940b77d3f79aeb81": 6,
   "0xdb66BE1005f5Fe1d2f486E75cE3C50B52535F886": 7,
   "0xFE1b71BDAEE495dCA331D28F5779E87bd32FbE53": 8,
   "0x384704557F73fBFAE6e9297FD1E6075FC340dbe5": 9,
@@ -33,10 +34,14 @@ export const solarPoolIds: PoolId = {
 };
 
 export const solarPoolV2Ids: PoolId = {
-  "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888": 1,
   "0x2cc54b4A3878e36E1C754871438113C1117a3ad7": 4,
   "0x9432B25fBD8a37e5A1300e36a96BD14E1E6f5c90": 3,
   "0xBe2aBe58eDAae96B4303F194d2fAD5233BaD3d87": 2,
+};
+
+export const solarPoolV3Ids: PoolId = {
+  "0xe537f70a8b62204832B8Ba91940B77d3f79AEb81": 10,
+  "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888": 12,
 };
 
 export async function calculateSolarFarmsAPY(
@@ -48,10 +53,14 @@ export async function calculateSolarFarmsAPY(
     totalAllocPointBN,
     poolInfo,
     totalSupplyBN,
-    rewardsPerYear;
+    rewardsPerYear,
+    rewardInfo;
 
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
+
+  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+
   if (Number.isInteger(solarPoolIds[jar.depositToken.addr])) {
     const poolId = solarPoolIds[jar.depositToken.addr];
     const multicallSolarFarms = new MulticallContract(
@@ -96,16 +105,37 @@ export async function calculateSolarFarmsAPY(
       totalAllocPointBN.toNumber();
 
     rewardsPerYear = rewardsPerSec * (360 * 24 * 60 * 60);
+  } else if (Number.isInteger(solarPoolV3Ids[jar.depositToken.addr])) {
+    const poolId = solarPoolV3Ids[jar.depositToken.addr];
+    const multicallSolarFarms = new MulticallContract(
+      SOLAR_V3_FARMS,
+      solarFarmsV2Abi,
+    );
+    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    [rewardInfo, totalSupplyBN] = await multicallProvider.all([
+      multicallSolarFarms.poolRewardsPerSec(poolId),
+      lpToken.balanceOf(SOLAR_V3_FARMS),
+    ]);
+
+    const totalValueStaked =
+      parseFloat(formatEther(totalSupplyBN)) * pricePerToken;
+
+    const solarAPY =
+      (+formatEther(rewardInfo.rewardsPerSec[0]) *
+        ONE_YEAR_IN_SECONDS *
+        model.priceOfSync("solar", jar.chain)) /
+      totalValueStaked;
+
+    return [{ name: "solar", apr: solarAPY * 100, compoundable: true }];
   }
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
-  const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-
-  const solarRewardedPerYear = (model.priceOfSync("solar", jar.chain)) * rewardsPerYear;
+  const solarRewardedPerYear =
+    model.priceOfSync("solar", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const solarAPY = solarRewardedPerYear / totalValueStaked;
-  return { name: "solar", apr: solarAPY * 100, compoundable: true };
+  return [{ name: "solar", apr: solarAPY * 100, compoundable: true }];
 }
 
 const SOLARSWAP_PAIR_CACHE_KEY = "solarswap.pair.data.cache.key";
