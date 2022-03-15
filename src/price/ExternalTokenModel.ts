@@ -1519,6 +1519,8 @@ export class ExternalTokenModel {
       "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+      [],
+      true,
     );
     this.addToken(
       ChainNetwork.Fantom,
