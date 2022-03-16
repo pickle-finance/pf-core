@@ -13,7 +13,7 @@ import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import minichefAbi from "../Contracts/ABIs/minichef.json";
 import { AssetEnablement, JarDefinition } from "../model/PickleModelJson";
-import { ADDRESSES, DEBUG_OUT } from "../model/PickleModel";
+import { ADDRESSES, DEBUG_OUT, getZeroValueMulticallForChain, getZeroValueMulticallForNonErc20 } from "../model/PickleModel";
 import { Contract } from "@ethersproject/contracts";
 import {
   Dill,
@@ -168,9 +168,7 @@ export class UserModel {
             ret[x.toString()] = r.toString();
             this.sendUpdate();
           } catch (err) {
-            const msg = "Error loading user pickles on chain " + x + ": " + err;
-            console.log(msg);
-            this.workingData.errors.push(msg);
+            this.logUserModelError("loading user pickles on chain " + x, ""+err);
             this.sendUpdate();
           }
         }),
@@ -180,9 +178,7 @@ export class UserModel {
       DEBUG_OUT("End getUserPickles: " + (Date.now() - start));
       return ret;
     } catch (err) {
-      const msg = "Error loading user pickles: " + err;
-      console.log(msg);
-      this.workingData.errors.push(msg);
+      this.logUserModelError("loading user pickles", ""+err);
       this.sendUpdate();
       DEBUG_OUT("End getUserPickles: " + (Date.now() - start));
       return {};
@@ -205,9 +201,7 @@ export class UserModel {
       DEBUG_OUT("End getUserTokens: " + (Date.now() - start));
       return ret;
     } catch (err) {
-      const msg = "getUserTokens failed: " + err;
-      console.log(msg);
-      this.workingData.errors.push(msg);
+      this.logUserModelError("getUserTokens", ""+err);
       this.sendUpdate();
       DEBUG_OUT("End getUserTokens: " + (Date.now() - start));
       return [];
@@ -230,9 +224,7 @@ export class UserModel {
       this.sendUpdate();
       return res;
     } catch (error) {
-      const msg = "Error loading user tokens for chain " + chain;
-      console.log(msg);
-      this.workingData.errors.push(msg);
+      this.logUserModelError("Loading user tokens on chain " + chain, ""+error);
       this.sendUpdate();
       return [];
     }
@@ -264,6 +256,8 @@ export class UserModel {
     const provider2: MulticallProvider = this.multicallProviderFor(chain);
     const pTokenBalancesPromise: Promise<BigNumber[]> = provider2.all(
       chainAssets.map((x) => {
+        const erc20Guard = getZeroValueMulticallForNonErc20(x);
+        if( erc20Guard ) return erc20Guard;
         const mcContract = new MulticallContract(x.contract, erc20Abi);
         return mcContract.balanceOf(this.walletId);
       }),
@@ -272,6 +266,8 @@ export class UserModel {
     const provider3: MulticallProvider = this.multicallProviderFor(chain);
     const jarAllowancePromise: Promise<BigNumber[]> = provider3.all(
       chainAssets.map((x) => {
+        const erc20Guard = getZeroValueMulticallForNonErc20(x);
+        if( erc20Guard ) return erc20Guard;
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
         return mcContract.allowance(this.walletId, x.contract);
       }),
@@ -280,11 +276,13 @@ export class UserModel {
     const provider4: MulticallProvider = this.multicallProviderFor(chain);
     const farmAllowancePromise: Promise<BigNumber[]> = provider4.all(
       chainAssets.map((x) => {
+        const erc20Guard = getZeroValueMulticallForNonErc20(x);
+        if( erc20Guard ) return erc20Guard;
         if( x.farm && x.farm.farmAddress) {
           const mcContract = new MulticallContract(x.contract, erc20Abi);
           return mcContract.allowance(this.walletId, x.farm.farmAddress);
         } else {
-          return BigNumber.from(0);
+          return getZeroValueMulticallForChain(x.chain);
         }
       }),
     );
@@ -344,16 +342,48 @@ export class UserModel {
       }
     }
 
-    const [depositTokenBalances, pTokenBalances, stakedInFarm, picklePending, jarAllowance, farmAllowance] =
-      await Promise.all([
-        depositTokenBalancesPromise,
-        pTokenBalancesPromise,
-        stakedInFarmPromise,
-        picklePendingPromise,
-        jarAllowancePromise,
-        farmAllowancePromise,
-      ]);
-
+    let depositTokenBalances = [];
+    let pTokenBalances = [];
+    let stakedInFarm = [];
+    let picklePending = [];
+    let jarAllowance = [];
+    let farmAllowance = [];
+    try {
+      depositTokenBalances = await depositTokenBalancesPromise;
+    } catch( error ) {
+      this.logUserModelError("Loading deposit token balances on chain " + chain, ""+error);
+      depositTokenBalances = [];
+    }
+    try {
+      pTokenBalances = await pTokenBalancesPromise;
+    } catch( error ) {
+      this.logUserModelError("Loading ptoken balances on chain " + chain, ""+error);
+      pTokenBalances = [];
+    }
+    try {
+      stakedInFarm = await stakedInFarmPromise;
+    } catch( error ) {
+      this.logUserModelError("Loading staked ptoken balances on chain " + chain, ""+error);
+      stakedInFarm = [];
+    }
+    try {
+      picklePending = await picklePendingPromise;
+    } catch( error ) {
+      this.logUserModelError("Loading pending pickles on chain " + chain, ""+error);
+      picklePending = [];
+    }
+    try {
+      jarAllowance = await jarAllowancePromise;
+    } catch( error ) {
+      this.logUserModelError("Loading deposit token allowances on chain " + chain, ""+error);
+      jarAllowance = [];
+    }
+    try {
+      farmAllowance = await farmAllowancePromise;
+    } catch( error ) {
+      this.logUserModelError("Loading ptoken allowances on chain " + chain, ""+error);
+      farmAllowance = [];
+    }
     for (let j = 0; j < chainAssets.length; j++) {
       const toAdd: UserTokenData = {
         assetKey: chainAssets[j].details.apiKey,
@@ -500,9 +530,7 @@ export class UserModel {
       DEBUG_OUT("End getUserGaugeVotesGuard: " + (Date.now() - start));
       return r;
     } catch (error) {
-      const msg = "Error loading user votes";
-      console.log(msg);
-      this.workingData.errors.push(msg);
+      this.logUserModelError("Loading user votes", ""+error);
       this.sendUpdate();
       DEBUG_OUT("End getUserGaugeVotesGuard: " + (Date.now() - start));
       return [];
@@ -547,9 +575,7 @@ export class UserModel {
       DEBUG_OUT("End getUserEarningsSummary: " + (Date.now() - start));
       return r;
     } catch (error) {
-      const msg = "Error in getUserEarningsSummary: " + error;
-      console.log(msg);
-      this.workingData.errors.push(msg);
+      this.logUserModelError("getUserEarningsSummary", ""+error);
       this.sendUpdate();
       DEBUG_OUT("End getUserEarningsSummary: " + (Date.now() - start));
       return {
@@ -558,6 +584,12 @@ export class UserModel {
         jarEarnings: [],
       };
     }
+  }
+
+  logUserModelError = (context: string, err: string): void => {
+    const msg = "Error [" + context + "] " + err;
+    console.log(msg);
+    this.workingData.errors.push(msg);
   }
 
   async getUserDillStatsGuard(): Promise<IUserDillStats> {
@@ -570,9 +602,7 @@ export class UserModel {
       DEBUG_OUT("End getUserDillStatsGuard: " + (Date.now() - start));
       return r;
     } catch (error) {
-      const msg = "Error in getUserDillStats: " + error;
-      console.log(msg);
-      this.workingData.errors.push(msg);
+      this.logUserModelError("in getUserDillStats", ""+error);
       this.sendUpdate();
       DEBUG_OUT("End getUserDillStatsGuard: " + (Date.now() - start));
       return {

@@ -1139,8 +1139,8 @@ export class PickleModel {
     try {
       strategyWantProm = multicallProvider.all<BigNumber[]>(
         harvestableJars.map((oneJar) => {
-          const safe = getErc20SafeDepositTokenMulticall(oneJar);
-          if (safe) return safe;
+          const guard = getZeroValueMulticallForNonErc20(oneJar);
+          if (guard) return guard;
           return new MulticallContract(
             oneJar.depositToken.addr,
             erc20Abi,
@@ -1615,7 +1615,7 @@ export class PickleModel {
  * @param jar
  * @returns
  */
-const getErc20SafeDepositTokenMulticall = (
+export const getZeroValueMulticallForNonErc20 = (
   jar: JarDefinition,
 ): Promise<any> => {
   if (
@@ -1624,15 +1624,18 @@ const getErc20SafeDepositTokenMulticall = (
       jar.depositToken.style.erc20 !== undefined &&
       jar.depositToken.style.erc20 === false)
   ) {
-    // We need a safe multicall
-    const randomErc20Token: string = ExternalTokenModelSingleton.getTokens(
-      jar.chain,
-    )[0].contractAddr;
-    return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(
-      FICTIONAL_ADDRESS,
-    );
+    return getZeroValueMulticallForChain(jar.chain);
   }
   return undefined;
+};
+
+
+export const getZeroValueMulticallForChain = (chain: ChainNetwork): Promise<any> => {
+      // We need a safe multicall
+      const randomErc20Token: string = ExternalTokenModelSingleton.getTokens(chain)[0].contractAddr;
+      return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(
+        FICTIONAL_ADDRESS,
+      );
 };
 
 const toThreeDec = function (param: number) {
