@@ -137,7 +137,7 @@ export abstract class CurveJar extends AbstractJarBehavior {
       (((gaugeRate * weight * 31536000) / workingSupply) * 0.4) /
       (virtualPrice * underlyingPrice);
 
-    const crvApy = rate * (model.priceOfSync("crv", jar.chain)) * 100;
+    const crvApy = rate * model.priceOfSync("crv", jar.chain) * 100;
     return { name: "CRV", apr: crvApy, compoundable: true };
   }
 

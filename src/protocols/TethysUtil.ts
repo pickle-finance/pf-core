@@ -58,7 +58,7 @@ export async function calculateTethysFarmsAPY(
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const tethysRewardedPerYear =
-    (model.priceOfSync("tethys", jar.chain)) * rewardsPerYear;
+    model.priceOfSync("tethys", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const tethysAPY = tethysRewardedPerYear / totalValueStaked;
 

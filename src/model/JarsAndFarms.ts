@@ -7144,8 +7144,11 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
     nativePath: {
       //(Spookyswap)uniswapv2router02 --> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   rewardTokens: ["boo"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
@@ -7762,8 +7765,11 @@ export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
     nativePath: {
       //(Spookyswap)uniswapv2router02 --> WFTM, ETH
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x74b23882a30290451A17c44f4F05243b6b58C76d"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x74b23882a30290451A17c44f4F05243b6b58C76d",
+      ],
+    },
   },
   rewardTokens: ["boo"],
   enablement: AssetEnablement.ENABLED,
@@ -7821,8 +7827,11 @@ export const JAR_FANTOM_BOO_YFI_ETH: JarDefinition = {
     nativePath: {
       //(Spookyswap)uniswapv2router02 --> WFTM, ETH
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x74b23882a30290451A17c44f4F05243b6b58C76d"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x74b23882a30290451A17c44f4F05243b6b58C76d",
+      ],
+    },
   },
   rewardTokens: ["boo"],
   enablement: AssetEnablement.ENABLED,
@@ -8096,8 +8105,11 @@ export const JAR_FANTOM_LQDR_SPIRIT_DEI_USDC: JarDefinition = {
     nativePath: {
       //(Spookyswap)uniswapv2router02 --> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   rewardTokens: ["spirit", "lqdr"],
   enablement: AssetEnablement.ENABLED,

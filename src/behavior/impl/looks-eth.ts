@@ -88,7 +88,7 @@ export class LooksEth extends AbstractJarBehavior {
       (rewardPerBlock * ONE_YEAR_SECONDS) /
       Chains.get(jar.chain).secondsPerBlock;
     const valueRewardedPerYear =
-      (model.priceOfSync("looks", jar.chain)) * rewardsPerYear;
+      model.priceOfSync("looks", jar.chain) * rewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const looksAPY = valueRewardedPerYear / totalValueStaked;

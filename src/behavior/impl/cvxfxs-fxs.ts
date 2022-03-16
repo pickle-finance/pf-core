@@ -5,7 +5,6 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { convexStrategyMim3CRVAbi } from "../../Contracts/ABIs/convex-strategy-mim3crv.abi";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
-import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
 import fxsPoolABI from "../../Contracts/ABIs/fxs-pool.json";
 
 const FXS_POOL = "0xd658a338613198204dca1143ac3f01a722b5d94a";
@@ -31,8 +30,8 @@ export class CvxfxsFxs extends AbstractJarBehavior {
 
     const price =
       +ethers.utils.formatEther(virtualPrice) *
-      +ethers.utils.formatEther(lpPrice) * 
-    model.priceOfSync("fxs", asset.chain);
+      +ethers.utils.formatEther(lpPrice) *
+      model.priceOfSync("fxs", asset.chain);
 
     return price;
   }

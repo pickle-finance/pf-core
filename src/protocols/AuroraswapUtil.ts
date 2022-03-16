@@ -63,7 +63,8 @@ export async function calculateBrlFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const brlRewardedPerYear = (model.priceOfSync("brl", jar.chain)) * rewardsPerYear;
+  const brlRewardedPerYear =
+    model.priceOfSync("brl", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const brlAPY = brlRewardedPerYear / totalValueStaked;
 

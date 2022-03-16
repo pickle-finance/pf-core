@@ -164,7 +164,8 @@ export class PThreeCrv extends AbstractJarBehavior {
     });
 
     if (!isMaticRewardsRetrieved) {
-      const wmaticRewardsAmount = (model.priceOfSync("matic", jar.chain)) * 414597 * 6; // Reward rate is reverse engineered, not sure how long it will last correct!
+      const wmaticRewardsAmount =
+        model.priceOfSync("matic", jar.chain) * 414597 * 6; // Reward rate is reverse engineered, not sure how long it will last correct!
       const wmaticAPY = wmaticRewardsAmount / +formatEther(lpBalance);
       rewardsAprComponents.push(
         this.createAprComponent("matic", wmaticAPY * 100, true),

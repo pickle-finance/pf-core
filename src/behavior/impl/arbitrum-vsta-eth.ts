@@ -44,7 +44,8 @@ export class BalancerVstaEth extends BalancerJar {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const rewardsPerYear = rewardRate * ONE_YEAR_SECONDS;
 
-    const valueRewardedPerYear = (model.priceOfSync("vsta", jar.chain)) * rewardsPerYear;
+    const valueRewardedPerYear =
+      model.priceOfSync("vsta", jar.chain) * rewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const vstaAPY = valueRewardedPerYear / totalValueStaked;
@@ -98,7 +99,8 @@ export class BalancerVstaEth extends BalancerJar {
       ? definition.depositToken.decimals
       : 18;
     const depositTokenPrice: number = model.priceOfSync(
-      definition.depositToken.addr, definition.chain
+      definition.depositToken.addr,
+      definition.chain,
     );
     const balanceUSD: number =
       parseFloat(ethers.utils.formatUnits(balance, depositTokenDecimals)) *

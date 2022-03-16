@@ -52,7 +52,9 @@ export class pLooks extends AbstractJarBehavior {
       model.providerFor(jar.chain),
     );
     const [totalLooksStaked] = await distributor.userInfo(LOOKS_STAKING);
-    return +formatEther(totalLooksStaked) * (model.priceOfSync("looks", jar.chain));
+    return (
+      +formatEther(totalLooksStaked) * model.priceOfSync("looks", jar.chain)
+    );
   }
 
   async getProjectedAprStats(
@@ -90,7 +92,8 @@ export class pLooks extends AbstractJarBehavior {
     if (wethLast24h) {
       const totalValueStaked = await this.getTotalValueStaked(jar, model);
       const wethApy =
-        (wethLast24h * (model.priceOfSync("weth", jar.chain)) * 365) / totalValueStaked;
+        (wethLast24h * model.priceOfSync("weth", jar.chain) * 365) /
+        totalValueStaked;
       return wethApy * 100;
     }
     return 0;
@@ -109,7 +112,7 @@ export class pLooks extends AbstractJarBehavior {
     const lookRewardsPerYear =
       (+formatEther(rewardPerBlock) *
         ONE_YEAR_SECONDS *
-        (model.priceOfSync("looks", jar.chain))) /
+        model.priceOfSync("looks", jar.chain)) /
       Chains.get(jar.chain).secondsPerBlock;
     const valueStaked = await this.getTotalValueStaked(jar, model);
 

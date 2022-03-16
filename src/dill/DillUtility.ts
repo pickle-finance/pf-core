@@ -132,9 +132,7 @@ export async function getDillDetails(
       const historicalEntry = picklePriceSeries.find((value) =>
         moment(value[0]).isSame(distributionTime, "day"),
       );
-      const picklePriceUsd = historicalEntry
-        ? historicalEntry[1]
-        : picklePrice;
+      const picklePriceUsd = historicalEntry ? historicalEntry[1] : picklePrice;
 
       const totalDillAmount: number = dillAmounts[index];
       const pickleDillRatio = weeklyPickleAmount / totalDillAmount;

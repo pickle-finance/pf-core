@@ -119,7 +119,7 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const flareRewardedPerYear =
-      (model.priceOfSync("flare", jar.chain)) * rewardsPerYear;
+      model.priceOfSync("flare", jar.chain) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const flareAPY = flareRewardedPerYear / totalValueStaked;
 

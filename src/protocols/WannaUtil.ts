@@ -66,7 +66,8 @@ export async function calculateWannaFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const wannaRewardedPerYear = (model.priceOfSync("wanna", jar.chain)) * rewardsPerYear;
+  const wannaRewardedPerYear =
+    model.priceOfSync("wanna", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const wannaAPY = wannaRewardedPerYear / totalValueStaked;
 

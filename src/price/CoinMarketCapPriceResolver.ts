@@ -1,28 +1,37 @@
 import fetch from "cross-fetch";
 import { ChainNetwork } from "..";
 import { DEBUG_OUT } from "../model/PickleModel";
-import { ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "./ExternalTokenModel";
+import {
+  ExternalTokenFetchStyle,
+  ExternalTokenModelSingleton,
+} from "./ExternalTokenModel";
 
-export const setAllCoinMarketCapPricesOnTokens = async(chains: ChainNetwork[]): Promise<void> => {
+export const setAllCoinMarketCapPricesOnTokens = async (
+  chains: ChainNetwork[],
+): Promise<void> => {
   DEBUG_OUT("Begin setAllCoinMarketCapPricesOnTokens");
   const start = Date.now();
-  const all = ExternalTokenModelSingleton.getAllTokens().filter((x) => chains.includes(x.chain));
+  const all = ExternalTokenModelSingleton.getAllTokens().filter((x) =>
+    chains.includes(x.chain),
+  );
   const filtered = all.filter(
     (val) => val.fetchType === ExternalTokenFetchStyle.COIN_MARKET_CAP,
   );
-  const ret = await fetchCoinmarketCapPricesBySearchIdImpl(filtered.map((x) => x.coingeckoId));
-  for( let i = 0; i < filtered.length; i++ ) {
-    if( ret.get(filtered[i].coingeckoId)) {
+  const ret = await fetchCoinmarketCapPricesBySearchIdImpl(
+    filtered.map((x) => x.coingeckoId),
+  );
+  for (let i = 0; i < filtered.length; i++) {
+    if (ret.get(filtered[i].coingeckoId)) {
       filtered[i].price = ret.get(filtered[i].coingeckoId);
     }
   }
   DEBUG_OUT("End setAllCoinMarketCapPricesOnTokens: " + (Date.now() - start));
-}
+};
 
-const fetchCoinmarketCapPricesBySearchIdImpl = async(
+const fetchCoinmarketCapPricesBySearchIdImpl = async (
   searchNames: string[],
 ): Promise<Map<string, number>> => {
-  if( searchNames === undefined || searchNames.length === 0 ) {
+  if (searchNames === undefined || searchNames.length === 0) {
     return new Map<string, number>();
   }
 
@@ -44,8 +53,7 @@ const fetchCoinmarketCapPricesBySearchIdImpl = async(
   for (let i = 0; i < searchNames.length; i++) {
     const keys = Object.keys(data);
     const found = keys.find(
-      (x) =>
-        data[x].name === searchNames[i] || data[x].slug === searchNames[i],
+      (x) => data[x].name === searchNames[i] || data[x].slug === searchNames[i],
     );
     if (found) {
       const price = data[found]?.quote?.USD?.price;
@@ -53,4 +61,4 @@ const fetchCoinmarketCapPricesBySearchIdImpl = async(
     }
   }
   return ret;
-}
+};

@@ -57,7 +57,7 @@ export async function calculatePolySushiAPY(
 
   const sushiRewardsPerYear = sushiRewardsPerSecond * ONE_YEAR_IN_SECONDS;
   const valueRewardedPerYear =
-    (model.priceOfSync("sushi", jar.chain)) * sushiRewardsPerYear;
+    model.priceOfSync("sushi", jar.chain) * sushiRewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;

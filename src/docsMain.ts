@@ -17,7 +17,11 @@ function getDocs(language: string) {
     );
   }
 
-  const toVerify = ALL_ASSETS.filter((x) => x.enablement === AssetEnablement.ENABLED || x.enablement === AssetEnablement.DEV);
+  const toVerify = ALL_ASSETS.filter(
+    (x) =>
+      x.enablement === AssetEnablement.ENABLED ||
+      x.enablement === AssetEnablement.DEV,
+  );
   for (let i = 0; i < toVerify.length; i++) {
     const apiKey = toVerify[i]?.details?.apiKey;
     if (apiKey !== undefined) {

@@ -56,7 +56,7 @@ export async function calculateAbradabraApy(
 
   const iceRewardsPerYear = icePerSecond * ONE_YEAR_SECONDS;
   const valueRewardedPerYear =
-    (model.priceOfSync("spell", definition.chain)) * iceRewardsPerYear;
+    model.priceOfSync("spell", definition.chain) * iceRewardsPerYear;
 
   const totalValueStaked = supplyInRewarder * tokenPrice;
   const spellAPY = valueRewardedPerYear / totalValueStaked;
@@ -98,7 +98,8 @@ export async function calculateAbracadabraApyArbitrum(
   }
 
   const iceRewardsPerYear = icePerSecond * ONE_YEAR_SECONDS;
-  const valueRewardedPerYear = model.priceOfSync("spell", jar.chain) * iceRewardsPerYear;
+  const valueRewardedPerYear =
+    model.priceOfSync("spell", jar.chain) * iceRewardsPerYear;
 
   const totalValueStaked = totalSupply * tokenPrice;
   const spellAPY = valueRewardedPerYear / totalValueStaked;
