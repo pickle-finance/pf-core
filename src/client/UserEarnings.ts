@@ -87,7 +87,7 @@ function userJarEarningsToInterface(
     parseFloat(
       ethers.utils.formatUnits(
         value,
-        jar.details.decimals ? jar.details.decimals : 18,
+        jar && jar.details && jar.details.decimals ? jar.details.decimals : 18,
       ),
     );
   const ppfs = parseFloat(ethers.utils.formatEther(ratio));
