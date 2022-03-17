@@ -761,25 +761,11 @@ export class PickleModel {
     DEBUG_OUT("Begin ensureDepositTokenPriceLoadedOneChain: " + chain);
     const start = Date.now();
 
-    let tmpArray: Promise<void>[] = [];
+    const tmpArray: Promise<void>[] = [];
     for (let i = 0; i < assets.length; i++) {
       tmpArray.push(
         this.ensureDepositTokenLoadedOneJar(assets[i] as JarDefinition),
       );
-      if (tmpArray.length === 10) {
-        try {
-          await Promise.all(tmpArray);
-          await new Promise((resolve) => setTimeout(resolve, 4000));
-        } catch (error) {
-          const start = Math.floor(i / 10) * 10;
-          this.logError(
-            "ensureDepositTokenPriceLoadedOneChain ",
-            error,
-            chain + " items " + start + " to " + (start + 9),
-          );
-        }
-        tmpArray = [];
-      }
     }
     await Promise.all(tmpArray);
     DEBUG_OUT(
