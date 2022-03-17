@@ -1571,6 +1571,36 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_PICKLE_ETH);
 
+export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar U3i",
+  contract: "0x7f3514CBC6825410Ca3fA4deA41d46964a953Afb",
+  depositToken: {
+    addr: "0xc63B0708E2F7e69CB8A1df0e1389A98C35A76D52",
+    name: "UniV3 FRAX/USDC",
+    link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/500",
+    components: ["frax", "usdc"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["fxs"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
+    apiKey: "UNIV3-FRAX-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  /* TODO
+  farm: {
+    farmAddress: ,
+    farmNickname: "pUNIv3 FRAX/USDC",
+    farmDepositTokenName: "pUNIv3 FRAX/USDC",
+  },
+  */
+};
+JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_USDC);
+
 // Polygon
 
 export const JAR_COMETH_USDC_WETH: JarDefinition = {
