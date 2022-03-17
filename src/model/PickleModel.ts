@@ -1285,10 +1285,10 @@ export class PickleModel {
     // Run on eth standalone farms
     const chainFarms: StandaloneFarmDefinition[] =
       this.getStandaloneFarms().filter((x) => x.chain === chain);
-    let chainFarmResults: string[] = [];
+    let chainFarmResultsPromise: Promise<string[]> = undefined;
     if (chainFarms.length !== 0) {
       try {
-        chainFarmResults = await this.comMan.call(
+        chainFarmResultsPromise = this.comMan.call(
           chainFarms.map(
             (oneFarm) => () =>
               new MulticallContract(
@@ -1302,17 +1302,17 @@ export class PickleModel {
         this.logError("ensureFarmsBalanceLoadedForProtocol 1", error, chain);
       }
     }
-    this.ensureStandaloneFarmsBalanceLoaded(chainFarms, chainFarmResults);
+
 
     const protocolJarsWithFarms: JarDefinition[] = this.semiActiveJars(
       chain,
     ).filter((x) => {
       return x.farm !== undefined;
     });
-    let protocolJarsWithFarmResults: string[] = [];
+    let protocolJarsWithFarmResultsPromise: Promise<string[]> = undefined;
     if (protocolJarsWithFarms.length > 0) {
       try {
-        protocolJarsWithFarmResults = await this.comMan.call(
+        protocolJarsWithFarmResultsPromise = this.comMan.call(
           protocolJarsWithFarms.map(
             (oneJar) => () =>
               new MulticallContract(oneJar.contract, erc20Abi).balanceOf(
@@ -1325,9 +1325,16 @@ export class PickleModel {
         this.logError("ensureFarmsBalanceLoadedForProtocol 2", error, chain);
       }
     }
+
+    const [chainFarmResults, protocolJarsWithFarmResults] = await Promise.all([
+      chainFarmResultsPromise, 
+      protocolJarsWithFarmResultsPromise
+    ]);
+
+    this.ensureStandaloneFarmsBalanceLoaded(chainFarms, chainFarmResults ? chainFarmResults : []);
     this.ensureNestedFarmsBalanceLoaded(
       protocolJarsWithFarms,
-      protocolJarsWithFarmResults,
+      protocolJarsWithFarmResults ? protocolJarsWithFarmResults : [],
     );
   }
 
