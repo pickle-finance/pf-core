@@ -3748,7 +3748,6 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     name: "FINN FINN/KSM",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
     components: ["finn", "ksm"],
-    },
   },
   rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
@@ -8587,8 +8586,11 @@ export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
     nativePath: {
       //(Solidly)BaseV1Router01 --> WFTM, RENBTC
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8620,8 +8622,11 @@ export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8709,8 +8714,11 @@ export const JAR_FANTOM_SEX_V_FXS_FRAX: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, FRAX
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8742,8 +8750,11 @@ export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8775,8 +8786,11 @@ export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, YFI
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x29b0da86e484e1c0029b56e817912d778ac0ec69"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x29b0da86e484e1c0029b56e817912d778ac0ec69",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8808,8 +8822,11 @@ export const JAR_FANTOM_SEX_V_USDC_SYN: JarDefinition = {
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8925,8 +8942,11 @@ export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, SOLIDSEX
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B"]
-    }   
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9070,8 +9090,11 @@ export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, miMATIC
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0xfB98B335551a418cD0737375a2ea0ded62Ea213b"]
-    }   
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xfB98B335551a418cD0737375a2ea0ded62Ea213b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9131,8 +9154,11 @@ export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, CRV
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x1E4F97b9f9F913c46F1632781732927B9019C68b"]
-    }  
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x1E4F97b9f9F913c46F1632781732927B9019C68b",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9220,8 +9246,11 @@ export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9281,8 +9310,11 @@ export const JAR_FANTOM_SEX_V_TAROT_XTAROT: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, TAROT
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0xc5e2b037d30a390e62180970b3aa4e91868764cd"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xc5e2b037d30a390e62180970b3aa4e91868764cd",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9314,8 +9346,11 @@ export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9375,8 +9410,11 @@ export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, TAROT
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9408,8 +9446,11 @@ export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, vSOLIDSEX
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9469,8 +9510,11 @@ export const JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT: JarDefinition = {
     nativePath: {
       //SpritSwap : SpiritRouter--> WFTM, SPIRIT
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x5Cc61A78F164885776AA610fb0FE1257df78E59B"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9502,8 +9546,11 @@ export const JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT: JarDefinition = {
     nativePath: {
       //SpritSwap : SpiritRouter--> WFTM, SPIRIT
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x5Cc61A78F164885776AA610fb0FE1257df78E59B"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9563,8 +9610,11 @@ export const JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT: JarDefinition = {
     nativePath: {
       //SpritSwap : SpiritRouter--> WFTM, SPIRIT
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x5Cc61A78F164885776AA610fb0FE1257df78E59B"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9596,8 +9646,11 @@ export const JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT: JarDefinition = {
     nativePath: {
       //SpritSwap : SpiritRouter--> WFTM, SPIRIT
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x5Cc61A78F164885776AA610fb0FE1257df78E59B"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x5Cc61A78F164885776AA610fb0FE1257df78E59B",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9629,8 +9682,11 @@ export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9690,8 +9746,11 @@ export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
     nativePath: {
       //Solidly : BaseV1Router01--> WFTM, BOMB
       target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x8503eb4a136bdbeb323e37aa6e0fa0c772228378"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x8503eb4a136bdbeb323e37aa6e0fa0c772228378",
+      ],
+    },
   },
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
@@ -9947,8 +10006,11 @@ export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
     nativePath: {
       //(SpiritSwap)SpiritRouter --> WFTM, SCARAB
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE69",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x2e79205648B85485731CFE3025d66cF2d3B059c4"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x2e79205648B85485731CFE3025d66cF2d3B059c4",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
