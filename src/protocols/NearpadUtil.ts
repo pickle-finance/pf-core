@@ -57,7 +57,8 @@ export async function calculatePadFarmsAPY(
     (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
-  const padRewardedPerYear = (model.priceOfSync("pad", jar.chain)) * rewardsPerYear;
+  const padRewardedPerYear =
+    model.priceOfSync("pad", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const padAPY = padRewardedPerYear / totalValueStaked;
 

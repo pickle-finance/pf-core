@@ -267,8 +267,7 @@ export async function queryUniV3TokensFromGraph() {
       "Accept-Language": "en-US,en;q=0.5",
       "Content-Type": "application/json",
     },
-    referrer:
-      "https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3",
+    referrer: "https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3",
     body: `{"query":"{\\n  positions(first: ${toFind.length.toString()}, orderDirection: desc, where: {id_in: [\\"${toFindAsString}\\"]}) {\\n    id\\n    depositedToken0\\n    depositedToken1\\n pool{id}\\n}\\n}\\n","variables":null}`,
     method: "POST",
     mode: "cors",

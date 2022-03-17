@@ -91,7 +91,8 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
       ONE_YEAR_IN_SECONDS;
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const beamRewardedPerYear = (model.priceOfSync("glint", jar.chain)) * rewardsPerYear;
+    const beamRewardedPerYear =
+      model.priceOfSync("glint", jar.chain) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const beamAPY = beamRewardedPerYear / totalValueStaked;
 

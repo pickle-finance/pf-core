@@ -18,7 +18,7 @@ const SUBGRAPH_URL_UNISWAP =
 const SUBGRAPH_URL_UNISWAP_V3_POLYGON =
   "https://api.thegraph.com/subgraphs/name/kalinbas/uniswap-v3-polygon";
 const SUBGRAPH_URL_UNISWAP_V3_MAINNET =
-"https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-subgraph";
+  "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-subgraph";
 const SUBGRAPH_URL_SUSHISWAP =
   "https://api.thegraph.com/subgraphs/name/croco-finance/sushiswap";
 const SUBGRAPH_URL_SUSHISWAP_POLYGON =

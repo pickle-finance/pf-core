@@ -13,7 +13,7 @@ import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
 import fetch from "cross-fetch";
 import CrvRewardsABI from "../Contracts/ABIs/crv-rewards.json";
 import ExtraRewardsABI from "../Contracts/ABIs/extra-rewards.json";
-import fxsPoolABI from "../Contracts/ABIs/fxs-pool.json"
+import fxsPoolABI from "../Contracts/ABIs/fxs-pool.json";
 import curvePoolAbi from "../Contracts/ABIs/curve-pool.json";
 import { PoolInfo } from "./ProtocolUtil";
 import { createAprComponentImpl } from "../behavior/AbstractJarBehavior";
@@ -192,7 +192,9 @@ export async function getProjectedConvexAprStats(
       priceMultiplier = +formatEther(await minter.lp_price());
     } catch (e) {
       // TODO do something here??
-      console.log("Unknown error in ConvexUtility.getProjectedConvexAprStats(): " + e);
+      console.log(
+        "Unknown error in ConvexUtility.getProjectedConvexAprStats(): " + e,
+      );
     }
 
     const poolValue =

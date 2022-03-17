@@ -53,7 +53,8 @@ export async function calculateVvsFarmsAPY(
 
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-  const vvsRewardedPerYear = (model.priceOfSync("vvs", jar.chain)) * rewardsPerYear;
+  const vvsRewardedPerYear =
+    model.priceOfSync("vvs", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const vvsAPY = vvsRewardedPerYear / totalValueStaked;
   return { name: "vvs", apr: vvsAPY * 100, compoundable: true };

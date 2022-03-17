@@ -4,7 +4,6 @@ import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { mirRewardAbi } from "../../Contracts/ABIs/mir-reward.abi";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
@@ -60,7 +59,7 @@ export abstract class MirJar extends AbstractJarBehavior {
 
     const mirRewardsPerYear = mirRewardRate * ONE_YEAR_SECONDS;
     const valueRewardedPerYear =
-      (model.priceOfSync("mir", jar.chain)) * mirRewardsPerYear;
+      model.priceOfSync("mir", jar.chain) * mirRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const mirAPY = valueRewardedPerYear / totalValueStaked;

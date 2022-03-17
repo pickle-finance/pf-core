@@ -234,7 +234,8 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     pickleZapAddress: "0x403FB2d31722B10aC4d3a05d13532Dd7cF6D2169",
     router: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
   },
-  {  // Note: zaps might be slightly different than uniswapv2
+  {
+    // Note: zaps might be slightly different than uniswapv2
     protocol: AssetProtocol.SOLID,
     chain: ChainNetwork.Fantom,
     zappable: true,
@@ -309,8 +310,8 @@ export interface DepositToken {
 }
 
 export interface PickleAndUserModel {
-  pickleModel: PickleModelJson,
-  userModel: UserData,
+  pickleModel: PickleModelJson;
+  userModel: UserData;
 }
 
 export interface PickleAsset {

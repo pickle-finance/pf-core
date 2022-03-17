@@ -3,7 +3,11 @@ import { ethers, Contract, BigNumber } from "ethers";
 import v2PoolABI from "../Contracts/ABIs/uniswapv2-pair.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { formatEther } from "@ethersproject/units";
-import { ExternalToken, ExternalTokenFetchStyle, ExternalTokenModelSingleton } from "./ExternalTokenModel";
+import {
+  ExternalToken,
+  ExternalTokenFetchStyle,
+  ExternalTokenModelSingleton,
+} from "./ExternalTokenModel";
 import { DEBUG_OUT } from "../model/PickleModel";
 
 /*
@@ -25,45 +29,45 @@ async function getPairReserves(contract: Contract) {
   };
 }
 
-export const calculateSwapTokenPrices = async(chains: ChainNetwork[]): Promise<void> => {
-  const swapFiltered = ExternalTokenModelSingleton.getAllTokens().filter(
-    (x) => chains.includes(x.chain)
-  ).filter(
-    (val) => val.fetchType === ExternalTokenFetchStyle.SWAP_PAIRS,
-  );
+export const calculateSwapTokenPrices = async (
+  chains: ChainNetwork[],
+): Promise<void> => {
+  const swapFiltered = ExternalTokenModelSingleton.getAllTokens()
+    .filter((x) => chains.includes(x.chain))
+    .filter((val) => val.fetchType === ExternalTokenFetchStyle.SWAP_PAIRS);
   await calculateSwapTokenPricesImpl(swapFiltered);
-}
+};
 
-export const calculateSwapTokenPricesImpl = async(
-  tokens: ExternalToken[]
+export const calculateSwapTokenPricesImpl = async (
+  tokens: ExternalToken[],
 ): Promise<void> => {
   DEBUG_OUT("Begin calculateSwapTokenPricesImpl");
   const start = Date.now();
   const promises = [];
-  for( let i = 0; i < tokens.length; i++ ) {
+  for (let i = 0; i < tokens.length; i++) {
     promises.push(fetchSingleTokenSwapPairPriceAndSave(tokens[i]));
   }
   try {
     await Promise.all(promises);
-  } catch( error ) {
+  } catch (error) {
     console.log("Error loading SwapPrice resolver for tokens");
   }
   DEBUG_OUT("End calculateSwapTokenPricesImpl: " + (Date.now() - start));
-}
+};
 
-export const fetchSingleTokenSwapPairPriceAndSave = async(token: ExternalToken): Promise<void> => {
+export const fetchSingleTokenSwapPairPriceAndSave = async (
+  token: ExternalToken,
+): Promise<void> => {
   const provider = Chains.get(token.chain).getPreferredWeb3Provider();
   const pairReserves = [];
   for (const pair of token.swapPairs) {
     const poolContract = new ethers.Contract(pair, v2PoolABI, provider);
-    const { token0, token1, reserves } = await getPairReserves(
-      poolContract,
-    );
+    const { token0, token1, reserves } = await getPairReserves(poolContract);
     pairReserves.push({ [token0]: reserves[0], [token1]: reserves[1] });
   }
 
   // Last token is a stablecoin
-  let numeratorToken:string, denomToken: string;
+  let numeratorToken: string, denomToken: string;
   const ratios: BigNumber[] = [];
 
   for (let i = 0; i < pairReserves.length; i++) {
@@ -72,8 +76,7 @@ export const fetchSingleTokenSwapPairPriceAndSave = async(token: ExternalToken):
     if (i === pairReserves.length - 1) {
       // const tokens = Object.keys(pairReserves[i]);
       // if only 1 swap pair, then the denomintor is the target token, and contained in the alias
-      denomToken =
-        numeratorToken || token.contractAddr;
+      denomToken = numeratorToken || token.contractAddr;
       numeratorToken = Object.keys(pairReserves[i]).filter(
         (x) => x != denomToken,
       )[0];
@@ -105,15 +108,11 @@ export const fetchSingleTokenSwapPairPriceAndSave = async(token: ExternalToken):
 
     // Get reserve values and normalize to 18 decimal places
     const numerator = pairReserves[i][numeratorToken]
-      .mul(
-        BigNumber.from((Math.pow(10, 18 - numDecimals) * 1e6).toString()),
-      )
+      .mul(BigNumber.from((Math.pow(10, 18 - numDecimals) * 1e6).toString()))
       .div((1e6).toString());
 
     const denominator = pairReserves[i][denomToken]
-      .mul(
-        BigNumber.from((Math.pow(10, 18 - denomDecimals) * 1e6).toString()),
-      )
+      .mul(BigNumber.from((Math.pow(10, 18 - denomDecimals) * 1e6).toString()))
       .div((1e6).toString());
 
     const ratio = numerator.mul((1e18).toString()).div(denominator);
@@ -133,4 +132,4 @@ export const fetchSingleTokenSwapPairPriceAndSave = async(token: ExternalToken):
   const price: number = +formatEther(priceBN);
   token.price = price;
   //console.log(`Token ${token.coingeckoId} on ${token.chain} has price of ${price}`);
-}
+};

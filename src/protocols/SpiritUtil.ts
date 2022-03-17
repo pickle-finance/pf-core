@@ -15,7 +15,6 @@ import {
   ONE_YEAR_IN_SECONDS,
 } from "../behavior/AbstractJarBehavior";
 
-
 const spiritGauge = {
   "0x30748322B6E34545DBe0788C421886AEB5297789":
     "0xEFe02cB895b6E061FA227de683C04F3Ce19f3A62", // FTM-SPIRIT

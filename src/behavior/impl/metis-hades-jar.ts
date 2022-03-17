@@ -89,7 +89,7 @@ export class HadesJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const hadesRewardedPerYear =
-      (model.priceOfSync("hellshare", jar.chain)) * rewardsPerYear;
+      model.priceOfSync("hellshare", jar.chain) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const hadesAPY = hadesRewardedPerYear / totalValueStaked;
 

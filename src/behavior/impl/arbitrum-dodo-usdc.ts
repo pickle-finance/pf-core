@@ -58,7 +58,9 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
       18,
     );
     const dodoValueRewardedPerYear =
-      ((model.priceOfSync("dodo", jar.chain)) * DODO_PER_BLOCK * ONE_YEAR_SECONDS) /
+      (model.priceOfSync("dodo", jar.chain) *
+        DODO_PER_BLOCK *
+        ONE_YEAR_SECONDS) /
       13.3;
 
     const totalValueStaked = totalSupply * pricePerToken;

@@ -9,7 +9,6 @@ import {
   SpiritPairManager,
 } from "../../protocols/SpiritUtil";
 
-
 export class SpiritJar extends AbstractJarBehavior {
   protected strategyAbi = strategyABI;
 
@@ -31,7 +30,7 @@ export class SpiritJar extends AbstractJarBehavior {
       resolver,
       ["spirit"],
       this.strategyAbi,
-    );    
+    );
   }
 
   async getProjectedAprStats(

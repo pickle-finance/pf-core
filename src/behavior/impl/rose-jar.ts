@@ -68,7 +68,8 @@ export abstract class RoseJar extends AbstractJarBehavior {
       18,
     );
 
-    const valueRewardedPerYear = model.priceOfSync("rose", jar.chain) * roseRewardsPerYear;
+    const valueRewardedPerYear =
+      model.priceOfSync("rose", jar.chain) * roseRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const roseAPY = 100 * (valueRewardedPerYear / totalValueStaked);

@@ -1,5 +1,18 @@
-import { AssetDocumentationDefinition, OBTAIN_KEY_MULTITOKEN_POOL_ALL, OBTAIN_KEY_MULTITOKEN_POOL_ANY, OBTAIN_KEY_ONETOKEN_JAR, OBTAIN_KEY_ONETOKEN_POOL, OBTAIN_KEY_TWOTOKEN_POOL, OBTAIN_KEY_ZAPPER, RISK_CHAIN, RISK_MAINTAIN_PEG, RISK_SMART_CONTRACT, SocialKeys, SOCIAL_KEY_DISCORD, SOCIAL_KEY_TELEGRAM} from "./DocsInterfaces";
-
+import {
+  AssetDocumentationDefinition,
+  OBTAIN_KEY_MULTITOKEN_POOL_ALL,
+  OBTAIN_KEY_MULTITOKEN_POOL_ANY,
+  OBTAIN_KEY_ONETOKEN_JAR,
+  OBTAIN_KEY_ONETOKEN_POOL,
+  OBTAIN_KEY_TWOTOKEN_POOL,
+  OBTAIN_KEY_ZAPPER,
+  RISK_CHAIN,
+  RISK_MAINTAIN_PEG,
+  RISK_SMART_CONTRACT,
+  SocialKeys,
+  SOCIAL_KEY_DISCORD,
+  SOCIAL_KEY_TELEGRAM,
+} from "./DocsInterfaces";
 
 export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
   {
@@ -679,11 +692,14 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       },
       {
         key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
-        properties: { name: "LOOKSRARE", url: "https://twitter.com/looksrarenft" },
+        properties: {
+          name: "LOOKSRARE",
+          url: "https://twitter.com/looksrarenft",
+        },
       },
       {
         key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
-        properties: { name: "LOOKSRARE", url: "https://looksrare.org/"},
+        properties: { name: "LOOKSRARE", url: "https://looksrare.org/" },
       },
     ],
     obtain: [
@@ -698,7 +714,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } },
       { key: RISK_SMART_CONTRACT, properties: { protocol: "LooksRare" } },
     ],
-  },  
+  },
   {
     apiKey: "saddled4",
     social: [
@@ -708,15 +724,18 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       },
       {
         key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
-        properties: { name: "Saddle", url: "https://twitter.com/saddlefinance" },
+        properties: {
+          name: "Saddle",
+          url: "https://twitter.com/saddlefinance",
+        },
       },
       {
         key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
-        properties: { name: "Saddle", url: "https://saddle.finance/#/"},
+        properties: { name: "Saddle", url: "https://saddle.finance/#/" },
       },
       {
         key: SocialKeys.SOCIAL_KEY_TELEGRAM_NAME,
-        properties: { name: "Saddle", url: "https://t.me/saddle_finance"},
+        properties: { name: "Saddle", url: "https://t.me/saddle_finance" },
       },
     ],
     obtain: [
@@ -757,7 +776,7 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       { key: RISK_SMART_CONTRACT, properties: { protocol: "AAVE" } },
       { key: RISK_CHAIN, properties: { protocol: "Polygon" } },
     ],
-  },    
+  },
   {
     apiKey: "am3CRV",
     social: [
@@ -862,11 +881,14 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
       },
       {
         key: SocialKeys.SOCIAL_KEY_TWITTER_NAME,
-        properties: { name: "B.Protocol", url: "https://twitter.com/bprotocoleth" },
+        properties: {
+          name: "B.Protocol",
+          url: "https://twitter.com/bprotocoleth",
+        },
       },
       {
         key: SocialKeys.SOCIAL_KEY_WEBSITE_NAME,
-        properties: { name: "B.Protocol", url: "https://www.bprotocol.org/"},
+        properties: { name: "B.Protocol", url: "https://www.bprotocol.org/" },
       },
     ],
     obtain: [

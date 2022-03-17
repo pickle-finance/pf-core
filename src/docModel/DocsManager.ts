@@ -1,4 +1,7 @@
-import { documentationAssetDefinitionToResult, generateAutomaticDefinition } from "./documentationImplementation";
+import {
+  documentationAssetDefinitionToResult,
+  generateAutomaticDefinition,
+} from "./documentationImplementation";
 import { ALL_JAR_DOCUMENTATION } from "./docs";
 import {
   AssetDocumentationDefinition,
@@ -11,13 +14,23 @@ import { ALL_ASSETS } from "../model/JarsAndFarms";
 export class DocsManager {
   public static getAllJarDocumentationDefinitions(): AssetDocumentationDefinition[] {
     // TODO build this out
-    const manualDocs: AssetDocumentationDefinition[] = [...ALL_JAR_DOCUMENTATION];
+    const manualDocs: AssetDocumentationDefinition[] = [
+      ...ALL_JAR_DOCUMENTATION,
+    ];
     const manualApiKeys: string[] = manualDocs.map((x) => x.apiKey);
-    const missingApiKeys = ALL_ASSETS.filter((x) => x && x.details && x.details.apiKey && !manualApiKeys.includes(x.details.apiKey));
+    const missingApiKeys = ALL_ASSETS.filter(
+      (x) =>
+        x &&
+        x.details &&
+        x.details.apiKey &&
+        !manualApiKeys.includes(x.details.apiKey),
+    );
     const automaticDocDefinitions: AssetDocumentationDefinition[] = [];
-    for( let i = 0; i < missingApiKeys.length; i++ ) {
-      const tmp = generateAutomaticDefinition([missingApiKeys[i].details.apiKey]);
-      if( tmp && tmp.length > 0 && tmp[0] !== undefined) {
+    for (let i = 0; i < missingApiKeys.length; i++) {
+      const tmp = generateAutomaticDefinition([
+        missingApiKeys[i].details.apiKey,
+      ]);
+      if (tmp && tmp.length > 0 && tmp[0] !== undefined) {
         automaticDocDefinitions.push(tmp[0]);
       }
     }

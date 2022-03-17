@@ -96,7 +96,8 @@ export class BalancerJar extends AbstractJarBehavior {
       ? definition.depositToken.decimals
       : 18;
     const depositTokenPrice: number = model.priceOfSync(
-      definition.depositToken.addr, definition.chain
+      definition.depositToken.addr,
+      definition.chain,
     );
     const availUSD: number =
       parseFloat(
@@ -142,7 +143,9 @@ export class BalancerJar extends AbstractJarBehavior {
     }
 
     const walletBalances: any[] = await Promise.all(promises);
-    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x, jar.chain));
+    const rewardTokenPrices = rewardTokens.map((x) =>
+      model.priceOfSync(x, jar.chain),
+    );
 
     walletBalances.forEach(
       (walletBalance, i) =>

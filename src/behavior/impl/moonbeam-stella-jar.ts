@@ -88,7 +88,7 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const stellaRewardedPerYear =
-      (model.priceOfSync("stella", jar.chain)) * rewardsPerYear;
+      model.priceOfSync("stella", jar.chain) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const stellaAPY = stellaRewardedPerYear / totalValueStaked;
 

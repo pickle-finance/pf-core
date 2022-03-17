@@ -59,7 +59,8 @@ export async function calculateCherryAPY(
     rewardsPerBlock *
     ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
 
-  const valueRewardedPerYear = model.priceOfSync("cherry", jar.chain) * rewardsPerYear;
+  const valueRewardedPerYear =
+    model.priceOfSync("cherry", jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const cherryAPY = valueRewardedPerYear / totalValueStaked;
@@ -95,7 +96,8 @@ export async function calculateJswapAPY(
     rewardsPerBlock *
     ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
 
-  const valueRewardedPerYear = model.priceOfSync("jswap", jar.chain) * rewardsPerYear;
+  const valueRewardedPerYear =
+    model.priceOfSync("jswap", jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
 

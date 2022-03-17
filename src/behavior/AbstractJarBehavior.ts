@@ -68,7 +68,10 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     model: PickleModel,
   ): Promise<number> {
     if (definition && definition.depositToken && definition.depositToken.addr) {
-      const ret = model.priceOfSync(definition.depositToken.addr, definition.chain);
+      const ret = model.priceOfSync(
+        definition.depositToken.addr,
+        definition.chain,
+      );
       if (ret !== undefined && ret !== null) {
         return ret;
       }
@@ -115,7 +118,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       ? definition.depositToken.decimals
       : 18;
     const depositTokenPrice: number = model.priceOfSync(
-      definition.depositToken.addr, definition.chain
+      definition.depositToken.addr,
+      definition.chain,
     );
     const balanceUSD: number =
       parseFloat(ethers.utils.formatUnits(balance, depositTokenDecimals)) *
@@ -173,7 +177,9 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables
       ? [].concat(tmpStrategyHarvestables)
       : [];
-    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x, jar.chain));
+    const rewardTokenPrices = rewardTokens.map((x) =>
+      model.priceOfSync(x, jar.chain),
+    );
 
     let runningTotal = 0;
     for (let i = 0; i < rewardTokens.length; i++) {
@@ -238,7 +244,9 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const masterchefHarvestables: BigNumber[] = tmpMCHarvestables
       ? [].concat(tmpMCHarvestables)
       : [];
-    const rewardTokenPrices = rewardTokens.map((x) => model.priceOfSync(x, jar.chain));
+    const rewardTokenPrices = rewardTokens.map((x) =>
+      model.priceOfSync(x, jar.chain),
+    );
 
     let runningTotal = 0;
     for (let i = 0; i < rewardTokens.length; i++) {
