@@ -1,7 +1,7 @@
 import { Contract as MultiContract } from "ethers-multicall";
 import { BigNumber, ethers } from "ethers";
 import { formatEther } from "ethers/lib/utils";
-import { JarBehaviorDiscovery, PickleModel } from "..";
+import { PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { ChainNetwork } from "../chain/Chains";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
@@ -12,7 +12,7 @@ import fxsPoolABI from "../Contracts/ABIs/fxs-pool.json";
 import curvePoolAbi from "../Contracts/ABIs/curve-pool.json";
 import cvxBoosterAbi from "../Contracts/ABIs/cvx-booster.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
-import { PoolInfo } from "./ProtocolUtil";
+import { PoolInfo, SinglePoolInfo } from "./ProtocolUtil";
 import { createAprComponentImpl } from "../behavior/AbstractJarBehavior";
 import { JAR_CVXCRV } from "../model/JarsAndFarms";
 
@@ -73,21 +73,26 @@ const convexPools: PoolInfo = {
   },
 };
 
-export async function getCvxMint(
-  crvEarned: number,
+export async function getCvxTotalSupply(
   model: PickleModel,
-): Promise<number> {
-  /* Adapted from https://docs.convexfinance.com/convexfinanceintegration/cvx-minting */
-
-  const cliffSize = 100000; // new cliff every 100,000 tokens
-  const cliffCount = 1000; // 1,000 cliffs
-  const maxSupply = 100000000; // 100 mil max supply
-
+): Promise<BigNumber> {
   const cvxContract = new MultiContract(model.addr("cvx"), erc20Abi);
   const cvxTotalSupplyBN = await model.comMan.call(
     () => cvxContract.totalSupply(),
     ChainNetwork.Ethereum,
   );
+  return cvxTotalSupplyBN;
+}
+
+export function getCvxMint(
+  crvEarned: number,
+  cvxTotalSupplyBN: BigNumber,
+): number {
+  /* Adapted from https://docs.convexfinance.com/convexfinanceintegration/cvx-minting */
+
+  const cliffSize = 100000; // new cliff every 100,000 tokens
+  const cliffCount = 1000; // 1,000 cliffs
+  const maxSupply = 100000000; // 100 mil max supply
 
   // first get total supply
   const cvxTotalSupply = parseFloat(formatEther(cvxTotalSupplyBN));
@@ -113,11 +118,8 @@ export async function getCvxMint(
   return 0;
 }
 
-export async function getProjectedConvexAprStats(
-  this: any,
-  definition: JarDefinition,
-  model: PickleModel,
-): Promise<AssetAprComponent[]> {
+export async function getConvexCurveApi(): Promise<any> {
+
   let fetchPromise = undefined;
   try {
     fetchPromise = fetch("https://www.convexfinance.com/api/curve-apys", {
@@ -133,44 +135,23 @@ export async function getProjectedConvexAprStats(
   } catch (error) {
     // do nothing
   }
-  const fetchResult = await fetchPromise;
-  if (!fetchResult) return [];
-  const curveAPY = fetchResult?.apys;
+  return fetchPromise;
+}
+export async function getConvexRewarderPromise(cvxPool: SinglePoolInfo, model: PickleModel, definition: JarDefinition): Promise<string> {
+  const cvxBoosterContract = new MultiContract(CVX_BOOSTER, cvxBoosterAbi);
+  const rewarder =
+    cvxPool.rewarder ||
+    (
+      await model.comMan.call(
+        () => cvxBoosterContract.poolInfo(cvxPool.poolId),
+        definition.chain,
+      )
+    ).crvRewards;
+    return rewarder;
+};
 
-  // Component 1
-  const cvxPool = convexPools[definition.depositToken.addr];
-  if (curveAPY) {
-    const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
-    let crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
-
-    const cvxBoosterContract = new MultiContract(CVX_BOOSTER, cvxBoosterAbi);
-    const rewarder =
-      cvxPool.rewarder ||
-      (
-        await model.comMan.call(
-          () => cvxBoosterContract.poolInfo(cvxPool.poolId),
-          definition.chain,
-        )
-      ).crvRewards;
-
-    const crvRewardsMC = new MultiContract(rewarder, CrvRewardsABI);
-    const [depositLocked, duration, extraRewardsAddress, mcRewardRate]: [
-      BigNumber,
-      BigNumber,
-      string,
-      BigNumber,
-    ] = await model.comMan.call(
-      [
-        () => crvRewardsMC.totalSupply(),
-        () => crvRewardsMC.duration(),
-        () => crvRewardsMC.extraRewards(0),
-        () => crvRewardsMC.rewardRate(),
-      ],
-      definition.chain,
-    );
-
-    let priceMultiplier = 1;
-
+export async function getPriceMultiplierFromMinter(definition: JarDefinition, model: PickleModel): Promise<number> {
+  let priceMultiplier = 1;
     // See if there's 1) a linked minter contract; and 2) a price multiplier
     try {
       const crvPool = new ethers.Contract(
@@ -187,51 +168,94 @@ export async function getProjectedConvexAprStats(
         definition.chain,
       );
       priceMultiplier = +formatEther(lpPriceBN);
+      return priceMultiplier;
     } catch (e) {
       // TODO do something here??
       console.log(
         "Unknown error in ConvexUtility.getProjectedConvexAprStats(): " + e,
       );
+      return 1;
     }
+}
+export async function getExtraRewards1(extraRewardsAddress: string, model: PickleModel, definition: JarDefinition): Promise<BigNumber> {
+  const extraRewardsContract = new MultiContract(
+    extraRewardsAddress,
+    ExtraRewardsABI,
+  );
+  return model.comMan.call(
+    () => extraRewardsContract.currentRewards(),
+    definition.chain,
+  );
+}
+export async function getProjectedConvexAprStats(
+  definition: JarDefinition,
+  model: PickleModel,
+): Promise<AssetAprComponent[]> {
+  const cvxPool = convexPools[definition.depositToken.addr];
+  const convexApiPromise = getConvexCurveApi();
+  const priceMultiplierPromise = getPriceMultiplierFromMinter(definition, model);
+  const cvxTotalSupplyPromise = getCvxTotalSupply(model);
+  const rewarderPromise = getConvexRewarderPromise(cvxPool, model, definition);
 
+  const crvPrice = model.priceOfSync("crv", definition.chain);
+  const cvxPrice = model.priceOfSync("cvx", definition.chain);
+
+  const fetchResult = await convexApiPromise;
+  if (!fetchResult) return [];
+  const curveAPY = fetchResult?.apys;
+
+  // Component 1
+  if (curveAPY) {
+    const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
+    let crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
+
+    const crvRewardsMC = new MultiContract(await rewarderPromise, CrvRewardsABI);
+    let extraRewardsAddress2Promise: Promise<string> | undefined = undefined;
+    if (cvxPool.extraReward) {
+      extraRewardsAddress2Promise = model.comMan.call(
+        () => crvRewardsMC.extraRewards(1),
+        definition.chain,
+      );
+    }
+    const [depositLocked, duration, extraRewardsAddress, mcRewardRate]: [
+      BigNumber,
+      BigNumber,
+      string,
+      BigNumber,
+    ] = await model.comMan.call(
+      [
+        () => crvRewardsMC.totalSupply(),
+        () => crvRewardsMC.duration(),
+        () => crvRewardsMC.extraRewards(0),
+        () => crvRewardsMC.rewardRate(),
+      ],
+      definition.chain,
+    );
+    const extraRewardCurrentRewardsPromise: Promise<BigNumber> = getExtraRewards1(extraRewardsAddress, model, definition);
+
+    const priceMultiplier = await priceMultiplierPromise;
+
+    const depositTokenPrice = definition.depositToken.price;
     const poolValue =
       parseFloat(formatEther(depositLocked)) *
       priceMultiplier *
-      (model.priceOfSync(cvxPool.tokenPriceLookup, definition.chain) ||
-        (await new JarBehaviorDiscovery()
-          .findAssetBehavior(definition)
-          .getDepositTokenPrice(definition, model)));
+      (model.priceOfSync(cvxPool.tokenPriceLookup, definition.chain) || depositTokenPrice);
 
     const isCvxCrvStaker =
       JAR_CVXCRV.details.apiKey === definition.details.apiKey;
     if (isCvxCrvStaker) {
-      const rewardRateUSD =
-        (model.priceOfSync("crv", definition.chain) *
-          mcRewardRate.div(1e10).toNumber()) /
-        1e8;
+      const rewardRateUSD =(crvPrice * mcRewardRate.div(1e10).toNumber()) /1e8;
       crvApr = rewardRateUSD * (ONE_YEAR_SECONDS / poolValue) * 100;
     }
     const crvRewardPerDuration =
-      (crvApr * poolValue) /
-      (duration.toNumber() * model.priceOfSync("crv", definition.chain));
+      (crvApr * poolValue) / (duration.toNumber() * crvPrice);
 
-    const cvxReward = await getCvxMint(crvRewardPerDuration * 100, model);
-    const cvxValuePerYear =
-      (cvxReward *
-        model.priceOfSync("cvx", definition.chain) *
-        ONE_YEAR_SECONDS) /
-      duration.toNumber();
+    const cvxReward = getCvxMint(crvRewardPerDuration * 100, await cvxTotalSupplyPromise);
+
+    const cvxValuePerYear = (cvxReward * cvxPrice * ONE_YEAR_SECONDS) / duration.toNumber();
     const cvxApr = cvxValuePerYear / poolValue;
 
-    // component 2
-    const extraRewardsContract = new MultiContract(
-      extraRewardsAddress,
-      ExtraRewardsABI,
-    );
-    const extraRewardCurrentRewards = await model.comMan.call(
-      () => extraRewardsContract.currentRewards(),
-      definition.chain,
-    );
+    const extraRewardCurrentRewards = await extraRewardCurrentRewardsPromise;
     const extraRewardAmount = +formatEther(extraRewardCurrentRewards);
     const extraRewardValuePerYear =
       (extraRewardAmount *
@@ -244,12 +268,10 @@ export async function getProjectedConvexAprStats(
     if (isExtraCvx) extraRewardApr += cvxApr;
 
     // component 3
-    let extraRewardApr2;
+    let extraRewardApr2 = 0;
     if (cvxPool.extraReward) {
-      const extraRewardsAddress2: string = await model.comMan.call(
-        () => crvRewardsMC.extraRewards(1),
-        definition.chain,
-      );
+      const extraRewardsAddress2: string = await extraRewardsAddress2Promise;
+
       const extraRewardsContract2 = new MultiContract(
         extraRewardsAddress2,
         ExtraRewardsABI,
@@ -258,6 +280,7 @@ export async function getProjectedConvexAprStats(
         () => extraRewardsContract2.currentRewards(),
         definition.chain,
       );
+
       const extraRewardAmount2 = +formatEther(extraReward2CurrentRewards);
       const extraRewardValuePerYear2 =
         (extraRewardAmount2 *
@@ -269,32 +292,29 @@ export async function getProjectedConvexAprStats(
         duration.toNumber();
       extraRewardApr2 = extraRewardValuePerYear2 / poolValue;
     }
-    const components: AssetAprComponent[] = [
-      ...(isCvxCrvStaker ? [] : [createAprComponentImpl("lp", lpApr, false)]),
-      createAprComponentImpl("crv", crvApr, true),
-      ...(isExtraCvx
-        ? []
-        : [createAprComponentImpl("cvx", cvxApr * 100, true)]),
-      ...(cvxPool.rewardName
-        ? [
-            createAprComponentImpl(
-              cvxPool.rewardName,
-              extraRewardApr * 100,
-              true,
-            ),
-          ]
-        : []),
-      ...(cvxPool.extraReward
-        ? [
-            createAprComponentImpl(
-              cvxPool.extraReward,
-              extraRewardApr2 * 100,
-              true,
-            ),
-          ]
-        : []),
-    ];
 
+    const components: AssetAprComponent[] = [];
+    if( !isCvxCrvStaker ) {
+      components.push(createAprComponentImpl("lp", lpApr, false));
+    }
+    components.push(createAprComponentImpl("crv", crvApr, true));
+    if( !isExtraCvx ) {
+      components.push(createAprComponentImpl("cvx", cvxApr * 100, true));
+    }
+    if( cvxPool.rewardName ) {
+      components.push(createAprComponentImpl(
+        cvxPool.rewardName,
+        extraRewardApr * 100,
+        true,
+      ));
+    }
+    if( cvxPool.extraReward ) {
+      components.push(createAprComponentImpl(
+        cvxPool.extraReward,
+        extraRewardApr2 * 100,
+        true,
+      ));
+    }
     return components;
   }
   return undefined;

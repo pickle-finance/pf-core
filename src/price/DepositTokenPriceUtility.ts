@@ -36,7 +36,7 @@ export async function getDepositTokenPriceForSwap(
 export async function getStableswapPrice(
   asset: PickleAsset,
   model: PickleModel,
-) {
+): Promise<number> {
   return getStableswapPriceAddress(asset.depositToken.addr, asset, model);
 }
 
@@ -53,7 +53,7 @@ export async function getStableswapPriceAddress(
   addr: string,
   asset: PickleAsset,
   model: PickleModel,
-) {
+): Promise<number> {
   const curveStyle =
     asset.protocol === AssetProtocol.CURVE ||
     asset.protocol === AssetProtocol.YEARN;
