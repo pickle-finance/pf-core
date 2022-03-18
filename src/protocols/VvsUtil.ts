@@ -1,4 +1,8 @@
-import { AssetProtocol, JarDefinition } from "../model/PickleModelJson";
+import {
+  AssetAprComponent,
+  AssetProtocol,
+  JarDefinition,
+} from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import vvsFarmsAbi from "../Contracts/ABIs/vvs-farms.json";
 import { PickleModel } from "../model/PickleModel";
@@ -7,8 +11,11 @@ import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
+import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
+import { ethers } from "ethers";
 
 export const VVS_FARMS = "0xdccd6455ae04b03d785f12196b492b18129564bc";
+export const VVS_FARMS_V2 = "0xbc149c62EFe8AFC61728fC58b1b66a0661712e76";
 
 export const vvsPoolIds: PoolId = {
   "0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9": 1,
@@ -27,6 +34,9 @@ export const vvsPoolIds: PoolId = {
   "0x4B377121d968Bf7a62D51B96523d59506e7c2BF0": 16, // VVS CRO/TONIC
   "0x6f72a3f6dB6F486B50217f6e721f4388994B1FBe": 17, // VVS VVS/SINGLE
   "0x0fBAB8A90CAC61b481530AAd3a64fE17B322C25d": 18, // VVS USDC/SINGLE
+};
+
+export const vvsPoolIdsV2: PoolId = {
   "0xA922530960A1F94828A7E132EC1BA95717ED1eab": 19, // VVS VVS/TONIC
 };
 
@@ -34,18 +44,47 @@ export async function calculateVvsFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ) {
+  const chefV2Abi = [
+    {
+      type: "function",
+      stateMutability: "view",
+      outputs: [
+        {
+          type: "address[]",
+          name: "",
+          internalType: "contract IRewarder[]",
+        },
+      ],
+      name: "poolRewarders",
+      inputs: [
+        {
+          type: "uint256",
+          name: "_pid",
+          internalType: "uint256",
+        },
+      ],
+    },
+  ];
   const multicallProvider = model.multicallProviderFor(jar.chain);
   await multicallProvider.init();
-  const poolId = vvsPoolIds[jar.depositToken.addr];
+  const poolId =
+    vvsPoolIds[jar.depositToken.addr] ?? vvsPoolIdsV2[jar.depositToken.addr];
   const multicallVvsFarms = new MulticallContract(VVS_FARMS, vvsFarmsAbi);
+  const multicallVvsFarmsV2 = new MulticallContract(VVS_FARMS_V2, chefV2Abi);
   const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-  const [vvsPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallVvsFarms.vvsPerBlock(),
-      multicallVvsFarms.totalAllocPoint(),
-      multicallVvsFarms.poolInfo(poolId),
-      lpToken.balanceOf(VVS_FARMS),
-    ]);
+  const [
+    vvsPerBlockBN,
+    totalAllocPointBN,
+    poolInfo,
+    totalSupplyBN,
+    poolRewarders,
+  ] = await multicallProvider.all([
+    multicallVvsFarms.vvsPerBlock(),
+    multicallVvsFarms.totalAllocPoint(),
+    multicallVvsFarms.poolInfo(poolId),
+    lpToken.balanceOf(VVS_FARMS),
+    multicallVvsFarmsV2.poolRewarders(poolId),
+  ]);
 
   const rewardsPerBlock =
     (parseFloat(formatEther(vvsPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
@@ -62,8 +101,134 @@ export async function calculateVvsFarmsAPY(
   const vvsRewardedPerYear =
     model.priceOfSync("vvs", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
+
+  const bonusAprs: AssetAprComponent[] = await getBonusApr(
+    jar,
+    model,
+    poolRewarders,
+    poolId,
+    totalValueStaked,
+  );
+
   const vvsAPY = vvsRewardedPerYear / totalValueStaked;
-  return { name: "vvs", apr: vvsAPY * 100, compoundable: true };
+  const aprs = [{ name: "vvs", apr: vvsAPY * 100, compoundable: true }];
+  bonusAprs && aprs.push(...bonusAprs);
+  return aprs;
+}
+
+async function getBonusApr(
+  jar: JarDefinition,
+  model: PickleModel,
+  rewarders: string[],
+  poolId: number,
+  totalValueStaked: number,
+): Promise<AssetAprComponent[]> | undefined {
+  if (rewarders?.length > 0) {
+    const rewarderAbi = [
+      {
+        type: "function",
+        stateMutability: "view",
+        outputs: [
+          {
+            type: "uint256",
+            name: "",
+            internalType: "uint256",
+          },
+        ],
+        name: "rewardPerSecond",
+        inputs: [],
+      },
+      {
+        type: "function",
+        stateMutability: "view",
+        outputs: [
+          {
+            type: "uint256",
+            name: "",
+            internalType: "uint256",
+          },
+        ],
+        name: "totalAllocPoint",
+        inputs: [],
+      },
+      {
+        type: "function",
+        stateMutability: "view",
+        outputs: [
+          {
+            type: "uint256",
+            name: "allocPoint",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            name: "lastRewardTime",
+            internalType: "uint256",
+          },
+          {
+            type: "uint256",
+            name: "accRewardPerShare",
+            internalType: "uint256",
+          },
+        ],
+        name: "poolInfo",
+        inputs: [
+          {
+            type: "uint256",
+            name: "",
+            internalType: "uint256",
+          },
+        ],
+      },
+      {
+        type: "function",
+        stateMutability: "view",
+        outputs: [
+          {
+            type: "address",
+            name: "",
+            internalType: "contract IERC20",
+          },
+        ],
+        name: "rewardToken",
+        inputs: [],
+      },
+    ];
+    const bonusesApys = Promise.all(
+      rewarders.map(async (rewarder) => {
+        const multicallProvider = model.multicallProviderFor(jar.chain);
+        await multicallProvider.init();
+        const rewarderContract = new MulticallContract(rewarder, rewarderAbi);
+        const [rewardsPerSecondBN, totalAllocPointBN, poolInfo, rewardAddress] =
+          await multicallProvider.all([
+            rewarderContract.rewardPerSecond(),
+            rewarderContract.totalAllocPoint(),
+            rewarderContract.poolInfo(poolId),
+            rewarderContract.rewardToken(),
+          ]);
+
+        const rewardToken = ExternalTokenModelSingleton.getToken(
+          rewardAddress,
+          jar.chain,
+        );
+        const rewardsPerSecond =
+          (parseFloat(
+            ethers.utils.formatUnits(rewardsPerSecondBN, rewardToken.decimals),
+          ) *
+            poolInfo.allocPoint.toNumber()) /
+          totalAllocPointBN.toNumber();
+        const rewardsPerYearUSD =
+          rewardsPerSecond * (360 * 24 * 60 * 60) * rewardToken.price;
+        const rewardAPY = rewardsPerYearUSD / totalValueStaked;
+        return {
+          name: rewardToken.id,
+          apr: rewardAPY * 100,
+          compoundable: true,
+        };
+      }),
+    );
+    return bonusesApys;
+  }
 }
 
 const VVS_PAIR_CACHE_KEY = "vvsswap.pair.data.cache.key";
