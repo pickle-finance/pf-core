@@ -254,7 +254,8 @@ export const calculateBalPoolAPRs = async (
     ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
   const rewardsPerYear = rewardsPerBlock * blocksPerYear;
 
-  const valueRewardedPerYear = model.priceOfSync("beets", jar.chain) * rewardsPerYear;
+  const valueRewardedPerYear =
+    model.priceOfSync("beets", jar.chain) * rewardsPerYear;
 
   const totalValueStaked = totalSupply * pricePerToken;
   const beetsAPY = valueRewardedPerYear / totalValueStaked;

@@ -1,9 +1,11 @@
-
 export const XYK_JAR_DESCRIPTION = "asset.description.standard.lp";
 export const UNI3_JAR_DESCRIPTION = "asset.description.univ3.lp";
-export const UNI3_REWARDS_JAR_DESCRIPTION = "asset.description.univ3.rewards.lp";
-export const BALANCER_REWARDS_JAR_DESCRIPTION = "asset.description.balancer.rewards.lp";
-export const CURVE_REWARDS_JAR_DESCRIPTION = "asset.description.curve.rewards.lp";
+export const UNI3_REWARDS_JAR_DESCRIPTION =
+  "asset.description.univ3.rewards.lp";
+export const BALANCER_REWARDS_JAR_DESCRIPTION =
+  "asset.description.balancer.rewards.lp";
+export const CURVE_REWARDS_JAR_DESCRIPTION =
+  "asset.description.curve.rewards.lp";
 
 export const OBTAIN_KEY_ONETOKEN_POOL = "obtain.pool.onetoken";
 export const OBTAIN_KEY_ONETOKEN_JAR = "obtain.pool.onetoken.jar";
@@ -27,7 +29,7 @@ export enum SocialKeys {
   SOCIAL_KEY_TELEGRAM_NAME = "social.key.telegram.withname",
   SOCIAL_KEY_TWITTER_NAME = "social.key.twitter.withname",
   SOCIAL_KEY_WEBSITE_NAME = "social.key.website.withname",
-};
+}
 
 export interface DocumentationModelDefinition {
   [key: string]: AssetDocumentationDefinition;
@@ -47,8 +49,10 @@ export interface TranslationKeyWithProperties {
   properties?: TranslationKeyProperties;
 }
 
-export interface TranslationKeyProperties { [key: string]: string };
-  
+export interface TranslationKeyProperties {
+  [key: string]: string;
+}
+
 export interface DocumentationModelResult {
   [key: string]: AssetDocumentationResult;
 }

@@ -18,7 +18,9 @@ import {
   StandaloneFarmDefinition,
 } from "../model/PickleModelJson";
 
-export function minichefAddressForChain(network: ChainNetwork): string | undefined {
+export function minichefAddressForChain(
+  network: ChainNetwork,
+): string | undefined {
   const c = ADDRESSES.get(network);
   return c ? c.minichef : undefined;
 }
@@ -55,7 +57,11 @@ export async function loadGaugeAprData(
     if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
       let rawGaugeData: IRawGaugeData[] = [];
       try {
-        rawGaugeData = await loadGaugeDataForMinichef(minichefAddr, chain, tokens);
+        rawGaugeData = await loadGaugeDataForMinichef(
+          minichefAddr,
+          chain,
+          tokens,
+        );
       } catch (error) {
         model.logError("loadGaugeAprData", chain.toString(), error);
       }
@@ -195,7 +201,9 @@ export function setAssetGaugeAprMinichef(
   const jar: JarDefinition = findJarForGauge(gauge, model);
   if (jar !== undefined) {
     const apr =
-      (100 * gauge.rewardRatePerYear * model.priceOfSync("pickle", ChainNetwork.Ethereum)) /
+      (100 *
+        gauge.rewardRatePerYear *
+        model.priceOfSync("pickle", ChainNetwork.Ethereum)) /
       jar.farm.details.valueBalance;
     const c: AssetAprComponent = {
       name: "pickle",
@@ -242,8 +250,10 @@ export function setAssetGaugeAprMinichef(
 const sleep = (waitTimeInMs) =>
   new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
 
-export async function loadGaugeDataEth(tokensToQuery: string[] | undefined): Promise<IRawGaugeData[]> {
-  if( tokensToQuery && tokensToQuery.length === 0 ) {
+export async function loadGaugeDataEth(
+  tokensToQuery: string[] | undefined,
+): Promise<IRawGaugeData[]> {
+  if (tokensToQuery && tokensToQuery.length === 0) {
     return [];
   }
 
@@ -350,8 +360,7 @@ export async function loadGaugeDataForMinichef(
   tokens: string[] | undefined,
 ): Promise<IRawGaugeData[]> {
   // TODO this implementation is not efficient if requesting only a single jar
-  if( tokens !== undefined && tokens.length === 0 ) 
-    return [];
+  if (tokens !== undefined && tokens.length === 0) return [];
 
   const provider: Provider = Chains.get(chain).getPreferredWeb3Provider();
   const minichef = new Contract(minichefAddr, MinichefAbi, provider);

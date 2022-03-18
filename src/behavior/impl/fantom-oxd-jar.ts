@@ -84,7 +84,8 @@ export class OxdJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const oxdRewardedPerYear = (model.priceOfSync("oxd", jar.chain)) * rewardsPerYear;
+    const oxdRewardedPerYear =
+      model.priceOfSync("oxd", jar.chain) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const oxdAPY = oxdRewardedPerYear / totalValueStaked;
 

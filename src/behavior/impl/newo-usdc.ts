@@ -81,7 +81,8 @@ export class NewoUsdc extends AbstractJarBehavior {
     );
 
     const rewardsPerYear = rewardRate * ONE_YEAR_SECONDS;
-    const valueRewardedPerYear = (model.priceOfSync("newo", jar.chain)) * rewardsPerYear;
+    const valueRewardedPerYear =
+      model.priceOfSync("newo", jar.chain) * rewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const newoAPY = valueRewardedPerYear / totalValueStaked;

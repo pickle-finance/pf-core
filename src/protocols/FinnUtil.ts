@@ -46,7 +46,8 @@ export async function calculateFinnFarmsAPY(
 
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-  const finnRewardedPerYear = (model.priceOfSync("finn", jar.chain)) * rewardsPerYear;
+  const finnRewardedPerYear =
+    model.priceOfSync("finn", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;
   const finnAPY = finnRewardedPerYear / totalValueStaked;
   return { name: "finn", apr: finnAPY * 100, compoundable: true };

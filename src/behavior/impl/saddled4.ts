@@ -60,19 +60,19 @@ export class SaddleD4 extends AbstractJarBehavior {
       ]);
 
     const fxsValPerYear =
-      (model.priceOfSync("fxs", jar.chain)) *
+      model.priceOfSync("fxs", jar.chain) *
       parseFloat(formatEther(fxsRateBN)) *
       ONE_YEAR_SECONDS;
     const tribeValPerYear =
-      (model.priceOfSync("tribe", jar.chain)) *
+      model.priceOfSync("tribe", jar.chain) *
       parseFloat(formatEther(tribeRateBN)) *
       ONE_YEAR_SECONDS;
     const alcxValPerYear =
-      (model.priceOfSync("alcx", jar.chain)) *
+      model.priceOfSync("alcx", jar.chain) *
       parseFloat(formatEther(alcxRateBN)) *
       ONE_YEAR_SECONDS;
     const lqtyValPerYear =
-      (model.priceOfSync("lqty", jar.chain)) *
+      model.priceOfSync("lqty", jar.chain) *
       parseFloat(formatEther(lqtyRateBN)) *
       ONE_YEAR_SECONDS;
 

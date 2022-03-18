@@ -46,8 +46,16 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     definition.depositToken.totalSupply = definition.details.tokenBalance;
 
     const pJarUSD =
-      model.priceOfSync(definition.depositToken.components[0], definition.chain) * jarAmount0 +
-      model.priceOfSync(definition.depositToken.components[1], definition.chain) * jarAmount1;
+      model.priceOfSync(
+        definition.depositToken.components[0],
+        definition.chain,
+      ) *
+        jarAmount0 +
+      model.priceOfSync(
+        definition.depositToken.components[1],
+        definition.chain,
+      ) *
+        jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }
@@ -83,7 +91,8 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
-      harvestableUSD: (harvestable * _model.priceOfSync("fxs", definition.chain)) / 1e18,
+      harvestableUSD:
+        (harvestable * _model.priceOfSync("fxs", definition.chain)) / 1e18,
     };
   }
 
@@ -99,13 +108,18 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     ).getProviderOrSigner();
 
     const token0Price = model.priceOfSync(
-      definition.depositToken.components[0], definition.chain
+      definition.depositToken.components[0],
+      definition.chain,
     );
     const token1Price = model.priceOfSync(
-      definition.depositToken.components[1],definition.chain
+      definition.depositToken.components[1],
+      definition.chain,
     );
 
-    const liquidityValue = model.priceOfSync(definition.depositToken.addr, definition.chain);
+    const liquidityValue = model.priceOfSync(
+      definition.depositToken.addr,
+      definition.chain,
+    );
     const jarValue =
       definition.details.ratio *
       definition.details.tokenBalance *
@@ -188,7 +202,10 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
 
     const apr =
-      ((multiplier * rewardDuration * 52 * model.priceOfSync("fxs",definition.chain)) /
+      ((multiplier *
+        rewardDuration *
+        52 *
+        model.priceOfSync("fxs", definition.chain)) /
         1e18 /
         (totalCombinedWeight * definition.depositToken.price)) *
       100;

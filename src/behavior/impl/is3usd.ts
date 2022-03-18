@@ -96,7 +96,7 @@ export class Is3Usd extends AbstractJarBehavior {
 
     const iceRewardsPerYear = icePerSecond * ONE_YEAR_IN_SECONDS;
     const valueRewardedPerYear =
-      (model.priceOfSync("ice", jar.chain)) * iceRewardsPerYear;
+      model.priceOfSync("ice", jar.chain) * iceRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const iceAPR = valueRewardedPerYear / totalValueStaked;

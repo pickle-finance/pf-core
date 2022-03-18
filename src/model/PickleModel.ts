@@ -161,7 +161,7 @@ export const ADDRESSES = new Map([
       masterChef: NULL_ADDRESS,
       controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
       minichef: NULL_ADDRESS,
-      treasury: "0x7A79e2e867d36a91Bb47e0929787305c95E793C5"
+      treasury: "0x7A79e2e867d36a91Bb47e0929787305c95E793C5",
     },
   ],
   [
@@ -212,15 +212,15 @@ export class PickleModel {
     return this.permanentDataStore
       ? this.permanentDataStore
       : // Return a no-op data store
-      {
-        readData(_key: string): Promise<string> {
-          return undefined;
-        },
-        writeData(_key: string, _value: string): Promise<void> {
-          // do nothing
-          return;
-        },
-      };
+        {
+          readData(_key: string): Promise<string> {
+            return undefined;
+          },
+          writeData(_key: string, _value: string): Promise<void> {
+            // do nothing
+            return;
+          },
+        };
   }
 
   static fromJson(
@@ -322,38 +322,45 @@ export class PickleModel {
    * @param chain The chain on which the token is.
    * @returns Returns the token price || `undefined` if token price not found.
    */
-  priceOfSync(
-    token: string,
-    chain: ChainNetwork,
-  ): number {
+  priceOfSync(token: string, chain: ChainNetwork): number {
     const chainTokens = ExternalTokenModelSingleton.getTokens(chain);
     let tokenObj: ExternalToken = undefined;
     if (chain && !ethers.utils.isAddress(token)) {
       // This is a label, not an address. Find the first one you can with a price
       tokenObj = chainTokens.find(
-        (x) => x.id === token || x.coingeckoId === token && x.price !== undefined);
+        (x) =>
+          x.id === token || (x.coingeckoId === token && x.price !== undefined),
+      );
       if (tokenObj === undefined) {
         // even if it's not on the right chain.
         tokenObj = ExternalTokenModelSingleton.getAllTokens().find(
-          (x) => x.id === token || x.coingeckoId === token && x.price !== undefined);
+          (x) =>
+            x.id === token ||
+            (x.coingeckoId === token && x.price !== undefined),
+        );
       }
     } else {
       // It's looking for a contract address. Most of these requests will be in the external tokens.
       tokenObj = chainTokens.find(
-        (x) => x.contractAddr.toLowerCase() === token.toLowerCase() && x.price !== undefined);
+        (x) =>
+          x.contractAddr.toLowerCase() === token.toLowerCase() &&
+          x.price !== undefined,
+      );
       if (tokenObj === undefined) {
         // But some of them may be deposit tokens
-        const depositTokenMatch = this.allAssets.find((x) =>
-          x.depositToken && x.depositToken.addr &&
-          x.depositToken.addr.toLowerCase() === token.toLowerCase());
+        const depositTokenMatch = this.allAssets.find(
+          (x) =>
+            x.depositToken &&
+            x.depositToken.addr &&
+            x.depositToken.addr.toLowerCase() === token.toLowerCase(),
+        );
         if (depositTokenMatch) {
           const p = depositTokenMatch.depositToken?.price;
           return p !== undefined ? p : undefined;
         }
       }
     }
-    if (tokenObj && tokenObj.price !== undefined)
-      return tokenObj.price;
+    if (tokenObj && tokenObj.price !== undefined) return tokenObj.price;
     return undefined;
   }
 
@@ -457,7 +464,6 @@ export class PickleModel {
     this.platformData = await this.loadPlatformData();
     return this.toJson();
   }
-
 
   async generateMinimalApi(): Promise<PickleModelJson> {
     this.minimalMode = true;
@@ -643,8 +649,7 @@ export class PickleModel {
     }
     const arr: requests[] = [];
     const assets = this.getAllAssets().filter((x) => x.chain === chain);
-    if( assets.length === 0 ) 
-      return;
+    if (assets.length === 0) return;
 
     for (let i = 0; i < assets.length; i++) {
       if (
@@ -773,7 +778,12 @@ export class PickleModel {
       }
     }
     await Promise.all(tmpArray);
-    DEBUG_OUT("End ensureDepositTokenPriceLoadedOneChain: " + chain + ": " + (Date.now() - start));
+    DEBUG_OUT(
+      "End ensureDepositTokenPriceLoadedOneChain: " +
+        chain +
+        ": " +
+        (Date.now() - start),
+    );
   }
 
   async ensureDepositTokenLoadedOneJar(asset: PickleAsset): Promise<void> {
@@ -794,7 +804,12 @@ export class PickleModel {
         asset.details.apiKey,
       );
     }
-    DEBUG_OUT("End ensureDepositTokenLoadedOneJar: " + asset.details.apiKey + ": " + (Date.now() - start));
+    DEBUG_OUT(
+      "End ensureDepositTokenLoadedOneJar: " +
+        asset.details.apiKey +
+        ": " +
+        (Date.now() - start),
+    );
   }
 
   // All jars called here must be on the same chain.
@@ -987,13 +1002,13 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? new MulticallContract(
-              oneJar.depositToken.addr,
-              univ3PoolAbi,
-            ).liquidity()
+                oneJar.depositToken.addr,
+                univ3PoolAbi,
+              ).liquidity()
             : new MulticallContract(
-              oneJar.depositToken.addr,
-              erc20Abi,
-            ).totalSupply(),
+                oneJar.depositToken.addr,
+                erc20Abi,
+              ).totalSupply(),
         ),
       );
     } catch (error) {
@@ -1195,8 +1210,8 @@ export class PickleModel {
       ) {
         console.log(
           "Error loading harvest data for jar " +
-          harvestableJars[i].id +
-          ":  multicall for prereqs failed",
+            harvestableJars[i].id +
+            ":  multicall for prereqs failed",
         );
         continue;
       }
@@ -1216,9 +1231,9 @@ export class PickleModel {
       } catch (e) {
         console.log(
           "Error loading harvest data for jar " +
-          harvestableJars[i].id +
-          ":  " +
-          e,
+            harvestableJars[i].id +
+            ":  " +
+            e,
         );
       }
     }
@@ -1301,9 +1316,7 @@ export class PickleModel {
     }
   }
 
-  async ensureFarmsBalanceLoadedForChain(
-    chain: ChainNetwork,
-  ): Promise<void> {
+  async ensureFarmsBalanceLoadedForChain(chain: ChainNetwork): Promise<void> {
     const ethcallProvider = this.multicallProviderFor(chain);
     try {
       await ethcallProvider.init();
@@ -1319,13 +1332,14 @@ export class PickleModel {
     const chainFarms: StandaloneFarmDefinition[] =
       this.getStandaloneFarms().filter((x) => x.chain === chain);
     let chainFarmResults: string[] = [];
-    if( chainFarms.length !== 0 ) {
+    if (chainFarms.length !== 0) {
       try {
         chainFarmResults = await ethcallProvider.all<string[]>(
           chainFarms.map((oneFarm) =>
-            new MulticallContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(
-              oneFarm.contract,
-            ),
+            new MulticallContract(
+              oneFarm.depositToken.addr,
+              erc20Abi,
+            ).balanceOf(oneFarm.contract),
           ),
         );
       } catch (error) {
@@ -1340,7 +1354,7 @@ export class PickleModel {
       return x.farm !== undefined;
     });
     let protocolJarsWithFarmResults: string[] = [];
-    if( protocolJarsWithFarms.length > 0 ) {
+    if (protocolJarsWithFarms.length > 0) {
       try {
         protocolJarsWithFarmResults = await ethcallProvider.all<string[]>(
           protocolJarsWithFarms.map((oneJar) =>
@@ -1365,9 +1379,15 @@ export class PickleModel {
     const r = await Promise.all(
       this.configuredChains.map((x) => {
         let param = undefined;
-        if( this.minimalMode ) {
-          const jarContracts: string[] = this.allAssets.filter((z) => z.type === AssetType.JAR && z.chain === x).map((z) => z.contract);
-          const standaloneFarmDepositTokens: string[] = this.allAssets.filter((z) => z.type === AssetType.STANDALONE_FARM && z.chain === x).map((z) => z.depositToken.addr);
+        if (this.minimalMode) {
+          const jarContracts: string[] = this.allAssets
+            .filter((z) => z.type === AssetType.JAR && z.chain === x)
+            .map((z) => z.contract);
+          const standaloneFarmDepositTokens: string[] = this.allAssets
+            .filter(
+              (z) => z.type === AssetType.STANDALONE_FARM && z.chain === x,
+            )
+            .map((z) => z.depositToken.addr);
           param = jarContracts.concat(standaloneFarmDepositTokens);
         }
         return loadGaugeAprData(this, x, param);
@@ -1489,17 +1509,28 @@ export class PickleModel {
       .findAssetBehavior(asset)
       .getProjectedAprStats(asset as JarDefinition, this);
     try {
-      const timeoutResult = new Error("PfCoreTimeoutError_singleJarLoadApyComponents");
+      const timeoutResult = new Error(
+        "PfCoreTimeoutError_singleJarLoadApyComponents",
+      );
       const r = await timeout(ret, 12000, timeoutResult);
       if (r && r !== timeoutResult) {
         asset.aprStats = this.cleanAprStats(r);
       } else {
-        this.logError("loadApyComponents", "timeout 7s for " + asset.details.apiKey, asset.details.apiKey);
+        this.logError(
+          "loadApyComponents",
+          "timeout 7s for " + asset.details.apiKey,
+          asset.details.apiKey,
+        );
       }
     } catch (error) {
       this.logError("loadApyComponents", error, asset.details.apiKey);
     } finally {
-      DEBUG_OUT("end loadApyComponents for " + asset.details.apiKey + ": " + (Date.now() - start));
+      DEBUG_OUT(
+        "end loadApyComponents for " +
+          asset.details.apiKey +
+          ": " +
+          (Date.now() - start),
+      );
     }
   }
 
@@ -1529,22 +1560,23 @@ export class PickleModel {
       (x) => new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined,
     );
     try {
-      await Promise.all(withBehaviors.map(async (x) => {
-        const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery()
-          .findAssetBehavior(x)
-          .getProtocolApy(x as JarDefinition, this);
-        try {
-          x.details.protocolApr = await ret;
-        } catch (error) {
-          this.logError("loadProtocolApr", error, x.details.apiKey);
-          return {
-            d1: 0,
-            d3: 0,
-            d7: 0,
-            d30: 0,
+      await Promise.all(
+        withBehaviors.map(async (x) => {
+          const ret: Promise<HistoricalYield> = new JarBehaviorDiscovery()
+            .findAssetBehavior(x)
+            .getProtocolApy(x as JarDefinition, this);
+          try {
+            x.details.protocolApr = await ret;
+          } catch (error) {
+            this.logError("loadProtocolApr", error, x.details.apiKey);
+            return {
+              d1: 0,
+              d3: 0,
+              d7: 0,
+              d30: 0,
+            };
           }
-        }
-      }),
+        }),
       );
     } catch (error) {
       this.logError("loadProtocolApr", error);
@@ -1586,7 +1618,11 @@ export class PickleModel {
     const masterChef = ADDRESSES.get(ChainNetwork.Ethereum)?.masterChef;
     let ppb = BigNumber.from(0);
     if (masterChef) {
-      const contract = new ethers.Contract(masterChef, MasterchefAbi, this.providerFor(ChainNetwork.Ethereum));
+      const contract = new ethers.Contract(
+        masterChef,
+        MasterchefAbi,
+        this.providerFor(ChainNetwork.Ethereum),
+      );
       ppb = await contract.picklePerBlock();
     }
     DEBUG_OUT("End loadPlatformData: " + (Date.now() - start));
@@ -1602,10 +1638,10 @@ export class PickleModel {
     // TODO store somewhere?
     console.log(
       "ERROR: Failed at " +
-      where +
-      (context !== undefined ? " [" + context + "]" : "") +
-      "\n" +
-      error,
+        where +
+        (context !== undefined ? " [" + context + "]" : "") +
+        "\n" +
+        error,
     );
   }
 }
@@ -1629,13 +1665,15 @@ export const getZeroValueMulticallForNonErc20 = (
   return undefined;
 };
 
-
-export const getZeroValueMulticallForChain = (chain: ChainNetwork): Promise<any> => {
-      // We need a safe multicall
-      const randomErc20Token: string = ExternalTokenModelSingleton.getTokens(chain)[0].contractAddr;
-      return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(
-        FICTIONAL_ADDRESS,
-      );
+export const getZeroValueMulticallForChain = (
+  chain: ChainNetwork,
+): Promise<any> => {
+  // We need a safe multicall
+  const randomErc20Token: string =
+    ExternalTokenModelSingleton.getTokens(chain)[0].contractAddr;
+  return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(
+    FICTIONAL_ADDRESS,
+  );
 };
 
 const toThreeDec = function (param: number) {

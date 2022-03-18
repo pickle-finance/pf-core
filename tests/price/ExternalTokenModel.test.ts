@@ -1,8 +1,6 @@
 import { ChainNetwork, Chains } from "../../src/chain/Chains";
 import { IExternalToken } from "../../src/model/PickleModelJson";
-import {
-  ExternalTokenModelSingleton,
-} from "../../src/price/ExternalTokenModel";
+import { ExternalTokenModelSingleton } from "../../src/price/ExternalTokenModel";
 
 describe("Coingecko and external token integration", () => {
   test("Simple gets", async () => {

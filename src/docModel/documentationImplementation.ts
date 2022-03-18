@@ -1,5 +1,10 @@
 import { ALL_ASSETS } from "../model/JarsAndFarms";
-import { AssetProtocol, JarDefinition, PickleAsset, XYK_SWAP_PROTOCOLS } from "../model/PickleModelJson";
+import {
+  AssetProtocol,
+  JarDefinition,
+  PickleAsset,
+  XYK_SWAP_PROTOCOLS,
+} from "../model/PickleModelJson";
 import { DocsFormat } from "..";
 import {
   AssetDocumentationDefinition,
@@ -42,8 +47,17 @@ export function documentationAssetDefinitionToResult(
   const obtainOutputArr = [];
   for (let i = 0; def.obtain && i < def.obtain.length; i++) {
     const obtainKey = def.obtain[i].key;
-    const properties = getObtainTranslationProperties(asset, obtainKey, def.obtain[i].properties);
-    const asStr = translateSingleString(language, obtainKey, properties, format);
+    const properties = getObtainTranslationProperties(
+      asset,
+      obtainKey,
+      def.obtain[i].properties,
+    );
+    const asStr = translateSingleString(
+      language,
+      obtainKey,
+      properties,
+      format,
+    );
     obtainOutputArr.push(asStr);
   }
   const riskOutputArr = [];
@@ -55,7 +69,7 @@ export function documentationAssetDefinitionToResult(
   }
   const descriptionKey = def.descriptionKey
     ? def.descriptionKey
-    : {key: def.apiKey + ".desc", properties: {}};
+    : { key: def.apiKey + ".desc", properties: {} };
   const description = translateSingleString(
     language,
     descriptionKey.key,
@@ -71,7 +85,11 @@ export function documentationAssetDefinitionToResult(
   };
 }
 
-export function getObtainTranslationProperties(asset: PickleAsset, obtainKey: string, properties: TranslationKeyProperties): TranslationKeyProperties {
+export function getObtainTranslationProperties(
+  asset: PickleAsset,
+  obtainKey: string,
+  properties: TranslationKeyProperties,
+): TranslationKeyProperties {
   if (obtainKey === OBTAIN_KEY_TWOTOKEN_POOL && properties === undefined) {
     if (
       asset.depositToken.components &&
@@ -84,7 +102,10 @@ export function getObtainTranslationProperties(asset: PickleAsset, obtainKey: st
         link: asset.depositToken.link,
       };
     }
-  } else if (obtainKey === OBTAIN_KEY_MULTITOKEN_POOL_ANY || obtainKey === OBTAIN_KEY_MULTITOKEN_POOL_ALL) {
+  } else if (
+    obtainKey === OBTAIN_KEY_MULTITOKEN_POOL_ANY ||
+    obtainKey === OBTAIN_KEY_MULTITOKEN_POOL_ALL
+  ) {
     properties = properties ? properties : {};
     properties.protocol = properties.protocol
       ? properties.protocol
@@ -103,18 +124,29 @@ export function getObtainTranslationProperties(asset: PickleAsset, obtainKey: st
   return properties;
 }
 
-export function generateAutomaticDefinition(keys: string[]): AssetDocumentationDefinition[] {
+export function generateAutomaticDefinition(
+  keys: string[],
+): AssetDocumentationDefinition[] {
   const ret: AssetDocumentationDefinition[] = [];
-  for( let i = 0; i < keys.length; i++ ) {
-    const asset: PickleAsset = ALL_ASSETS.find((x) => x.details?.apiKey === keys[i]);
-    if( asset ) {
-      if( XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol)) {
+  for (let i = 0; i < keys.length; i++) {
+    const asset: PickleAsset = ALL_ASSETS.find(
+      (x) => x.details?.apiKey === keys[i],
+    );
+    if (asset) {
+      if (
+        XYK_SWAP_PROTOCOLS.map((x) => x.protocol)
+          .map((x) => x.toString())
+          .includes(asset.protocol)
+      ) {
         ret.push(generateXykDocumentation(asset));
-      } else if( asset.protocol === AssetProtocol.UNISWAP_V3 ) {
+      } else if (asset.protocol === AssetProtocol.UNISWAP_V3) {
         ret.push(generateUni3Documentation(asset));
-      } else if( asset.protocol === AssetProtocol.BEETHOVENX || asset.protocol === AssetProtocol.BALANCER) {
+      } else if (
+        asset.protocol === AssetProtocol.BEETHOVENX ||
+        asset.protocol === AssetProtocol.BALANCER
+      ) {
         ret.push(generateBalancerStyleDocumentation(asset));
-      } else if( asset.protocol === AssetProtocol.CURVE ) {
+      } else if (asset.protocol === AssetProtocol.CURVE) {
         ret.push(generateCurveStyleDocumentation(asset));
       }
     }
@@ -122,9 +154,12 @@ export function generateAutomaticDefinition(keys: string[]): AssetDocumentationD
   return ret;
 }
 
-export function generateXykDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
+export function generateXykDocumentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
   const desc = generateAutomaticXYKDescription(asset);
-  const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
+  const socials: TranslationKeyWithProperties[] =
+    generateAutomaticSocials(asset);
   const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
 
   let obtain: TranslationKeyWithProperties[] = [];
@@ -137,15 +172,17 @@ export function generateXykDocumentation(asset: PickleAsset): AssetDocumentation
     social: socials,
     obtain: obtain,
     risks: risks,
-  }
+  };
   return oneDefinition;
 }
 
-export function generateUni3Documentation(asset: PickleAsset): AssetDocumentationDefinition {
+export function generateUni3Documentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
   const desc = generateAutomaticUni3Description(asset);
   let obtain: TranslationKeyWithProperties[] = [];
   const components = (asset as JarDefinition).depositToken.components;
-  if( components && components.length === 2 && components[0] && components[1]) {
+  if (components && components.length === 2 && components[0] && components[1]) {
     const props: any = {
       token1: components[0],
       token2: components[1],
@@ -156,67 +193,91 @@ export function generateUni3Documentation(asset: PickleAsset): AssetDocumentatio
   return generateAllStyleDocumentation(asset, desc, obtain);
 }
 
-export function generateBalancerStyleDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
-  const desc: TranslationKeyWithProperties = {key: BALANCER_REWARDS_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
+export function generateBalancerStyleDocumentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
+  const desc: TranslationKeyWithProperties = {
+    key: BALANCER_REWARDS_JAR_DESCRIPTION,
+    properties: generateAutomaticDescriptionProperties(asset),
+  };
   let obtain: TranslationKeyWithProperties[] = [];
   obtain.push({ key: OBTAIN_KEY_TWOTOKEN_POOL });
   obtain = obtain.concat(getZapObtains(asset));
   return generateAllStyleDocumentation(asset, desc, obtain);
 }
 
-export function generateCurveStyleDocumentation(asset: PickleAsset): AssetDocumentationDefinition {
-  const desc: TranslationKeyWithProperties = {key: CURVE_REWARDS_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
+export function generateCurveStyleDocumentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
+  const desc: TranslationKeyWithProperties = {
+    key: CURVE_REWARDS_JAR_DESCRIPTION,
+    properties: generateAutomaticDescriptionProperties(asset),
+  };
   let obtain: TranslationKeyWithProperties[] = [];
   obtain.push({ key: OBTAIN_KEY_MULTITOKEN_POOL_ANY });
   obtain = obtain.concat(getZapObtains(asset));
   return generateAllStyleDocumentation(asset, desc, obtain);
 }
 
-export function generateAllStyleDocumentation(asset: PickleAsset,
-  desc: TranslationKeyWithProperties, 
-  obtain: TranslationKeyWithProperties[]): AssetDocumentationDefinition {
-    const socials: TranslationKeyWithProperties[] = generateAutomaticSocials(asset);
-    const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
-  
-    const oneDefinition: AssetDocumentationDefinition = {
-      apiKey: asset.details.apiKey,
-      descriptionKey: desc,
-      social: socials,
-      obtain: obtain,
-      risks: risks,
-    }
-    return oneDefinition;
+export function generateAllStyleDocumentation(
+  asset: PickleAsset,
+  desc: TranslationKeyWithProperties,
+  obtain: TranslationKeyWithProperties[],
+): AssetDocumentationDefinition {
+  const socials: TranslationKeyWithProperties[] =
+    generateAutomaticSocials(asset);
+  const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
+
+  const oneDefinition: AssetDocumentationDefinition = {
+    apiKey: asset.details.apiKey,
+    descriptionKey: desc,
+    social: socials,
+    obtain: obtain,
+    risks: risks,
+  };
+  return oneDefinition;
 }
-export function getZapObtains(_asset: PickleAsset): TranslationKeyWithProperties[] {
+export function getZapObtains(
+  _asset: PickleAsset,
+): TranslationKeyWithProperties[] {
   // TODO zapper? When to add it?
-    // {
-    //   key: OBTAIN_KEY_ZAPPER,
-    //   properties: {
-    //     poolName: "ETH/DAI",
-    //     poolUrl:
-    //       "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f&modal=pool-deposit",
-    //   },
-    // }
-  // TODO - add pickleZap ? 
+  // {
+  //   key: OBTAIN_KEY_ZAPPER,
+  //   properties: {
+  //     poolName: "ETH/DAI",
+  //     poolUrl:
+  //       "https://zapper.fi/invest?appId=sushiswap&contractAddress=0xc3d03e4f041fd4cd388c549ee2a29a9e5075882f&modal=pool-deposit",
+  //   },
+  // }
+  // TODO - add pickleZap ?
   return [];
 }
 
-export function getAutomaticRisks(asset: PickleAsset): TranslationKeyWithProperties[] {
+export function getAutomaticRisks(
+  asset: PickleAsset,
+): TranslationKeyWithProperties[] {
   const risks: TranslationKeyWithProperties[] = [];
-  risks.push({ key: RISK_CHAIN, properties: { chain: asset.chain }});
-  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: asset.protocol }});
+  risks.push({ key: RISK_CHAIN, properties: { chain: asset.chain } });
+  risks.push({
+    key: RISK_SMART_CONTRACT,
+    properties: { protocol: asset.protocol },
+  });
   const stake = (asset as JarDefinition).stakingProtocol;
-  if(  stake && stake !== asset.protocol )
-    risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: stake }});
-  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" }});
-  risks.push({ key: RISK_DIVERGENCE_LOSS, properties: {}});
+  if (stake && stake !== asset.protocol)
+    risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: stake } });
+  risks.push({ key: RISK_SMART_CONTRACT, properties: { protocol: "Pickle" } });
+  risks.push({ key: RISK_DIVERGENCE_LOSS, properties: {} });
   return risks;
 }
 
-export function generateAutomaticDescriptionProperties(asset: PickleAsset): {[key: string]: string} {
-  const pair: string[] = (asset.depositToken.components || []);
+export function generateAutomaticDescriptionProperties(asset: PickleAsset): {
+  [key: string]: string;
+} {
+  const pair: string[] = asset.depositToken.components || [];
   const toUpper = pair.map((x) => x.toUpperCase()).join("/");
-  const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
+  const sl = (asset as JarDefinition).stakingProtocol
+    ? (asset as JarDefinition).stakingProtocol
+    : asset.protocol;
   const rt = (asset as JarDefinition).rewardTokens;
   const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
   const properties = {
@@ -225,53 +286,81 @@ export function generateAutomaticDescriptionProperties(asset: PickleAsset): {[ke
     poolUrl: asset.depositToken.link,
     stakeLocation: sl,
     rewards: rewardString,
-  }
+  };
   return properties;
 }
 
-export function generateAutomaticXYKDescription(asset: PickleAsset): TranslationKeyWithProperties | undefined {
-  return {key: XYK_JAR_DESCRIPTION, properties: generateAutomaticDescriptionProperties(asset)};
+export function generateAutomaticXYKDescription(
+  asset: PickleAsset,
+): TranslationKeyWithProperties | undefined {
+  return {
+    key: XYK_JAR_DESCRIPTION,
+    properties: generateAutomaticDescriptionProperties(asset),
+  };
 }
 
-export function generateAutomaticUni3Description(asset: PickleAsset): TranslationKeyWithProperties | undefined {
-  const sl = (asset as JarDefinition).stakingProtocol ? (asset as JarDefinition).stakingProtocol : asset.protocol;
-  const rt = (asset as JarDefinition).rewardTokens ? (asset as JarDefinition).rewardTokens : undefined;
+export function generateAutomaticUni3Description(
+  asset: PickleAsset,
+): TranslationKeyWithProperties | undefined {
+  const sl = (asset as JarDefinition).stakingProtocol
+    ? (asset as JarDefinition).stakingProtocol
+    : asset.protocol;
+  const rt = (asset as JarDefinition).rewardTokens
+    ? (asset as JarDefinition).rewardTokens
+    : undefined;
   const usesStaking = sl !== undefined && rt !== undefined;
   const key = usesStaking ? UNI3_REWARDS_JAR_DESCRIPTION : UNI3_JAR_DESCRIPTION;
-  return {key: key, properties: generateAutomaticDescriptionProperties(asset)};
+  return {
+    key: key,
+    properties: generateAutomaticDescriptionProperties(asset),
+  };
 }
 
-export function generateAutomaticSocials(asset: PickleAsset): TranslationKeyWithProperties[] {
+export function generateAutomaticSocials(
+  asset: PickleAsset,
+): TranslationKeyWithProperties[] {
   const socials: TranslationKeyWithProperties[] = [];
-  if( PROTOCOL_SOCIAL_MODEL[asset.protocol]) {
-    const socialModelForDeposit: SocialKeyValueObj = PROTOCOL_SOCIAL_MODEL[asset.protocol];
+  if (PROTOCOL_SOCIAL_MODEL[asset.protocol]) {
+    const socialModelForDeposit: SocialKeyValueObj =
+      PROTOCOL_SOCIAL_MODEL[asset.protocol];
     for (const k in socialModelForDeposit) {
       const translationKey = k;
       const url = socialModelForDeposit[k];
       const name = asset.protocol;
-      socials.push({key: translationKey, properties: {name: name, url: url}});
+      socials.push({
+        key: translationKey,
+        properties: { name: name, url: url },
+      });
     }
   }
 
   const stakingProtocol = (asset as JarDefinition).stakingProtocol;
-  if( stakingProtocol && PROTOCOL_SOCIAL_MODEL[stakingProtocol]) {
-    const socialModelForDeposit: SocialKeyValueObj = PROTOCOL_SOCIAL_MODEL[stakingProtocol];
+  if (stakingProtocol && PROTOCOL_SOCIAL_MODEL[stakingProtocol]) {
+    const socialModelForDeposit: SocialKeyValueObj =
+      PROTOCOL_SOCIAL_MODEL[stakingProtocol];
     for (const k in socialModelForDeposit) {
       const translationKey = k;
       const url = socialModelForDeposit[k];
-      socials.push({key: translationKey, properties: {name: stakingProtocol, url: url}});
+      socials.push({
+        key: translationKey,
+        properties: { name: stakingProtocol, url: url },
+      });
     }
   }
 
   const tokens: string[] = asset.depositToken.components || [];
-  for( let z = 0; z < tokens.length; z++ ) {
+  for (let z = 0; z < tokens.length; z++) {
     const oneToken = asset.depositToken.components[z];
-    if( oneToken && TOKEN_SOCIAL_MODEL[oneToken]) {
-      const socialModelForDeposit: SocialKeyValueObj = TOKEN_SOCIAL_MODEL[oneToken];
+    if (oneToken && TOKEN_SOCIAL_MODEL[oneToken]) {
+      const socialModelForDeposit: SocialKeyValueObj =
+        TOKEN_SOCIAL_MODEL[oneToken];
       for (const k in socialModelForDeposit) {
         const translationKey = k;
         const url = socialModelForDeposit[k];
-        socials.push({key: translationKey, properties: {name: oneToken, url: url}});
+        socials.push({
+          key: translationKey,
+          properties: { name: oneToken, url: url },
+        });
       }
     }
   }

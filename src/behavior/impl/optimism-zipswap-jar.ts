@@ -79,7 +79,8 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
       totalAllocPointBN.toNumber();
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const zipRewardedPerYear = (model.priceOfSync("zip", jar.chain)) * rewardsPerYear;
+    const zipRewardedPerYear =
+      model.priceOfSync("zip", jar.chain) * rewardsPerYear;
     const totalValueStaked = totalSupply * pricePerToken;
     const zipAPY = zipRewardedPerYear / totalValueStaked;
 
