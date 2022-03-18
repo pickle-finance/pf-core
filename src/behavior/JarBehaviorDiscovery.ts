@@ -330,6 +330,12 @@ import {
   JAR_FANTOM_SEX_V_USDC_DAI,
   JAR_FANTOM_SEX_V_FTM_TAROT,
   JAR_FANTOM_SEX_V_CRE8R_BOMB,
+  JAR_CRO_VVS_CRO_DOGE,
+  JAR_CRO_VVS_CRO_ATOM,
+  JAR_CRO_VVS_CRO_TONIC,
+  JAR_CRO_VVS_VVS_SINGLE,
+  JAR_CRO_VVS_USDC_SINGLE,
+  JAR_CRO_VVS_VVS_TONIC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -559,6 +565,12 @@ import { BeetXJar } from "./impl/fantom-beetx-jar";
 import { SexJar } from "./impl/fantom-sex-jar";
 import { CvxfxsFxs } from "./impl/cvxfxs-fxs";
 import { SpiritJar } from "./impl/fantom-spirit-jar";
+import { VvsCroDoge } from "./impl/vvs-cro-doge";
+import { VvsCroAtom } from "./impl/vvs-cro-atom";
+import { VvsCroTonic } from "./impl/vvs-cro-tonic";
+import { VvsVvsSingle } from "./impl/vvs-vvs-single";
+import { VvsUsdcSingle } from "./impl/vvs-usdc-single";
+import { VvsVvsTonic } from "./impl/vvs-vvs-tonic";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -718,6 +730,15 @@ jarToBehavior.set(JAR_CRO_VVS_VVS_USDC.id, new VvsVvsUsdc());
 jarToBehavior.set(JAR_CRO_VVS_VVS_USDT.id, new VvsVvsUsdt());
 jarToBehavior.set(JAR_CRO_VVS_CRO_BTC.id, new VvsCroBtc());
 jarToBehavior.set(JAR_CRO_VVS_USDC_USDT.id, new VvsUsdcUsdt());
+jarToBehavior.set(JAR_CRO_VVS_CRO_DOGE.id, new VvsCroDoge());
+jarToBehavior.set(JAR_CRO_VVS_CRO_ATOM.id, new VvsCroAtom());
+jarToBehavior.set(JAR_CRO_VVS_CRO_TONIC.id, new VvsCroTonic());
+jarToBehavior.set(JAR_CRO_VVS_VVS_SINGLE.id, new VvsVvsSingle());
+jarToBehavior.set(JAR_CRO_VVS_USDC_SINGLE.id, new VvsUsdcSingle());
+jarToBehavior.set(JAR_CRO_VVS_VVS_TONIC.id, new VvsVvsTonic());
+
+
+
 
 // Aurora
 jarToBehavior.set(JAR_AURORA_TRI_NEAR_USDC.id, new TriNearUsdc());

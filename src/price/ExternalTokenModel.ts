@@ -1116,6 +1116,39 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Cronos,
+      "doge",
+      "dogecoin",
+      "0x1a8E39ae59e5556B56b76fCBA98d22c9ae557396".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Cronos,
+      "atom",
+      "cosmos",
+      "0xB888d8Dd1733d72681b30c00ee76BDE93ae7aa93".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Cronos,
+      "tonic",
+      "tectonic",
+      "0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Cronos,
+      "single",
+      "single-finance",
+      "0x0804702a4E749d39A35FDe73d1DF0B1f1D6b8347".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    
 
     // Aurora
     this.addToken(

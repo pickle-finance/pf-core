@@ -3897,6 +3897,32 @@ export const JAR_CRO_VVS_CRO_DAI: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_DAI);
 
+export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1c",
+  contract: "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03",
+  depositToken: {
+    addr: "0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9",
+    name: "VVS CRO/ETH",
+    link: "https://vvs.finance/add/CRO/0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
+    components: ["cro", "weth"],
+  },
+  rewardTokens: ["vvs"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS,
+  details: {
+    apiKey: "VLP-CRO-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/ETH",
+    farmDepositTokenName: "pVVS CRO/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_ETH);
+
 export const JAR_CRO_VVS_CRO_SHIB: JarDefinition = {
   type: AssetType.JAR,
   id: "croJar 1d",
@@ -4121,31 +4147,163 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_USDC_USDT);
 
-export const JAR_CRO_VVS_CRO_ETH: JarDefinition = {
+
+export const JAR_CRO_VVS_CRO_DOGE: JarDefinition = {
   type: AssetType.JAR,
-  id: "croJar 1c",
-  contract: "0x55D5BCEf2BFD4921B8790525FF87919c2E26bD03",
+  id: "croJar 1l",
+  contract: "0x17ad0E59D16aA8c70E703fd83D7D05d7952da50f",
   depositToken: {
-    addr: "0xA111C17f8B8303280d3EB01BBcd61000AA7F39F9",
-    name: "VVS CRO/ETH",
-    link: "https://vvs.finance/add/CRO/0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
-    components: ["cro", "weth"],
+    addr: "0x2A560f2312CB56327AD5D65a03F1bfEC10b62075",
+    name: "VVS CRO/DOGE",
+    link: "https://vvs.finance/add/CRO/0x1a8E39ae59e5556B56b76fCBA98d22c9ae557396",
+    components: ["cro", "doge"],
   },
   rewardTokens: ["vvs"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
   details: {
-    apiKey: "VLP-CRO-ETH",
+    apiKey: "VLP-CRO-DOGE",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
-    farmNickname: "pVVS CRO/ETH",
-    farmDepositTokenName: "pVVS CRO/ETH",
+    farmNickname: "pVVS CRO/DOGE",
+    farmDepositTokenName: "pVVS CRO/DOGE",
   },
 };
-JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_ETH);
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_DOGE);
+
+export const JAR_CRO_VVS_CRO_ATOM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1m",
+  contract: "0x9365AfC6522ADF40AfEB83bad8EaeA0aB56e6264",
+  depositToken: {
+    addr: "0x9e5bd780dff875Dd85848a65549791445AE25De0",
+    name: "VVS CRO/ATOM",
+    link: "https://vvs.finance/add/CRO/0xB888d8Dd1733d72681b30c00ee76BDE93ae7aa93",
+    components: ["cro", "atom"],
+  },
+  rewardTokens: ["vvs"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS,
+  details: {
+    apiKey: "VLP-CRO-ATOM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/ATOM",
+    farmDepositTokenName: "pVVS CRO/ATOM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_ATOM);
+
+export const JAR_CRO_VVS_CRO_TONIC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1n",
+  contract: "0x60Ad579Fb20c8896b7b98E800cBA9e196E6eaA44",
+  depositToken: {
+    addr: "0x4B377121d968Bf7a62D51B96523d59506e7c2BF0",
+    name: "VVS CRO/TONIC",
+    link: "https://vvs.finance/add/CRO/0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2",
+    components: ["cro", "tonic"],
+  },
+  rewardTokens: ["vvs"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS,
+  details: {
+    apiKey: "VLP-CRO-TONIC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS CRO/TONIC",
+    farmDepositTokenName: "pVVS CRO/TONIC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_CRO_TONIC);
+
+export const JAR_CRO_VVS_VVS_SINGLE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1o",
+  contract: "0xb1bcBC1B4F7E2B8288134a12b6F2d0193E9ac100",
+  depositToken: {
+    addr: "0x6f72a3f6dB6F486B50217f6e721f4388994B1FBe",
+    name: "VVS VVS/SINGLE",
+    link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0x0804702a4E749d39A35FDe73d1DF0B1f1D6b8347",
+    components: ["vvs", "single"],
+  },
+  rewardTokens: ["vvs"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS,
+  details: {
+    apiKey: "VLP-VVS-SINGLE",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS VVS/SINGLE",
+    farmDepositTokenName: "pVVS VVS/SINGLE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_SINGLE);
+
+export const JAR_CRO_VVS_USDC_SINGLE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1p",
+  contract: "0xb96cc3948d32f28AA48bf66E800027a224785868",
+  depositToken: {
+    addr: "0x0fBAB8A90CAC61b481530AAd3a64fE17B322C25d",
+    name: "VVS USDC/SINGLE",
+    link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x0804702a4E749d39A35FDe73d1DF0B1f1D6b8347",
+    components: ["usdc", "single"],
+  },
+  rewardTokens: ["vvs"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS,
+  details: {
+    apiKey: "VLP-USDC-SINGLE",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS USDC/SINGLE",
+    farmDepositTokenName: "pVVS USDC/SINGLE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_USDC_SINGLE);
+
+export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 1q",
+  contract: "0xBC1Ad38ef7261A15F519b73F868E0b852c6465B7",
+  depositToken: {
+    addr: "0xA922530960A1F94828A7E132EC1BA95717ED1eab",
+    name: "VVS VVS/TONIC",
+    link: "https://vvs.finance/add/0x2D03bECE6747ADC00E1a131BBA1469C15fD11e03/0xDD73dEa10ABC2Bff99c60882EC5b2B81Bb1Dc5B2",
+    components: ["vvs", "tonic"],
+  },
+  rewardTokens: ["vvs", "tonic"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.VVS,
+  details: {
+    apiKey: "VLP-VVS-TONIC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVVS VVS/TONIC",
+    farmDepositTokenName: "pVVS VVS/TONIC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_TONIC);
+
 
 // Aurora
 
