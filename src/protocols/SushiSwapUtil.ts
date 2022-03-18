@@ -336,7 +336,7 @@ export async function calculateMCv2TokenRewards(
 export async function calculateSushiApyArbitrum(
   jar: JarDefinition,
   model: PickleModel,
-) {
+): Promise<number> {
   const lpTokenAddress: string = jar.depositToken.addr;
   const poolId = sushiPoolIdsArbitrum[lpTokenAddress];
   const multicallsushiMinichef = new MultiContract(
@@ -373,7 +373,7 @@ export async function calculateMCv2ApyArbitrum(
   jar: JarDefinition,
   model: PickleModel,
   rewardToken: string,
-) {
+): Promise<number> {
   const lpTokenAddress = jar.depositToken.addr;
   const poolId = sushiPoolIdsArbitrum[lpTokenAddress];
   const sushiMinichef = new MultiContract(
@@ -386,17 +386,15 @@ export async function calculateMCv2ApyArbitrum(
   );
   const rewarder = new MultiContract(rewarder_addr, rewarderAbi);
   const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
-  const totalSupplyBN = await model.comMan.call(
-    () => lpToken.balanceOf(sushiMinichef.address),
+  const [totalSupplyBN, tokenPerSecondBN] = await model.comMan.call(
+    [
+      () => lpToken.balanceOf(sushiMinichef.address),
+      () => rewarder.rewardPerSecond(),
+    ],
     jar.chain,
   );
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const pricePerToken = jar.depositToken.price;
-
-  const tokenPerSecondBN = await model.comMan.call(
-    () => rewarder.rewardPerSecond(),
-    jar.chain,
-  );
   const rewardsPerYear =
     parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
 

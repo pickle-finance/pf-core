@@ -179,7 +179,7 @@ export const ADDRESSES = new Map([
   // ADD_CHAIN
 ]);
 
-export const GLOBAL_DEBUG_FLAG = false;
+export const GLOBAL_DEBUG_FLAG = true;
 export const DEBUG_OUT = (str: string): void => {
   if (GLOBAL_DEBUG_FLAG) console.log("[" + Date.now() + "] " + str);
 };

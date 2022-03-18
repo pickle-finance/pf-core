@@ -34,13 +34,20 @@ export class SpiritJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const components = [];
-    const lp = await new SpiritPairManager().calculateLpApr(
+    const lpPromise: Promise<number> = new SpiritPairManager().calculateLpApr(
       model,
       jar.depositToken.addr,
     );
-    components.push(this.createAprComponent("lp", lp, false));
+    const spiritComponentPromise = calculateSpiritFarmsAPY(jar, model);
+
     try {
-      const spiritComponent = await calculateSpiritFarmsAPY(jar, model);
+      const lp = await lpPromise;
+      components.push(this.createAprComponent("lp", lp, false));
+    } catch (error) {
+      model.logError("getProjectedAprStats:lpComponent", error, jar.id);
+    }
+    try {
+      const spiritComponent = await spiritComponentPromise;
       components.push(spiritComponent);
     } catch (error) {
       model.logError("getProjectedAprStats:spiritComponent", error, jar.id);

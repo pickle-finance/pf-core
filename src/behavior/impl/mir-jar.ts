@@ -7,7 +7,7 @@ import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { Contract as MultiContract } from "ethers-multicall";
-import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
+import { getLivePairDataFromContracts, IPairData } from "../../protocols/GenericSwapUtil";
 
 export const MIRROR_MIR_UST_STAKING_REWARDS =
   "0x5d447Fc0F8965cED158BAB42414Af10139Edf0AF";
@@ -33,28 +33,30 @@ export abstract class MirJar extends AbstractJarBehavior {
     rewardsAddress: string,
     jar: JarDefinition,
     model: PickleModel,
-  ) {
+  ): Promise<number> {
     const multicallUniStakingRewards = new MultiContract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+    const promises1: Promise<any> = model.comMan.call(
       [
         () => multicallUniStakingRewards.rewardRate(),
         () => multicallUniStakingRewards.totalSupply(),
       ],
       jar.chain,
     );
-
-    const totalSupply = parseFloat(formatEther(totalSupplyBN));
-    const mirRewardRate = parseFloat(formatEther(rewardRateBN));
-
-    const { pricePerToken } = await getLivePairDataFromContracts(
+    const promises2: Promise<IPairData> = getLivePairDataFromContracts(
       jar,
       model,
       18,
     );
+    const { pricePerToken } = await promises2;
+    const [rewardRateBN, totalSupplyBN] = await promises1;
+
+    const totalSupply = parseFloat(formatEther(totalSupplyBN));
+    const mirRewardRate = parseFloat(formatEther(rewardRateBN));
+
 
     const mirRewardsPerYear = mirRewardRate * ONE_YEAR_SECONDS;
     const valueRewardedPerYear =
