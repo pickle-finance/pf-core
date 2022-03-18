@@ -33,12 +33,14 @@ export class MaticQi extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const chefComponent: AssetAprComponent =
-      await calculateMasterChefRewardsAPR(definition, model);
-    const lpApr: number = await new QuickswapPairManager().calculateLpApr(
+    const chefPromise = calculateMasterChefRewardsAPR(definition, model);
+    const lpPromise = new QuickswapPairManager().calculateLpApr(
       model,
       definition.depositToken.addr,
     );
+    const chefComponent: AssetAprComponent = await chefPromise;
+    const lpApr: number = await lpPromise;
+    
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
       this.createAprComponent(

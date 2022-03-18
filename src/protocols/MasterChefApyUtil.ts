@@ -20,11 +20,13 @@ export async function calculateMasterChefRewardsAPR(
     return undefined;
   }
 
+  const pptPromise = getLivePairDataFromContracts(jar, model, 18);
   const controller = new MultiContract(controllerAddr, controllerAbi);
   const strategyAddr = await model.comMan.call(
     () => controller.strategies(jar.depositToken.addr),
     jar.chain,
   );
+
   const strategyContract = new MultiContract(strategyAddr, strategyAbi);
   const [masterchefAddress, poolId, rewardTokenAddress] =
     await model.comMan.call(
@@ -61,7 +63,6 @@ export async function calculateMasterChefRewardsAPR(
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
-  const { pricePerToken } = await getLivePairDataFromContracts(jar, model, 18);
 
   // TODO move average block time to the chain??
   const avgBlockTime = Chains.get(jar.chain).secondsPerBlock;
@@ -72,6 +73,7 @@ export async function calculateMasterChefRewardsAPR(
   if (rewardTokenName === undefined) rewardTokenName = "Reward-Token";
   const valueRewardedPerYear = rewardTokenPrice * rewardsPerYear;
 
+  const { pricePerToken } = await pptPromise;
   const totalValueStaked = totalSupply * pricePerToken;
   const rewardAPR = (100 * valueRewardedPerYear) / totalValueStaked;
   return { name: rewardTokenName, apr: rewardAPR, compoundable: true };

@@ -33,15 +33,18 @@ export abstract class ArbitrumSushiJar extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const [sushiApy, rewardApy] = await Promise.all([
+    const promise1 = Promise.all([
       calculateSushiApyArbitrum(definition, model),
       calculateMCv2ApyArbitrum(definition, model, this.rewardToken),
     ]);
 
-    const lp: number = await calculateSushiswapLpApr(
+    const promise2 = calculateSushiswapLpApr(
       model,
       definition.depositToken.addr,
     );
+
+    const [sushiApy, rewardApy] = await promise1;
+    const lp: number = await promise2;
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lp, false),
