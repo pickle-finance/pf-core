@@ -39,7 +39,7 @@ import {
   JarBehavior,
   JarHarvestStats,
 } from "../behavior/JarBehaviorResolver";
-import { loadGaugeAprData } from "../farms/FarmUtil";
+import { IRawGaugeData, preloadRawGaugeData, RawGaugeChainMap, setGaugeAprData } from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { setAllPricesOnTokens } from "./PriceCacheLoader";
 import { timeout } from "../util/PromiseTimeout";
@@ -188,6 +188,7 @@ export class PickleModel {
   private allAssets: PickleAsset[];
   private dillDetails: DillDetails;
   private platformData: PlatformData;
+  private gaugeMap: RawGaugeChainMap;
   // A persistent data store for sharing data that is common to all executions
   private permanentDataStore: PfDataStore;
   // A non-persistent cache that can share data within a single execution
@@ -491,10 +492,17 @@ export class PickleModel {
       this.ensureComponentTokensLoaded(),
     ]);
 
-    await this.ensureDepositTokenPriceLoaded();
-    await this.ensureFarmsBalanceLoaded();
-    await this.loadGaugeAprData();
-    await this.ensureExternalAssetBalanceLoaded();
+    const asOne = async (): Promise<any> => {
+      await this.ensureDepositTokenPriceLoaded();
+      await this.ensureFarmsBalanceLoaded();
+      await this.ensureExternalAssetBalanceLoaded();
+    }
+    await Promise.all([
+      asOne(),
+      this.preloadRawGaugeDataJob(),
+    ]);
+
+    await this.setGaugeAprDataOnAsset();
     await Promise.all([
       this.ensureHarvestDataLoaded(),
       this.loadApyComponents(),
@@ -1336,11 +1344,31 @@ export class PickleModel {
     );
   }
 
-  async loadGaugeAprData(): Promise<any> {
-    DEBUG_OUT("Begin loadGaugeAprData");
+  /*
+  We could probably split out the loading vs the setting here 
+  */
+  async setGaugeAprDataOnAsset(): Promise<any> {
+    DEBUG_OUT("Begin setGaugeAprDataOnAsset");
+    const map: RawGaugeChainMap = this.gaugeMap || {};
     const start = Date.now();
     const r = await Promise.all(
       this.configuredChains.map((x) => {
+        return setGaugeAprData(this, x, map[x]);
+      }),
+    );
+    DEBUG_OUT("End setGaugeAprDataOnAsset: " + (Date.now() - start));
+    return r;
+  }
+
+  /*
+   * Just do the loading for gauge data
+   */
+  async preloadRawGaugeDataJob(): Promise<RawGaugeChainMap> {
+    DEBUG_OUT("Begin preloadRawGaugeDataJob");
+    const retval: RawGaugeChainMap = {};
+    const start = Date.now();
+    const promises: Promise<IRawGaugeData[]>[] =
+      this.configuredChains.map(async (x) => {
         let param = undefined;
         if (this.minimalMode) {
           const jarContracts: string[] = this.allAssets
@@ -1353,11 +1381,14 @@ export class PickleModel {
             .map((z) => z.depositToken.addr);
           param = jarContracts.concat(standaloneFarmDepositTokens);
         }
-        return loadGaugeAprData(this, x, param);
-      }),
-    );
-    DEBUG_OUT("End loadGaugeAprData: " + (Date.now() - start));
-    return r;
+        const oneChainGaugeData: Promise<IRawGaugeData[]> = preloadRawGaugeData(this, x, param);
+        retval[x] = await oneChainGaugeData;
+        return oneChainGaugeData;
+      });
+    await Promise.all(promises);
+    DEBUG_OUT("End preloadRawGaugeDataJob: " + (Date.now() - start));
+    this.gaugeMap = retval;
+    return retval;
   }
 
   async ensureFarmsBalanceLoaded(): Promise<any> {
@@ -1385,28 +1416,33 @@ export class PickleModel {
     } catch (error) {
       this.logError("ensureExternalAssetBalanceLoaded", error);
     }
+    const promises: Promise<any>[] = [];
     for (let i = 0; external !== undefined && i < external.length; i++) {
       const behavior = new JarBehaviorDiscovery().findAssetBehavior(
         external[i],
       );
       if (behavior) {
-        let bal: JarHarvestStats = undefined;
-        try {
-          bal = await behavior.getAssetHarvestData(
-            external[i],
-            this,
-            null,
-            null,
-            this.providerFor(external[i].chain),
-          );
-        } catch (error) {
-          this.logError("ensureExternalAssetBalanceLoaded: bal", error);
-        }
-        if (bal !== undefined) {
-          external[i].details.harvestStats = bal;
-        }
+        const callAndSet = async(): Promise<void> => {
+          let bal: JarHarvestStats = undefined;
+          try {
+            bal = await behavior.getAssetHarvestData(
+              external[i],
+              this,
+              null,
+              null,
+              this.providerFor(external[i].chain),
+            );
+          } catch (error) {
+            this.logError("ensureExternalAssetBalanceLoaded: bal", error);
+          }
+          if (bal !== undefined) {
+            external[i].details.harvestStats = bal;
+          }
+        };
+        promises.push(callAndSet());
       }
     }
+    await Promise.all(promises);
     DEBUG_OUT("End ensureExternalAssetBalanceLoaded: " + (Date.now() - start));
   }
 

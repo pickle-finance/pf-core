@@ -1,6 +1,6 @@
 import { ChainNetwork, IChain } from "..";
 import { Chains } from "../chain/Chains";
-import { ADDRESSES, NULL_ADDRESS, PickleModel } from "../model/PickleModel";
+import { ADDRESSES, DEBUG_OUT, NULL_ADDRESS, PickleModel } from "../model/PickleModel";
 import { Contract as MultiContract } from "ethers-multicall";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
 import MinichefAbi from "../Contracts/ABIs/minichef.json";
@@ -29,39 +29,21 @@ export function secondsPerBlock(network: ChainNetwork): number | undefined {
   return undefined;
 }
 
-export async function loadGaugeAprData(
+export async function setGaugeAprData(
   model: PickleModel,
   chain: ChainNetwork,
-  tokens: string[] | undefined,
+  rawGaugeData: IRawGaugeData[],
 ): Promise<void> {
+  const chainStart = Date.now();
+  DEBUG_OUT("Begin setGaugeAprData chain " + chain);
   // TODO ADD_CHAIN_STYLE
   if (chain === ChainNetwork.Ethereum) {
-    let rawGaugeData: IRawGaugeData[] = [];
-    try {
-      rawGaugeData = await loadGaugeDataEth(tokens, model);
-    } catch (error) {
-      model.logError("loadGaugeAprData", chain.toString(), error);
-    }
     if (rawGaugeData && rawGaugeData.length > 0) {
       for (let i = 0; i < rawGaugeData.length; i++) {
         setAssetGaugeAprEth(rawGaugeData[i], model);
       }
     }
   } else {
-    // All other chains use minichef currently
-    const minichefAddr: string = minichefAddressForChain(chain);
-    if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
-      let rawGaugeData: IRawGaugeData[] = [];
-      try {
-        rawGaugeData = await loadGaugeDataForMinichef(
-          minichefAddr,
-          chain,
-          tokens,
-          model,
-        );
-      } catch (error) {
-        model.logError("loadGaugeAprData", chain.toString(), error);
-      }
       if (rawGaugeData && rawGaugeData.length > 0) {
         for (let i = 0; i < rawGaugeData.length; i++) {
           setAssetGaugeAprMinichef(
@@ -71,8 +53,47 @@ export async function loadGaugeAprData(
           );
         }
       }
+  }
+  DEBUG_OUT("End setGaugeAprData chain " + chain + ";  " + (Date.now() - chainStart));
+}
+
+
+export interface RawGaugeChainMap {
+  [key: string]: IRawGaugeData[];
+}
+export async function preloadRawGaugeData(
+  model: PickleModel,
+  chain: ChainNetwork,
+  tokens: string[] | undefined,
+): Promise<IRawGaugeData[]> {
+  const chainStart = Date.now();
+  DEBUG_OUT("Begin preloadRawGaugeData chain " + chain);
+  // TODO ADD_CHAIN_STYLE
+  let rawGaugeData: IRawGaugeData[] = [];
+  if (chain === ChainNetwork.Ethereum) {
+    try {
+      rawGaugeData = await loadGaugeDataEth(tokens, model);
+    } catch (error) {
+      model.logError("preloadRawGaugeData", chain.toString(), error);
+    }
+  } else {
+    // All other chains use minichef currently
+    const minichefAddr: string = minichefAddressForChain(chain);
+    if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
+      try {
+        rawGaugeData = await loadGaugeDataForMinichef(
+          minichefAddr,
+          chain,
+          tokens,
+          model,
+        );
+      } catch (error) {
+        model.logError("preloadRawGaugeData", chain.toString(), error);
+      }
     }
   }
+  DEBUG_OUT("End preloadRawGaugeData chain " + chain + ";  " + (Date.now() - chainStart));
+  return rawGaugeData;
 }
 
 function findJarForGauge(
