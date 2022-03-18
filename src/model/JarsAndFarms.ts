@@ -1591,13 +1591,11 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
     apiKey: "UNIV3-FRAX-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /* TODO
   farm: {
-    farmAddress: ,
+    farmAddress: "0x6092cdE5762FA9F5c8D081fb0c5eD23601f0F400",
     farmNickname: "pUNIv3 FRAX/USDC",
     farmDepositTokenName: "pUNIv3 FRAX/USDC",
   },
-  */
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_USDC);
 
