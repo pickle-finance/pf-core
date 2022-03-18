@@ -69,6 +69,10 @@ export async function getDillDetails(
   const multicallProvider = model.multicallProviderFor(chain);
   await multicallProvider.init();
 
+
+  const picklePriceSeriesPromise = fetchHistoricalPriceSeries({
+    from: new Date(firstMeaningfulDistributionTimestamp * 1000),
+  });
   try {
     const dillContract = new MultiContract(DILL_CONTRACT, dillAbi);
     const feeDistContract = new MultiContract(
@@ -125,13 +129,10 @@ export async function getDillDetails(
       parseFloat(ethers.utils.formatEther(x)),
     );
 
-    const picklePriceSeries = await fetchHistoricalPriceSeries({
-      from: new Date(firstMeaningfulDistributionTimestamp * 1000),
-    });
 
     let totalPickleAmount = 0;
     let lastTotalDillAmount = 0;
-
+    const picklePriceSeries = await picklePriceSeriesPromise;
     const mapResult: DillWeek[] = payoutTimes.map((time, index): DillWeek => {
       // Fees get distributed at the beginning of the following period.
       const distributionTime = new Date((time.toNumber() + week) * 1000);

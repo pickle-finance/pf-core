@@ -395,6 +395,7 @@ export async function calculateMCv2ApyArbitrum(
   );
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const pricePerToken = jar.depositToken.price;
+
   const rewardsPerYear =
     parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
 
