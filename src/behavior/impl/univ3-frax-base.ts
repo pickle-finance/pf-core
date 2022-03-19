@@ -20,11 +20,11 @@ import {
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
 
-let gaugeAddress = "0";
 export abstract class Univ3FraxBase extends AbstractJarBehavior {
+  gaugeAddress: any;
   constructor(_gaugeAddress: string) {
-    gaugeAddress = _gaugeAddress;
     super();
+    this.gaugeAddress = _gaugeAddress;
   }
   async getDepositTokenPrice(
     definition: JarDefinition,
@@ -190,7 +190,7 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     //FXS APR
     const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
 
-    const gaugeContract = new ethers.Contract(gaugeAddress, gaugeABI, provider);
+    const gaugeContract = new ethers.Contract(this.gaugeAddress, gaugeABI, provider);
 
     const combinedWeightOf = await gaugeContract.combinedWeightOf(
       lockerAddress,
@@ -200,6 +200,12 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const rewardRate = await gaugeContract.rewardRate0();
     const rewardDuration = await gaugeContract.getRewardForDuration();
     const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
+
+    console.log("Multiplier: " + multiplier);
+    console.log("rewardDuration: " + rewardDuration);
+    console.log("FXS Price: " + model.priceOfSync("fxs", definition.chain));
+    console.log("Total Combined Weight: " + totalCombinedWeight);
+    console.log("Deposit Token Price: " + definition.depositToken.price);
 
     const apr =
       ((multiplier *
