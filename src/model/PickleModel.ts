@@ -454,6 +454,7 @@ export class PickleModel {
       }),
     );
     this.setConfiguredChains(liveChains);
+    await this.comMan.configureRPCs(liveChains);
   }
 
   async generateFullApi(): Promise<PickleModelJson> {
@@ -1646,7 +1647,7 @@ export class PickleModel {
 
   async callMulti(contractCallback: Function | Function[],
     chain: ChainNetwork,){
-      return await this.comMan.call(contractCallback,chain);
+      return await this.comMan.callMulti(contractCallback,chain);
   }
 }
 

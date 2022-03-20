@@ -380,11 +380,11 @@ export async function loadGaugeDataForMinichef(
   if (tokens !== undefined && tokens.length === 0) return [];
   const minichef = new MultiContract(minichefAddr, MinichefAbi);
   const [ppsBN, poolLengthBN] = await Promise.all([
-    model.comMan
-      .call(() => minichef.picklePerSecond(), chain)
+    model
+      .callMulti(() => minichef.picklePerSecond(), chain)
       .catch(() => ethers.BigNumber.from(0)),
-    model.comMan
-      .call(() => minichef.poolLength(), chain)
+    model
+      .callMulti(() => minichef.poolLength(), chain)
       .catch(() => ethers.BigNumber.from(0)),
   ]);
   const poolLength = parseFloat(poolLengthBN.toString());

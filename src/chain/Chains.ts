@@ -43,7 +43,10 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "ethereum",
     gasTokenSymbol: "eth",
     explorer: "https://etherscan.io",
-    rpcs: ["https://cloudflare-eth.com/"],
+    rpcs: [
+      "https://cloudflare-eth.com/",
+      // "https://mainnet.infura.io/v3/", // dead
+    ],
     defaultPerformanceFee: 0.2,
     wrappedNativeAddress: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
@@ -59,7 +62,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
       "https://polygon-rpc.com",
       "https://rpc-mainnet.maticvigil.com",
       "https://matic-mainnet.chainstacklabs.com/",
-      "https://rpc-mainnet.matic.network",
+      // "https://rpc-mainnet.matic.network", // dead
     ],
     defaultPerformanceFee: 0.2,
     wrappedNativeAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
@@ -111,7 +114,10 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "moonriver",
     gasTokenSymbol: "movr",
     explorer: "https://moonriver.moonscan.io",
-    rpcs: ["https://moonriver.api.onfinality.io/public"],
+    rpcs: [
+      "https://moonriver.api.onfinality.io/public",
+      "https://rpc.moonriver.moonbeam.network",
+    ],
     multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
     defaultPerformanceFee: 0.1,
     wrappedNativeAddress: "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -191,7 +197,8 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://ftmscan.com",
     rpcs: [
       "https://rpc.ankr.com/fantom",
-      // "https://rpc.ftm.tools/"
+      "https://rpc.ftm.tools/",
+      // "https://ftmrpc.ultimatenodes.io/",  // dead
     ],
     multicallAddress: "0x11473D6E641dF17cd6331D45b135E35B49edBea8",
     defaultPerformanceFee: 0.042,

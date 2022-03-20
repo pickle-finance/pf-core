@@ -216,8 +216,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const promises: Promise<any>[] = [];
     for (let i = 0; i < rewardTokens.length; i++) {
       promises.push(
-        model.comMan
-          .call(
+        model
+          .callMulti(
             () => rewardContracts[i].balanceOf(jar.details.strategyAddr),
             jar.chain,
           )
@@ -225,8 +225,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       );
     }
     promises.push(
-      model.comMan
-        .call(() => strategyContract.getHarvestable(), jar.chain)
+      model
+        .callMulti(() => strategyContract.getHarvestable(), jar.chain)
         .catch(() => new Array(rewardTokens.length).fill(BigNumber.from("0"))),
     );
 
@@ -349,8 +349,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const promises: Promise<any>[] = [];
     for (let i = 0; i < rewardTokens.length; i++) {
       promises.push(
-        model.comMan
-          .call(
+        model
+          .callMulti(
             () => rewardContracts[i].balanceOf(jar.details.strategyAddr),
             jar.chain,
           )
@@ -360,8 +360,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
 
     const _mcContract = new MulticallContract(masterchefAddr, mcAbi);
     promises.push(
-      model.comMan
-        .call(
+      model
+        .callMulti(
           eval(`()=>_mcContract.${rewardsFuncName}(
         _poolId,
         jar.details.strategyAddr,

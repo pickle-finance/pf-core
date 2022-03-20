@@ -123,8 +123,8 @@ export abstract class CurveJar extends AbstractJarBehavior {
     ).map((x) => parseFloat(ethers.utils.formatUnits(x)));
 
     const ctrlr = new MultiContract(GAUGE_CONTROLLER_ADDR, controllerAbi);
-    const weight = await model.comMan
-      .call(() => ctrlr.gauge_relative_weight(gauge), jar.chain)
+    const weight = await model
+      .callMulti(() => ctrlr.gauge_relative_weight(gauge), jar.chain)
       .then((x) => parseFloat(ethers.utils.formatUnits(x)));
 
     // https://github.com/curvefi/curve-dao/blob/b7d6d2b6633fd64aa44e80094f6fb5f17f5e771a/src/components/minter/gaugeStore.js#L212
