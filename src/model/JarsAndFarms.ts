@@ -4155,9 +4155,9 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
   contract: "0x40F80625feA504Fb32eD0e6e7450A77fFF114585",
   depositToken: {
     addr: "0x39cC0E14795A8e6e9D02A21091b81FE0d61D82f9",
-    name: "VVS CRO/VVS",
+    name: "VVS USDC/USDT",
     link: "https://vvs.finance/add/0xc21223249CA28397B4B6541dfFaEcC539BfF0c59/0x66e428c3f67a68878562e79A0234c1F83c208770",
-    components: ["cro", "vvs"],
+    components: ["usdc", "usdt"],
   },
   rewardTokens: ["vvs"],
   enablement: AssetEnablement.ENABLED,
