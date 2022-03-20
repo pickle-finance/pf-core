@@ -172,7 +172,7 @@ export async function getPriceMultiplierFromMinter(definition: JarDefinition, mo
     } catch (e) {
       // TODO do something here??
       console.log(
-        "Unknown error in ConvexUtility.getProjectedConvexAprStats(): " + e,
+        `[${definition.details?.apiKey}] Unknown error in ConvexUtility.getProjectedConvexAprStats(): ` + e,
       );
       return 1;
     }
