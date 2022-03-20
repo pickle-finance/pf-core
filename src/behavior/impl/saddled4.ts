@@ -47,7 +47,7 @@ export class SaddleD4 extends AbstractJarBehavior {
     );
 
     const [fxsRateBN, tribeRateBN, alcxRateBN, lqtyRateBN, totalValueLockedBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallCommunalFarm.rewardRates(0),
           () => multicallCommunalFarm.rewardRates(1),
@@ -80,7 +80,7 @@ export class SaddleD4 extends AbstractJarBehavior {
       swapFlashLoanAbi,
     );
 
-    const virtualPrice = await model.comMan.call(
+    const virtualPrice = await model.callMulti(
       () => multicallSwapFlashLoan.getVirtualPrice(),
       jar.chain,
     );

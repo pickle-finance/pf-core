@@ -67,7 +67,7 @@ export class HadesJar extends AbstractJarBehavior {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [hadesPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallHadesFarms.tSharePerSecond(),
           () => multicallHadesFarms.totalAllocPoint(),

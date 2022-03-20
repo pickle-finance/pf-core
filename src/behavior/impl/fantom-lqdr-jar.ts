@@ -78,7 +78,7 @@ export class LqdrJar extends AbstractJarBehavior {
 
     if (await this.rewarderContractExist(jar, model)) {
       const poolId = poolIds[jar.depositToken.addr];
-      const [rewardTokenAddr, pendingTokenBN] = await model.comMan.call(
+      const [rewardTokenAddr, pendingTokenBN] = await model.callMulti(
         [
           () => this.multicallRewarder.rewardToken(),
           () =>
@@ -90,7 +90,7 @@ export class LqdrJar extends AbstractJarBehavior {
         jar.chain,
       );
       const rewardTokenContract = new MultiContract(rewardTokenAddr, erc20Abi);
-      const strategyBalanceBN = await model.comMan.call(
+      const strategyBalanceBN = await model.callMulti(
         () => rewardTokenContract.balanceOf(jar.details.strategyAddr),
         jar.chain,
       );
@@ -122,7 +122,7 @@ export class LqdrJar extends AbstractJarBehavior {
     const poolId = poolIds[jar.depositToken.addr];
 
     const multicallFarms = new MultiContract(LQDR_FARMS, lqdrFarmsAbi);
-    const [lqdrStrategyAddress, rewarderAddress] = await model.comMan.call(
+    const [lqdrStrategyAddress, rewarderAddress] = await model.callMulti(
       [
         () => multicallFarms.strategies(poolId),
         () => multicallFarms.rewarder(poolId),
@@ -136,7 +136,7 @@ export class LqdrJar extends AbstractJarBehavior {
     );
 
     const [lqdrPerBlockBN, totalAllocPointBN, poolInfo, totalStakedBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallFarms.lqdrPerBlock(),
           () => multicallFarms.totalAllocPoint(),
@@ -169,7 +169,7 @@ export class LqdrJar extends AbstractJarBehavior {
 
     if (await this.rewarderContractExist(jar, model)) {
       const [rewardTokenAddr, tokenPerBlockBN, rewardPoolInfo] =
-        await model.comMan.call(
+        await model.callMulti(
           [
             () => this.multicallRewarder.rewardToken(),
             () => this.multicallRewarder.tokenPerBlock(),
@@ -224,7 +224,7 @@ export class LqdrJar extends AbstractJarBehavior {
     if (!this.rewarderAddr) {
       const poolId = poolIds[jar.depositToken.addr];
       const farms = new MultiContract(LQDR_FARMS, lqdrFarmsAbi);
-      const rewarderAddress = await model.comMan.call(
+      const rewarderAddress = await model.callMulti(
         () => farms.rewarder(poolId),
         jar.chain,
       );

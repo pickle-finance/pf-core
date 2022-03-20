@@ -39,7 +39,7 @@ export async function calculateCherryAPY(
     poolInfo,
     bonusMultiplierBN,
     totalSupplyBN,
-  ] = await model.comMan.call(
+  ] = await model.callMulti(
     [
       () => multicallCherrychef.cherryPerBlock(),
       () => multicallCherrychef.totalAllocPoint(),
@@ -77,7 +77,7 @@ export async function calculateJswapAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [jfPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallJswapchef.jfPerBlock(),
         () => multicallJswapchef.totalAllocPoint(),

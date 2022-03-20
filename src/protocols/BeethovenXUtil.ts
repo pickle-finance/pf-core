@@ -165,7 +165,7 @@ export const getPoolData = async (
     blockNum,
   );
   const poolContract = new MultiContract(jar.depositToken.addr, erc20Abi);
-  const poolTokenTotalSupplyBN: BigNumber = await model.comMan.call(
+  const poolTokenTotalSupplyBN: BigNumber = await model.callMulti(
     () => poolContract.totalSupply(),
     jar.chain,
   );
@@ -183,7 +183,7 @@ export const getPoolData = async (
       // Less efficient. Fallback in case the graph doesn't work
       const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
       const balVaultContract = new MultiContract(VAULT_ADDRESS, balVaultABI);
-      const poolTokensResp = await model.comMan.call(
+      const poolTokensResp = await model.callMulti(
         () => balVaultContract.callStatic["getPoolTokens"](vaultPoolId),
         jar.chain,
       );
@@ -228,7 +228,7 @@ export const calculateBalPoolAPRs = async (
   const multicallMasterchef = new MultiContract(MC_ADDRESS, beethovenxChefAbi);
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const [beetsPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallMasterchef.beetsPerBlock(),
         () => multicallMasterchef.totalAllocPoint(),

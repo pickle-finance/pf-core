@@ -59,7 +59,7 @@ export class NewoUsdc extends AbstractJarBehavior {
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+    const [rewardRateBN, totalSupplyBN] = await model.callMulti(
       [
         () => multicallUniStakingRewards.rewardRate(),
         () => multicallUniStakingRewards.totalSupply(),

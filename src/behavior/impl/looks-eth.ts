@@ -62,7 +62,7 @@ export class LooksEth extends AbstractJarBehavior {
     );
     const multicallLp = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-    const [rewardPerBlockBN, totalSupplyBN] = await model.comMan.call(
+    const [rewardPerBlockBN, totalSupplyBN] = await model.callMulti(
       [
         () => multicallRewards.rewardPerBlock(),
         () => multicallLp.balanceOf(rewardsAddress),

@@ -39,7 +39,7 @@ export abstract class MirJar extends AbstractJarBehavior {
       stakingRewardsAbi,
     );
 
-    const promises1: Promise<any> = model.comMan.call(
+    const promises1: Promise<any> = model.callMulti(
       [
         () => multicallUniStakingRewards.rewardRate(),
         () => multicallUniStakingRewards.totalSupply(),
@@ -88,7 +88,7 @@ export abstract class MirJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const rewards = new MultiContract(this.rewardAddress, mirRewardAbi);
-    const mir = await model.comMan.call(
+    const mir = await model.callMulti(
       () => rewards.earned(jar.details.strategyAddr),
       jar.chain,
     );

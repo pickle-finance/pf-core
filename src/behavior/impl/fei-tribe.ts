@@ -84,7 +84,7 @@ export class FeiTribe extends AbstractJarBehavior {
     const multicallFeichef = new MultiContract(FEI_MASTERCHEF, feiChefAbi);
     const multicallLp = new MultiContract(jar.depositToken.addr, erc20Abi);
     const [tribePerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallFeichef.tribePerBlock(),
           () => multicallFeichef.totalAllocPoint(),

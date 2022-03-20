@@ -84,7 +84,7 @@ export class CrvTricrypto extends CurveJar {
     ];
     
     const gauge = new MultiContract(this.gaugeAddress, curveThirdPartyGaugeAbi);
-    const crv = await model.comMan.call(
+    const crv = await model.callMulti(
       () =>
         gauge.claimable_reward_write(
           jar.details.strategyAddr,

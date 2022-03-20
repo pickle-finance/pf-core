@@ -689,7 +689,7 @@ export class PickleModel {
 
     let results: string[] = undefined;
     try {
-      results = await this.comMan.call(
+      results = await this.callMulti(
         arr.map(
           (oneArr) => () =>
             new MulticallContract(oneArr.token, erc20Abi).balanceOf(
@@ -824,7 +824,7 @@ export class PickleModel {
 
     let strategyAddresses: string[] = undefined;
     try {
-      strategyAddresses = await this.comMan.call(
+      strategyAddresses = await this.callMulti(
         jars.map((oneJar) => {
           return () => controllerContract.strategies(oneJar.depositToken.addr);
         }),
@@ -852,7 +852,7 @@ export class PickleModel {
 
     let strategyNames: string[] = undefined;
     try {
-      strategyNames = await this.comMan.call(
+      strategyNames = await this.callMulti(
         withStrategyAddresses.map(
           (oneJar) => () =>
             new MulticallContract(
@@ -883,7 +883,7 @@ export class PickleModel {
 
     let ratios: string[] = undefined;
     try {
-      ratios = await this.comMan.call(
+      ratios = await this.callMulti(
         jars.map(
           (oneJar) => () =>
             new MulticallContract(oneJar.contract, jarAbi).getRatio(),
@@ -907,7 +907,7 @@ export class PickleModel {
 
     let supply: string[] = undefined;
     try {
-      supply = await this.comMan.call(
+      supply = await this.callMulti(
         jars.map(
           (oneJar) => () =>
             new MulticallContract(oneJar.contract, jarAbi).totalSupply(),
@@ -932,7 +932,7 @@ export class PickleModel {
 
     let balance: string[] = undefined;
     try {
-      balance = await this.comMan.call(
+      balance = await this.callMulti(
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? () =>
@@ -962,7 +962,7 @@ export class PickleModel {
 
     let supply: string[] = undefined;
     try {
-      supply = await this.comMan.call(
+      supply = await this.callMulti(
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? new MulticallContract(
@@ -1095,7 +1095,7 @@ export class PickleModel {
 
     let balanceOfProm: Promise<BigNumber[]> = undefined;
     try {
-      balanceOfProm = this.comMan.call(
+      balanceOfProm = this.callMulti(
         harvestableJars.map(
           (oneJar) => () =>
             new MulticallContract(oneJar.contract, jarAbi).balance(),
@@ -1109,7 +1109,7 @@ export class PickleModel {
     // Just do the want.balanceOf(strategy) but protect against non-erc20 deposit tokens
     let strategyWantProm: Promise<BigNumber[]> = undefined;
     try {
-      strategyWantProm = this.comMan.call(
+      strategyWantProm = this.callMulti(
         harvestableJars.map((oneJar) => {
           const guard = getZeroValueMulticallForNonErc20(oneJar);
           if (guard) return () => guard;
@@ -1127,7 +1127,7 @@ export class PickleModel {
     // Load available as a group
     let availableProm: Promise<BigNumber[]> = undefined;
     try {
-      availableProm = this.comMan.call(
+      availableProm = this.callMulti(
         harvestableJars.map(
           (oneJar) => () =>
             new MulticallContract(oneJar.contract, jarAbi).available(),
@@ -1294,7 +1294,7 @@ export class PickleModel {
     let chainFarmResultsPromise: Promise<string[]> = undefined;
     if (chainFarms.length !== 0) {
       try {
-        chainFarmResultsPromise = this.comMan.call(
+        chainFarmResultsPromise = this.callMulti(
           chainFarms.map(
             (oneFarm) => () =>
               new MulticallContract(
@@ -1318,7 +1318,7 @@ export class PickleModel {
     let protocolJarsWithFarmResultsPromise: Promise<string[]> = undefined;
     if (protocolJarsWithFarms.length > 0) {
       try {
-        protocolJarsWithFarmResultsPromise = this.comMan.call(
+        protocolJarsWithFarmResultsPromise = this.callMulti(
           protocolJarsWithFarms.map(
             (oneJar) => () =>
               new MulticallContract(oneJar.contract, erc20Abi).balanceOf(
@@ -1619,7 +1619,7 @@ export class PickleModel {
     let ppb = BigNumber.from(0);
     if (masterChef) {
       const contract = new MulticallContract(masterChef, MasterchefAbi);
-      ppb = await this.comMan.call(
+      ppb = await this.callMulti(
         () => contract.picklePerBlock(),
         ChainNetwork.Ethereum,
       );
@@ -1642,6 +1642,11 @@ export class PickleModel {
       "\n" +
       error,
     );
+  }
+
+  async callMulti(contractCallback: Function | Function[],
+    chain: ChainNetwork,){
+      return await this.comMan.call(contractCallback,chain);
   }
 }
 

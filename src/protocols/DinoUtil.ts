@@ -21,7 +21,7 @@ export async function calculateFossilFarmsAPY(
   const multicallFossilFarms = new MultiContract(FOSSIL_FARMS, fossilFarmsAbi);
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const [dinoPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallFossilFarms.dinoPerBlock(),
         () => multicallFossilFarms.totalAllocPoint(),

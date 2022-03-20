@@ -112,7 +112,7 @@ export abstract class CurveJar extends AbstractJarBehavior {
     const mcPool = new MultiContract(pool, poolAbi);
 
     const [workingSupply, gaugeRate, virtualPrice] = (
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => mcGauge.working_supply(),
           () => mcGauge.inflation_rate(),

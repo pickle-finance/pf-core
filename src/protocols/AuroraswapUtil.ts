@@ -44,7 +44,7 @@ export async function calculateBrlFarmsAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [brlPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallBrlFarms.BRLPerBlock(),
         () => multicallBrlFarms.totalAllocPoint(),

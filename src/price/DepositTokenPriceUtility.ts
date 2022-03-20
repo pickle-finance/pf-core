@@ -63,8 +63,8 @@ export async function getStableswapPriceAddress(
   let virtualPrice = 0;
   try {
     virtualPrice = await (curveStyle
-      ? model.comMan.call(() => pool.get_virtual_price(), asset.chain)
-      : model.comMan.call(() => pool.getVirtualPrice(), asset.chain));
+      ? model.callMulti(() => pool.get_virtual_price(), asset.chain)
+      : model.callMulti(() => pool.getVirtualPrice(), asset.chain));
   } catch (e) {
     model.logError("getStableswapPriceAddress", e, asset.details.apiKey);
   }

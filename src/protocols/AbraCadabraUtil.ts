@@ -35,7 +35,7 @@ export async function calculateAbradabraApy(
   const lpToken = new MultiContract(definition.depositToken.addr, erc20Abi);
 
   const [icePerSecondBN, totalAllocPointBN, poolInfo, supplyInRewarderBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallSorbettiereFarm.icePerSecond(),
         () => multicallSorbettiereFarm.totalAllocPoint(),
@@ -74,7 +74,7 @@ export async function calculateAbracadabraApyArbitrum(
   const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
 
   const [icePerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallSorbettiereFarm.icePerSecond(),
         () => multicallSorbettiereFarm.totalAllocPoint(),

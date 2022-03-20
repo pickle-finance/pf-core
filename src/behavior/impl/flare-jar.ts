@@ -51,7 +51,7 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
       erc20Abi,
     );
 
-    const [pendingObj, walletFlare] = await model.comMan.call(
+    const [pendingObj, walletFlare] = await model.callMulti(
       [
         () =>
           multicallFlareFarms.pendingTokens(poolId, jar.details.strategyAddr),
@@ -96,7 +96,7 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [flarePerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallFlareFarms.flarePerSec(),
           () => multicallFlareFarms.totalAllocPoint(),

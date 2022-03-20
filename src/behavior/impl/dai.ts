@@ -25,7 +25,7 @@ export class DaiJar extends AbstractJarBehavior {
       jar.details.strategyAddr,
       foldingStrategyAbi,
     );
-    const matic = await model.comMan.call(
+    const matic = await model.callMulti(
       () => strategy.getMaticAccrued(),
       jar.chain,
     );
@@ -68,7 +68,7 @@ export class DaiJar extends AbstractJarBehavior {
 
     const aaveStrategy = new MultiContract(strategyAddress, AaveStrategyAbi);
     const [supplied, borrowed, balance] = (
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => aaveStrategy.getSuppliedView(),
           () => aaveStrategy.getBorrowedView(),

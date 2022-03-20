@@ -55,7 +55,7 @@ export async function calculateCurveApyArbitrum(
   tokens: string[],
 ) {
   const swap = new MultiContract(swapAddress, swap_abi);
-  const balances: BigNumber[] = await model.comMan.call(
+  const balances: BigNumber[] = await model.callMulti(
     Array.from(Array(tokens.length).keys()).map((x) => () => swap.balances(x)),
     jar.chain,
   );

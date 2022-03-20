@@ -231,7 +231,7 @@ export async function getLivePairDataFromContracts(
   const tokenB = new MultiContract(addressB, erc20Abi);
   const pair = new MultiContract(pairAddress, erc20Abi);
 
-  const [numAInPairBN, numBInPairBN, totalSupplyBN] = await model.comMan.call(
+  const [numAInPairBN, numBInPairBN, totalSupplyBN] = await model.callMulti(
     [
       () => tokenA.balanceOf(pairAddress),
       () => tokenB.balanceOf(pairAddress),

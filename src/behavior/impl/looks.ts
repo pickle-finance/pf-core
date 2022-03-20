@@ -44,7 +44,7 @@ export class pLooks extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const distributor = new MultiContract(LOOKS_DISTRIBUTOR, distributorAbi);
-    const [totalLooksStaked] = await model.comMan.call(
+    const [totalLooksStaked] = await model.callMulti(
       () => distributor.userInfo(LOOKS_STAKING),
       jar.chain,
     );
@@ -100,7 +100,7 @@ export class pLooks extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const distributor = new MultiContract(LOOKS_DISTRIBUTOR, distributorAbi);
-    const rewardPerBlock = await model.comMan.call(
+    const rewardPerBlock = await model.callMulti(
       () => distributor.rewardPerBlockForStaking(),
       jar.chain,
     );

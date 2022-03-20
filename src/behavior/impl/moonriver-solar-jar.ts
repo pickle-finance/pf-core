@@ -50,7 +50,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
       jar.details.strategyAddr,
       stratAbi,
     );
-    const [chefAddress, poolId]: [string, BigNumber] = await model.comMan.call(
+    const [chefAddress, poolId]: [string, BigNumber] = await model.callMulti(
       [() => strategyContract.solarChef(), () => strategyContract.poolId()],
       jar.chain,
     );
@@ -93,7 +93,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     poolId: number,
   ): Promise<number> {
     const chefContract = new MultiContract(chefAddress, solarV2Abi);
-    const rewardTokens = await model.comMan.call(
+    const rewardTokens = await model.callMulti(
       () => chefContract.pendingTokens(poolId, jar.details.strategyAddr),
       jar.chain,
     );
@@ -147,7 +147,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     });
 
     const rewardTokensAddresses = Object.keys(pendingHarvests);
-    const stratBalancesBN: BigNumber[] = await model.comMan.call(
+    const stratBalancesBN: BigNumber[] = await model.callMulti(
       rewardTokensAddresses.map(
         (address) => () =>
           new MultiContract(address, erc20Abi).balanceOf(

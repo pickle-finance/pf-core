@@ -43,7 +43,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     const mcDodoRewards = new MultiContract(rewardsAddr, mcdodoAbi);
 
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
-    const [dodoInfo, totalSupplyBN] = await model.comMan.call(
+    const [dodoInfo, totalSupplyBN] = await model.callMulti(
       [
         () => mcDodoRewards.rewardTokenInfos(0),
         () => lpToken.balanceOf(rewardsAddr),

@@ -51,7 +51,7 @@ export async function calculateSpookyFarmsAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [booPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallBooFarms.booPerSecond(),
         () => multicallBooFarms.totalAllocPoint(),

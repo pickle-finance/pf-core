@@ -66,7 +66,7 @@ export class MainnetSushiPickleEth implements ExternalAssetBehavior {
     const depositToken = definition.depositToken.addr;
     const sushiMCAddr = definition.contract;
     const sushiMC = new MultiContract(depositToken, erc20Abi);
-    const bal: BigNumber = await model.comMan.call(
+    const bal: BigNumber = await model.callMulti(
       () => sushiMC.balanceOf(sushiMCAddr),
       definition.chain,
     );
