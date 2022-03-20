@@ -162,11 +162,12 @@ export async function getPriceMultiplierFromMinter(definition: JarDefinition, mo
 
       const minterAddr = await crvPool.minter(); // if this call fails, then there is no linked minter contract
 
-      const minter = new MultiContract(minterAddr, fxsPoolABI);
-      const lpPriceBN = await model.comMan.call(
-        () => minter.lp_price(),
-        definition.chain,
+      const minter = new ethers.Contract(
+        minterAddr,
+        fxsPoolABI,
+        model.providerFor(definition.chain),
       );
+      const lpPriceBN = await minter.lp_price();
       priceMultiplier = +formatEther(lpPriceBN);
       return priceMultiplier;
     } catch (e) {
