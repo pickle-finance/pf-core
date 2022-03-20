@@ -21,14 +21,14 @@ export class AlcxEth extends SushiJar {
     const alcxToken = new MultiContract(model.addr("alcx"), erc20Abi);
     const [alcx, sushi, alcxWallet]: [BigNumber, BigNumber, BigNumber] =
       await Promise.all([
-        model.comMan
-          .call(() => strategy.getHarvestableAlcx(), jar.chain)
+        model
+          .callMulti(() => strategy.getHarvestableAlcx(), jar.chain)
           .catch(() => BigNumber.from("0")),
-        model.comMan
-          .call(() => strategy.getHarvestableSushi(), jar.chain)
+        model
+          .callMulti(() => strategy.getHarvestableSushi(), jar.chain)
           .catch(() => BigNumber.from("0")),
-        model.comMan
-          .call(() => alcxToken.balanceOf(jar.details.strategyAddr), jar.chain)
+        model
+          .callMulti(() => alcxToken.balanceOf(jar.details.strategyAddr), jar.chain)
           .catch(() => BigNumber.from("0")),
       ]);
     const alcxPrice = model.priceOfSync("alcx", jar.chain);

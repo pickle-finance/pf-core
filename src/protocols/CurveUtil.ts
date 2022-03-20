@@ -40,8 +40,8 @@ export async function getCurveLpPriceData(
 ): Promise<number> {
   const multicallPoolContract = new MultiContract(tokenAddress, CurvePoolABI);
 
-  const pricePerToken = await model.comMan
-    .call(() => multicallPoolContract.get_virtual_price(), chain)
+  const pricePerToken = await model
+    .callMulti(() => multicallPoolContract.get_virtual_price(), chain)
     .then((x) => parseFloat(formatEther(x)));
 
   return pricePerToken;
