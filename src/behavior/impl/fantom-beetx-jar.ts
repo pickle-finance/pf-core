@@ -34,7 +34,7 @@ export class BeetXJar extends AbstractJarBehavior {
             erc20Abi,
           );
           const [fBeetsTotalSupplyBN, underlyingLocked] =
-            await model.comMan.call(
+            await model.callMulti(
               [
                 () => fBeetsMulticontract.totalSupply(),
                 () => fBeetsUnderlyingMulticontract.balanceOf(fBeets),

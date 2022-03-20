@@ -59,7 +59,7 @@ export abstract class ZipswapJar extends AbstractJarBehavior {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [zipPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallZipFarms.zipPerSecond(),
           () => multicallZipFarms.totalAllocPoint(),

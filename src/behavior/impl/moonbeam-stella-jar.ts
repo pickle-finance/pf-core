@@ -67,7 +67,7 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [stellaPerBlockBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallStellaFarms.stellaPerBlock(),
           () => multicallStellaFarms.totalAllocPoint(),

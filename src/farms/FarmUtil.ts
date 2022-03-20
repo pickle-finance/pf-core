@@ -282,7 +282,7 @@ export async function loadGaugeDataEth(
     ethAddresses.masterChef,
     MasterchefAbi,
   );
-  const [tokensOnProxy, totalWeight, ppb] = await model.comMan.call(
+  const [tokensOnProxy, totalWeight, ppb] = await model.callMulti(
     [
       () => proxy.tokens(),
       () => proxy.totalWeight(),
@@ -296,13 +296,13 @@ export async function loadGaugeDataEth(
     gaugeProxyAbi,
   );
   const tokens = tokensToQuery ? tokensToQuery : tokensOnProxy;
-  const gaugeAddressesPromises = model.comMan.call(
+  const gaugeAddressesPromises = model.callMulti(
     tokens.map((token) => {
       return () => mcGaugeProxy.getGauge(token);
     }),
     ChainNetwork.Ethereum,
   );
-  const gaugeWeightsPromises = model.comMan.call(
+  const gaugeWeightsPromises = model.callMulti(
     tokens.map((token) => {
       return () => mcGaugeProxy.weights(token);
     }),
@@ -314,14 +314,14 @@ export async function loadGaugeDataEth(
     gaugeWeightsPromises,
   ]);
 
-  const gaugeRewardRatesPromises = model.comMan.call(
+  const gaugeRewardRatesPromises = model.callMulti(
     tokens.map((_token, index) => {
       return () =>
         new MultiContract(gaugeAddresses[index], gaugeAbi).rewardRate();
     }),
     ChainNetwork.Ethereum,
   );
-  const derivedSuppliesPromises = model.comMan.call(
+  const derivedSuppliesPromises = model.callMulti(
     tokens.map((_token, index) => {
       return () =>
         new MultiContract(gaugeAddresses[index], gaugeAbi).derivedSupply();
@@ -393,13 +393,13 @@ export async function loadGaugeDataForMinichef(
   // load pool infos
   const miniChefMulticall = new MultiContract(minichefAddr, MinichefAbi);
   const poolIds: number[] = Array.from(Array(poolLength).keys());
-  const lpTokens: any[] = await model.comMan.call(
+  const lpTokens: any[] = await model.callMulti(
     poolIds.map((id) => {
       return () => miniChefMulticall.lpToken(id);
     }),
     chain,
   );
-  const poolInfo: any[] = await model.comMan.call(
+  const poolInfo: any[] = await model.callMulti(
     poolIds.map((id) => {
       return () => miniChefMulticall.poolInfo(id);
     }),

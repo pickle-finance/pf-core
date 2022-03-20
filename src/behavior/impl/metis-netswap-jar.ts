@@ -104,12 +104,12 @@ export class NetswapJar extends AbstractJarBehavior {
       jar.details.strategyAddr,
       stratAbi,
     );
-    const [chefAddress, poolId] = await model.comMan.call(
+    const [chefAddress, poolId] = await model.callMulti(
       [() => strategyContract.masterchef(), () => strategyContract.poolId()],
       jar.chain,
     );
     const chefContract = new MultiContract(chefAddress, chefAbi);
-    const rewardTokens = await model.comMan.call(
+    const rewardTokens = await model.callMulti(
       () => chefContract.pendingTokens(poolId, jar.details.strategyAddr),
       jar.chain,
     );
@@ -157,7 +157,7 @@ export class NetswapJar extends AbstractJarBehavior {
     };
 
     const rewardTokensAddresses = Object.keys(pendingHarvests);
-    const stratBalancesBN: BigNumber[] = await model.comMan.call(
+    const stratBalancesBN: BigNumber[] = await model.callMulti(
       rewardTokensAddresses.map(
         (address) => () =>
           new MultiContract(address, erc20Abi).balanceOf(

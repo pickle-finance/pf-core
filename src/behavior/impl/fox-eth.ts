@@ -17,7 +17,7 @@ export class FoxEth extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const rewards = new MultiContract(this.rewardAddress, feiAbi);
-    const fox: BigNumber = await model.comMan.call(
+    const fox: BigNumber = await model.callMulti(
       () => rewards.earned(jar.details.strategyAddr),
       jar.chain,
     );
@@ -56,7 +56,7 @@ export class FoxEth extends AbstractJarBehavior {
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+    const [rewardRateBN, totalSupplyBN] = await model.callMulti(
       [
         () => multicallUniStakingRewards.rewardRate(),
         () => multicallUniStakingRewards.totalSupply(),

@@ -77,7 +77,7 @@ export async function getCvxTotalSupply(
   model: PickleModel,
 ): Promise<BigNumber> {
   const cvxContract = new MultiContract(model.addr("cvx"), erc20Abi);
-  const cvxTotalSupplyBN = await model.comMan.call(
+  const cvxTotalSupplyBN = await model.callMulti(
     () => cvxContract.totalSupply(),
     ChainNetwork.Ethereum,
   );
@@ -142,7 +142,7 @@ export async function getConvexRewarderPromise(cvxPool: SinglePoolInfo, model: P
   const rewarder =
     cvxPool.rewarder ||
     (
-      await model.comMan.call(
+      await model.callMulti(
         () => cvxBoosterContract.poolInfo(cvxPool.poolId),
         definition.chain,
       )
@@ -183,7 +183,7 @@ export async function getExtraRewards1(extraRewardsAddress: string, model: Pickl
     extraRewardsAddress,
     ExtraRewardsABI,
   );
-  return model.comMan.call(
+  return model.callMulti(
     () => extraRewardsContract.currentRewards(),
     definition.chain,
   );
@@ -213,7 +213,7 @@ export async function getProjectedConvexAprStats(
     const crvRewardsMC = new MultiContract(await rewarderPromise, CrvRewardsABI);
     let extraRewardsAddress2Promise: Promise<string> | undefined = undefined;
     if (cvxPool.extraReward) {
-      extraRewardsAddress2Promise = model.comMan.call(
+      extraRewardsAddress2Promise = model.callMulti(
         () => crvRewardsMC.extraRewards(1),
         definition.chain,
       );
@@ -223,7 +223,7 @@ export async function getProjectedConvexAprStats(
       BigNumber,
       string,
       BigNumber,
-    ] = await model.comMan.call(
+    ] = await model.callMulti(
       [
         () => crvRewardsMC.totalSupply(),
         () => crvRewardsMC.duration(),
@@ -277,7 +277,7 @@ export async function getProjectedConvexAprStats(
         extraRewardsAddress2,
         ExtraRewardsABI,
       );
-      const extraReward2CurrentRewards = await model.comMan.call(
+      const extraReward2CurrentRewards = await model.callMulti(
         () => extraRewardsContract2.currentRewards(),
         definition.chain,
       );

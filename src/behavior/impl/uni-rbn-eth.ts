@@ -58,7 +58,7 @@ export class Uni3RbnEth extends AbstractJarBehavior {
     );
     const rbnAddr = "0x6123b0049f904d730db3c36a31167d9d4121fa6b";
     const val: UniV3InfoValue = getUniV3Info(definition.depositToken.addr);
-    const result = await model.comMan.call(
+    const result = await model.callMulti(
       () => rewardStaking.getRewardInfo(val.incentiveKey, val.nftNumber),
       definition.chain,
     );
@@ -80,7 +80,7 @@ export class Uni3RbnEth extends AbstractJarBehavior {
       model.address("rbn", definition.chain),
       erc20Abi,
     );
-    const [wethBal, rbnBal] = await model.comMan.call(
+    const [wethBal, rbnBal] = await model.callMulti(
       [
         () => wethContract.balanceOf(definition.contract),
         () => rbnContract.balanceOf(definition.contract),

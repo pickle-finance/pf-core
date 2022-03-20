@@ -57,7 +57,7 @@ export class RlyEth extends AbstractJarBehavior {
 
     const poolId = rallyIds[jar.depositToken.addr];
     const [rlyPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallRallyRewardPools.rallyPerBlock(),
           () => multicallRallyRewardPools.totalAllocPoint(),

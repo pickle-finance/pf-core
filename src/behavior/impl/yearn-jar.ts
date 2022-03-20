@@ -32,7 +32,7 @@ export class YearnJar extends AbstractJarBehavior {
       "0x50c1a2ea0a861a967d9d0ffe2ae4012c2e053804",
       YearnRegistryABI,
     );
-    const vaultAddress = await model.comMan.call(
+    const vaultAddress = await model.callMulti(
       () => yearnRegistry.latestVault(definition.depositToken.addr),
       definition.chain,
     );

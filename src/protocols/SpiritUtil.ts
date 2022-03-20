@@ -46,7 +46,7 @@ export async function calculateSpiritFarmsAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-  const [rewardRateBN, totalSupplyBN] = await model.comMan.call(
+  const [rewardRateBN, totalSupplyBN] = await model.callMulti(
     [() => multicallGauge.rewardRate(), () => lpToken.balanceOf(gaugeAddr)],
     jar.chain,
   );

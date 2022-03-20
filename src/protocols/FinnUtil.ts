@@ -27,7 +27,7 @@ export async function calculateFinnFarmsAPY(
   const multicallFinnFarms = new MultiContract(FINN_FARMS, finnFarmsAbi);
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const [finnPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallFinnFarms.finnPerSecond(),
         () => multicallFinnFarms.totalAllocPoint(),

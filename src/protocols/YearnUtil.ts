@@ -29,7 +29,7 @@ export async function calculateYearnAPY(
   const yearnRegistry = new MultiContract(YEARN_REG_ADDR, yearnRegistryAbi);
   const yearnData = await getYearnData(model);
   if (yearnRegistry && yearnData) {
-    const vault = await model.comMan.call(
+    const vault = await model.callMulti(
       () => yearnRegistry.latestVault(depositToken),
       ChainNetwork.Ethereum,
     );

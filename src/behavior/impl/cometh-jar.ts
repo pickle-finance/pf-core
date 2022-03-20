@@ -64,7 +64,7 @@ export abstract class ComethJar extends AbstractJarBehavior {
     );
 
     const [rewardsDurationBN, rewardsForDurationBN, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallStakingRewards.rewardsDuration(),
           () => multicallStakingRewards.getRewardForDuration(),

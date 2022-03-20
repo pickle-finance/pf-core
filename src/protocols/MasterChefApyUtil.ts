@@ -22,14 +22,14 @@ export async function calculateMasterChefRewardsAPR(
 
   const pptPromise = getLivePairDataFromContracts(jar, model, 18);
   const controller = new MultiContract(controllerAddr, controllerAbi);
-  const strategyAddr = await model.comMan.call(
+  const strategyAddr = await model.callMulti(
     () => controller.strategies(jar.depositToken.addr),
     jar.chain,
   );
 
   const strategyContract = new MultiContract(strategyAddr, strategyAbi);
   const [masterchefAddress, poolId, rewardTokenAddress] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => strategyContract.masterChef(),
         () => strategyContract.poolId(),
@@ -46,7 +46,7 @@ export async function calculateMasterChefRewardsAPR(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [sushiPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallMasterchef.rewardPerBlock(),
         () => multicallMasterchef.totalAllocPoint(),

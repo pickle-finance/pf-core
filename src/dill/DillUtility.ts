@@ -94,7 +94,7 @@ export async function getDillDetails(
       workingTimeBN = workingTimeBN.add(ethers.BigNumber.from(week));
     }
 
-    const batch1Promise = model.comMan.call(
+    const batch1Promise = model.callMulti(
         [
           () => dillContract.supply(),
           () => dillContract.totalSupply(),
@@ -104,13 +104,13 @@ export async function getDillDetails(
       );
 
     const batch2Promise = Promise.all([
-        model.comMan.call(
+        model.callMulti(
           payoutTimes.map(
             (time) => () => feeDistContract.tokens_per_week(time),
           ),
           chain,
         ),
-        model.comMan.call(
+        model.callMulti(
           payoutTimes.map((time) => () => feeDistContract.ve_supply(time)),
           chain,
         ),

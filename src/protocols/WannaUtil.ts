@@ -46,7 +46,7 @@ export async function calculateWannaFarmsAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [wannaPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallWannaFarms.wannaPerBlock(),
         () => multicallWannaFarms.totalAllocPoint(),

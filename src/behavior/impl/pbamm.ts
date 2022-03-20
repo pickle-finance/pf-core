@@ -49,7 +49,7 @@ export class PBammAsset implements ExternalAssetBehavior {
     const lusdContract = new MultiContract(model.addr("lusd"), erc20Abi);
 
     const remainingLQTY = 13344950;
-    const lusdInSP = await model.comMan.call(
+    const lusdInSP = await model.callMulti(
       () => lusdContract.balanceOf(stabilityPoolAddr),
       definition.chain,
     );
@@ -117,7 +117,7 @@ export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
     stabilityPoolAddr,
     stabilityPoolAbi,
   );
-  const lusdInStabilityPool = await model.comMan.call(
+  const lusdInStabilityPool = await model.callMulti(
     () => stabilityPoolContract.getCompoundedLUSDDeposit(pBAMM),
     asset.chain,
   );
@@ -126,7 +126,7 @@ export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
     parseFloat(ethers.utils.formatEther(lusdInStabilityPool)) * lusdPrice;
 
   const pLqtyContract = new MultiContract(pLQTY, erc20Abi);
-  const pLqtyTokens = await model.comMan.call(
+  const pLqtyTokens = await model.callMulti(
     () => pLqtyContract.balanceOf(pBAMM),
     asset.chain,
   );

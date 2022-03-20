@@ -59,12 +59,12 @@ export class Is3Usd extends AbstractJarBehavior {
     }
     const controller = new MultiContract(controllerAddr, controllerAbi);
 
-    const jarStrategy = await model.comMan.call(
+    const jarStrategy = await model.callMulti(
       () => controller.strategies(jar.depositToken.addr),
       jar.chain,
     );
     const strategyContract = new MultiContract(jarStrategy, strategyAbi);
-    const [ironchefAddress, poolId] = await model.comMan.call(
+    const [ironchefAddress, poolId] = await model.callMulti(
       [() => strategyContract.ironchef(), () => strategyContract.poolId()],
       jar.chain,
     );
@@ -74,7 +74,7 @@ export class Is3Usd extends AbstractJarBehavior {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [icePerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallIronchef.rewardPerSecond(),
           () => multicallIronchef.totalAllocPoint(),

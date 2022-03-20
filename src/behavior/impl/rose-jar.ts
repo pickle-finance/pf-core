@@ -47,7 +47,7 @@ export abstract class RoseJar extends AbstractJarBehavior {
       roseFarmAbi,
     );
 
-    const [rewardData, totalSupplyBN] = await model.comMan.call(
+    const [rewardData, totalSupplyBN] = await model.callMulti(
       [
         () => multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
         () => multicallRoseRewards.totalSupply(),

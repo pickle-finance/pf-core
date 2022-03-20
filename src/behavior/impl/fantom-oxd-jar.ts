@@ -62,7 +62,7 @@ export class OxdJar extends AbstractJarBehavior {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [oxdPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallFarms.oxdPerSecond(),
           () => multicallFarms.totalAllocPoint(),
@@ -104,7 +104,7 @@ export class OxdJar extends AbstractJarBehavior {
     const multicallxToken = new MultiContract(jar.depositToken.addr, erc20Abi);
     const multicallBaseToken = new MultiContract(baseTokenAddress, erc20Abi);
 
-    const [xTokenSupplyBN, baseTokenBalanceBN] = await model.comMan.call(
+    const [xTokenSupplyBN, baseTokenBalanceBN] = await model.callMulti(
       [
         () => multicallxToken.totalSupply(),
         () => multicallBaseToken.balanceOf(jar.depositToken.addr),

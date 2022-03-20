@@ -75,7 +75,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     const multicallBeamFarms = new MultiContract(BEAM_FARMS, beamFarmsAbi);
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-    const [beamPerSecBN, totalSupplyBN] = await model.comMan.call(
+    const [beamPerSecBN, totalSupplyBN] = await model.callMulti(
       [
         () => multicallBeamFarms.poolRewardsPerSec(poolId),
         () => lpToken.balanceOf(BEAM_FARMS),

@@ -128,7 +128,7 @@ export class PThreeCrv extends AbstractJarBehavior {
       "0x19793B454D3AfC7b454F206Ffe95aDE26cA6912c",
       curveThirdPartyGaugeAbi,
     );
-    const [matic, crv] = await model.comMan.call(
+    const [matic, crv] = await model.callMulti(
       [
         () =>
           gauge.claimable_reward_write(
@@ -158,7 +158,7 @@ export class PThreeCrv extends AbstractJarBehavior {
   ): Promise<AssetProjectedApr> {
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-    const lpBalance = await model.comMan.call(
+    const lpBalance = await model.callMulti(
       // Balance staked in gauge
       () => lpToken.balanceOf(aaveContracts.gauge_address),
       jar.chain,
@@ -207,7 +207,7 @@ export class PThreeCrv extends AbstractJarBehavior {
           if (reward.id === "crv") {
             const rewardStreamer = new MultiContract(reward.stream, reward.abi);
             const { period_finish: periodFinishBN, rate: rateBN } =
-              await model.comMan.call(
+              await model.callMulti(
                 () => rewardStreamer.reward_data(reward.token),
                 jar.chain,
               );
@@ -215,7 +215,7 @@ export class PThreeCrv extends AbstractJarBehavior {
             periodFinish = +formatUnits(periodFinishBN, 0);
           } else {
             const rewardStreamer = new MultiContract(reward.stream, reward.abi);
-            const [periodFinishBN, rateBN] = await model.comMan.call(
+            const [periodFinishBN, rateBN] = await model.callMulti(
               [
                 () => rewardStreamer.period_finish(),
                 () => rewardStreamer.reward_rate(),

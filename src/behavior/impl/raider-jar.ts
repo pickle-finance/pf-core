@@ -56,7 +56,7 @@ async function calculateRaiderAPY(
     raiderRewardsAbi,
   );
 
-  const [dailyRewardsBN, totalSupplyBN] = await model.comMan.call(
+  const [dailyRewardsBN, totalSupplyBN] = await model.callMulti(
     [
       () => multicallStakingRewards.dailyEmissionsRate(),
       () => multicallStakingRewards.totalStakedSupply(),

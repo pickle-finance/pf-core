@@ -63,7 +63,7 @@ export async function calculateSolarFarmsAPY(
     const multicallSolarFarms = new MultiContract(SOLAR_FARMS, solarFarmsAbi);
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
     [solarPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallSolarFarms.solarPerBlock(),
           () => multicallSolarFarms.totalAllocPoint(),
@@ -89,7 +89,7 @@ export async function calculateSolarFarmsAPY(
     );
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
     [solarPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallSolarFarms.solarPerSec(),
           () => multicallSolarFarms.totalAllocPoint(),
@@ -112,7 +112,7 @@ export async function calculateSolarFarmsAPY(
       solarFarmsV2Abi,
     );
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
-    [rewardInfo, totalSupplyBN] = await model.comMan.call(
+    [rewardInfo, totalSupplyBN] = await model.callMulti(
       [
         () => multicallSolarFarms.poolRewardsPerSec(poolId),
         () => lpToken.balanceOf(SOLAR_V3_FARMS),

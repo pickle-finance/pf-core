@@ -33,7 +33,7 @@ export async function calculatePolySushiAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [sushiPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallsushiMinichef.sushiPerSecond(),
         () => multicallsushiMinichef.totalAllocPoint(),
@@ -69,7 +69,7 @@ export async function calculatePolySushiAPY(
     MATIC_COMPLEX_REWARDER,
     5,
   );
-  const [poolInfoCR, maticPerSecondBN] = await model.comMan.call(
+  const [poolInfoCR, maticPerSecondBN] = await model.callMulti(
     [
       () =>
         new MultiContract(

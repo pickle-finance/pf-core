@@ -78,7 +78,7 @@ export async function calculateTriFarmsAPY(
     const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     [triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallTriFarms.triPerBlock(),
           () => multicallTriFarms.totalAllocPoint(),
@@ -94,7 +94,7 @@ export async function calculateTriFarmsAPY(
 
     // First get TRI APY
     [triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.comMan.call(
+      await model.callMulti(
         [
           () => multicallTriV2Farms.triPerBlock(),
           () => multicallTriV2Farms.totalAllocPoint(),
@@ -114,7 +114,7 @@ export async function calculateTriFarmsAPY(
         sushiComplexRewarderAbi,
       );
 
-      const auroraPerBlock = await model.comMan.call(
+      const auroraPerBlock = await model.callMulti(
         () => rewarderContract.tokenPerBlock(),
         jar.chain,
       );

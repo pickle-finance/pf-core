@@ -37,7 +37,7 @@ export async function calculateTethysFarmsAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [tethysPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallTethysFarms.tethysPerSecond(),
         () => multicallTethysFarms.totalAllocPoint(),

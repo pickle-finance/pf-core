@@ -38,7 +38,7 @@ export async function calculatePadFarmsAPY(
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [padPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.comMan.call(
+    await model.callMulti(
       [
         () => multicallPadFarms.sushiPerBlock(),
         () => multicallPadFarms.totalAllocPoint(),
