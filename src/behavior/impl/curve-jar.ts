@@ -1,4 +1,4 @@
-import { ethers, Signer } from "ethers";
+import { ethers } from "ethers";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import {
   AssetAprComponent,
@@ -13,7 +13,6 @@ import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import fetch from "cross-fetch";
 import { getCurvePerformance } from "../../protocols/CurveUtil";
-import { Provider } from "@ethersproject/providers";
 
 export const GAUGE_CONTROLLER_ADDR =
   "0x2F50D538606Fa9EDD2B11E2446BEb18C9D5846bB";
@@ -139,14 +138,21 @@ export abstract class CurveJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    const gauge = new ethers.Contract(
-      this.gaugeAddress,
-      curveGaugeAbi,
-      resolver,
+    const curveGaugeAbi = [
+      {
+        name: "claimable_tokens",
+        outputs: [{ type: "uint256", name: "" }],
+        inputs: [{ type: "address", name: "addr" }],
+        stateMutability: "view",
+        type: "function",
+      },
+    ];
+    const gauge = new MultiContract(this.gaugeAddress, curveGaugeAbi);
+    const crv = await model.callMulti(
+      () => gauge.claimable_tokens(jar.details.strategyAddr),
+      jar.chain,
     );
-    const crv = await gauge.callStatic.claimable_tokens(jar.details.strategyAddr);  // state-mutating call. cannot be multicalled :(
     const crvPrice = model.priceOfSync("curve-dao-token", jar.chain);
     const harvestable = crv.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
