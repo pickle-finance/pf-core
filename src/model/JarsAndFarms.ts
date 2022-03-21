@@ -8968,7 +8968,7 @@ export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
     components: ["yfi", "woofy"],
     nativePath: {
       // spiritSwap--> WFTM, YFI
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x29b0Da86e484E1C0029B56e817912d778aC0EC69",
@@ -9623,14 +9623,6 @@ export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
     name: "SOLID vSOLIDSEX/G3CRV",
     link: "https://solidly.exchange/liquidity/0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
     components: ["solidsex", "g3crv"],
-    nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, vSOLIDSEX
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: [
-        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B",
-      ],
-    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
