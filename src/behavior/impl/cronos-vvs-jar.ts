@@ -1,5 +1,4 @@
-import { BigNumber, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { BigNumber, ethers } from "ethers";
 import {
   AssetAprComponent,
   AssetProjectedApr,
@@ -14,7 +13,7 @@ import {
   VVS_FARMS_V2,
 } from "../../protocols/VvsUtil";
 import { vvsPoolIds, VVS_FARMS } from "../../protocols/VvsUtil";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 
@@ -55,16 +54,16 @@ export abstract class CronosVvsJar extends AbstractJarBehavior {
           ],
         },
       ];
-      const chefContract = new MulticallContract(VVS_FARMS_V2, chefAbi);
-      const multiProvider = model.multicallProviderFor(jar.chain);
-      const [[rewardsAddresses, pendingRewardsAmounts]]: [
-        [string[], BigNumber[]],
-      ] = await multiProvider.all([
-        chefContract.pendingTokens(
-          vvsPoolIdsV2[jar.depositToken.addr],
-          jar.details.strategyAddr,
-        ),
-      ]);
+      const chefContract = new MultiContract(VVS_FARMS_V2, chefAbi);
+      const [rewardsAddresses, pendingRewardsAmounts]: [string[], BigNumber[]] =
+        await model.callMulti(
+          () =>
+            chefContract.pendingTokens(
+              vvsPoolIdsV2[jar.depositToken.addr],
+              jar.details.strategyAddr,
+            ),
+          jar.chain,
+        );
       const rewardTokens = rewardsAddresses.map((x: string) =>
         ExternalTokenModelSingleton.getToken(x, jar.chain),
       );
@@ -74,11 +73,16 @@ export abstract class CronosVvsJar extends AbstractJarBehavior {
         );
         return amount * rewardTokens[idx].price;
       });
-      const rewardContracts: MulticallContract[] = rewardsAddresses.map(
-        (x) => new MulticallContract(model.address(x, jar.chain), erc20Abi),
+      const rewardContracts: MultiContract[] = rewardsAddresses.map(
+        (x) => new MultiContract(model.address(x, jar.chain), erc20Abi),
       );
-      const strategyBalances = await multiProvider
-        .all(rewardContracts.map((x) => x.balanceOf(jar.details.strategyAddr)))
+      const strategyBalances = await model
+        .callMulti(
+          rewardContracts.map(
+            (x) => () => x.balanceOf(jar.details.strategyAddr),
+          ),
+          jar.chain,
+        )
         .then((x) =>
           x.map(
             (y, idx) =>
