@@ -6,10 +6,12 @@ import { ethers } from "ethers";
 import { Chains } from "../chain/Chains";
 
 // Interfaces & Types
-type PendingCalls = Map<
-  ChainNetwork,
-  { id: string; callback: Function }[]
->;
+type ChainRPCs = {
+  single: ethers.providers.JsonRpcProvider;
+  multi: MultiProvider[];
+};
+type RPCs = Map<ChainNetwork, ChainRPCs>;
+type PendingCalls = Map<ChainNetwork, { id: string; callback: Function }[]>;
 type ResolvedCalls = Map<string, any>;
 type ChainConfig = {
   secondsBetweenCalls: number;
@@ -19,14 +21,6 @@ type ValueOfChainNetwork = `${ChainNetwork}` | "default";
 type ChainsConfigs = {
   [P in ValueOfChainNetwork]?: ChainConfig;
 };
-type RPCs = {
-  [P in ValueOfChainNetwork]?: {
-    single: ethers.providers.JsonRpcProvider[];
-    multi: MultiProvider[];
-    canSingleAndMulti: boolean; // whether this chain's single & multicalls can be sent in parallel
-  };
-};
-
 // Configs
 const COMMAN_CONFIGS = {
   waitForNewCall: 2, // seconds to wait before starting sending pending calls
@@ -48,7 +42,7 @@ const isError = (err: unknown): err is Error => err instanceof Error;
 // const isError = (err: any): boolean => err && err.stack && err.message && typeof err.stack === 'string'
 // && typeof err.message === 'string';
 
-export class ComMan {
+export class CommsMgr {
   private pendingMulticalls: PendingCalls;
   private pendingSinglecalls: PendingCalls;
   private resolvedCalls: ResolvedCalls;
@@ -70,17 +64,25 @@ export class ComMan {
       ChainNetwork,
       { id: string; callback: any }[]
     >();
-    Object.keys(ChainNetwork).forEach(
-      (chain) => (this.pendingMulticalls[ChainNetwork[chain]] = []),
-    );
+    this.pendingSinglecalls = new Map<
+      ChainNetwork,
+      { id: string; callback: any }[]
+    >();
+    this.rpcs = new Map<ChainNetwork, ChainRPCs>();
+    Object.keys(ChainNetwork).forEach((chain) => {
+      this.pendingMulticalls[ChainNetwork[chain]] = [];
+      this.pendingSinglecalls[ChainNetwork[chain]] = [];
+      this.rpcs[ChainNetwork[chain]] = {};
+    });
     this.resolvedCalls = new Map<string, any>();
     this.sweepIntervalId = setInterval(this.sweepPendingCalls.bind(this), 2000);
   }
 
+  // TODO this will break CommsMgr if a chain has all its RPCs dead
   async configureRPCs(configuredChains: ChainNetwork[]) {
     await Promise.all(
       configuredChains.map(async (chain) => {
-        const rpcObject = { single: [], multi: [], canSingleAndMulti: false };
+        let rpcObject: ChainRPCs = { single: undefined, multi: [] };
         const chainRPCs = Chains.get(chain).rpcProviderUrls;
         const liveRPCs: ethers.providers.JsonRpcProvider[] = [];
         await Promise.all(
@@ -99,15 +101,27 @@ export class ComMan {
             }
           }),
         );
-        if (liveRPCs.length > 1) {
-          rpcObject.single.push(liveRPCs.pop());
-          rpcObject.canSingleAndMulti = true;
-        } else {
-          rpcObject.single.push(liveRPCs[0]);
-        }
+
+        let multiProviders: MultiProvider[] = [];
+        // assign a random rpc for single calls on each run
+        rpcObject["single"] = liveRPCs[~~(Math.random() * liveRPCs.length)];
         while (liveRPCs.length > 0) {
-          rpcObject.multi.push(liveRPCs.pop());
+          const rpc = liveRPCs.pop();
+          const multiProvider = new MultiProvider(rpc);
+          try {
+            await multiProvider.init();
+          } catch (error) {
+            this.model.logError(
+              `[CommsMgr] configureRPCs`,
+              error,
+              `[${chain}] a multiProvider.init() has failed`,
+            );
+          }
+          multiProviders.push(multiProvider);
         }
+        rpcObject.multi = multiProviders;
+
+        this.rpcs[chain] = rpcObject;
       }),
     );
   }
@@ -139,6 +153,19 @@ export class ComMan {
     }
   }
 
+  async callSingle(
+    contractCallback: Function,
+    chain: ChainNetwork,
+  ): Promise<any> {
+    const id = uuid();
+    this.pendingSinglecalls[chain].push({
+      callback: contractCallback,
+      id: id,
+    });
+
+    return this.getResponse(id);
+  }
+
   // gets the call response from the resolvedCalls queue, keeps checking for responses every 2 seconds
   private async getResponse(id: string): Promise<any> {
     let res: any;
@@ -155,6 +182,15 @@ export class ComMan {
 
   // starts sending pending calls to the RPCs if no new call is added to the queue for 2 seconds
   private async sweepPendingCalls() {
+    if (!this.isSinglecalling) {
+      this.isSinglecalling = true;
+      const promises = Object.keys(this.pendingSinglecalls).map((chain) => {
+        if (this.pendingSinglecalls[chain].length > 0)
+          return this.executeChainSinglecalls(<ChainNetwork>chain);
+      });
+      await Promise.all(promises);
+      this.isSinglecalling = false;
+    }
     if (
       !this.isMulticalling &&
       Date.now() - this.lastUpdated > COMMAN_CONFIGS.waitForNewCall * 1000
@@ -166,52 +202,133 @@ export class ComMan {
       });
       await Promise.all(promises);
       this.isMulticalling = false;
-    } else if (!this.isSinglecalling) {
-      this.isSinglecalling = true;
-      const promises = Object.keys(this.pendingSinglecalls).map((chain) => {
-        if (this.pendingMulticalls[chain].length > 0)
-          return this.executeChainMulticalls(<ChainNetwork>chain);
-      });
-      this.isSinglecalling = false;
     }
   }
 
   private async executeChainMulticalls(chain: ChainNetwork) {
     const maxCalls = (this.configs[chain] ?? this.configs.default)
       .callsPerMulticall;
-    const multiProvider: MultiProvider = this.model.multicallProviderFor(chain);
-    await multiProvider.init();
-    const ids = this.pendingMulticalls[chain].map((x) => x.id);
+    const ids: string[] = this.pendingMulticalls[chain].map((x) => x.id);
     const callbacks: Function[] = this.pendingMulticalls[chain].map(
       (x) => x.callback,
     );
 
-    let tmpIds: string[] = [];
-    let tmpCallbacks: Function[] = [];
-    for (let i = 0; i < callbacks.length; i++) {
-      tmpCallbacks.push(callbacks[i]);
-      tmpIds.push(ids[i]);
-      if (tmpCallbacks.length === maxCalls) {
-        try {
-          await this.ternaryExecuteTmpCalls(
-            tmpCallbacks,
-            tmpIds,
-            multiProvider,
-            chain,
-          );
-        } catch (error) {
-          this.model.logError("executeChainCalls", error);
+    let multiProviders = this.rpcs[chain].multi;
+    let splitIds: string[][] = [[]];
+    let splitCallbacks: Function[][] = [[]];
+    if (ids.length > maxCalls && multiProviders.length > 1) {
+      const splitSize = Math.ceil(ids.length / multiProviders.length);
+      let tmpSplitIds = [];
+      let tmpSplitCallbacks = [];
+      for (let i = 0; i < ids.length; i++) {
+        tmpSplitIds.push(ids[i]);
+        tmpSplitCallbacks.push(callbacks[i]);
+        if ((i + 1) % splitSize === 0) {
+          splitIds.push(tmpSplitIds);
+          splitCallbacks.push(tmpSplitCallbacks);
+          tmpSplitIds = [];
+          tmpSplitCallbacks = [];
         }
-        tmpIds = [];
-        tmpCallbacks = [];
+      }
+      splitIds.push(tmpSplitIds);
+      splitCallbacks.push(tmpSplitCallbacks);
+    } else {
+      splitIds[0] = ids;
+      splitCallbacks[0] = callbacks;
+      if (multiProviders.length > 1) {
+        // juggle the load on the RPCs
+        multiProviders = [
+          multiProviders[~~(Math.random() * multiProviders.length)],
+        ];
       }
     }
-    await this.ternaryExecuteTmpCalls(
-      tmpCallbacks,
-      tmpIds,
-      multiProvider,
-      chain,
+
+    const promises = multiProviders.map(async (multiProvider, idx) => {
+      const ids = splitIds[idx];
+      const callbacks = splitCallbacks[idx];
+      let tmpIds: string[] = [];
+      let tmpCallbacks: Function[] = [];
+      for (let i = 0; i < callbacks.length; i++) {
+        tmpCallbacks.push(callbacks[i]);
+        tmpIds.push(ids[i]);
+        if (tmpCallbacks.length === maxCalls) {
+          try {
+            await this.ternaryExecuteTmpCalls(
+              tmpCallbacks,
+              tmpIds,
+              multiProvider,
+              chain,
+            );
+          } catch (error) {
+            this.model.logError("executeChainCalls", error);
+          }
+          tmpIds = [];
+          tmpCallbacks = [];
+        }
+      }
+      await this.ternaryExecuteTmpCalls(
+        tmpCallbacks,
+        tmpIds,
+        multiProvider,
+        chain,
+      );
+    });
+    await Promise.all(promises);
+
+    // let tmpIds: string[] = [];
+    // let tmpCallbacks: Function[] = [];
+    // for (let i = 0; i < callbacks.length; i++) {
+    //   tmpCallbacks.push(callbacks[i]);
+    //   tmpIds.push(ids[i]);
+    //   if (tmpCallbacks.length === maxCalls) {
+    //     try {
+    //       await this.ternaryExecuteTmpCalls(
+    //         tmpCallbacks,
+    //         tmpIds,
+    //         multiProvider,
+    //         chain,
+    //       );
+    //     } catch (error) {
+    //       this.model.logError("executeChainCalls", error);
+    //     }
+    //     tmpIds = [];
+    //     tmpCallbacks = [];
+    //   }
+    // }
+    // await this.ternaryExecuteTmpCalls(
+    //   tmpCallbacks,
+    //   tmpIds,
+    //   multiProvider,
+    //   chain,
+    // );
+  }
+
+  private async executeChainSinglecalls(chain: ChainNetwork) {
+    const ids = this.pendingSinglecalls[chain].map((x) => x.id);
+    const callbacks: Function[] = this.pendingSinglecalls[chain].map(
+      (x) => x.callback,
     );
+    for (let i = 0; i < callbacks.length; i++) {
+      const delay = (this.configs[chain] ?? this.configs["default"])
+        .secondsBetweenCalls;
+      DEBUG_OUT(`executeChainSinglecalls ${delay}-seconds delay`);
+      await new Promise((resolve) => setTimeout(resolve, delay * 1000));
+      DEBUG_OUT(`executeChainSinglecalls ${delay}-seconds delay end`);
+      DEBUG_OUT(`sending a call to ${chain} single provider`);
+      try {
+        const response = await callbacks[i]();
+        this.resolvedCalls[ids[i]] = response;
+        this.deletePendingCall(chain, ids[i]);
+      } catch (error) {
+        this.model.logError(
+          "executeChainSinglecalls",
+          error,
+          `${chain} singlecall failed`,
+        );
+        this.resolvedCalls[ids[i]] = error;
+        this.deletePendingCall(chain, ids[i]);
+      }
+    }
   }
 
   // sends a batch of multicalls, if it fails, performs a basic ternary search to pinpoint the culprit call/calls
@@ -224,7 +341,12 @@ export class ComMan {
   ) {
     try {
       await new Promise((resolve) => setTimeout(resolve, delay * 1000));
-      await this.executeTmpCalls(tmpCallbacks, tmpIds, multiProvider, chain);
+      await this.executeTmpMulticalls(
+        tmpCallbacks,
+        tmpIds,
+        multiProvider,
+        chain,
+      );
       return Promise.resolve();
     } catch (error) {
       this.model.logError(
@@ -261,7 +383,7 @@ export class ComMan {
     }
   }
 
-  private async executeTmpCalls(
+  private async executeTmpMulticalls(
     tmpCallbacks: Function[],
     tmpIds: string[],
     multiProvider: MultiProvider,
@@ -269,9 +391,9 @@ export class ComMan {
   ) {
     const delay = (this.configs[chain] ?? this.configs["default"])
       .secondsBetweenCalls;
-    DEBUG_OUT(`executeTmpCalls ${delay}-seconds delay`);
+    DEBUG_OUT(`executeTmpMulticalls ${delay}-seconds delay`);
     await new Promise((resolve) => setTimeout(resolve, delay * 1000));
-    DEBUG_OUT(`executeTmpCalls ${delay}-seconds delay end`);
+    DEBUG_OUT(`executeTmpMulticalls ${delay}-seconds delay end`);
     DEBUG_OUT(`sending ${tmpIds.length} calls to ${chain} multiProvider`);
     const responses = await multiProvider.all(tmpCallbacks.map((c) => c()));
     responses.forEach((res, idx) => {
@@ -288,7 +410,14 @@ export class ComMan {
     if (index !== -1) {
       this.pendingMulticalls[chain].splice(index, 1);
     } else {
-      this.model.logError("deletePendingCall", "pending call not found");
+      const index = this.pendingSinglecalls[chain].findIndex(
+        (call) => call.id === id,
+      );
+      if (~index) {
+        this.pendingSinglecalls[chain].splice(index, 1);
+      } else {
+        this.model.logError("deletePendingCall", "pending call not found");
+      }
     }
   }
 
@@ -301,5 +430,9 @@ export class ComMan {
       delay += 1;
     }
     return delay;
+  }
+
+  getProvider(chain: ChainNetwork) {
+    return this.rpcs[chain].single;
   }
 }
