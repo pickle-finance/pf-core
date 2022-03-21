@@ -9588,8 +9588,8 @@ export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
     components: ["geist", "g3crv"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, GEIST
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      // SpookySwap--> WFTM, GEIST
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
