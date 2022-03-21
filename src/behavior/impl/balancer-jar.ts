@@ -1,11 +1,5 @@
 import { Provider, TransactionResponse } from "@ethersproject/providers";
-import {
-  BigNumber,
-  Contract,
-  ContractTransaction,
-  ethers,
-  Signer,
-} from "ethers";
+import { BigNumber, ContractTransaction, ethers, Signer } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import jarAbi from "../../Contracts/ABIs/jar.json";
 import { JarHarvestStats, PickleModel } from "../..";
@@ -25,6 +19,7 @@ import { AbstractJarBehavior, oneRewardSubtotal } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
+import { Contract as MultiContract } from "ethers-multicall";
 
 const balancerRewardTokens = {
   arbitrum: ["bal", "pickle"],
@@ -87,11 +82,10 @@ export class BalancerJar extends AbstractJarBehavior {
       available,
       resolver,
     );
-    const earnableInJar = await new Contract(
-      definition.contract,
-      jarAbi,
-      resolver,
-    ).available();
+    const earnableInJar = await model.callMulti(
+      () => new MultiContract(definition.contract, jarAbi).available(),
+      definition.chain,
+    );
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
@@ -128,16 +122,18 @@ export class BalancerJar extends AbstractJarBehavior {
       console.log(error);
     }
     const rewardTokens = balancerRewardTokens[jar.chain];
-    const rewardContracts: ethers.Contract[] = rewardTokens.map(
-      (x) =>
-        new ethers.Contract(model.address(x, jar.chain), erc20Abi, resolver),
+    const rewardContracts: MultiContract[] = rewardTokens.map(
+      (x) => new MultiContract(model.address(x, jar.chain), erc20Abi),
     );
 
     const promises: Promise<any>[] = [];
     for (let i = 0; i < rewardTokens.length; i++) {
       promises.push(
-        rewardContracts[i]
-          .balanceOf(jar.details.strategyAddr)
+        model
+          .callMulti(
+            () => rewardContracts[i].balanceOf(jar.details.strategyAddr),
+            jar.chain,
+          )
           .catch(() => BigNumber.from("0")),
       );
     }

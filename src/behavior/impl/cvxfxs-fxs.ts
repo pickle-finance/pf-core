@@ -4,7 +4,6 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { convexStrategyMim3CRVAbi } from "../../Contracts/ABIs/convex-strategy-mim3crv.abi";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
-import fxsPoolABI from "../../Contracts/ABIs/fxs-pool.json";
 import { Contract as MultiContract } from "ethers-multicall";
 
 const FXS_POOL = "0xd658a338613198204dca1143ac3f01a722b5d94a";
@@ -18,17 +17,31 @@ export class CvxfxsFxs extends AbstractJarBehavior {
     this.strategyAbi = convexStrategyMim3CRVAbi;
   }
 
-  // FXS_POOL contract does not support multicalls
   async getDepositTokenPrice(
     asset: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const resolver = model.providerFor(asset.chain);
-    const pool = new ethers.Contract(FXS_POOL, fxsPoolABI, resolver);
-    const [virtualPrice, lpPrice] = await Promise.all([
-      pool.callStatic["get_virtual_price"](),
-      pool.callStatic["lp_price"](),
-    ]);
+    const fxsPoolABI = [
+      {
+        stateMutability: "view",
+        type: "function",
+        name: "get_virtual_price",
+        inputs: [],
+        outputs: [{ name: "", type: "uint256" }],
+      },
+      {
+        stateMutability: "view",
+        type: "function",
+        name: "lp_price",
+        inputs: [],
+        outputs: [{ name: "", type: "uint256" }],
+      },
+    ];
+    const pool = new MultiContract(FXS_POOL, fxsPoolABI);
+    const [virtualPrice, lpPrice] = await model.callMulti(
+      [() => pool.get_virtual_price(), () => pool.lp_price()],
+      asset.chain,
+    );
 
     const price =
       +ethers.utils.formatEther(virtualPrice) *

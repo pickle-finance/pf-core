@@ -1,10 +1,10 @@
 import { JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import { ConvexDualReward } from "./convex-dual-reward";
-import { BigNumber, ethers } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { BigNumber } from "ethers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
+import { Contract as MultiContract } from "ethers-multicall";
 
 const pool = "0x8301AE4fc9c624d1D396cbDAa1ed877821D7C511";
 export class CurveCrvEth extends ConvexDualReward {
@@ -16,22 +16,16 @@ export class CurveCrvEth extends ConvexDualReward {
     asset: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const provider: Provider = model.providerFor(asset.chain);
-    const crvToken = new ethers.Contract(
+    const crvToken = new MultiContract(
       model.address("crv", asset.chain),
       erc20Abi,
-      provider,
     );
-    const poolToken = new ethers.Contract(
-      asset.depositToken.addr,
-      erc20Abi,
-      provider,
+    const poolToken = new MultiContract(asset.depositToken.addr, erc20Abi);
+    const [poolCrv, totalSupply] = await model.callMulti(
+      [() => crvToken.balanceOf(pool), () => poolToken.totalSupply()],
+      asset.chain,
     );
-    const [poolCrv, crvPrice, totalSupply] = await Promise.all([
-      crvToken.balanceOf(pool),
-      model.priceOfSync("crv", asset.chain),
-      poolToken.totalSupply(),
-    ]);
+    const crvPrice = model.priceOfSync("crv", asset.chain);
 
     const depositTokenPrice = poolCrv
       .mul("2")

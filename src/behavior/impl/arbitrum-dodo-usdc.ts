@@ -1,4 +1,3 @@
-import { ethers } from "ethers";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
@@ -7,6 +6,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { formatEther } from "ethers/lib/utils";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export class ArbitrumDodoUsdc extends AbstractJarBehavior {
   protected strategyAbi: any;
@@ -42,12 +42,11 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     const rewards = "0x38Dbb42C4972116c88E27edFacD2451cf1b14255"; // DODO-USDC
     const DODO_PER_BLOCK = 0.51321;
 
-    const lpToken = new ethers.Contract(
-      jar.depositToken.addr,
-      erc20Abi,
-      model.providerFor(jar.chain),
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const totalSupplyBN = await model.callMulti(
+      () => lpToken.balanceOf(rewards),
+      jar.chain,
     );
-    const totalSupplyBN = await lpToken.balanceOf(rewards);
     const totalSupply = +formatEther(totalSupplyBN);
     const { pricePerToken } = await getLivePairDataFromContracts(
       jar,

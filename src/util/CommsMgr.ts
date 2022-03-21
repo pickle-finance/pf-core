@@ -214,8 +214,8 @@ export class CommsMgr {
     );
 
     let multiProviders = this.rpcs[chain].multi;
-    let splitIds: string[][] = [[]];
-    let splitCallbacks: Function[][] = [[]];
+    let splitIds: string[][] = [];
+    let splitCallbacks: Function[][] = [];
     if (ids.length > maxCalls && multiProviders.length > 1) {
       const splitSize = Math.ceil(ids.length / multiProviders.length);
       let tmpSplitIds = [];
@@ -233,8 +233,8 @@ export class CommsMgr {
       splitIds.push(tmpSplitIds);
       splitCallbacks.push(tmpSplitCallbacks);
     } else {
-      splitIds[0] = ids;
-      splitCallbacks[0] = callbacks;
+      splitIds.push(ids);
+      splitCallbacks.push(callbacks);
       if (multiProviders.length > 1) {
         // juggle the load on the RPCs
         multiProviders = [
@@ -274,33 +274,6 @@ export class CommsMgr {
       );
     });
     await Promise.all(promises);
-
-    // let tmpIds: string[] = [];
-    // let tmpCallbacks: Function[] = [];
-    // for (let i = 0; i < callbacks.length; i++) {
-    //   tmpCallbacks.push(callbacks[i]);
-    //   tmpIds.push(ids[i]);
-    //   if (tmpCallbacks.length === maxCalls) {
-    //     try {
-    //       await this.ternaryExecuteTmpCalls(
-    //         tmpCallbacks,
-    //         tmpIds,
-    //         multiProvider,
-    //         chain,
-    //       );
-    //     } catch (error) {
-    //       this.model.logError("executeChainCalls", error);
-    //     }
-    //     tmpIds = [];
-    //     tmpCallbacks = [];
-    //   }
-    // }
-    // await this.ternaryExecuteTmpCalls(
-    //   tmpCallbacks,
-    //   tmpIds,
-    //   multiProvider,
-    //   chain,
-    // );
   }
 
   private async executeChainSinglecalls(chain: ChainNetwork) {
