@@ -39,11 +39,16 @@ import {
   JarBehavior,
   JarHarvestStats,
 } from "../behavior/JarBehaviorResolver";
-import { IRawGaugeData, preloadRawGaugeData, RawGaugeChainMap, setGaugeAprData } from "../farms/FarmUtil";
+import {
+  IRawGaugeData,
+  preloadRawGaugeData,
+  RawGaugeChainMap,
+  setGaugeAprData,
+} from "../farms/FarmUtil";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { setAllPricesOnTokens } from "./PriceCacheLoader";
 import { timeout } from "../util/PromiseTimeout";
-import { ComMan } from "../util/CommMan";
+import { CommsMgr } from "../util/CommsMgr";
 
 export interface PfDataStore {
   readData(key: string): Promise<string | undefined>;
@@ -195,7 +200,7 @@ export class PickleModel {
   resourceCache: Map<string, any>;
   private configuredChains: ChainNetwork[];
   private minimalMode = false;
-  comMan: ComMan;
+  commsMgr: CommsMgr;
 
   constructor(
     allAssets: PickleAsset[],
@@ -205,7 +210,7 @@ export class PickleModel {
     this.allAssets = JSON.parse(JSON.stringify(allAssets));
     this.initializeChains(chains);
     this.resourceCache = new Map<string, any>();
-    this.comMan = new ComMan(this);
+    this.commsMgr = new CommsMgr(this);
   }
 
   setDataStore(dataStore: PfDataStore): void {
@@ -369,7 +374,8 @@ export class PickleModel {
   }
 
   providerFor(network: ChainNetwork): Provider {
-    return Chains.get(network).getPreferredWeb3Provider();
+    // return Chains.get(network).getPreferredWeb3Provider();
+    return this.commsMgr.getProvider(network);
   }
   multicallProviderFor(chain: ChainNetwork): MulticallProvider {
     return new MulticallProvider(this.providerFor(chain), Chains.get(chain).id);
@@ -444,7 +450,7 @@ export class PickleModel {
     const liveChains: ChainNetwork[] = [];
     await Promise.all(
       this.configuredChains.map(async (chain) => {
-        const provider = this.providerFor(chain);
+        const provider = Chains.get(chain).getPreferredWeb3Provider();
         try {
           await provider.getNetwork();
           liveChains.push(chain);
@@ -454,7 +460,7 @@ export class PickleModel {
       }),
     );
     this.setConfiguredChains(liveChains);
-    await this.comMan.configureRPCs(liveChains);
+    await this.commsMgr.configureRPCs(liveChains);
   }
 
   async generateFullApi(): Promise<PickleModelJson> {
@@ -467,7 +473,7 @@ export class PickleModel {
       ChainNetwork.Ethereum,
     );
     this.platformData = await this.loadPlatformData();
-    clearInterval(this.comMan.sweepIntervalId);
+    clearInterval(this.commsMgr.sweepIntervalId);
     return this.toJson();
   }
 
@@ -497,11 +503,8 @@ export class PickleModel {
       await this.ensureDepositTokenPriceLoaded();
       await this.ensureFarmsBalanceLoaded();
       await this.ensureExternalAssetBalanceLoaded();
-    }
-    await Promise.all([
-      asOne(),
-      this.preloadRawGaugeDataJob(),
-    ]);
+    };
+    await Promise.all([asOne(), this.preloadRawGaugeDataJob()]);
 
     await this.setGaugeAprDataOnAsset();
     await Promise.all([
@@ -1310,7 +1313,6 @@ export class PickleModel {
       }
     }
 
-
     const protocolJarsWithFarms: JarDefinition[] = this.semiActiveJars(
       chain,
     ).filter((x) => {
@@ -1334,11 +1336,14 @@ export class PickleModel {
     }
 
     const [chainFarmResults, protocolJarsWithFarmResults] = await Promise.all([
-      chainFarmResultsPromise, 
-      protocolJarsWithFarmResultsPromise
+      chainFarmResultsPromise,
+      protocolJarsWithFarmResultsPromise,
     ]);
 
-    this.ensureStandaloneFarmsBalanceLoaded(chainFarms, chainFarmResults ? chainFarmResults : []);
+    this.ensureStandaloneFarmsBalanceLoaded(
+      chainFarms,
+      chainFarmResults ? chainFarmResults : [],
+    );
     this.ensureNestedFarmsBalanceLoaded(
       protocolJarsWithFarms,
       protocolJarsWithFarmResults ? protocolJarsWithFarmResults : [],
@@ -1368,8 +1373,8 @@ export class PickleModel {
     DEBUG_OUT("Begin preloadRawGaugeDataJob");
     const retval: RawGaugeChainMap = {};
     const start = Date.now();
-    const promises: Promise<IRawGaugeData[]>[] =
-      this.configuredChains.map(async (x) => {
+    const promises: Promise<IRawGaugeData[]>[] = this.configuredChains.map(
+      async (x) => {
         let param = undefined;
         if (this.minimalMode) {
           const jarContracts: string[] = this.allAssets
@@ -1382,10 +1387,15 @@ export class PickleModel {
             .map((z) => z.depositToken.addr);
           param = jarContracts.concat(standaloneFarmDepositTokens);
         }
-        const oneChainGaugeData: Promise<IRawGaugeData[]> = preloadRawGaugeData(this, x, param);
+        const oneChainGaugeData: Promise<IRawGaugeData[]> = preloadRawGaugeData(
+          this,
+          x,
+          param,
+        );
         retval[x] = await oneChainGaugeData;
         return oneChainGaugeData;
-      });
+      },
+    );
     await Promise.all(promises);
     DEBUG_OUT("End preloadRawGaugeDataJob: " + (Date.now() - start));
     this.gaugeMap = retval;
@@ -1423,7 +1433,7 @@ export class PickleModel {
         external[i],
       );
       if (behavior) {
-        const callAndSet = async(): Promise<void> => {
+        const callAndSet = async (): Promise<void> => {
           let bal: JarHarvestStats = undefined;
           try {
             bal = await behavior.getAssetHarvestData(
@@ -1645,9 +1655,15 @@ export class PickleModel {
     );
   }
 
-  async callMulti(contractCallback: Function | Function[],
-    chain: ChainNetwork,){
-      return await this.comMan.callMulti(contractCallback,chain);
+  async call(contractCallback: Function, chain: ChainNetwork) {
+    return await this.commsMgr.callSingle(contractCallback, chain);
+  }
+
+  async callMulti(
+    contractCallback: Function | Function[],
+    chain: ChainNetwork,
+  ) {
+    return await this.commsMgr.callMulti(contractCallback, chain);
   }
 }
 
