@@ -6364,32 +6364,6 @@ export const JAR_METIS_NETSWAP_WBTC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_WBTC_USDT);
 
-export const JAR_METIS_NETSWAP_METIS_RELAY: JarDefinition = {
-  type: AssetType.JAR,
-  id: "metJar 1n",
-  contract: "0xF2EB2FFCF204100ECB63069e67D767e7E8d4A972",
-  depositToken: {
-    addr: "0xA58bd557BFBC12f8cEaCcc6E1668F5FBFB2118BB",
-    name: "NET METIS/RELAY",
-    link: "https://netswap.io/#/add/0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000/0xfe282Af5f9eB59C30A3f78789EEfFA704188bdD4",
-    components: ["metis", "relay"],
-  },
-  rewardTokens: ["nett"],
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Metis,
-  protocol: AssetProtocol.NETSWAP,
-  details: {
-    apiKey: "NLP-METIS-RELAY",
-    harvestStyle: HarvestStyle.PASSIVE,
-  },
-  farm: {
-    farmAddress: NULL_ADDRESS,
-    farmNickname: "pNLP METIS/RELAY",
-    farmDepositTokenName: "pNLP METIS/RELAY",
-  },
-};
-JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_METIS_RELAY);
-
 export const JAR_METIS_NETSWAP_BYTE_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "metJar 1o",
