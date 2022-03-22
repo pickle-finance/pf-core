@@ -18,6 +18,7 @@ export interface JarHarvestStats {
   balanceUSD: number;
   earnableUSD: number;
   harvestableUSD: number;
+  multiplier?: number;
 }
 
 export interface ActiveJarHarvestStats extends JarHarvestStats {
