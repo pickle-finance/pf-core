@@ -4175,7 +4175,6 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_USDC_USDT);
 
-
 export const JAR_CRO_VVS_CRO_DOGE: JarDefinition = {
   type: AssetType.JAR,
   id: "croJar 1l",
@@ -4331,7 +4330,6 @@ export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_TONIC);
-
 
 // Aurora
 
@@ -6377,7 +6375,7 @@ export const JAR_METIS_NETSWAP_METIS_RELAY: JarDefinition = {
     components: ["metis", "relay"],
   },
   rewardTokens: ["nett"],
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.NETSWAP,
   details: {
@@ -6391,6 +6389,60 @@ export const JAR_METIS_NETSWAP_METIS_RELAY: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_METIS_RELAY);
+
+export const JAR_METIS_NETSWAP_BYTE_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1o",
+  contract: "0xC92914c1f1dF2284D9A3C5BB480089311Ed49358",
+  depositToken: {
+    addr: "0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c",
+    name: "NET BYTE/USDC",
+    link: "https://netswap.io/#/add/0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["byte", "usdc"],
+  },
+  rewardTokens: ["nett", "metis"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-BYTE-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP BYTE/USDC",
+    farmDepositTokenName: "pNLP BYTE/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_BYTE_USDC);
+
+export const JAR_METIS_NETSWAP_BUSD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1p",
+  contract: "0xFEfBB3CeacAB3a682C34E25A1b4A330771D46b0D",
+  depositToken: {
+    addr: "0x8014c801F6cF32445D503f7BaC30976B3161eE52",
+    name: "NET BUSD/USDC",
+    link: "https://netswap.io/#/add/0x12D84f1CFe870cA9C9dF9785f8954341d7fbb249/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["busd", "usdc"],
+  },
+  rewardTokens: ["nett"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-BUSD-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP BUSD/USDC",
+    farmDepositTokenName: "pNLP BUSD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_BUSD_USDC);
 
 export const JAR_METIS_TETHYS_METIS: JarDefinition = {
   type: AssetType.JAR,

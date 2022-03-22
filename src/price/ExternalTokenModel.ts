@@ -1148,7 +1148,7 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-    
+
 
     // Aurora
     this.addToken(
@@ -1400,6 +1400,22 @@ export class ExternalTokenModel {
       "relay",
       "relay-token",
       "0xfe282Af5f9eB59C30A3f78789EEfFA704188bdD4".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "byte",
+      "binaryDAO",
+      "0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS, ["0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c"]
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "busd",
+      "binance-usd",
+      "0x12D84f1CFe870cA9C9dF9785f8954341d7fbb249".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
