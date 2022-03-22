@@ -4175,7 +4175,6 @@ export const JAR_CRO_VVS_USDC_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_USDC_USDT);
 
-
 export const JAR_CRO_VVS_CRO_DOGE: JarDefinition = {
   type: AssetType.JAR,
   id: "croJar 1l",
@@ -4331,7 +4330,6 @@ export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_TONIC);
-
 
 // Aurora
 
@@ -6409,6 +6407,7 @@ export const JAR_METIS_NETSWAP_BYTE_USDC: JarDefinition = {
   details: {
     apiKey: "NLP-BYTE-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -6435,6 +6434,7 @@ export const JAR_METIS_NETSWAP_BUSD_USDC: JarDefinition = {
   details: {
     apiKey: "NLP-BUSD-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
