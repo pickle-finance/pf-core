@@ -8770,13 +8770,10 @@ export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
     components: ["btc", "renbtc"],
     nativePath: {
-      //(Solidly)BaseV1Router01 --> WFTM, RENBTC
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: [
-        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0xDBf31dF14B66535aF65AaC99C32e9eA844e14501",
-      ],
-    },
+      //SpookyRouter --> WFTM, BTC
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x321162Cd933E2Be498Cd2267a90534A804051b11"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -8807,7 +8804,7 @@ export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
     components: ["usdc", "mim"],
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
-      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
@@ -8898,11 +8895,11 @@ export const JAR_FANTOM_SEX_V_FXS_FRAX: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
     components: ["fxs", "frax"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, FRAX
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      //spiritSwap--> WFTM, FRAX
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0xdc301622e621166BD8E82f2cA0A26c13Ad0BE355",
+        "0xdc301622e621166bd8e82f2ca0a26c13ad0be355",
       ],
     },
   },
@@ -8935,7 +8932,7 @@ export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
     components: ["usdc", "oxd"],
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
-      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
@@ -8970,11 +8967,11 @@ export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
     components: ["yfi", "woofy"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, YFI
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      // spiritSwap--> WFTM, YFI
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0x29b0da86e484e1c0029b56e817912d778ac0ec69",
+        "0x29b0Da86e484E1C0029B56e817912d778aC0EC69",
       ],
     },
   },
@@ -9007,7 +9004,7 @@ export const JAR_FANTOM_SEX_V_USDC_SYN: JarDefinition = {
     components: ["usdc", "syn"],
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
-      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
@@ -9126,13 +9123,10 @@ export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
     components: ["solid", "solidsex"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, SOLIDSEX
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: [
-        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B",
-      ],
-    },
+      // spooky--> WFTM, sSOLID
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x888EF71766ca594DED1F0FA3AE64eD2941740A20"]
+    }   
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9274,8 +9268,8 @@ export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
     components: ["bifi", "mimatic"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, miMATIC
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      //spritSwap--> WFTM, miMATIC
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0xfB98B335551a418cD0737375a2ea0ded62Ea213b",
@@ -9338,8 +9332,8 @@ export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
     components: ["crv", "g3crv"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, CRV
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      //spookySwap--> WFTM, CRV
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x1E4F97b9f9F913c46F1632781732927B9019C68b",
@@ -9431,7 +9425,7 @@ export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
     components: ["usdc", "dai"],
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
-      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
@@ -9494,8 +9488,8 @@ export const JAR_FANTOM_SEX_V_TAROT_XTAROT: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
     components: ["tarot", "xtarot"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, TAROT
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      //spritSwap--> WFTM, TAROT
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0xc5e2b037d30a390e62180970b3aa4e91868764cd",
@@ -9531,7 +9525,7 @@ export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
     components: ["usdc", "dei"],
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
-      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
@@ -9594,8 +9588,8 @@ export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
     components: ["geist", "g3crv"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, TAROT
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      // SpookySwap--> WFTM, GEIST
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0xd8321aa83fb0a4ecd6348d4577431310a6e0814d",
@@ -9629,14 +9623,6 @@ export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
     name: "SOLID vSOLIDSEX/G3CRV",
     link: "https://solidly.exchange/liquidity/0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
     components: ["solidsex", "g3crv"],
-    nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, vSOLIDSEX
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-      path: [
-        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0x41adAc6C1Ff52C5e27568f27998d747F7b69795B",
-      ],
-    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9867,7 +9853,7 @@ export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
     components: ["usdc", "dai"],
     nativePath: {
       //Spookyswap: uniswapv2router02--> WFTM, USDC
-      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c30",
+      target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
@@ -9930,8 +9916,8 @@ export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
     link: "https://solidly.exchange/liquidity/0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
     components: ["cre8r", "bomb"],
     nativePath: {
-      //Solidly : BaseV1Router01--> WFTM, BOMB
-      target: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+      //spritSwap : --> WFTM, BOMB
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
       path: [
         "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
         "0x8503eb4a136bdbeb323e37aa6e0fa0c772228378",
@@ -10191,12 +10177,9 @@ export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
     components: ["gscarab", "scarab"],
     nativePath: {
       //(SpiritSwap)SpiritRouter --> WFTM, SCARAB
-      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE69",
-      path: [
-        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
-        "0x2e79205648B85485731CFE3025d66cF2d3B059c4",
-      ],
-    },
+      target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
+      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x2e79205648B85485731CFE3025d66cF2d3B059c4"]
+    }
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
