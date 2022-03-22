@@ -20,16 +20,20 @@ import {
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
 
+const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
+
 export abstract class Univ3FraxBase extends AbstractJarBehavior {
   gaugeAddress: any;
   constructor(_gaugeAddress: string) {
     super();
     this.gaugeAddress = _gaugeAddress;
   }
+
   async getDepositTokenPrice(
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
+
     const provider: Provider | Signer = Chains.get(
       definition.chain,
     ).getProviderOrSigner();
@@ -82,17 +86,24 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
       _resolver,
     );
 
+    const gaugeContract = new ethers.Contract(this.gaugeAddress, gaugeABI, _resolver);
+
     const harvestable = await strategy.getHarvestable();
 
     const jar = new ethers.Contract(definition.contract, jarV3Abi, _resolver);
 
     const liquidity = await jar.liquidityOfThis();
+
+    const mult = await gaugeContract.veFXSMultiplier(lockerAddress);
+
     return {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
       harvestableUSD:
         (harvestable * _model.priceOfSync("fxs", definition.chain)) / 1e18,
+      multiplier: mult / 1e18,
+
     };
   }
 
@@ -188,8 +199,6 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const lpApr = (fee24H * 365 * 100) / jarValue;
 
     //FXS APR
-    const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
-
     const gaugeContract = new ethers.Contract(this.gaugeAddress, gaugeABI, provider);
 
     const combinedWeightOf = await gaugeContract.combinedWeightOf(
@@ -200,12 +209,6 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const rewardRate = await gaugeContract.rewardRate0();
     const rewardDuration = await gaugeContract.getRewardForDuration();
     const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
-
-    console.log("Multiplier: " + multiplier);
-    console.log("rewardDuration: " + rewardDuration);
-    console.log("FXS Price: " + model.priceOfSync("fxs", definition.chain));
-    console.log("Total Combined Weight: " + totalCombinedWeight);
-    console.log("Deposit Token Price: " + definition.depositToken.price);
 
     const apr =
       ((multiplier *
