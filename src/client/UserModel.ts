@@ -27,6 +27,9 @@ import {
   FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
 
+export interface UserTokens {
+  [key: string]: UserTokenData
+}
 export interface UserTokenData {
   assetKey: string;
   depositTokenBalance: string;
@@ -37,7 +40,7 @@ export interface UserTokenData {
   picklePending: string;
 }
 export interface UserData {
-  tokens: UserTokenData[];
+  tokens: UserTokens;
   earnings: IUserEarningsSummary;
   votes: IUserVote[];
   dill: IUserDillStats;
@@ -67,7 +70,7 @@ export interface IUserModelCallback {
 
 const emptyUserData = (): UserData => {
   return {
-    tokens: [],
+    tokens: {},
     earnings: {
       userId: "",
       earnings: 0,
@@ -190,16 +193,20 @@ export class UserModel {
     }
   }
 
-  async getUserTokens(): Promise<UserTokenData[]> {
+  async getUserTokens(): Promise<UserTokens> {
     DEBUG_OUT("Begin getUserTokens");
     const start = Date.now();
     try {
-      const ret: UserTokenData[] = [];
+      const ret: UserTokens = {};
       const result = await Promise.all(
         this.getChainsToRun().map((x) => this.getUserTokensSingleChainGuard(x)),
       );
       for (let i = 0; i < result.length; i++) {
-        ret.push(...result[i]);
+        const chainArr: UserTokenData[] = result[i];
+        for( let j = 0; j < chainArr.length; j++ ) {
+          const assetKey = chainArr[j].assetKey.toLowerCase();
+          result[assetKey] = chainArr[j];
+        }
       }
       this.workingData.tokens = ret;
       this.sendUpdate();
@@ -209,7 +216,7 @@ export class UserModel {
       this.logUserModelError("getUserTokens", "" + err);
       this.sendUpdate();
       DEBUG_OUT("End getUserTokens: " + (Date.now() - start));
-      return [];
+      return {};
     }
   }
 
@@ -225,7 +232,10 @@ export class UserModel {
   ): Promise<UserTokenData[]> {
     try {
       const res: UserTokenData[] = await this.getUserTokensSingleChain(chain);
-      this.workingData.tokens.push(...res);
+      for( let j = 0; j < res.length; j++ ) {
+        const assetKey = res[j].assetKey.toLowerCase();
+        this.workingData.tokens[assetKey] = res[j];
+      }
       this.sendUpdate();
       return res;
     } catch (error) {
