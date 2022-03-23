@@ -108,6 +108,7 @@ export class Uni3RbnEth extends AbstractJarBehavior {
     const ret: AprNamePair = await calculateUniV3Apy(
       jar.depositToken.addr,
       jar.chain,
+      _model,
     );
     return super.aprComponentsToProjectedApr([
       this.createAprComponent(ret.id, ret.apr, true),

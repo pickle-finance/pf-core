@@ -181,16 +181,16 @@ export async function getPriceMultiplierFromMinter(
       definition.chain,
     );
     priceMultiplier = +formatEther(lpPriceBN);
-    return priceMultiplier;
   } catch (e) {
     // TODO do something here??
-    console.log(
-      `[${definition.details?.apiKey}] Unknown error in ConvexUtility.getProjectedConvexAprStats(): ` +
-        e,
-    );
-    return 1;
+    // console.log(
+    //   `[${definition.details?.apiKey}] Unknown error in ConvexUtility.getProjectedConvexAprStats(): ` +
+    //     e,
+    // );
   }
+  return priceMultiplier;
 }
+
 export async function getExtraRewards1(
   extraRewardsAddress: string,
   model: PickleModel,

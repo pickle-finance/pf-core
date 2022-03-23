@@ -481,6 +481,7 @@ export class PickleModel {
     this.minimalMode = true;
     await this.checkConfiguredChainsConnections();
     await this.loadJarAndFarmData();
+    clearInterval(this.commsMgr.sweepIntervalId);
     return this.toJson();
   }
 
@@ -566,7 +567,7 @@ export class PickleModel {
   async ensurePriceCacheLoaded(): Promise<any> {
     DEBUG_OUT("Begin ensurePriceCacheLoaded");
     const start = Date.now();
-    await setAllPricesOnTokens(this.configuredChains);
+    await setAllPricesOnTokens(this.configuredChains, this);
     DEBUG_OUT("End ensurePriceCacheLoaded: " + (Date.now() - start));
     //console.log(JSON.stringify(ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum), null, 2));
     console.log(
