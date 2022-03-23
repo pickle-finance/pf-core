@@ -805,7 +805,7 @@ export class ExternalTokenModel {
       "jswap-finance",
       "0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.COIN_MARKET_CAP,
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.OKEx,
