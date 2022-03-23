@@ -1631,10 +1631,15 @@ export class PickleModel {
     let ppb = BigNumber.from(0);
     if (masterChef) {
       const contract = new MulticallContract(masterChef, MasterchefAbi);
-      ppb = await this.callMulti(
-        () => contract.picklePerBlock(),
-        ChainNetwork.Ethereum,
-      );
+      try {
+        ppb = await this.callMulti(
+          () => contract.picklePerBlock(),
+          ChainNetwork.Ethereum,
+        );
+        
+      } catch (error) {
+        this.logError("loadPlatformData",error)
+      }
     }
     DEBUG_OUT("End loadPlatformData: " + (Date.now() - start));
     return {
