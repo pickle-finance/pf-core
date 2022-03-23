@@ -19,7 +19,7 @@ import { BigNumber, BigNumberish, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import {
   Provider as MulticallProvider,
-  Contract as MulticallContract,
+  Contract as MultiContract,
 } from "ethers-multicall";
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
@@ -697,7 +697,7 @@ export class PickleModel {
       results = await this.callMulti(
         arr.map(
           (oneArr) => () =>
-            new MulticallContract(oneArr.token, erc20Abi).balanceOf(
+            new MultiContract(oneArr.token, erc20Abi).balanceOf(
               oneArr.pool,
             ),
         ),
@@ -822,7 +822,7 @@ export class PickleModel {
     chain: ChainNetwork,
   ): Promise<void> {
     if (!jars || jars.length === 0) return;
-    const controllerContract = new MulticallContract(
+    const controllerContract = new MultiContract(
       controllerAddr,
       controllerAbi,
     );
@@ -860,7 +860,7 @@ export class PickleModel {
       strategyNames = await this.callMulti(
         withStrategyAddresses.map(
           (oneJar) => () =>
-            new MulticallContract(
+            new MultiContract(
               oneJar.details.strategyAddr,
               strategyAbi,
             ).getName(),
@@ -891,7 +891,7 @@ export class PickleModel {
       ratios = await this.callMulti(
         jars.map(
           (oneJar) => () =>
-            new MulticallContract(oneJar.contract, jarAbi).getRatio(),
+            new MultiContract(oneJar.contract, jarAbi).getRatio(),
         ),
         chain,
       );
@@ -915,7 +915,7 @@ export class PickleModel {
       supply = await this.callMulti(
         jars.map(
           (oneJar) => () =>
-            new MulticallContract(oneJar.contract, jarAbi).totalSupply(),
+            new MultiContract(oneJar.contract, jarAbi).totalSupply(),
         ),
         chain,
       );
@@ -941,8 +941,8 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? () =>
-                new MulticallContract(oneJar.contract, jarAbi).totalLiquidity()
-            : () => new MulticallContract(oneJar.contract, jarAbi).balance(),
+                new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
+            : () => new MultiContract(oneJar.contract, jarAbi).balance(),
         ),
         chain,
       );
@@ -971,12 +971,12 @@ export class PickleModel {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? () =>
-                new MulticallContract(
+                new MultiContract(
                   oneJar.depositToken.addr,
                   univ3PoolAbi,
                 ).liquidity()
             : () =>
-                new MulticallContract(
+                new MultiContract(
                   oneJar.depositToken.addr,
                   erc20Abi,
                 ).totalSupply(),
@@ -1105,7 +1105,7 @@ export class PickleModel {
       balanceOfProm = this.callMulti(
         harvestableJars.map(
           (oneJar) => () =>
-            new MulticallContract(oneJar.contract, jarAbi).balance(),
+            new MultiContract(oneJar.contract, jarAbi).balance(),
         ),
         chain,
       );
@@ -1121,7 +1121,7 @@ export class PickleModel {
           const guard = getZeroValueMulticallForNonErc20(oneJar);
           if (guard) return () => guard;
           return () =>
-            new MulticallContract(oneJar.depositToken.addr, erc20Abi).balanceOf(
+            new MultiContract(oneJar.depositToken.addr, erc20Abi).balanceOf(
               oneJar.details.strategyAddr,
             );
         }),
@@ -1137,7 +1137,7 @@ export class PickleModel {
       availableProm = this.callMulti(
         harvestableJars.map(
           (oneJar) => () =>
-            new MulticallContract(oneJar.contract, jarAbi).available(),
+            new MultiContract(oneJar.contract, jarAbi).available(),
         ),
         chain,
       );
@@ -1304,7 +1304,7 @@ export class PickleModel {
         chainFarmResultsPromise = this.callMulti(
           chainFarms.map(
             (oneFarm) => () =>
-              new MulticallContract(
+              new MultiContract(
                 oneFarm.depositToken.addr,
                 erc20Abi,
               ).balanceOf(oneFarm.contract),
@@ -1327,7 +1327,7 @@ export class PickleModel {
         protocolJarsWithFarmResultsPromise = this.callMulti(
           protocolJarsWithFarms.map(
             (oneJar) => () =>
-              new MulticallContract(oneJar.contract, erc20Abi).balanceOf(
+              new MultiContract(oneJar.contract, erc20Abi).balanceOf(
                 oneJar.farm.farmAddress,
               ),
           ),
@@ -1632,15 +1632,14 @@ export class PickleModel {
     const masterChef = ADDRESSES.get(ChainNetwork.Ethereum)?.masterChef;
     let ppb = BigNumber.from(0);
     if (masterChef) {
-      const contract = new MulticallContract(masterChef, MasterchefAbi);
+      const contract = new MultiContract(masterChef, MasterchefAbi);
       try {
         ppb = await this.callMulti(
           () => contract.picklePerBlock(),
           ChainNetwork.Ethereum,
         );
-        
       } catch (error) {
-        this.logError("loadPlatformData",error)
+        this.logError("loadPlatformData", error);
       }
     }
     DEBUG_OUT("End loadPlatformData: " + (Date.now() - start));
@@ -1663,11 +1662,13 @@ export class PickleModel {
     );
   }
 
+  // tslint:disable-next-line
   async call(contractCallback: Function, chain: ChainNetwork) {
     return await this.commsMgr.callSingle(contractCallback, chain);
   }
 
   async callMulti(
+    // tslint:disable-next-line
     contractCallback: Function | Function[],
     chain: ChainNetwork,
   ) {
@@ -1700,7 +1701,7 @@ export const getZeroValueMulticallForChain = (
   // We need a safe multicall
   const randomErc20Token: string =
     ExternalTokenModelSingleton.getTokens(chain)[0].contractAddr;
-  return new MulticallContract(randomErc20Token, erc20Abi).balanceOf(
+  return new MultiContract(randomErc20Token, erc20Abi).balanceOf(
     FICTIONAL_ADDRESS,
   );
 };

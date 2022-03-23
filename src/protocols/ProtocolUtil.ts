@@ -15,7 +15,7 @@ export interface PoolId {
 }
 
 export interface PoolInfo {
-  [key: string]: SinglePoolInfo
+  [key: string]: SinglePoolInfo;
 }
 export interface SinglePoolInfo {
   poolId: number;

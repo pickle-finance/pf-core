@@ -9,7 +9,6 @@ import {
   queryVolume24H,
 } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import jarV3Abi from "../../Contracts/ABIs/jar-v3.json";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
 import gaugeABI from "../../Contracts/ABIs/frax-gauge.json";
 import {

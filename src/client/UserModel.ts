@@ -28,7 +28,7 @@ import {
 } from "../Contracts/ContractsImpl";
 
 export interface UserTokens {
-  [key: string]: UserTokenData
+  [key: string]: UserTokenData;
 }
 export interface UserTokenData {
   assetKey: string;
@@ -203,7 +203,7 @@ export class UserModel {
       );
       for (let i = 0; i < result.length; i++) {
         const chainArr: UserTokenData[] = result[i];
-        for( let j = 0; j < chainArr.length; j++ ) {
+        for (let j = 0; j < chainArr.length; j++) {
           const assetKey = chainArr[j].assetKey.toLowerCase();
           result[assetKey] = chainArr[j];
         }
@@ -232,7 +232,7 @@ export class UserModel {
   ): Promise<UserTokenData[]> {
     try {
       const res: UserTokenData[] = await this.getUserTokensSingleChain(chain);
-      for( let j = 0; j < res.length; j++ ) {
+      for (let j = 0; j < res.length; j++) {
         const assetKey = res[j].assetKey.toLowerCase();
         this.workingData.tokens[assetKey] = res[j];
       }

@@ -78,6 +78,6 @@ export class FoxEth extends AbstractJarBehavior {
 
     const totalValueStaked = totalSupply * pricePerToken;
     const foxAPY = valueRewardedPerYear / totalValueStaked;
-    return 0 // Rewards ended Feb 24;
+    return 0; // Rewards ended Feb 24;
   }
 }

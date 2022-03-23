@@ -18,7 +18,7 @@ export abstract class RaiderJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDComManImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["raider"],

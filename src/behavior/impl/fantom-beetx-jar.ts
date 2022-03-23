@@ -33,14 +33,13 @@ export class BeetXJar extends AbstractJarBehavior {
             fBeetsUnderlying,
             erc20Abi,
           );
-          const [fBeetsTotalSupplyBN, underlyingLocked] =
-            await model.callMulti(
-              [
-                () => fBeetsMulticontract.totalSupply(),
-                () => fBeetsUnderlyingMulticontract.balanceOf(fBeets),
-              ],
-              jar.chain,
-            );
+          const [fBeetsTotalSupplyBN, underlyingLocked] = await model.callMulti(
+            [
+              () => fBeetsMulticontract.totalSupply(),
+              () => fBeetsUnderlyingMulticontract.balanceOf(fBeets),
+            ],
+            jar.chain,
+          );
           const ratio =
             parseFloat(ethers.utils.formatEther(underlyingLocked)) /
             parseFloat(ethers.utils.formatEther(fBeetsTotalSupplyBN));
@@ -84,7 +83,7 @@ export class BeetXJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDComManImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["beets"],

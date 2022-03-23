@@ -71,7 +71,7 @@ export class BalancerVstaEth extends BalancerJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDComManImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["vsta"],

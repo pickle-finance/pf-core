@@ -25,7 +25,7 @@ export class Mim2Crv extends CurveJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDComManImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["spell"],

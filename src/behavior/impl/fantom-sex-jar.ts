@@ -27,7 +27,7 @@ export class SexJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDComManImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["solid", "sex"],
@@ -39,7 +39,6 @@ export class SexJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-
     const lpPromise = new SolidlyPairManager().calculateLpApr(
       model,
       jar.depositToken.addr,

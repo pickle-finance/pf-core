@@ -44,7 +44,7 @@ export class NetswapJar extends AbstractJarBehavior {
       }
       return this.getHarvestableMultiRewards(jar, model, ["nett", tokenId]);
     } else {
-      return this.getHarvestableUSDComManImplementation(
+      return this.getHarvestableUSDCommsMgrImplementation(
         jar,
         model,
         ["nett"],
@@ -114,7 +114,7 @@ export class NetswapJar extends AbstractJarBehavior {
       jar.chain,
     );
 
-    let pendingHarvests: {
+    const pendingHarvests: {
       [address: string]: {
         address: string;
         id: string;

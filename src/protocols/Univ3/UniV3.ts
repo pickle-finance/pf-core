@@ -1,6 +1,5 @@
-import { /* Contract, */ ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import { ChainNetwork, Chains, PickleModel } from "../..";
+import { /* Contract, */ ethers } from "ethers";
+import { ChainNetwork, PickleModel } from "../..";
 import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
 import { AssetProtocol, JarDefinition } from "../../model/PickleModelJson";
 import v3PoolABI from "../../Contracts/ABIs/univ3Pool.json";
@@ -11,7 +10,6 @@ import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import fetch from "node-fetch";
 import { readQueryFromGraphDetails } from "../../graph/TheGraph";
 import { Contract as MultiContract } from "ethers-multicall";
-import jarV3Abi from "../../Contracts/ABIs/jar-v3.json";
 
 export const UniV3GraphCacheKey =
   "uniswap.mainnet.v3.graph.pair.data.cache.key";

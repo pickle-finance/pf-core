@@ -44,14 +44,16 @@ export function getWeeklyDistribution(jars: JarDefinition[]): number {
           const apr1 = components[j].apr / 100;
           // We already took 20% off the compoundables,
           // so to get our fee, it's 25% of what remains
-          const chainFee = Chains.get(enabledJars[i].chain).defaultPerformanceFee;
+          const chainFee = Chains.get(
+            enabledJars[i].chain,
+          ).defaultPerformanceFee;
           const pctFee = chainFee / (1 - chainFee);
           // aprs are 360 days. convert to 365 days for more accurate weekly
           const yearlyRevPct = (apr1 * pctFee * 365) / 360;
           const weeklyRevPct = yearlyRevPct / 52;
           const weeklyFee = weeklyRevPct * balance;
           const jarComponentUSD = weeklyFee;
-          jarUSD += (jarComponentUSD || 0);
+          jarUSD += jarComponentUSD || 0;
         }
       }
       runningRevenue += jarUSD;
@@ -70,7 +72,6 @@ export async function getDillDetails(
   const start = Date.now();
   const multicallProvider = model.multicallProviderFor(chain);
   await multicallProvider.init();
-
 
   const picklePriceSeriesPromise = fetchHistoricalPriceSeries({
     from: new Date(firstMeaningfulDistributionTimestamp * 1000),
@@ -95,28 +96,28 @@ export async function getDillDetails(
     }
 
     const batch1Promise = model.callMulti(
-        [
-          () => dillContract.supply(),
-          () => dillContract.totalSupply(),
-          () => feeDistContract.time_cursor(),
-        ],
-        chain,
-      );
+      [
+        () => dillContract.supply(),
+        () => dillContract.totalSupply(),
+        () => feeDistContract.time_cursor(),
+      ],
+      chain,
+    );
 
     const batch2Promise = Promise.all([
-        model.callMulti(
-          payoutTimes.map(
-            (time) => () => feeDistContract.tokens_per_week(time),
-          ),
-          chain,
-        ),
-        model.callMulti(
-          payoutTimes.map((time) => () => feeDistContract.ve_supply(time)),
-          chain,
-        ),
-      ]);
-    const [payoutsBN, dillAmountsBN]: [BigNumber[], BigNumber[]] = await batch2Promise;
-    const [picklesLocked, dillSupply, endTime]: BigNumber[] = await batch1Promise;
+      model.callMulti(
+        payoutTimes.map((time) => () => feeDistContract.tokens_per_week(time)),
+        chain,
+      ),
+      model.callMulti(
+        payoutTimes.map((time) => () => feeDistContract.ve_supply(time)),
+        chain,
+      ),
+    ]);
+    const [payoutsBN, dillAmountsBN]: [BigNumber[], BigNumber[]] =
+      await batch2Promise;
+    const [picklesLocked, dillSupply, endTime]: BigNumber[] =
+      await batch1Promise;
 
     const picklesLockedFloat = parseFloat(
       ethers.utils.formatEther(picklesLocked),
@@ -129,7 +130,6 @@ export async function getDillDetails(
       parseFloat(ethers.utils.formatEther(x)),
     );
 
-
     let totalPickleAmount = 0;
     let lastTotalDillAmount = 0;
     const picklePriceSeries = await picklePriceSeriesPromise;
@@ -137,7 +137,7 @@ export async function getDillDetails(
       // Fees get distributed at the beginning of the following period.
       const distributionTime = new Date((time.toNumber() + week) * 1000);
       const isProjected = distributionTime > new Date();
-      if( isProjected ) {
+      if (isProjected) {
         console.log("Test");
       }
       const weeklyPickleAmount = isProjected

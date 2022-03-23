@@ -1,5 +1,4 @@
-import { Contract, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { ethers } from "ethers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   AbstractJarBehavior,
@@ -7,9 +6,8 @@ import {
 } from "../AbstractJarBehavior";
 import AaveStrategyAbi from "../../Contracts/ABIs/aave-strategy.json";
 import TonictrollerAbi from "../../Contracts/ABIs/tonictroller.json";
-import CTokenAbi from "../../Contracts/ABIs/ctoken.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../../chain/Chains";
 import { formatEther, parseEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
@@ -33,12 +31,10 @@ export class TectonicJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["tonic"],
       AaveStrategyAbi,
     );
@@ -49,33 +45,66 @@ export class TectonicJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
     const provider = model.providerFor(jar.chain);
     const blockNum = await provider.getBlockNumber();
 
     const ctokenAddress = CTOKEN_MAPPING[jar.depositToken.addr];
+    const CTokenAbi = [
+      {
+        inputs: [],
+        name: "borrowIndex",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "totalBorrows",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "supplyRatePerBlock",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "borrowRatePerBlock",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "exchangeRateStored",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        inputs: [],
+        name: "totalSupply",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+    ];
 
-    const ctoken = new Contract(ctokenAddress, CTokenAbi, provider);
-    const multicallCToken = new MulticallContract(ctokenAddress, CTokenAbi);
+    const multicallCToken = new MultiContract(ctokenAddress, CTokenAbi);
 
-    const mutlicallComptroller = new MulticallContract(
+    const mutlicallComptroller = new MultiContract(
       COMPTROLLER,
       TonictrollerAbi,
     );
 
-    const multicallStrategy = new MulticallContract(
+    const multicallStrategy = new MultiContract(
       jar.details.strategyAddr,
       AaveStrategyAbi,
     );
-
-    const [marketBorrowIndex, totalBorrows, newSupplyRate, newBorrowRate] =
-      await Promise.all([
-        ctoken.callStatic.borrowIndex(),
-        ctoken.callStatic.totalBorrows(),
-        ctoken.callStatic.supplyRatePerBlock(),
-        ctoken.callStatic.borrowRatePerBlock(),
-      ]);
 
     const [
       supplyState,
@@ -86,16 +115,27 @@ export class TectonicJar extends AbstractJarBehavior {
       borrowSpeed,
       supplied,
       principal,
-    ] = await multicallProvider.all([
-      mutlicallComptroller.tonicSupplyState(ctokenAddress),
-      mutlicallComptroller.tonicSpeeds(ctokenAddress),
-      multicallCToken.exchangeRateStored(),
-      multicallCToken.totalSupply(),
-      mutlicallComptroller.tonicBorrowState(ctokenAddress),
-      mutlicallComptroller.tonicSpeeds(ctokenAddress),
-      multicallStrategy.getSuppliedView(),
-      multicallStrategy.balanceOf(),
-    ]);
+      marketBorrowIndex,
+      totalBorrows,
+      newSupplyRate,
+      newBorrowRate,
+    ] = await model.callMulti(
+      [
+        () => mutlicallComptroller.tonicSupplyState(ctokenAddress),
+        () => mutlicallComptroller.tonicSpeeds(ctokenAddress),
+        () => multicallCToken.exchangeRateStored(),
+        () => multicallCToken.totalSupply(),
+        () => mutlicallComptroller.tonicBorrowState(ctokenAddress),
+        () => mutlicallComptroller.tonicSpeeds(ctokenAddress),
+        () => multicallStrategy.getSuppliedView(),
+        () => multicallStrategy.balanceOf(),
+        () => multicallCToken.borrowIndex(),
+        () => multicallCToken.totalBorrows(),
+        () => multicallCToken.supplyRatePerBlock(),
+        () => multicallCToken.borrowRatePerBlock(),
+      ],
+      jar.chain,
+    );
 
     const tonicSupplyAPY = getSupplyAPY({
       supplyState,

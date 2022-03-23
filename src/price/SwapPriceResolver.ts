@@ -1,5 +1,5 @@
-import { ChainNetwork, Chains } from "../chain/Chains";
-import { ethers, BigNumber } from "ethers";
+import { ChainNetwork } from "../chain/Chains";
+import { BigNumber } from "ethers";
 import v2PoolABI from "../Contracts/ABIs/uniswapv2-pair.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { formatEther } from "@ethersproject/units";

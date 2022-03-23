@@ -28,7 +28,10 @@ export class FeiTribe extends AbstractJarBehavior {
     );
 
     const strategyBalanceBN: BigNumber = await model
-      .callMulti(() => tribeContract.balanceOf(jar.details.strategyAddr), jar.chain)
+      .callMulti(
+        () => tribeContract.balanceOf(jar.details.strategyAddr),
+        jar.chain,
+      )
       .catch(() => BigNumber.from("0"));
     const tribePrice = model.priceOfSync("tribe", jar.chain);
     const strategyBalance = parseFloat(

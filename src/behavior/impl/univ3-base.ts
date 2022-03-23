@@ -1,7 +1,7 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber, Contract as SingleContract, ethers } from "ethers";
-import { Chains, JarHarvestStats, PickleModel } from "../..";
+import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   getUniV3,
@@ -9,7 +9,6 @@ import {
   queryVolume24H,
 } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import jarV3Abi from "../../Contracts/ABIs/jar-v3.json";
 import {
   calculateFee,
   getLiquidityForAmounts,
@@ -18,7 +17,6 @@ import {
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
 import { univ3StrategyABI } from "../../Contracts/ABIs/univ3Strategy.abi";
-import { Contract as MultiContract } from "ethers-multicall";
 
 export class Univ3Base extends AbstractJarBehavior {
   constructor() {
@@ -71,7 +69,7 @@ export class Univ3Base extends AbstractJarBehavior {
     const strategy = new SingleContract(
       definition.details.strategyAddr,
       univ3StrategyABI,
-      provider
+      provider,
     );
 
     const [bal0, bal1] = await model.call(
