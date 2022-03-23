@@ -6,8 +6,8 @@ import {
   createAprComponentImpl,
 } from "../AbstractJarBehavior";
 import AaveStrategyAbi from "../../Contracts/ABIs/aave-strategy.json";
-import TonictrollerAbi from "../../Contracts/ABIS/tonictroller.json";
-import CTokenAbi from "../../Contracts/ABIS/ctoken.json";
+import TonictrollerAbi from "../../Contracts/ABIs/tonictroller.json";
+import CTokenAbi from "../../Contracts/ABIs/ctoken.json";
 import { PickleModel } from "../../model/PickleModel";
 import { Contract as MulticallContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../../chain/Chains";
