@@ -104,15 +104,15 @@ export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
   // ethers-multicall doesn't seem to like stability-pool.json
   const stabilityPoolAbi = [
     {
-      "inputs": [
-        { "internalType": "address", "name": "_depositor", "type": "address" }
+      inputs: [
+        { internalType: "address", name: "_depositor", type: "address" },
       ],
-      "name": "getCompoundedLUSDDeposit",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-      "stateMutability": "view",
-      "type": "function"
+      name: "getCompoundedLUSDDeposit",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
     },
-  ]
+  ];
   const stabilityPoolContract = new MultiContract(
     stabilityPoolAddr,
     stabilityPoolAbi,

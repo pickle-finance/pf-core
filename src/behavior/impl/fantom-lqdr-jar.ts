@@ -69,7 +69,7 @@ export class LqdrJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     let runningTotal = 0;
-    const harvestableLqdrPromise = this.getHarvestableUSDComManImplementation(
+    const harvestableLqdrPromise = this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["lqdr"],

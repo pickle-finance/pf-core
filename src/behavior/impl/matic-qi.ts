@@ -21,7 +21,7 @@ export class MaticQi extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDComManImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
       ["qi"],
@@ -40,7 +40,7 @@ export class MaticQi extends AbstractJarBehavior {
     );
     const chefComponent: AssetAprComponent = await chefPromise;
     const lpApr: number = await lpPromise;
-    
+
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lpApr, false),
       this.createAprComponent(

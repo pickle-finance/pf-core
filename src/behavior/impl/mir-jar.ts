@@ -7,7 +7,10 @@ import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { Contract as MultiContract } from "ethers-multicall";
-import { getLivePairDataFromContracts, IPairData } from "../../protocols/GenericSwapUtil";
+import {
+  getLivePairDataFromContracts,
+  IPairData,
+} from "../../protocols/GenericSwapUtil";
 
 export const MIRROR_MIR_UST_STAKING_REWARDS =
   "0x5d447Fc0F8965cED158BAB42414Af10139Edf0AF";
@@ -56,7 +59,6 @@ export abstract class MirJar extends AbstractJarBehavior {
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const mirRewardRate = parseFloat(formatEther(rewardRateBN));
-
 
     const mirRewardsPerYear = mirRewardRate * ONE_YEAR_SECONDS;
     const valueRewardedPerYear =

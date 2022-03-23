@@ -194,7 +194,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     return runningTotal;
   }
 
-  async getHarvestableUSDComManImplementation(
+  async getHarvestableUSDCommsMgrImplementation(
     jar: JarDefinition,
     model: PickleModel,
     rewardTokens: string[],
@@ -319,7 +319,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     return runningTotal;
   }
 
-  async getHarvestableUSDMasterchefComManImplementation(
+  async getHarvestableUSDMasterchefCommsMgrImplementation(
     jar: JarDefinition,
     model: PickleModel,
     rewardTokens: string[],

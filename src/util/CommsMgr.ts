@@ -11,7 +11,7 @@ type ChainRPCs = {
   multi: MultiProvider[];
 };
 type RPCs = Map<ChainNetwork, ChainRPCs>;
-type PendingCalls = Map<ChainNetwork, { id: string; callback: Function }[]>;
+type PendingCalls = Map<ChainNetwork, { id: string; callback: Function }[]>; // tslint:disable-line
 type ResolvedCalls = Map<string, any>;
 type ChainConfig = {
   secondsBetweenCalls: number;
@@ -82,7 +82,7 @@ export class CommsMgr {
   async configureRPCs(configuredChains: ChainNetwork[]) {
     await Promise.all(
       configuredChains.map(async (chain) => {
-        let rpcObject: ChainRPCs = { single: undefined, multi: [] };
+        const rpcObject: ChainRPCs = { single: undefined, multi: [] };
         const chainRPCs = Chains.get(chain).rpcProviderUrls;
         const liveRPCs: ethers.providers.JsonRpcProvider[] = [];
         await Promise.all(
@@ -102,7 +102,7 @@ export class CommsMgr {
           }),
         );
 
-        let multiProviders: MultiProvider[] = [];
+        const multiProviders: MultiProvider[] = [];
         // assign a random rpc for single calls on each run
         rpcObject["single"] = liveRPCs[~~(Math.random() * liveRPCs.length)];
         while (liveRPCs.length > 0) {
@@ -128,7 +128,7 @@ export class CommsMgr {
 
   // the entry function that puts an ethers-multicall in the ComMan calls queue, returns the response if resolve, or undefined if rejected
   async callMulti(
-    contractCallback: Function | Function[],
+    contractCallback: Function | Function[], // tslint:disable-line
     chain: ChainNetwork,
   ): Promise<any> {
     this.lastUpdated = Date.now();
@@ -161,7 +161,7 @@ export class CommsMgr {
     - Calls that has to be simulated with callStatic (e.g, to simulate a certain sender).
   */
   async callSingle(
-    contractCallback: Function,
+    contractCallback: Function, // tslint:disable-line
     chain: ChainNetwork,
   ): Promise<any> {
     const id = uuid();
@@ -216,13 +216,15 @@ export class CommsMgr {
     const maxCalls = (this.configs[chain] ?? this.configs.default)
       .callsPerMulticall;
     const ids: string[] = this.pendingMulticalls[chain].map((x) => x.id);
+    // tslint:disable-next-line
     const callbacks: Function[] = this.pendingMulticalls[chain].map(
       (x) => x.callback,
     );
 
     let multiProviders = this.rpcs[chain].multi;
-    let splitIds: string[][] = [];
-    let splitCallbacks: Function[][] = [];
+    const splitIds: string[][] = [];
+    // tslint:disable-next-line
+    const splitCallbacks: Function[][] = [];
     if (ids.length > maxCalls && multiProviders.length > 1) {
       const splitSize = Math.ceil(ids.length / multiProviders.length);
       let tmpSplitIds = [];
@@ -254,6 +256,7 @@ export class CommsMgr {
       const ids = splitIds[idx];
       const callbacks = splitCallbacks[idx];
       let tmpIds: string[] = [];
+      // tslint:disable-next-line
       let tmpCallbacks: Function[] = [];
       for (let i = 0; i < callbacks.length; i++) {
         tmpCallbacks.push(callbacks[i]);
@@ -285,6 +288,7 @@ export class CommsMgr {
 
   private async executeChainSinglecalls(chain: ChainNetwork) {
     const ids = this.pendingSinglecalls[chain].map((x) => x.id);
+    // tslint:disable-next-line
     const callbacks: Function[] = this.pendingSinglecalls[chain].map(
       (x) => x.callback,
     );
@@ -313,11 +317,12 @@ export class CommsMgr {
 
   // sends a batch of multicalls, if it fails, performs a basic ternary search to pinpoint the culprit call/calls
   private async ternaryExecuteTmpCalls(
+    // tslint:disable-next-line
     tmpCallbacks: Function[],
     tmpIds: string[],
     multiProvider: MultiProvider,
     chain: ChainNetwork,
-    delay: number = 0,
+    delay = 0,
   ) {
     try {
       await new Promise((resolve) => setTimeout(resolve, delay * 1000));
@@ -364,6 +369,7 @@ export class CommsMgr {
   }
 
   private async executeTmpMulticalls(
+    // tslint:disable-next-line
     tmpCallbacks: Function[],
     tmpIds: string[],
     multiProvider: MultiProvider,

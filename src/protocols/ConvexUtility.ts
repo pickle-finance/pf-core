@@ -1,5 +1,5 @@
 import { Contract as MultiContract } from "ethers-multicall";
-import { BigNumber, Contract as SingleContract, ethers } from "ethers";
+import { BigNumber, Contract as SingleContract } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import { PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";

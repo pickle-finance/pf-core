@@ -1,6 +1,11 @@
 import { ChainNetwork, IChain } from "..";
 import { Chains } from "../chain/Chains";
-import { ADDRESSES, DEBUG_OUT, NULL_ADDRESS, PickleModel } from "../model/PickleModel";
+import {
+  ADDRESSES,
+  DEBUG_OUT,
+  NULL_ADDRESS,
+  PickleModel,
+} from "../model/PickleModel";
 import { Contract as MultiContract } from "ethers-multicall";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
 import MinichefAbi from "../Contracts/ABIs/minichef.json";
@@ -44,19 +49,20 @@ export async function setGaugeAprData(
       }
     }
   } else {
-      if (rawGaugeData && rawGaugeData.length > 0) {
-        for (let i = 0; i < rawGaugeData.length; i++) {
-          setAssetGaugeAprMinichef(
-            rawGaugeData[i],
-            model,
-            secondsPerBlock(chain),
-          );
-        }
+    if (rawGaugeData && rawGaugeData.length > 0) {
+      for (let i = 0; i < rawGaugeData.length; i++) {
+        setAssetGaugeAprMinichef(
+          rawGaugeData[i],
+          model,
+          secondsPerBlock(chain),
+        );
       }
+    }
   }
-  DEBUG_OUT("End setGaugeAprData chain " + chain + ";  " + (Date.now() - chainStart));
+  DEBUG_OUT(
+    "End setGaugeAprData chain " + chain + ";  " + (Date.now() - chainStart),
+  );
 }
-
 
 export interface RawGaugeChainMap {
   [key: string]: IRawGaugeData[];
@@ -92,7 +98,12 @@ export async function preloadRawGaugeData(
       }
     }
   }
-  DEBUG_OUT("End preloadRawGaugeData chain " + chain + ";  " + (Date.now() - chainStart));
+  DEBUG_OUT(
+    "End preloadRawGaugeData chain " +
+      chain +
+      ";  " +
+      (Date.now() - chainStart),
+  );
   return rawGaugeData;
 }
 

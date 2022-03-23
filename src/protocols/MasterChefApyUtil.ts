@@ -28,15 +28,14 @@ export async function calculateMasterChefRewardsAPR(
   );
 
   const strategyContract = new MultiContract(strategyAddr, strategyAbi);
-  const [masterchefAddress, poolId, rewardTokenAddress] =
-    await model.callMulti(
-      [
-        () => strategyContract.masterChef(),
-        () => strategyContract.poolId(),
-        () => strategyContract.rewardToken(),
-      ],
-      jar.chain,
-    );
+  const [masterchefAddress, poolId, rewardTokenAddress] = await model.callMulti(
+    [
+      () => strategyContract.masterChef(),
+      () => strategyContract.poolId(),
+      () => strategyContract.rewardToken(),
+    ],
+    jar.chain,
+  );
 
   const multicallMasterchef = new MultiContract(
     masterchefAddress,
@@ -62,7 +61,6 @@ export async function calculateMasterChefRewardsAPR(
       0.9 *
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
-
 
   // TODO move average block time to the chain??
   const avgBlockTime = Chains.get(jar.chain).secondsPerBlock;

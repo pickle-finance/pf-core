@@ -35,7 +35,7 @@ export abstract class AuroraTriJar extends AuroraMultistepHarvestJar {
     }
 
     // Some strategies' getHarvestable is broken, using default implementation is not possible
-    return this.getHarvestableUSDMasterchefComManImplementation(
+    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
       jar,
       model,
       ["tri" /* "aurora" */], // Trisolaris Aurora bonus rewards has ended

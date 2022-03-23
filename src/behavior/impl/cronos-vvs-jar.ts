@@ -29,10 +29,9 @@ export abstract class CronosVvsJar extends AbstractJarBehavior {
   ): Promise<number> {
     const isDualRewards = Number.isInteger(vvsPoolIdsV2[jar.depositToken.addr]);
     if (!isDualRewards) {
-      return this.getHarvestableUSDMasterchefImplementation(
+      return this.getHarvestableUSDMasterchefCommsMgrImplementation(
         jar,
         model,
-        model.providerFor(jar.chain),
         ["vvs"],
         VVS_FARMS,
         "pendingVVS",

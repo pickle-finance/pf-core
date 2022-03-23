@@ -1149,7 +1149,6 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
-
     // Aurora
     this.addToken(
       ChainNetwork.Aurora,
@@ -1433,7 +1432,8 @@ export class ExternalTokenModel {
       "binaryDAO",
       "0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.SWAP_PAIRS, ["0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c"]
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c"],
     );
     this.addToken(
       ChainNetwork.Metis,

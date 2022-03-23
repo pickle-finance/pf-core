@@ -28,7 +28,10 @@ export class AlcxEth extends SushiJar {
           .callMulti(() => strategy.getHarvestableSushi(), jar.chain)
           .catch(() => BigNumber.from("0")),
         model
-          .callMulti(() => alcxToken.balanceOf(jar.details.strategyAddr), jar.chain)
+          .callMulti(
+            () => alcxToken.balanceOf(jar.details.strategyAddr),
+            jar.chain,
+          )
           .catch(() => BigNumber.from("0")),
       ]);
     const alcxPrice = model.priceOfSync("alcx", jar.chain);

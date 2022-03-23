@@ -20,7 +20,7 @@ export class RlyEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefComManImplementation(
+    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
       jar,
       model,
       ["rly"],

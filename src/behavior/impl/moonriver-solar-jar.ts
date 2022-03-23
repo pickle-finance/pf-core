@@ -56,7 +56,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     );
     switch (chefAddress) {
       case SOLAR_FARMS:
-        return this.getHarvestableUSDMasterchefComManImplementation(
+        return this.getHarvestableUSDMasterchefCommsMgrImplementation(
           jar,
           model,
           ["solar"],
@@ -98,7 +98,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
       jar.chain,
     );
 
-    let pendingHarvests: {
+    const pendingHarvests: {
       [address: string]: {
         address: string;
         id: string;
