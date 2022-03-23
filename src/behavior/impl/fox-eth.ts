@@ -73,10 +73,9 @@ export class FoxEth extends AbstractJarBehavior {
       model,
       18,
     );
-
+    const foxPrice = model.priceOfSync("fox", jar.chain);
     const foxRewardsPerYear = foxRewardRate * ONE_YEAR_SECONDS;
-    const valueRewardedPerYear =
-      model.priceOfSync("fox", jar.chain) * foxRewardsPerYear;
+    const valueRewardedPerYear = foxPrice * foxRewardsPerYear;
 
     const totalValueStaked = totalSupply * pricePerToken;
     const foxAPY = valueRewardedPerYear / totalValueStaked;
