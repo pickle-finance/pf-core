@@ -5,7 +5,6 @@ import {
   AbstractJarBehavior,
   createAprComponentImpl,
 } from "../AbstractJarBehavior";
-import { foldingStrategyAbi } from "../../Contracts/ABIs/folding-strategy.abi";
 import AaveStrategyAbi from "../../Contracts/ABIs/aave-strategy.json";
 import TonictrollerAbi from "../../Contracts/ABIS/tonictroller.json";
 import CTokenAbi from "../../Contracts/ABIS/ctoken.json";
@@ -120,14 +119,12 @@ export class TectonicJar extends AbstractJarBehavior {
     const secondsPerBlock = Chains.get(jar.chain).secondsPerBlock;
 
     const supplyRate =
-      ((parseFloat(formatEther(newSupplyRate)) / secondsPerBlock) *
-        ONE_YEAR_SECONDS) /
-      pricePerToken;
+      (parseFloat(formatEther(newSupplyRate)) / secondsPerBlock) *
+      ONE_YEAR_SECONDS;
 
     const borrowRate =
-      ((parseFloat(formatEther(newBorrowRate)) / secondsPerBlock) *
-        ONE_YEAR_SECONDS) /
-      pricePerToken;
+      (parseFloat(formatEther(newBorrowRate)) / secondsPerBlock) *
+      ONE_YEAR_SECONDS;
 
     const fee = 1 - Chains.get(jar.chain).defaultPerformanceFee;
 
@@ -145,8 +142,18 @@ export class TectonicJar extends AbstractJarBehavior {
         true,
         fee,
       ),
-      createAprComponentImpl("borrow", -borrowRate * multiplier, false, fee),
-      createAprComponentImpl("supply", supplyRate * multiplier, false, fee),
+      createAprComponentImpl(
+        "borrow",
+        -borrowRate * 100 * multiplier,
+        false,
+        fee,
+      ),
+      createAprComponentImpl(
+        "supply",
+        supplyRate * 100 * multiplier,
+        false,
+        fee,
+      ),
     ]);
   }
 }
