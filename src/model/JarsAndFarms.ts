@@ -4331,6 +4331,32 @@ export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_TONIC);
 
+export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 2a",
+  contract: "0xeC15DA7019C3d0C91E9e36d1adBa22357AF732C3",
+  depositToken: {
+    addr: "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
+    name: "WETH",
+    link: "https://cronoscan.com/address/0xe44fd7fcb2b1581822d0c862b68222998a0c299a",
+    components: ["weth"],
+  },
+  rewardTokens: ["tonic"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.TECTONIC,
+  details: {
+    apiKey: "TECTONIC-WETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTectonic WETH",
+    farmDepositTokenName: "pTectonic WETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_WETH);
+
 // Aurora
 
 export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
