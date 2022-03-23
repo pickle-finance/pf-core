@@ -1096,7 +1096,7 @@ export const JAR_FOXETH: JarDefinition = {
     components: ["fox", "weth"],
   },
   rewardTokens: ["fox"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
