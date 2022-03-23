@@ -338,6 +338,8 @@ import {
   JAR_CRO_VVS_VVS_SINGLE,
   JAR_CRO_VVS_USDC_SINGLE,
   JAR_CRO_VVS_VVS_TONIC,
+  JAR_CRO_TECTONIC_WETH,
+  JAR_CRO_TECTONIC_CRO,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -575,6 +577,7 @@ import { VvsCroTonic } from "./impl/vvs-cro-tonic";
 import { VvsVvsSingle } from "./impl/vvs-vvs-single";
 import { VvsUsdcSingle } from "./impl/vvs-usdc-single";
 import { VvsVvsTonic } from "./impl/vvs-vvs-tonic";
+import { TectonicJar } from "./impl/tectonic-folding";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -741,9 +744,8 @@ jarToBehavior.set(JAR_CRO_VVS_CRO_TONIC.id, new VvsCroTonic());
 jarToBehavior.set(JAR_CRO_VVS_VVS_SINGLE.id, new VvsVvsSingle());
 jarToBehavior.set(JAR_CRO_VVS_USDC_SINGLE.id, new VvsUsdcSingle());
 jarToBehavior.set(JAR_CRO_VVS_VVS_TONIC.id, new VvsVvsTonic());
-
-
-
+jarToBehavior.set(JAR_CRO_TECTONIC_WETH.id, new TectonicJar());
+jarToBehavior.set(JAR_CRO_TECTONIC_CRO.id, new TectonicJar());
 
 // Aurora
 jarToBehavior.set(JAR_AURORA_TRI_NEAR_USDC.id, new TriNearUsdc());
