@@ -153,6 +153,13 @@ export class CommsMgr {
     }
   }
 
+  /*
+    Almost all calls can and should be routed through callMulti.
+    There are actually two scenarios where using callSingle makes more sense:
+    - Calls that when rejected provide meaningful info (e.g, dynamically deciding whether
+      a farm has dual rewards by calling a function that is present only on some contracts).
+    - Calls that has to be simulated with callStatic (e.g, to simulate a certain sender).
+  */
   async callSingle(
     contractCallback: Function,
     chain: ChainNetwork,

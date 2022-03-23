@@ -19,6 +19,7 @@ import {
   getTickFromPrice,
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
+import { Contract as MultiContract } from "ethers-multicall";
 
 const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
 
@@ -33,14 +34,7 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-
-    const provider: Provider | Signer = Chains.get(
-      definition.chain,
-    ).getProviderOrSigner();
-
-    const jarV3 = new ethers.Contract(definition.contract, jarV3Abi, provider);
-
-    const { position } = await getUniV3(jarV3, provider);
+    const { position } = await getUniV3(definition, model);
 
     const jarAmount0 = +position.amount0.toExact();
     const jarAmount1 = +position.amount1.toExact();
@@ -80,30 +74,50 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     _available: BigNumber,
     _resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
-    const strategy = new ethers.Contract(
+    const jarV3Abi = [
+      {
+        inputs: [],
+        name: "liquidityOfThis",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function",
+      },
+    ];
+    const strategy = new MultiContract(
       definition.details.strategyAddr,
       strategyABI,
-      _resolver,
+    );
+    const jar = new MultiContract(definition.contract, jarV3Abi);
+    const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
+
+    const promises = [];
+    promises.push(
+      _model
+        .callMulti(() => strategy.getHarvestable(), definition.chain)
+        .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
     );
 
-    const gaugeContract = new ethers.Contract(this.gaugeAddress, gaugeABI, _resolver);
-
-    const harvestable = await strategy.getHarvestable();
-
-    const jar = new ethers.Contract(definition.contract, jarV3Abi, _resolver);
-
-    const liquidity = await jar.liquidityOfThis();
-
-    const mult = await gaugeContract.veFXSMultiplier(lockerAddress);
+    promises.push(
+      _model
+        .callMulti(() => jar.liquidityOfThis(), definition.chain)
+        .then((x: BigNumber) => parseFloat(ethers.utils.formatUnits(x, 0))),
+    );
+    promises.push(
+      _model
+        .callMulti(
+          () => gaugeContract.veFXSMultiplier(lockerAddress),
+          definition.chain,
+        )
+        .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
+    );
+    const [harvestable, liquidity, mult] = await Promise.all(promises);
 
     return {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
-      harvestableUSD:
-        (harvestable * _model.priceOfSync("fxs", definition.chain)) / 1e18,
-      multiplier: mult / 1e18,
-
+      harvestableUSD: harvestable * _model.priceOfSync("fxs", definition.chain),
+      multiplier: mult,
     };
   }
 
@@ -135,9 +149,11 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
       definition.details.ratio *
       definition.details.tokenBalance *
       liquidityValue;
-    const jarV3 = new ethers.Contract(definition.contract, jarV3Abi, provider);
 
-    const { position, tokenA, tokenB, pool } = await getUniV3(jarV3, provider);
+    const { position, tokenA, tokenB, pool } = await getUniV3(
+      definition,
+      model,
+    );
 
     // Get lower and upper tick quotes in terms of USD
     const lowerTickPrice = +position.token0PriceUpper.invert().toFixed();
@@ -199,16 +215,19 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     const lpApr = (fee24H * 365 * 100) / jarValue;
 
     //FXS APR
-    const gaugeContract = new ethers.Contract(this.gaugeAddress, gaugeABI, provider);
 
-    const combinedWeightOf = await gaugeContract.combinedWeightOf(
-      lockerAddress,
-    );
+    const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
 
-    const totalCombinedWeight = await gaugeContract.totalCombinedWeight();
-    const rewardRate = await gaugeContract.rewardRate0();
-    const rewardDuration = await gaugeContract.getRewardForDuration();
-    const multiplier = await gaugeContract.veFXSMultiplier(lockerAddress);
+    const [totalCombinedWeight, rewardRate, rewardDuration, multiplier] =
+      await model.callMulti(
+        [
+          () => gaugeContract.totalCombinedWeight(),
+          () => gaugeContract.rewardRate0(),
+          () => gaugeContract.getRewardForDuration(),
+          () => gaugeContract.veFXSMultiplier(lockerAddress),
+        ],
+        definition.chain,
+      );
 
     const apr =
       ((multiplier *
