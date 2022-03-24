@@ -473,7 +473,7 @@ export class PickleModel {
       ChainNetwork.Ethereum,
     );
     this.platformData = await this.loadPlatformData();
-    clearInterval(this.commsMgr.sweepIntervalId);
+    this.commsMgr.stop();
     return this.toJson();
   }
 
@@ -481,7 +481,7 @@ export class PickleModel {
     this.minimalMode = true;
     await this.checkConfiguredChainsConnections();
     await this.loadJarAndFarmData();
-    clearInterval(this.commsMgr.sweepIntervalId);
+    this.commsMgr.stop();
     return this.toJson();
   }
 
