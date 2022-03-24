@@ -49,6 +49,7 @@ export enum AssetProtocol {
   SOLID = "Solidly",
   SEX = "Solidex",
   TECTONIC = "Tectonic",
+  STARGATE = "Stargate",
   // ADD_PROTOCOL
 }
 

@@ -344,6 +344,7 @@ import {
   JAR_CRO_VVS_VVS_TONIC,
   JAR_CRO_TECTONIC_WETH,
   JAR_CRO_TECTONIC_CRO,
+  JAR_OPTIMISM_STAR_USDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -585,6 +586,7 @@ import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
 import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
+import { StargateJar } from "./impl/startgate-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -862,6 +864,7 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
+jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());

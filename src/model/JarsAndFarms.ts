@@ -7752,6 +7752,32 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_ZIP);
 
+export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 2a",
+  contract: "0xBD469fdEDd9A8e62BCB1aa1e479A8A287e5718e0",
+  depositToken: {
+    addr: "0xDecC0c09c3B5f6e92EF4184125D5648a66E35298",
+    name: "STARGATE USDC",
+    link: "https://stargate.finance/pool/USDC-Optimism",
+    components: ["usdc"],
+  },
+  rewardTokens: ["stg"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.STARGATE,
+  details: {
+    apiKey: "STG-OPTIMISM-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG USDC",
+    farmDepositTokenName: "pSTG USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_STAR_USDC);
+
 // Fantom
 
 export const JAR_FANTOM_OXD_USDC: JarDefinition = {

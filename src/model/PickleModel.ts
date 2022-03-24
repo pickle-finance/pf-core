@@ -498,6 +498,7 @@ export class PickleModel implements ConsoleErrorLogger {
     const start = Date.now();
     this.loadSwapData();
 
+    await this.loadDecimalData();
     await Promise.all([
       this.ensurePriceCacheLoaded(),
       this.loadStrategyData(),
@@ -632,6 +633,17 @@ export class PickleModel implements ConsoleErrorLogger {
     } finally {
       DEBUG_OUT("End loadStrategyData: " + (Date.now() - start));
     }
+  }
+
+  async loadDecimalData(): Promise<any> {
+    DEBUG_OUT("Begin loadDecimalData");
+    const start = Date.now();
+    await Promise.all(
+      this.configuredChains.map((x) =>
+        this.addTokenDecimals(this.semiActiveJars(x), x),
+      ),
+    );
+    DEBUG_OUT("End loadDecimalData: " + (Date.now() - start));
   }
 
   async loadRatiosData(): Promise<any> {
@@ -887,6 +899,45 @@ export class PickleModel implements ConsoleErrorLogger {
     }
   }
 
+
+  // All jars must be on same chain
+  async addTokenDecimals(
+    jars: JarDefinition[],
+    chain: ChainNetwork,
+  ): Promise<void> {
+    if (jars === undefined || jars.length === 0) return;
+    const ethcallProvider = this.multicallProviderFor(chain);
+    try {
+      await ethcallProvider.init();
+    } catch (error) {
+      this.logError("addTokenDecimals: ethcallProvider", error, chain);
+    }
+
+    let jarDecimals: string[] = undefined;
+    let depositDecimals: string[] = undefined;
+    try {
+      jarDecimals = await ethcallProvider.all<string[]>(
+        jars.map((oneJar) =>
+          new MulticallContract(oneJar.contract, jarAbi).decimals(),
+        ),
+      );
+
+      depositDecimals = await ethcallProvider.all<string[]> (
+        jars.map((oneJar) =>
+        new MulticallContract(oneJar.depositToken.addr, jarAbi).decimals(),
+
+        )
+      )
+    } catch (error) {
+      this.logError("addJarRatios: ratios", error, chain);
+    }
+    for (let i = 0; jarDecimals !== undefined && depositDecimals !== undefined && i < jars.length; i++) {
+      jars[i].details.decimals = parseFloat(jarDecimals[i]);
+      jars[i].depositToken.decimals = parseFloat(depositDecimals[i]);
+    }
+  }
+
+
   // All jars must be on same chain
   async addJarRatios(
     jars: JarDefinition[],
@@ -895,6 +946,7 @@ export class PickleModel implements ConsoleErrorLogger {
     if (jars === undefined || jars.length === 0) return;
 
     let ratios: string[] = undefined;
+    let decimals: string[] = undefined;
     try {
       ratios = await this.callMulti(
         jars.map(
@@ -902,6 +954,11 @@ export class PickleModel implements ConsoleErrorLogger {
             new MultiContract(oneJar.contract, jarAbi).getRatio(),
         ),
         chain,
+      );
+      decimals = await ethcallProvider.all<string[]>(
+        jars.map((oneJar) =>
+          new MulticallContract(oneJar.contract, jarAbi).decimals(),
+        ),
       );
     } catch (error) {
       this.logError("addJarRatios: ratios", error, chain);
@@ -932,7 +989,7 @@ export class PickleModel implements ConsoleErrorLogger {
     }
     for (let i = 0; supply !== undefined && i < jars.length; i++) {
       jars[i].details.totalSupply = parseFloat(
-        ethers.utils.formatUnits(supply[i]),
+        ethers.utils.formatUnits(supply[i], jars[i].details.decimals),
       );
     }
   }
@@ -998,7 +1055,7 @@ export class PickleModel implements ConsoleErrorLogger {
       jars[i].depositToken.totalSupply = parseFloat(
         ethers.utils.formatUnits(
           supply[i],
-          this.tokenDecimals(jars[i].depositToken.addr, jars[i].chain),
+          jars[i].depositToken.decimals,
         ),
       );
     }

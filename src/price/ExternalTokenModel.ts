@@ -1638,7 +1638,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Optimism,
+      "stg",
+      "stargate-finance",
+      "0x296f55f8fb28e498b858d0bcda06d955b2cb3f97".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Fantom
     this.addToken(
       ChainNetwork.Fantom,
