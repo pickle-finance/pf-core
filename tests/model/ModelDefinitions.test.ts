@@ -173,6 +173,7 @@ describe("Testing defined model", () => {
             withCustomHarvest[i].details.apiKey + " has no custom harvester",
           );
         }
+        model.commsMgr.stop();
       }
     }
     console.log("Errors: " + JSON.stringify(err));
