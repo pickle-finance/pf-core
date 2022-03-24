@@ -75,7 +75,15 @@ export class CommsMgr {
       this.rpcs[ChainNetwork[chain]] = {};
     });
     this.resolvedCalls = new Map<string, any>();
+    this.start();
+  }
+
+  start() {
     this.sweepIntervalId = setInterval(this.sweepPendingCalls.bind(this), 2000);
+  }
+
+  stop() {
+    clearInterval(this.sweepIntervalId);
   }
 
   // TODO this will break CommsMgr if a chain has all its RPCs dead
@@ -91,7 +99,7 @@ export class CommsMgr {
             try {
               await rpc.getNetwork();
               liveRPCs.push(rpc);
-              console.log(`${url} successfully passed.`);
+              console.log(`${url} is live.`);
             } catch (error) {
               this.model.logError(
                 `[CommsMgr] configureRPCs`,
