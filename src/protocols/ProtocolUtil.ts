@@ -15,16 +15,17 @@ export interface PoolId {
 }
 
 export interface PoolInfo {
-  [key: string]: {
-    poolId: number;
-    tokenName: string;
-    tokenPriceLookup: string;
-    rewardName: string;
-    rewardPriceLookup: string;
-    rewarder?: string;
-    extraReward?: string;
-    extraRewardPriceLookup?: string;
-  };
+  [key: string]: SinglePoolInfo;
+}
+export interface SinglePoolInfo {
+  poolId: number;
+  tokenName: string;
+  tokenPriceLookup: string;
+  rewardName: string;
+  rewardPriceLookup: string;
+  rewarder?: string;
+  extraReward?: string;
+  extraRewardPriceLookup?: string;
 }
 
 export function getSwapUtilityForAsset(

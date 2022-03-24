@@ -5,12 +5,12 @@ import {
   JarDefinition,
 } from "../model/PickleModelJson";
 import { BigNumber, ethers } from "ethers";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import dillAbi from "../Contracts/ABIs/dill.json";
 import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
 import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
 import moment from "moment";
-import { ChainNetwork, PickleModel } from "..";
+import { ChainNetwork, Chains, PickleModel } from "..";
 import { DEBUG_OUT } from "../model/PickleModel";
 
 const week = 7 * 24 * 60 * 60;
@@ -41,15 +41,19 @@ export function getWeeklyDistribution(jars: JarDefinition[]): number {
       let jarUSD = 0;
       for (let j = 0; j < components.length; j++) {
         if (components[j].compoundable) {
+          const apr1 = components[j].apr / 100;
           // We already took 20% off the compoundables,
           // so to get our fee, it's 25% of what remains
-          const apr1 = components[j].apr / 100;
+          const chainFee = Chains.get(
+            enabledJars[i].chain,
+          ).defaultPerformanceFee;
+          const pctFee = chainFee / (1 - chainFee);
           // aprs are 360 days. convert to 365 days for more accurate weekly
-          const yearlyRevPct = (apr1 * 0.25 * 365) / 360;
+          const yearlyRevPct = (apr1 * pctFee * 365) / 360;
           const weeklyRevPct = yearlyRevPct / 52;
           const weeklyFee = weeklyRevPct * balance;
           const jarComponentUSD = weeklyFee;
-          jarUSD += jarComponentUSD;
+          jarUSD += jarComponentUSD || 0;
         }
       }
       runningRevenue += jarUSD;
@@ -69,62 +73,73 @@ export async function getDillDetails(
   const multicallProvider = model.multicallProviderFor(chain);
   await multicallProvider.init();
 
+  const picklePriceSeriesPromise = fetchHistoricalPriceSeries({
+    from: new Date(firstMeaningfulDistributionTimestamp * 1000),
+  });
   try {
-    const dillContract = new MulticallContract(DILL_CONTRACT, dillAbi);
-    const [picklesLocked, dillSupply]: number[] = await multicallProvider.all<
-      number[]
-    >([dillContract.supply(), dillContract.totalSupply()]);
+    const dillContract = new MultiContract(DILL_CONTRACT, dillAbi);
+    const feeDistContract = new MultiContract(
+      FEE_DISTRIBUTOR,
+      feeDistributorAbi,
+    );
+
+    // Ignore initial negligible distributions that distort
+    // PICKLE/DILL ratio range.
+    let workingTimeBN = ethers.BigNumber.from(
+      firstMeaningfulDistributionTimestamp,
+    );
+    const startTime = firstMeaningfulDistributionTimestamp;
+    const payoutTimes: BigNumber[] = [];
+    for (let time = startTime; time < Date.now() / 1000; time += week) {
+      payoutTimes.push(workingTimeBN);
+      workingTimeBN = workingTimeBN.add(ethers.BigNumber.from(week));
+    }
+
+    const batch1Promise = model.callMulti(
+      [
+        () => dillContract.supply(),
+        () => dillContract.totalSupply(),
+        () => feeDistContract.time_cursor(),
+      ],
+      chain,
+    );
+
+    const batch2Promise = Promise.all([
+      model.callMulti(
+        payoutTimes.map((time) => () => feeDistContract.tokens_per_week(time)),
+        chain,
+      ),
+      model.callMulti(
+        payoutTimes.map((time) => () => feeDistContract.ve_supply(time)),
+        chain,
+      ),
+    ]);
+    const [payoutsBN, dillAmountsBN]: [BigNumber[], BigNumber[]] =
+      await batch2Promise;
+    const [picklesLocked, dillSupply, endTime]: BigNumber[] =
+      await batch1Promise;
 
     const picklesLockedFloat = parseFloat(
       ethers.utils.formatEther(picklesLocked),
     );
     const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
-
-    // Ignore initial negligible distributions that distort
-    // PICKLE/DILL ratio range.
-    const feeDistContract = new MulticallContract(
-      FEE_DISTRIBUTOR,
-      feeDistributorAbi,
+    const payouts: number[] = payoutsBN.map((x: BigNumber) =>
+      parseFloat(ethers.utils.formatEther(x)),
     );
-    const startTime = ethers.BigNumber.from(
-      firstMeaningfulDistributionTimestamp,
+    const dillAmounts: number[] = dillAmountsBN.map((x: BigNumber) =>
+      parseFloat(ethers.utils.formatEther(x)),
     );
-    const [endTime] = await multicallProvider.all<BigNumber[]>([
-      feeDistContract.time_cursor(),
-    ]);
-    const payoutTimes: BigNumber[] = [];
-    for (
-      let time = startTime;
-      time.lt(endTime);
-      time = time.add(ethers.BigNumber.from(week))
-    ) {
-      payoutTimes.push(time);
-    }
-
-    const payouts: number[] = (
-      await multicallProvider.all<BigNumber[]>(
-        payoutTimes.map((time) => feeDistContract.tokens_per_week(time)),
-      )
-    ).map((x) => parseFloat(ethers.utils.formatEther(x)));
-
-    const dillAmounts: number[] = (
-      await multicallProvider.all<BigNumber[]>(
-        payoutTimes.map((time) => feeDistContract.ve_supply(time)),
-      )
-    ).map((x) => parseFloat(ethers.utils.formatEther(x)));
-
-    const picklePriceSeries = await fetchHistoricalPriceSeries({
-      from: new Date(firstMeaningfulDistributionTimestamp * 1000),
-    });
 
     let totalPickleAmount = 0;
     let lastTotalDillAmount = 0;
-
+    const picklePriceSeries = await picklePriceSeriesPromise;
     const mapResult: DillWeek[] = payoutTimes.map((time, index): DillWeek => {
       // Fees get distributed at the beginning of the following period.
       const distributionTime = new Date((time.toNumber() + week) * 1000);
       const isProjected = distributionTime > new Date();
-
+      if (isProjected) {
+        console.log("Test");
+      }
       const weeklyPickleAmount = isProjected
         ? thisWeekProjectedDistribution / picklePrice
         : payouts[index];

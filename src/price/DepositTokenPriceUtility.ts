@@ -9,7 +9,7 @@ import { getLivePairDataFromContracts } from "../protocols/GenericSwapUtil";
 import CurvePoolABI from "../Contracts/ABIs/curve-pool.json";
 import MetaPoolABI from "../Contracts/ABIs/meta-pool.json";
 import { ethers } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { Contract as MultiContract } from "ethers-multicall";
 
 /*
     Most of this class has been moved into the jar behavior classes directly. 
@@ -36,7 +36,7 @@ export async function getDepositTokenPriceForSwap(
 export async function getStableswapPrice(
   asset: PickleAsset,
   model: PickleModel,
-) {
+): Promise<number> {
   return getStableswapPriceAddress(asset.depositToken.addr, asset, model);
 }
 
@@ -53,21 +53,20 @@ export async function getStableswapPriceAddress(
   addr: string,
   asset: PickleAsset,
   model: PickleModel,
-) {
+): Promise<number> {
   const curveStyle =
     asset.protocol === AssetProtocol.CURVE ||
     asset.protocol === AssetProtocol.YEARN;
-  const provider: Provider = model.providerFor(asset.chain);
   const PoolABI = curveStyle ? CurvePoolABI : MetaPoolABI;
 
-  const pool = new ethers.Contract(addr, PoolABI, provider);
+  const pool = new MultiContract(addr, PoolABI);
   let virtualPrice = 0;
   try {
     virtualPrice = await (curveStyle
-      ? pool.get_virtual_price()
-      : pool.getVirtualPrice());
+      ? model.callMulti(() => pool.get_virtual_price(), asset.chain)
+      : model.callMulti(() => pool.getVirtualPrice(), asset.chain));
   } catch (e) {
-    console.log(e);
+    model.logError("getStableswapPriceAddress", e, asset.details.apiKey);
   }
   return parseFloat(ethers.utils.formatEther(virtualPrice));
 }

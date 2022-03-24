@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import {
   AssetAprComponent,
   AssetProjectedApr,
@@ -11,7 +9,6 @@ import {
   aprComponentsToProjectedAprImpl,
   createAprComponentImpl,
 } from "../AbstractJarBehavior";
-import { Chains } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateMCv2SushiRewards,
@@ -29,12 +26,10 @@ export abstract class SushiJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["sushi"],
       this.strategyAbi,
     );
@@ -86,34 +81,39 @@ export const chefV2AprStatsStatic = async (
   model: PickleModel,
   rewardToken: string,
 ): Promise<AssetProjectedApr> => {
-  const aprSushiRewards: number = await calculateMCv2SushiRewards(
+  const aprSushiRewardsPromise = calculateMCv2SushiRewards(
     definition.depositToken.addr,
     model,
     definition.chain,
   );
+
+  const aprTokenRewardsPromise = calculateMCv2TokenRewards(
+    definition.depositToken.addr,
+    rewardToken,
+    model,
+    definition.chain,
+  );
+
+  const lpAprPromise = new SushiEthPairManager().calculateLpApr(
+    model,
+    definition.depositToken.addr,
+  );
+
+  const lpApr: number = await lpAprPromise;
+  const aprTokenRewards: number = await aprTokenRewardsPromise;
+  const aprSushiRewards: number = await aprSushiRewardsPromise;
   const aprSushiComp: AssetAprComponent = createAprComponentImpl(
     "sushi",
     aprSushiRewards,
     true,
   );
 
-  const aprTokenRewards: number = await calculateMCv2TokenRewards(
-    definition.depositToken.addr,
-    rewardToken,
-    model,
-    Chains.get(definition.chain).getProviderOrSigner(),
-    definition.chain,
-  );
   const tokenAprComp: AssetAprComponent = createAprComponentImpl(
     rewardToken,
     aprTokenRewards,
     true,
   );
 
-  const lpApr: number = await new SushiEthPairManager().calculateLpApr(
-    model,
-    definition.depositToken.addr,
-  );
   const lpComp: AssetAprComponent = createAprComponentImpl("lp", lpApr, false);
 
   return aprComponentsToProjectedAprImpl([aprSushiComp, tokenAprComp, lpComp]);

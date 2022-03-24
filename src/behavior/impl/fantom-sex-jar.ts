@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import strategyABI from "../../Contracts/ABIs/strategy-dual.json";
@@ -28,12 +26,10 @@ export class SexJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["solid", "sex"],
       this.strategyAbi,
     );
@@ -43,6 +39,11 @@ export class SexJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
+    const lpPromise = new SolidlyPairManager().calculateLpApr(
+      model,
+      jar.depositToken.addr,
+    );
+
     const components = [];
     await this.getApiLpDetails(jar, model);
     if (SexJar.apiLpDetails) {
@@ -71,10 +72,8 @@ export class SexJar extends AbstractJarBehavior {
           ),
         );
     }
-    const lp = await new SolidlyPairManager().calculateLpApr(
-      model,
-      jar.depositToken.addr,
-    );
+
+    const lp = await lpPromise;
     components.push(this.createAprComponent("lp", lp, false));
 
     return this.aprComponentsToProjectedApr(components);

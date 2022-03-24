@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import wannaChefAbi from "../Contracts/ABIs/wanna-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -39,22 +39,22 @@ export async function calculateWannaFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
-
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = wannaPoolIds[jar.depositToken.addr];
-  const multicallWannaFarms = new MulticallContract(WANNA_FARMS, wannaChefAbi);
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallWannaFarms = new MultiContract(WANNA_FARMS, wannaChefAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
   const [wannaPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallWannaFarms.wannaPerBlock(),
-      multicallWannaFarms.totalAllocPoint(),
-      multicallWannaFarms.poolInfo(poolId),
-      lpToken.balanceOf(WANNA_FARMS),
-    ]);
+    await model.callMulti(
+      [
+        () => multicallWannaFarms.wannaPerBlock(),
+        () => multicallWannaFarms.totalAllocPoint(),
+        () => multicallWannaFarms.poolInfo(poolId),
+        () => lpToken.balanceOf(WANNA_FARMS),
+      ],
+      jar.chain,
+    );
 
   const rewardsPerBlock =
     (parseFloat(formatEther(wannaPerBlockBN)) *

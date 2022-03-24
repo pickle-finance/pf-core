@@ -8,12 +8,11 @@ import triFarmsAbi from "../Contracts/ABIs/tri-farms.json";
 import triv2FarmsAbi from "../Contracts/ABIs/triv2-farms.json";
 import sushiComplexRewarderAbi from "../Contracts/ABIs/sushi-complex-rewarder.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
-import { ethers } from "ethers";
 import {
   createAprComponentImpl,
   ONE_YEAR_IN_SECONDS,
@@ -66,9 +65,6 @@ export async function calculateTriFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
-
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   let triPerBlockBN,
@@ -78,45 +74,50 @@ export async function calculateTriFarmsAPY(
     auroraAPY = 0;
   if (Number.isInteger(triPoolIds[jar.depositToken.addr])) {
     const poolId = triPoolIds[jar.depositToken.addr];
-    const multicallTriFarms = new MulticallContract(TRI_FARMS, triFarmsAbi);
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallTriFarms = new MultiContract(TRI_FARMS, triFarmsAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     [triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallTriFarms.triPerBlock(),
-        multicallTriFarms.totalAllocPoint(),
-        multicallTriFarms.poolInfo(poolId),
-        lpToken.balanceOf(TRI_FARMS),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallTriFarms.triPerBlock(),
+          () => multicallTriFarms.totalAllocPoint(),
+          () => multicallTriFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(TRI_FARMS),
+        ],
+        jar.chain,
+      );
   } else if (Number.isInteger(triPoolV2Ids[jar.depositToken.addr]?.poolId)) {
     const poolId = triPoolV2Ids[jar.depositToken.addr]?.poolId;
-    const multicallTriV2Farms = new MulticallContract(
-      TRI_V2_FARMS,
-      triv2FarmsAbi,
-    );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallTriV2Farms = new MultiContract(TRI_V2_FARMS, triv2FarmsAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     // First get TRI APY
     [triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallTriV2Farms.triPerBlock(),
-        multicallTriV2Farms.totalAllocPoint(),
-        multicallTriV2Farms.poolInfo(poolId),
-        lpToken.balanceOf(TRI_V2_FARMS),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallTriV2Farms.triPerBlock(),
+          () => multicallTriV2Farms.totalAllocPoint(),
+          () => multicallTriV2Farms.poolInfo(poolId),
+          () => lpToken.balanceOf(TRI_V2_FARMS),
+        ],
+        jar.chain,
+      );
 
     // Return Aurora APY of 0 if there's no rewarder
     if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
       auroraAPY = 0;
     } else {
       // Get AURORA APY
-      const rewarderContract = new ethers.Contract(
+      const rewarderContract = new MultiContract(
         triPoolV2Ids[jar.depositToken.addr]?.rewarder,
         sushiComplexRewarderAbi,
-        model.providerFor(jar.chain),
       );
 
-      const auroraPerBlock = await rewarderContract.tokenPerBlock();
+      const auroraPerBlock = await model.callMulti(
+        () => rewarderContract.tokenPerBlock(),
+        jar.chain,
+      );
 
       const auroraRewardsPerYear =
         (parseFloat(formatEther(auroraPerBlock)) *

@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { mimaticStrategyAbi } from "../../Contracts/ABIs/mimatic-strategy.abi";
 import {
   AssetAprComponent,
@@ -22,12 +20,10 @@ export class MimaticQi extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["qi"],
       this.strategyAbi,
     );

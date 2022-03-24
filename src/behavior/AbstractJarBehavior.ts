@@ -17,6 +17,7 @@ import { PickleModel } from "../model/PickleModel";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { GenericSwapUtility } from "../protocols/GenericSwapUtil";
 import { getSwapUtilityForAsset } from "../protocols/ProtocolUtil";
+import { Contract as MulticallContract } from "ethers-multicall";
 
 // TODO move these constants out to somewhere better
 export const ONE_YEAR_IN_SECONDS: number = 360 * 24 * 60 * 60;
@@ -193,6 +194,64 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     return runningTotal;
   }
 
+  async getHarvestableUSDCommsMgrImplementation(
+    jar: JarDefinition,
+    model: PickleModel,
+    rewardTokens: string[],
+    strategyAbi: any,
+  ): Promise<number> {
+    const rewardContracts: MulticallContract[] = rewardTokens.map(
+      (x) => new MulticallContract(model.address(x, jar.chain), erc20Abi),
+    );
+    let strategyContract;
+    try {
+      strategyContract = new MulticallContract(
+        jar.details.strategyAddr,
+        strategyAbi,
+      );
+    } catch (error) {
+      model.logError("getHarvestableUSDComManImplementation", error);
+    }
+
+    const promises: Promise<any>[] = [];
+    for (let i = 0; i < rewardTokens.length; i++) {
+      promises.push(
+        model
+          .callMulti(
+            () => rewardContracts[i].balanceOf(jar.details.strategyAddr),
+            jar.chain,
+          )
+          .catch(() => BigNumber.from("0")),
+      );
+    }
+    promises.push(
+      model
+        .callMulti(() => strategyContract.getHarvestable(), jar.chain)
+        .catch(() => new Array(rewardTokens.length).fill(BigNumber.from("0"))),
+    );
+
+    const results: any[] = await Promise.all(promises);
+    const walletBalances = results.slice(0, results.length - 1);
+    const tmpStrategyHarvestables = results[results.length - 1];
+    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables
+      ? [].concat(tmpStrategyHarvestables)
+      : [];
+    const rewardTokenPrices = rewardTokens.map((x) =>
+      model.priceOfSync(x, jar.chain),
+    );
+
+    let runningTotal = 0;
+    for (let i = 0; i < rewardTokens.length; i++) {
+      runningTotal += oneRewardSubtotal(
+        strategyHarvestables[i],
+        walletBalances[i],
+        rewardTokenPrices[i],
+        model.tokenDecimals(rewardTokens[i], jar.chain),
+      );
+    }
+    return runningTotal;
+  }
+
   async getHarvestableUSDMasterchefImplementation(
     jar: JarDefinition,
     model: PickleModel,
@@ -236,6 +295,80 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         poolId,
         jar.details.strategyAddr,
       ).catch(() => BigNumber.from("0")),
+    );
+
+    const results: any[] = await Promise.all(promises);
+    const walletBalances = results.slice(0, results.length - 1);
+    const tmpMCHarvestables = results[results.length - 1];
+    const masterchefHarvestables: BigNumber[] = tmpMCHarvestables
+      ? [].concat(tmpMCHarvestables)
+      : [];
+    const rewardTokenPrices = rewardTokens.map((x) =>
+      model.priceOfSync(x, jar.chain),
+    );
+
+    let runningTotal = 0;
+    for (let i = 0; i < rewardTokens.length; i++) {
+      runningTotal += oneRewardSubtotal(
+        masterchefHarvestables[i],
+        walletBalances[i],
+        rewardTokenPrices[i],
+        model.tokenDecimals(rewardTokens[i], jar.chain),
+      );
+    }
+    return runningTotal;
+  }
+
+  async getHarvestableUSDMasterchefCommsMgrImplementation(
+    jar: JarDefinition,
+    model: PickleModel,
+    rewardTokens: string[],
+    masterchefAddr: string,
+    rewardsFuncName: string,
+    _poolId: number,
+  ): Promise<number> {
+    const mcAbi = [
+      {
+        inputs: [
+          { internalType: "uint256", name: "_pid", type: "uint256" },
+          { internalType: "address", name: "_user", type: "address" },
+        ],
+        name: rewardsFuncName,
+        outputs: [
+          { internalType: "uint256", name: "pending", type: "uint256" },
+        ],
+        stateMutability: "view",
+        type: "function",
+      },
+    ];
+
+    const rewardContracts: MulticallContract[] = rewardTokens.map(
+      (x) => new MulticallContract(model.address(x, jar.chain), erc20Abi),
+    );
+
+    const promises: Promise<any>[] = [];
+    for (let i = 0; i < rewardTokens.length; i++) {
+      promises.push(
+        model
+          .callMulti(
+            () => rewardContracts[i].balanceOf(jar.details.strategyAddr),
+            jar.chain,
+          )
+          .catch(() => BigNumber.from("0")),
+      );
+    }
+
+    const _mcContract = new MulticallContract(masterchefAddr, mcAbi);
+    promises.push(
+      model
+        .callMulti(
+          eval(`()=>_mcContract.${rewardsFuncName}(
+        _poolId,
+        jar.details.strategyAddr,
+      )`),
+          jar.chain,
+        )
+        .catch(() => BigNumber.from("0")),
     );
 
     const results: any[] = await Promise.all(promises);

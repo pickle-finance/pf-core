@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import {
@@ -18,12 +16,10 @@ export abstract class AuroraPadJar extends AuroraMultistepHarvestJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["pad"],
       PAD_FARMS,
       "pendingSushi",

@@ -105,7 +105,7 @@ function userJarEarningsToInterface(
     // really should be deposit token, not id,
     // keeping for backwards compat for now
     id: jarData.jar.id,
-    asset: jar.details.apiKey,
+    asset: jar.details?.apiKey ?? "unknown",
     balance: currentDeposit,
     balanceUsd: balanceUsd,
     earned: earned,

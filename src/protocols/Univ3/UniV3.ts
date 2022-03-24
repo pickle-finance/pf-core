@@ -1,6 +1,5 @@
-import { Contract, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import { ChainNetwork, Chains, PickleModel } from "../..";
+import { /* Contract, */ ethers } from "ethers";
+import { ChainNetwork, PickleModel } from "../..";
 import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
 import { AssetProtocol, JarDefinition } from "../../model/PickleModelJson";
 import v3PoolABI from "../../Contracts/ABIs/univ3Pool.json";
@@ -10,6 +9,7 @@ import { Pool, Position } from "@uniswap/v3-sdk";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import fetch from "node-fetch";
 import { readQueryFromGraphDetails } from "../../graph/TheGraph";
+import { Contract as MultiContract } from "ethers-multicall";
 
 export const UniV3GraphCacheKey =
   "uniswap.mainnet.v3.graph.pair.data.cache.key";
@@ -73,37 +73,42 @@ export function getUniV3Info(key: string): UniV3InfoValue {
 export const getPoolData = async (
   pool: string,
   token: string,
-  provider: Provider | Signer,
+  model: PickleModel,
+  chain: ChainNetwork,
 ): Promise<UniV3PoolData> => {
   const weth = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+  const promises = [];
+  promises.push(getWETHPrice(model));
 
-  const wethPrice = await getWETHPrice(provider);
-  const poolContract = new ethers.Contract(pool, v3PoolABI, provider);
+  const poolContract = new MultiContract(pool, v3PoolABI);
+  const wethContract = new MultiContract(weth, erc20Abi);
+  const tokenContract = new MultiContract(token, erc20Abi);
+  promises.push(
+    model.callMulti(
+      [
+        () => poolContract.token0(),
+        () => poolContract.slot0(),
+        () => poolContract.tickSpacing(),
+        () => poolContract.liquidity(),
+        () => wethContract.balanceOf(pool),
+        () => tokenContract.symbol(),
+        () => tokenContract.balanceOf(pool),
+      ],
+      chain,
+    ),
+  );
+  const [
+    wethPrice,
+    [token0, data, spacing, liquidity, wethBalanceBN, symbol, tokenBalanceBN],
+  ] = await Promise.all(promises);
 
-  const token0 = await poolContract.token0();
-  const data = await poolContract.slot0();
-
-  const spacing = await poolContract.tickSpacing();
-  const liquidity = await poolContract.liquidity();
   const ratio = univ3prices([18, 18], data.sqrtPriceX96).toAuto();
-
   const tokenPrice = token0 === weth ? wethPrice * ratio : wethPrice / ratio;
-
-  const wethContract = new ethers.Contract(weth, erc20Abi, provider);
-  const wethBalance = ethers.utils.formatUnits(
-    await wethContract.balanceOf(pool),
-    18,
-  );
-
-  const tokenContract = new ethers.Contract(token, erc20Abi, provider);
-  const symbol = await tokenContract.symbol();
-  const tokenBalance = ethers.utils.formatUnits(
-    await tokenContract.balanceOf(pool),
-    18,
-  );
-
+  const wethBalance = ethers.utils.formatUnits(wethBalanceBN, 18);
+  const tokenBalance = ethers.utils.formatUnits(tokenBalanceBN, 18);
   const tvl: number =
     parseFloat(tokenBalance) * tokenPrice + wethPrice * parseFloat(wethBalance);
+
   return {
     token: tokenPrice,
     symbol: symbol,
@@ -115,10 +120,13 @@ export const getPoolData = async (
   };
 };
 
-export const getWETHPrice = async (provider) => {
+export const getWETHPrice = async (model: PickleModel) => {
   const weth_usdc = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640";
-  const poolContract = new ethers.Contract(weth_usdc, v3PoolABI, provider);
-  const data = await poolContract.slot0();
+  const poolContract = new MultiContract(weth_usdc, v3PoolABI);
+  const data = await model.callMulti(
+    () => poolContract.slot0(),
+    ChainNetwork.Ethereum,
+  );
   const ratio = univ3prices([6, 18], data.sqrtPriceX96).toAuto(); // [] token decimals
   return ratio;
 };
@@ -126,15 +134,17 @@ export const getWETHPrice = async (provider) => {
 export const calculateUniV3Apy = async (
   poolTokenAddress: string,
   chain: ChainNetwork,
+  model: PickleModel,
 ): Promise<AprNamePair> => {
-  const provider: Provider | Signer = Chains.get(chain).getProviderOrSigner();
+  // const provider: Provider | Signer = Chains.get(chain).getProviderOrSigner();
 
   const { incentiveKey, emissions, rewardName } =
     getUniV3Info(poolTokenAddress);
   const data = await getPoolData(
     incentiveKey.pool,
     incentiveKey.rewardToken,
-    provider,
+    model,
+    chain,
   );
   const emissionsPerSecond =
     emissions / (incentiveKey.endTime - incentiveKey.startTime);
@@ -172,11 +182,64 @@ export async function getUniV3TokenPairData(
 }
 
 export const getUniV3 = async (
-  jarV3: Contract,
-  provider: Provider | Signer,
+  jar: JarDefinition,
+  model: PickleModel,
+  // provider: Provider | Signer,
 ) => {
-  const poolAddress = await jarV3.pool();
-  const poolContract = new ethers.Contract(poolAddress, v3PoolABI, provider);
+  const jarV3Abi = [
+    {
+      inputs: [],
+      name: "pool",
+      outputs: [
+        {
+          internalType: "contract IUniswapV3Pool",
+          name: "",
+          type: "address",
+        },
+      ],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "totalLiquidity",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "token0",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "token1",
+      outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getLowerTick",
+      outputs: [{ internalType: "int24", name: "", type: "int24" }],
+      stateMutability: "view",
+      type: "function",
+    },
+    {
+      inputs: [],
+      name: "getUpperTick",
+      outputs: [{ internalType: "int24", name: "", type: "int24" }],
+      stateMutability: "view",
+      type: "function",
+    },
+  ];
+
+  const jarV3 = new MultiContract(jar.contract, jarV3Abi);
+  const poolAddress = await model.callMulti(() => jarV3.pool(), jar.chain);
+  const poolContract = new MultiContract(poolAddress, v3PoolABI);
 
   const [
     data,
@@ -187,22 +250,30 @@ export const getUniV3 = async (
     token1,
     tickLower,
     tickUpper,
-  ] = await Promise.all([
-    poolContract.slot0(),
-    poolContract.fee(),
-    poolContract.liquidity(),
-    jarV3.totalLiquidity(),
-    jarV3.token0(),
-    jarV3.token1(),
-    jarV3.getLowerTick(),
-    jarV3.getUpperTick(),
-  ]);
+  ] = await model.callMulti(
+    [
+      () => poolContract.slot0(),
+      () => poolContract.fee(),
+      () => poolContract.liquidity(),
+      () => jarV3.totalLiquidity(),
+      () => jarV3.token0(),
+      () => jarV3.token1(),
+      () => jarV3.getLowerTick(),
+      () => jarV3.getUpperTick(),
+    ],
+    jar.chain,
+  );
 
-  const token0Contract = new ethers.Contract(token0, erc20Abi, provider);
-  const token1Contract = new ethers.Contract(token1, erc20Abi, provider);
+  const token0Contract = new MultiContract(token0, erc20Abi);
+  const token1Contract = new MultiContract(token1, erc20Abi);
 
-  const tokenA = new Token(1, token0, await token0Contract.decimals());
-  const tokenB = new Token(1, token1, await token1Contract.decimals());
+  const [token0Decimals, token1Decimals] = await model.callMulti(
+    [() => token0Contract.decimals(), () => token1Contract.decimals()],
+    jar.chain,
+  );
+
+  const tokenA = new Token(1, token0, token0Decimals);
+  const tokenB = new Token(1, token1, token1Decimals);
   const pool = new Pool(
     tokenA,
     tokenB,

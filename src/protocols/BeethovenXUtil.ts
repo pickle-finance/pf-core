@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import beethovenxChefAbi from "../Contracts/ABIs/beethovenx-chef.json";
@@ -10,10 +10,7 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
-import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 
 const VAULT_ADDRESS = "0x20dd72Ed959b6147912C2e529F0a0C651c33c9ce";
@@ -162,14 +159,16 @@ export const getPoolData = async (
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<number> => {
-  const provider = model.providerFor(jar.chain);
   const blockNum = await model.providerFor(jar.chain).getBlockNumber();
   const graphResp: GraphResponse | undefined = await queryTheGraph(
     jar,
     blockNum,
   );
-  const poolContract = new Contract(jar.depositToken.addr, erc20Abi, provider);
-  const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
+  const poolContract = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const poolTokenTotalSupplyBN: BigNumber = await model.callMulti(
+    () => poolContract.totalSupply(),
+    jar.chain,
+  );
   const poolTokenTotalSupply = parseFloat(
     ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
   ); // balancer LP tokens always have 18 decimals
@@ -183,13 +182,10 @@ export const getPoolData = async (
     try {
       // Less efficient. Fallback in case the graph doesn't work
       const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
-      const balVaultContract = new Contract(
-        VAULT_ADDRESS,
-        balVaultABI,
-        provider,
-      );
-      const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
-        vaultPoolId,
+      const balVaultContract = new MultiContract(VAULT_ADDRESS, balVaultABI);
+      const poolTokensResp = await model.callMulti(
+        () => balVaultContract.callStatic["getPoolTokens"](vaultPoolId),
+        jar.chain,
       );
       const { tokens, balances } = poolTokensResp;
       const filtered = tokens.map((tokenAddr: string, i: number) => {
@@ -228,23 +224,19 @@ export const calculateBalPoolAPRs = async (
   model: PickleModel,
   pricePerToken: number,
 ): Promise<AssetAprComponent[]> => {
-  const multicallProvider: MulticallProvider = model.multicallProviderFor(
-    jar.chain,
-  );
-  await multicallProvider.init();
   const poolId = masterChefIds[jar.depositToken.addr.toLowerCase()];
-  const multicallMasterchef = new MulticallContract(
-    MC_ADDRESS,
-    beethovenxChefAbi,
-  );
-  const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+  const multicallMasterchef = new MultiContract(MC_ADDRESS, beethovenxChefAbi);
+  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
   const [beetsPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallMasterchef.beetsPerBlock(),
-      multicallMasterchef.totalAllocPoint(),
-      multicallMasterchef.poolInfo(poolId),
-      lpToken.balanceOf(MC_ADDRESS),
-    ]);
+    await model.callMulti(
+      [
+        () => multicallMasterchef.beetsPerBlock(),
+        () => multicallMasterchef.totalAllocPoint(),
+        () => multicallMasterchef.poolInfo(poolId),
+        () => lpToken.balanceOf(MC_ADDRESS),
+      ],
+      jar.chain,
+    );
   const totalSupply = parseFloat(ethers.utils.formatEther(totalSupplyBN));
   const rewardsPerBlock =
     (parseFloat(ethers.utils.formatEther(beetsPerBlockBN)) *
