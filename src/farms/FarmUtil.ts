@@ -186,6 +186,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     }
     jar.farm.details.allocShare = gauge.allocPoint;
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
+    jar.farm.details.poolId = gauge.poolId;
     jar.farm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) *
       secondsPerBlock(ChainNetwork.Ethereum);
@@ -212,6 +213,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
       saFarm.details.farmApyComponents = [c];
     }
     saFarm.details.allocShare = gauge.allocPoint;
+    saFarm.details.poolId = gauge.poolId;
     saFarm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     saFarm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) *
@@ -243,6 +245,7 @@ export function setAssetGaugeAprMinichef(
       jar.farm.details.farmApyComponents = [c];
     }
     jar.farm.details.allocShare = gauge.allocPoint;
+    jar.farm.details.poolId = gauge.poolId;
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     jar.farm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * secPerBlock;
@@ -268,6 +271,7 @@ export function setAssetGaugeAprMinichef(
       saFarm.details.farmApyComponents = [c];
     }
     saFarm.details.allocShare = gauge.allocPoint;
+    saFarm.details.poolId = gauge.poolId;
     saFarm.details.picklePerDay =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * 60 * 60 * 24;
     saFarm.details.picklePerBlock =
@@ -432,6 +436,7 @@ export async function loadGaugeDataForMinichef(
       gaugeAddress: minichefAddr,
       poolPicklesPerYear: poolPicklesPerYear,
       rewardRatePerYear: poolPicklesPerYear,
+      poolId: poolIds[i],
     });
   }
   return ret;
@@ -444,6 +449,7 @@ export interface IRawGaugeData {
   rewardRatePerYear: number;
   poolPicklesPerYear: number;
   rewardRate?: number;
+  poolId?: number;
   //derivedSupply: number,
   //totalSupply: number
 }

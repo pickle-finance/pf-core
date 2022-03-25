@@ -375,6 +375,7 @@ export interface FarmDetails {
   valueBalance?: number;
   picklePerBlock?: number;
   picklePerDay?: number;
+  poolId?: number;
   farmApyComponents?: AssetAprComponent[];
   historicalApr?: HistoricalYield;
 }

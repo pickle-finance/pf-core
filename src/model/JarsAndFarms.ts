@@ -420,7 +420,7 @@ export const JAR_UNI_BAC_DAI: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "uni_bac_dai_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -446,7 +446,7 @@ export const JAR_SUSHI_MIC_USDT: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "sushi_mic_usdt_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -472,7 +472,7 @@ export const JAR_SUSHI_MIS_USDT: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "sushi_mis_usdt_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -524,7 +524,7 @@ export const JAR_UNI_BAS_DAI: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "bas_dai_99j_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -1822,7 +1822,7 @@ export const JAR_QUICKmiMATICUSDC_old: JarDefinition = {
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "polyJar_5a_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
