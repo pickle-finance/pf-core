@@ -1419,7 +1419,30 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Metis,
+      "dai",
+      "dai",
+      "0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "avax",
+      "avalanche-2",
+      "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "ftm",
+      "fantom",
+      "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Moonbeam
     this.addToken(
       ChainNetwork.Moonbeam,
