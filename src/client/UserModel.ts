@@ -434,7 +434,9 @@ export class UserModel {
         toAdd.depositTokenBalance === "0" &&
         toAdd.pAssetBalance === "0" &&
         toAdd.pStakedBalance === "0" &&
-        toAdd.picklePending === "0";
+        toAdd.picklePending === "0" && 
+        toAdd.jarAllowance === "0" && 
+        toAdd.farmAllowance === "0";
 
       if (!allZeros) ret.push(toAdd);
     }
