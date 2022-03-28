@@ -4748,7 +4748,7 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP TRI/USDT",
-    farmDepositTokenName: "pTLP UST/NEAR",
+    farmDepositTokenName: "pTLP TRI/USDT",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT);
@@ -6921,7 +6921,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   depositToken: {
     addr: "0x81e11a9374033d11Cc7e7485A7192AE37D0795D6",
     name: "STELLA STELLA/USDC",
-    link: "https://app.stellaswap.com/exchange/add/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/ETH",
     components: ["stella", "usdc"],
     nativePath: {
       //Beam Router --> WGLMR, USDC
