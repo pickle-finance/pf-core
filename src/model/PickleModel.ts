@@ -1691,7 +1691,7 @@ export class PickleModel implements ConsoleErrorLogger {
  */
 export const getZeroValueMulticallForNonErc20 = (
   jar: JarDefinition,
-): Promise<any> => {
+): Promise<BigNumber> => {
   if (
     jar.depositToken === undefined ||
     (jar.depositToken.style !== undefined &&

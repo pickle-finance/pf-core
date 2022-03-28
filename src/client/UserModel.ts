@@ -205,7 +205,7 @@ export class UserModel {
         const chainArr: UserTokenData[] = result[i];
         for (let j = 0; j < chainArr.length; j++) {
           const assetKey = chainArr[j].assetKey.toLowerCase();
-          result[assetKey] = chainArr[j];
+          ret[assetKey] = chainArr[j];
         }
       }
       this.workingData.tokens = ret;
@@ -255,8 +255,7 @@ export class UserModel {
     const chainAssets = this.model.assets.jars.filter(
       (x) =>
         x.chain === chain &&
-        x.enablement !== AssetEnablement.PERMANENTLY_DISABLED &&
-        this.isErc20Underlying(x),
+        x.enablement !== AssetEnablement.PERMANENTLY_DISABLED 
     );
 
     if (chainAssets.length === 0) {
@@ -266,16 +265,22 @@ export class UserModel {
     const provider: MulticallProvider = this.multicallProviderFor(chain);
     const depositTokenBalancesPromise: Promise<BigNumber[]> = provider.all(
       chainAssets.map((x) => {
+        DEBUG_OUT("start depositTokenBalancesPromise for " + x.details.apiKey)
+        const erc20Guard = getZeroValueMulticallForNonErc20(x);
+        if (erc20Guard) {
+          return erc20Guard;
+        }
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
-        return mcContract.balanceOf(this.walletId);
+        const rval = mcContract.balanceOf(this.walletId);
+        return rval;
       }),
     );
 
     const provider2: MulticallProvider = this.multicallProviderFor(chain);
     const pTokenBalancesPromise: Promise<BigNumber[]> = provider2.all(
       chainAssets.map((x) => {
-        const erc20Guard = getZeroValueMulticallForNonErc20(x);
-        if (erc20Guard) return erc20Guard;
+        DEBUG_OUT("start pTokenBalancesPromise for " + x.details.apiKey)
+
         const mcContract = new MulticallContract(x.contract, erc20Abi);
         return mcContract.balanceOf(this.walletId);
       }),
@@ -284,6 +289,7 @@ export class UserModel {
     const provider3: MulticallProvider = this.multicallProviderFor(chain);
     const jarAllowancePromise: Promise<BigNumber[]> = provider3.all(
       chainAssets.map((x) => {
+        DEBUG_OUT("start jarAllowancePromise for " + x.details.apiKey)
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) return erc20Guard;
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
@@ -294,8 +300,6 @@ export class UserModel {
     const provider4: MulticallProvider = this.multicallProviderFor(chain);
     const farmAllowancePromise: Promise<BigNumber[]> = provider4.all(
       chainAssets.map((x) => {
-        const erc20Guard = getZeroValueMulticallForNonErc20(x);
-        if (erc20Guard) return erc20Guard;
         if (x.farm && x.farm.farmAddress) {
           const mcContract = new MulticallContract(x.contract, erc20Abi);
           return mcContract.allowance(this.walletId, x.farm.farmAddress);
