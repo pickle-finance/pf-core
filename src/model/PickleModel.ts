@@ -411,7 +411,9 @@ export class PickleModel {
     }
     for (let i = 0; i < components.length; i++) {
       const token = ExternalTokenModelSingleton.getToken(components[i], chain);
-      if (token.isNativeToken) {
+      if( !token ) {
+        console.log("Cannot find token " + components[i] + " on chain " + chain);
+      } else if (token.isNativeToken) {
         return token;
       }
     }

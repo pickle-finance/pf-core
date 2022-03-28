@@ -170,6 +170,14 @@ export class ExternalTokenModel {
       "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase(),
       18,
       ExternalTokenFetchStyle.BOTH,
+    );  
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "renbtc",
+      "renbtc",
+      "0xeb4c2781e4eba804ce9a9803c67d0893436bb27d".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Ethereum,
