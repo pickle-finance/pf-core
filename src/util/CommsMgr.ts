@@ -1,6 +1,6 @@
 import { Provider as MultiProvider } from "ethers-multicall";
 import { ChainNetwork } from "..";
-import { PickleModel } from "../model/PickleModel";
+import { ConsoleErrorLogger } from "../model/PickleModel";
 import { v4 as uuid } from "uuid";
 import { ethers } from "ethers";
 import { Chains } from "../chain/Chains";
@@ -49,13 +49,13 @@ export class CommsMgr {
   private lastUpdated: number; // when was the last call added to pendingCalls
   private isMulticalling: boolean;
   private isSinglecalling: boolean;
-  private model: PickleModel;
+  private logger: ConsoleErrorLogger;
   private configs: ChainsConfigs;
   private rpcs: RPCs;
   sweepIntervalId: NodeJS.Timeout;
 
-  constructor(model: PickleModel, config: ChainsConfigs = undefined) {
-    this.model = model;
+  constructor(logger: ConsoleErrorLogger, config: ChainsConfigs = undefined) {
+    this.logger = logger;
     this.configs = config ?? CHAINS_CONFIGS;
     this.lastUpdated = 0;
     this.isMulticalling = false;
@@ -75,19 +75,18 @@ export class CommsMgr {
       this.rpcs[ChainNetwork[chain]] = {};
     });
     this.resolvedCalls = new Map<string, any>();
-    this.start();
   }
 
-  start() {
+  start(): void {
     this.sweepIntervalId = setInterval(this.sweepPendingCalls.bind(this), 2000);
   }
 
-  stop() {
+  stop(): void {
     clearInterval(this.sweepIntervalId);
   }
 
   // TODO this will break CommsMgr if a chain has all its RPCs dead
-  async configureRPCs(configuredChains: ChainNetwork[]) {
+  async configureRPCs(configuredChains: ChainNetwork[]): Promise<void>  {
     await Promise.all(
       configuredChains.map(async (chain) => {
         const rpcObject: ChainRPCs = { single: undefined, multi: [] };
@@ -101,7 +100,7 @@ export class CommsMgr {
               liveRPCs.push(rpc);
               console.log(`${url} is live.`);
             } catch (error) {
-              this.model.logError(
+              this.logger.logError(
                 `[CommsMgr] configureRPCs`,
                 error,
                 `[${chain}] RPC [${url}] is dead`,
@@ -119,7 +118,7 @@ export class CommsMgr {
           try {
             await multiProvider.init();
           } catch (error) {
-            this.model.logError(
+            this.logger.logError(
               `[CommsMgr] configureRPCs`,
               error,
               `[${chain}] a multiProvider.init() has failed`,
@@ -278,7 +277,7 @@ export class CommsMgr {
               chain,
             );
           } catch (error) {
-            this.model.logError("executeChainCalls", error);
+            this.logger.logError("executeChainCalls", error);
           }
           tmpIds = [];
           tmpCallbacks = [];
@@ -312,7 +311,7 @@ export class CommsMgr {
         this.resolvedCalls[ids[i]] = response;
         this.deletePendingCall(chain, ids[i]);
       } catch (error) {
-        this.model.logError(
+        this.logger.logError(
           "executeChainSinglecalls",
           error,
           `${chain} singlecall failed`,
@@ -342,7 +341,7 @@ export class CommsMgr {
       );
       return Promise.resolve();
     } catch (error) {
-      this.model.logError(
+      this.logger.logError(
         "ternaryExecuteTmpCalls",
         error,
         `${chain} multicall failed`,
@@ -410,7 +409,7 @@ export class CommsMgr {
       if (~index) {
         this.pendingSinglecalls[chain].splice(index, 1);
       } else {
-        this.model.logError("deletePendingCall", "pending call not found");
+        this.logger.logError("deletePendingCall", "pending call not found");
       }
     }
   }

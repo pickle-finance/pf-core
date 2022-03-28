@@ -189,7 +189,11 @@ export const DEBUG_OUT = (str: string): void => {
   if (GLOBAL_DEBUG_FLAG) console.log("[" + Date.now() + "] " + str);
 };
 
-export class PickleModel {
+export interface ConsoleErrorLogger {
+  logError(where: string, error: any, context?: any): void;
+}
+
+export class PickleModel implements ConsoleErrorLogger {
   private allAssets: PickleAsset[];
   private dillDetails: DillDetails;
   private platformData: PlatformData;
@@ -466,6 +470,7 @@ export class PickleModel {
   }
 
   async generateFullApi(): Promise<PickleModelJson> {
+    this.commsMgr.start();
     await this.checkConfiguredChainsConnections();
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
@@ -480,6 +485,7 @@ export class PickleModel {
   }
 
   async generateMinimalApi(): Promise<PickleModelJson> {
+    this.commsMgr.start();
     this.minimalMode = true;
     await this.checkConfiguredChainsConnections();
     await this.loadJarAndFarmData();
