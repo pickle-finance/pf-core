@@ -83,6 +83,14 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
+      "steth",
+      "staked-ether",
+      "0xae7ab96520de3a18e5e111b5eaab095312d7fe84".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.BOTH,
+    );
+    this.addToken(
+      ChainNetwork.Ethereum,
       "uni",
       "uniswap",
       "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984".toLowerCase(),
