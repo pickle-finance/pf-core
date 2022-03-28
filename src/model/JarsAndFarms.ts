@@ -220,7 +220,10 @@ export const JAR_pDAI: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.COMPOUND,
-  details: undefined,
+  details: {
+    apiKey: "evil-dai",
+    harvestStyle: HarvestStyle.NONE
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_pDAI);
