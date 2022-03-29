@@ -44,7 +44,8 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasTokenSymbol: "eth",
     explorer: "https://etherscan.io",
     rpcs: [
-      "https://rpc.flashbots.net/", // can be flaky at times
+      "https://rpc.ankr.com/eth"
+      // "https://rpc.flashbots.net/", // can be flaky at times
       // "https://mainnet.infura.io/v3/", // dead
     ],
     defaultPerformanceFee: 0.2,
