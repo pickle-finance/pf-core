@@ -4375,7 +4375,7 @@ export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
   contract: "0xeC15DA7019C3d0C91E9e36d1adBa22357AF732C3",
   depositToken: {
     addr: "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
-    name: "WETH",
+    name: "Tectonic WETH",
     link: "https://cronoscan.com/address/0xe44fd7fcb2b1581822d0c862b68222998a0c299a",
     components: ["weth"],
   },
@@ -4401,7 +4401,7 @@ export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
   contract: "0x6fe9d20f64723cb714e0ae90293c6dba7ee23db9",
   depositToken: {
     addr: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
-    name: "CRO",
+    name: "Tectonic CRO",
     link: "https://cronoscan.com/address/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
     components: ["cro"],
   },
