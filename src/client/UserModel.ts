@@ -26,6 +26,7 @@ import {
   FeeDistributor,
   FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
+import { ExternalTokenModelSingleton, ExternalToken } from "../price/ExternalTokenModel";
 
 export interface UserTokens {
   [key: string]: UserTokenData;
@@ -33,6 +34,7 @@ export interface UserTokens {
 export interface UserTokenData {
   assetKey: string;
   depositTokenBalance: string;
+  componentTokenBalances: {[key: string]: string},
   pAssetBalance: string;
   jarAllowance: string;
   pStakedBalance: string;
@@ -309,62 +311,20 @@ export class UserModel {
       }),
     );
 
-    let stakedInFarmPromise: Promise<BigNumber[]> = undefined;
-    let picklePendingPromise: Promise<BigNumber[]> = undefined;
+    let stakedAndPendingPromise: Promise<StakedAndPendingRet> = undefined;
     if (chain === ChainNetwork.Ethereum) {
-      stakedInFarmPromise = this.getStakedInFarmEth(chain, chainAssets);
-      picklePendingPromise = this.getPicklePendingEth(chain, chainAssets);
+      stakedAndPendingPromise = this.getStakedAndPendingFarmEth(chain, chainAssets);
     } else {
-      const chef = ADDRESSES.get(chain).minichef;
-      const skip: boolean =
-        chef === null || chef === undefined || chef === NULL_ADDRESS;
-      if (skip) {
-        stakedInFarmPromise = Promise.resolve(
-          chainAssets.map(() => BigNumber.from(0)),
-        );
-        picklePendingPromise = Promise.resolve(
-          chainAssets.map(() => BigNumber.from(0)),
-        );
-      } else {
-        const poolLengthBN: BigNumber = skip
-          ? BigNumber.from(0)
-          : await new Contract(
-              chef,
-              minichefAbi,
-              this.providerFor(chain),
-            ).poolLength();
-        const poolLength = parseFloat(poolLengthBN.toString());
-        const poolIds: number[] = Array.from(Array(poolLength).keys());
-        const multicallProvider = new MulticallProvider(
-          this.providerFor(chain),
-        );
-        await multicallProvider.init();
-        const miniChefMulticall: MulticallContract = new MulticallContract(
-          chef,
-          minichefAbi,
-        );
-        const lpTokens: string[] = await multicallProvider.all(
-          poolIds.map((id) => {
-            return miniChefMulticall.lpToken(id);
-          }),
-        );
-        const lpLower: string[] = lpTokens.map((x) => x.toLowerCase());
-        stakedInFarmPromise = this.getStakedInFarmMinichef(
-          chain,
-          chainAssets,
-          poolIds,
-          lpLower,
-        );
-        picklePendingPromise = this.getPicklePendingMinichef(
-          chain,
-          chainAssets,
-          poolIds,
-          lpLower,
-        );
-      }
+      stakedAndPendingPromise = this.getStakedAndPendingMinichef(chain, chainAssets);
     }
 
+    const provider5: MulticallProvider = this.multicallProviderFor(chain);
+    const allChainTokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens().filter((x) => x.chain === chain);
+    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> = provider5.all(allChainTokens.map((x) =>
+       new MulticallContract(x.contractAddr, erc20Abi).balanceOf(this.walletId)));
+
     let depositTokenBalances = [];
+    let userBalanceOfChainTokens = [];
     let pTokenBalances = [];
     let stakedInFarm = [];
     let picklePending = [];
@@ -380,7 +340,19 @@ export class UserModel {
       depositTokenBalances = [];
     }
     try {
+      userBalanceOfChainTokens = await userBalanceOfChainTokensPromise;
+    } catch (error) {
+      this.logUserModelError(
+        "Loading user Balance Of Chain Tokens on chain " + chain,
+        "" + error,
+      );
+      depositTokenBalances = [];
+    }
+
+    try {
+      DEBUG_OUT("Initializing ptoken balances");
       pTokenBalances = await pTokenBalancesPromise;
+      DEBUG_OUT("Finished Initializing ptoken balances: " + JSON.stringify(pTokenBalances));
     } catch (error) {
       this.logUserModelError(
         "Loading ptoken balances on chain " + chain,
@@ -389,7 +361,7 @@ export class UserModel {
       pTokenBalances = [];
     }
     try {
-      stakedInFarm = await stakedInFarmPromise;
+      stakedInFarm = (await stakedAndPendingPromise).staked;
     } catch (error) {
       this.logUserModelError(
         "Loading staked ptoken balances on chain " + chain,
@@ -398,7 +370,7 @@ export class UserModel {
       stakedInFarm = [];
     }
     try {
-      picklePending = await picklePendingPromise;
+      picklePending = (await stakedAndPendingPromise).pending;
     } catch (error) {
       this.logUserModelError(
         "Loading pending pickles on chain " + chain,
@@ -425,9 +397,11 @@ export class UserModel {
       farmAllowance = [];
     }
     for (let j = 0; j < chainAssets.length; j++) {
+      DEBUG_OUT("Creating usertoken data " + j + " " + chainAssets[j].details.apiKey);
       const toAdd: UserTokenData = {
         assetKey: chainAssets[j].details.apiKey,
         depositTokenBalance: depositTokenBalances[j]?.toString() || "0",
+        componentTokenBalances: this.getComponentTokensForJar(chainAssets[j], allChainTokens, userBalanceOfChainTokens),
         pAssetBalance: pTokenBalances[j]?.toString() || "0",
         pStakedBalance: stakedInFarm[j]?.toString() || "0",
         picklePending: picklePending[j]?.toString() || "0",
@@ -447,6 +421,90 @@ export class UserModel {
     return ret;
   }
 
+  getComponentTokensForJar(jar: JarDefinition, chainTokens: ExternalToken[], 
+    userTokenBalances: BigNumber[]): {[key: string]: string} {
+    const ret = {};
+    const components = jar.depositToken.components || [];
+    for( let i = 0; i < components.length; i++ ) {
+      let tokenBal: BigNumber | undefined = undefined;
+      for( let j = 0; !tokenBal && j < chainTokens.length; j++ ) {
+        if( chainTokens[j].id === components[i]) {
+          tokenBal = (j < userTokenBalances.length-1 ? userTokenBalances[j] : BigNumber.from(0))
+        }
+      }
+      ret[components[i]] = (tokenBal || BigNumber.from(0)).toString();
+    }
+    return ret;
+  }
+
+   async getStakedAndPendingMinichef(chain: ChainNetwork, 
+    chainAssets: PickleModelJson.JarDefinition[]): Promise<StakedAndPendingRet> {
+    const chef = ADDRESSES.get(chain).minichef;
+    const skip: boolean =
+      chef === null || chef === undefined || chef === NULL_ADDRESS;
+    if (skip) {
+      const stakedInFarmPromise = Promise.resolve(
+        chainAssets.map(() => BigNumber.from(0)),
+      );
+      const picklePendingPromise = Promise.resolve(
+        chainAssets.map(() => BigNumber.from(0)),
+      );
+      return {
+        staked: await stakedInFarmPromise, 
+        pending: await picklePendingPromise,
+      }
+    } else {
+      const poolLengthBN: BigNumber = skip
+        ? BigNumber.from(0)
+        : await new Contract(
+            chef,
+            minichefAbi,
+            this.providerFor(chain),
+          ).poolLength();
+      const poolLength = parseFloat(poolLengthBN.toString());
+      const poolIds: number[] = Array.from(Array(poolLength).keys());
+      const multicallProvider = new MulticallProvider(
+        this.providerFor(chain),
+      );
+      await multicallProvider.init();
+      const miniChefMulticall: MulticallContract = new MulticallContract(
+        chef,
+        minichefAbi,
+      );
+      const lpTokens: string[] = await multicallProvider.all(
+        poolIds.map((id) => {
+          return miniChefMulticall.lpToken(id);
+        }),
+      );
+      const lpLower: string[] = lpTokens.map((x) => x.toLowerCase());
+      const stakedInFarmPromise = this.getStakedInFarmMinichef(
+        chain,
+        chainAssets,
+        poolIds,
+        lpLower,
+      );
+      const picklePendingPromise = this.getPicklePendingMinichef(
+        chain,
+        chainAssets,
+        poolIds,
+        lpLower,
+      );
+      return {
+        staked: await stakedInFarmPromise, 
+        pending: await picklePendingPromise,
+      }
+    }
+  }
+
+  async getStakedAndPendingFarmEth(
+    chain: ChainNetwork,
+    chainAssets: JarDefinition[],
+  ): Promise<StakedAndPendingRet> {
+    return {
+      staked: await this.getStakedInFarmEth(chain, chainAssets),
+      pending: await this.getPicklePendingEth(chain, chainAssets)
+    }
+  }
   async getStakedInFarmEth(
     chain: ChainNetwork,
     chainAssets: JarDefinition[],
@@ -711,4 +769,8 @@ export class UserModel {
   multicallProviderFor(chain: ChainNetwork): MulticallProvider {
     return new MulticallProvider(this.providerFor(chain), Chains.get(chain).id);
   }
+}
+interface StakedAndPendingRet {
+  staked: BigNumber[],
+  pending: BigNumber[],
 }
