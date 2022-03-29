@@ -15,6 +15,7 @@ import minichefAbi from "../Contracts/ABIs/minichef.json";
 import { AssetEnablement, JarDefinition } from "../model/PickleModelJson";
 import {
   ADDRESSES,
+  ConsoleErrorLogger,
   DEBUG_OUT,
   getZeroValueMulticallForChain,
   getZeroValueMulticallForNonErc20,
@@ -27,6 +28,7 @@ import {
   FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
 import { ExternalTokenModelSingleton, ExternalToken } from "../price/ExternalTokenModel";
+import { CommsMgr } from "../util/CommsMgr";
 
 export interface UserTokens {
   [key: string]: UserTokenData;
@@ -90,18 +92,20 @@ const emptyUserData = (): UserData => {
   };
 };
 
-export class UserModel {
+export class UserModel implements ConsoleErrorLogger {
   model: PickleModelJson.PickleModelJson;
   callback: IUserModelCallback | undefined;
   walletId: string;
   workingData: UserData;
   configuredChains: ChainNetwork[];
+  commsMgr: CommsMgr;
   constructor(
     model: PickleModelJson.PickleModelJson,
     walletId: string,
     rpcs: Map<ChainNetwork, Provider | Signer>,
     callback?: IUserModelCallback,
   ) {
+    this.commsMgr = new CommsMgr(this);
     if (callback) {
       this.callback = callback;
     }
@@ -112,6 +116,9 @@ export class UserModel {
     Chains.globalInitialize(rpcs);
     this.configuredChains = Chains.list();
   }
+  logError(where: string, error: any, context?: any): void {
+    this.logUserModelError(where + ":" + (context || "unknown"), error);
+  }
 
   async sendUpdate(): Promise<void> {
     if (this.callback !== undefined) {
@@ -120,25 +127,36 @@ export class UserModel {
   }
 
   async generateUserModel(): Promise<UserData> {
-    await Promise.all([
-      this.getUserTokens(),
-      this.getUserEarningsSummary(),
-      this.getUserGaugeVotesGuard(),
-      this.getUserDillStatsGuard(),
-      this.getUserPickles(),
-    ]);
-    if (this.callback !== undefined) {
-      this.callback.modelFinished(this.workingData);
+    await this.commsMgr.configureRPCs(Chains.list());
+    this.commsMgr.start();
+    try {
+      await Promise.all([
+        this.getUserTokens(),
+        this.getUserEarningsSummary(),
+        this.getUserGaugeVotesGuard(),
+        this.getUserDillStatsGuard(),
+        this.getUserPickles(),
+      ]);
+      if (this.callback !== undefined) {
+        this.callback.modelFinished(this.workingData);
+      }
+      return this.workingData;
+    } finally {
+      this.commsMgr.stop();
     }
-    return this.workingData;
   }
 
   async generateMinimalModel(): Promise<UserData> {
-    await Promise.all([this.getUserTokens(), this.getUserEarningsSummary()]);
-    if (this.callback !== undefined) {
-      this.callback.modelFinished(this.workingData);
+    this.commsMgr.start();
+    try {
+      await Promise.all([this.getUserTokens(), this.getUserEarningsSummary()]);
+      if (this.callback !== undefined) {
+        this.callback.modelFinished(this.workingData);
+      }
+      return this.workingData;
+    } finally { 
+      this.commsMgr.stop();
     }
-    return this.workingData;
   }
 
   getChainsToRun(): ChainNetwork[] {
@@ -264,9 +282,9 @@ export class UserModel {
       return [];
     }
 
-    const provider: MulticallProvider = this.multicallProviderFor(chain);
-    const depositTokenBalancesPromise: Promise<BigNumber[]> = provider.all(
-      chainAssets.map((x) => {
+    
+    const depositTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
+      chainAssets.map((x) => () => {
         DEBUG_OUT("start depositTokenBalancesPromise for " + x.details.apiKey)
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) {
@@ -275,40 +293,35 @@ export class UserModel {
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
         const rval = mcContract.balanceOf(this.walletId);
         return rval;
-      }),
-    );
+      }), chain);
 
-    const provider2: MulticallProvider = this.multicallProviderFor(chain);
-    const pTokenBalancesPromise: Promise<BigNumber[]> = provider2.all(
-      chainAssets.map((x) => {
+    const pTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
+      chainAssets.map((x) => () => {
         DEBUG_OUT("start pTokenBalancesPromise for " + x.details.apiKey)
 
         const mcContract = new MulticallContract(x.contract, erc20Abi);
         return mcContract.balanceOf(this.walletId);
-      }),
-    );
+      }), chain);
 
-    const provider3: MulticallProvider = this.multicallProviderFor(chain);
-    const jarAllowancePromise: Promise<BigNumber[]> = provider3.all(
-      chainAssets.map((x) => {
+    const jarAllowancePromise: Promise<BigNumber[]> = this.callMulti(
+      chainAssets.map((x) => () => {
         DEBUG_OUT("start jarAllowancePromise for " + x.details.apiKey)
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) return erc20Guard;
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
         return mcContract.allowance(this.walletId, x.contract);
-      }),
+      }), chain
     );
 
-    const provider4: MulticallProvider = this.multicallProviderFor(chain);
-    const farmAllowancePromise: Promise<BigNumber[]> = provider4.all(
-      chainAssets.map((x) => {
+    const farmAllowancePromise: Promise<BigNumber[]> = this.callMulti(
+      chainAssets.map((x) => () => {
         if (x.farm && x.farm.farmAddress) {
           const mcContract = new MulticallContract(x.contract, erc20Abi);
           return mcContract.allowance(this.walletId, x.farm.farmAddress);
         } else {
           return getZeroValueMulticallForChain(x.chain);
         }
-      }),
+      }), chain
     );
 
     let stakedAndPendingPromise: Promise<StakedAndPendingRet> = undefined;
@@ -318,10 +331,10 @@ export class UserModel {
       stakedAndPendingPromise = this.getStakedAndPendingMinichef(chain, chainAssets);
     }
 
-    const provider5: MulticallProvider = this.multicallProviderFor(chain);
     const allChainTokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens().filter((x) => x.chain === chain);
-    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> = provider5.all(allChainTokens.map((x) =>
-       new MulticallContract(x.contractAddr, erc20Abi).balanceOf(this.walletId)));
+    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> = this.callMulti(
+      allChainTokens.map((x) => () => 
+       new MulticallContract(x.contractAddr, erc20Abi).balanceOf(this.walletId)), chain);
 
     let depositTokenBalances = [];
     let userBalanceOfChainTokens = [];
@@ -463,18 +476,14 @@ export class UserModel {
           ).poolLength();
       const poolLength = parseFloat(poolLengthBN.toString());
       const poolIds: number[] = Array.from(Array(poolLength).keys());
-      const multicallProvider = new MulticallProvider(
-        this.providerFor(chain),
-      );
-      await multicallProvider.init();
       const miniChefMulticall: MulticallContract = new MulticallContract(
         chef,
         minichefAbi,
       );
-      const lpTokens: string[] = await multicallProvider.all(
-        poolIds.map((id) => {
+      const lpTokens: string[] = await this.callMulti(
+        poolIds.map((id) => () => {
           return miniChefMulticall.lpToken(id);
-        }),
+        }), chain
       );
       const lpLower: string[] = lpTokens.map((x) => x.toLowerCase());
       const stakedInFarmPromise = this.getStakedInFarmMinichef(
@@ -512,12 +521,11 @@ export class UserModel {
     const filteredChainAssets = chainAssets.filter(
       (x) => x.farm && x.farm.farmAddress,
     );
-    const provider: MulticallProvider = this.multicallProviderFor(chain);
-    const stakedBalances: BigNumber[] = await provider.all(
-      filteredChainAssets.map((x) => {
+    const stakedBalances: BigNumber[] = await this.callMulti(
+      filteredChainAssets.map((x) => () => {
         const mcContract = new MulticallContract(x.farm.farmAddress, gaugeAbi);
         return mcContract.balanceOf(this.walletId);
-      }),
+      }), chain
     );
 
     // return an array with the same indexes as in the input jar
@@ -537,17 +545,14 @@ export class UserModel {
     lpLower: string[],
   ): Promise<BigNumber[]> {
     const chef = ADDRESSES.get(chain).minichef;
-    const multicallProvider = new MulticallProvider(this.providerFor(chain));
-    await multicallProvider.init();
     const miniChefMulticall: MulticallContract = new MulticallContract(
       chef,
       minichefAbi,
     );
-
-    const userInfos: any[] = await multicallProvider.all(
-      poolIds.map((id) => {
+    const userInfos: any[] = await this.callMulti(
+      poolIds.map((id) => () => {
         return miniChefMulticall.userInfo(id, this.walletId);
-      }),
+      }), chain
     );
     const ret: BigNumber[] = [];
     for (let i = 0; i < chainAssets.length; i++) {
@@ -570,12 +575,11 @@ export class UserModel {
     const filteredChainAssets = chainAssets.filter(
       (x) => x.farm && x.farm.farmAddress,
     );
-    const provider: MulticallProvider = this.multicallProviderFor(chain);
-    const pending: BigNumber[] = await provider.all(
-      filteredChainAssets.map((x) => {
+    const pending: BigNumber[] = await this.callMulti(
+      filteredChainAssets.map((x) => () => {
         const mcContract = new MulticallContract(x.farm.farmAddress, gaugeAbi);
         return mcContract.earned(this.walletId);
-      }),
+      }), chain
     );
 
     // return an array with the same indexes as in the input jar
@@ -595,16 +599,14 @@ export class UserModel {
     lpLower: string[],
   ): Promise<BigNumber[]> {
     const chef = ADDRESSES.get(chain).minichef;
-    const multicallProvider = new MulticallProvider(this.providerFor(chain));
-    await multicallProvider.init();
     const miniChefMulticall: MulticallContract = new MulticallContract(
       chef,
       minichefAbi,
     );
-    const picklePending: BigNumber[] = await multicallProvider.all(
-      poolIds.map((id) => {
+    const picklePending: BigNumber[] = await this.callMulti(
+      poolIds.map((id) => () => {
         return miniChefMulticall.pendingPickle(id, this.walletId);
-      }),
+      }), chain
     );
     const ret: BigNumber[] = [];
     for (let i = 0; i < chainAssets.length; i++) {
@@ -644,14 +646,11 @@ export class UserModel {
       this.providerFor(ChainNetwork.Ethereum),
     );
     const eligibleTokens: string[] = await gaugeProxyContract.tokens();
-    const provider: MulticallProvider = this.multicallProviderFor(
-      ChainNetwork.Ethereum,
-    );
     const gaugeProxyMC = new MulticallContract(gaugeProxy, gaugeProxyAbi);
-    const userVotes: BigNumber[] = await provider.all(
-      eligibleTokens.map((x) => {
+    const userVotes: BigNumber[] = await this.callMulti(
+      eligibleTokens.map((x) => () => {
         return gaugeProxyMC.votes(this.walletId, x);
-      }),
+      }), ChainNetwork.Ethereum
     );
     const ret: IUserVote[] = [];
     for (let i = 0; i < userVotes.length; i++) {
@@ -768,6 +767,14 @@ export class UserModel {
   }
   multicallProviderFor(chain: ChainNetwork): MulticallProvider {
     return new MulticallProvider(this.providerFor(chain), Chains.get(chain).id);
+  }
+
+  async callMulti(
+    // tslint:disable-next-line
+    contractCallback: Function | Function[],
+    chain: ChainNetwork,
+  ) {
+    return await this.commsMgr.callMulti(contractCallback, chain);
   }
 }
 interface StakedAndPendingRet {

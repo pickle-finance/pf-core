@@ -28,7 +28,7 @@ const COMMAN_CONFIGS = {
 };
 const CHAINS_CONFIGS: ChainsConfigs = {
   default: { secondsBetweenCalls: 1, callsPerMulticall: 100 },
-  eth: { secondsBetweenCalls: 1, callsPerMulticall: 100 },
+  eth: { secondsBetweenCalls: 1, callsPerMulticall: 75 },
   aurora: { secondsBetweenCalls: 1, callsPerMulticall: 50 },
   fantom: { secondsBetweenCalls: 1, callsPerMulticall: 100 },
 };
