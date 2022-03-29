@@ -100,31 +100,12 @@ export function documentationAssetDefinitionToResult(
   const related: string[] = (asset as JarDefinition).rewardTokens || [];
   const chain: string = asset.chain;
   for (let i = 0; i < components.length; i++) {
-    const descKey =
-      "token." + chain + "." + components[i].toLowerCase() + ".desc";
-    const backupKey = "token.all." + components[i].toLowerCase() + ".desc";
-    const val = translateFirstOfKeysWithFallback(
-      language,
-      [descKey, backupKey],
-      {},
-      format,
-      "en",
-    );
+    const val = getTokenDescription(chain, components[i], language, format);
     componentTokens[components[i]] = val;
   }
   for (let i = 0; i < related.length; i++) {
     if (!components.includes(related[i])) {
-      const descKey =
-        "token." + chain + "." + related[i].toLowerCase() + ".desc";
-      const backupKey = "token.all." + related[i].toLowerCase() + ".desc";
-      const val = translateFirstOfKeysWithFallback(
-        language,
-        [descKey, backupKey],
-        {},
-        format,
-        "en",
-      );
-      relatedTokens[related[i]] = val;
+      relatedTokens[related[i]] = getTokenDescription(chain, related[i], language, format);
     }
   }
 
@@ -137,6 +118,20 @@ export function documentationAssetDefinitionToResult(
     componentTokens: componentTokens,
     relevantTokens: relatedTokens,
   };
+}
+
+export function getTokenDescription(chain: string, token: string, language: string, format: DocsFormat): string {
+  const descKey =
+  "token." + chain + "." + token.toLowerCase() + ".desc";
+  const backupKey = "token.all." + token.toLowerCase() + ".desc";
+  const val = translateFirstOfKeysWithFallback(
+    language,
+    [descKey, backupKey],
+    {},
+    format,
+    "en",
+  );
+  return val;
 }
 
 export function getObtainTranslationProperties(
