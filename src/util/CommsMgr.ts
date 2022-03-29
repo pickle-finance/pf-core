@@ -18,7 +18,7 @@ type ChainConfig = {
   callsPerMulticall: number;
 };
 type ValueOfChainNetwork = `${ChainNetwork}` | "default";
-type ChainsConfigs = {
+export type ChainsConfigs = {
   [P in ValueOfChainNetwork]?: ChainConfig;
 };
 // Configs
@@ -34,7 +34,7 @@ const CHAINS_CONFIGS: ChainsConfigs = {
 };
 
 // Helpers
-const GLOBAL_DEBUG_FLAG = true;
+const GLOBAL_DEBUG_FLAG = false;
 const DEBUG_OUT = (str: string): void => {
   if (GLOBAL_DEBUG_FLAG) console.log(str);
 };
