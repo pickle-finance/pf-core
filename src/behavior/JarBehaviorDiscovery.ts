@@ -73,6 +73,7 @@ import {
   JAR_UNIV3_PICKLE_ETH,
   JAR_UNIV3_FRAX_DAI,
   JAR_UNIV3_FRAX_USDC,
+  JAR_UNIV3_COW_ETH,
   JAR_SUSHI_NEWO_USDC,
   JAR_OKEX_JSWAP_BTCK_USDT,
   JAR_OKEX_JSWAP_ETHK_USDT,
@@ -643,6 +644,7 @@ jarToBehavior.set(JAR_UNIV3_LOOKS_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_USDC_USDT.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_WBTC_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_PICKLE_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_UNIV3_COW_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
 
 // Polygon
