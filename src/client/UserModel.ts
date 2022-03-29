@@ -28,7 +28,7 @@ import {
   FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
 import { ExternalTokenModelSingleton, ExternalToken } from "../price/ExternalTokenModel";
-import { CommsMgr } from "../util/CommsMgr";
+import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
 
 export interface UserTokens {
   [key: string]: UserTokenData;
@@ -105,7 +105,6 @@ export class UserModel implements ConsoleErrorLogger {
     rpcs: Map<ChainNetwork, Provider | Signer>,
     callback?: IUserModelCallback,
   ) {
-    this.commsMgr = new CommsMgr(this);
     if (callback) {
       this.callback = callback;
     }
@@ -126,9 +125,17 @@ export class UserModel implements ConsoleErrorLogger {
     }
   }
 
-  async generateUserModel(): Promise<UserData> {
+  async initCommsMgr(): Promise<void> {
+    const CHAINS_CONFIGS: ChainsConfigs = {
+      default: { secondsBetweenCalls: 0.5, callsPerMulticall: 80 },
+    };
+    this.commsMgr = new CommsMgr(this, CHAINS_CONFIGS);
     await this.commsMgr.configureRPCs(Chains.list());
     this.commsMgr.start();
+  }
+
+  async generateUserModel(): Promise<UserData> {
+    await this.initCommsMgr();
     try {
       await Promise.all([
         this.getUserTokens(),
@@ -147,7 +154,7 @@ export class UserModel implements ConsoleErrorLogger {
   }
 
   async generateMinimalModel(): Promise<UserData> {
-    this.commsMgr.start();
+    await this.initCommsMgr();
     try {
       await Promise.all([this.getUserTokens(), this.getUserEarningsSummary()]);
       if (this.callback !== undefined) {
