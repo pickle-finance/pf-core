@@ -475,6 +475,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.BOTH,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "cow",
+      "cow",
+      "0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.BOTH,
+    );
 
     // Polygon
     this.addToken(

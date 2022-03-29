@@ -1475,7 +1475,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1528,7 +1528,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "looks"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1557,7 +1557,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1586,7 +1586,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["wbtc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1615,7 +1615,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["pickle", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1660,6 +1660,34 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_USDC);
+
+export const JAR_UNIV3_COW_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar U3j",
+  contract: "0xf0Fb82757B9f8A3A3AE3524e385E2E9039633948",
+  depositToken: {
+    addr: "0xFCfDFC98062d13a11cec48c44E4613eB26a34293",
+    name: "UniV3 COW/ETH 1%",
+    link: "https://app.uniswap.org/#/add/0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/10000",
+    components: ["cow", "weth"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["cow", "weth"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
+    apiKey: "UNIV3-COW-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xbb813d44f8b5a4e033bdc126a9ff2800b7037230",
+    farmNickname: "pUNIv3 COW/ETH",
+    farmDepositTokenName: "pUNIv3 COW/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UNIV3_COW_ETH);
 
 // Polygon
 
