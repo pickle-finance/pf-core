@@ -1429,7 +1429,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1480,7 +1480,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "looks"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1508,7 +1508,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1536,7 +1536,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["wbtc", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1564,7 +1564,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["pickle", "weth"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
