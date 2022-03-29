@@ -47,6 +47,7 @@ export const JAR_sCRV: JarDefinition = {
     addr: "0xC25a3A3b969415c80451098fa907EC722572917F",
     name: "Curve sCRV",
     link: "https://www.curve.fi/susdv2/deposit",
+    components: ["dai", "usdc", "usdt", "susd"]
   },
   rewardTokens: ["crv", "snx"],
   enablement: AssetEnablement.DISABLED,
@@ -68,6 +69,7 @@ export const JAR_renCRV: JarDefinition = {
     addr: "0x49849C98ae39Fff122806C06791Fa73784FB3675",
     name: "Curve REN/BTC",
     link: "https://www.curve.fi/ren/deposit",
+    components: ["renbtc", "wbtc"],
   },
   rewardTokens: ["crv"],
   enablement: AssetEnablement.DISABLED,
@@ -89,6 +91,7 @@ export const JAR_3CRV: JarDefinition = {
     addr: "0x6c3F90f043a72FA612cbac8115EE7e52BDe6E490",
     name: "Curve 3pool",
     link: "https://www.curve.fi/3pool/deposit",
+    components: ["dai", "usdc", "usdt"],
   },
   rewardTokens: ["crv"],
   enablement: AssetEnablement.ENABLED,
@@ -114,6 +117,7 @@ export const JAR_steCRV: JarDefinition = {
     addr: "0x06325440D014e39736583c165C2963BA99fAf14E",
     name: "Curve ETH/stETH",
     link: "https://www.curve.fi/steth/deposit",
+    components: ['weth', 'steth']
   },
   rewardTokens: ["cvx", "crv", "ldo"],
   enablement: AssetEnablement.ENABLED,
@@ -215,12 +219,16 @@ export const JAR_pDAI: JarDefinition = {
     addr: "0x6b175474e89094c44da98b954eedeac495271d0f",
     name: "DAI",
     link: "https://etherscan.io/token/0x6b175474e89094c44da98b954eedeac495271d0f",
+    components: ["dai"],
   },
   rewardTokens: ["comp"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.COMPOUND,
-  details: undefined,
+  details: {
+    apiKey: "evil-dai",
+    harvestStyle: HarvestStyle.NONE
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_pDAI);
@@ -258,6 +266,7 @@ export const JAR_LQTY: JarDefinition = {
     addr: "0x6DEA81C8171D0bA574754EF6F8b412F2Ed88c54D",
     name: "LQTY",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x6dea81c8171d0ba574754ef6f8b412f2ed88c54d",
+    components: ["lqty"],
   },
   rewardTokens: ["weth", "lusd"],
   enablement: AssetEnablement.ENABLED,
@@ -420,7 +429,7 @@ export const JAR_UNI_BAC_DAI: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "uni_bac_dai_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -446,7 +455,7 @@ export const JAR_SUSHI_MIC_USDT: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "sushi_mic_usdt_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -472,7 +481,7 @@ export const JAR_SUSHI_MIS_USDT: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "sushi_mis_usdt_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -524,7 +533,7 @@ export const JAR_UNI_BAS_DAI: JarDefinition = {
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "bas_dai_99j_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -1096,7 +1105,7 @@ export const JAR_FOXETH: JarDefinition = {
     components: ["fox", "weth"],
   },
   rewardTokens: ["fox"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -1305,6 +1314,7 @@ export const JAR_LOOKS: JarDefinition = {
     addr: "0xf4d2888d29D722226FafA5d9B24F9164c092421E",
     name: "LOOKS",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xf4d2888d29d722226fafa5d9b24f9164c092421e",
+    components: ["looks"],
   },
   rewardTokens: ["weth"],
   enablement: AssetEnablement.ENABLED,
@@ -1419,7 +1429,7 @@ export const JAR_UNIV3_USDC_ETH_05: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1470,7 +1480,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "looks"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1498,7 +1508,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1526,7 +1536,7 @@ export const JAR_UNIV3_WBTC_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["wbtc", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1554,7 +1564,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["pickle", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1598,34 +1608,6 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_FRAX_USDC);
-
-export const JAR_UNIV3_COW_ETH: JarDefinition = {
-  type: AssetType.JAR,
-  id: "pJar U3j",
-  contract: "0xf0Fb82757B9f8A3A3AE3524e385E2E9039633948",
-  depositToken: {
-    addr: "0xFCfDFC98062d13a11cec48c44E4613eB26a34293",
-    name: "UniV3 COW/ETH 1%",
-    link: "https://app.uniswap.org/#/add/0xDEf1CA1fb7FBcDC777520aa7f396b4E015F497aB/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/10000",
-    components: ["cow", "weth"],
-    style: { erc20: false },
-  },
-  rewardTokens: ["cow", "weth"],
-  enablement: AssetEnablement.DEV,
-  chain: ChainNetwork.Ethereum,
-  protocol: AssetProtocol.UNISWAP_V3,
-  details: {
-    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
-    apiKey: "UNIV3-COW-ETH",
-    harvestStyle: HarvestStyle.PASSIVE,
-  },
-  farm: {
-    farmAddress: "0xbb813d44f8b5a4e033bdc126a9ff2800b7037230",
-    farmNickname: "pUNIv3 COW/ETH",
-    farmDepositTokenName: "pUNIv3 COW/ETH",
-  },
-};
-JAR_DEFINITIONS.push(JAR_UNIV3_COW_ETH);
 
 // Polygon
 
@@ -1850,7 +1832,7 @@ export const JAR_QUICKmiMATICUSDC_old: JarDefinition = {
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
   details: {
-    apiKey: undefined,
+    apiKey: "polyJar_5a_old",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
@@ -4359,6 +4341,58 @@ export const JAR_CRO_VVS_VVS_TONIC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CRO_VVS_VVS_TONIC);
 
+export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 2a",
+  contract: "0xeC15DA7019C3d0C91E9e36d1adBa22357AF732C3",
+  depositToken: {
+    addr: "0xe44Fd7fCb2b1581822D0c862B68222998a0c299a",
+    name: "WETH",
+    link: "https://cronoscan.com/address/0xe44fd7fcb2b1581822d0c862b68222998a0c299a",
+    components: ["weth"],
+  },
+  rewardTokens: ["tonic"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.TECTONIC,
+  details: {
+    apiKey: "TECTONIC-WETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTectonic WETH",
+    farmDepositTokenName: "pTectonic WETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_WETH);
+
+export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "croJar 2b",
+  contract: "0x6fe9d20f64723cb714e0ae90293c6dba7ee23db9",
+  depositToken: {
+    addr: "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
+    name: "CRO",
+    link: "https://cronoscan.com/address/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
+    components: ["cro"],
+  },
+  rewardTokens: ["tonic"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Cronos,
+  protocol: AssetProtocol.TECTONIC,
+  details: {
+    apiKey: "TECTONIC-CRO",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pTectonic CRO",
+    farmDepositTokenName: "pTectonic CRO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CRO_TECTONIC_CRO);
+
 // Aurora
 
 export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
@@ -4714,7 +4748,7 @@ export const JAR_AURORA_TRI_USDT: JarDefinition = {
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP TRI/USDT",
-    farmDepositTokenName: "pTLP UST/NEAR",
+    farmDepositTokenName: "pTLP TRI/USDT",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_USDT);
@@ -6628,6 +6662,84 @@ export const JAR_METIS_TETHYS_WBTC_METIS: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_TETHYS_WBTC_METIS);
 
+export const JAR_METIS_TETHYS_METIS_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2h",
+  contract: "0x4bDA2B3862116d6C26B858354667A981BDCcA047",
+  depositToken: {
+    addr: "0xCc15d8f93be780aD78fD1A016fB0F15F2543b5Dc",
+    name: "TETHYS METIS/DAI",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A",
+    components: ["metis", "dai"],
+  },
+  rewardTokens: ["tethys"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
+    farmNickname: "pTLP METIS/DAI",
+    farmDepositTokenName: "pTLP METIS/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_DAI);
+
+export const JAR_METIS_TETHYS_METIS_AVAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2i",
+  contract: "0x97C2df1D75632A5d2D0237B5c46e2fB58185a7fD",
+  depositToken: {
+    addr: "0x3Ca47677e7D8796e6470307Ad15c1fBFd43f0D6F",
+    name: "TETHYS METIS/AVAX",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xE253E0CeA0CDD43d9628567d097052B33F98D611",
+    components: ["metis", "avax"],
+  },
+  rewardTokens: ["tethys"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS-AVAX",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
+    farmNickname: "pTLP METIS/AVAX",
+    farmDepositTokenName: "pTLP METIS/AVAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_AVAX);
+
+export const JAR_METIS_TETHYS_METIS_FTM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 2j",
+  contract: "0x909eD0407D21ADa0E8336c24f19C1a177827d156",
+  depositToken: {
+    addr: "0x74Ca39F7aB9B685B8eA8c4ab19E7Ab6b474Dd22D",
+    name: "TETHYS METIS/FTM",
+    link: "https://tethys.finance/pool/add?inputCurrency=METIS&outputCurrency=0xa9109271abcf0C4106Ab7366B4eDB34405947eED",
+    components: ["metis", "ftm"],
+  },
+  rewardTokens: ["tethys"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.TETHYS,
+  details: {
+    apiKey: "TLP-METIS-FTM",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
+    farmNickname: "pTLP METIS/FTM",
+    farmDepositTokenName: "pTLP METIS/FTM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_FTM);
+
 // Moonbeam
 
 export const JAR_MOONBEAM_STELLA_GLMR: JarDefinition = {
@@ -6809,7 +6921,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
   depositToken: {
     addr: "0x81e11a9374033d11Cc7e7485A7192AE37D0795D6",
     name: "STELLA STELLA/USDC",
-    link: "https://app.stellaswap.com/exchange/add/0x0E358838ce72d5e61E0018a2ffaC4bEC5F4c88d2/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b",
+    link: "https://app.stellaswap.com/exchange/add/0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b/ETH",
     components: ["stella", "usdc"],
     nativePath: {
       //Beam Router --> WGLMR, USDC
@@ -8826,8 +8938,11 @@ export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
     nativePath: {
       //SpookyRouter --> WFTM, BTC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x321162Cd933E2Be498Cd2267a90534A804051b11"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x321162Cd933E2Be498Cd2267a90534A804051b11",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -9163,8 +9278,11 @@ export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
     nativePath: {
       // spooky--> WFTM, sSOLID
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x888EF71766ca594DED1F0FA3AE64eD2941740A20"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x888EF71766ca594DED1F0FA3AE64eD2941740A20",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -10208,8 +10326,11 @@ export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
     nativePath: {
       //(SpiritSwap)SpiritRouter --> WFTM, SCARAB
       target: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
-      path: ["0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83", "0x2e79205648B85485731CFE3025d66cF2d3B059c4"]
-    }
+      path: [
+        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+        "0x2e79205648B85485731CFE3025d66cF2d3B059c4",
+      ],
+    },
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,

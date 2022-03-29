@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import {
   AssetProjectedApr,
@@ -8,7 +6,7 @@ import {
 } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import flareFarmsAbi from "../../Contracts/ABIs/flare-farms.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import {
   AbstractJarBehavior,
   oneRewardSubtotal,
@@ -43,25 +41,24 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    _resolver: Signer | Provider,
   ): Promise<number> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
     const poolId = flarePoolIds[jar.depositToken.addr];
 
-    const multicallFlareFarms = new MulticallContract(
-      FLARE_FARMS,
-      flareFarmsAbi,
-    );
+    const multicallFlareFarms = new MultiContract(FLARE_FARMS, flareFarmsAbi);
 
-    const mcFlareToken = new MulticallContract(
+    const mcFlareToken = new MultiContract(
       model.address("flare", jar.chain),
       erc20Abi,
     );
 
-    const [pendingObj, walletFlare] = await multicallProvider.all([
-      multicallFlareFarms.pendingTokens(poolId, jar.details.strategyAddr),
-      mcFlareToken.balanceOf(jar.details.strategyAddr),
-    ]);
+    const [pendingObj, walletFlare] = await model.callMulti(
+      [
+        () =>
+          multicallFlareFarms.pendingTokens(poolId, jar.details.strategyAddr),
+        () => mcFlareToken.balanceOf(jar.details.strategyAddr),
+      ],
+      jar.chain,
+    );
 
     const harvestableUSD = oneRewardSubtotal(
       pendingObj.amounts[0],
@@ -94,22 +91,20 @@ export class MoonbeamFlareJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
     const poolId = flarePoolIds[jar.depositToken.addr];
-    const multicallFlareFarms = new MulticallContract(
-      FLARE_FARMS,
-      flareFarmsAbi,
-    );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallFlareFarms = new MultiContract(FLARE_FARMS, flareFarmsAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [flarePerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallFlareFarms.flarePerSec(),
-        multicallFlareFarms.totalAllocPoint(),
-        multicallFlareFarms.poolInfo(poolId),
-        lpToken.balanceOf(FLARE_FARMS),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallFlareFarms.flarePerSec(),
+          () => multicallFlareFarms.totalAllocPoint(),
+          () => multicallFlareFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(FLARE_FARMS),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerYear =
       (parseFloat(formatEther(flarePerSecBn)) *

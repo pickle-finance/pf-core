@@ -137,9 +137,9 @@ export const setCoingeckoPricesOnTokens = async (
   }
   DEBUG_OUT(
     "End setCoingeckoPricesOnTokens for chain " +
-      chain +
-      ": " +
-      (Date.now() - start),
+    chain +
+    ": " +
+    (Date.now() - start),
   );
   //const missing = withContractIds.filter((x) => result.get(x.contractAddr) === undefined);
   //const missingIds = withCoinGeckoIds.filter((x) => idResult.get(x.coingeckoId) === undefined);

@@ -48,6 +48,7 @@ export enum AssetProtocol {
   LIQUID = "LiquidDriver",
   SOLID = "Solidly",
   SEX = "Solidex",
+  TECTONIC = "Tectonic",
   // ADD_PROTOCOL
 }
 
@@ -374,6 +375,7 @@ export interface FarmDetails {
   valueBalance?: number;
   picklePerBlock?: number;
   picklePerDay?: number;
+  poolId?: number;
   farmApyComponents?: AssetAprComponent[];
   historicalApr?: HistoricalYield;
 }

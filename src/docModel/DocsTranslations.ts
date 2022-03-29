@@ -2,6 +2,44 @@ import { I18n } from "i18n";
 import path from "path";
 import { DocsFormat } from "./DocsInterfaces";
 
+export function translateFirstOfKeysWithFallback(
+  language: string,
+  keys: string[],
+  properties: { [key: string]: string },
+  format: DocsFormat,
+  fallbackLanguage: string,
+): string {
+  const langs = [language, fallbackLanguage];
+  for (let i = 0; i < langs.length; i++) {
+    for (let j = 0; j < keys.length; j++) {
+      const result = translateSingleString(
+        langs[i],
+        keys[j],
+        properties,
+        format,
+      );
+      if (result !== keys[j]) {
+        return result;
+      }
+    }
+  }
+  return keys && keys.length > 0 ? keys[0] : "Not Found";
+}
+
+export function translateSingleStringWithFallback(
+  language: string,
+  key: string,
+  properties: { [key: string]: string },
+  format: DocsFormat,
+  fallbackLanguage: string,
+): string {
+  let result = translateSingleString(language, key, properties, format);
+  if (result === key) {
+    result = translateSingleString(fallbackLanguage, key, properties, format);
+  }
+  return result;
+}
+
 export function translateSingleString(
   language: string,
   key: string,

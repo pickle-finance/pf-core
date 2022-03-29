@@ -1,14 +1,15 @@
 import { ChainNetwork, IChain } from "..";
 import { Chains } from "../chain/Chains";
-import { ADDRESSES, NULL_ADDRESS, PickleModel } from "../model/PickleModel";
-import { Provider } from "@ethersproject/providers";
 import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
+  ADDRESSES,
+  DEBUG_OUT,
+  NULL_ADDRESS,
+  PickleModel,
+} from "../model/PickleModel";
+import { Contract as MultiContract } from "ethers-multicall";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
 import MinichefAbi from "../Contracts/ABIs/minichef.json";
-import { Contract, ethers } from "ethers";
+import { ethers } from "ethers";
 import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
@@ -33,49 +34,77 @@ export function secondsPerBlock(network: ChainNetwork): number | undefined {
   return undefined;
 }
 
-export async function loadGaugeAprData(
+export async function setGaugeAprData(
   model: PickleModel,
   chain: ChainNetwork,
-  tokens: string[] | undefined,
+  rawGaugeData: IRawGaugeData[],
 ): Promise<void> {
+  const chainStart = Date.now();
+  DEBUG_OUT("Begin setGaugeAprData chain " + chain);
   // TODO ADD_CHAIN_STYLE
   if (chain === ChainNetwork.Ethereum) {
-    let rawGaugeData: IRawGaugeData[] = [];
-    try {
-      rawGaugeData = await loadGaugeDataEth(tokens);
-    } catch (error) {
-      model.logError("loadGaugeAprData", chain.toString(), error);
-    }
     if (rawGaugeData && rawGaugeData.length > 0) {
       for (let i = 0; i < rawGaugeData.length; i++) {
         setAssetGaugeAprEth(rawGaugeData[i], model);
       }
     }
   } else {
+    if (rawGaugeData && rawGaugeData.length > 0) {
+      for (let i = 0; i < rawGaugeData.length; i++) {
+        setAssetGaugeAprMinichef(
+          rawGaugeData[i],
+          model,
+          secondsPerBlock(chain),
+        );
+      }
+    }
+  }
+  DEBUG_OUT(
+    "End setGaugeAprData chain " + chain + ";  " + (Date.now() - chainStart),
+  );
+}
+
+export interface RawGaugeChainMap {
+  [key: string]: IRawGaugeData[];
+}
+export async function preloadRawGaugeData(
+  model: PickleModel,
+  chain: ChainNetwork,
+  tokens: string[] | undefined,
+): Promise<IRawGaugeData[]> {
+  const chainStart = Date.now();
+  DEBUG_OUT("Begin preloadRawGaugeData chain " + chain);
+  // TODO ADD_CHAIN_STYLE
+  let rawGaugeData: IRawGaugeData[] = [];
+  if (chain === ChainNetwork.Ethereum) {
+    try {
+      rawGaugeData = await loadGaugeDataEth(tokens, model);
+    } catch (error) {
+      model.logError("preloadRawGaugeData", chain.toString(), error);
+    }
+  } else {
     // All other chains use minichef currently
     const minichefAddr: string = minichefAddressForChain(chain);
     if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
-      let rawGaugeData: IRawGaugeData[] = [];
       try {
         rawGaugeData = await loadGaugeDataForMinichef(
           minichefAddr,
           chain,
           tokens,
+          model,
         );
       } catch (error) {
-        model.logError("loadGaugeAprData", chain.toString(), error);
-      }
-      if (rawGaugeData && rawGaugeData.length > 0) {
-        for (let i = 0; i < rawGaugeData.length; i++) {
-          setAssetGaugeAprMinichef(
-            rawGaugeData[i],
-            model,
-            secondsPerBlock(chain),
-          );
-        }
+        model.logError("preloadRawGaugeData", chain.toString(), error);
       }
     }
   }
+  DEBUG_OUT(
+    "End preloadRawGaugeData chain " +
+      chain +
+      ";  " +
+      (Date.now() - chainStart),
+  );
+  return rawGaugeData;
 }
 
 function findJarForGauge(
@@ -157,6 +186,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     }
     jar.farm.details.allocShare = gauge.allocPoint;
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
+    jar.farm.details.poolId = gauge.poolId;
     jar.farm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) *
       secondsPerBlock(ChainNetwork.Ethereum);
@@ -183,6 +213,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
       saFarm.details.farmApyComponents = [c];
     }
     saFarm.details.allocShare = gauge.allocPoint;
+    saFarm.details.poolId = gauge.poolId;
     saFarm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     saFarm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) *
@@ -214,6 +245,7 @@ export function setAssetGaugeAprMinichef(
       jar.farm.details.farmApyComponents = [c];
     }
     jar.farm.details.allocShare = gauge.allocPoint;
+    jar.farm.details.poolId = gauge.poolId;
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     jar.farm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * secPerBlock;
@@ -239,6 +271,7 @@ export function setAssetGaugeAprMinichef(
       saFarm.details.farmApyComponents = [c];
     }
     saFarm.details.allocShare = gauge.allocPoint;
+    saFarm.details.poolId = gauge.poolId;
     saFarm.details.picklePerDay =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * 60 * 60 * 24;
     saFarm.details.picklePerBlock =
@@ -247,76 +280,74 @@ export function setAssetGaugeAprMinichef(
   }
 }
 
-const sleep = (waitTimeInMs) =>
-  new Promise((resolve) => setTimeout(resolve, waitTimeInMs));
-
 export async function loadGaugeDataEth(
   tokensToQuery: string[] | undefined,
+  model: PickleModel,
 ): Promise<IRawGaugeData[]> {
   if (tokensToQuery && tokensToQuery.length === 0) {
     return [];
   }
-
   const ethAddresses = ADDRESSES.get(ChainNetwork.Ethereum);
-  const resolver: Provider = Chains.get(
-    ChainNetwork.Ethereum,
-  ).getPreferredWeb3Provider();
-  const multicallProvider = new MulticallProvider(resolver);
-  await multicallProvider.init();
 
-  const proxy: Contract = new Contract(
+  const proxy: MultiContract = new MultiContract(
     ethAddresses.gaugeProxy,
     gaugeProxyAbi,
-    Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider(),
   );
-  const masterChef: Contract = new Contract(
+  const masterChef: MultiContract = new MultiContract(
     ethAddresses.masterChef,
     MasterchefAbi,
-    Chains.get(ChainNetwork.Ethereum).getPreferredWeb3Provider(),
   );
-  const [tokensOnProxy, totalWeight, ppb] = await Promise.all([
-    proxy.tokens(),
-    proxy.totalWeight(),
-    masterChef.picklePerBlock(),
-  ]);
+  const [tokensOnProxy, totalWeight, ppb] = await model.callMulti(
+    [
+      () => proxy.tokens(),
+      () => proxy.totalWeight(),
+      () => masterChef.picklePerBlock(),
+    ],
+    ChainNetwork.Ethereum,
+  );
 
-  const mcGaugeProxy = new MulticallContract(
+  const mcGaugeProxy = new MultiContract(
     ethAddresses.gaugeProxy,
     gaugeProxyAbi,
   );
   const tokens = tokensToQuery ? tokensToQuery : tokensOnProxy;
-  const gaugeAddresses = await multicallProvider.all(
+  const gaugeAddressesPromises = model.callMulti(
     tokens.map((token) => {
-      return mcGaugeProxy.getGauge(token);
+      return () => mcGaugeProxy.getGauge(token);
     }),
+    ChainNetwork.Ethereum,
   );
-  await sleep(500);
-  const gaugeWeights = await multicallProvider.all(
+  const gaugeWeightsPromises = model.callMulti(
     tokens.map((token) => {
-      return mcGaugeProxy.weights(token);
+      return () => mcGaugeProxy.weights(token);
     }),
+    ChainNetwork.Ethereum,
   );
-  await sleep(500);
 
-  const gaugeRewardRates = await multicallProvider.all(
-    tokens.map((_token, index) => {
-      return new MulticallContract(
-        gaugeAddresses[index],
-        gaugeAbi,
-      ).rewardRate();
-    }),
-  );
-  await sleep(500);
+  const [gaugeAddresses, gaugeWeights] = await Promise.all([
+    gaugeAddressesPromises,
+    gaugeWeightsPromises,
+  ]);
 
-  const derivedSupplies = await multicallProvider.all(
+  const gaugeRewardRatesPromises = model.callMulti(
     tokens.map((_token, index) => {
-      return new MulticallContract(
-        gaugeAddresses[index],
-        gaugeAbi,
-      ).derivedSupply();
+      return () =>
+        new MultiContract(gaugeAddresses[index], gaugeAbi).rewardRate();
     }),
+    ChainNetwork.Ethereum,
   );
-  await sleep(500);
+  const derivedSuppliesPromises = model.callMulti(
+    tokens.map((_token, index) => {
+      return () =>
+        new MultiContract(gaugeAddresses[index], gaugeAbi).derivedSupply();
+    }),
+    ChainNetwork.Ethereum,
+  );
+
+  const [gaugeRewardRates, derivedSupplies] = await Promise.all([
+    gaugeRewardRatesPromises,
+    derivedSuppliesPromises,
+  ]);
 
   /*
     const totalSupplies = await multicallProvider.all(
@@ -358,34 +389,36 @@ export async function loadGaugeDataForMinichef(
   minichefAddr: string,
   chain: ChainNetwork,
   tokens: string[] | undefined,
+  model: PickleModel,
 ): Promise<IRawGaugeData[]> {
   // TODO this implementation is not efficient if requesting only a single jar
   if (tokens !== undefined && tokens.length === 0) return [];
-
-  const provider: Provider = Chains.get(chain).getPreferredWeb3Provider();
-  const minichef = new Contract(minichefAddr, MinichefAbi, provider);
+  const minichef = new MultiContract(minichefAddr, MinichefAbi);
   const [ppsBN, poolLengthBN] = await Promise.all([
-    minichef.picklePerSecond().catch(() => ethers.BigNumber.from(0)),
-    minichef.poolLength().catch(() => ethers.BigNumber.from(0)),
+    model
+      .callMulti(() => minichef.picklePerSecond(), chain)
+      .catch(() => ethers.BigNumber.from(0)),
+    model
+      .callMulti(() => minichef.poolLength(), chain)
+      .catch(() => ethers.BigNumber.from(0)),
   ]);
   const poolLength = parseFloat(poolLengthBN.toString());
   const picklePerSecond = parseFloat(ethers.utils.formatEther(ppsBN));
 
   // load pool infos
-  const multicallProvider = new MulticallProvider(provider);
-  await multicallProvider.init();
-
-  const miniChefMulticall = new MulticallContract(minichefAddr, MinichefAbi);
+  const miniChefMulticall = new MultiContract(minichefAddr, MinichefAbi);
   const poolIds: number[] = Array.from(Array(poolLength).keys());
-  const lpTokens: any[] = await multicallProvider.all(
+  const lpTokens: any[] = await model.callMulti(
     poolIds.map((id) => {
-      return miniChefMulticall.lpToken(id);
+      return () => miniChefMulticall.lpToken(id);
     }),
+    chain,
   );
-  const poolInfo: any[] = await multicallProvider.all(
+  const poolInfo: any[] = await model.callMulti(
     poolIds.map((id) => {
-      return miniChefMulticall.poolInfo(id);
+      return () => miniChefMulticall.poolInfo(id);
     }),
+    chain,
   );
   const totalAllocPoints = poolInfo.reduce((acc, curr) => {
     return acc + curr.allocPoint.toNumber();
@@ -403,6 +436,7 @@ export async function loadGaugeDataForMinichef(
       gaugeAddress: minichefAddr,
       poolPicklesPerYear: poolPicklesPerYear,
       rewardRatePerYear: poolPicklesPerYear,
+      poolId: poolIds[i],
     });
   }
   return ret;
@@ -415,6 +449,7 @@ export interface IRawGaugeData {
   rewardRatePerYear: number;
   poolPicklesPerYear: number;
   rewardRate?: number;
+  poolId?: number;
   //derivedSupply: number,
   //totalSupply: number
 }

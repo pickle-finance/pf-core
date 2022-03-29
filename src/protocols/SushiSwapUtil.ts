@@ -2,15 +2,13 @@ import { ChainNetwork, Chains, PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { AssetProtocol, JarDefinition } from "../model/PickleModelJson";
 import { PoolId } from "./ProtocolUtil";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import sushiChefAbi from "../Contracts/ABIs/sushi-chef.json";
 import sushiMiniChefAbi from "../Contracts/ABIs/sushi-minichef.json";
 import masterChefV2Abi from "../Contracts/ABIs/masterchefv2.json";
 import rewarderAbi from "../Contracts/ABIs/rewarder.json";
 import { formatEther, formatUnits } from "ethers/lib/utils";
-import { Contract, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
 export const SUSHI_CHEF_ADDR = "0xc2EdaD668740f1aA35E4D8f227fB8E17dcA888Cd";
@@ -194,25 +192,22 @@ export async function calculateSushiRewardApr(
   model: PickleModel,
   chain: ChainNetwork,
 ): Promise<number> {
-  const multicallProvider = model.multicallProviderFor(chain);
-  await multicallProvider.init();
-
   const pairData = await new SushiEthPairManager().getPairData(
     model,
     lpTokenAddress,
   );
   if (pairData && model.priceOfSync("sushi", chain)) {
     const poolId = sushiPoolIds[lpTokenAddress];
-    const multicallSushiChef = new MulticallContract(
-      SUSHI_CHEF_ADDR,
-      sushiChefAbi,
-    );
+    const multicallSushiChef = new MultiContract(SUSHI_CHEF_ADDR, sushiChefAbi);
     const [sushiPerBlockBN, totalAllocPointBN, poolInfo] =
-      await multicallProvider.all([
-        multicallSushiChef.sushiPerBlock(),
-        multicallSushiChef.totalAllocPoint(),
-        multicallSushiChef.poolInfo(poolId),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallSushiChef.sushiPerBlock(),
+          () => multicallSushiChef.totalAllocPoint(),
+          () => multicallSushiChef.poolInfo(poolId),
+        ],
+        chain,
+      );
 
     const sushiRewardsPerBlock =
       (parseFloat(formatEther(sushiPerBlockBN)) *
@@ -237,26 +232,26 @@ export async function calculateMCv2SushiRewards(
   model: PickleModel,
   chain: ChainNetwork,
 ): Promise<number> {
-  const multicallProvider = model.multicallProviderFor(chain);
-  await multicallProvider.init();
-
   let poolId = sushiPoolV2Ids[lpTokenAddress];
   if (poolId === undefined)
     poolId = sushiPoolV2Ids[lpTokenAddress.toLowerCase()];
 
-  const multicallMasterChefV2 = new MulticallContract(
+  const multicallMasterChefV2 = new MultiContract(
     MASTERCHEFV2_ADDR,
     masterChefV2Abi,
   );
-  const lpToken = new MulticallContract(lpTokenAddress, erc20Abi);
+  const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
 
   const [sushiPerBlockBN, totalAllocPointBN, poolInfo, supplyInRewarderBN] =
-    await multicallProvider.all([
-      multicallMasterChefV2.sushiPerBlock(),
-      multicallMasterChefV2.totalAllocPoint(),
-      multicallMasterChefV2.poolInfo(poolId),
-      lpToken.balanceOf(MASTERCHEFV2_ADDR),
-    ]);
+    await model.callMulti(
+      [
+        () => multicallMasterChefV2.sushiPerBlock(),
+        () => multicallMasterChefV2.totalAllocPoint(),
+        () => multicallMasterChefV2.poolInfo(poolId),
+        () => lpToken.balanceOf(MASTERCHEFV2_ADDR),
+      ],
+      chain,
+    );
 
   const supplyInRewarder = parseFloat(formatEther(supplyInRewarderBN));
   const sushiRewardsPerBlock =
@@ -284,24 +279,29 @@ export async function calculateMCv2TokenRewards(
   lpTokenAddress: string,
   rewardToken: string,
   model: PickleModel,
-  resolver: Signer | Provider,
   chain: ChainNetwork,
 ): Promise<number> {
   const poolId = sushiPoolV2Ids[lpTokenAddress];
-  const rewarder_addr = await new Contract(
-    MASTERCHEFV2_ADDR,
-    masterChefV2Abi,
-    resolver,
-  ).rewarder(poolId);
-  const rewarder = new Contract(rewarder_addr, rewarderAbi, resolver);
-  const lpToken = new Contract(lpTokenAddress, erc20Abi, resolver);
-  const supplyInMasterChefBN = await lpToken.balanceOf(MASTERCHEFV2_ADDR);
+  const rewarder_addr = await model.callMulti(
+    () =>
+      new MultiContract(MASTERCHEFV2_ADDR, masterChefV2Abi).rewarder(poolId),
+    chain,
+  );
+  const rewarder = new MultiContract(rewarder_addr, rewarderAbi);
+  const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
+  const supplyInMasterChefBN = await model.callMulti(
+    () => lpToken.balanceOf(MASTERCHEFV2_ADDR),
+    chain,
+  );
   const supplyInMasterChef = parseFloat(formatEther(supplyInMasterChefBN));
 
   // TODO clean this mess up
   let rewardsPerYear = 0;
   if (rewardToken === "alcx") {
-    const tokenPerBlockBN = await rewarder.tokenPerBlock();
+    const tokenPerBlockBN = await model.callMulti(
+      () => rewarder.tokenPerBlock(),
+      chain,
+    );
     const secPerBl = Chains.get(chain).secondsPerBlock;
     rewardsPerYear =
       (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) /
@@ -309,11 +309,17 @@ export async function calculateMCv2TokenRewards(
     const rewardsPerYear2 =
       (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) / 13;
   } else if (rewardToken === "cvx") {
-    const tokenPerSecondBN = await rewarder.rewardRate();
+    const tokenPerSecondBN = await model.callMulti(
+      () => rewarder.rewardRate(),
+      chain,
+    );
     rewardsPerYear =
       parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
   } else if (rewardToken === "tru") {
-    const tokenPerSecondBN = await rewarder.rewardPerSecond();
+    const tokenPerSecondBN = await model.callMulti(
+      () => rewarder.rewardPerSecond(),
+      chain,
+    );
     rewardsPerYear =
       parseFloat(formatUnits(tokenPerSecondBN, 8)) * ONE_YEAR_SECONDS;
   }
@@ -330,22 +336,24 @@ export async function calculateMCv2TokenRewards(
 export async function calculateSushiApyArbitrum(
   jar: JarDefinition,
   model: PickleModel,
-) {
+): Promise<number> {
   const lpTokenAddress: string = jar.depositToken.addr;
-  const multicallProvider = model.multicallProviderFor(jar.chain);
   const poolId = sushiPoolIdsArbitrum[lpTokenAddress];
-  const multicallsushiMinichef = new MulticallContract(
+  const multicallsushiMinichef = new MultiContract(
     SUSHI_MINICHEF_ARBITRUM_ADDR,
     sushiMiniChefAbi,
   );
-  const lpToken = new MulticallContract(lpTokenAddress, erc20Abi);
+  const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
   const [sushiPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await multicallProvider.all([
-      multicallsushiMinichef.sushiPerSecond(),
-      multicallsushiMinichef.totalAllocPoint(),
-      multicallsushiMinichef.poolInfo(poolId),
-      lpToken.balanceOf(SUSHI_MINICHEF_ARBITRUM_ADDR),
-    ]);
+    await model.callMulti(
+      [
+        () => multicallsushiMinichef.sushiPerSecond(),
+        () => multicallsushiMinichef.totalAllocPoint(),
+        () => multicallsushiMinichef.poolInfo(poolId),
+        () => lpToken.balanceOf(SUSHI_MINICHEF_ARBITRUM_ADDR),
+      ],
+      jar.chain,
+    );
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const sushiRewardsPerSecond =
     (parseFloat(formatEther(sushiPerSecondBN)) *
@@ -365,30 +373,29 @@ export async function calculateMCv2ApyArbitrum(
   jar: JarDefinition,
   model: PickleModel,
   rewardToken: string,
-) {
+): Promise<number> {
   const lpTokenAddress = jar.depositToken.addr;
   const poolId = sushiPoolIdsArbitrum[lpTokenAddress];
-  const sushiMinichef = new Contract(
+  const sushiMinichef = new MultiContract(
     SUSHI_MINICHEF_ARBITRUM_ADDR,
     sushiMiniChefAbi,
-    model.providerFor(jar.chain),
   );
-  const rewarder_addr = await sushiMinichef.rewarder(poolId);
-  const rewarder = new Contract(
-    rewarder_addr,
-    rewarderAbi,
-    model.providerFor(jar.chain),
+  const rewarder_addr = await model.callMulti(
+    () => sushiMinichef.rewarder(poolId),
+    jar.chain,
   );
-  const lpToken = new Contract(
-    lpTokenAddress,
-    erc20Abi,
-    model.providerFor(jar.chain),
+  const rewarder = new MultiContract(rewarder_addr, rewarderAbi);
+  const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
+  const [totalSupplyBN, tokenPerSecondBN] = await model.callMulti(
+    [
+      () => lpToken.balanceOf(sushiMinichef.address),
+      () => rewarder.rewardPerSecond(),
+    ],
+    jar.chain,
   );
-  const totalSupplyBN = await lpToken.balanceOf(sushiMinichef.address);
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const pricePerToken = jar.depositToken.price;
 
-  const tokenPerSecondBN = await rewarder.rewardPerSecond();
   const rewardsPerYear =
     parseFloat(formatEther(tokenPerSecondBN)) * ONE_YEAR_SECONDS;
 

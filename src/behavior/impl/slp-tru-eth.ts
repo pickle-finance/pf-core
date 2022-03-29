@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import { PickleModel } from "../../model/PickleModel";
@@ -12,12 +10,10 @@ export class SlpTruEth extends SushiJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["sushi", "tru"],
       this.strategyAbi,
     );

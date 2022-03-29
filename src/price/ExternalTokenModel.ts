@@ -83,6 +83,14 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
+      "steth",
+      "staked-ether",
+      "0xae7ab96520de3a18e5e111b5eaab095312d7fe84".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.BOTH,
+    );
+    this.addToken(
+      ChainNetwork.Ethereum,
       "uni",
       "uniswap",
       "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984".toLowerCase(),
@@ -162,6 +170,14 @@ export class ExternalTokenModel {
       "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase(),
       18,
       ExternalTokenFetchStyle.BOTH,
+    );  
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "renbtc",
+      "renbtc",
+      "0xeb4c2781e4eba804ce9a9803c67d0893436bb27d".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -813,7 +829,7 @@ export class ExternalTokenModel {
       "jswap-finance",
       "0x5fAc926Bf1e638944BB16fb5B787B5bA4BC85b0A".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.COIN_MARKET_CAP,
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.OKEx,
@@ -1157,7 +1173,6 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
-
     // Aurora
     this.addToken(
       ChainNetwork.Aurora,
@@ -1417,7 +1432,8 @@ export class ExternalTokenModel {
       "binaryDAO",
       "0x721532bC0dA5ffaeB0a6A45fB24271E8098629A7".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.SWAP_PAIRS, ["0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c"]
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0x3Ab6be89ED5A0d4FDD412c246F5e6DdD250Dd45c"],
     );
     this.addToken(
       ChainNetwork.Metis,
@@ -1427,7 +1443,30 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Metis,
+      "dai",
+      "dai",
+      "0x4651B38e7ec14BB3db731369BFE5B08F2466Bd0A".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "avax",
+      "avalanche-2",
+      "0x80A16016cC4A2E6a2CACA8a4a498b1699fF0f844".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "ftm",
+      "fantom",
+      "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Moonbeam
     this.addToken(
       ChainNetwork.Moonbeam,

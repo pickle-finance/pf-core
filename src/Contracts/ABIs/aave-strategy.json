@@ -161,6 +161,13 @@
     "inputs": []
   },
   {
+    "inputs": [],
+    "name": "getHarvestable",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "type": "function",
     "stateMutability": "view",
     "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],

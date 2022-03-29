@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   AbstractJarBehavior,
@@ -7,7 +5,7 @@ import {
 } from "../AbstractJarBehavior";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import {
   getLivePairDataFromContracts,
@@ -27,12 +25,10 @@ export abstract class ComethJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["must"],
       this.strategyAbi,
     );
@@ -62,19 +58,20 @@ export abstract class ComethJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-    const multicallStakingRewards = new MulticallContract(
+    const multicallStakingRewards = new MultiContract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
     const [rewardsDurationBN, rewardsForDurationBN, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallStakingRewards.rewardsDuration(),
-        multicallStakingRewards.getRewardForDuration(),
-        multicallStakingRewards.totalSupply(),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallStakingRewards.rewardsDuration(),
+          () => multicallStakingRewards.getRewardForDuration(),
+          () => multicallStakingRewards.totalSupply(),
+        ],
+        jar.chain,
+      );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rewardsDuration = rewardsDurationBN.toNumber(); //epoch

@@ -191,6 +191,9 @@ import {
   JAR_METIS_TETHYS_ETH_METIS,
   JAR_METIS_TETHYS_METIS_USDC,
   JAR_METIS_TETHYS_USDT_METIS,
+  JAR_METIS_TETHYS_METIS_DAI,
+  JAR_METIS_TETHYS_METIS_AVAX,
+  JAR_METIS_TETHYS_METIS_FTM,
   JAR_POLY_SUSHI_RAIDER_MATIC,
   JAR_POLY_SUSHI_RAIDER_WETH,
   JAR_POLY_SUSHI_AURUM_MATIC,
@@ -339,6 +342,8 @@ import {
   JAR_CRO_VVS_VVS_SINGLE,
   JAR_CRO_VVS_USDC_SINGLE,
   JAR_CRO_VVS_VVS_TONIC,
+  JAR_CRO_TECTONIC_WETH,
+  JAR_CRO_TECTONIC_CRO,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -576,6 +581,10 @@ import { VvsCroTonic } from "./impl/vvs-cro-tonic";
 import { VvsVvsSingle } from "./impl/vvs-vvs-single";
 import { VvsUsdcSingle } from "./impl/vvs-usdc-single";
 import { VvsVvsTonic } from "./impl/vvs-vvs-tonic";
+import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
+import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
+import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
+import { TectonicJar } from "./impl/tectonic-folding";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -743,9 +752,8 @@ jarToBehavior.set(JAR_CRO_VVS_CRO_TONIC.id, new VvsCroTonic());
 jarToBehavior.set(JAR_CRO_VVS_VVS_SINGLE.id, new VvsVvsSingle());
 jarToBehavior.set(JAR_CRO_VVS_USDC_SINGLE.id, new VvsUsdcSingle());
 jarToBehavior.set(JAR_CRO_VVS_VVS_TONIC.id, new VvsVvsTonic());
-
-
-
+jarToBehavior.set(JAR_CRO_TECTONIC_WETH.id, new TectonicJar());
+jarToBehavior.set(JAR_CRO_TECTONIC_CRO.id, new TectonicJar());
 
 // Aurora
 jarToBehavior.set(JAR_AURORA_TRI_NEAR_USDC.id, new TriNearUsdc());
@@ -822,6 +830,9 @@ jarToBehavior.set(JAR_METIS_TETHYS_USDT_METIS.id, new TethysUsdtMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_WBTC_METIS.id, new TethysBtcMetis());
 jarToBehavior.set(JAR_METIS_HADES_METIS.id, new HadesMetis());
 jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_DAI.id, new TethysMetisDai());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_AVAX.id, new TethysMetisAvax());
+jarToBehavior.set(JAR_METIS_TETHYS_METIS_FTM.id, new TethysMetisFtm());
 
 // Moonbeam
 jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());

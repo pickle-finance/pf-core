@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import { CurveJar } from "./curve-jar";
@@ -26,12 +24,10 @@ export class Mim2Crv extends CurveJar {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["spell"],
       this.strategyAbi,
     );

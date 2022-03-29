@@ -1,5 +1,3 @@
-import { Contract, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   AbstractJarBehavior,
@@ -8,10 +6,9 @@ import {
 import { ironchefAbi } from "../../Contracts/ABIs/ironchef.abi";
 import { PickleModel } from "../../model/PickleModel";
 import { formatEther } from "ethers/lib/utils";
-import { Chains } from "../../chain/Chains";
 import controllerAbi from "../../Contracts/ABIs/controller.json";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
@@ -30,12 +27,10 @@ export class Is3Usd extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefImplementation(
+    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["ice"],
       "0x1fd1259fa8cdc60c6e8c86cfa592ca1b8403dfad",
       "pendingReward",
@@ -62,31 +57,32 @@ export class Is3Usd extends AbstractJarBehavior {
     if (!controllerAddr) {
       return undefined;
     }
-    const resolver: Provider = Chains.get(jar.chain).getPreferredWeb3Provider();
-    const controller = new Contract(controllerAddr, controllerAbi, resolver);
+    const controller = new MultiContract(controllerAddr, controllerAbi);
 
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
-    const jarStrategy = await controller.strategies(jar.depositToken.addr);
-    const strategyContract = new Contract(jarStrategy, strategyAbi, resolver);
-    const ironchefAddress = await strategyContract.ironchef();
-    const poolId = await strategyContract.poolId();
+    const jarStrategy = await model.callMulti(
+      () => controller.strategies(jar.depositToken.addr),
+      jar.chain,
+    );
+    const strategyContract = new MultiContract(jarStrategy, strategyAbi);
+    const [ironchefAddress, poolId] = await model.callMulti(
+      [() => strategyContract.ironchef(), () => strategyContract.poolId()],
+      jar.chain,
+    );
     const pricePerToken = 1;
 
-    const multicallIronchef = new MulticallContract(
-      ironchefAddress,
-      ironchefAbi,
-    );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallIronchef = new MultiContract(ironchefAddress, ironchefAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [icePerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallIronchef.rewardPerSecond(),
-        multicallIronchef.totalAllocPoint(),
-        multicallIronchef.poolInfo(poolId),
-        lpToken.balanceOf(ironchefAddress),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallIronchef.rewardPerSecond(),
+          () => multicallIronchef.totalAllocPoint(),
+          () => multicallIronchef.poolInfo(poolId),
+          () => lpToken.balanceOf(ironchefAddress),
+        ],
+        jar.chain,
+      );
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const icePerSecond =

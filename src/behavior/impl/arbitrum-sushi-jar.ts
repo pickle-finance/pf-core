@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
@@ -22,12 +20,10 @@ export abstract class ArbitrumSushiJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["sushi", this.rewardToken],
       this.strategyAbi,
     );
@@ -37,15 +33,18 @@ export abstract class ArbitrumSushiJar extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const [sushiApy, rewardApy] = await Promise.all([
+    const promise1 = Promise.all([
       calculateSushiApyArbitrum(definition, model),
       calculateMCv2ApyArbitrum(definition, model, this.rewardToken),
     ]);
 
-    const lp: number = await calculateSushiswapLpApr(
+    const promise2 = calculateSushiswapLpApr(
       model,
       definition.depositToken.addr,
     );
+
+    const [sushiApy, rewardApy] = await promise1;
+    const lp: number = await promise2;
 
     return this.aprComponentsToProjectedApr([
       this.createAprComponent("lp", lp, false),

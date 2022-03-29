@@ -26,7 +26,10 @@ import {
   UNI3_REWARDS_JAR_DESCRIPTION,
   XYK_JAR_DESCRIPTION,
 } from "./DocsInterfaces";
-import { translateSingleString } from "./DocsTranslations";
+import {
+  translateFirstOfKeysWithFallback,
+  translateSingleStringWithFallback,
+} from "./DocsTranslations";
 import { PROTOCOL_SOCIAL_MODEL, TOKEN_SOCIAL_MODEL } from "./DocsDetailModel";
 
 export function documentationAssetDefinitionToResult(
@@ -41,7 +44,13 @@ export function documentationAssetDefinitionToResult(
   for (let i = 0; def.social && i < def.social.length; i++) {
     const k = def.social[i].key;
     const properties = def.social[i].properties;
-    const asStr = translateSingleString(language, k, properties, format);
+    const asStr = translateSingleStringWithFallback(
+      language,
+      k,
+      properties,
+      format,
+      "en",
+    );
     socialOutputArr.push(asStr);
   }
   const obtainOutputArr = [];
@@ -52,11 +61,12 @@ export function documentationAssetDefinitionToResult(
       obtainKey,
       def.obtain[i].properties,
     );
-    const asStr = translateSingleString(
+    const asStr = translateSingleStringWithFallback(
       language,
       obtainKey,
       properties,
       format,
+      "en",
     );
     obtainOutputArr.push(asStr);
   }
@@ -64,25 +74,64 @@ export function documentationAssetDefinitionToResult(
   for (let i = 0; def.risks && i < def.risks.length; i++) {
     const k = def.risks[i].key;
     const properties = def.risks[i].properties;
-    const asStr = translateSingleString(language, k, properties, format);
+    const asStr = translateSingleStringWithFallback(
+      language,
+      k,
+      properties,
+      format,
+      "en",
+    );
     riskOutputArr.push(asStr);
   }
   const descriptionKey = def.descriptionKey
     ? def.descriptionKey
     : { key: def.apiKey + ".desc", properties: {} };
-  const description = translateSingleString(
+  const description = translateSingleStringWithFallback(
     language,
     descriptionKey.key,
     descriptionKey.properties || {},
     format,
+    "en",
   );
+
+  const componentTokens: { [key: string]: string } = {};
+  const relatedTokens: { [key: string]: string } = {};
+  const components: string[] = asset.depositToken.components || [];
+  const related: string[] = (asset as JarDefinition).rewardTokens || [];
+  const chain: string = asset.chain;
+  for (let i = 0; i < components.length; i++) {
+    const val = getTokenDescription(chain, components[i], language, format);
+    componentTokens[components[i]] = val;
+  }
+  for (let i = 0; i < related.length; i++) {
+    if (!components.includes(related[i])) {
+      relatedTokens[related[i]] = getTokenDescription(chain, related[i], language, format);
+    }
+  }
+
   return {
     apiKey: def.apiKey,
     description: description,
     social: socialOutputArr,
     obtain: obtainOutputArr,
     risks: riskOutputArr,
+    componentTokens: componentTokens,
+    relevantTokens: relatedTokens,
   };
+}
+
+export function getTokenDescription(chain: string, token: string, language: string, format: DocsFormat): string {
+  const descKey =
+  "token." + chain + "." + token.toLowerCase() + ".desc";
+  const backupKey = "token.all." + token.toLowerCase() + ".desc";
+  const val = translateFirstOfKeysWithFallback(
+    language,
+    [descKey, backupKey],
+    {},
+    format,
+    "en",
+  );
+  return val;
 }
 
 export function getObtainTranslationProperties(

@@ -64,6 +64,8 @@ export interface AssetDocumentationResult {
   social?: string[];
   obtain: string[];
   risks: string[];
+  componentTokens: { [key: string]: string };
+  relevantTokens: { [key: string]: string };
 }
 
 export enum DocsFormat {

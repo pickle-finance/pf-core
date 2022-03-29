@@ -1,5 +1,5 @@
-import { ChainNetwork, Chains } from "../chain/Chains";
-import { ethers, Contract, BigNumber } from "ethers";
+import { ChainNetwork } from "../chain/Chains";
+import { BigNumber } from "ethers";
 import v2PoolABI from "../Contracts/ABIs/uniswapv2-pair.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { formatEther } from "@ethersproject/units";
@@ -8,19 +8,27 @@ import {
   ExternalTokenFetchStyle,
   ExternalTokenModelSingleton,
 } from "./ExternalTokenModel";
-import { DEBUG_OUT } from "../model/PickleModel";
+import { DEBUG_OUT, PickleModel } from "../model/PickleModel";
+import { Contract as MultiContract } from "ethers-multicall";
 
 /*
  * This file could benefit from multi-calls and possibly even a caching
  * so that the same contract doesn't get investigated twice in the same execution
  *
  */
-async function getPairReserves(contract: Contract) {
-  const [token0, token1, reserves] = await Promise.all([
-    contract.token0(),
-    contract.token1(),
-    contract.getReserves(),
-  ]);
+async function getPairReserves(
+  contract: MultiContract,
+  model: PickleModel,
+  chain: ChainNetwork,
+) {
+  const [token0, token1, reserves] = await model.callMulti(
+    [
+      () => contract.token0(),
+      () => contract.token1(),
+      () => contract.getReserves(),
+    ],
+    chain,
+  );
 
   return {
     token0: token0.toLowerCase(),
@@ -31,21 +39,23 @@ async function getPairReserves(contract: Contract) {
 
 export const calculateSwapTokenPrices = async (
   chains: ChainNetwork[],
+  model: PickleModel,
 ): Promise<void> => {
   const swapFiltered = ExternalTokenModelSingleton.getAllTokens()
     .filter((x) => chains.includes(x.chain))
     .filter((val) => val.fetchType === ExternalTokenFetchStyle.SWAP_PAIRS);
-  await calculateSwapTokenPricesImpl(swapFiltered);
+  await calculateSwapTokenPricesImpl(swapFiltered, model);
 };
 
 export const calculateSwapTokenPricesImpl = async (
   tokens: ExternalToken[],
+  model: PickleModel,
 ): Promise<void> => {
   DEBUG_OUT("Begin calculateSwapTokenPricesImpl");
   const start = Date.now();
   const promises = [];
   for (let i = 0; i < tokens.length; i++) {
-    promises.push(fetchSingleTokenSwapPairPriceAndSave(tokens[i]));
+    promises.push(fetchSingleTokenSwapPairPriceAndSave(tokens[i], model));
   }
   try {
     await Promise.all(promises);
@@ -57,12 +67,16 @@ export const calculateSwapTokenPricesImpl = async (
 
 export const fetchSingleTokenSwapPairPriceAndSave = async (
   token: ExternalToken,
+  model: PickleModel,
 ): Promise<void> => {
-  const provider = Chains.get(token.chain).getPreferredWeb3Provider();
   const pairReserves = [];
   for (const pair of token.swapPairs) {
-    const poolContract = new ethers.Contract(pair, v2PoolABI, provider);
-    const { token0, token1, reserves } = await getPairReserves(poolContract);
+    const poolContract = new MultiContract(pair, v2PoolABI);
+    const { token0, token1, reserves } = await getPairReserves(
+      poolContract,
+      model,
+      token.chain,
+    );
     pairReserves.push({ [token0]: reserves[0], [token1]: reserves[1] });
   }
 
@@ -92,19 +106,13 @@ export const fetchSingleTokenSwapPairPriceAndSave = async (
       )[0];
     }
 
-    const numTokenContract = new ethers.Contract(
-      numeratorToken,
-      erc20Abi,
-      provider,
-    );
-    const denomTokenContract = new ethers.Contract(
-      denomToken,
-      erc20Abi,
-      provider,
-    );
+    const numTokenContract = new MultiContract(numeratorToken, erc20Abi);
+    const denomTokenContract = new MultiContract(denomToken, erc20Abi);
 
-    const numDecimals = await numTokenContract.decimals();
-    const denomDecimals = await denomTokenContract.decimals();
+    const [numDecimals, denomDecimals] = await model.callMulti(
+      [() => numTokenContract.decimals(), () => denomTokenContract.decimals()],
+      token.chain,
+    );
 
     // Get reserve values and normalize to 18 decimal places
     const numerator = pairReserves[i][numeratorToken]

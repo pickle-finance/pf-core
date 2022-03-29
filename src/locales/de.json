@@ -6,5 +6,7 @@
   "obtain.pool.zapper": "German: Zap using Zapper's <a href='{{{poolUrl}}}'>{{poolName}}</a> pool.",
   "risk.smart.contract": "German: Smart contract issues with {{protocol}}",
   "risk.maintain.peg": "German: {{token}} may fail to maintain it's peg to {{target}}",
-  "FEI-TRIBE.desc": "A German description of fei-tribe"
+  "FEI-TRIBE.desc": "A German description of fei-tribe",
+
+  "token.all.mir.desc": "German ALL Mirror is a synthetics....."
 }

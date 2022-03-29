@@ -37,4 +37,4 @@ if (process.argv.length !== 3) {
 } else {
   generateUserData(process.argv[2]);
 }
-//generateUserData('0x...');
+// generateUserData('0x...');

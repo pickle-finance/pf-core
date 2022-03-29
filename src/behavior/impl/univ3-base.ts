@@ -1,7 +1,7 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber, ethers } from "ethers";
-import { Chains, JarHarvestStats, PickleModel } from "../..";
+import { BigNumber, Contract as SingleContract, ethers } from "ethers";
+import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   getUniV3,
@@ -9,7 +9,6 @@ import {
   queryVolume24H,
 } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import jarV3Abi from "../../Contracts/ABIs/jar-v3.json";
 import {
   calculateFee,
   getLiquidityForAmounts,
@@ -27,13 +26,7 @@ export class Univ3Base extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const provider: Provider | Signer = Chains.get(
-      definition.chain,
-    ).getProviderOrSigner();
-
-    const jarV3 = new ethers.Contract(definition.contract, jarV3Abi, provider);
-
-    const { position } = await getUniV3(jarV3, provider);
+    const { position } = await getUniV3(definition, model);
 
     const jarAmount0 = +position.amount0.toExact();
     const jarAmount1 = +position.amount1.toExact();
@@ -67,37 +60,42 @@ export class Univ3Base extends AbstractJarBehavior {
   }
   async getAssetHarvestData(
     definition: JarDefinition,
-    _model: PickleModel,
+    model: PickleModel,
     _balance: BigNumber,
     _available: BigNumber,
     _resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
-    const strategy = new ethers.Contract(
+    const provider = model.providerFor(definition.chain);
+    const strategy = new SingleContract(
       definition.details.strategyAddr,
       univ3StrategyABI,
-      _resolver,
+      provider,
     );
 
-    const [bal0, bal1] = await strategy.callStatic.getHarvestable({
-      from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
-    }); // This is Tsuke
+    const [bal0, bal1] = await model.call(
+      () =>
+        strategy.callStatic.getHarvestable({
+          from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
+        }),
+      definition.chain,
+    ); // This is Tsuke
 
-    const decimals0: number = _model.tokenDecimals(
+    const decimals0: number = model.tokenDecimals(
       definition.depositToken.components[0],
       definition.chain,
     );
-    const decimals1: number = _model.tokenDecimals(
+    const decimals1: number = model.tokenDecimals(
       definition.depositToken.components[1],
       definition.chain,
     );
 
     const harvestableUSD =
-      _model.priceOfSync(
+      model.priceOfSync(
         definition.depositToken.components[0],
         definition.chain,
       ) *
         parseFloat(ethers.utils.formatUnits(bal0, decimals0)) +
-      _model.priceOfSync(
+      model.priceOfSync(
         definition.depositToken.components[1],
         definition.chain,
       ) *
@@ -117,10 +115,6 @@ export class Univ3Base extends AbstractJarBehavior {
     // Based off the math here:
     // https://bestofreactjs.com/repo/chunza2542-uniswapv3-calculator
 
-    const provider: Provider | Signer = Chains.get(
-      definition.chain,
-    ).getProviderOrSigner();
-
     const token0Price = model.priceOfSync(
       definition.depositToken.components[0],
       definition.chain,
@@ -138,9 +132,10 @@ export class Univ3Base extends AbstractJarBehavior {
       definition.details.ratio *
       definition.details.tokenBalance *
       liquidityValue;
-    const jarV3 = new ethers.Contract(definition.contract, jarV3Abi, provider);
-
-    const { position, tokenA, tokenB, pool } = await getUniV3(jarV3, provider);
+    const { position, tokenA, tokenB, pool } = await getUniV3(
+      definition,
+      model,
+    );
 
     // Get lower and upper tick quotes in terms of USD
     const lowerTickPrice = +position.token0PriceUpper.invert().toFixed();

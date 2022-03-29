@@ -3,7 +3,7 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import solarFarmsAbi from "../Contracts/ABIs/solar-farms.json";
 import solarFarmsV2Abi from "../Contracts/ABIs/solarv2-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MulticallContract } from "ethers-multicall";
+import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -12,7 +12,7 @@ import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 
 export const SOLAR_FARMS = "0xf03b75831397D4695a6b9dDdEEA0E578faa30907";
 export const SOLAR_V2_FARMS = "0xA3Dce528195b8D15ea166C623DB197B2C3f8D127";
-export const SOLAR_V3_FARMS = "0x0329867a8c457e9f75e25b0685011291cd30904f";
+export const SOLAR_V3_FARMS = "0x0329867a8c457e9F75e25b0685011291CD30904F";
 
 export const solarPoolIds: PoolId = {
   "0x7eDA899b3522683636746a2f3a7814e6fFca75e1": 0,
@@ -56,25 +56,22 @@ export async function calculateSolarFarmsAPY(
     rewardsPerYear,
     rewardInfo;
 
-  const multicallProvider = model.multicallProviderFor(jar.chain);
-  await multicallProvider.init();
-
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   if (Number.isInteger(solarPoolIds[jar.depositToken.addr])) {
     const poolId = solarPoolIds[jar.depositToken.addr];
-    const multicallSolarFarms = new MulticallContract(
-      SOLAR_FARMS,
-      solarFarmsAbi,
-    );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const multicallSolarFarms = new MultiContract(SOLAR_FARMS, solarFarmsAbi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
     [solarPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallSolarFarms.solarPerBlock(),
-        multicallSolarFarms.totalAllocPoint(),
-        multicallSolarFarms.poolInfo(poolId),
-        lpToken.balanceOf(SOLAR_FARMS),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallSolarFarms.solarPerBlock(),
+          () => multicallSolarFarms.totalAllocPoint(),
+          () => multicallSolarFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(SOLAR_FARMS),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerBlock =
       (parseFloat(formatEther(solarPerBlockBN)) *
@@ -86,18 +83,21 @@ export async function calculateSolarFarmsAPY(
       ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
   } else if (Number.isInteger(solarPoolV2Ids[jar.depositToken.addr])) {
     const poolId = solarPoolV2Ids[jar.depositToken.addr];
-    const multicallSolarFarms = new MulticallContract(
+    const multicallSolarFarms = new MultiContract(
       SOLAR_V2_FARMS,
       solarFarmsV2Abi,
     );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
     [solarPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await multicallProvider.all([
-        multicallSolarFarms.solarPerSec(),
-        multicallSolarFarms.totalAllocPoint(),
-        multicallSolarFarms.poolInfo(poolId),
-        lpToken.balanceOf(SOLAR_V2_FARMS),
-      ]);
+      await model.callMulti(
+        [
+          () => multicallSolarFarms.solarPerSec(),
+          () => multicallSolarFarms.totalAllocPoint(),
+          () => multicallSolarFarms.poolInfo(poolId),
+          () => lpToken.balanceOf(SOLAR_V2_FARMS),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerSec =
       (parseFloat(formatEther(solarPerSecBN)) *
@@ -107,15 +107,18 @@ export async function calculateSolarFarmsAPY(
     rewardsPerYear = rewardsPerSec * (360 * 24 * 60 * 60);
   } else if (Number.isInteger(solarPoolV3Ids[jar.depositToken.addr])) {
     const poolId = solarPoolV3Ids[jar.depositToken.addr];
-    const multicallSolarFarms = new MulticallContract(
+    const multicallSolarFarms = new MultiContract(
       SOLAR_V3_FARMS,
       solarFarmsV2Abi,
     );
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
-    [rewardInfo, totalSupplyBN] = await multicallProvider.all([
-      multicallSolarFarms.poolRewardsPerSec(poolId),
-      lpToken.balanceOf(SOLAR_V3_FARMS),
-    ]);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    [rewardInfo, totalSupplyBN] = await model.callMulti(
+      [
+        () => multicallSolarFarms.poolRewardsPerSec(poolId),
+        () => lpToken.balanceOf(SOLAR_V3_FARMS),
+      ],
+      jar.chain,
+    );
 
     const totalValueStaked =
       parseFloat(formatEther(totalSupplyBN)) * pricePerToken;
