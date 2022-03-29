@@ -32,10 +32,9 @@ async function generateUserData(walletId: string) {
   }
 }
 
-generateUserData("0x95a33f0124e7e0864643fAB22d15db4997bB544b");
-// if (process.argv.length !== 3) {
-//   console.log("Please pass a wallet");
-// } else {
-//   generateUserData(process.argv[2]);
-// }
-//generateUserData('0x...');
+if (process.argv.length !== 3) {
+  console.log("Please pass a wallet");
+} else {
+  generateUserData(process.argv[2]);
+}
+// generateUserData('0x...');
