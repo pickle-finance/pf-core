@@ -52,6 +52,7 @@ export function translateSingleString(
     locales: ["en", "de"],
     directory: path.join(__dirname, "../", "/locales"),
     register: anyObject,
+    updateFiles: false,
   });
   anyObject.setLocale(language);
   const ret = anyObject.__(key, properties);
