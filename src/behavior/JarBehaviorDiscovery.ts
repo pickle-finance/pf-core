@@ -345,6 +345,8 @@ import {
   JAR_CRO_TECTONIC_WETH,
   JAR_CRO_TECTONIC_CRO,
   JAR_OPTIMISM_STAR_USDC,
+  JAR_ARBITRUM_STAR_USDC,
+  JAR_ARBITRUM_STAR_USDT,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -586,7 +588,7 @@ import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
 import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
-import { StargateJar } from "./impl/startgate-jar";
+import { StargateJar } from "./impl/stargate-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -690,6 +692,8 @@ jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
 jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_VSTA_ETH.id, new BalancerVstaEth());
+jarToBehavior.set(JAR_ARBITRUM_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_ARBITRUM_STAR_USDT.id, new StargateJar());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());

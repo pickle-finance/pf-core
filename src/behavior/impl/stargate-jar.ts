@@ -29,6 +29,14 @@ const starMapping: AddressMapping = {
     farm: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
     poolId: { "0xDecC0c09c3B5f6e92EF4184125D5648a66E35298": 0 },
   },
+  [ChainNetwork.Arbitrum]: {
+    router: "0x53Bf833A5d6c4ddA888F69c22C88C9f356a41614",
+    farm: "0xeA8DfEE1898a7e0a59f7527F076106d7e44c2176", 
+    poolId: {
+      "0x892785f33CdeE22A30AEF750F285E18c18040c3e": 0,
+      "0xb6cfcf89a7b22988bfc96632ac2a9d6dab60d641": 1,
+    },
+  },
   [ChainNetwork.Polygon]: {
     router: "0x45A01E4e04F14f7A4a6702c74187c5F6222033cd",
     farm: "0x000000000000000000000", // TODO....

@@ -763,6 +763,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Arbitrum,
+      "stg",
+      "stargate-finance",
+      "0x6694340fc020c5E6B96567843da2df01b2CE1eb6".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // OKEx
     this.addToken(
