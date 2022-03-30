@@ -1683,7 +1683,7 @@ export const JAR_UNIV3_COW_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "cow"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
