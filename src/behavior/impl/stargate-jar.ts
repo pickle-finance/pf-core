@@ -24,6 +24,14 @@ type AddressMapping = {
 };
 
 const starMapping: AddressMapping = {
+  [ChainNetwork.Ethereum]: {
+    router: "0x8731d54E9D02c286767d56ac03e8037C07e01e98",
+    farm: "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b",
+    poolId: {
+      "0xdf0770dF86a8034b3EFEf0A1Bb3c889B8332FF56": 0,
+      "0x38EA452219524Bb87e18dE1C24D3bB59510BD783": 1,
+    },
+  },
   [ChainNetwork.Optimism]: {
     router: "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b",
     farm: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
@@ -31,7 +39,7 @@ const starMapping: AddressMapping = {
   },
   [ChainNetwork.Arbitrum]: {
     router: "0x53Bf833A5d6c4ddA888F69c22C88C9f356a41614",
-    farm: "0xeA8DfEE1898a7e0a59f7527F076106d7e44c2176", 
+    farm: "0xeA8DfEE1898a7e0a59f7527F076106d7e44c2176",
     poolId: {
       "0x892785f33CdeE22A30AEF750F285E18c18040c3e": 0,
       "0xb6cfcf89a7b22988bfc96632ac2a9d6dab60d641": 1,
@@ -39,8 +47,11 @@ const starMapping: AddressMapping = {
   },
   [ChainNetwork.Polygon]: {
     router: "0x45A01E4e04F14f7A4a6702c74187c5F6222033cd",
-    farm: "0x000000000000000000000", // TODO....
-    poolId: { "0x000000000000000000000": 1 },
+    farm: "0x8731d54E9D02c286767d56ac03e8037C07e01e98",
+    poolId: {
+      "0x1205f31718499dBf1fCa446663B532Ef87481fe1": 0,
+      "0x29e38769f23701A2e4A8Ef0492e19dA4604Be62c": 1,
+    },
   },
 };
 

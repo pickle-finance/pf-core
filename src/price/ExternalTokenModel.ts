@@ -483,6 +483,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.BOTH,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "stg",
+      "stargate-finance",
+      "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(
@@ -620,6 +628,14 @@ export class ExternalTokenModel {
       "aurum",
       "raider-aurum",
       "0x34d4ab47bee066f361fa52d792e69ac7bd05ee23".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Polygon,
+      "stg",
+      "stargate-finance",
+      "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );

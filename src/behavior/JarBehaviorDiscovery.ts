@@ -347,6 +347,10 @@ import {
   JAR_OPTIMISM_STAR_USDC,
   JAR_ARBITRUM_STAR_USDC,
   JAR_ARBITRUM_STAR_USDT,
+  JAR_STAR_USDC,
+  JAR_STAR_USDT,
+  JAR_POLY_STAR_USDC,
+  JAR_POLY_STAR_USDT,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -650,6 +654,8 @@ jarToBehavior.set(JAR_UNIV3_WBTC_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_PICKLE_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_COW_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
+jarToBehavior.set(JAR_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_STAR_USDT.id, new StargateJar());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
@@ -678,6 +684,8 @@ jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_MATIC.id, new RaiderMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_WETH.id, new RaiderWeth());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_MATIC.id, new AurumMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_USDC.id, new AurumUsdc());
+jarToBehavior.set(JAR_POLY_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_POLY_STAR_USDT.id, new StargateJar());
 
 // Arbitrum
 jarToBehavior.set(JAR_ARBITRUM_SLP_MIM_ETH.id, new ArbitrumMimEth());

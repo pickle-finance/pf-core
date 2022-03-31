@@ -1699,6 +1699,63 @@ export const JAR_UNIV3_COW_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_COW_ETH);
 
+export const JAR_STAR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar 1a",
+  contract: "0x81740AAc02ae2F3c61D5a0c012b3e18f9dc02b5c",
+  startBlock: 14490890,
+  depositToken: {
+    addr: "0xdf0770dF86a8034b3EFEf0A1Bb3c889B8332FF56",
+    name: "STARGATE USDC",
+    link: "https://stargate.finance/pool/USDC-ETH/add",
+    components: ["usdc"],
+  },
+  rewardTokens: ["stg"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.STARGATE,
+  details: {
+    controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
+    apiKey: "STG-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG USDC",
+    farmDepositTokenName: "pSTG USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_STAR_USDC);
+
+export const JAR_STAR_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar 1b",
+  contract: "0x363e7CD14AEcf4f7d0e66Ae1DEff830343D760a7",
+  startBlock: 14490878,
+  depositToken: {
+    addr: "0x38EA452219524Bb87e18dE1C24D3bB59510BD783",
+    name: "STARGATE USDT",
+    link: "https://stargate.finance/pool/USDT-ETH/add",
+    components: ["usdt"],
+  },
+  rewardTokens: ["stg"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.STARGATE,
+  details: {
+    controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
+    apiKey: "STG-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG USDT",
+    farmDepositTokenName: "pSTG USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_STAR_USDT);
+
+
 // Polygon
 
 export const JAR_COMETH_USDC_WETH: JarDefinition = {
@@ -2463,6 +2520,61 @@ export const JAR_POLY_UNIV3_WBTC_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_WBTC_ETH);
 
+export const JAR_POLY_STAR_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 8a",
+  contract: "0x363e7CD14AEcf4f7d0e66Ae1DEff830343D760a7",
+  startBlock: 26557778,
+  depositToken: {
+    addr: "0x29e38769f23701A2e4A8Ef0492e19dA4604Be62c",
+    name: "STARGATE USDT",
+    link: "https://stargate.finance/pool/USDT-MATIC/add",
+    components: ["usdt"],
+  },
+  rewardTokens: ["stg"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.STARGATE,
+  details: {
+    apiKey: "STG-POLYGON-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG USDT",
+    farmDepositTokenName: "pSTG USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_STAR_USDT);
+
+export const JAR_POLY_STAR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 8b",
+  contract: "0x49DA51435329847b369829873b04b537D2DAc302",
+  startBlock: 26556897,
+  depositToken: {
+    addr: "0x1205f31718499dBf1fCa446663B532Ef87481fe1",
+    name: "STARGATE USDC",
+    link: "https://stargate.finance/pool/USDC-MATIC/add",
+    components: ["usdc"],
+  },
+  rewardTokens: ["stg"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.STARGATE,
+  details: {
+    apiKey: "STG-POLYGON-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG USDC",
+    farmDepositTokenName: "pSTG USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_STAR_USDT);
+
+
 // Arbitrum
 
 export const JAR_ARBITRUM_SLP_MIM_ETH: JarDefinition = {
@@ -2796,6 +2908,7 @@ export const JAR_ARBITRUM_STAR_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "arbJar 6a",
   contract: "0x1c498531310C0f81561F4723314EF54049d3a9ef",
+  startBlock: 8778855,
   depositToken: {
     addr: "0x892785f33CdeE22A30AEF750F285E18c18040c3e",
     name: "STARGATE USDC",
@@ -2822,6 +2935,7 @@ export const JAR_ARBITRUM_STAR_USDT: JarDefinition = {
   type: AssetType.JAR,
   id: "arbJar 6b",
   contract: "0xa23d9e5094ac9582f9f09aaa017b79deccab5404",
+  startBlock: 8792774,
   depositToken: {
     addr: "0xb6cfcf89a7b22988bfc96632ac2a9d6dab60d641",
     name: "STARGATE USDT",
@@ -7808,6 +7922,7 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 2a",
   contract: "0xBD469fdEDd9A8e62BCB1aa1e479A8A287e5718e0",
+  startBlock: 4810772,
   depositToken: {
     addr: "0xDecC0c09c3B5f6e92EF4184125D5648a66E35298",
     name: "STARGATE USDC",
