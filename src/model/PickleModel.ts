@@ -906,30 +906,17 @@ export class PickleModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
   ): Promise<void> {
     if (jars === undefined || jars.length === 0) return;
-    const ethcallProvider = this.multicallProviderFor(chain);
-    try {
-      await ethcallProvider.init();
-    } catch (error) {
-      this.logError("addTokenDecimals: ethcallProvider", error, chain);
-    }
-
     let jarDecimals: string[] = undefined;
     let depositDecimals: string[] = undefined;
+    const promises: Promise<string[]>[] = [];
+
+    promises.push(this.callMulti(jars.map(oneJar=>()=>new MultiContract(oneJar.contract,jarAbi).decimals()),chain));
+    promises.push(this.callMulti(jars.map(oneJar=>()=>new MultiContract(oneJar.depositToken.addr,jarAbi).decimals()),chain));
+
     try {
-      jarDecimals = await ethcallProvider.all<string[]>(
-        jars.map((oneJar) =>
-          new MulticallContract(oneJar.contract, jarAbi).decimals(),
-        ),
-      );
-
-      depositDecimals = await ethcallProvider.all<string[]> (
-        jars.map((oneJar) =>
-        new MulticallContract(oneJar.depositToken.addr, jarAbi).decimals(),
-
-        )
-      )
+      [jarDecimals, depositDecimals] = await Promise.all(promises);
     } catch (error) {
-      this.logError("addJarRatios: ratios", error, chain);
+      this.logError("addTokenDecimals: decimals", error, chain);
     }
     for (let i = 0; jarDecimals !== undefined && depositDecimals !== undefined && i < jars.length; i++) {
       jars[i].details.decimals = parseFloat(jarDecimals[i]);
@@ -947,21 +934,25 @@ export class PickleModel implements ConsoleErrorLogger {
 
     let ratios: string[] = undefined;
     let decimals: string[] = undefined;
-    try {
-      ratios = await this.callMulti(
+    const promises = [
+      this.callMulti(
         jars.map(
           (oneJar) => () =>
             new MultiContract(oneJar.contract, jarAbi).getRatio(),
         ),
         chain,
-      );
-      decimals = await ethcallProvider.all<string[]>(
-        jars.map((oneJar) =>
-          new MulticallContract(oneJar.contract, jarAbi).decimals(),
+      ),
+      this.callMulti(
+        jars.map((oneJar) => () =>
+          new MultiContract(oneJar.contract, jarAbi).decimals(),
         ),
-      );
+        chain,
+      )
+    ]
+    try {
+      [ratios,decimals] = await Promise.all(promises);
     } catch (error) {
-      this.logError("addJarRatios: ratios", error, chain);
+      this.logError("addJarRatios: ratios/decimals", error, chain);
     }
     for (let i = 0; ratios !== undefined && i < jars.length; i++) {
       jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));

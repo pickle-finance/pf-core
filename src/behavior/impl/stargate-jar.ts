@@ -1,6 +1,4 @@
-import { Contract, Signer } from "ethers";
-import { Contract as MulticallContract } from "ethers-multicall";
-import { Provider } from "@ethersproject/providers";
+import { Contract as MultiContract } from "ethers-multicall";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import stargateStrategyAbi from "../../Contracts/ABIs/stargate-strategy.json";
@@ -62,29 +60,28 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const provider = model.providerFor(jar.chain);
-    const strategy = new Contract(
+    const strategy = new MultiContract(
       jar.details.strategyAddr,
       stargateStrategyAbi,
-      provider,
     );
-    const underlying = await strategy.underlying();
+    const pool = new MultiContract(jar.depositToken.addr, pool_abi);
+
+    const [underlying, ratio] = await model.callMulti(
+      [() => strategy.underlying(), () => pool.convertRate()],
+      jar.chain,
+    );
     const underlyingPrice = model.priceOfSync(underlying, jar.chain);
 
-    const pool = new Contract(jar.depositToken.addr, pool_abi, provider);
-    const ratio = await pool.convertRate();
     return underlyingPrice * parseFloat(ratio);
   }
 
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-    resolver: Signer | Provider,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
+    return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
-      resolver,
       ["stg"],
       stargateStrategyAbi,
     );
@@ -96,22 +93,23 @@ export class StargateJar extends AbstractJarBehavior {
   ): Promise<AssetProjectedApr> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-    const multicallProvider = model.multicallProviderFor(jar.chain);
-    await multicallProvider.init();
-
     const starAddresses = starMapping[jar.chain];
-    const starchefMC = new MulticallContract(starAddresses.farm, starchefAbi);
+    const starchefMC = new MultiContract(starAddresses.farm, starchefAbi);
 
-    const lpToken = new MulticallContract(jar.depositToken.addr, erc20Abi);
+    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
     const [stgPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN, decimals] =
-      await multicallProvider.all([
-        starchefMC.stargatePerBlock(),
-        starchefMC.totalAllocPoint(),
-        starchefMC.poolInfo(starAddresses.poolId[jar.depositToken.addr]),
-        lpToken.balanceOf(starAddresses.farm),
-        lpToken.decimals(),
-      ]);
+      await model.callMulti(
+        [
+          () => starchefMC.stargatePerBlock(),
+          () => starchefMC.totalAllocPoint(),
+          () =>
+            starchefMC.poolInfo(starAddresses.poolId[jar.depositToken.addr]),
+          () => lpToken.balanceOf(starAddresses.farm),
+          () => lpToken.decimals(),
+        ],
+        jar.chain,
+      );
 
     const rewardsPerYear =
       (parseFloat(formatEther(stgPerSecBn)) *
