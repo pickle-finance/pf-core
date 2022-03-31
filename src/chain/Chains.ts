@@ -44,8 +44,14 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasTokenSymbol: "eth",
     explorer: "https://etherscan.io",
     rpcs: [
-      "https://rpc.ankr.com/eth"
-      // "https://rpc.flashbots.net/", // can be flaky at times
+      "https://rpc.ankr.com/eth",
+      "https://main-light.eth.linkpool.io",
+      "https://mainnet-nethermind.blockscout.com",
+      "https://eth-rpc.gateway.pokt.network",
+      "https://api.mycryptoapi.com/eth",
+      // "https://cloudflare-eth.com/", // can be flaky at times
+      // "https://main-rpc.linkpool.io",
+      // "https://rpc.flashbots.net",  // flaky
       // "https://mainnet.infura.io/v3/", // dead
     ],
     defaultPerformanceFee: 0.2,
@@ -198,7 +204,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://ftmscan.com",
     rpcs: [
       "https://rpc.ankr.com/fantom",
-      "https://rpc.ftm.tools/",
+      // "https://rpc.ftm.tools/",
       // "https://ftmrpc.ultimatenodes.io/",  // dead
     ],
     multicallAddress: "0x11473D6E641dF17cd6331D45b135E35B49edBea8",
