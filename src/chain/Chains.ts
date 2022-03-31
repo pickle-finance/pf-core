@@ -130,7 +130,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     secondsPerBlock: 5.8,
     gasToken: "crypto-com-chain",
     gasTokenSymbol: "cro",
-    explorer: "https://cronos.crypto.org/explorer",
+    explorer: "https://cronoscan.com/",
     rpcs: ["https://evm-cronos.crypto.org"],
     multicallAddress: "0x0fA4d452693F2f45D28c4EC4d20b236C4010dA74",
     defaultPerformanceFee: 0.042,
