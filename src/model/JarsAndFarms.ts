@@ -1624,7 +1624,7 @@ export const JAR_UNIV3_PICKLE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["pickle", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
