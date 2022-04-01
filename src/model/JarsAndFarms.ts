@@ -1711,9 +1711,10 @@ export const JAR_STAR_USDC: JarDefinition = {
     components: ["usdc"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
     apiKey: "STG-USDC",
@@ -1739,9 +1740,10 @@ export const JAR_STAR_USDT: JarDefinition = {
     components: ["usdt"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
     apiKey: "STG-USDT",
@@ -2532,9 +2534,10 @@ export const JAR_POLY_STAR_USDT: JarDefinition = {
     components: ["usdt"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     apiKey: "STG-POLYGON-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2559,9 +2562,10 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
     components: ["usdc"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     apiKey: "STG-POLYGON-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2916,9 +2920,10 @@ export const JAR_ARBITRUM_STAR_USDC: JarDefinition = {
     components: ["usdc"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     apiKey: "STG-ARBITRUM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -2943,9 +2948,10 @@ export const JAR_ARBITRUM_STAR_USDT: JarDefinition = {
     components: ["usdt"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     apiKey: "STG-ARBITRUM-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -7930,9 +7936,10 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
     components: ["usdc"],
   },
   rewardTokens: ["stg"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
   details: {
     apiKey: "STG-OPTIMISM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -10927,6 +10934,36 @@ export const JAR_FANTOM_SPIRIT_GSCARAB_SCARAB: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB);
+
+export const JAR_FANTOM_STAR_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "fanJar 7a",
+  contract: "0xB64A68448bb5B294C7C8543133663f2D67e1959e",
+  startBlock: 34398357,
+  depositToken: {
+    addr: "0x12edeA9cd262006cC3C4E77c90d2CD2DD4b1eb97",
+    name: "STARGATE USDC",
+    link: "https://stargate.finance/pool/USDC-FTM/add",
+    components: ["usdc"],
+  },
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Fantom,
+  protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
+  rewardTokens: ["stg"],
+  details: {
+    apiKey: "STG-FANTOM-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG USDC",
+    farmDepositTokenName: "pSTG USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_FANTOM_STAR_USDC);
+
 
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 

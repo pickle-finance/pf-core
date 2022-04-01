@@ -6,6 +6,11 @@ import {
   JAR_OPTIMISM_STAR_USDC,
   JAR_ARBITRUM_STAR_USDC,
   JAR_ARBITRUM_STAR_USDT,
+  JAR_STAR_USDC,
+  JAR_STAR_USDT,
+  JAR_POLY_STAR_USDC,
+  JAR_POLY_STAR_USDT,
+  JAR_FANTOM_STAR_USDC,
 } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
 import fs from "fs";
@@ -20,7 +25,16 @@ async function generateFullApi() {
   );
 
   const model: PickleModel = new PickleModel(
-    [JAR_OPTIMISM_STAR_USDC, JAR_ARBITRUM_STAR_USDC, JAR_ARBITRUM_STAR_USDT],
+    [
+      JAR_OPTIMISM_STAR_USDC,
+      JAR_ARBITRUM_STAR_USDC,
+      JAR_ARBITRUM_STAR_USDT,
+      JAR_STAR_USDC,
+      JAR_STAR_USDT,
+      JAR_POLY_STAR_USDC,
+      JAR_POLY_STAR_USDT,
+      JAR_FANTOM_STAR_USDC,
+    ],
     map,
   );
   // const store = new LocalPersistedDataStore();

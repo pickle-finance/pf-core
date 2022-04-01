@@ -351,6 +351,7 @@ import {
   JAR_STAR_USDT,
   JAR_POLY_STAR_USDC,
   JAR_POLY_STAR_USDT,
+  JAR_FANTOM_STAR_USDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -985,6 +986,8 @@ jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_DEUS.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_CRE8R.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_BIFI.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar());
+
+jarToBehavior.set(JAR_FANTOM_STAR_USDC.id, new StargateJar());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

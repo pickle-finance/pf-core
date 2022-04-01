@@ -2189,6 +2189,14 @@ export class ExternalTokenModel {
         "0xE3D4C22d0543E050a8b3F713899854Ed792fc1bD", // SPIRIT FTM-BEFTM
       ],
     );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "stg",
+      "stargate-finance",
+      "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

@@ -51,6 +51,13 @@ const starMapping: AddressMapping = {
       "0x29e38769f23701A2e4A8Ef0492e19dA4604Be62c": 1,
     },
   },
+  [ChainNetwork.Fantom]: {
+    router: "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6",
+    farm: "0x224D8Fd7aB6AD4c6eb4611Ce56EF35Dec2277F03",
+    poolId: {
+      "0x12edeA9cd262006cC3C4E77c90d2CD2DD4b1eb97": 0,
+    },
+  },
 };
 
 export class StargateJar extends AbstractJarBehavior {
