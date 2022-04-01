@@ -2576,7 +2576,7 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
     farmDepositTokenName: "pSTG USDC",
   },
 };
-JAR_DEFINITIONS.push(JAR_POLY_STAR_USDT);
+JAR_DEFINITIONS.push(JAR_POLY_STAR_USDC);
 
 
 // Arbitrum
