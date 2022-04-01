@@ -640,7 +640,7 @@ export class PickleModel implements ConsoleErrorLogger {
     const start = Date.now();
     await Promise.all(
       this.configuredChains.map((x) =>
-        this.addTokenDecimals(this.semiActiveJars(x), x),
+        this.addTokenDecimals(this.semiActiveJars(x).filter(jar=>!(jar.depositToken.style?.erc20 === false)), x),
       ),
     );
     DEBUG_OUT("End loadDecimalData: " + (Date.now() - start));
@@ -933,24 +933,14 @@ export class PickleModel implements ConsoleErrorLogger {
     if (jars === undefined || jars.length === 0) return;
 
     let ratios: string[] = undefined;
-    let decimals: string[] = undefined;
-    const promises = [
-      this.callMulti(
-        jars.map(
-          (oneJar) => () =>
-            new MultiContract(oneJar.contract, jarAbi).getRatio(),
-        ),
-        chain,
-      ),
-      this.callMulti(
-        jars.map((oneJar) => () =>
-          new MultiContract(oneJar.contract, jarAbi).decimals(),
-        ),
-        chain,
-      )
-    ]
     try {
-      [ratios,decimals] = await Promise.all(promises);
+      ratios = await this.callMulti(
+          jars.map(
+            (oneJar) => () =>
+              new MultiContract(oneJar.contract, jarAbi).getRatio(),
+          ),
+          chain,
+        );
     } catch (error) {
       this.logError("addJarRatios: ratios/decimals", error, chain);
     }
