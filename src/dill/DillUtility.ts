@@ -16,7 +16,7 @@ import { DEBUG_OUT } from "../model/PickleModel";
 const week = 7 * 24 * 60 * 60;
 const firstMeaningfulDistributionTimestamp = 1619049600;
 
-const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
+export const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
 const FEE_DISTRIBUTOR = "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc";
 
 /**

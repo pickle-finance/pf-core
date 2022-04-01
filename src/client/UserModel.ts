@@ -29,6 +29,7 @@ import {
 } from "../Contracts/ContractsImpl";
 import { ExternalTokenModelSingleton, ExternalToken } from "../price/ExternalTokenModel";
 import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
+import { DILL_CONTRACT } from "../dill/DillUtility";
 
 export interface UserTokens {
   [key: string]: UserTokenData;
@@ -54,6 +55,7 @@ export interface UserData {
 
 export interface UserPickles {
   [key: string]: string;
+  dillApproval: string;
 }
 
 export interface IUserDillStats {
@@ -87,7 +89,9 @@ const emptyUserData = (): UserData => {
       balance: "0",
       claimable: "0",
     },
-    pickles: {},
+    pickles: {
+      dillApproval: "0",
+    },
     errors: [],
   };
 };
@@ -177,11 +181,14 @@ export class UserModel implements ConsoleErrorLogger {
     DEBUG_OUT("Begin getUserPickles");
     const start = Date.now();
     try {
-      const ret: UserPickles = {};
+      const ret: UserPickles = {
+        dillApproval: "0"
+      };
       await Promise.all(
         this.getChainsToRun().map(async (x) => {
           try {
             let r: BigNumber = BigNumber.from(0);
+            let s: BigNumber = BigNumber.from(0);
             if (
               ADDRESSES.get(x) &&
               ADDRESSES.get(x).pickle !== undefined &&
@@ -195,6 +202,10 @@ export class UserModel implements ConsoleErrorLogger {
               r = await contract
                 .balanceOf(this.walletId)
                 .catch(() => BigNumber.from("0"));
+              if(x === ChainNetwork.Ethereum) {
+                s = await contract.allowance(this.walletId, DILL_CONTRACT);
+                ret.dillApproval = s.toString()
+              }
             }
             this.workingData.pickles[x.toString()] = r.toString();
             ret[x.toString()] = r.toString();
@@ -216,7 +227,7 @@ export class UserModel implements ConsoleErrorLogger {
       this.logUserModelError("loading user pickles", "" + err);
       this.sendUpdate();
       DEBUG_OUT("End getUserPickles: " + (Date.now() - start));
-      return {};
+      return {dillApproval: "0"};
     }
   }
 
