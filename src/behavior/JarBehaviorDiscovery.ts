@@ -344,6 +344,14 @@ import {
   JAR_CRO_VVS_VVS_TONIC,
   JAR_CRO_TECTONIC_WETH,
   JAR_CRO_TECTONIC_CRO,
+  JAR_OPTIMISM_STAR_USDC,
+  JAR_ARBITRUM_STAR_USDC,
+  JAR_ARBITRUM_STAR_USDT,
+  JAR_STAR_USDC,
+  JAR_STAR_USDT,
+  JAR_POLY_STAR_USDC,
+  JAR_POLY_STAR_USDT,
+  JAR_FANTOM_STAR_USDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -585,6 +593,7 @@ import { TethysMetisDai } from "./impl/metis-tethys-metis-dai";
 import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
+import { StargateJar } from "./impl/stargate-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -646,6 +655,8 @@ jarToBehavior.set(JAR_UNIV3_WBTC_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_PICKLE_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_UNIV3_COW_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
+jarToBehavior.set(JAR_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_STAR_USDT.id, new StargateJar());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
@@ -674,6 +685,8 @@ jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_MATIC.id, new RaiderMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_RAIDER_WETH.id, new RaiderWeth());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_MATIC.id, new AurumMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_USDC.id, new AurumUsdc());
+jarToBehavior.set(JAR_POLY_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_POLY_STAR_USDT.id, new StargateJar());
 
 // Arbitrum
 jarToBehavior.set(JAR_ARBITRUM_SLP_MIM_ETH.id, new ArbitrumMimEth());
@@ -688,6 +701,8 @@ jarToBehavior.set(JAR_ARBITRUM_SLP_MAGIC_ETH.id, new ArbitrumMagicEth());
 jarToBehavior.set(JAR_ARBITRUM_BAL_PICKLE_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_VSTA_ETH.id, new BalancerVstaEth());
+jarToBehavior.set(JAR_ARBITRUM_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_ARBITRUM_STAR_USDT.id, new StargateJar());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());
@@ -862,6 +877,7 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
+jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
@@ -970,6 +986,8 @@ jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_DEUS.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_CRE8R.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_BIFI.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar());
+
+jarToBehavior.set(JAR_FANTOM_STAR_USDC.id, new StargateJar());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());

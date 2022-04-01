@@ -49,6 +49,7 @@ export enum AssetProtocol {
   SOLID = "Solidly",
   SEX = "Solidex",
   TECTONIC = "Tectonic",
+  STARGATE = "Stargate",
   // ADD_PROTOCOL
 }
 
@@ -242,6 +243,34 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: true,
     pickleZapAddress: "0xE9B3E153Ea1277bCD6214DA500126c67Dd9AD32e",
     router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
+  },
+  {
+    protocol: AssetProtocol.STARGATE,
+    chain: ChainNetwork.Ethereum,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.STARGATE,
+    chain: ChainNetwork.Polygon,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.STARGATE,
+    chain: ChainNetwork.Arbitrum,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "",
+  },
+  {
+    protocol: AssetProtocol.STARGATE,
+    chain: ChainNetwork.Optimism,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "",
   },
   {
     protocol: AssetProtocol.TECTONIC,

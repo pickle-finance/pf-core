@@ -483,6 +483,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.BOTH,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "stg",
+      "stargate-finance",
+      "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(
@@ -623,6 +631,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Polygon,
+      "stg",
+      "stargate-finance",
+      "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Arbitrum
     this.addToken(
@@ -760,6 +776,14 @@ export class ExternalTokenModel {
       "vsta",
       "vesta-finance",
       "0xa684cd057951541187f288294a1e1C2646aA2d24".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Arbitrum,
+      "stg",
+      "stargate-finance",
+      "0x6694340fc020c5E6B96567843da2df01b2CE1eb6".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
@@ -1638,7 +1662,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Optimism,
+      "stg",
+      "stargate-finance",
+      "0x296f55f8fb28e498b858d0bcda06d955b2cb3f97".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Fantom
     this.addToken(
       ChainNetwork.Fantom,
@@ -2157,6 +2188,14 @@ export class ExternalTokenModel {
       [
         "0xE3D4C22d0543E050a8b3F713899854Ed792fc1bD", // SPIRIT FTM-BEFTM
       ],
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "stg",
+      "stargate-finance",
+      "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
     );
 
     // Make the reverse map to fascilitate contract lookups

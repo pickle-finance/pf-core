@@ -897,12 +897,12 @@ export class PickleModel implements ConsoleErrorLogger {
     let ratios: string[] = undefined;
     try {
       ratios = await this.callMulti(
-        jars.map(
-          (oneJar) => () =>
-            new MultiContract(oneJar.contract, jarAbi).getRatio(),
-        ),
-        chain,
-      );
+          jars.map(
+            (oneJar) => () =>
+              new MultiContract(oneJar.contract, jarAbi).getRatio(),
+          ),
+          chain,
+        );
     } catch (error) {
       this.logError("addJarRatios: ratios", error, chain);
     }
@@ -932,7 +932,7 @@ export class PickleModel implements ConsoleErrorLogger {
     }
     for (let i = 0; supply !== undefined && i < jars.length; i++) {
       jars[i].details.totalSupply = parseFloat(
-        ethers.utils.formatUnits(supply[i]),
+        ethers.utils.formatUnits(supply[i], jars[i].details.decimals),
       );
     }
   }
@@ -998,7 +998,7 @@ export class PickleModel implements ConsoleErrorLogger {
       jars[i].depositToken.totalSupply = parseFloat(
         ethers.utils.formatUnits(
           supply[i],
-          this.tokenDecimals(jars[i].depositToken.addr, jars[i].chain),
+          jars[i].depositToken.decimals,
         ),
       );
     }
