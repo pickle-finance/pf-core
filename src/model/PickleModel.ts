@@ -498,7 +498,6 @@ export class PickleModel implements ConsoleErrorLogger {
     const start = Date.now();
     this.loadSwapData();
 
-    await this.loadDecimalData();
     await Promise.all([
       this.ensurePriceCacheLoaded(),
       this.loadStrategyData(),
@@ -633,17 +632,6 @@ export class PickleModel implements ConsoleErrorLogger {
     } finally {
       DEBUG_OUT("End loadStrategyData: " + (Date.now() - start));
     }
-  }
-
-  async loadDecimalData(): Promise<any> {
-    DEBUG_OUT("Begin loadDecimalData");
-    const start = Date.now();
-    await Promise.all(
-      this.configuredChains.map((x) =>
-        this.addTokenDecimals(this.semiActiveJars(x).filter(jar=>!(jar.depositToken.style?.erc20 === false)), x),
-      ),
-    );
-    DEBUG_OUT("End loadDecimalData: " + (Date.now() - start));
   }
 
   async loadRatiosData(): Promise<any> {
@@ -899,32 +887,6 @@ export class PickleModel implements ConsoleErrorLogger {
     }
   }
 
-
-  // All jars must be on same chain
-  async addTokenDecimals(
-    jars: JarDefinition[],
-    chain: ChainNetwork,
-  ): Promise<void> {
-    if (jars === undefined || jars.length === 0) return;
-    let jarDecimals: string[] = undefined;
-    let depositDecimals: string[] = undefined;
-    const promises: Promise<string[]>[] = [];
-
-    promises.push(this.callMulti(jars.map(oneJar=>()=>new MultiContract(oneJar.contract,jarAbi).decimals()),chain));
-    promises.push(this.callMulti(jars.map(oneJar=>()=>new MultiContract(oneJar.depositToken.addr,jarAbi).decimals()),chain));
-
-    try {
-      [jarDecimals, depositDecimals] = await Promise.all(promises);
-    } catch (error) {
-      this.logError("addTokenDecimals: decimals", error, chain);
-    }
-    for (let i = 0; jarDecimals !== undefined && depositDecimals !== undefined && i < jars.length; i++) {
-      jars[i].details.decimals = parseFloat(jarDecimals[i]);
-      jars[i].depositToken.decimals = parseFloat(depositDecimals[i]);
-    }
-  }
-
-
   // All jars must be on same chain
   async addJarRatios(
     jars: JarDefinition[],
@@ -942,7 +904,7 @@ export class PickleModel implements ConsoleErrorLogger {
           chain,
         );
     } catch (error) {
-      this.logError("addJarRatios: ratios/decimals", error, chain);
+      this.logError("addJarRatios: ratios", error, chain);
     }
     for (let i = 0; ratios !== undefined && i < jars.length; i++) {
       jars[i].details.ratio = parseFloat(ethers.utils.formatUnits(ratios[i]));

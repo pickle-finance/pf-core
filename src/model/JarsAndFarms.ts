@@ -1709,6 +1709,7 @@ export const JAR_STAR_USDC: JarDefinition = {
     name: "STARGATE USDC",
     link: "https://stargate.finance/pool/USDC-ETH/add",
     components: ["usdc"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -1719,6 +1720,7 @@ export const JAR_STAR_USDC: JarDefinition = {
     controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
     apiKey: "STG-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -1738,6 +1740,7 @@ export const JAR_STAR_USDT: JarDefinition = {
     name: "STARGATE USDT",
     link: "https://stargate.finance/pool/USDT-ETH/add",
     components: ["usdt"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -1748,6 +1751,7 @@ export const JAR_STAR_USDT: JarDefinition = {
     controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
     apiKey: "STG-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -2532,6 +2536,7 @@ export const JAR_POLY_STAR_USDT: JarDefinition = {
     name: "STARGATE USDT",
     link: "https://stargate.finance/pool/USDT-MATIC/add",
     components: ["usdt"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -2541,6 +2546,7 @@ export const JAR_POLY_STAR_USDT: JarDefinition = {
   details: {
     apiKey: "STG-POLYGON-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -2560,6 +2566,7 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
     name: "STARGATE USDC",
     link: "https://stargate.finance/pool/USDC-MATIC/add",
     components: ["usdc"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -2569,6 +2576,7 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
   details: {
     apiKey: "STG-POLYGON-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -2918,6 +2926,7 @@ export const JAR_ARBITRUM_STAR_USDC: JarDefinition = {
     name: "STARGATE USDC",
     link: "https://stargate.finance/pool/USDC-ARBITRUM/add",
     components: ["usdc"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -2927,6 +2936,7 @@ export const JAR_ARBITRUM_STAR_USDC: JarDefinition = {
   details: {
     apiKey: "STG-ARBITRUM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -2946,6 +2956,7 @@ export const JAR_ARBITRUM_STAR_USDT: JarDefinition = {
     name: "STARGATE USDT",
     link: "https://stargate.finance/pool/USDT-ARBITRUM/add",
     components: ["usdt"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -2955,6 +2966,7 @@ export const JAR_ARBITRUM_STAR_USDT: JarDefinition = {
   details: {
     apiKey: "STG-ARBITRUM-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -7934,6 +7946,7 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
     name: "STARGATE USDC",
     link: "https://stargate.finance/pool/USDC-Optimism",
     components: ["usdc"],
+    decimals: 6,
   },
   rewardTokens: ["stg"],
   enablement: AssetEnablement.DEV,
@@ -7943,6 +7956,7 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   details: {
     apiKey: "STG-OPTIMISM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -10945,6 +10959,7 @@ export const JAR_FANTOM_STAR_USDC: JarDefinition = {
     name: "STARGATE USDC",
     link: "https://stargate.finance/pool/USDC-FTM/add",
     components: ["usdc"],
+    decimals: 6,
   },
   enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Fantom,
@@ -10955,6 +10970,7 @@ export const JAR_FANTOM_STAR_USDC: JarDefinition = {
     apiKey: "STG-FANTOM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+    decimals: 6,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
