@@ -118,7 +118,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
-    const depositTokenPrice: number = model.priceOfSync(
+    const depositTokenPrice: number = definition.depositToken.price?? model.priceOfSync(
       definition.depositToken.addr,
       definition.chain,
     );

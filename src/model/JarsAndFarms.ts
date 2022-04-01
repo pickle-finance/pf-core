@@ -1723,7 +1723,7 @@ export const JAR_STAR_USDC: JarDefinition = {
     decimals: 6,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0xa0dcf3c3b199dfc9d2774ec6a43d984e9bf0746a",
     farmNickname: "pSTG USDC",
     farmDepositTokenName: "pSTG USDC",
   },
@@ -1754,7 +1754,7 @@ export const JAR_STAR_USDT: JarDefinition = {
     decimals: 6,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x59d6d2a944d6f4224a9f529560db6c8408cf577c",
     farmNickname: "pSTG USDT",
     farmDepositTokenName: "pSTG USDT",
   },
