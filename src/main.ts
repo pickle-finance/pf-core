@@ -1,17 +1,7 @@
 import { ChainNetwork } from ".";
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import {
-  ALL_ASSETS,
-  JAR_OPTIMISM_STAR_USDC,
-  JAR_ARBITRUM_STAR_USDC,
-  JAR_ARBITRUM_STAR_USDT,
-  JAR_STAR_USDC,
-  JAR_STAR_USDT,
-  JAR_POLY_STAR_USDC,
-  JAR_POLY_STAR_USDT,
-  JAR_FANTOM_STAR_USDC,
-} from "./model/JarsAndFarms";
+import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
 import fs from "fs";
 
@@ -24,19 +14,7 @@ async function generateFullApi() {
     new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
   );
 
-  const model: PickleModel = new PickleModel(
-    [
-      JAR_OPTIMISM_STAR_USDC,
-      JAR_ARBITRUM_STAR_USDC,
-      JAR_ARBITRUM_STAR_USDT,
-      JAR_STAR_USDC,
-      JAR_STAR_USDT,
-      JAR_POLY_STAR_USDC,
-      JAR_POLY_STAR_USDT,
-      JAR_FANTOM_STAR_USDC,
-    ],
-    map,
-  );
+  const model: PickleModel = new PickleModel(ALL_ASSETS, map);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
