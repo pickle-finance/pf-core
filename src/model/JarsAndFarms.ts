@@ -1455,7 +1455,7 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["fxs"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1654,7 +1654,7 @@ export const JAR_UNIV3_FRAX_USDC: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["fxs"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
