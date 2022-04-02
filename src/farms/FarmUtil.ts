@@ -231,11 +231,12 @@ export function setAssetGaugeAprMinichef(
   // Check if it's a normal jar
   const jar: JarDefinition = findJarForGauge(gauge, model);
   if (jar !== undefined) {
+    // If there's no money in the farm, use a default value
+    const denominator = jar.farm.details.valueBalance || 500;
     const apr =
       (100 *
         gauge.rewardRatePerYear *
-        model.priceOfSync("pickle", ChainNetwork.Ethereum)) /
-      jar.farm.details.valueBalance;
+        model.priceOfSync("pickle", ChainNetwork.Ethereum)) / denominator;
     const c: AssetAprComponent = {
       name: "pickle",
       apr: apr,

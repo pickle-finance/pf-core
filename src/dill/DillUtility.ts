@@ -137,9 +137,6 @@ export async function getDillDetails(
       // Fees get distributed at the beginning of the following period.
       const distributionTime = new Date((time.toNumber() + week) * 1000);
       const isProjected = distributionTime > new Date();
-      if (isProjected) {
-        console.log("Test");
-      }
       const weeklyPickleAmount = isProjected
         ? thisWeekProjectedDistribution / picklePrice
         : payouts[index];

@@ -578,13 +578,6 @@ export class PickleModel implements ConsoleErrorLogger {
     await setAllPricesOnTokens(this.configuredChains, this);
     DEBUG_OUT("End ensurePriceCacheLoaded: " + (Date.now() - start));
     //console.log(JSON.stringify(ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum), null, 2));
-    console.log(
-      JSON.stringify(
-        ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum),
-        null,
-        2,
-      ),
-    );
   }
 
   async loadStrategyData(): Promise<any> {
