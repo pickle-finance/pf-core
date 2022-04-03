@@ -2549,7 +2549,7 @@ export const JAR_POLY_STAR_USDT: JarDefinition = {
     decimals: 6,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
     farmNickname: "pSTG USDT",
     farmDepositTokenName: "pSTG USDT",
   },
@@ -2579,7 +2579,7 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
     decimals: 6,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
     farmNickname: "pSTG USDC",
     farmDepositTokenName: "pSTG USDC",
   },
