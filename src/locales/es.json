@@ -1,0 +1,20 @@
+{
+	"social.key.discord": "PFLINK<Discord><{{{url}}}>",
+	"social.key.telegram": "PFLINK<Telegram><{{{url}}}>",
+	"social.key.twitter": "PFLINK<Twitter><{{{url}}}>",
+	"social.key.discord.withname": "PFLINK<{{{name}}} Discord><{{{url}}}>",
+	"social.key.telegram.withname": "PFLINK<{{{name}}} Telegram><{{{url}}}>",
+	"social.key.twitter.withname": "PFLINK<{{{name}}} Twitter><{{{url}}}>",
+	"social.key.website.withname": "PFLINK<{{{name}}} Website><{{{url}}}>",
+	"obtain.pool.twotoken": "Deposita {{token1}} y {{token2}} en una proporción 50-50 en el pool PFLINK<{{token1}}/{{token2}}><{{{link}}}> de {{protocol}}.",
+	"obtain.pool.multitoken": "Deposita cualesquiera de tus {{tokens}} en el pool PFLINK<{{poolName}}><{{{link}}}> de {{protocol}}.",
+	"obtain.pool.multitoken.all": "Deposita tus {{tokens}} en el pool PFLINK<{{poolName}}><{{{link}}}> de {{protocol}}.",
+	"obtain.pool.onetoken": "Deposita tu {{token}} en el pool PFLINK<{{poolName}}><{{{link}}}> de {{protocol}}.",
+	"obtain.pool.onetoken.jar": "Deposita tu {{token}} aquí directamente.",
+	"obtain.pool.zapper": "Haz un Zap al pool using PFLINK<{{poolName}}><{{{poolUrl}}}> a través de Zapper.",
+	"obtain.pool.uni3": "Deposita {{token1}} y {{token2}} en la jarra de Pickle directamente.",
+	"risk.smart.contract": "Problemas con los contratos inteligentes de {{protocol}}.",
+	"risk.chain": "Problemas con la red de {{chain}}.",
+	"risk.maintain.peg": "El {{token}} podría fallar en mantener su cambio fijo con el {{target}}.",
+	"risk.divergence.loss": "Pérdida Divergente / Impermanente: cambios importantes en los precios de las monedas referentes podrían causer que esta estrategía dé peor desempeño que una estrategia de posesión pasiva o de \"holdeo\"."
+}
