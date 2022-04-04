@@ -11,6 +11,8 @@ import {
 } from "./DocsInterfaces";
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 
+export const SUPPORTED_LANGUAGES = ["en", "es"];
+
 export class DocsManager {
   public static getAllJarDocumentationDefinitions(): AssetDocumentationDefinition[] {
     // TODO build this out

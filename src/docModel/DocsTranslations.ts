@@ -1,6 +1,7 @@
 import { I18n } from "i18n";
 import path from "path";
 import { DocsFormat } from "./DocsInterfaces";
+import { SUPPORTED_LANGUAGES } from "./DocsManager";
 
 export function translateFirstOfKeysWithFallback(
   language: string,
@@ -49,7 +50,7 @@ export function translateSingleString(
   const i18nInstance = new I18n();
   const anyObject: any = {};
   i18nInstance.configure({
-    locales: ["en", "de"],
+    locales: SUPPORTED_LANGUAGES,
     directory: path.join(__dirname, "../", "/locales"),
     register: anyObject,
     updateFiles: false,
