@@ -24,6 +24,8 @@ import { Contract } from "@ethersproject/contracts";
 import {
   Dill,
   Dill__factory,
+  Erc20,
+  Erc20__factory,
   FeeDistributor,
   FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
@@ -55,7 +57,6 @@ export interface UserData {
 
 export interface UserPickles {
   [key: string]: string;
-  dillApproval: string;
 }
 
 export interface IUserDillStats {
@@ -63,6 +64,7 @@ export interface IUserDillStats {
   lockEnd: string;
   balance: string;
   claimable: string;
+  dillApproval: string;
 }
 export interface IUserVote {
   farmDepositToken: string;
@@ -88,6 +90,7 @@ const emptyUserData = (): UserData => {
       lockEnd: "0",
       balance: "0",
       claimable: "0",
+      dillApproval: "0",
     },
     pickles: {
       dillApproval: "0",
@@ -181,9 +184,7 @@ export class UserModel implements ConsoleErrorLogger {
     DEBUG_OUT("Begin getUserPickles");
     const start = Date.now();
     try {
-      const ret: UserPickles = {
-        dillApproval: "0"
-      };
+      const ret: UserPickles = {};
       await Promise.all(
         this.getChainsToRun().map(async (x) => {
           try {
@@ -202,10 +203,6 @@ export class UserModel implements ConsoleErrorLogger {
               r = await contract
                 .balanceOf(this.walletId)
                 .catch(() => BigNumber.from("0"));
-              if(x === ChainNetwork.Ethereum) {
-                s = await contract.allowance(this.walletId, DILL_CONTRACT);
-                ret.dillApproval = s.toString()
-              }
             }
             this.workingData.pickles[x.toString()] = r.toString();
             ret[x.toString()] = r.toString();
@@ -227,7 +224,7 @@ export class UserModel implements ConsoleErrorLogger {
       this.logUserModelError("loading user pickles", "" + err);
       this.sendUpdate();
       DEBUG_OUT("End getUserPickles: " + (Date.now() - start));
-      return {dillApproval: "0"};
+      return {};
     }
   }
 
@@ -727,6 +724,7 @@ export class UserModel implements ConsoleErrorLogger {
         lockEnd: "0",
         balance: "0",
         claimable: "0",
+        dillApproval: "0",
       };
     }
   }
@@ -745,12 +743,18 @@ export class UserModel implements ConsoleErrorLogger {
         this.providerFor(ChainNetwork.Ethereum),
       );
 
-    const [lockStats, balance, userClaimable] = await Promise.all([
+    const pickleContract: Erc20 = Erc20__factory.connect(
+      ADDRESSES.get(ChainNetwork.Ethereum).pickle,
+      this.providerFor(ChainNetwork.Ethereum),
+    );
+
+    const [lockStats, balance, userClaimable, allowance] = await Promise.all([
       dillContract.locked(this.walletId, { gasLimit: 1000000 }),
       dillContract["balanceOf(address)"](this.walletId, { gasLimit: 1000000 }),
       feeDistributorContract.callStatic["claim(address)"](this.walletId, {
         gasLimit: 1000000,
       }),
+      pickleContract.allowance(this.walletId, dillContractAddr)
     ]);
 
     return {
@@ -758,6 +762,7 @@ export class UserModel implements ConsoleErrorLogger {
       lockEnd: lockStats[1].toString(),
       balance: balance.toString(),
       claimable: userClaimable.toString(),
+      dillApproval: allowance.toString(),
     };
   }
 
