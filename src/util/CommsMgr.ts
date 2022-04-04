@@ -114,7 +114,7 @@ export class CommsMgr {
   }
 
   // TODO this will break CommsMgr if a chain has all its RPCs dead
-  async configureRPCs(configuredChains: ChainNetwork[]): Promise<void>  {
+  async configureRPCs(configuredChains: ChainNetwork[]): Promise<void> {
     await Promise.all(
       configuredChains.map(async (chain) => {
         const rpcObject: ChainRPCs = { single: undefined, multi: [] };
@@ -251,47 +251,51 @@ export class CommsMgr {
   private async sweepPendingCalls() {
     const promises = [];
 
-    Object.keys(this.pendingSinglecalls).map((chain) => {
-      if (
-        this.pendingSinglecalls[chain].length > 0 &&
-        !this.flages.single[chain].isCalling
-      ) {
-        currentSingleRun[chain]
-          ? (currentMultiRun[chain] = currentSingleRun[chain] + 1)
-          : (currentMultiRun[chain] = 0);
-        console.log(
-          `[${chain}] start single batch: ${currentSingleRun[chain]} pending: ${this.pendingSinglecalls[chain].length}`,
-        );
-        this.flages.single[chain].isCalling = true;
-        promises.push(this.executeChainSinglecalls(<ChainNetwork>chain));
-        this.flages.single[chain].isCalling = false;
-        console.log(
-          `[${chain}] end single batch: ${currentSingleRun[chain]} pending: ${this.pendingSinglecalls[chain].length}`,
-        );
-      }
-    });
+    promises.push(
+      Object.keys(this.pendingSinglecalls).map(async (chain) => {
+        if (
+          this.pendingSinglecalls[chain].length > 0 &&
+          !this.flages.single[chain].isCalling
+        ) {
+          currentSingleRun[chain]
+            ? (currentMultiRun[chain] = currentSingleRun[chain] + 1)
+            : (currentMultiRun[chain] = 1);
+          console.log(
+            `[${chain}] start single batch: ${currentSingleRun[chain]} pending: ${this.pendingSinglecalls[chain].length}`,
+          );
+          this.flages.single[chain].isCalling = true;
+          await this.executeChainSinglecalls(<ChainNetwork>chain);
+          this.flages.single[chain].isCalling = false;
+          console.log(
+            `[${chain}] end single batch: ${currentSingleRun[chain]} pending: ${this.pendingSinglecalls[chain].length}`,
+          );
+        }
+      }),
+    );
 
-    Object.keys(this.pendingMulticalls).map((chain) => {
-      if (
-        Date.now() - this.flages.multi[chain].lastQueued >
-          COMMAN_CONFIGS.waitForNewCall * 1000 &&
-        this.pendingMulticalls[chain].length > 0 &&
-        !this.flages.multi[chain].isCalling
-      ) {
-        currentMultiRun[chain]
-          ? (currentMultiRun[chain] = currentMultiRun[chain] + 1)
-          : (currentMultiRun[chain] = 0);
-        console.log(
-          `start [${chain}] multi batch: ${currentMultiRun[chain]} pending: ${this.pendingMulticalls[chain].length}`,
-        );
-        this.flages.multi[chain].isCalling = true;
-        promises.push(this.executeChainMulticalls(<ChainNetwork>chain));
-        this.flages.multi[chain].isCalling = false;
-        console.log(
-          `end [${chain}] multi batch: ${currentMultiRun[chain]} pending: ${this.pendingMulticalls[chain].length}`,
-        );
-      }
-    });
+    promises.push(
+      Object.keys(this.pendingMulticalls).map(async (chain) => {
+        if (
+          Date.now() - this.flages.multi[chain].lastQueued >
+            COMMAN_CONFIGS.waitForNewCall * 1000 &&
+          this.pendingMulticalls[chain].length > 0 &&
+          !this.flages.multi[chain].isCalling
+        ) {
+          currentMultiRun[chain]
+            ? (currentMultiRun[chain] = currentMultiRun[chain] + 1)
+            : (currentMultiRun[chain] = 1);
+          console.log(
+            `start [${chain}] multi batch: ${currentMultiRun[chain]} pending: ${this.pendingMulticalls[chain].length}`,
+          );
+          this.flages.multi[chain].isCalling = true;
+          await this.executeChainMulticalls(<ChainNetwork>chain);
+          this.flages.multi[chain].isCalling = false;
+          console.log(
+            `end [${chain}] multi batch: ${currentMultiRun[chain]} pending: ${this.pendingMulticalls[chain].length}`,
+          );
+        }
+      }),
+    );
 
     await Promise.all(promises);
   }
