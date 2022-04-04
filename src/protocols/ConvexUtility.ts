@@ -258,12 +258,9 @@ export async function getProjectedConvexAprStats(
     const extraRewardCurrentRewardsPromise: Promise<BigNumber> =
       getExtraRewards1(extraRewardsAddress, model, definition);
 
-    const priceMultiplier = await priceMultiplierPromise;
-
     const depositTokenPrice = definition.depositToken.price;
     const poolValue =
       parseFloat(formatEther(depositLocked)) *
-      priceMultiplier *
       (model.priceOfSync(cvxPool.tokenPriceLookup, definition.chain) ||
         depositTokenPrice);
 
