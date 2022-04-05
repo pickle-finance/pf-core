@@ -16,5 +16,5 @@
 	"risk.smart.contract": "Problemas con los contratos inteligentes de {{protocol}}.",
 	"risk.chain": "Problemas con la red de {{chain}}.",
 	"risk.maintain.peg": "El {{token}} podría fallar en mantener su cambio fijo con el {{target}}.",
-	"risk.divergence.loss": "Pérdida Divergente / Impermanente: cambios importantes en los precios de las monedas referentes podrían causer que esta estrategía dé peor desempeño que una estrategia de posesión pasiva o de \"holdeo\"."
+	"risk.divergence.loss": "Pérdida Divergente / Impermanente: cambios importantes en los precios de las monedas referentes podrían causar que esta estrategía dé peor desempeño que una estrategia de posesión pasiva o de \"holdeo\"."
 }
