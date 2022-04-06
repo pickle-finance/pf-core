@@ -1664,8 +1664,8 @@ export class PickleModel implements ConsoleErrorLogger {
   }
 
   // tslint:disable-next-line
-  async call(contractCallback: Function, chain: ChainNetwork) {
-    return await this.commsMgr.callSingle(contractCallback, chain);
+  async call(contractCallback: Function, chain: ChainNetwork, canFail = false) {
+    return await this.commsMgr.callSingle(contractCallback, chain, canFail);
   }
 
   async callMulti(

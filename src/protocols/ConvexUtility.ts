@@ -169,14 +169,11 @@ export async function getPriceMultiplierFromMinter(
     const minterAddr = await model.call(
       () => crvPool.minter(),
       definition.chain,
+      true,
     ); // if this call fails, then there is no linked minter contract
 
-    const minter = new SingleContract(
-      minterAddr,
-      fxsPoolABI,
-      model.providerFor(definition.chain),
-    );
-    const lpPriceBN = await model.call(
+    const minter = new MultiContract(minterAddr, fxsPoolABI);
+    const lpPriceBN = await model.callMulti(
       () => minter.lp_price(),
       definition.chain,
     );
