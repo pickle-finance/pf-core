@@ -31,7 +31,6 @@ import {
 } from "../Contracts/ContractsImpl";
 import { ExternalTokenModelSingleton, ExternalToken } from "../price/ExternalTokenModel";
 import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
-import { DILL_CONTRACT } from "../dill/DillUtility";
 
 export interface UserTokens {
   [key: string]: UserTokenData;
@@ -189,7 +188,7 @@ export class UserModel implements ConsoleErrorLogger {
         this.getChainsToRun().map(async (x) => {
           try {
             let r: BigNumber = BigNumber.from(0);
-            let s: BigNumber = BigNumber.from(0);
+            const s: BigNumber = BigNumber.from(0);
             if (
               ADDRESSES.get(x) &&
               ADDRESSES.get(x).pickle !== undefined &&
