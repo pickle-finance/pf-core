@@ -45,7 +45,6 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     explorer: "https://etherscan.io",
     rpcs: [
       "https://rpc.ankr.com/eth",
-      "https://mainnet-nethermind.blockscout.com",
       "https://eth-rpc.gateway.pokt.network",
       "https://api.mycryptoapi.com/eth",
       // "https://main-light.eth.linkpool.io",  // requires a 5s timeout inbetween successive calls
