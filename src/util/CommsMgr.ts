@@ -12,6 +12,10 @@ type ChainRPCs = {
 };
 type RPCs = Map<ChainNetwork, ChainRPCs>;
 type PendingCalls = Map<ChainNetwork, { id: string; callback: Function }[]>; // tslint:disable-line
+type PendingSingleCalls = Map<
+  ChainNetwork,
+  { id: string; callback: Function; canFail: boolean }[] // tslint:disable-line
+>;
 type ResolvedCalls = Map<string, any>;
 type ChainConfig = {
   secondsBetweenCalls: number;
@@ -21,16 +25,22 @@ type ValueOfChainNetwork = `${ChainNetwork}` | "default";
 export type ChainsConfigs = {
   [P in ValueOfChainNetwork]?: ChainConfig;
 };
+type CallsFlags = {
+  [P in "single" | "multi"]: {
+    [P in `${ChainNetwork}`]: { isCalling: boolean; lastQueued: number };
+  };
+};
 // Configs
 const COMMAN_CONFIGS = {
-  waitForNewCall: 2, // seconds to wait before starting sending pending calls
-  getResponseInterval: 2,
+  waitForNewCall: 1, // seconds to wait before starting sending pending calls
+  getResponseInterval: 0.5,
 };
 const CHAINS_CONFIGS: ChainsConfigs = {
-  default: { secondsBetweenCalls: 1, callsPerMulticall: 100 },
-  eth: { secondsBetweenCalls: 1, callsPerMulticall: 75 },
-  aurora: { secondsBetweenCalls: 1, callsPerMulticall: 50 },
-  fantom: { secondsBetweenCalls: 1, callsPerMulticall: 100 },
+  default: { secondsBetweenCalls: 0.5, callsPerMulticall: 100 },
+  eth: { secondsBetweenCalls: 0.5, callsPerMulticall: 75 },
+  aurora: { secondsBetweenCalls: 0.5, callsPerMulticall: 50 },
+  moonriver: { secondsBetweenCalls: 1.2, callsPerMulticall: 100 },
+  // fantom: { secondsBetweenCalls: 1, callsPerMulticall: 100 },
 };
 
 // Helpers
@@ -41,15 +51,25 @@ const DEBUG_OUT = (str: string): void => {
 const isError = (err: unknown): err is Error => err instanceof Error;
 // const isError = (err: any): boolean => err && err.stack && err.message && typeof err.stack === 'string'
 // && typeof err.message === 'string';
+const initialFlags = (): CallsFlags => {
+  const flagsObj = { single: {}, multi: {} };
+  Object.keys(ChainNetwork).forEach((chain) => {
+    flagsObj.single[ChainNetwork[chain]] = { isCalling: false, lastQueued: 0 };
+    flagsObj.multi[ChainNetwork[chain]] = { isCalling: false, lastQueued: 0 };
+  });
+  return <CallsFlags>flagsObj;
+};
+
+const currentMultiRun: { [chain: string]: number } = {};
+const currentSingleRun: { [chain: string]: number } = {};
 
 export class CommsMgr {
   private pendingMulticalls: PendingCalls;
-  private pendingSinglecalls: PendingCalls;
+  private pendingSinglecalls: PendingSingleCalls;
   private resolvedCalls: ResolvedCalls;
-  private lastUpdated: number; // when was the last call added to pendingCalls
-  private isMulticalling: boolean;
-  private isSinglecalling: boolean;
   private logger: ConsoleErrorLogger;
+  private isConfigured: boolean;
+  private flages: CallsFlags;
   private configs: ChainsConfigs;
   private rpcs: RPCs;
   sweepIntervalId: NodeJS.Timeout;
@@ -57,16 +77,15 @@ export class CommsMgr {
   constructor(logger: ConsoleErrorLogger, config: ChainsConfigs = undefined) {
     this.logger = logger;
     this.configs = config ?? CHAINS_CONFIGS;
-    this.lastUpdated = 0;
-    this.isMulticalling = false;
-    this.isSinglecalling = false;
+    this.isConfigured = false;
+    this.flages = initialFlags();
     this.pendingMulticalls = new Map<
       ChainNetwork,
       { id: string; callback: any }[]
     >();
     this.pendingSinglecalls = new Map<
       ChainNetwork,
-      { id: string; callback: any }[]
+      { id: string; callback: any; canFail: boolean }[]
     >();
     this.rpcs = new Map<ChainNetwork, ChainRPCs>();
     Object.keys(ChainNetwork).forEach((chain) => {
@@ -77,16 +96,26 @@ export class CommsMgr {
     this.resolvedCalls = new Map<string, any>();
   }
 
-  start(): void {
-    this.sweepIntervalId = setInterval(this.sweepPendingCalls.bind(this), 2000);
+  // Instantiate CommsMgr correctly and perform some checks
+  async configure() {
+    if (!this.isConfigured) {
+      await this.configureRPCs(Chains.list());
+      this.isConfigured = true;
+    }
+    // TODO: check RPCs, if a chain has no live RPC/multiProvidr, do something!
   }
 
-  stop(): void {
+  async start() {
+    await this.configure();
+    this.sweepIntervalId = setInterval(this.sweepPendingCalls.bind(this), 500);
+  }
+
+  stop() {
     clearInterval(this.sweepIntervalId);
   }
 
   // TODO this will break CommsMgr if a chain has all its RPCs dead
-  async configureRPCs(configuredChains: ChainNetwork[]): Promise<void>  {
+  async configureRPCs(configuredChains: ChainNetwork[]): Promise<void> {
     await Promise.all(
       configuredChains.map(async (chain) => {
         const rpcObject: ChainRPCs = { single: undefined, multi: [] };
@@ -98,7 +127,6 @@ export class CommsMgr {
             try {
               await rpc.getNetwork();
               liveRPCs.push(rpc);
-              console.log(`${url} is live.`);
             } catch (error) {
               this.logger.logError(
                 `[CommsMgr] configureRPCs`,
@@ -117,6 +145,7 @@ export class CommsMgr {
           const multiProvider = new MultiProvider(rpc);
           try {
             await multiProvider.init();
+            multiProviders.push(multiProvider);
           } catch (error) {
             this.logger.logError(
               `[CommsMgr] configureRPCs`,
@@ -124,7 +153,6 @@ export class CommsMgr {
               `[${chain}] a multiProvider.init() has failed`,
             );
           }
-          multiProviders.push(multiProvider);
         }
         rpcObject.multi = multiProviders;
 
@@ -138,7 +166,7 @@ export class CommsMgr {
     contractCallback: Function | Function[], // tslint:disable-line
     chain: ChainNetwork,
   ): Promise<any> {
-    this.lastUpdated = Date.now();
+    this.flages.multi[chain].lastQueued = Date.now();
 
     if (Array.isArray(contractCallback)) {
       const ids = [];
@@ -170,11 +198,13 @@ export class CommsMgr {
   async callSingle(
     contractCallback: Function, // tslint:disable-line
     chain: ChainNetwork,
+    canFail = false,
   ): Promise<any> {
     const id = uuid();
     this.pendingSinglecalls[chain].push({
       callback: contractCallback,
       id: id,
+      canFail: canFail,
     });
 
     return this.getResponse(id);
@@ -196,27 +226,55 @@ export class CommsMgr {
 
   // starts sending pending calls to the RPCs if no new call is added to the queue for 2 seconds
   private async sweepPendingCalls() {
-    if (!this.isSinglecalling) {
-      this.isSinglecalling = true;
-      const promises = Object.keys(this.pendingSinglecalls).map((chain) => {
-        if (this.pendingSinglecalls[chain].length > 0)
-          return this.executeChainSinglecalls(<ChainNetwork>chain);
-      });
-      await Promise.all(promises);
-      this.isSinglecalling = false;
-    }
-    if (
-      !this.isMulticalling &&
-      Date.now() - this.lastUpdated > COMMAN_CONFIGS.waitForNewCall * 1000
-    ) {
-      this.isMulticalling = true;
-      const promises = Object.keys(this.pendingMulticalls).map((chain) => {
-        if (this.pendingMulticalls[chain].length > 0)
-          return this.executeChainMulticalls(<ChainNetwork>chain);
-      });
-      await Promise.all(promises);
-      this.isMulticalling = false;
-    }
+    const promises = [];
+
+    promises.push(
+      Object.keys(this.pendingSinglecalls).map(async (chain) => {
+        if (
+          this.pendingSinglecalls[chain].length > 0 &&
+          !this.flages.single[chain].isCalling
+        ) {
+          currentSingleRun[chain]
+            ? (currentSingleRun[chain] = currentSingleRun[chain] + 1)
+            : (currentSingleRun[chain] = 1);
+          DEBUG_OUT(
+            `[${chain}] start single batch: ${currentSingleRun[chain]} pending: ${this.pendingSinglecalls[chain].length}`,
+          );
+          this.flages.single[chain].isCalling = true;
+          await this.executeChainSinglecalls(<ChainNetwork>chain);
+          this.flages.single[chain].isCalling = false;
+          DEBUG_OUT(
+            `[${chain}] end single batch: ${currentSingleRun[chain]} pending: ${this.pendingSinglecalls[chain].length}`,
+          );
+        }
+      }),
+    );
+
+    promises.push(
+      Object.keys(this.pendingMulticalls).map(async (chain) => {
+        if (
+          (Date.now() - this.flages.multi[chain].lastQueued >
+            COMMAN_CONFIGS.waitForNewCall * 1000) &&
+          this.pendingMulticalls[chain].length > 0 &&
+          !this.flages.multi[chain].isCalling
+        ) {
+          currentMultiRun[chain]
+            ? (currentMultiRun[chain] = currentMultiRun[chain] + 1)
+            : (currentMultiRun[chain] = 1);
+          DEBUG_OUT(
+            `start [${chain}] multi batch: ${currentMultiRun[chain]} pending: ${this.pendingMulticalls[chain].length}`,
+          );
+          this.flages.multi[chain].isCalling = true;
+          await this.executeChainMulticalls(<ChainNetwork>chain);
+          this.flages.multi[chain].isCalling = false;
+          DEBUG_OUT(
+            `end [${chain}] multi batch: ${currentMultiRun[chain]} pending: ${this.pendingMulticalls[chain].length}`,
+          );
+        }
+      }),
+    );
+
+    await Promise.all(promises);
   }
 
   private async executeChainMulticalls(chain: ChainNetwork) {
@@ -299,23 +357,28 @@ export class CommsMgr {
     const callbacks: Function[] = this.pendingSinglecalls[chain].map(
       (x) => x.callback,
     );
+    const failFlags: boolean[] = this.pendingSinglecalls[chain].map(
+      (x) => x.canFail,
+    );
     for (let i = 0; i < callbacks.length; i++) {
       const delay = (this.configs[chain] ?? this.configs["default"])
         .secondsBetweenCalls;
       DEBUG_OUT(`executeChainSinglecalls ${delay}-seconds delay`);
       await new Promise((resolve) => setTimeout(resolve, delay * 1000));
       DEBUG_OUT(`executeChainSinglecalls ${delay}-seconds delay end`);
-      DEBUG_OUT(`sending a call to ${chain} single provider`);
+      DEBUG_OUT(`[${Date.now()}] sending a call to ${chain} single provider`);
       try {
         const response = await callbacks[i]();
         this.resolvedCalls[ids[i]] = response;
         this.deletePendingCall(chain, ids[i]);
       } catch (error) {
-        this.logger.logError(
-          "executeChainSinglecalls",
-          error,
-          `${chain} singlecall failed`,
-        );
+        if (!failFlags[i]) {
+          this.logger.logError(
+            "executeChainSinglecalls",
+            error,
+            `${chain} singlecall failed`,
+          );
+        }
         this.resolvedCalls[ids[i]] = error;
         this.deletePendingCall(chain, ids[i]);
       }
@@ -387,7 +450,11 @@ export class CommsMgr {
     DEBUG_OUT(`executeTmpMulticalls ${delay}-seconds delay`);
     await new Promise((resolve) => setTimeout(resolve, delay * 1000));
     DEBUG_OUT(`executeTmpMulticalls ${delay}-seconds delay end`);
-    DEBUG_OUT(`sending ${tmpIds.length} calls to ${chain} multiProvider`);
+    DEBUG_OUT(
+      `[${Date.now()}] sending ${
+        tmpIds.length
+      } calls to ${chain} multiProvider`,
+    );
     const responses = await multiProvider.all(tmpCallbacks.map((c) => c()));
     responses.forEach((res, idx) => {
       const id = tmpIds[idx];
