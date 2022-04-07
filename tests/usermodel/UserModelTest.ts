@@ -19,7 +19,7 @@ describe("Testing user model", () => {
     );
     const userModel: UserModel = new UserModel(
       core as PickleModelJson.PickleModelJson,
-      "0x9d074e37d408542fd38be78848e8814afb38db17",
+      "0xacfe4511ce883c14c4ea40563f176c3c09b4c47c",
       map,
     );
     const earnings = await userModel.generateUserModel();

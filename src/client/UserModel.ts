@@ -12,7 +12,11 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import minichefAbi from "../Contracts/ABIs/minichef.json";
-import { AssetEnablement, JarDefinition } from "../model/PickleModelJson";
+import {
+  AssetEnablement,
+  AssetProtocol,
+  JarDefinition,
+} from "../model/PickleModelJson";
 import {
   ADDRESSES,
   ConsoleErrorLogger,
@@ -29,7 +33,10 @@ import {
   FeeDistributor,
   FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
-import { ExternalTokenModelSingleton, ExternalToken } from "../price/ExternalTokenModel";
+import {
+  ExternalTokenModelSingleton,
+  ExternalToken,
+} from "../price/ExternalTokenModel";
 import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
 
 export interface UserTokens {
@@ -38,7 +45,7 @@ export interface UserTokens {
 export interface UserTokenData {
   assetKey: string;
   depositTokenBalance: string;
-  componentTokenBalances: {[key: string]: string},
+  componentTokenBalances: { [key: string]: string };
   pAssetBalance: string;
   jarAllowance: string;
   pStakedBalance: string;
@@ -167,7 +174,7 @@ export class UserModel implements ConsoleErrorLogger {
         this.callback.modelFinished(this.workingData);
       }
       return this.workingData;
-    } finally { 
+    } finally {
       this.commsMgr.stop();
     }
   }
@@ -289,42 +296,76 @@ export class UserModel implements ConsoleErrorLogger {
     const chainAssets = this.model.assets.jars.filter(
       (x) =>
         x.chain === chain &&
-        x.enablement !== AssetEnablement.PERMANENTLY_DISABLED 
+        x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
     );
 
     if (chainAssets.length === 0) {
       return [];
     }
 
-    
     const depositTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
-      chainAssets.map((x) => () => {
-        DEBUG_OUT("start depositTokenBalancesPromise for " + x.details.apiKey)
+      chainAssets.flatMap((x) => () => {
+        DEBUG_OUT("start depositTokenBalancesPromise for " + x.details.apiKey);
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) {
           return erc20Guard;
         }
+        if (x.protocol === AssetProtocol.UNISWAP_V3) {
+          const mcContract0 = new MulticallContract(
+            this.model.tokens.find(
+              (token) =>
+                token.chain === chain &&
+                token.id === x.depositToken.components?.[0],
+            ).contractAddr,
+            erc20Abi,
+          );
+          const mcContract1 = new MulticallContract(
+            this.model.tokens.find(
+              (token) =>
+                token.chain === chain &&
+                token.id === x.depositToken.components?.[1],
+            ).contractAddr,
+            erc20Abi,
+          );
+
+          console.log(
+            this.model.tokens.find(
+              (token) =>
+                token.chain === chain &&
+                token.id === x.depositToken.components?.[1],
+            ),
+          );
+          return [
+            mcContract0.balanceOf(this.walletId),
+            mcContract1.balanceOf(this.walletId),
+          ];
+        }
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
         const rval = mcContract.balanceOf(this.walletId);
         return rval;
-      }), chain);
+      }),
+      chain,
+    );
 
     const pTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
       chainAssets.map((x) => () => {
-        DEBUG_OUT("start pTokenBalancesPromise for " + x.details.apiKey)
+        DEBUG_OUT("start pTokenBalancesPromise for " + x.details.apiKey);
 
         const mcContract = new MulticallContract(x.contract, erc20Abi);
         return mcContract.balanceOf(this.walletId);
-      }), chain);
+      }),
+      chain,
+    );
 
     const jarAllowancePromise: Promise<BigNumber[]> = this.callMulti(
       chainAssets.map((x) => () => {
-        DEBUG_OUT("start jarAllowancePromise for " + x.details.apiKey)
+        DEBUG_OUT("start jarAllowancePromise for " + x.details.apiKey);
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) return erc20Guard;
         const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
         return mcContract.allowance(this.walletId, x.contract);
-      }), chain
+      }),
+      chain,
     );
 
     const farmAllowancePromise: Promise<BigNumber[]> = this.callMulti(
@@ -335,20 +376,37 @@ export class UserModel implements ConsoleErrorLogger {
         } else {
           return getZeroValueMulticallForChain(x.chain);
         }
-      }), chain
+      }),
+      chain,
     );
 
     let stakedAndPendingPromise: Promise<StakedAndPendingRet> = undefined;
     if (chain === ChainNetwork.Ethereum) {
-      stakedAndPendingPromise = this.getStakedAndPendingFarmEth(chain, chainAssets);
+      stakedAndPendingPromise = this.getStakedAndPendingFarmEth(
+        chain,
+        chainAssets,
+      );
     } else {
-      stakedAndPendingPromise = this.getStakedAndPendingMinichef(chain, chainAssets);
+      stakedAndPendingPromise = this.getStakedAndPendingMinichef(
+        chain,
+        chainAssets,
+      );
     }
 
-    const allChainTokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens().filter((x) => x.chain === chain);
-    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> = this.callMulti(
-      allChainTokens.map((x) => () => 
-       new MulticallContract(x.contractAddr, erc20Abi).balanceOf(this.walletId)), chain);
+    const allChainTokens: ExternalToken[] =
+      ExternalTokenModelSingleton.getAllTokens().filter(
+        (x) => x.chain === chain,
+      );
+    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> =
+      this.callMulti(
+        allChainTokens.map(
+          (x) => () =>
+            new MulticallContract(x.contractAddr, erc20Abi).balanceOf(
+              this.walletId,
+            ),
+        ),
+        chain,
+      );
 
     let depositTokenBalances = [];
     let userBalanceOfChainTokens = [];
@@ -379,7 +437,10 @@ export class UserModel implements ConsoleErrorLogger {
     try {
       DEBUG_OUT("Initializing ptoken balances");
       pTokenBalances = await pTokenBalancesPromise;
-      DEBUG_OUT("Finished Initializing ptoken balances: " + JSON.stringify(pTokenBalances));
+      DEBUG_OUT(
+        "Finished Initializing ptoken balances: " +
+          JSON.stringify(pTokenBalances),
+      );
     } catch (error) {
       this.logUserModelError(
         "Loading ptoken balances on chain " + chain,
@@ -424,39 +485,58 @@ export class UserModel implements ConsoleErrorLogger {
       farmAllowance = [];
     }
     for (let j = 0; j < chainAssets.length; j++) {
-      DEBUG_OUT("Creating usertoken data " + j + " " + chainAssets[j].details.apiKey);
+      DEBUG_OUT(
+        "Creating usertoken data " + j + " " + chainAssets[j].details.apiKey,
+      );
       const toAdd: UserTokenData = {
         assetKey: chainAssets[j].details.apiKey,
         depositTokenBalance: depositTokenBalances[j]?.toString() || "0",
-        componentTokenBalances: this.getComponentTokensForJar(chainAssets[j], allChainTokens, userBalanceOfChainTokens),
+        componentTokenBalances: this.getComponentTokensForJar(
+          chainAssets[j],
+          allChainTokens,
+          userBalanceOfChainTokens,
+        ),
         pAssetBalance: pTokenBalances[j]?.toString() || "0",
         pStakedBalance: stakedInFarm[j]?.toString() || "0",
         picklePending: picklePending[j]?.toString() || "0",
         jarAllowance: jarAllowance[j]?.toString() || "0",
         farmAllowance: farmAllowance[j]?.toString() || "0",
       };
+      const hasComponentTokenBalances: boolean =
+        Object.keys(toAdd.componentTokenBalances).find(
+          (x) =>
+            toAdd.componentTokenBalances[x] != undefined &&
+            toAdd.componentTokenBalances[x] !== "0",
+        ) != undefined;
       const allZeros: boolean =
         toAdd.depositTokenBalance === "0" &&
         toAdd.pAssetBalance === "0" &&
         toAdd.pStakedBalance === "0" &&
-        toAdd.picklePending === "0" && 
-        toAdd.jarAllowance === "0" && 
-        toAdd.farmAllowance === "0";
+        toAdd.picklePending === "0" &&
+        toAdd.jarAllowance === "0" &&
+        toAdd.farmAllowance === "0" &&
+        !hasComponentTokenBalances;
 
       if (!allZeros) ret.push(toAdd);
     }
     return ret;
   }
 
-  getComponentTokensForJar(jar: JarDefinition, chainTokens: ExternalToken[], 
-    userTokenBalances: BigNumber[]): {[key: string]: string} {
+  getComponentTokensForJar(
+    jar: JarDefinition,
+    chainTokens: ExternalToken[],
+    userTokenBalances: BigNumber[],
+  ): { [key: string]: string } {
     const ret = {};
     const components = jar.depositToken.components || [];
-    for( let i = 0; i < components.length; i++ ) {
+    for (let i = 0; i < components.length; i++) {
       let tokenBal: BigNumber | undefined = undefined;
-      for( let j = 0; !tokenBal && j < chainTokens.length; j++ ) {
-        if( chainTokens[j].id === components[i]) {
-          tokenBal = (j < userTokenBalances.length-1 ? userTokenBalances[j] : BigNumber.from(0))
+      for (let j = 0; !tokenBal && j < chainTokens.length; j++) {
+        if (chainTokens[j].id === components[i]) {
+          tokenBal =
+            j < userTokenBalances.length - 1
+              ? userTokenBalances[j]
+              : BigNumber.from(0);
         }
       }
       ret[components[i]] = (tokenBal || BigNumber.from(0)).toString();
@@ -464,8 +544,10 @@ export class UserModel implements ConsoleErrorLogger {
     return ret;
   }
 
-   async getStakedAndPendingMinichef(chain: ChainNetwork, 
-    chainAssets: PickleModelJson.JarDefinition[]): Promise<StakedAndPendingRet> {
+  async getStakedAndPendingMinichef(
+    chain: ChainNetwork,
+    chainAssets: PickleModelJson.JarDefinition[],
+  ): Promise<StakedAndPendingRet> {
     const chef = ADDRESSES.get(chain).minichef;
     const skip: boolean =
       chef === null || chef === undefined || chef === NULL_ADDRESS;
@@ -477,9 +559,9 @@ export class UserModel implements ConsoleErrorLogger {
         chainAssets.map(() => BigNumber.from(0)),
       );
       return {
-        staked: await stakedInFarmPromise, 
+        staked: await stakedInFarmPromise,
         pending: await picklePendingPromise,
-      }
+      };
     } else {
       const poolLengthBN: BigNumber = skip
         ? BigNumber.from(0)
@@ -497,7 +579,8 @@ export class UserModel implements ConsoleErrorLogger {
       const lpTokens: string[] = await this.callMulti(
         poolIds.map((id) => () => {
           return miniChefMulticall.lpToken(id);
-        }), chain
+        }),
+        chain,
       );
       const lpLower: string[] = lpTokens.map((x) => x.toLowerCase());
       const stakedInFarmPromise = this.getStakedInFarmMinichef(
@@ -513,9 +596,9 @@ export class UserModel implements ConsoleErrorLogger {
         lpLower,
       );
       return {
-        staked: await stakedInFarmPromise, 
+        staked: await stakedInFarmPromise,
         pending: await picklePendingPromise,
-      }
+      };
     }
   }
 
@@ -525,8 +608,8 @@ export class UserModel implements ConsoleErrorLogger {
   ): Promise<StakedAndPendingRet> {
     return {
       staked: await this.getStakedInFarmEth(chain, chainAssets),
-      pending: await this.getPicklePendingEth(chain, chainAssets)
-    }
+      pending: await this.getPicklePendingEth(chain, chainAssets),
+    };
   }
   async getStakedInFarmEth(
     chain: ChainNetwork,
@@ -539,7 +622,8 @@ export class UserModel implements ConsoleErrorLogger {
       filteredChainAssets.map((x) => () => {
         const mcContract = new MulticallContract(x.farm.farmAddress, gaugeAbi);
         return mcContract.balanceOf(this.walletId);
-      }), chain
+      }),
+      chain,
     );
 
     // return an array with the same indexes as in the input jar
@@ -566,7 +650,8 @@ export class UserModel implements ConsoleErrorLogger {
     const userInfos: any[] = await this.callMulti(
       poolIds.map((id) => () => {
         return miniChefMulticall.userInfo(id, this.walletId);
-      }), chain
+      }),
+      chain,
     );
     const ret: BigNumber[] = [];
     for (let i = 0; i < chainAssets.length; i++) {
@@ -593,7 +678,8 @@ export class UserModel implements ConsoleErrorLogger {
       filteredChainAssets.map((x) => () => {
         const mcContract = new MulticallContract(x.farm.farmAddress, gaugeAbi);
         return mcContract.earned(this.walletId);
-      }), chain
+      }),
+      chain,
     );
 
     // return an array with the same indexes as in the input jar
@@ -620,7 +706,8 @@ export class UserModel implements ConsoleErrorLogger {
     const picklePending: BigNumber[] = await this.callMulti(
       poolIds.map((id) => () => {
         return miniChefMulticall.pendingPickle(id, this.walletId);
-      }), chain
+      }),
+      chain,
     );
     const ret: BigNumber[] = [];
     for (let i = 0; i < chainAssets.length; i++) {
@@ -664,7 +751,8 @@ export class UserModel implements ConsoleErrorLogger {
     const userVotes: BigNumber[] = await this.callMulti(
       eligibleTokens.map((x) => () => {
         return gaugeProxyMC.votes(this.walletId, x);
-      }), ChainNetwork.Ethereum
+      }),
+      ChainNetwork.Ethereum,
     );
     const ret: IUserVote[] = [];
     for (let i = 0; i < userVotes.length; i++) {
@@ -753,7 +841,7 @@ export class UserModel implements ConsoleErrorLogger {
       feeDistributorContract.callStatic["claim(address)"](this.walletId, {
         gasLimit: 1000000,
       }),
-      pickleContract.allowance(this.walletId, dillContractAddr)
+      pickleContract.allowance(this.walletId, dillContractAddr),
     ]);
 
     return {
@@ -800,6 +888,6 @@ export class UserModel implements ConsoleErrorLogger {
   }
 }
 interface StakedAndPendingRet {
-  staked: BigNumber[],
-  pending: BigNumber[],
+  staked: BigNumber[];
+  pending: BigNumber[];
 }
