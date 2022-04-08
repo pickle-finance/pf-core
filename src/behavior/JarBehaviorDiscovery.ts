@@ -352,6 +352,7 @@ import {
   JAR_POLY_STAR_USDC,
   JAR_POLY_STAR_USDT,
   JAR_FANTOM_STAR_USDC,
+  JAR_METIS_NETSWAP_HERA_USDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -594,6 +595,7 @@ import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
 import { StargateJar } from "./impl/stargate-jar";
+import { NetswapJar } from "./impl/metis-netswap-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -848,6 +850,7 @@ jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_DAI.id, new TethysMetisDai());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_AVAX.id, new TethysMetisAvax());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_FTM.id, new TethysMetisFtm());
+jarToBehavior.set(JAR_METIS_NETSWAP_HERA_USDC.id, new NetswapJar());
 
 // Moonbeam
 jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());

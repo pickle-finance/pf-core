@@ -1491,6 +1491,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Metis,
+      "hera",
+      "hera-finance",
+      "0x6F05709bc91Bad933346F9E159f0D3FdBc2c9DCE".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Moonbeam
     this.addToken(
       ChainNetwork.Moonbeam,
