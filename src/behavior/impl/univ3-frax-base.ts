@@ -99,7 +99,7 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     promises.push(
       _model
         .callMulti(() => jar.liquidityOfThis(), definition.chain)
-        .then((x: BigNumber) => parseFloat(ethers.utils.formatUnits(x, 0))),
+        .then((x: BigNumber) => parseFloat(ethers.utils.formatUnits(x, 18))),
     );
     promises.push(
       _model
