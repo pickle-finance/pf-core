@@ -170,15 +170,21 @@ function createAprRange(
 
 export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
   // Check if it's a normal jar
+  const picklePrice =  model.priceOfSync("pickle", ChainNetwork.Ethereum);
   const jar: JarDefinition = findJarForGauge(gauge, model);
   if (jar !== undefined) {
+    let rrpy = gauge.rewardRatePerYear;
+      if( !Number.isFinite(rrpy) ) {
+      // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
+      rrpy = ((gauge.poolPicklesPerYear || 0) * picklePrice) / (500 / jar.depositToken.price);
+    }
     const rewardPerYear: number =
-      gauge.allocPoint === 0 ? 0 : gauge.rewardRatePerYear * 100;
+      gauge.allocPoint === 0 ? 0 : rrpy * 100;
     const c: AssetAprComponent = createAprRange(
       jar.details.ratio,
       jar.depositToken.price,
       rewardPerYear,
-      model.priceOfSync("pickle", jar.chain),
+      picklePrice,
       jar.details.decimals ? jar.details.decimals : 18,
     );
     if (c && c.apr) {
@@ -202,11 +208,17 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     model,
   );
   if (saFarm !== undefined) {
+    let rrpy = gauge.rewardRatePerYear;
+    if( !Number.isFinite(rrpy) ) {
+      // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
+      rrpy = ((rrpy || 0) * picklePrice) / (500 / jar.depositToken.price);
+    }
+
     const c: AssetAprComponent = createAprRange(
       1,
       saFarm.depositToken.price,
-      gauge.rewardRatePerYear * 100,
-      model.priceOfSync("pickle", ChainNetwork.Ethereum),
+      rrpy * 100,
+      picklePrice,
       18,
     );
     if (c && c.apr) {
@@ -228,15 +240,20 @@ export function setAssetGaugeAprMinichef(
   model: PickleModel,
   secPerBlock: number,
 ) {
+  const picklePrice =  model.priceOfSync("pickle", ChainNetwork.Ethereum);
   // Check if it's a normal jar
   const jar: JarDefinition = findJarForGauge(gauge, model);
   if (jar !== undefined) {
+    let rrpy = gauge.rewardRatePerYear;
+    if( !Number.isFinite(rrpy) ) {
+      // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
+      rrpy = ((rrpy || 0) * picklePrice) / (500 / jar.depositToken.price);
+    }
+
     // If there's no money in the farm, use a default value
     const denominator = jar.farm.details.valueBalance || 500;
     const apr =
-      (100 *
-        gauge.rewardRatePerYear *
-        model.priceOfSync("pickle", ChainNetwork.Ethereum)) / denominator;
+      (100 * rrpy * picklePrice) / denominator;
     const c: AssetAprComponent = {
       name: "pickle",
       apr: apr,
@@ -250,7 +267,6 @@ export function setAssetGaugeAprMinichef(
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     jar.farm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * secPerBlock;
-
     return;
   }
 
@@ -261,11 +277,17 @@ export function setAssetGaugeAprMinichef(
     model,
   );
   if (saFarm !== undefined) {
+    let rrpy = gauge.rewardRatePerYear;
+    if( !Number.isFinite(rrpy) ) {
+      // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
+      rrpy = ((rrpy || 0) * picklePrice) / (500 / saFarm.depositToken.price);
+    }
+
     const c: AssetAprComponent = createAprRange(
       1,
       saFarm.depositToken.price,
-      gauge.rewardRatePerYear,
-      model.priceOfSync("pickle", jar.chain),
+      rrpy,
+      picklePrice,
       18,
     );
     if (c && c.apr) {
