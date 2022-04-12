@@ -491,6 +491,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "cadc",
+      "cad-coin",
+      "0xcadc0acd4b445166f12d2c07eac6e2544fbe2eef".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(

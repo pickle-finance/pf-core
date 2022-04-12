@@ -353,6 +353,7 @@ import {
   JAR_POLY_STAR_USDT,
   JAR_FANTOM_STAR_USDC,
   JAR_METIS_NETSWAP_HERA_USDC,
+  JAR_CURVE_CADCUSDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -596,6 +597,7 @@ import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
 import { StargateJar } from "./impl/stargate-jar";
 import { NetswapJar } from "./impl/metis-netswap-jar";
+import { CurveCadcUsdc } from "./impl/crv-cadcusdc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -659,6 +661,7 @@ jarToBehavior.set(JAR_UNIV3_COW_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
 jarToBehavior.set(JAR_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_STAR_USDT.id, new StargateJar());
+jarToBehavior.set(JAR_CURVE_CADCUSDC.id, new CurveCadcUsdc());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());

@@ -1192,6 +1192,34 @@ export const JAR_CURVE_CVXCRVLP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CURVE_CVXCRVLP);
 
+export const JAR_CURVE_CADCUSDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0j",
+  contract: "0x6f4A700a620B03ac0590f3cD2143A80c96A4973b",
+  startBlock: 14568187,
+  depositToken: {
+    addr: "0x1054Ff2ffA34c055a13DCD9E0b4c0cA5b3aecEB9",
+    name: "Curve CADC/USDC",
+    link: "https://curve.fi/factory-crypto/12/deposit",
+    components: ["cadc", "usdc"],
+  },
+  rewardTokens: ["cvx", "crv"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.CURVE,
+  stakingProtocol: AssetProtocol.CONVEX,
+  details: {
+    apiKey: "CURVECADCUSDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x95bb606e332215d09160bfafe720f84476d06145",
+    farmNickname: "pCurve CADC/USDC",
+    farmDepositTokenName: "pCurve CADC/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CURVE_CADCUSDC);
+
 export const JAR_CVXCRV: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar 0f",
