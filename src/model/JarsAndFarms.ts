@@ -7977,7 +7977,7 @@ export const JAR_FANTOM_OXD_USDC: JarDefinition = {
     addr: "0xD5fa400a24EB2EA55BC5Bd29c989E70fbC626FfF",
     name: "BOO 0XD/USDC",
     link: "https://spookyswap.finance/add/0xc165d941481e68696f43EE6E99BFB2B23E0E3114/0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
-    components: ["oxd", "usdc"],
+    components: ["oxdv1", "usdc"],
     nativePath: {
       //(Spookyswap)uniswapv2router02 --> WFTM, USDC
       target: "0xF491e7B69E4244ad4002BC14e878a34207E38c29",
@@ -8012,9 +8012,9 @@ export const JAR_FANTOM_OXD: JarDefinition = {
     addr: "0xc165d941481e68696f43EE6E99BFB2B23E0E3114",
     name: "0XD",
     link: "https://spookyswap.finance/swap?inputCurrency=0x04068DA6C83AFCFA0e13ba15A6696662335D5B75&outputCurrency=0xc165d941481e68696f43EE6E99BFB2B23E0E3114",
-    components: ["oxd"],
+    components: ["oxdv1"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -8041,7 +8041,7 @@ export const JAR_FANTOM_TOMB: JarDefinition = {
     link: "https://spookyswap.finance/swap?inputCurrency=ETH&outputCurrency=0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
     components: ["tomb"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -8068,7 +8068,7 @@ export const JAR_FANTOM_LQDR: JarDefinition = {
     link: "https://spookyswap.finance/swap?inputCurrency=ETH&outputCurrency=0x10b620b2dbAC4Faa7D7FFD71Da486f5D44cd86f9",
     components: ["lqdr"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -8095,7 +8095,7 @@ export const JAR_FANTOM_XBOO: JarDefinition = {
     link: "https://spookyswap.finance/pools",
     components: ["boo"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -8122,7 +8122,7 @@ export const JAR_FANTOM_XCREDIT: JarDefinition = {
     link: "https://revenant.finance/creditum/farm",
     components: ["credit"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -8149,7 +8149,7 @@ export const JAR_FANTOM_XSCREAM: JarDefinition = {
     link: "https://scream.sh/stake",
     components: ["scream"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -8176,7 +8176,7 @@ export const JAR_FANTOM_XTAROT: JarDefinition = {
     link: "https://www.tarot.to/stake",
     components: ["tarot"],
   },
-  rewardTokens: ["oxd"],
+  rewardTokens: ["oxdv1"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
@@ -9657,7 +9657,7 @@ export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
     addr: "0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
     name: "SOLID vUSDC/OXD",
     link: "https://solidly.exchange/liquidity/0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
-    components: ["usdc", "oxd"],
+    components: ["usdc", "oxdv1"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
@@ -11001,7 +11001,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP CRV/G3CRV",
     farmDepositTokenName: "pOxdSolidexLP CRV/G3CRV",
   },
@@ -11029,7 +11029,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/MULTI",
     farmDepositTokenName: "pOxdSolidexLP WFTM/MULTI",
   },
@@ -11057,7 +11057,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP LQDR/WFTM",
     farmDepositTokenName: "pOxdSolidexLP LQDR/WFTM",
   },
@@ -11085,7 +11085,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP IB/WFTM",
     farmDepositTokenName: "pOxdSolidexLP IB/WFTM",
   },
@@ -11113,7 +11113,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP XTAROT/TAROT",
     farmDepositTokenName: "pOxdSolidexLP XTAROT/TAROT",
   },
@@ -11141,7 +11141,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP DEI/SCREAM",
     farmDepositTokenName: "pOxdSolidexLP DEI/SCREAM",
   },
@@ -11169,7 +11169,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/SYN",
     farmDepositTokenName: "pOxdSolidexLP WFTM/SYN",
   },
@@ -11179,7 +11179,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN);
 export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   type: AssetType.JAR,
   id: "fantomJar 8h",
-  contract: "0x2C5dd15b2dBAB3d1207095F22cCc92e32FbF5A55",
+  contract: "0x30ee2ed562075C111a04AF907D856D4347a00828",
   startBlock: 35240455,
   depositToken: {
     addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
@@ -11197,7 +11197,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/SOLID",
     farmDepositTokenName: "pOxdSolidexLP WFTM/SOLID",
   },
@@ -11225,7 +11225,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP YFI/WOOFY",
     farmDepositTokenName: "pOxdSolidexLP YFI/WOOFY",
   },
@@ -11253,7 +11253,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP BOMB/PGUNK",
     farmDepositTokenName: "pOxdSolidexLP BOMB/PGUNK",
   },
@@ -11281,7 +11281,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SOLIDSEX/SOLID",
     farmDepositTokenName: "pOxdSolidexLP SOLIDSEX/SOLID",
   },
@@ -11309,7 +11309,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP FXS/FRAX",
     farmDepositTokenName: "pOxdSolidexLP FXS/FRAX",
   },
@@ -11337,7 +11337,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP OXD/DEI",
     farmDepositTokenName: "pOxdSolidexLP OXD/DEI",
   },
@@ -11365,7 +11365,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/TAROT",
     farmDepositTokenName: "pOxdSolidexLP WFTM/TAROT",
   },
@@ -11393,7 +11393,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/YFI",
     farmDepositTokenName: "pOxdSolidexLP WFTM/YFI",
   },
@@ -11421,7 +11421,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SEX/WFTM",
     farmDepositTokenName: "pOxdSolidexLP SEX/WFTM",
   },
@@ -11449,7 +11449,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP DEI/DEUS",
     farmDepositTokenName: "pOxdSolidexLP DEI/DEUS",
   },
@@ -11477,7 +11477,7 @@ export const JAR_OXD_SOLIDEX_G3CRV_SEX: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP G3CRV/SEX",
     farmDepositTokenName: "pOxdSolidexLP G3CRV/SEX",
   },
@@ -11505,7 +11505,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP USDC/WEVE",
     farmDepositTokenName: "pOxdSolidexLP USDC/WEVE",
   },
@@ -11533,7 +11533,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP USDC/SYN",
     farmDepositTokenName: "pOxdSolidexLP USDC/SYN",
   },
@@ -11561,7 +11561,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/SOLIDSEX",
     farmDepositTokenName: "pOxdSolidexLP WFTM/SOLIDSEX",
   },
@@ -11589,7 +11589,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP USDC/MIM",
     farmDepositTokenName: "pOxdSolidexLP USDC/MIM",
   },
@@ -11617,7 +11617,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP USDC/DEI",
     farmDepositTokenName: "pOxdSolidexLP USDC/DEI",
   },
@@ -11645,7 +11645,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/OXD2",
     farmDepositTokenName: "pOxdSolidexLP WFTM/OXD2",
   },
@@ -11673,7 +11673,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SPIRIT/SINSPIRIT",
     farmDepositTokenName: "pOxdSolidexLP SPIRIT/SINSPIRIT",
   },
@@ -11701,7 +11701,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SPIRIT/RAINSPIRIT",
     farmDepositTokenName: "pOxdSolidexLP SPIRIT/RAINSPIRIT",
   },
@@ -11729,7 +11729,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SPIRIT/BINSPIRIT",
     farmDepositTokenName: "pOxdSolidexLP SPIRIT/BINSPIRIT",
   },
@@ -11757,7 +11757,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SPIRIT/LINSPIRIT",
     farmDepositTokenName: "pOxdSolidexLP SPIRIT/LINSPIRIT",
   },
@@ -11785,7 +11785,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/GEIST",
     farmDepositTokenName: "pOxdSolidexLP WFTM/GEIST",
   },
@@ -11813,7 +11813,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/HND",
     farmDepositTokenName: "pOxdSolidexLP WFTM/HND",
   },
@@ -11841,7 +11841,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SOLID/OXSOLID",
     farmDepositTokenName: "pOxdSolidexLP SOLID/OXSOLID",
   },
@@ -11869,7 +11869,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/RDL",
     farmDepositTokenName: "pOxdSolidexLP WFTM/RDL",
   },
@@ -11897,7 +11897,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP SEX/G3CRV",
     farmDepositTokenName: "pOxdSolidexLP SEX/G3CRV",
   },
@@ -11925,7 +11925,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP CRV/WFTM",
     farmDepositTokenName: "pOxdSolidexLP CRV/WFTM",
   },
@@ -11953,7 +11953,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP BIFI/MAI",
     farmDepositTokenName: "pOxdSolidexLP BIFI/MAI",
   },
@@ -11981,7 +11981,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/SCREAM",
     farmDepositTokenName: "pOxdSolidexLP WFTM/SCREAM",
   },
@@ -12009,7 +12009,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
-    farmAddress: "",
+    farmAddress: NULL_ADDRESS,
     farmNickname: "pOxdSolidexLP WFTM/GEIST",
     farmDepositTokenName: "pOxdSolidexLP WFTM/GEIST",
   },

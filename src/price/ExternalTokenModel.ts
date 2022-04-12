@@ -1673,7 +1673,7 @@ export class ExternalTokenModel {
     // Fantom
     this.addToken(
       ChainNetwork.Fantom,
-      "oxd",
+      "oxdv1",
       "0xdao",
       "0xc165d941481e68696f43ee6e99bfb2b23e0e3114".toLowerCase(),
       18,
@@ -2201,7 +2201,7 @@ export class ExternalTokenModel {
       ChainNetwork.Fantom,
       "oxd",
       "0xdao-v2",
-      "0x2F6F07CDcf3588944Bf4C42aC74ff24bF56e7590".toLowerCase(),
+      "0xc5A9848b9d145965d821AaeC8fA32aaEE026492d".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
@@ -2245,8 +2245,8 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.SWAP_PAIRS,
       [
-        "0xf8Fc059dAfDCe4EF2EdFc72cbBAF410d7531E610", // SPIRIT PGUNK-WFTM
-        "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83" // SPIRIT WFTM-USDC
+        "0x98f70fc717ADcAdE6B0A24df54c49EAbDc5EFC46", // SPIRIT PGUNK-WFTM
+        "0xC30FA09417F149892Ff86eF92a051c0bC2244c7C", // SUSHI WFTM-PGUNK
       ]);
     this.addToken(
       ChainNetwork.Fantom,
@@ -2256,7 +2256,7 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.SWAP_PAIRS,
       [
-        "0x2Cea0dA40cF133721377bB2b0bF4aDc43715BFC3", // BEETHOVENX FBEETS-USDC
+        "0x5A3AA3284EE642152D4a2B55BE1160051c5eB932", // vSOLID BEETS-FBEETS
       ]);
 
     // Make the reverse map to fascilitate contract lookups

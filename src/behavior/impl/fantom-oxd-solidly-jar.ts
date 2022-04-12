@@ -19,36 +19,31 @@ export async function calculateOxdFarmsAPY(
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
   const multicallOxdFarms = new MultiContract(OXD_LENS, oxdLensAbi);
-  const oxdPool = multicallOxdFarms.stakingRewardsBySolidPool(jar.depositToken.addr);
+  const oxdPool = await model.callMulti(
+    () => multicallOxdFarms.stakingRewardsBySolidPool(jar.depositToken.addr),
+    jar.chain,
+  );
+    
 
   const multicallOxdMultiRewards = new MultiContract(oxdPool, oxdMultiRewardsAbi);
 
-  const [oxdToken, solidToken, totalSupplyBN] = await model.callMulti(
+  const oxdToken = model.address("oxd", jar.chain);
+  const solidToken = model.address("solid", jar.chain);
+
+  const [oxdRewardsData, solidRewardsData, oxdPerDurationBN, solidPerDurationBN, totalSupplyBN] = await model.callMulti(
     [
-      () => multicallOxdMultiRewards.rewardTokens()[0],
-      () => multicallOxdMultiRewards.rewardTokens()[1],
-      () => multicallOxdMultiRewards.totalSupply()
+      () => multicallOxdMultiRewards.rewardData(oxdToken),
+      () => multicallOxdMultiRewards.rewardData(solidToken),
+      () => multicallOxdMultiRewards.getRewardForDuration(oxdToken),
+      () => multicallOxdMultiRewards.getRewardForDuration(solidToken),
+      () => multicallOxdMultiRewards.totalSupply(),
     ],
     jar.chain
   );
 
   // Duration is one week measured in seconds.
-  const [oxdRewardsDuration, solidRewardsDuration] = await model.callMulti(
-    [
-      () => multicallOxdMultiRewards.rewardData(oxdToken)[1],
-      () => multicallOxdMultiRewards.rewardData(solidToken)[1],
-    ],
-    jar.chain
-  );
-
-  // Result is a big number that must be converted to Ether from Wei.
-  const [oxdPerDurationBN, solidPerDurationBN] = await model.callMulti(
-    [
-      () => multicallOxdMultiRewards.getRewardForDuration(oxdToken),
-      () => multicallOxdMultiRewards.getRewardForDuration(solidToken),
-    ],
-    jar.chain
-  );
+  const oxdRewardsDuration = oxdRewardsData[1];
+  const solidRewardsDuration = solidRewardsData[1];
 
   // Oxd Rewards in Ether per second.
   const oxdPerSec = (parseFloat(formatEther(oxdPerDurationBN)) / oxdRewardsDuration);
