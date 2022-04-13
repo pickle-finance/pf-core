@@ -10827,7 +10827,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-CRV-G3CRV",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10847,7 +10847,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
     addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
     name: "OxdSolidlyLP WFTM/MULTI",
     link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-    components: ["wftm", "multi"],
+    components: ["ftm", "multi"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -10855,7 +10855,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-MULTI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10875,7 +10875,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
     addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
     name: "OxdSolidlyLP LQDR/WFTM",
     link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
-    components: ["lqdr", "wftm"],
+    components: ["lqdr", "ftm"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -10883,7 +10883,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-LQDR-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10903,7 +10903,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
     addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
     name: "OxdSolidlyLP IB/WFTM",
     link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-    components: ["ib", "wftm"],
+    components: ["ib", "ftm"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -10911,7 +10911,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-IB-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10939,7 +10939,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-XTAROT-TAROT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10967,7 +10967,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-DEI-SCREAM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -10987,7 +10987,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
     addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
     name: "OxdSolidlyLP WFTM/SYN",
     link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-    components: ["wftm", "syn"],
+    components: ["ftm", "syn"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -10995,7 +10995,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-SYN",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11015,7 +11015,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
     addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
     name: "OxdSolidlyLP WFTM/SOLID",
     link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-    components: ["wftm", "solid"],
+    components: ["ftm", "solid"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11023,7 +11023,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-SOLID",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11050,8 +11050,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.OXD,
   details: {
-    apiKey: "OxdSolidlyLP YFI/WOOFY",
-    harvestStyle: HarvestStyle.CUSTOM,
+    apiKey: "OxdSolidlyLP YFI-WOOFY",
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11079,7 +11079,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-BOMB-PGUNK",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11107,7 +11107,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SOLIDSEX-SOLID",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11135,7 +11135,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-FXS-FRAX",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11163,7 +11163,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-OXD-DEI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11183,7 +11183,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
     addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
     name: "OxdSolidlyLP WFTM/TAROT",
     link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-    components: ["wftm", "tarot"],
+    components: ["ftm", "tarot"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11191,7 +11191,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-TAROT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11211,7 +11211,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
     addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
     name: "OxdSolidlyLP WFTM/YFI",
     link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-    components: ["wftm", "yfi"],
+    components: ["ftm", "yfi"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11219,7 +11219,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-YFI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11239,7 +11239,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
     addr: "0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
     name: "OxdSolidlyLP SEX/WFTM",
     link: "https://solidly.exchange/liquidity/0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
-    components: ["sex", "wftm"],
+    components: ["sex", "ftm"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11247,7 +11247,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SEX-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11275,7 +11275,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-DEI-DEUS",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11303,7 +11303,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-USDC-WEVE",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11331,7 +11331,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-USDC-SYN",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11351,7 +11351,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
     addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
     name: "OxdSolidlyLP WFTM/SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-    components: ["wftm", "solidsex"],
+    components: ["ftm", "solidsex"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11359,7 +11359,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-SOLIDSEX",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11387,7 +11387,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-USDC-MIM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11415,7 +11415,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-USDC-DEI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11435,7 +11435,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
     addr: "0xcB6eAB779780c7FD6d014ab90d8b10e97A1227E2",
     name: "OxdSolidlyLP WFTM/OXD",
     link: "https://solidly.exchange/liquidity/0xcB6eAB779780c7FD6d014ab90d8b10e97A1227E2",
-    components: ["wftm", "oxd"],
+    components: ["ftm", "oxd"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11443,7 +11443,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-OXD2",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11471,7 +11471,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SPIRIT-SINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11499,7 +11499,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SPIRIT-RAINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11527,7 +11527,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SPIRIT-BINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11555,7 +11555,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SPIRIT-LINSPIRIT",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11575,7 +11575,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
     addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
     name: "OxdSolidlyLP WFTM/GEIST",
     link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    components: ["wftm", "geist"],
+    components: ["ftm", "geist"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11583,7 +11583,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-GEIST",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11603,7 +11603,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
     addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
     name: "OxdSolidlyLP HND/WFTM",
     link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-    components: ["wftm", "hnd"],
+    components: ["ftm", "hnd"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11611,7 +11611,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-HND",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11639,7 +11639,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SOLID-OXSOLID",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11659,7 +11659,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
     addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
     name: "OxdSolidlyLP FTM/RDL",
     link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-    components: ["wftm", "rdl"],
+    components: ["ftm", "rdl"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11667,7 +11667,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-RDL",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11695,7 +11695,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-SEX-G3CRV",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11715,7 +11715,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
     addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
     name: "OxdSolidlyLP CRV/WFTM",
     link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-    components: ["crv", "wftm"],
+    components: ["crv", "ftm"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11723,7 +11723,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-CRV-WFTM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11743,7 +11743,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
     addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
     name: "OxdSolidlyLP BIFI/MAI",
     link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-    components: ["bifi", "mai"],
+    components: ["bifi", "mimatic"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11751,7 +11751,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-BIFI-MAI",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11771,7 +11771,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
     addr: "0x86dD79265814756713e631Dde7E162bdD538b7B1",
     name: "OxdSolidlyLP WFTM/SCREAM",
     link: "https://solidly.exchange/liquidity/0x86dD79265814756713e631Dde7E162bdD538b7B1",
-    components: ["wftm", "scream"],
+    components: ["ftm", "scream"],
   },
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
@@ -11779,7 +11779,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-WFTM-SCREAM",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
@@ -11807,7 +11807,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
   protocol: AssetProtocol.OXD,
   details: {
     apiKey: "OxdSolidlyLP-BEETS-FBEETS",
-    harvestStyle: HarvestStyle.CUSTOM,
+    harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
   },
   farm: {
