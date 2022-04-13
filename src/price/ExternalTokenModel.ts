@@ -170,7 +170,7 @@ export class ExternalTokenModel {
       "0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e".toLowerCase(),
       18,
       ExternalTokenFetchStyle.BOTH,
-    );  
+    );
     this.addToken(
       ChainNetwork.Ethereum,
       "renbtc",
@@ -1689,7 +1689,7 @@ export class ExternalTokenModel {
     // Fantom
     this.addToken(
       ChainNetwork.Fantom,
-      "oxd",
+      "oxdv1",
       "0xdao",
       "0xc165d941481e68696f43ee6e99bfb2b23e0e3114".toLowerCase(),
       18,
@@ -2213,6 +2213,51 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "oxd",
+      "0xdao-v2",
+      "0xc5A9848b9d145965d821AaeC8fA32aaEE026492d".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "oxsolid",
+      "oxsolid",
+      "0xda0053f0befcbcac208a3f867bb243716734d809".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "weve",
+      "vedao",
+      "0x911da02c1232a3c3e1418b834a311921143b04d7".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Fantom,
+      "pgunk",
+      "",
+      "0xf8Fc059dAfDCe4EF2EdFc72cbBAF410d7531E610".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x98f70fc717ADcAdE6B0A24df54c49EAbDc5EFC46", // SPIRIT PGUNK-WFTM
+        "0xC30FA09417F149892Ff86eF92a051c0bC2244c7C", // SUSHI WFTM-PGUNK
+      ]);
+    this.addToken(
+      ChainNetwork.Fantom,
+      "fbeets",
+      "",
+      "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x5A3AA3284EE642152D4a2B55BE1160051c5eB932", // vSOLID BEETS-FBEETS
+      ]);
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

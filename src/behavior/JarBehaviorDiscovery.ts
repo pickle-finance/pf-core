@@ -234,14 +234,6 @@ import {
   JAR_MOVR_FINN_MOVR_FINN,
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
-  JAR_FANTOM_OXD_USDC,
-  JAR_FANTOM_LQDR,
-  JAR_FANTOM_XBOO,
-  JAR_FANTOM_XCREDIT,
-  JAR_FANTOM_XSCREAM,
-  JAR_FANTOM_OXD,
-  JAR_FANTOM_XTAROT,
-  JAR_FANTOM_TOMB,
   JAR_FANTOM_BOO_FTM_BOO,
   JAR_FANTOM_BOO_FTM_ICE,
   JAR_FANTOM_BOO_FTM_SPELL,
@@ -352,6 +344,42 @@ import {
   JAR_POLY_STAR_USDC,
   JAR_POLY_STAR_USDT,
   JAR_FANTOM_STAR_USDC,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM,
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI,
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK,
   JAR_METIS_NETSWAP_HERA_USDC,
   JAR_CURVE_CADCUSDC,
 } from "../model/JarsAndFarms";
@@ -571,14 +599,6 @@ import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
 import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
-import { OxdJar } from "./impl/fantom-oxd-jar";
-import { OxdLqdr } from "./impl/fantom-oxd-lqdr";
-import { OxdXboo } from "./impl/fantom-oxd-xboo";
-import { OxdXcredit } from "./impl/fantom-oxd-xcredit";
-import { OxdXscream } from "./impl/fantom-oxd-xscream";
-import { OxdSingle } from "./impl/fantom-oxd";
-import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
-import { OxdTomb } from "./impl/fantom-oxd-tomb";
 import { LqdrJar } from "./impl/fantom-lqdr-jar";
 import { BooJar } from "./impl/fantom-boo-jar";
 import { BeetXJar } from "./impl/fantom-beetx-jar";
@@ -596,6 +616,7 @@ import { TethysMetisAvax } from "./impl/metis-tethys-metis-avax";
 import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
 import { StargateJar } from "./impl/stargate-jar";
+import { OxdSolidlyJar } from "./impl/fantom-oxd-solidly-jar";
 import { NetswapJar } from "./impl/metis-netswap-jar";
 import { CurveCadcUsdc } from "./impl/crv-cadcusdc";
 
@@ -886,14 +907,6 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
 
 // Fantom
-jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
-jarToBehavior.set(JAR_FANTOM_LQDR.id, new OxdLqdr());
-jarToBehavior.set(JAR_FANTOM_XBOO.id, new OxdXboo());
-jarToBehavior.set(JAR_FANTOM_XCREDIT.id, new OxdXcredit());
-jarToBehavior.set(JAR_FANTOM_XSCREAM.id, new OxdXscream());
-jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
-jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
-jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
 
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooJar());
@@ -994,6 +1007,46 @@ jarToBehavior.set(JAR_FANTOM_SPIRIT_FTM_BIFI.id, new SpiritJar());
 jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar());
 
 jarToBehavior.set(JAR_FANTOM_STAR_USDC.id, new StargateJar());
+
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT.id, new OxdSolidlyJar());
+(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT.id, new OxdSolidlyJar());
+(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyJar());
+
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
