@@ -217,10 +217,11 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
 
     const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
 
-    const [totalCombinedWeight, rewardRate, rewardDuration, multiplier] =
+    const [totalCombinedWeight, lockerWeight, rewardRate, rewardDuration, multiplier] =
       await model.callMulti(
         [
           () => gaugeContract.totalCombinedWeight(),
+          () => gaugeContract.combinedWeightOf(lockerAddress),
           () => gaugeContract.rewardRate0(),
           () => gaugeContract.getRewardForDuration(),
           () => gaugeContract.veFXSMultiplier(lockerAddress),
@@ -228,18 +229,14 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
         definition.chain,
       );
 
-    const apr =
-      ((multiplier *
-        rewardDuration *
-        52 *
-        model.priceOfSync("fxs", definition.chain)) /
-        1e18 /
-        (totalCombinedWeight * definition.depositToken.price)) *
-      100;
+    const totalFXSPerYear = rewardDuration / 1e18 * 52 * model.priceOfSync("fxs", definition.chain);
+    const weightDollars = lockerWeight / 1e18 * definition.depositToken.price;
+
+    const baseApr = (lockerWeight / totalCombinedWeight) * totalFXSPerYear / weightDollars;
 
     return super.aprComponentsToProjectedApr([
-      //this.createAprComponent("lp", lpApr, true),
-      this.createAprComponent("fxs", apr, true),
+      this.createAprComponent("lp", lpApr, true),
+      this.createAprComponent("fxs", baseApr, true),
     ]);
   }
 }
