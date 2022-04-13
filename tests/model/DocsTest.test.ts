@@ -25,7 +25,7 @@ describe("Testing documentation model", () => {
     const err: string[] = [];
     const format = DocsFormat.HTML;
     const language = "en";
-    const tokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens().filter((x) => x.chain === ChainNetwork.Optimism && x.id === 'eth');
+    const tokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens();
     for( let i = 0; i < tokens.length; i++ ) {
       const desc = getTokenDescription(tokens[i].chain, tokens[i].id, language, format);
       if( !desc || desc.startsWith("token.")) {

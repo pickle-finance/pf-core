@@ -19,6 +19,7 @@ import {
   RISK_CHAIN,
   RISK_DIVERGENCE_LOSS,
   RISK_SMART_CONTRACT,
+  SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
   SocialKeyValueObj,
   TranslationKeyProperties,
   TranslationKeyWithProperties,
@@ -173,6 +174,53 @@ export function getObtainTranslationProperties(
   return properties;
 }
 
+interface DocsGenerator {
+  accepts(asset: PickleAsset): boolean;
+  generate(asset: PickleAsset): AssetDocumentationDefinition;
+};
+class DocsGenImpl implements DocsGenerator {
+  private acc: (asset:PickleAsset) => boolean;
+  private gen: (asset:PickleAsset) => AssetDocumentationDefinition;
+  constructor(acc: (asset:PickleAsset) => boolean, gen: (asset:PickleAsset) => AssetDocumentationDefinition) {
+    this.acc = acc;
+    this.gen = gen;
+  }
+  accepts(asset: PickleAsset): boolean {
+    return this.acc(asset);
+  }
+  generate(asset: PickleAsset): AssetDocumentationDefinition {
+    return this.gen(asset);
+  }
+
+}
+const allDocsGenerators: DocsGenerator[] = [];
+allDocsGenerators.push(
+  new DocsGenImpl((asset) => 
+    XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol), 
+    (asset) => generateXykDocumentation(asset))
+);
+allDocsGenerators.push(
+  new DocsGenImpl(
+    (asset) => asset.protocol === AssetProtocol.UNISWAP_V3,
+    (asset) => generateXykDocumentation(asset)
+));
+allDocsGenerators.push(
+  new DocsGenImpl(
+    (asset) => asset.protocol === AssetProtocol.BEETHOVENX || asset.protocol === AssetProtocol.BALANCER,
+    (asset) => generateBalancerStyleDocumentation(asset)
+));
+allDocsGenerators.push(
+  new DocsGenImpl(
+    (asset) => asset.protocol === AssetProtocol.CURVE,
+    (asset) => generateCurveStyleDocumentation(asset)
+));
+allDocsGenerators.push(
+  new DocsGenImpl(
+    (asset) => asset.protocol === AssetProtocol.STARGATE,
+    (asset) => generateSingleStakingStyleDocumentation(asset)
+));
+
+
 export function generateAutomaticDefinition(
   keys: string[],
 ): AssetDocumentationDefinition[] {
@@ -182,22 +230,14 @@ export function generateAutomaticDefinition(
       (x) => x.details?.apiKey === keys[i],
     );
     if (asset) {
-      if (
-        XYK_SWAP_PROTOCOLS.map((x) => x.protocol)
-          .map((x) => x.toString())
-          .includes(asset.protocol)
-      ) {
-        ret.push(generateXykDocumentation(asset));
-      } else if (asset.protocol === AssetProtocol.UNISWAP_V3) {
-        ret.push(generateUni3Documentation(asset));
-      } else if (
-        asset.protocol === AssetProtocol.BEETHOVENX ||
-        asset.protocol === AssetProtocol.BALANCER
-      ) {
-        ret.push(generateBalancerStyleDocumentation(asset));
-      } else if (asset.protocol === AssetProtocol.CURVE) {
-        ret.push(generateCurveStyleDocumentation(asset));
+      let oneReturn: AssetDocumentationDefinition = undefined;
+      for( let i = 0; oneReturn === undefined && i < allDocsGenerators.length; i++ ) {
+        if( allDocsGenerators[i].accepts(asset)) {
+          oneReturn = allDocsGenerators[i].generate(asset);
+        }
       }
+      if( oneReturn )
+        ret.push(oneReturn);
     }
   }
   return ret;
@@ -266,6 +306,27 @@ export function generateCurveStyleDocumentation(
   obtain.push({ key: OBTAIN_KEY_MULTITOKEN_POOL_ANY });
   obtain = obtain.concat(getZapObtains(asset));
   return generateAllStyleDocumentation(asset, desc, obtain);
+}
+
+export function generateSingleStakingStyleDocumentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
+  const desc: TranslationKeyWithProperties = {
+    key: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
+    properties: generateAutomaticDescriptionProperties(asset),
+  };
+  const obtain: TranslationKeyWithProperties[] = [];
+  obtain.push({ key: OBTAIN_KEY_ONETOKEN_POOL, 
+    properties: {
+      token: asset.depositToken.components[0],
+      protocol: asset.protocol,
+      poolName: asset.depositToken.name.toUpperCase(),
+      link: asset.depositToken.link
+    }});
+  //obtain = obtain.concat(getZapObtains(asset));
+  const ret = generateAllStyleDocumentation(asset, desc, obtain);
+  ret.risks = ret.risks.filter((x) => x.key !== RISK_DIVERGENCE_LOSS);
+  return ret;
 }
 
 export function generateAllStyleDocumentation(

@@ -6,6 +6,8 @@ export const BALANCER_REWARDS_JAR_DESCRIPTION =
   "asset.description.balancer.rewards.lp";
 export const CURVE_REWARDS_JAR_DESCRIPTION =
   "asset.description.curve.rewards.lp";
+export const SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION =
+  "asset.description.single.staking";
 
 export const OBTAIN_KEY_ONETOKEN_POOL = "obtain.pool.onetoken";
 export const OBTAIN_KEY_ONETOKEN_JAR = "obtain.pool.onetoken.jar";
