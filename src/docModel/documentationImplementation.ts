@@ -86,7 +86,7 @@ export function documentationAssetDefinitionToResult(
   }
   const descriptionKey = def.descriptionKey
     ? def.descriptionKey
-    : { key: def.apiKey + ".desc", properties: {} };
+    : { key: "custom." + def.apiKey + ".desc", properties: {} };
   const description = translateSingleStringWithFallback(
     language,
     descriptionKey.key,
