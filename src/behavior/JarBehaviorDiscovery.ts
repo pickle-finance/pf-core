@@ -234,14 +234,6 @@ import {
   JAR_MOVR_FINN_MOVR_FINN,
   JAR_MOVR_FINN_USDC_MOVR,
   JAR_ARBITRUM_BAL_VSTA_ETH,
-  JAR_FANTOM_OXD_USDC,
-  JAR_FANTOM_LQDR,
-  JAR_FANTOM_XBOO,
-  JAR_FANTOM_XCREDIT,
-  JAR_FANTOM_XSCREAM,
-  JAR_FANTOM_OXD,
-  JAR_FANTOM_XTAROT,
-  JAR_FANTOM_TOMB,
   JAR_FANTOM_BOO_FTM_BOO,
   JAR_FANTOM_BOO_FTM_ICE,
   JAR_FANTOM_BOO_FTM_SPELL,
@@ -607,14 +599,6 @@ import { FinnFinnRmrk } from "./impl/movr-finn-finn-rmrk";
 import { FinnMovrFinn } from "./impl/movr-finn-movr-finn";
 import { FinnUsdcMovr } from "./impl/movr-finn-usdc-movr";
 import { BalancerVstaEth } from "./impl/arbitrum-vsta-eth";
-import { OxdJar } from "./impl/fantom-oxd-jar";
-import { OxdLqdr } from "./impl/fantom-oxd-lqdr";
-import { OxdXboo } from "./impl/fantom-oxd-xboo";
-import { OxdXcredit } from "./impl/fantom-oxd-xcredit";
-import { OxdXscream } from "./impl/fantom-oxd-xscream";
-import { OxdSingle } from "./impl/fantom-oxd";
-import { OxdXtarot } from "./impl/fantom-oxd-xtarot";
-import { OxdTomb } from "./impl/fantom-oxd-tomb";
 import { LqdrJar } from "./impl/fantom-lqdr-jar";
 import { BooJar } from "./impl/fantom-boo-jar";
 import { BeetXJar } from "./impl/fantom-beetx-jar";
@@ -923,14 +907,6 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
 
 // Fantom
-jarToBehavior.set(JAR_FANTOM_OXD_USDC.id, new OxdJar());
-jarToBehavior.set(JAR_FANTOM_LQDR.id, new OxdLqdr());
-jarToBehavior.set(JAR_FANTOM_XBOO.id, new OxdXboo());
-jarToBehavior.set(JAR_FANTOM_XCREDIT.id, new OxdXcredit());
-jarToBehavior.set(JAR_FANTOM_XSCREAM.id, new OxdXscream());
-jarToBehavior.set(JAR_FANTOM_OXD.id, new OxdSingle());
-jarToBehavior.set(JAR_FANTOM_XTAROT.id, new OxdXtarot());
-jarToBehavior.set(JAR_FANTOM_TOMB.id, new OxdTomb());
 
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooJar());
