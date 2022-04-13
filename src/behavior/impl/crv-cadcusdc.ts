@@ -38,7 +38,7 @@ export class CurveCadcUsdc extends ConvexDualReward {
 
     const depositTokenPrice = poolCadc
       .mul(BigNumber.from((cadcPrice * 1e6).toFixed()))
-      .add(poolUsdc.mul(BigNumber.from((usdcPrice * 1e6).toFixed())))
+      .add(poolUsdc.mul(1e12).mul(BigNumber.from((usdcPrice * 1e6).toFixed())))
       .div(totalSupply)
       .mul((1e18).toFixed())
       .div((1e6).toFixed());
