@@ -387,7 +387,9 @@ import {
   JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS,
   JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM,
   JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI,
-  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK,
+  JAR_METIS_NETSWAP_HERA_USDC,
+  JAR_CURVE_CADCUSDC,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -631,42 +633,8 @@ import { TethysMetisFtm } from "./impl/metis-tethys-metis-ftm";
 import { TectonicJar } from "./impl/tectonic-folding";
 import { StargateJar } from "./impl/stargate-jar";
 import { OxdSolidlyJar } from "./impl/fantom-oxd-solidly-jar";
-import { OxdSolidlyVolatileWftmOxd2 } from "./impl/fantom-oxd-solidly-volatile-wftm-oxd2";
-import { OxdSolidlyStableSpiritSinspirit } from "./impl/fantom-oxd-solidly-stable-spirit-sinspirit";
-import { OxdSolidlyVolatileWftmMulti } from "./impl/fantom-oxd-solidly-volatile-wftm-multi";
-import { OxdSolidlyVolatileCrvG3crv } from "./impl/fantom-oxd-solidly-volatile-crv-g3crv";
-import { OxdSolidlyVolatileLqdrWftm } from "./impl/fantom-oxd-solidly-volatile-lqdr-wftm";
-import { OxdSolidlyStableSpiritRainspirit } from "./impl/fantom-oxd-solidly-stable-spirit-rainspirit";
-import { OxdSolidlyStableSpiritBinspirit } from "./impl/fantom-oxd-solidly-stable-spirit-binspirit";
-import { OxdSolidlyStableSpiritLinspirit } from "./impl/fantom-oxd-solidly-stable-spirit-linspirit";
-import { OxdSolidlyVolatileWftmGeist } from "./impl/fantom-oxd-solidly-volatile-wftm-geist";
-import { OxdSolidlyVolatileBeetsFbeets } from "./impl/fantom-oxd-solidly-volatile-beets-fbeets";
-import { OxdSolidlyVolatileHndWftm } from "./impl/fantom-oxd-solidly-volatile-hnd-wftm";
-import { OxdSolidlyVolatileSolidOxsolid } from "./impl/fantom-oxd-solidly-volatile-solid-oxsolid";
-import { OxdSolidlyVolatileWftmRdl } from "./impl/fantom-oxd-solidly-volatile-wftm-rdl";
-import { OxdSolidlyVolatileCrvWftm } from "./impl/fantom-oxd-solidly-volatile-crv-wftm";
-import { OxdSolidlyVolatileIbWftm } from "./impl/fantom-oxd-solidly-volatile-ib-wftm";
-import { OxdSolidlyVolatileXtarotTarot } from "./impl/fantom-oxd-solidly-volatile-tarot-xtarot";
-import { OxdSolidlyVolatileDeiScream } from "./impl/fantom-oxd-solidly-volatile-dei-scream";
-import { OxdSolidlyVolatileWftmSyn } from "./impl/fantom-oxd-solidly-volatile-wftm-syn";
-import { OxdSolidlyVolatileWftmSolid } from "./impl/fantom-oxd-solidly-volatile-wftm-solid";
-import { OxdSolidlyVolatileBifiMai } from "./impl/fantom-oxd-solidly-volatile-bifi-mai";
-import { OxdSolidlyVolatileYfiWoofy } from "./impl/fantom-oxd-solidly-volatile-yfi-woofy";
-import { OxdSolidlyVolatileWftmTarot } from "./impl/fantom-oxd-solidly-volatile-wftm-tarot";
-import { OxdSolidlyVolatileWftmScream } from "./impl/fantom-oxd-solidly-volatile-wftm-scream";
-import { OxdSolidlyStableSolidsexSolid } from "./impl/fantom-oxd-solidly-stable-solidsex-solid";
-import { OxdSolidlyVolatileFxsFrax } from "./impl/fantom-oxd-solidly-volatile-fxs-frax";
-import { OxdSolidlyVolatileOxdDei } from "./impl/fantom-oxd-solidly-volatile-oxd-dei";
-import { OxdSolidlyVolatileWftmYfi } from "./impl/fantom-oxd-solidly-volatile-wftm-yfi";
-import { OxdSolidlyVolatileSexWftm } from "./impl/fantom-oxd-solidly-volatile-sex-wftm";
-import { OxdSolidlyVolatileWftmSolidsex } from "./impl/fantom-oxd-solidly-volatile-wftm-solidsex";
-import { OxdSolidlyVolatileUsdcSyn } from "./impl/fantom-oxd-solidly-volatile-usdc-syn";
-import { OxdSolidlyVolatileUsdcWeve } from "./impl/fantom-oxd-solidly-volatile-usdc-weve";
-import { OxdSolidlyVolatileSexG3crv } from "./impl/fantom-oxd-solidly-volatile-sex-g3crv";
-import { OxdSolidlyVolatileDeiDeus } from "./impl/fantom-oxd-solidly-volatile-dei-deus";
-import { OxdSolidlyStableUsdcMim } from "./impl/fantom-oxd-solidly-stable-usdc-mim";
-import { OxdSolidlyStableUsdcDei } from "./impl/fantom-oxd-solidly-stable-usdc-dei";
-import { OxdSolidlyVolatileBombPgunk } from "./impl/fantom-oxd-solidly-volatile-bomb-pgunk";
+import { NetswapJar } from "./impl/metis-netswap-jar";
+import { CurveCadcUsdc } from "./impl/crv-cadcusdc";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -730,6 +698,7 @@ jarToBehavior.set(JAR_UNIV3_COW_ETH.id, new Univ3Base());
 jarToBehavior.set(JAR_CURVE_CVXFXS_FXS_LP.id, new CvxfxsFxs());
 jarToBehavior.set(JAR_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_STAR_USDT.id, new StargateJar());
+jarToBehavior.set(JAR_CURVE_CADCUSDC.id, new CurveCadcUsdc());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());
@@ -921,6 +890,7 @@ jarToBehavior.set(JAR_METIS_HELLSHARE_METIS.id, new HellshareMetis());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_DAI.id, new TethysMetisDai());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_AVAX.id, new TethysMetisAvax());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_FTM.id, new TethysMetisFtm());
+jarToBehavior.set(JAR_METIS_NETSWAP_HERA_USDC.id, new NetswapJar());
 
 // Moonbeam
 jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());
@@ -1062,44 +1032,44 @@ jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar());
 
 jarToBehavior.set(JAR_FANTOM_STAR_USDC.id, new StargateJar());
 
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV.id, new OxdSolidlyVolatileCrvG3crv());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyVolatileWftmMulti());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM.id, new OxdSolidlyVolatileLqdrWftm());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM.id, new OxdSolidlyVolatileIbWftm());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT.id, new OxdSolidlyVolatileXtarotTarot());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM.id, new OxdSolidlyVolatileDeiScream());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN.id, new OxdSolidlyVolatileWftmSyn());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID.id, new OxdSolidlyVolatileWftmSolid());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY.id, new OxdSolidlyVolatileYfiWoofy());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK.id, new OxdSolidlyVolatileBombPgunk());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM.id, new OxdSolidlyVolatileCrvWftm());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyVolatileWftmOxd2());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT.id, new OxdSolidlyStableSpiritSinspirit());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT.id, new OxdSolidlyStableSpiritRainspirit());
-(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT.id, new OxdSolidlyStableSpiritBinspirit());
-(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT.id, new OxdSolidlyStableSpiritLinspirit());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST.id, new OxdSolidlyVolatileWftmGeist());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS.id, new OxdSolidlyVolatileBeetsFbeets());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM.id, new OxdSolidlyVolatileHndWftm());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID.id, new OxdSolidlyVolatileSolidOxsolid());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyVolatileWftmOxd2());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL.id, new OxdSolidlyVolatileWftmRdl());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI.id, new OxdSolidlyVolatileBifiMai());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT.id, new OxdSolidlyVolatileWftmTarot());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM.id, new OxdSolidlyVolatileWftmScream());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID.id, new OxdSolidlyStableSolidsexSolid());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX.id, new OxdSolidlyVolatileFxsFrax());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyVolatileWftmMulti());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI.id, new OxdSolidlyVolatileOxdDei());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI.id, new OxdSolidlyVolatileWftmYfi());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM.id, new OxdSolidlyVolatileSexWftm());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX.id, new OxdSolidlyVolatileWftmSolidsex());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN.id, new OxdSolidlyVolatileUsdcSyn());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE.id, new OxdSolidlyVolatileUsdcWeve());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV.id, new OxdSolidlyVolatileSexG3crv());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS.id, new OxdSolidlyVolatileDeiDeus());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM.id, new OxdSolidlyStableUsdcMim());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyStableUsdcDei());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT.id, new OxdSolidlyJar());
+(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT.id, new OxdSolidlyJar());
+(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM.id, new OxdSolidlyJar());
+jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyJar());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());

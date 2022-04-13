@@ -122,7 +122,7 @@ export const JAR_steCRV: JarDefinition = {
     addr: "0x06325440D014e39736583c165C2963BA99fAf14E",
     name: "Curve ETH/stETH",
     link: "https://www.curve.fi/steth/deposit",
-    components: ['weth', 'steth'],
+    components: ["weth", "steth"],
   },
   rewardTokens: ["cvx", "crv", "ldo"],
   enablement: AssetEnablement.ENABLED,
@@ -237,8 +237,9 @@ export const JAR_pDAI: JarDefinition = {
   protocol: AssetProtocol.COMPOUND,
   details: {
     apiKey: "evil-dai",
-    harvestStyle: HarvestStyle.NONE
-  }, farm: undefined,
+    harvestStyle: HarvestStyle.NONE,
+  },
+  farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_pDAI);
 
@@ -1191,6 +1192,34 @@ export const JAR_CURVE_CVXCRVLP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_CURVE_CVXCRVLP);
 
+export const JAR_CURVE_CADCUSDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0j",
+  contract: "0x6f4A700a620B03ac0590f3cD2143A80c96A4973b",
+  startBlock: 14568187,
+  depositToken: {
+    addr: "0x1054Ff2ffA34c055a13DCD9E0b4c0cA5b3aecEB9",
+    name: "Curve CADC/USDC",
+    link: "https://curve.fi/factory-crypto/12/deposit",
+    components: ["cadc", "usdc"],
+  },
+  rewardTokens: ["cvx", "crv"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.CURVE,
+  stakingProtocol: AssetProtocol.CONVEX,
+  details: {
+    apiKey: "CURVECADCUSDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x95bb606e332215d09160bfafe720f84476d06145",
+    farmNickname: "pCurve CADC/USDC",
+    farmDepositTokenName: "pCurve CADC/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CURVE_CADCUSDC);
+
 export const JAR_CVXCRV: JarDefinition = {
   type: AssetType.JAR,
   id: "pjar 0f",
@@ -1760,7 +1789,6 @@ export const JAR_STAR_USDT: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_STAR_USDT);
-
 
 // Polygon
 
@@ -2585,7 +2613,6 @@ export const JAR_POLY_STAR_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_POLY_STAR_USDC);
-
 
 // Arbitrum
 
@@ -6914,6 +6941,34 @@ export const JAR_METIS_NETSWAP_BUSD_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_BUSD_USDC);
+
+export const JAR_METIS_NETSWAP_HERA_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 1q",
+  contract: "0x55F2B96c55B65610ACb3c4F2E0946cDd2a5490ad",
+  startBlock: 2232251,
+  depositToken: {
+    addr: "0x948f9614628d761f86B672F134Fc273076C4D623",
+    name: "NET HERA/USDC",
+    link: "https://netswap.io/#/add/0x6F05709bc91Bad933346F9E159f0D3FdBc2c9DCE/0xEA32A96608495e54156Ae48931A7c20f0dcc1a21",
+    components: ["hera", "usdc"],
+  },
+  rewardTokens: ["nett, hera"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.NETSWAP,
+  details: {
+    apiKey: "NLP-HERA-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pNLP HERA/USDC",
+    farmDepositTokenName: "pNLP HERA/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_NETSWAP_HERA_USDC);
 
 export const JAR_METIS_TETHYS_METIS: JarDefinition = {
   type: AssetType.JAR,
@@ -11827,8 +11882,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   startBlock: 35190359,
   depositToken: {
     addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-    name: "OxdSolidexLP_SOLID_OXSOLID",
-    link: "https://solidly.exchange/liquidity/0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
+    name: "OxdSolidexLP_FTM_RDL",
+    link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
     components: ["wftm", "rdl"],
   },
   rewardTokens: ["oxd", "solid"],
@@ -11856,7 +11911,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   depositToken: {
     addr: "0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
     name: "OxdSolidexLP_SEX_G3CRV",
-    link: "https://solidly.exchange/liquidity/0xa3bf7336FDbCe054c4B5Bad4FF8d79539dB2a2b3",
+    link: "https://solidly.exchange/liquidity/0x966F6dfDfdC7FEF3271287a88cb53C77d8901C19",
     components: ["sex", "g3crv"],
   },
   rewardTokens: ["oxd", "solid"],

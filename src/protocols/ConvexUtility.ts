@@ -71,6 +71,13 @@ const convexPools: PoolInfo = {
     extraReward: "fxs",
     extraRewardPriceLookup: "fxs",
   },
+  "0x1054Ff2ffA34c055a13DCD9E0b4c0cA5b3aecEB9": {
+    poolId: 79,
+    tokenName: "cadcusdc",
+    rewardName: "",
+    tokenPriceLookup: "cadcusdc",
+    rewardPriceLookup: "",
+  },
 };
 
 export async function getCvxTotalSupply(
@@ -208,10 +215,7 @@ export async function getProjectedConvexAprStats(
 ): Promise<AssetAprComponent[]> {
   const cvxPool = convexPools[definition.depositToken.addr];
   const convexApiPromise = getConvexCurveApi();
-  const priceMultiplierPromise = getPriceMultiplierFromMinter(
-    definition,
-    model,
-  );
+
   const cvxTotalSupplyPromise = getCvxTotalSupply(model);
   const rewarderPromise = getConvexRewarderPromise(cvxPool, model, definition);
 
@@ -238,22 +242,18 @@ export async function getProjectedConvexAprStats(
         definition.chain,
       );
     }
-    const [depositLocked, duration, extraRewardsAddress, mcRewardRate]: [
+    const [depositLocked, duration, mcRewardRate]: [
       BigNumber,
       BigNumber,
-      string,
       BigNumber,
     ] = await model.callMulti(
       [
         () => crvRewardsMC.totalSupply(),
         () => crvRewardsMC.duration(),
-        () => crvRewardsMC.extraRewards(0),
         () => crvRewardsMC.rewardRate(),
       ],
       definition.chain,
     );
-    const extraRewardCurrentRewardsPromise: Promise<BigNumber> =
-      getExtraRewards1(extraRewardsAddress, model, definition);
 
     const depositTokenPrice = definition.depositToken.price;
     const poolValue =
@@ -280,17 +280,27 @@ export async function getProjectedConvexAprStats(
       (cvxReward * cvxPrice * ONE_YEAR_SECONDS) / duration.toNumber();
     const cvxApr = cvxValuePerYear / poolValue;
 
-    const extraRewardCurrentRewards = await extraRewardCurrentRewardsPromise;
-    const extraRewardAmount = +formatEther(extraRewardCurrentRewards);
-    const extraRewardValuePerYear =
-      (extraRewardAmount *
-        (model.priceOfSync(cvxPool.rewardPriceLookup, definition.chain) || 0) *
-        ONE_YEAR_SECONDS) /
-      duration.toNumber();
-    let extraRewardApr = extraRewardValuePerYear / poolValue;
-
     const isExtraCvx = cvxPool.rewardName === "cvx"; // extraReward token is CVX
-    if (isExtraCvx) extraRewardApr += cvxApr;
+    let extraRewardApr: number;
+    if (cvxPool.rewardName) {
+      const [extraRewardsAddress]: [string] = await model.callMulti(
+        [() => crvRewardsMC.extraRewards(0)],
+        definition.chain,
+      );
+      const extraRewardCurrentRewardsPromise: Promise<BigNumber> =
+        getExtraRewards1(extraRewardsAddress, model, definition);
+      const extraRewardCurrentRewards = await extraRewardCurrentRewardsPromise;
+      const extraRewardAmount = +formatEther(extraRewardCurrentRewards);
+      const extraRewardValuePerYear =
+        (extraRewardAmount *
+          (model.priceOfSync(cvxPool.rewardPriceLookup, definition.chain) ||
+            0) *
+          ONE_YEAR_SECONDS) /
+        duration.toNumber();
+      extraRewardApr = extraRewardValuePerYear / poolValue;
+
+      if (isExtraCvx) extraRewardApr += cvxApr;
+    }
 
     // component 3
     let extraRewardApr2 = 0;

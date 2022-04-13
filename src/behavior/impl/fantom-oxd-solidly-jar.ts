@@ -62,9 +62,6 @@ export async function calculateOxdFarmsAPY(
 
   // Price of LP token.
   const pricePerToken = jar.depositToken.price!;
-  console.log("PING", pricePerToken);
-  console.log("DING", jar);
-
 
   // Total value of LP tokens staked in rewards contract.
   const totalValueStaked = totalSupply * pricePerToken;
@@ -111,10 +108,12 @@ export class OxdSolidlyJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const lp = await new SolidlyPairManager().calculateLpApr(
+    const lpPromise = new SolidlyPairManager().calculateLpApr(
       model,
       jar.depositToken.addr,
     );
+
+    const lp = await lpPromise;
 
     return this.aprComponentsToProjectedApr([
       ...(await calculateOxdFarmsAPY(jar, model)),

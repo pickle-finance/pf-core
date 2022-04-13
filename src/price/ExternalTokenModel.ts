@@ -491,6 +491,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "cadc",
+      "cad-coin",
+      "0xcadc0acd4b445166f12d2c07eac6e2544fbe2eef".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(
@@ -1488,6 +1496,14 @@ export class ExternalTokenModel {
       "ftm",
       "fantom",
       "0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Metis,
+      "hera",
+      "hera-finance",
+      "0x6F05709bc91Bad933346F9E159f0D3FdBc2c9DCE".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );

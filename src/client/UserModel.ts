@@ -42,10 +42,22 @@ import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
 export interface UserTokens {
   [key: string]: UserTokenData;
 }
+
+export interface BalanceAllowance {
+  balance: string; 
+  allowance: string;
+}
+
+interface SingleRequiredComponentAllowance {
+  assetContract: string;
+  componentContract: string;
+  allowance: string;
+};
+
 export interface UserTokenData {
   assetKey: string;
   depositTokenBalance: string;
-  componentTokenBalances: { [key: string]: string };
+  componentTokenBalances: { [key: string]: BalanceAllowance };
   pAssetBalance: string;
   jarAllowance: string;
   pStakedBalance: string;
@@ -303,6 +315,11 @@ export class UserModel implements ConsoleErrorLogger {
       return [];
     }
 
+    const allChainTokens: ExternalToken[] =
+    ExternalTokenModelSingleton.getAllTokens().filter(
+      (x) => x.chain === chain,
+    );
+
     const depositTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
       chainAssets.flatMap((x) => () => {
         DEBUG_OUT("start depositTokenBalancesPromise for " + x.details.apiKey);
@@ -346,6 +363,8 @@ export class UserModel implements ConsoleErrorLogger {
       }),
       chain,
     );
+
+    const userAllowanceOfChainTokensPromise: Promise<SingleRequiredComponentAllowance[]> = this.getRequiredComponentTokenAllowances(chain, chainAssets, allChainTokens);
 
     const pTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
       chainAssets.map((x) => () => {
@@ -393,11 +412,7 @@ export class UserModel implements ConsoleErrorLogger {
       );
     }
 
-    const allChainTokens: ExternalToken[] =
-      ExternalTokenModelSingleton.getAllTokens().filter(
-        (x) => x.chain === chain,
-      );
-    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> =
+      const userBalanceOfChainTokensPromise: Promise<BigNumber[]> =
       this.callMulti(
         allChainTokens.map(
           (x) => () =>
@@ -410,6 +425,7 @@ export class UserModel implements ConsoleErrorLogger {
 
     let depositTokenBalances = [];
     let userBalanceOfChainTokens = [];
+    let userAllowanceOfChainTokens: SingleRequiredComponentAllowance[] = [];
     let pTokenBalances = [];
     let stakedInFarm = [];
     let picklePending = [];
@@ -431,7 +447,16 @@ export class UserModel implements ConsoleErrorLogger {
         "Loading user Balance Of Chain Tokens on chain " + chain,
         "" + error,
       );
-      depositTokenBalances = [];
+      userBalanceOfChainTokens = [];
+    }
+    try {
+      userAllowanceOfChainTokens = await userAllowanceOfChainTokensPromise;
+    } catch (error) {
+      this.logUserModelError(
+        "Loading user Balance Of Component Tokens on chain " + chain,
+        "" + error,
+      );
+      userAllowanceOfChainTokens = [];
     }
 
     try {
@@ -495,6 +520,7 @@ export class UserModel implements ConsoleErrorLogger {
           chainAssets[j],
           allChainTokens,
           userBalanceOfChainTokens,
+          userAllowanceOfChainTokens,
         ),
         pAssetBalance: pTokenBalances[j]?.toString() || "0",
         pStakedBalance: stakedInFarm[j]?.toString() || "0",
@@ -506,7 +532,7 @@ export class UserModel implements ConsoleErrorLogger {
         Object.keys(toAdd.componentTokenBalances).find(
           (x) =>
             toAdd.componentTokenBalances[x] != undefined &&
-            toAdd.componentTokenBalances[x] !== "0",
+            toAdd.componentTokenBalances[x].balance !== "0",
         ) != undefined;
       const allZeros: boolean =
         toAdd.depositTokenBalance === "0" &&
@@ -515,6 +541,7 @@ export class UserModel implements ConsoleErrorLogger {
         toAdd.picklePending === "0" &&
         toAdd.jarAllowance === "0" &&
         toAdd.farmAllowance === "0" &&
+        // Allowances are irrelevant so we're not including them
         !hasComponentTokenBalances;
 
       if (!allZeros) ret.push(toAdd);
@@ -526,22 +553,76 @@ export class UserModel implements ConsoleErrorLogger {
     jar: JarDefinition,
     chainTokens: ExternalToken[],
     userTokenBalances: BigNumber[],
-  ): { [key: string]: string } {
-    const ret = {};
+    userTokenAllowances: SingleRequiredComponentAllowance[],
+  ): { [key: string]: BalanceAllowance } {
+    const ret: { [key: string]: BalanceAllowance } = {};
     const components = jar.depositToken.components || [];
     for (let i = 0; i < components.length; i++) {
       let tokenBal: BigNumber | undefined = undefined;
+      const foundToken: ExternalToken | undefined = chainTokens.find((x) => x.id === components[i]);
       for (let j = 0; !tokenBal && j < chainTokens.length; j++) {
         if (chainTokens[j].id === components[i]) {
           tokenBal =
             j < userTokenBalances.length - 1
               ? userTokenBalances[j]
               : BigNumber.from(0);
-        }
+          }
       }
-      ret[components[i]] = (tokenBal || BigNumber.from(0)).toString();
+      const tokenAllowObj: SingleRequiredComponentAllowance | undefined = 
+        userTokenAllowances.find((x) => foundToken &&
+        x.assetContract === jar.contract && foundToken.contractAddr.toLowerCase() === x.componentContract.toLowerCase() );
+
+      const bal = (tokenBal || BigNumber.from(0)).toString();
+      const allow = (tokenAllowObj ? tokenAllowObj.allowance : BigNumber.from(0)).toString();
+      
+      ret[components[i]] = {balance: bal, allowance: allow};
     }
     return ret;
+  }
+
+  async getRequiredComponentTokenAllowances(
+    chain: ChainNetwork,
+    chainAssets: JarDefinition[],
+    allChainTokens: ExternalToken[]): Promise<SingleRequiredComponentAllowance[]> {
+
+    const requiredComponentAllowances: SingleRequiredComponentAllowance[] = [];
+    const uni3Assets = chainAssets.filter((x) => x.protocol === AssetProtocol.UNISWAP_V3);
+    for( let i = 0; i < uni3Assets.length; i++ ) {
+      const assetContract = uni3Assets[i].contract;
+      const components = uni3Assets[i].depositToken.components || [];
+      for( let j = 0; j < components.length; j++ ) {
+        const token = allChainTokens.find((x) => x.id === components[j]);
+        if( token ) {
+          requiredComponentAllowances.push({
+            assetContract: assetContract,
+            componentContract: token.contractAddr,
+            allowance: "0",
+          });
+        }
+      }
+    }
+    const userAllowanceOfChainTokensPromise: Promise<BigNumber[]> =
+    this.callMulti(
+      requiredComponentAllowances.map(
+        (x) => () =>
+        new MulticallContract(x.componentContract, erc20Abi).
+        allowance(this.walletId, x.assetContract)
+      ),
+      chain,
+    );
+
+    try {
+      const asBigNumberArray: BigNumber[] = await userAllowanceOfChainTokensPromise;
+      for( let i = 0; i < requiredComponentAllowances.length; i++ ) {
+        requiredComponentAllowances[i].allowance = asBigNumberArray[i].toString();
+      }
+    } catch( err ) {
+      this.logUserModelError(
+        "Loading component allowances on chain " + chain,
+        "" + err,
+      );
+    }
+    return requiredComponentAllowances;
   }
 
   async getStakedAndPendingMinichef(
