@@ -1480,7 +1480,7 @@ export const JAR_UNIV3_FRAX_DAI: JarDefinition = {
     addr: "0x97e7d56A0408570bA1a7852De36350f7713906ec",
     name: "UniV3 FRAX/DAI",
     link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0x6B175474E89094C44Da98b954EedeAC495271d0F/500",
-    components: ["frax", "dai"],
+    components: ["dai", "frax"],
     style: { erc20: false },
   },
   rewardTokens: ["fxs"],
