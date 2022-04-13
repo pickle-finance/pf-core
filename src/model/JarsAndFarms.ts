@@ -3482,7 +3482,7 @@ export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-SOLAR-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3506,7 +3506,7 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["dai", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3517,7 +3517,7 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-DAI-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3544,7 +3544,7 @@ export const JAR_MOVR_SOLAR_MOVR_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MOVR-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3568,7 +3568,7 @@ export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["solar", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3579,7 +3579,7 @@ export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-SOLAR-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3603,7 +3603,7 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0xB44a9B6905aF7c801311e8F4E76932ee959c663C/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["usdt", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3614,7 +3614,7 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-USDT-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3638,7 +3638,7 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["busd", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3649,7 +3649,7 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-BUSD-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3673,7 +3673,7 @@ export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["eth", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3684,7 +3684,7 @@ export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-ETH-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3708,7 +3708,7 @@ export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c/0x5D9ab5522c64E1F6ef5e3627ECCc093f56167818",
     components: ["bnb", "busd"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, BNB]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, BNB]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3719,7 +3719,7 @@ export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-BNB-BUSD",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3743,7 +3743,7 @@ export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["wbtc", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3754,7 +3754,7 @@ export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-WBTC-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3781,7 +3781,7 @@ export const JAR_MOVR_SOLAR_AVAX_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-AVAX-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3805,7 +3805,7 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x7f5a79576620C046a293F54FFCdbd8f2468174F1/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mai", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3816,7 +3816,7 @@ export const JAR_MOVR_SOLAR_MAI_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MAI-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3840,7 +3840,7 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x0caE51e1032e8461f4806e26332c030E34De3aDb/0xe3f5a90f9cb311505cd691a46596599aa1a0ad7d",
     components: ["mim", "usdc"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, USDC]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, USDC]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3851,7 +3851,7 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MIM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3878,7 +3878,7 @@ export const JAR_MOVR_SOLAR_MOVR_FTM: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MOVR-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3905,7 +3905,7 @@ export const JAR_MOVR_SOLAR_MOVR_RIB: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MOVR-RIB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3932,7 +3932,7 @@ export const JAR_MOVR_SOLAR_MOVR_RELAY: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MOVR-RELAY",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3956,7 +3956,7 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
     link: "https://app.solarbeam.io/exchange/add/0x6bD193Ee6D2104F14F94E2cA6efefae561A4334B/0xbD90A6125a84E5C512129D622a75CDDE176aDE5E",
     components: ["solar", "rib"],
     nativePath: {
-      //SolarRouter02 (SolarSwap)--> [WMOVR, SOLAR]
+      //SolarRouter02 (SolarBeam)--> [WMOVR, SOLAR]
       target: "0xAA30eF758139ae4a7f798112902Bf6d65612045f",
       path: [
         "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -3967,7 +3967,7 @@ export const JAR_MOVR_SOLAR_SOLAR_RIB: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-SOLAR-RIB",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -3994,7 +3994,7 @@ export const JAR_MOVR_SOLAR_PETS_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-PETS-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -4022,7 +4022,7 @@ export const JAR_MOVR_SOLAR_FRAX_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-FRAX-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -4049,7 +4049,7 @@ export const JAR_MOVR_SOLAR_MIM_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-MIM-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -4076,7 +4076,7 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-BNB-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -4103,7 +4103,7 @@ export const JAR_MOVR_SOLAR_ETH_MOVR: JarDefinition = {
   rewardTokens: ["solar"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Moonriver,
-  protocol: AssetProtocol.SOLARSWAP,
+  protocol: AssetProtocol.SOLARBEAM,
   details: {
     apiKey: "SLP-ETH-MOVR",
     harvestStyle: HarvestStyle.PASSIVE,

@@ -7,7 +7,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import {
   calculateSolarFarmsAPY,
-  SolarswapPairManager,
+  SolarbeamPairManager,
   SOLAR_FARMS,
   SOLAR_V2_FARMS,
   SOLAR_V3_FARMS,
@@ -187,7 +187,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
       model,
     );
 
-    const lpApr: number = await new SolarswapPairManager().calculateLpApr(
+    const lpApr: number = await new SolarbeamPairManager().calculateLpApr(
       model,
       definition.depositToken.addr,
     );

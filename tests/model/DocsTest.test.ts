@@ -1,4 +1,4 @@
-import { ChainNetwork, DocsFormat, DocsManager } from "../../src";
+import { DocsFormat, DocsManager } from "../../src";
 import { ALL_ASSETS } from "../../src/model/JarsAndFarms";
 import {
   AssetEnablement,

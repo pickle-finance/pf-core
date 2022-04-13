@@ -141,9 +141,9 @@ export async function calculateSolarFarmsAPY(
   return [{ name: "solar", apr: solarAPY * 100, compoundable: true }];
 }
 
-const SOLARSWAP_PAIR_CACHE_KEY = "solarswap.pair.data.cache.key";
+const SOLARBEAM_PAIR_CACHE_KEY = "solarswap.pair.data.cache.key";
 
-const SOLARSWAP_QUERY_KEYS: string[] = [
+const SOLARBEAM_QUERY_KEYS: string[] = [
   "pairAddress",
   "date",
   "reserveUSD",
@@ -154,13 +154,13 @@ const SOLARSWAP_QUERY_KEYS: string[] = [
   "token1{id}",
   "totalSupply",
 ];
-export class SolarswapPairManager extends GenericSwapUtility {
+export class SolarbeamPairManager extends GenericSwapUtility {
   constructor() {
     super(
-      SOLARSWAP_PAIR_CACHE_KEY,
+      SOLARBEAM_PAIR_CACHE_KEY,
       "pairAddress",
-      SOLARSWAP_QUERY_KEYS,
-      AssetProtocol.SOLARSWAP,
+      SOLARBEAM_QUERY_KEYS,
+      AssetProtocol.SOLARBEAM,
       ChainNetwork.Moonriver,
       0.002,
     );

@@ -31,7 +31,7 @@ const SUBGRAPH_URL_COMETH =
   "https://api.thegraph.com/subgraphs/name/cometh-game/comethswap";
 const SUBGRAPH_URL_QUICKSWAP =
   "https://api.thegraph.com/subgraphs/name/sameepsi/quickswap06";
-const SUBGRAPH_URL_SOLARSWAP = "https://analytics.solarbeam.io/api/subgraph";
+const SUBGRAPH_URL_SOLARBEAM = "https://analytics.solarbeam.io/api/subgraph";
 const SUBGRAPH_URL_BALANCER =
   "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2";
 const SUBGRAPH_URL_BALANCER_ARBITRUM =
@@ -95,8 +95,8 @@ export function graphUrlFromDetails(
       return SUBGRAPH_URL_COMETH;
     case AssetProtocol.QUICKSWAP:
       return SUBGRAPH_URL_QUICKSWAP;
-    case AssetProtocol.SOLARSWAP:
-      return SUBGRAPH_URL_SOLARSWAP;
+    case AssetProtocol.SOLARBEAM:
+      return SUBGRAPH_URL_SOLARBEAM;
     case AssetProtocol.BALANCER: {
       switch (chain) {
         case ChainNetwork.Ethereum:

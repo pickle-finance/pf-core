@@ -25,7 +25,7 @@ export enum AssetProtocol {
   CHERRYSWAP = "CherrySwap",
   BXH = "BXH",
   JSWAP = "JSwap",
-  SOLARSWAP = "SolarSwap",
+  SOLARBEAM = "Solarbeam",
   BALANCER = "Balancer",
   VVS = "VVS",
   TRISOLARIS = "Trisolaris",
@@ -125,7 +125,7 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     router: "0x069A306A638ac9d3a68a6BD8BE898774C073DCb3",
   },
   {
-    protocol: AssetProtocol.SOLARSWAP,
+    protocol: AssetProtocol.SOLARBEAM,
     chain: ChainNetwork.Moonriver,
     zappable: true,
     pickleZapAddress: "0x1ece15911ae3b61594306fcaa45566bfc59b6b23",

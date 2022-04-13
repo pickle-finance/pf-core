@@ -78,7 +78,7 @@ PROTOCOL_SOCIAL_MODEL[AssetProtocol.JSWAP] = {
   "social.key.telegram.withname": "https://t.me/Jswap_Finance",
   "social.key.website.withname": "https://app.jswap.finance",
 };
-PROTOCOL_SOCIAL_MODEL[AssetProtocol.SOLARSWAP] = {
+PROTOCOL_SOCIAL_MODEL[AssetProtocol.SOLARBEAM] = {
   "social.key.telegram.withname": "https://t.me/solarbeamio",
   "social.key.website.withname": "https://solarbeam.io",
 };
