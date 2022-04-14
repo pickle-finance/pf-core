@@ -5,8 +5,8 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { SolidlyPairManager } from "../../protocols/SolidUtil";
 import { formatEther } from "ethers/lib/utils";
 import { Contract as MultiContract } from "ethers-multicall";
-import oxdLensAbi from "../../../src/Contracts/ABIs/oxd-lens.json";
-import oxdMultiRewardsAbi from "../../../src/Contracts/ABIs/oxd-multirewards.json"
+import oxdLensAbi from "../../Contracts/ABIs/oxd-lens.json";
+import oxdMultiRewardsAbi from "../../Contracts/ABIs/oxd-multirewards.json"
 import {
   createAprComponentImpl,
   ONE_YEAR_IN_SECONDS,
