@@ -1728,6 +1728,35 @@ export const JAR_UNIV3_COW_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_UNIV3_COW_ETH);
 
+export const JAR_UNIV3_APE_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar U3k",
+  contract: "0x49ED0e6B438430CEEdDa8C6d06B6A2797aFA81cA",
+  startBlock: 14478453,
+  depositToken: {
+    addr: "0xAc4b3DacB91461209Ae9d41EC517c2B9Cb1B7DAF",
+    name: "UniV3 APE/ETH 0.3%",
+    link: "https://app.uniswap.org/#/add/0x4d224452801ACEd8B2F0aebE155379bb5D594381/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/3000",
+    components: ["ape", "weth"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["ape", "weth"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0x7B5916C61bCEeaa2646cf49D9541ac6F5DCe3637",
+    apiKey: "UNIV3-APE-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xefd78d7f70b776f47bf6da04bac838917fe10f71",
+    farmNickname: "pUNIv3 APE/ETH",
+    farmDepositTokenName: "pUNIv3 APE/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UNIV3_APE_ETH);
+
 export const JAR_STAR_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "pJar 1a",

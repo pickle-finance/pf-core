@@ -485,6 +485,14 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
+      "ape",
+      "ape",
+      "0x4d224452801ACEd8B2F0aebE155379bb5D594381".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.BOTH,
+    );
+    this.addToken(
+      ChainNetwork.Ethereum,
       "stg",
       "stargate-finance",
       "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6".toLowerCase(),
