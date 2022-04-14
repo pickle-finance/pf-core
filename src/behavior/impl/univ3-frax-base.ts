@@ -19,6 +19,8 @@ import {
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
 import { Contract as MultiContract } from "ethers-multicall";
+import { formatEther, parseEther } from "ethers/lib/utils";
+import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 
 const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
 
@@ -217,29 +219,38 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
 
     const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
 
-    const [totalCombinedWeight, rewardRate, rewardDuration, multiplier] =
-      await model.callMulti(
-        [
-          () => gaugeContract.totalCombinedWeight(),
-          () => gaugeContract.rewardRate0(),
-          () => gaugeContract.getRewardForDuration(),
-          () => gaugeContract.veFXSMultiplier(lockerAddress),
-        ],
-        definition.chain,
-      );
+    const [totalCombinedWeight, rewardRate, multiplier] = await model.callMulti(
+      [
+        () => gaugeContract.totalCombinedWeight(),
+        () => gaugeContract.rewardRate0(),
+        () => gaugeContract.veFXSMultiplier(lockerAddress),
+      ],
+      definition.chain,
+    );
 
-    const apr =
-      ((multiplier *
-        rewardDuration *
-        52 *
-        model.priceOfSync("fxs", definition.chain)) /
-        1e18 /
-        (totalCombinedWeight * definition.depositToken.price)) *
-      100;
+    const fxsValuePerYearBN = rewardRate
+      .mul(
+        BigNumber.from(
+          (model.priceOfSync("fxs", definition.chain) * 1e6).toFixed(),
+        ),
+      )
+      .mul(ONE_YEAR_SECONDS.toFixed())
+      .div((1e18).toFixed())
+      .div((1e6).toFixed());
+
+    const numerator = multiplier
+      .add((1e18).toString())
+      .mul(fxsValuePerYearBN)
+      .mul((1e10).toFixed());
+
+    const denominator = totalCombinedWeight.mul(
+      (definition.depositToken.price * 1e6).toFixed(),
+    );
+    const aprBN = numerator.div(denominator);
 
     return super.aprComponentsToProjectedApr([
-      //this.createAprComponent("lp", lpApr, true),
-      this.createAprComponent("fxs", apr, true),
+      this.createAprComponent("lp", lpApr, true),
+      this.createAprComponent("fxs", parseFloat(aprBN.toString()) / 100, true),
     ]);
   }
 }
