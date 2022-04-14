@@ -1741,7 +1741,7 @@ export const JAR_UNIV3_APE_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["ape", "weth"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DEV,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
