@@ -1,6 +1,7 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber, ethers } from "ethers";
+import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { Chains, JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
@@ -89,11 +90,18 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     );
     const jar = new MultiContract(definition.contract, jarV3Abi);
     const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
+    const fxsToken = new MultiContract(_model.address("fxs", definition.chain), erc20Abi);
 
     const promises = [];
     promises.push(
       _model
         .callMulti(() => strategy.getHarvestable(), definition.chain)
+        .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
+    );
+
+    promises.push(
+      _model
+        .callMulti(() => fxsToken.balanceOf(definition.details.strategyAddr), definition.chain)
         .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
     );
 
@@ -110,13 +118,13 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
         )
         .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
     );
-    const [harvestable, liquidity, mult] = await Promise.all(promises);
+    const [harvestable, fxsBalance, liquidity, mult] = await Promise.all(promises);
 
     return {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
-      harvestableUSD: harvestable * _model.priceOfSync("fxs", definition.chain),
+      harvestableUSD: (harvestable + fxsBalance) * _model.priceOfSync("fxs", definition.chain),
       multiplier: mult,
     };
   }
