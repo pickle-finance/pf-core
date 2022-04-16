@@ -9091,8 +9091,8 @@ export const JAR_FANTOM_BEETX_FBEETS: JarDefinition = {
   startBlock: 31294042,
   depositToken: {
     addr: "0xfcef8a994209d6916EB2C86cDD2AFD60Aa6F54b1",
-    name: "BEETX fBEETS",
-    link: "https://beets.fi/#/stake",
+    name: "BEETS/FTM",
+    link: "https://beets.fi/#/pool/0xcde5a11a4acb4ee4c805352cec57e236bdbc3837000200000000000000000019",
     components: ["beets", "ftm"],
   },
   rewardTokens: ["beets"],
