@@ -214,11 +214,9 @@ export const ALL_JAR_DOCUMENTATION: AssetDocumentationDefinition[] = [
     ],
     obtain: [
       {
-        key: OBTAIN_KEY_TWOTOKEN_POOL,
+        key: OBTAIN_KEY_ONETOKEN_JAR,
         properties: {
-          tokens: "LQTY",
-          poolName: "Pickle jar 0.98l",
-          poolUrl: "https://app.pickle.finance/farms",
+          token: "LQTY",
         },
       },
     ],

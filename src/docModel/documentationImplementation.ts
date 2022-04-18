@@ -195,8 +195,8 @@ class DocsGenImpl implements DocsGenerator {
 }
 const allDocsGenerators: DocsGenerator[] = [];
 allDocsGenerators.push(
-  new DocsGenImpl((asset) => 
-    XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol), 
+  new DocsGenImpl((asset) => asset.docsKey === XYK_JAR_DESCRIPTION || 
+    (asset.docsKey === undefined && XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol)), 
     (asset) => generateXykDocumentation(asset))
 );
 allDocsGenerators.push(
@@ -206,21 +206,24 @@ allDocsGenerators.push(
 ));
 allDocsGenerators.push(
   new DocsGenImpl(
-    (asset) => asset.protocol === AssetProtocol.BEETHOVENX || asset.protocol === AssetProtocol.BALANCER,
+    (asset) => autoMatch(asset, BALANCER_REWARDS_JAR_DESCRIPTION, [AssetProtocol.BEETHOVENX, AssetProtocol.BALANCER]),
     (asset) => generateBalancerStyleDocumentation(asset)
 ));
 allDocsGenerators.push(
   new DocsGenImpl(
-    (asset) => asset.protocol === AssetProtocol.CURVE,
+    (asset) => autoMatch(asset, CURVE_REWARDS_JAR_DESCRIPTION, [AssetProtocol.CURVE]),
     (asset) => generateCurveStyleDocumentation(asset)
 ));
 allDocsGenerators.push(
   new DocsGenImpl(
-    (asset) => asset.protocol === AssetProtocol.STARGATE,
+    (asset) => autoMatch(asset, SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION, [AssetProtocol.STARGATE]),
     (asset) => generateSingleStakingStyleDocumentation(asset)
 ));
 
-
+export const autoMatch = (asset: PickleAsset, docsKey: string, protocols: AssetProtocol[]) => {
+  return (asset.docsKey && asset.docsKey === docsKey) ||
+          (asset.docsKey === undefined && protocols.includes(asset.protocol));
+}
 export function generateAutomaticDefinition(
   keys: string[],
 ): AssetDocumentationDefinition[] {
@@ -391,7 +394,7 @@ export function generateAutomaticDescriptionProperties(asset: PickleAsset): {
   const rt = (asset as JarDefinition).rewardTokens;
   const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
   const properties = {
-    protocol: asset.protocol,
+    protocol: ((asset as JarDefinition).stakingProtocol) || asset.protocol,
     tokens: toUpper,
     poolUrl: asset.depositToken.link,
     stakeLocation: sl,

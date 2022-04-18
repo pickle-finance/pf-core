@@ -1,4 +1,5 @@
 import { ChainNetwork } from "../chain/Chains";
+import { SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION } from "../docModel/DocsInterfaces";
 import {
   StandaloneFarmDefinition,
   AssetEnablement,
@@ -288,6 +289,7 @@ export const JAR_LQTY: JarDefinition = {
     apiKey: "LQTY",
     harvestStyle: HarvestStyle.PASSIVE,
   },
+  docsKey: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: "0xA7BC844a76e727Ec5250f3849148c21F4b43CeEA",
     farmNickname: "pLQTY",
@@ -1240,6 +1242,7 @@ export const JAR_CVXCRV: JarDefinition = {
     apiKey: "cvxcrv",
     harvestStyle: HarvestStyle.PASSIVE,
   },
+  docsKey: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: "0xd27b644ff94841ea54286a0e93b480c09aaaa1e7",
     farmNickname: "pCurve cvxCRV",

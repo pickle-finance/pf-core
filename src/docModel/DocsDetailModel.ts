@@ -62,7 +62,7 @@ PROTOCOL_SOCIAL_MODEL[AssetProtocol.BPROTOCOL] = {
   "social.key.discord.withname": "https://discord.gg/bJ4guuw",
   "social.key.website.withname": "https://bprotocol.org",
 };
-PROTOCOL_SOCIAL_MODEL[AssetProtocol.BPROTOCOL] = {
+PROTOCOL_SOCIAL_MODEL[AssetProtocol.LQTY] = {
   "social.key.discord.withname": "https://discord.gg/2up5U32",
   "social.key.website.withname": "https://liquity.org",
 };

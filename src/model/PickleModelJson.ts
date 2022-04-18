@@ -341,6 +341,7 @@ export interface PickleAsset {
   protocol: AssetProtocol;
   aprStats?: AssetProjectedApr;
   details: AssetDetails;
+  docsKey?: string;
   tags?: string[];
 }
 
