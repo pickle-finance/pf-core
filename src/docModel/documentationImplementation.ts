@@ -388,11 +388,11 @@ export function generateAutomaticDescriptionProperties(asset: PickleAsset): {
 } {
   const pair: string[] = asset.depositToken.components || [];
   const toUpper = pair.map((x) => x.toUpperCase()).join("/");
-  const sl = asset.protocol;
+  const sl = (asset as JarDefinition).stakingProtocol || asset.protocol;
   const rt = (asset as JarDefinition).rewardTokens;
   const rewardString = rt ? rt.map((x) => x.toUpperCase()).join(",") : "";
   const properties = {
-    protocol: ((asset as JarDefinition).stakingProtocol) || asset.protocol,
+    protocol: asset.protocol,
     tokens: toUpper,
     poolUrl: asset.depositToken.link,
     stakeLocation: sl,
