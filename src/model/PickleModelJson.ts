@@ -307,6 +307,7 @@ export interface IExternalToken {
   id: string;
   contractAddr: string;
   decimals: number;
+  name?: string;
   price?: number;
 }
 

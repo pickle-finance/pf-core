@@ -13,6 +13,7 @@ export enum ExternalTokenFetchStyle {
 export class ExternalToken implements IExternalToken {
   chain: ChainNetwork;
   id: string;
+  name: string;
   contractAddr: string;
   decimals: number;
   coingeckoId: string;
@@ -23,6 +24,7 @@ export class ExternalToken implements IExternalToken {
   constructor(
     chain: ChainNetwork,
     id: string,
+    name: string,
     cgid: string,
     addr: string,
     dec = 18,
@@ -32,6 +34,7 @@ export class ExternalToken implements IExternalToken {
   ) {
     this.chain = chain;
     this.id = id;
+    this.name = name;
     this.coingeckoId = cgid;
     this.contractAddr = addr;
     this.decimals = dec;
@@ -52,6 +55,9 @@ export class ExternalToken implements IExternalToken {
     if (this.price) {
       ret.price = this.price;
     }
+    if (this.name) {
+      ret.name = this.name;
+    }
     return ret;
   }
 }
@@ -67,7 +73,7 @@ export class ExternalTokenModel {
     }
     this.addToken(
       ChainNetwork.Ethereum,
-      "pickle",
+      "pickle", "Pickle",
       "pickle-finance",
       "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5".toLowerCase(),
       18,
@@ -75,7 +81,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
-      "snx",
+      "snx", null, // A null means just capitalize the id,  snx -> SNX
       "havven",
       "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f".toLowerCase(),
       18,
@@ -83,7 +89,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
-      "steth",
+      "steth", "stETH",
       "staked-ether",
       "0xae7ab96520de3a18e5e111b5eaab095312d7fe84".toLowerCase(),
       18,
@@ -2349,6 +2355,7 @@ export class ExternalTokenModel {
   addToken(
     chain: ChainNetwork,
     id: string,
+    name: string,
     cgid: string,
     addr: string,
     dec: number,
@@ -2363,6 +2370,7 @@ export class ExternalTokenModel {
         new ExternalToken(
           chain,
           id,
+          name,
           cgid,
           addr,
           dec,
