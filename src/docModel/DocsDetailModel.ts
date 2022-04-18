@@ -162,6 +162,11 @@ PROTOCOL_SOCIAL_MODEL[AssetProtocol.LIQUID] = {
   "social.key.discord.withname": "https://discord.com/invite/6BvXc9Bbfu",
   "social.key.website.withname": "https://www.liquiddriver.finance/",
 };
+PROTOCOL_SOCIAL_MODEL[AssetProtocol.CONVEX] = {
+  "social.key.discord.withname": "https://discord.gg/uAwvZfs9qU",
+  "social.key.website.withname": "https://www.convexfinance.com/",
+  "social.key.telegram.withname": "https://t.me/convexEthChat",
+};
 
 export const TOKEN_SOCIAL_MODEL: { [key: string]: SocialKeyValueObj } = {};
 TOKEN_SOCIAL_MODEL["looks"] = {
