@@ -11518,7 +11518,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   startBlock: 35161588,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "OxdSolidlyLP SPIRIT/SINSPIRIT",
+    name: "OxdSolidlyLP SPIRIT/RAINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "rainspirit"],
   },
