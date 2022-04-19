@@ -8395,7 +8395,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_BOO_FTM_LINK);
 export const JAR_FANTOM_BOO_FTM_SUSHI: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 2m",
-  contract: "0x1D8a3c2EFd96050D16B303F1D533F848b29dEfb3",
+  contract: "0x5D1DD14a756171349Cd4c666DE96d496Fd5241c8",
   startBlock: 30865053,
   depositToken: {
     addr: "0xf84E313B36E86315af7a06ff26C8b20e9EB443C3",
@@ -8479,7 +8479,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_BOO_FTM_ANY);
 export const JAR_FANTOM_BOO_BTC_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 2p",
-  contract: "0x1DE000CCdCBfCF872F621aDeE82E41E6D44dD7c0",
+  contract: "0x41Fd6eb8Ee8C4BF6BBd68f4c70B5F952895943b5",
   startBlock: 30976525,
   depositToken: {
     addr: "0xEc454EdA10accdD66209C57aF8C12924556F3aBD",
