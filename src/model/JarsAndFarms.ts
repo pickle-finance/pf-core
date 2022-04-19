@@ -8884,6 +8884,7 @@ export const JAR_FANTOM_LQDR_BOO_DAI_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-DAI-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -8912,6 +8913,7 @@ export const JAR_FANTOM_LQDR_BOO_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -8940,6 +8942,7 @@ export const JAR_FANTOM_LQDR_BOO_ETH_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-ETH-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -8968,6 +8971,7 @@ export const JAR_FANTOM_LQDR_BOO_MIM_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-MIM-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -8996,6 +9000,7 @@ export const JAR_FANTOM_LQDR_BOO_LINK_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-LINK-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -9024,6 +9029,7 @@ export const JAR_FANTOM_LQDR_BOO_USDC_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-USDC-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -9052,6 +9058,7 @@ export const JAR_FANTOM_LQDR_BOO_USDT_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-USDT-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -9080,6 +9087,7 @@ export const JAR_FANTOM_LQDR_BOO_SUSHI_FTM: JarDefinition = {
   details: {
     apiKey: "LQDR-BOO-SUSHI-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
