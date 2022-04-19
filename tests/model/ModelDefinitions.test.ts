@@ -1,7 +1,11 @@
+import {
+  Contract as MultiContract,
+} from "ethers-multicall";
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { ChainNetwork, Chains, PickleModel } from "../../src";
 import { JarBehaviorDiscovery } from "../../src/behavior/JarBehaviorDiscovery";
+import controllerAbi from "../../src/Contracts/ABIs/controller.json";
 import {
   AssetBehavior,
   ICustomHarvester,
@@ -15,6 +19,8 @@ import {
   PickleAsset,
 } from "../../src/model/PickleModelJson";
 import { ExternalTokenModelSingleton } from "../../src/price/ExternalTokenModel";
+import { ADDRESSES, ConsoleErrorLogger } from "../../src/model/PickleModel";
+import { CommsMgr } from "../../src/util/CommsMgr";
 
 describe("Testing defined model", () => {
   test("Ensure no duplicate ids", async () => {
@@ -71,6 +77,47 @@ describe("Testing defined model", () => {
     console.log("Errors: " + JSON.stringify(err));
     expect(err.length).toBe(0);
   });
+
+  test("ensure contract same as that set in controller", async () => {
+    Chains.globalInitialize(new Map<ChainNetwork, Provider | Signer>());
+    const err = [];
+    const jars: JarDefinition[] = (ALL_ASSETS.filter((x) => x.type === AssetType.JAR) as JarDefinition[])
+      .filter((x) => x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+    const logger: ConsoleErrorLogger = {
+      logError: function (where: string, error: any, context?: any): void {
+        err.push(`[${where}] [${context}] - ${error}`);
+      }
+    }
+    const cmgr = new CommsMgr(logger);
+    cmgr.start();
+    const promises: Promise<any>[] = [];
+    for (let i = 0; i < jars.length; i++) {
+      //console.log("Firing Promise: " + i + " / " + jars.length);
+      const jar = jars[i];
+      const controllerAddress = jar.details.controller || ADDRESSES.get(jar.chain).controller;
+      console.log("Controller address: " + controllerAddress);
+      const controllerContract = new MultiContract(controllerAddress, controllerAbi);
+      const result = cmgr.callMulti(() => controllerContract.jars(jar.depositToken.addr), jar.chain);
+      promises.push(result);
+    }
+    let results = undefined;
+    try {
+      results = await Promise.all(promises);
+    } finally {
+      cmgr.stop();
+    }
+    for (let i = 0; i < jars.length; i++) {
+      const jar = jars[i];
+      const controllerThinks = results[i].toLowerCase();
+      const jarIs = jar.contract.toLowerCase();
+      if( controllerThinks !== jarIs) {
+        const k = jars[i].details.apiKey;
+        err.push(`${k} contract does not match controller jar for want token: jar=${jarIs}, controllerThinks=${controllerThinks}`);
+      }
+    }
+    console.log("Errors: " + JSON.stringify(err));
+    expect(err.length).toBe(0);
+  }, 240000);
 
   test("Ensure all active assets have a protocol", async () => {
     const err = [];
