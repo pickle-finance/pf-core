@@ -6992,7 +6992,6 @@ export const JAR_METIS_NETSWAP_HERA_USDC: JarDefinition = {
   details: {
     apiKey: "NLP-HERA-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -7209,6 +7208,7 @@ export const JAR_METIS_TETHYS_METIS_DAI: JarDefinition = {
   details: {
     apiKey: "TLP-METIS-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -7236,6 +7236,7 @@ export const JAR_METIS_TETHYS_METIS_AVAX: JarDefinition = {
   details: {
     apiKey: "TLP-METIS-AVAX",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -7263,6 +7264,7 @@ export const JAR_METIS_TETHYS_METIS_FTM: JarDefinition = {
   details: {
     apiKey: "TLP-METIS-FTM",
     harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0x69094096DaEaFA96F49438Beda6B0e0950E4BF02",
   },
   farm: {
     farmAddress: "0x22cE2F89d2efd9d4eFba4E0E51d73720Fa81A150",
