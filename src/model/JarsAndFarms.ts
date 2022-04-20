@@ -7121,7 +7121,7 @@ export const JAR_METIS_HADES_METIS: JarDefinition = {
     components: ["hades", "metis"],
   },
   rewardTokens: ["tethys"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
@@ -7148,7 +7148,7 @@ export const JAR_METIS_HELLSHARE_METIS: JarDefinition = {
     components: ["hellshare", "metis"],
   },
   rewardTokens: ["tethys"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.TETHYS,
   details: {
