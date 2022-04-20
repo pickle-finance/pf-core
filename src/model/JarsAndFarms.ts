@@ -7274,6 +7274,92 @@ export const JAR_METIS_TETHYS_METIS_FTM: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_METIS_TETHYS_METIS_FTM);
 
+export const JAR_METIS_HUMMUS_USDT: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 3a",
+  contract: "0x8cd9E4734a2b6376380AF61db50185D1146fc7d7",
+  startBlock: 2375823,
+  depositToken: {
+    addr: "0x9F51f0D7F500343E969D28010C7Eb0Db1bCaAEf9",
+    name: "HUMMUS m.USDT",
+    link: "https://app.hummus.exchange/pool",
+    components: ["usdt"],
+    decimals: 6,
+  },
+  rewardTokens: ["hum"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.HUMMUS,
+  details: {
+    apiKey: "METIS-HUMMUS-USDT",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pHUM USDT",
+    farmDepositTokenName: "pHUM USDT",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_HUMMUS_USDT);
+
+
+export const JAR_METIS_HUMMUS_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 3b",
+  contract: "0x6279e6c2A103A6Aa4Baa56De23E9aCfF9613eaB2",
+  startBlock: 2375823,
+  depositToken: {
+    addr: "0x9E3F3Be65fEc3731197AFF816489eB1Eb6E6b830",
+    name: "HUMMUS m.USDC",
+    link: "https://app.hummus.exchange/pool",
+    components: ["usdc"],
+    decimals: 6,
+  },
+  rewardTokens: ["hum"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.HUMMUS,
+  details: {
+    apiKey: "METIS-HUMMUS-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 6,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pHUM USDC",
+    farmDepositTokenName: "pHUM USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_HUMMUS_USDC);
+
+export const JAR_METIS_HUMMUS_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "metJar 3c",
+  contract: "0x4E220e8cdf0398e7e5D1EBf86bc6459567A0CE17",
+  startBlock: 2375823,
+  depositToken: {
+    addr: "0xd5A0760D55ad46B6A1C46D28725e4C117312a7aD",
+    name: "HUMMUS m.DAI",
+    link: "https://app.hummus.exchange/pool",
+    components: ["dai"],
+  },
+  rewardTokens: ["hum"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Metis,
+  protocol: AssetProtocol.HUMMUS,
+  details: {
+    apiKey: "METIS-HUMMUS-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pHUM DAI",
+    farmDepositTokenName: "pHUM DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_METIS_HUMMUS_DAI);
+
 // Moonbeam
 
 export const JAR_MOONBEAM_STELLA_GLMR: JarDefinition = {
