@@ -383,6 +383,9 @@ import {
   JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK,
   JAR_METIS_NETSWAP_HERA_USDC,
   JAR_CURVE_CADCUSDC,
+  JAR_METIS_HUMMUS_DAI,
+  JAR_METIS_HUMMUS_USDC,
+  JAR_METIS_HUMMUS_USDT,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -620,6 +623,7 @@ import { StargateJar } from "./impl/stargate-jar";
 import { OxdSolidlyJar } from "./impl/fantom-oxd-solidly-jar";
 import { NetswapJar } from "./impl/metis-netswap-jar";
 import { CurveCadcUsdc } from "./impl/crv-cadcusdc";
+import { HummusJar } from "./impl/hummus-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -877,6 +881,9 @@ jarToBehavior.set(JAR_METIS_TETHYS_METIS_DAI.id, new TethysMetisDai());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_AVAX.id, new TethysMetisAvax());
 jarToBehavior.set(JAR_METIS_TETHYS_METIS_FTM.id, new TethysMetisFtm());
 jarToBehavior.set(JAR_METIS_NETSWAP_HERA_USDC.id, new NetswapJar());
+jarToBehavior.set(JAR_METIS_HUMMUS_DAI.id, new HummusJar());
+jarToBehavior.set(JAR_METIS_HUMMUS_USDC.id, new HummusJar());
+jarToBehavior.set(JAR_METIS_HUMMUS_USDT.id, new HummusJar());
 
 // Moonbeam
 jarToBehavior.set(JAR_MOONBEAM_STELLA_GLMR.id, new StellaGlmr());

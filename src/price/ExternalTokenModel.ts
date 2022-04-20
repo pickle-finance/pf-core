@@ -1515,6 +1515,14 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Metis,
+      "hum",
+      "hummus",
+      "0x4aac94985cd83be30164dfe7e9af7c054d7d2121".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Moonbeam
     this.addToken(
       ChainNetwork.Moonbeam,
