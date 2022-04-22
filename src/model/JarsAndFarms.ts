@@ -7295,6 +7295,7 @@ export const JAR_METIS_HUMMUS_USDT: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
     decimals: 6,
   },
+  docsKey: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: NULL_ADDRESS,
     farmNickname: "pHUM USDT",
@@ -7325,6 +7326,7 @@ export const JAR_METIS_HUMMUS_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
     decimals: 6,
   },
+  docsKey: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: NULL_ADDRESS,
     farmNickname: "pHUM USDC",
@@ -7352,6 +7354,7 @@ export const JAR_METIS_HUMMUS_DAI: JarDefinition = {
     apiKey: "METIS-HUMMUS-DAI",
     harvestStyle: HarvestStyle.PASSIVE,
   },
+  docsKey: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: NULL_ADDRESS,
     farmNickname: "pHUM DAI",
