@@ -390,6 +390,7 @@ import {
   JAR_METIS_HUMMUS_DAI,
   JAR_METIS_HUMMUS_USDC,
   JAR_METIS_HUMMUS_USDT,
+  JAR_AURORA_TRI_BSTN_NEAR_LP,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -632,6 +633,7 @@ import { TriFlxNear } from "./impl/aurora-tri-flx-near";
 import { TriUsdoUsdt } from "./impl/aurora-tri-usdo-usdt";
 import { TriXtriStnear } from "./impl/aurora-tri-xtri-stnear";
 import { TriStnearNear } from "./impl/aurora-tri-stnear-near";
+import { TriBstnNear } from "./impl/aurora-tri-bstn-near";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -865,6 +867,7 @@ jarToBehavior.set(JAR_AURORA_TRI_FLX_NEAR_LP.id, new TriFlxNear());
 jarToBehavior.set(JAR_AURORA_TRI_STNEAR_NEAR_LP.id, new TriStnearNear());
 jarToBehavior.set(JAR_AURORA_TRI_STNEAR_XTRI_LP.id, new TriXtriStnear());
 jarToBehavior.set(JAR_AURORA_TRI_USDO_USDT_LP.id, new TriUsdoUsdt());
+jarToBehavior.set(JAR_AURORA_TRI_BSTN_NEAR_LP.id, new TriBstnNear());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

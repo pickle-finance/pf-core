@@ -10,7 +10,7 @@ import sushiComplexRewarderAbi from "../Contracts/ABIs/sushi-complex-rewarder.js
 import { PickleModel } from "../model/PickleModel";
 import { Contract as MultiContract } from "ethers-multicall";
 import { ChainNetwork, Chains } from "../chain/Chains";
-import { formatEther } from "ethers/lib/utils";
+import { formatEther, formatUnits } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 import {
@@ -86,6 +86,11 @@ export const triPoolV2Ids = {
     rewarder: "0x170431D69544a1BC97855C6564E8460d39508844",
     reward: "near",
   },
+  "0xBBf3D4281F10E537d5b13CA80bE22362310b2bf9": {
+    poolId: 23,
+    rewarder: "0xDc6d09f5CC085E29972d192cB3AdCDFA6495a741",
+    reward: "bstn",
+  },
 };
 
 export async function calculateTriFarmsAPY(
@@ -128,13 +133,16 @@ export async function calculateTriFarmsAPY(
           () => multicallTriV2Farms.totalAllocPoint(),
           () => multicallTriV2Farms.poolInfo(poolId),
           () => lpToken.balanceOf(TRI_V2_FARMS),
-          () => multicallTriV2Farms.rewarder(poolId)
+          () => multicallTriV2Farms.rewarder(poolId),
         ],
         jar.chain,
       );
     if (rewarder != "0x0000000000000000000000000000000000000000") {
       //WIP
-      const multicallRewarder = new MultiContract(rewarder, sushiComplexRewarderAbi);
+      const multicallRewarder = new MultiContract(
+        rewarder,
+        sushiComplexRewarderAbi,
+      );
       // const extraReward = await model.callMulti([() => multicallRewarder.rewardToken()], jar.chain);
       //WIP
     }
@@ -154,22 +162,27 @@ export async function calculateTriFarmsAPY(
         jar.chain,
       );
 
-      console.log("PING", jar.depositToken.addr, extraRewardPerBlock);
-
       // const extraReward = await model.callMulti(
       //   () => rewarderContract.pendingTokens(),
       //   jar.chain
       // );
 
+      const rewardId = triPoolV2Ids[jar.depositToken.addr]?.reward;
       const extraRewardRewardsPerYear =
-        (parseFloat(formatEther(extraRewardPerBlock)) *
+        (parseFloat(
+          formatUnits(
+            extraRewardPerBlock,
+            model.tokenDecimals(rewardId, jar.chain),
+          ),
+        ) *
           ONE_YEAR_IN_SECONDS *
-          model.priceOfSync(triPoolV2Ids[jar.depositToken.addr]?.reward, jar.chain)) /
+          model.priceOfSync(rewardId, jar.chain)) /
         Chains.get(jar.chain).secondsPerBlock;
 
       const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
-      extraRewardAPY = extraRewardRewardsPerYear / (totalSupply * pricePerToken);
+      extraRewardAPY =
+        extraRewardRewardsPerYear / (totalSupply * pricePerToken);
     }
   }
 
@@ -189,7 +202,14 @@ export async function calculateTriFarmsAPY(
   return [
     createAprComponentImpl("tri", triAPY * 100, true, 0.9),
     ...(extraRewardAPY > 0
-      ? [createAprComponentImpl(triPoolV2Ids[jar.depositToken.addr]?.reward, extraRewardAPY * 100, true, 0.9)]
+      ? [
+          createAprComponentImpl(
+            triPoolV2Ids[jar.depositToken.addr]?.reward,
+            extraRewardAPY * 100,
+            true,
+            0.9,
+          ),
+        ]
       : []),
   ];
 }
