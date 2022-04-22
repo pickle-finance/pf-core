@@ -1374,6 +1374,64 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "stnear",
+      "staked-near",
+      "0x07f9f7f963c5cd2bbffd30ccfb964be114332e30".toLowerCase(),
+      24,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "bstn",
+      "bastion-protocol",
+      "0x9f1f933c660a1dc856f0e0fe058435879c5ccef0".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "meta",
+      "meta",
+      "0xc21Ff01229e982d7c8b8691163B0A3Cb8F357453".toLowerCase(),
+      24,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x98fD5BA5B53faDF0784410Fe51DDA041f91aCc8e", // META-STNEAR
+        "0x2a6E6d58547d2580b490445CCa0cE625C4F5D84A", // STNEAR-NEAR
+        "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67", // NEAR-USDT
+      ],
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "xtri",
+      "xtri",
+      "0x802119e4e253D5C19aA06A5d567C5a41596D6803".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x5913f644A10d98c79F2e0b609988640187256373", // XTRI-STNEAR
+        "0x2a6E6d58547d2580b490445CCa0cE625C4F5D84A", // STNEAR-NEAR
+        "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67", // NEAR-USDT
+      ],
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "flx",
+      "flux-token",
+      "0xea62791aa682d455614eaA2A12Ba3d9A2fD197af".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "usdo",
+      "usdo",
+      "0x293074789b247cab05357b08052468B5d7A23c5a".toLowerCase(),
+      8,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Metis
     this.addToken(
@@ -2263,7 +2321,8 @@ export class ExternalTokenModel {
       [
         "0x98f70fc717ADcAdE6B0A24df54c49EAbDc5EFC46", // SPIRIT PGUNK-WFTM
         "0xC30FA09417F149892Ff86eF92a051c0bC2244c7C", // SUSHI WFTM-PGUNK
-      ]);
+      ],
+    );
     this.addToken(
       ChainNetwork.Fantom,
       "fbeets",
@@ -2273,7 +2332,8 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.SWAP_PAIRS,
       [
         "0x5A3AA3284EE642152D4a2B55BE1160051c5eB932", // vSOLID BEETS-FBEETS
-      ]);
+      ],
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
