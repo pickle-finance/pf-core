@@ -5213,7 +5213,7 @@ export const JAR_AURORA_TRI_AVAX_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -6390,7 +6390,7 @@ export const JAR_AURORA_BRL_MATIC_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["brl"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
