@@ -95,7 +95,6 @@ describe("Testing defined model", () => {
       //console.log("Firing Promise: " + i + " / " + jars.length);
       const jar = jars[i];
       const controllerAddress = jar.details.controller || ADDRESSES.get(jar.chain).controller;
-      console.log("Controller address: " + controllerAddress);
       const controllerContract = new MultiContract(controllerAddress, controllerAbi);
       const result = cmgr.callMulti(() => controllerContract.jars(jar.depositToken.addr), jar.chain);
       promises.push(result);
