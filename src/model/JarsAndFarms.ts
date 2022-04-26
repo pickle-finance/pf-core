@@ -2465,12 +2465,11 @@ export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
     apiKey: "POLY-UNIV3-USDC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /*
   farm: {
-    farmAddress: "TODO",
-    farmNickname: "pUNIv3 RBN/ETH",
-    farmDepositTokenName: "pUNIv3 RBN/ETH",
-  },*/
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+    farmNickname: "pUniV3 USDC/ETH",
+    farmDepositTokenName: "pUniV3 USDC/ETH",
+  },
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_ETH);
 
@@ -2495,12 +2494,11 @@ export const JAR_POLY_UNIV3_MATIC_ETH: JarDefinition = {
     apiKey: "POLY-UNIV3-MATIC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /*
   farm: {
-    farmAddress: "TODO",
-    farmNickname: "pUNIv3 RBN/ETH",
-    farmDepositTokenName: "pUNIv3 RBN/ETH",
-  },*/
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+    farmNickname: "pUniV3 MATIC/ETH",
+    farmDepositTokenName: "pUniV3 MATIC/ETH",
+  },
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_MATIC_ETH);
 
@@ -2525,12 +2523,11 @@ export const JAR_POLY_UNIV3_MATIC_USDC: JarDefinition = {
     apiKey: "POLY-UNIV3-MATIC-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /*
   farm: {
-    farmAddress: "TODO",
-    farmNickname: "pUNIv3 RBN/ETH",
-    farmDepositTokenName: "pUNIv3 RBN/ETH",
-  },*/
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+    farmNickname: "pUniV3 MATIC/USDC",
+    farmDepositTokenName: "pUniV3 MATIC/USDC",
+  },
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_MATIC_USDC);
 
@@ -2555,13 +2552,12 @@ export const JAR_POLY_UNIV3_USDC_USDT: JarDefinition = {
     apiKey: "POLY-UNIV3-USDC-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /*
-  farm: {
-    farmAddress: "TODO",
-    farmNickname: "pUNIv3 RBN/ETH",
-    farmDepositTokenName: "pUNIv3 RBN/ETH",
-  },*/
   tags: ["stablecoins"],
+  farm: {
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+    farmNickname: "pUniV3 USDC/USDT",
+    farmDepositTokenName: "pUniV3 USDC/USDT",
+  },
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_USDC_USDT);
 
@@ -2586,12 +2582,11 @@ export const JAR_POLY_UNIV3_WBTC_ETH: JarDefinition = {
     apiKey: "POLY-UNIV3-WBTC-ETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
-  /*
   farm: {
-    farmAddress: "TODO",
-    farmNickname: "pUNIv3 RBN/ETH",
-    farmDepositTokenName: "pUNIv3 RBN/ETH",
-  },*/
+    farmAddress: "0x20B2a3fc7B13cA0cCf7AF81A68a14CB3116E8749",
+    farmNickname: "pUniV3 WBTC/ETH",
+    farmDepositTokenName: "pUniV3 WBTC/ETH",
+  },
 };
 JAR_DEFINITIONS.push(JAR_POLY_UNIV3_WBTC_ETH);
 
