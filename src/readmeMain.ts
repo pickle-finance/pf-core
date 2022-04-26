@@ -2,7 +2,7 @@ import fs from "fs";
 import fetch from "cross-fetch";
 import { Signer } from "@ethersproject/abstract-signer";
 import { PickleModelJson, PickleModelAssets } from "./model/PickleModelJson";
-import { ADDRESSES } from "./model/PickleModel";
+import { ADDRESSES, NULL_ADDRESS } from "./model/PickleModel";
 import { ethers } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import MinichefAbi from "./Contracts/ABIs/minichef.json";
@@ -279,7 +279,7 @@ const pickleJars = (assets: PickleModelAssets, chain: ChainNetwork): string => {
   return body;
 };
 
-const getMasterChefIds = async (chefAddr: string, network: ChainNetwork) => {
+const getMasterChefIds = async (chefAddr: string, network: ChainNetwork): Promise<Record<string, string>> => {
   const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
   const networkId = Chains.get(network).id;
   const provider: Provider = new ethers.providers.JsonRpcProvider(
@@ -304,7 +304,7 @@ const getMasterChefIds = async (chefAddr: string, network: ChainNetwork) => {
   }
 };
 
-const getMiniChefIds = async (chefAddr: string, network: ChainNetwork) => {
+const getMiniChefIds = async (chefAddr: string, network: ChainNetwork): Promise<Record<string, string>> => {
   const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
   const networkId = Chains.get(network).id;
   const provider: Provider = new ethers.providers.JsonRpcProvider(
@@ -357,28 +357,38 @@ const main = async () => {
   const stringArr: string[] = [];
   const pickleModel: PickleModelJson = await getPfcoreApiData();
   const assets: PickleModelAssets = pickleModel.assets;
-  const orderedList: Record<string, string>[] = [
-    await getMiniChefIds(
-      ADDRESSES.get(ChainNetwork.Arbitrum).minichef,
-      ChainNetwork.Arbitrum,
-    ),
-    await getMiniChefIds(
-      ADDRESSES.get(ChainNetwork.Polygon).minichef,
-      ChainNetwork.Polygon,
-    ),
-    await getMasterChefIds(
-      ADDRESSES.get(ChainNetwork.Ethereum).masterChef,
-      ChainNetwork.Ethereum,
-    ),
-    // TODO add okex
-  ];
+  const nonMainnetNetworks = Chains.list().filter(
+    (x) => x !== ChainNetwork.Ethereum,
+  );
+
+
+  interface ChefChain {
+    chefType: string,
+    chef: string,
+    chain: ChainNetwork,
+  };
+  const params: ChefChain[] = nonMainnetNetworks.map((x) => {
+    if( ADDRESSES.get(x) && ADDRESSES.get(x).minichef !== NULL_ADDRESS ) {
+      return {
+        chefType: "mini",
+        chain: x,
+        chef: ADDRESSES.get(x).minichef,
+      };
+    }
+    return undefined;
+  }).filter((x) => x !== undefined);
+  params.push({chefType: "master", chef: ADDRESSES.get(ChainNetwork.Ethereum).masterChef, chain: ChainNetwork.Ethereum});
+  const orderedList: Record<string, string>[] = await Promise.all(params.map(async (x) => {
+    if( x.chefType === "mini" ) {
+      return getMiniChefIds(x.chef, x.chain);
+    } else {
+      return getMasterChefIds(x.chef, x.chain);
+    }
+  }));
   updateModelIndices(assets, orderedList);
 
   stringArr.push(pickleEthInfo(assets));
   stringArr.push(pickleJarsEth(assets, await getAllocPoints()));
-  const nonMainnetNetworks = Chains.list().filter(
-    (x) => x !== ChainNetwork.Ethereum,
-  );
   for (let i = 0; i < nonMainnetNetworks.length; i++) {
     stringArr.push(pickleJars(assets, nonMainnetNetworks[i]));
   }
