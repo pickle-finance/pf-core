@@ -37,12 +37,7 @@ export class RenBtcCRV extends CurveJar {
       RENBTC_GAUGE_ADDR,
       RENBTC_POOL_ADDR,
     );
-    const curveRawStats: any = await getCurveRawStats(model, definition.chain);
-    const lp: AssetAprComponent = this.createAprComponent(
-      "lp",
-      curveRawStats ? curveRawStats["susd"] : 0,
-      false,
-    );
-    return this.aprComponentsToProjectedApr([lp, crvApy]);
+
+    return this.aprComponentsToProjectedApr([crvApy]);
   }
 }
