@@ -21,10 +21,15 @@ export interface CurveChainMetadata {
   cacheKey: string;
   url: string;
 }
-const curveMetadataForChains: Map<ChainNetwork, CurveChainMetadata> = new Map();
+const curveMetadataForChains: Map<ChainNetwork | string, CurveChainMetadata> =
+  new Map();
 curveMetadataForChains.set(ChainNetwork.Ethereum, {
   cacheKey: "curveJar.apr.rawstats.eth.key",
   url: "https://stats.curve.fi/raw-stats/apys.json",
+});
+curveMetadataForChains.set(`${ChainNetwork.Ethereum}factory`, {
+  cacheKey: "curveJar.apr.rawstats.ethfactory.key",
+  url: "https://api.curve.fi/api/getFactoryAPYs?version=crypto",
 });
 curveMetadataForChains.set(ChainNetwork.Polygon, {
   cacheKey: "curveJar.apr.rawstats.poly.key",
@@ -64,16 +69,31 @@ export interface RawStatArbAPYs {
 export async function getCurveRawStats(
   model: PickleModel,
   network: ChainNetwork,
-): Promise<RawStatAPYs | RawStatArbAPYs> {
-  const metadata = curveMetadataForChains.get(network);
+  factory?: boolean,
+): Promise<RawStatAPYs | RawStatArbAPYs | any> {
+  const metadata = curveMetadataForChains.get(
+    network + (Boolean(factory) && `factory`),
+  );
   if (!metadata) return undefined;
 
   const fromCache: any = model.resourceCache.get(metadata.cacheKey);
-  if (fromCache === undefined) {
+  if (fromCache === undefined && !factory) {
     const stats: RawStatAPYs = await loadCurveRawStats(metadata.url);
     model.resourceCache.set(metadata.cacheKey, stats);
     return stats;
   }
+
+  if (fromCache === undefined && factory) {
+    const res = await fetch(metadata.url).then((x) => x.json());
+    const pools = res.data.poolDetails;
+    const stats = {};
+    pools.map((pool) => {
+      stats[pool.poolAddress] = pool.apyWeekly;
+    });
+    model.resourceCache.set(metadata.cacheKey, stats);
+    return stats;
+  }
+
   return fromCache;
 }
 

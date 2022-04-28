@@ -567,6 +567,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "stg",
+      null,
+      "stargate-finance",
+      "0xaf5191b0de278c7286d6c7cc6ab6bb8a73ba2cd6".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(

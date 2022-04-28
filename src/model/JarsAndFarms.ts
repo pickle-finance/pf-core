@@ -1429,7 +1429,7 @@ export const JAR_CURVE_CVXFXS_FXS_LP: JarDefinition = {
     link: "https://curve.fi/factory-crypto/18/deposit",
     components: ["fxs", "cvxfxs"],
   },
-  rewardTokens: ["rbn"],
+  rewardTokens: ["cvx", "crv", "fxs"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.CURVE,
@@ -1444,6 +1444,33 @@ export const JAR_CURVE_CVXFXS_FXS_LP: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_CURVE_CVXFXS_FXS_LP);
+
+export const JAR_CURVE_STG_USDC_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pjar 0k",
+  contract: "0x79CF7c02aF26A3BaccFdcaD5933580c76f5F1562",
+  startBlock: 14663933,
+  depositToken: {
+    addr: "0xdf55670e27bE5cDE7228dD0A6849181891c9ebA1",
+    name: "Curve STG/USDC",
+    link: "https://curve.fi/factory-crypto/37/deposit",
+    components: ["stg", "usdc"],
+  },
+  rewardTokens: ["crv"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: "CURVESTGUSDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xd2ca1f79230339a3cc5bdd2bc33c8e60b4cd8827",
+    farmNickname: "pCurve STG/USDC",
+    farmDepositTokenName: "pCurve STG/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CURVE_STG_USDC_LP);
 
 export const JAR_UNIV3_RBN_ETH: JarDefinition = {
   type: AssetType.JAR,
