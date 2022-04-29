@@ -51,6 +51,7 @@ export enum AssetProtocol {
   TECTONIC = "Tectonic",
   STARGATE = "Stargate",
   HUMMUS = "Hummus",
+  FRAX = "Frax"
   // ADD_PROTOCOL
 }
 
@@ -286,6 +287,7 @@ export enum HarvestStyle {
 
 export enum AssetType {
   JAR = "jar",
+  BRINERY = "brinery",
   STANDALONE_FARM = "standalone_farm",
   EXTERNAL = "external",
 }
@@ -388,7 +390,6 @@ export interface JarDetails extends AssetDetails {
 
 export interface BrineryDetails extends AssetDetails {
   distributionAddr: string;
-  pveAddress: string;
   strategyAddr: string;
   lockerAddr: string;
   pickleLockedUnderlying: number;
@@ -474,6 +475,7 @@ export interface PickleModelJson {
 export interface PickleModelAssets {
   jars: JarDefinition[];
   standaloneFarms: StandaloneFarmDefinition[];
+  brineries: BrineryDefinition[];
   external: ExternalAssetDefinition[];
 }
 

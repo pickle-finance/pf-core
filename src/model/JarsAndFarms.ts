@@ -9,6 +9,7 @@ import {
   PickleAsset,
   ExternalAssetDefinition,
   AssetProtocol,
+  BrineryDefinition,
 } from "./PickleModelJson";
 
 export const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -12189,7 +12190,37 @@ export const EXTERNAL_SUSHI_PICKLE_ETH: ExternalAssetDefinition = {
 };
 EXTERNAL_DEFINITIONS.push(EXTERNAL_SUSHI_PICKLE_ETH);
 
+export const BRINERY_DEFINITIONS: BrineryDefinition[] = [];
+
+export const BRINERY_VEFXS: BrineryDefinition = {
+  type: AssetType.BRINERY,
+  id: "veFXS Brinery",
+  contract: "0x62826760CC53AE076a7523Fd9dCF4f8Dbb1dA140",
+  startBlock: 14195314,
+  depositToken: {
+    addr: "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0",
+    name: "FXS",
+    link: "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0&chainId=1",    
+  },
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.FRAX,
+  details: {
+    apiKey: "BRINERY_VEFXS",
+    distributionAddr: "0xc6764e58b36e26b08Fd1d2AeD4538c02171fA872",
+    strategyAddr: "",
+    lockerAddr: "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
+    pickleLockedUnderlying: 0,
+    totalVeSupply: 0,
+    pickleVeBalance: 0,
+    weeklyRewards: 0,
+  },
+}
+
+BRINERY_DEFINITIONS.push(BRINERY_VEFXS);
+
 export const ALL_ASSETS: PickleAsset[] = []
   .concat(JAR_DEFINITIONS)
   .concat(STANDALONE_FARM_DEFINITIONS)
-  .concat(EXTERNAL_DEFINITIONS);
+  .concat(EXTERNAL_DEFINITIONS)
+  .concat(BRINERY_DEFINITIONS);

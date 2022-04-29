@@ -4,6 +4,7 @@ import {
   AssetProjectedApr,
   AssetProtocol,
   AssetType,
+  BrineryDefinition,
   DillDetails,
   ExternalAssetDefinition,
   HarvestStyle,
@@ -225,15 +226,15 @@ export class PickleModel implements ConsoleErrorLogger {
     return this.permanentDataStore
       ? this.permanentDataStore
       : // Return a no-op data store
-      {
-        readData(_key: string): Promise<string> {
-          return undefined;
-        },
-        writeData(_key: string, _value: string): Promise<void> {
-          // do nothing
-          return;
-        },
-      };
+        {
+          readData(_key: string): Promise<string> {
+            return undefined;
+          },
+          writeData(_key: string, _value: string): Promise<void> {
+            // do nothing
+            return;
+          },
+        };
   }
 
   static fromJson(
@@ -273,6 +274,13 @@ export class PickleModel implements ConsoleErrorLogger {
       (x) => x.type === AssetType.STANDALONE_FARM,
     );
     return arr as StandaloneFarmDefinition[];
+  }
+
+  getBrineries(): BrineryDefinition[] {
+    const arr: PickleAsset[] = this.allAssets.filter(
+      (x) => x.type === AssetType.BRINERY,
+    );
+    return arr as BrineryDefinition[];
   }
 
   getExternalAssets(): ExternalAssetDefinition[] {
@@ -415,8 +423,10 @@ export class PickleModel implements ConsoleErrorLogger {
     }
     for (let i = 0; i < components.length; i++) {
       const token = ExternalTokenModelSingleton.getToken(components[i], chain);
-      if( !token ) {
-        console.log("Cannot find token " + components[i] + " on chain " + chain);
+      if (!token) {
+        console.log(
+          "Cannot find token " + components[i] + " on chain " + chain,
+        );
       } else if (token.isNativeToken) {
         return token;
       }
@@ -524,6 +534,13 @@ export class PickleModel implements ConsoleErrorLogger {
     DEBUG_OUT("End loadJarAndFarmData: " + (Date.now() - start));
   }
 
+  async loadBrineryData(): Promise<void> {
+    DEBUG_OUT("Begin loadBrineryData");
+    const start = Date.now();
+
+    DEBUG_OUT("End loadBrineryData: " + (Date.now() - start));
+  }
+
   toJson(): PickleModelJson {
     const ret: PickleModelJson = {
       chains: RAW_CHAIN_BUNDLED_DEF,
@@ -535,6 +552,7 @@ export class PickleModel implements ConsoleErrorLogger {
       assets: {
         jars: this.getJars(),
         standaloneFarms: this.getStandaloneFarms(),
+        brineries: this.getBrineries(),
         external: this.getExternalAssets(),
       },
       timestamp: Date.now(),
@@ -698,9 +716,7 @@ export class PickleModel implements ConsoleErrorLogger {
       results = await this.callMulti(
         arr.map(
           (oneArr) => () =>
-            new MultiContract(oneArr.token, erc20Abi).balanceOf(
-              oneArr.pool,
-            ),
+            new MultiContract(oneArr.token, erc20Abi).balanceOf(oneArr.pool),
         ),
         chain,
       );
@@ -784,9 +800,9 @@ export class PickleModel implements ConsoleErrorLogger {
     await Promise.all(tmpArray);
     DEBUG_OUT(
       "End ensureDepositTokenPriceLoadedOneChain: " +
-      chain +
-      ": " +
-      (Date.now() - start),
+        chain +
+        ": " +
+        (Date.now() - start),
     );
   }
 
@@ -810,9 +826,9 @@ export class PickleModel implements ConsoleErrorLogger {
     }
     DEBUG_OUT(
       "End ensureDepositTokenLoadedOneJar: " +
-      asset.details.apiKey +
-      ": " +
-      (Date.now() - start),
+        asset.details.apiKey +
+        ": " +
+        (Date.now() - start),
     );
   }
 
@@ -823,10 +839,7 @@ export class PickleModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
   ): Promise<void> {
     if (!jars || jars.length === 0) return;
-    const controllerContract = new MultiContract(
-      controllerAddr,
-      controllerAbi,
-    );
+    const controllerContract = new MultiContract(controllerAddr, controllerAbi);
 
     let strategyAddresses: string[] = undefined;
     try {
@@ -890,12 +903,12 @@ export class PickleModel implements ConsoleErrorLogger {
     let ratios: string[] = undefined;
     try {
       ratios = await this.callMulti(
-          jars.map(
-            (oneJar) => () =>
-              new MultiContract(oneJar.contract, jarAbi).getRatio(),
-          ),
-          chain,
-        );
+        jars.map(
+          (oneJar) => () =>
+            new MultiContract(oneJar.contract, jarAbi).getRatio(),
+        ),
+        chain,
+      );
     } catch (error) {
       this.logError("addJarRatios: ratios", error, chain);
     }
@@ -941,8 +954,7 @@ export class PickleModel implements ConsoleErrorLogger {
       balance = await this.callMulti(
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
-            ? () =>
-              new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
+            ? () => new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
             : () => new MultiContract(oneJar.contract, jarAbi).balance(),
         ),
         chain,
@@ -972,15 +984,15 @@ export class PickleModel implements ConsoleErrorLogger {
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
             ? () =>
-              new MultiContract(
-                oneJar.depositToken.addr,
-                univ3PoolAbi,
-              ).liquidity()
+                new MultiContract(
+                  oneJar.depositToken.addr,
+                  univ3PoolAbi,
+                ).liquidity()
             : () =>
-              new MultiContract(
-                oneJar.depositToken.addr,
-                erc20Abi,
-              ).totalSupply(),
+                new MultiContract(
+                  oneJar.depositToken.addr,
+                  erc20Abi,
+                ).totalSupply(),
         ),
         chain,
       );
@@ -989,10 +1001,7 @@ export class PickleModel implements ConsoleErrorLogger {
     }
     for (let i = 0; supply !== undefined && i < jars.length; i++) {
       jars[i].depositToken.totalSupply = parseFloat(
-        ethers.utils.formatUnits(
-          supply[i],
-          jars[i].depositToken.decimals,
-        ),
+        ethers.utils.formatUnits(supply[i], jars[i].depositToken.decimals),
       );
     }
   }
@@ -1178,8 +1187,8 @@ export class PickleModel implements ConsoleErrorLogger {
       ) {
         console.log(
           "Error loading harvest data for jar " +
-          harvestableJars[i].id +
-          ":  multicall for prereqs failed",
+            harvestableJars[i].id +
+            ":  multicall for prereqs failed",
         );
         continue;
       }
@@ -1199,9 +1208,9 @@ export class PickleModel implements ConsoleErrorLogger {
       } catch (e) {
         console.log(
           "Error loading harvest data for jar " +
-          harvestableJars[i].id +
-          ":  " +
-          e,
+            harvestableJars[i].id +
+            ":  " +
+            e,
         );
       }
     }
@@ -1305,10 +1314,9 @@ export class PickleModel implements ConsoleErrorLogger {
         chainFarmResultsPromise = this.callMulti(
           chainFarms.map(
             (oneFarm) => () =>
-              new MultiContract(
-                oneFarm.depositToken.addr,
-                erc20Abi,
-              ).balanceOf(oneFarm.contract),
+              new MultiContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(
+                oneFarm.contract,
+              ),
           ),
           chain,
         );
@@ -1542,9 +1550,9 @@ export class PickleModel implements ConsoleErrorLogger {
     } finally {
       DEBUG_OUT(
         "end loadApyComponents for " +
-        asset.details.apiKey +
-        ": " +
-        (Date.now() - start),
+          asset.details.apiKey +
+          ": " +
+          (Date.now() - start),
       );
     }
   }
@@ -1656,10 +1664,10 @@ export class PickleModel implements ConsoleErrorLogger {
     // TODO store somewhere?
     console.log(
       "ERROR: Failed at " +
-      where +
-      (context !== undefined ? " [" + context + "]" : "") +
-      "\n" +
-      error,
+        where +
+        (context !== undefined ? " [" + context + "]" : "") +
+        "\n" +
+        error,
     );
   }
 
