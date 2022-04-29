@@ -258,7 +258,7 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: false,
     pickleZapAddress: "",
     router: "",
-  }
+  },
   // ADD_PROTOCOL
 ];
 
@@ -363,6 +363,10 @@ export interface StandaloneFarmDefinition extends PickleAsset {
   farmNickname: string;
 }
 
+export interface BrineryDefinition extends PickleAsset {
+  details: BrineryDetails;
+}
+
 export interface HistoricalYield {
   d1?: number;
   d3?: number;
@@ -382,11 +386,34 @@ export interface JarDetails extends AssetDetails {
   protocolApr?: HistoricalYield;
 }
 
+export interface BrineryDetails extends AssetDetails {
+  distributionAddr: string;
+  pveAddress: string;
+  strategyAddr: string;
+  lockerAddr: string;
+  pickleLockedUnderlying: number;
+  totalVeSupply: number;
+  pickleVeBalance: number;
+  weeklyRewards: number;
+
+}
+
 export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+
+export interface FarmDetails {
+  allocShare?: number;
+  tokenBalance?: number;
+  valueBalance?: number;
+  picklePerBlock?: number;
+  picklePerDay?: number;
+  poolId?: number;
+  farmApyComponents?: AssetAprComponent[];
+  historicalApr?: HistoricalYield;
+}
 
 export interface FarmDetails {
   allocShare?: number;
