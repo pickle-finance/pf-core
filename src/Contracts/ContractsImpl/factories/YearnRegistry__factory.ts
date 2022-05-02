@@ -10,7 +10,7 @@ import type { YearnRegistry } from "../YearnRegistry";
 export class YearnRegistry__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): YearnRegistry {
     return new Contract(address, _abi, signerOrProvider) as YearnRegistry;
   }

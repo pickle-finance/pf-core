@@ -10,12 +10,12 @@ import type { SushiComplexRewarder } from "../SushiComplexRewarder";
 export class SushiComplexRewarder__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): SushiComplexRewarder {
     return new Contract(
       address,
       _abi,
-      signerOrProvider,
+      signerOrProvider
     ) as SushiComplexRewarder;
   }
 }
@@ -407,6 +407,19 @@ const _abi = [
       },
     ],
     name: "rewardPerSecond",
+    inputs: [],
+  },
+  {
+    type: "function",
+    stateMutability: "view",
+    outputs: [
+      {
+        type: "uint256",
+        name: "",
+        internalType: "uint256",
+      },
+    ],
+    name: "tokenPerBlock",
     inputs: [],
   },
   {

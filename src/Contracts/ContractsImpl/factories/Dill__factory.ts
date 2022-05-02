@@ -381,6 +381,23 @@ const _abi = [
     type: "function",
   },
   {
+    name: "totalSupply",
+    outputs: [
+      {
+        type: "uint256",
+        name: "",
+      },
+    ],
+    inputs: [
+      {
+        type: "uint256",
+        name: "t",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     name: "totalSupplyAt",
     outputs: [
       {

@@ -64,91 +64,91 @@ interface ControllerInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "approveJarConverter",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "approveStrategy",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "approvedJarConverters",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "approvedStrategies",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(functionFragment: "burn", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "convenienceFee",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "convenienceFeeMax",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "converters",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "devfund", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "earn",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getExpectedReturn",
-    values: [string, string, BigNumberish],
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "governance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "inCaseStrategyTokenGetStuck",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "inCaseTokensGetStuck",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "jars", values: [string]): string;
   encodeFunctionData(functionFragment: "max", values?: undefined): string;
   encodeFunctionData(functionFragment: "onesplit", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "revokeJarConverter",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "revokeStrategy",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "setConvenienceFee",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "setDevFund", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setGovernance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setJar",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "setOneSplit", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setSplit",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setStrategist",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setStrategy",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "setTimelock", values: [string]): string;
   encodeFunctionData(functionFragment: "setTreasury", values: [string]): string;
@@ -156,121 +156,121 @@ interface ControllerInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "strategies", values: [string]): string;
   encodeFunctionData(
     functionFragment: "strategist",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "swapExactJarForJar",
-    values: [string, string, BigNumberish, BigNumberish, string[], BytesLike[]],
+    values: [string, string, BigNumberish, BigNumberish, string[], BytesLike[]]
   ): string;
   encodeFunctionData(functionFragment: "timelock", values?: undefined): string;
   encodeFunctionData(functionFragment: "treasury", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "withdrawAll", values: [string]): string;
   encodeFunctionData(
     functionFragment: "yearn",
-    values: [string, string, BigNumberish],
+    values: [string, string, BigNumberish]
   ): string;
 
   decodeFunctionResult(
     functionFragment: "approveJarConverter",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "approveStrategy",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "approvedJarConverters",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "approvedStrategies",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "convenienceFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "convenienceFeeMax",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "converters", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "devfund", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "earn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getExpectedReturn",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "inCaseStrategyTokenGetStuck",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "inCaseTokensGetStuck",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "jars", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "max", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "onesplit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "revokeJarConverter",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "revokeStrategy",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setConvenienceFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setDevFund", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setJar", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setOneSplit",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setSplit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setStrategist",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setStrategy",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setTimelock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setTreasury",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "split", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "strategies", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "strategist", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "swapExactJarForJar",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "timelock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "treasury", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawAll",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "yearn", data: BytesLike): Result;
 
@@ -283,26 +283,26 @@ export class Controller extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -315,7 +315,7 @@ export class Controller extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: ControllerInterface;
@@ -323,53 +323,53 @@ export class Controller extends Contract {
   functions: {
     approveJarConverter(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "approveJarConverter(address)"(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     approveStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "approveStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     approvedJarConverters(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     "approvedJarConverters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     approvedStrategies(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     "approvedStrategies(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     balanceOf(_token: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "balanceOf(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     burn(overrides?: CallOverrides): Promise<[string]>;
@@ -387,13 +387,13 @@ export class Controller extends Contract {
     converters(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     "converters(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     devfund(overrides?: CallOverrides): Promise<[string]>;
@@ -403,27 +403,27 @@ export class Controller extends Contract {
     earn(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "earn(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getExpectedReturn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { expected: BigNumber }>;
 
     "getExpectedReturn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { expected: BigNumber }>;
 
     governance(overrides?: CallOverrides): Promise<[string]>;
@@ -433,25 +433,25 @@ export class Controller extends Contract {
     inCaseStrategyTokenGetStuck(
       _strategy: string,
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "inCaseStrategyTokenGetStuck(address,address)"(
       _strategy: string,
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     inCaseTokensGetStuck(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "inCaseTokensGetStuck(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     jars(arg0: string, overrides?: CallOverrides): Promise<[string]>;
@@ -468,128 +468,128 @@ export class Controller extends Contract {
 
     revokeJarConverter(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "revokeJarConverter(address)"(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     revokeStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "revokeStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setConvenienceFee(
       _convenienceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setConvenienceFee(uint256)"(
       _convenienceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setDevFund(
       _devfund: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setDevFund(address)"(
       _devfund: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setJar(
       _token: string,
       _jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setJar(address,address)"(
       _token: string,
       _jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setOneSplit(
       _onesplit: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setOneSplit(address)"(
       _onesplit: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setSplit(
       _split: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setSplit(uint256)"(
       _split: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setStrategist(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setTimelock(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setTreasury(
       _treasury: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setTreasury(address)"(
       _treasury: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     split(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -600,7 +600,7 @@ export class Controller extends Contract {
 
     "strategies(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     strategist(overrides?: CallOverrides): Promise<[string]>;
@@ -614,7 +614,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "swapExactJarForJar(address,address,uint256,uint256,address[],bytes[])"(
@@ -624,7 +624,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     timelock(overrides?: CallOverrides): Promise<[string]>;
@@ -638,89 +638,89 @@ export class Controller extends Contract {
     withdraw(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdrawAll(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdrawAll(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     yearn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "yearn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   approveJarConverter(
     _converter: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "approveJarConverter(address)"(
     _converter: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   approveStrategy(
     _token: string,
     _strategy: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "approveStrategy(address,address)"(
     _token: string,
     _strategy: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   approvedJarConverters(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<boolean>;
 
   "approvedJarConverters(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<boolean>;
 
   approvedStrategies(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<boolean>;
 
   "approvedStrategies(address,address)"(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<boolean>;
 
   balanceOf(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "balanceOf(address)"(
     _token: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   burn(overrides?: CallOverrides): Promise<string>;
@@ -738,13 +738,13 @@ export class Controller extends Contract {
   converters(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   "converters(address,address)"(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   devfund(overrides?: CallOverrides): Promise<string>;
@@ -754,27 +754,27 @@ export class Controller extends Contract {
   earn(
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "earn(address,uint256)"(
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getExpectedReturn(
     _strategy: string,
     _token: string,
     parts: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getExpectedReturn(address,address,uint256)"(
     _strategy: string,
     _token: string,
     parts: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   governance(overrides?: CallOverrides): Promise<string>;
@@ -784,25 +784,25 @@ export class Controller extends Contract {
   inCaseStrategyTokenGetStuck(
     _strategy: string,
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "inCaseStrategyTokenGetStuck(address,address)"(
     _strategy: string,
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   inCaseTokensGetStuck(
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "inCaseTokensGetStuck(address,uint256)"(
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   jars(arg0: string, overrides?: CallOverrides): Promise<string>;
@@ -819,128 +819,128 @@ export class Controller extends Contract {
 
   revokeJarConverter(
     _converter: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "revokeJarConverter(address)"(
     _converter: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   revokeStrategy(
     _token: string,
     _strategy: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "revokeStrategy(address,address)"(
     _token: string,
     _strategy: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setConvenienceFee(
     _convenienceFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setConvenienceFee(uint256)"(
     _convenienceFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setDevFund(
     _devfund: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setDevFund(address)"(
     _devfund: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setGovernance(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setGovernance(address)"(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setJar(
     _token: string,
     _jar: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setJar(address,address)"(
     _token: string,
     _jar: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setOneSplit(
     _onesplit: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setOneSplit(address)"(
     _onesplit: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setSplit(
     _split: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setSplit(uint256)"(
     _split: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setStrategist(
     _strategist: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setStrategist(address)"(
     _strategist: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setStrategy(
     _token: string,
     _strategy: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setStrategy(address,address)"(
     _token: string,
     _strategy: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setTimelock(
     _timelock: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setTimelock(address)"(
     _timelock: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setTreasury(
     _treasury: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setTreasury(address)"(
     _treasury: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   split(overrides?: CallOverrides): Promise<BigNumber>;
@@ -951,7 +951,7 @@ export class Controller extends Contract {
 
   "strategies(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   strategist(overrides?: CallOverrides): Promise<string>;
@@ -965,7 +965,7 @@ export class Controller extends Contract {
     _toJarMinAmount: BigNumberish,
     _targets: string[],
     _data: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "swapExactJarForJar(address,address,uint256,uint256,address[],bytes[])"(
@@ -975,7 +975,7 @@ export class Controller extends Contract {
     _toJarMinAmount: BigNumberish,
     _targets: string[],
     _data: BytesLike[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   timelock(overrides?: CallOverrides): Promise<string>;
@@ -989,89 +989,89 @@ export class Controller extends Contract {
   withdraw(
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(address,uint256)"(
     _token: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdrawAll(
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdrawAll(address)"(
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   yearn(
     _strategy: string,
     _token: string,
     parts: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "yearn(address,address,uint256)"(
     _strategy: string,
     _token: string,
     parts: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     approveJarConverter(
       _converter: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "approveJarConverter(address)"(
       _converter: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     approveStrategy(
       _token: string,
       _strategy: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "approveStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     approvedJarConverters(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "approvedJarConverters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     approvedStrategies(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "approvedStrategies(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     balanceOf(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     burn(overrides?: CallOverrides): Promise<string>;
@@ -1089,13 +1089,13 @@ export class Controller extends Contract {
     converters(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "converters(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     devfund(overrides?: CallOverrides): Promise<string>;
@@ -1105,27 +1105,27 @@ export class Controller extends Contract {
     earn(
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "earn(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     getExpectedReturn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getExpectedReturn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     governance(overrides?: CallOverrides): Promise<string>;
@@ -1135,25 +1135,25 @@ export class Controller extends Contract {
     inCaseStrategyTokenGetStuck(
       _strategy: string,
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "inCaseStrategyTokenGetStuck(address,address)"(
       _strategy: string,
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     inCaseTokensGetStuck(
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "inCaseTokensGetStuck(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     jars(arg0: string, overrides?: CallOverrides): Promise<string>;
@@ -1170,113 +1170,113 @@ export class Controller extends Contract {
 
     revokeJarConverter(
       _converter: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "revokeJarConverter(address)"(
       _converter: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     revokeStrategy(
       _token: string,
       _strategy: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "revokeStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setConvenienceFee(
       _convenienceFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setConvenienceFee(uint256)"(
       _convenienceFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setDevFund(_devfund: string, overrides?: CallOverrides): Promise<void>;
 
     "setDevFund(address)"(
       _devfund: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setGovernance(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setJar(
       _token: string,
       _jar: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setJar(address,address)"(
       _token: string,
       _jar: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setOneSplit(_onesplit: string, overrides?: CallOverrides): Promise<void>;
 
     "setOneSplit(address)"(
       _onesplit: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setSplit(_split: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "setSplit(uint256)"(
       _split: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setStrategist(
       _strategist: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setStrategy(
       _token: string,
       _strategy: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setTimelock(_timelock: string, overrides?: CallOverrides): Promise<void>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setTreasury(_treasury: string, overrides?: CallOverrides): Promise<void>;
 
     "setTreasury(address)"(
       _treasury: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     split(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1287,7 +1287,7 @@ export class Controller extends Contract {
 
     "strategies(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     strategist(overrides?: CallOverrides): Promise<string>;
@@ -1301,7 +1301,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "swapExactJarForJar(address,address,uint256,uint256,address[],bytes[])"(
@@ -1311,7 +1311,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     timelock(overrides?: CallOverrides): Promise<string>;
@@ -1325,34 +1325,34 @@ export class Controller extends Contract {
     withdraw(
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     withdrawAll(_token: string, overrides?: CallOverrides): Promise<void>;
 
     "withdrawAll(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     yearn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "yearn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
   };
 
@@ -1361,53 +1361,53 @@ export class Controller extends Contract {
   estimateGas: {
     approveJarConverter(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "approveJarConverter(address)"(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     approveStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "approveStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     approvedJarConverters(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "approvedJarConverters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approvedStrategies(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "approvedStrategies(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     balanceOf(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     burn(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1425,13 +1425,13 @@ export class Controller extends Contract {
     converters(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "converters(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     devfund(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1441,27 +1441,27 @@ export class Controller extends Contract {
     earn(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "earn(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getExpectedReturn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getExpectedReturn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     governance(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1471,32 +1471,32 @@ export class Controller extends Contract {
     inCaseStrategyTokenGetStuck(
       _strategy: string,
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "inCaseStrategyTokenGetStuck(address,address)"(
       _strategy: string,
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     inCaseTokensGetStuck(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "inCaseTokensGetStuck(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     jars(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "jars(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     max(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1509,128 +1509,128 @@ export class Controller extends Contract {
 
     revokeJarConverter(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "revokeJarConverter(address)"(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     revokeStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "revokeStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setConvenienceFee(
       _convenienceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setConvenienceFee(uint256)"(
       _convenienceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setDevFund(
       _devfund: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setDevFund(address)"(
       _devfund: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setJar(
       _token: string,
       _jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setJar(address,address)"(
       _token: string,
       _jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setOneSplit(
       _onesplit: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setOneSplit(address)"(
       _onesplit: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setSplit(
       _split: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setSplit(uint256)"(
       _split: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setStrategist(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setTimelock(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setTreasury(
       _treasury: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setTreasury(address)"(
       _treasury: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     split(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1641,7 +1641,7 @@ export class Controller extends Contract {
 
     "strategies(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     strategist(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1655,7 +1655,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "swapExactJarForJar(address,address,uint256,uint256,address[],bytes[])"(
@@ -1665,7 +1665,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     timelock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1679,93 +1679,93 @@ export class Controller extends Contract {
     withdraw(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdrawAll(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdrawAll(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     yearn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "yearn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     approveJarConverter(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "approveJarConverter(address)"(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     approveStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "approveStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     approvedJarConverters(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "approvedJarConverters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     approvedStrategies(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "approvedStrategies(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "balanceOf(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     burn(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1775,25 +1775,25 @@ export class Controller extends Contract {
     convenienceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "convenienceFee()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     convenienceFeeMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "convenienceFeeMax()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     converters(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "converters(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     devfund(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1803,27 +1803,27 @@ export class Controller extends Contract {
     earn(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "earn(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getExpectedReturn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getExpectedReturn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1833,35 +1833,35 @@ export class Controller extends Contract {
     inCaseStrategyTokenGetStuck(
       _strategy: string,
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "inCaseStrategyTokenGetStuck(address,address)"(
       _strategy: string,
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     inCaseTokensGetStuck(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "inCaseTokensGetStuck(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     jars(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "jars(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     max(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1874,128 +1874,128 @@ export class Controller extends Contract {
 
     revokeJarConverter(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "revokeJarConverter(address)"(
       _converter: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     revokeStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "revokeStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setConvenienceFee(
       _convenienceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setConvenienceFee(uint256)"(
       _convenienceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setDevFund(
       _devfund: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setDevFund(address)"(
       _devfund: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setJar(
       _token: string,
       _jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setJar(address,address)"(
       _token: string,
       _jar: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setOneSplit(
       _onesplit: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setOneSplit(address)"(
       _onesplit: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setSplit(
       _split: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setSplit(uint256)"(
       _split: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setStrategist(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setStrategy(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setStrategy(address,address)"(
       _token: string,
       _strategy: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setTimelock(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setTreasury(
       _treasury: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setTreasury(address)"(
       _treasury: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     split(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2004,12 +2004,12 @@ export class Controller extends Contract {
 
     strategies(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "strategies(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     strategist(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2023,7 +2023,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "swapExactJarForJar(address,address,uint256,uint256,address[],bytes[])"(
@@ -2033,7 +2033,7 @@ export class Controller extends Contract {
       _toJarMinAmount: BigNumberish,
       _targets: string[],
       _data: BytesLike[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     timelock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2047,37 +2047,37 @@ export class Controller extends Contract {
     withdraw(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(address,uint256)"(
       _token: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawAll(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawAll(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     yearn(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "yearn(address,address,uint256)"(
       _strategy: string,
       _token: string,
       parts: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

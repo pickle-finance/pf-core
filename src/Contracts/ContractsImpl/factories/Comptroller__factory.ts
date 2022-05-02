@@ -10,7 +10,7 @@ import type { Comptroller } from "../Comptroller";
 export class Comptroller__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): Comptroller {
     return new Contract(address, _abi, signerOrProvider) as Comptroller;
   }

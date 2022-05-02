@@ -53,177 +53,177 @@ interface MasterchefInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "BONUS_MULTIPLIER",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "add",
-    values: [BigNumberish, string, boolean],
+    values: [BigNumberish, string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "bonusEndBlock",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "dev", values: [string]): string;
   encodeFunctionData(
     functionFragment: "devFundDivRate",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "devaddr", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "emergencyWithdraw",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getMultiplier",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "massUpdatePools",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "pendingPickle",
-    values: [BigNumberish, string],
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(functionFragment: "pickle", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "picklePerBlock",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "poolInfo",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "poolLength",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "set",
-    values: [BigNumberish, BigNumberish, boolean],
+    values: [BigNumberish, BigNumberish, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "setBonusEndBlock",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setDevFundDivRate",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setPicklePerBlock",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "startBlock",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "totalAllocPoint",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "updatePool",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "userInfo",
-    values: [BigNumberish, string],
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "rewardPerBlock",
-    values?: undefined,
+    values?: undefined
   ): string;
 
   decodeFunctionResult(
     functionFragment: "BONUS_MULTIPLIER",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "add", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "bonusEndBlock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "dev", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "devFundDivRate",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "devaddr", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "emergencyWithdraw",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getMultiplier",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "massUpdatePools",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingPickle",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "pickle", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "picklePerBlock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "poolInfo", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolLength", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setBonusEndBlock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setDevFundDivRate",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setPicklePerBlock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "startBlock", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalAllocPoint",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "updatePool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "userInfo", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "rewardPerBlock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
 
   events: {
@@ -247,26 +247,26 @@ export class Masterchef extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -279,7 +279,7 @@ export class Masterchef extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: MasterchefInterface;
@@ -293,14 +293,14 @@ export class Masterchef extends Contract {
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "add(uint256,address,bool)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     bonusEndBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -310,23 +310,23 @@ export class Masterchef extends Contract {
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     dev(
       _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "dev(address)"(
       _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     devFundDivRate(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -339,32 +339,32 @@ export class Masterchef extends Contract {
 
     emergencyWithdraw(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "emergencyWithdraw(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getMultiplier(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getMultiplier(uint256,uint256)"(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     massUpdatePools(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "massUpdatePools()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -374,13 +374,13 @@ export class Masterchef extends Contract {
     pendingPickle(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "pendingPickle(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     pickle(overrides?: CallOverrides): Promise<[string]>;
@@ -393,7 +393,7 @@ export class Masterchef extends Contract {
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string, BigNumber, BigNumber, BigNumber] & {
         lpToken: string;
@@ -405,7 +405,7 @@ export class Masterchef extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string, BigNumber, BigNumber, BigNumber] & {
         lpToken: string;
@@ -420,55 +420,55 @@ export class Masterchef extends Contract {
     "poolLength()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "renounceOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "set(uint256,uint256,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setBonusEndBlock(
       _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setBonusEndBlock(uint256)"(
       _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setDevFundDivRate(
       _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setDevFundDivRate(uint256)"(
       _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setPicklePerBlock(
       _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setPicklePerBlock(uint256)"(
       _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     startBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -481,28 +481,28 @@ export class Masterchef extends Contract {
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     updatePool(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "updatePool(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -510,7 +510,7 @@ export class Masterchef extends Contract {
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -518,13 +518,13 @@ export class Masterchef extends Contract {
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     rewardPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -540,14 +540,14 @@ export class Masterchef extends Contract {
     _allocPoint: BigNumberish,
     _lpToken: string,
     _withUpdate: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "add(uint256,address,bool)"(
     _allocPoint: BigNumberish,
     _lpToken: string,
     _withUpdate: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -557,23 +557,23 @@ export class Masterchef extends Contract {
   deposit(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deposit(uint256,uint256)"(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   dev(
     _devaddr: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "dev(address)"(
     _devaddr: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   devFundDivRate(overrides?: CallOverrides): Promise<BigNumber>;
@@ -586,32 +586,32 @@ export class Masterchef extends Contract {
 
   emergencyWithdraw(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "emergencyWithdraw(uint256)"(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getMultiplier(
     _from: BigNumberish,
     _to: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getMultiplier(uint256,uint256)"(
     _from: BigNumberish,
     _to: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   massUpdatePools(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "massUpdatePools()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
@@ -621,13 +621,13 @@ export class Masterchef extends Contract {
   pendingPickle(
     _pid: BigNumberish,
     _user: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "pendingPickle(uint256,address)"(
     _pid: BigNumberish,
     _user: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   pickle(overrides?: CallOverrides): Promise<string>;
@@ -640,7 +640,7 @@ export class Masterchef extends Contract {
 
   poolInfo(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [string, BigNumber, BigNumber, BigNumber] & {
       lpToken: string;
@@ -652,7 +652,7 @@ export class Masterchef extends Contract {
 
   "poolInfo(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [string, BigNumber, BigNumber, BigNumber] & {
       lpToken: string;
@@ -667,55 +667,55 @@ export class Masterchef extends Contract {
   "poolLength()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "renounceOwnership()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   set(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
     _withUpdate: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "set(uint256,uint256,bool)"(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
     _withUpdate: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setBonusEndBlock(
     _bonusEndBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setBonusEndBlock(uint256)"(
     _bonusEndBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setDevFundDivRate(
     _devFundDivRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setDevFundDivRate(uint256)"(
     _devFundDivRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setPicklePerBlock(
     _picklePerBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setPicklePerBlock(uint256)"(
     _picklePerBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   startBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -728,28 +728,28 @@ export class Masterchef extends Contract {
 
   transferOwnership(
     newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "transferOwnership(address)"(
     newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   updatePool(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "updatePool(uint256)"(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   userInfo(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
@@ -757,7 +757,7 @@ export class Masterchef extends Contract {
   "userInfo(uint256,address)"(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
@@ -765,13 +765,13 @@ export class Masterchef extends Contract {
   withdraw(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(uint256,uint256)"(
     _pid: BigNumberish,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -787,14 +787,14 @@ export class Masterchef extends Contract {
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "add(uint256,address,bool)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -804,13 +804,13 @@ export class Masterchef extends Contract {
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     dev(_devaddr: string, overrides?: CallOverrides): Promise<void>;
@@ -827,24 +827,24 @@ export class Masterchef extends Contract {
 
     emergencyWithdraw(
       _pid: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "emergencyWithdraw(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     getMultiplier(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getMultiplier(uint256,uint256)"(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     massUpdatePools(overrides?: CallOverrides): Promise<void>;
@@ -858,13 +858,13 @@ export class Masterchef extends Contract {
     pendingPickle(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "pendingPickle(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     pickle(overrides?: CallOverrides): Promise<string>;
@@ -877,7 +877,7 @@ export class Masterchef extends Contract {
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string, BigNumber, BigNumber, BigNumber] & {
         lpToken: string;
@@ -889,7 +889,7 @@ export class Masterchef extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string, BigNumber, BigNumber, BigNumber] & {
         lpToken: string;
@@ -911,44 +911,44 @@ export class Masterchef extends Contract {
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "set(uint256,uint256,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setBonusEndBlock(
       _bonusEndBlock: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setBonusEndBlock(uint256)"(
       _bonusEndBlock: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setDevFundDivRate(
       _devFundDivRate: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setDevFundDivRate(uint256)"(
       _devFundDivRate: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setPicklePerBlock(
       _picklePerBlock: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setPicklePerBlock(uint256)"(
       _picklePerBlock: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     startBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -961,25 +961,25 @@ export class Masterchef extends Contract {
 
     transferOwnership(
       newOwner: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     updatePool(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "updatePool(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -987,7 +987,7 @@ export class Masterchef extends Contract {
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -995,13 +995,13 @@ export class Masterchef extends Contract {
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1013,7 +1013,7 @@ export class Masterchef extends Contract {
     Deposit(
       user: string | null,
       pid: BigNumberish | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { user: string; pid: BigNumber; amount: BigNumber }
@@ -1022,7 +1022,7 @@ export class Masterchef extends Contract {
     EmergencyWithdraw(
       user: string | null,
       pid: BigNumberish | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { user: string; pid: BigNumber; amount: BigNumber }
@@ -1030,7 +1030,7 @@ export class Masterchef extends Contract {
 
     OwnershipTransferred(
       previousOwner: string | null,
-      newOwner: string | null,
+      newOwner: string | null
     ): TypedEventFilter<
       [string, string],
       { previousOwner: string; newOwner: string }
@@ -1038,7 +1038,7 @@ export class Masterchef extends Contract {
 
     Recovered(
       token: null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber],
       { token: string; amount: BigNumber }
@@ -1047,7 +1047,7 @@ export class Masterchef extends Contract {
     Withdraw(
       user: string | null,
       pid: BigNumberish | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { user: string; pid: BigNumber; amount: BigNumber }
@@ -1063,14 +1063,14 @@ export class Masterchef extends Contract {
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "add(uint256,address,bool)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1080,23 +1080,23 @@ export class Masterchef extends Contract {
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     dev(
       _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "dev(address)"(
       _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     devFundDivRate(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1109,32 +1109,32 @@ export class Masterchef extends Contract {
 
     emergencyWithdraw(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "emergencyWithdraw(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getMultiplier(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getMultiplier(uint256,uint256)"(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     massUpdatePools(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "massUpdatePools()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1144,13 +1144,13 @@ export class Masterchef extends Contract {
     pendingPickle(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "pendingPickle(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     pickle(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1165,7 +1165,7 @@ export class Masterchef extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     poolLength(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1173,55 +1173,55 @@ export class Masterchef extends Contract {
     "poolLength()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "renounceOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "set(uint256,uint256,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setBonusEndBlock(
       _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setBonusEndBlock(uint256)"(
       _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setDevFundDivRate(
       _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setDevFundDivRate(uint256)"(
       _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setPicklePerBlock(
       _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setPicklePerBlock(uint256)"(
       _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     startBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1234,46 +1234,46 @@ export class Masterchef extends Contract {
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     updatePool(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "updatePool(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1285,21 +1285,21 @@ export class Masterchef extends Contract {
     BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "BONUS_MULTIPLIER()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     add(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "add(uint256,address,bool)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     bonusEndBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1309,29 +1309,29 @@ export class Masterchef extends Contract {
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deposit(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     dev(
       _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "dev(address)"(
       _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     devFundDivRate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "devFundDivRate()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     devaddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1340,32 +1340,32 @@ export class Masterchef extends Contract {
 
     emergencyWithdraw(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "emergencyWithdraw(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getMultiplier(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getMultiplier(uint256,uint256)"(
       _from: BigNumberish,
       _to: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     massUpdatePools(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "massUpdatePools()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1375,13 +1375,13 @@ export class Masterchef extends Contract {
     pendingPickle(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "pendingPickle(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     pickle(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1391,17 +1391,17 @@ export class Masterchef extends Contract {
     picklePerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "picklePerBlock()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     poolLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1409,55 +1409,55 @@ export class Masterchef extends Contract {
     "poolLength()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "renounceOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "set(uint256,uint256,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
       _withUpdate: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setBonusEndBlock(
       _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setBonusEndBlock(uint256)"(
       _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setDevFundDivRate(
       _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setDevFundDivRate(uint256)"(
       _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setPicklePerBlock(
       _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setPicklePerBlock(uint256)"(
       _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     startBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1467,57 +1467,57 @@ export class Masterchef extends Contract {
     totalAllocPoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "totalAllocPoint()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "transferOwnership(address)"(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     updatePool(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "updatePool(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256,uint256)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     rewardPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "rewardPerBlock()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

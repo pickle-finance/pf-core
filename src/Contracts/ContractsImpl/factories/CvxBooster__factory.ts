@@ -10,7 +10,7 @@ import type { CvxBooster } from "../CvxBooster";
 export class CvxBooster__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): CvxBooster {
     return new Contract(address, _abi, signerOrProvider) as CvxBooster;
   }

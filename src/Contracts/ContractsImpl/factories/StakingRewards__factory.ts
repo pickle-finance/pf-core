@@ -10,7 +10,7 @@ import type { StakingRewards } from "../StakingRewards";
 export class StakingRewards__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): StakingRewards {
     return new Contract(address, _abi, signerOrProvider) as StakingRewards;
   }
@@ -469,6 +469,21 @@ const _abi = [
     constant: true,
     inputs: [],
     name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "totalStaked",
     outputs: [
       {
         internalType: "uint256",

@@ -25,6 +25,7 @@ interface JarInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "available()": FunctionFragment;
     "balance()": FunctionFragment;
+    "totalLiquidity()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "controller()": FunctionFragment;
     "decimals()": FunctionFragment;
@@ -53,94 +54,102 @@ interface JarInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "allowance",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "approve",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "available", values?: undefined): string;
   encodeFunctionData(functionFragment: "balance", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "totalLiquidity",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "controller",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "decreaseAllowance",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "deposit",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "depositAll",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "earn", values?: undefined): string;
   encodeFunctionData(functionFragment: "getRatio", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "governance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "harvest",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "increaseAllowance",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "max", values?: undefined): string;
   encodeFunctionData(functionFragment: "min", values?: undefined): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setController",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setGovernance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setMin",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transfer",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "transferFrom",
-    values: [string, string, BigNumberish],
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawAll",
-    values?: undefined,
+    values?: undefined
   ): string;
 
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "available", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balance", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "totalLiquidity",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "controller", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "decreaseAllowance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "depositAll", data: BytesLike): Result;
@@ -150,35 +159,35 @@ interface JarInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "harvest", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "increaseAllowance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "max", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "min", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setController",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setMin", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawAll",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
 
   events: {
@@ -196,26 +205,26 @@ export class Jar extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -228,7 +237,7 @@ export class Jar extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: JarInterface;
@@ -237,25 +246,25 @@ export class Jar extends Contract {
     allowance(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "allowance(address,address)"(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "approve(address,uint256)"(
       spender: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     available(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -266,11 +275,15 @@ export class Jar extends Contract {
 
     "balance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    totalLiquidity(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "totalLiquidity()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     controller(overrides?: CallOverrides): Promise<[string]>;
@@ -284,39 +297,39 @@ export class Jar extends Contract {
     decreaseAllowance(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "decreaseAllowance(address,uint256)"(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     deposit(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deposit(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     depositAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "depositAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     earn(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "earn()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getRatio(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -330,25 +343,25 @@ export class Jar extends Contract {
     harvest(
       reserve: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "harvest(address,uint256)"(
       reserve: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "increaseAllowance(address,uint256)"(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     max(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -365,32 +378,32 @@ export class Jar extends Contract {
 
     setController(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setMin(
       _min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setMin(uint256)"(
       _min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
@@ -408,70 +421,70 @@ export class Jar extends Contract {
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferFrom(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "transferFrom(address,address,uint256)"(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdraw(
       _shares: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(uint256)"(
       _shares: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdrawAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdrawAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   allowance(
     owner: string,
     spender: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "allowance(address,address)"(
     owner: string,
     spender: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   approve(
     spender: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "approve(address,uint256)"(
     spender: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   available(overrides?: CallOverrides): Promise<BigNumber>;
@@ -482,11 +495,15 @@ export class Jar extends Contract {
 
   "balance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+  totalLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "totalLiquidity()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "balanceOf(address)"(
     account: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   controller(overrides?: CallOverrides): Promise<string>;
@@ -500,39 +517,39 @@ export class Jar extends Contract {
   decreaseAllowance(
     spender: string,
     subtractedValue: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "decreaseAllowance(address,uint256)"(
     spender: string,
     subtractedValue: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   deposit(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deposit(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   depositAll(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "depositAll()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   earn(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "earn()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getRatio(overrides?: CallOverrides): Promise<BigNumber>;
@@ -546,25 +563,25 @@ export class Jar extends Contract {
   harvest(
     reserve: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "harvest(address,uint256)"(
     reserve: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   increaseAllowance(
     spender: string,
     addedValue: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "increaseAllowance(address,uint256)"(
     spender: string,
     addedValue: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   max(overrides?: CallOverrides): Promise<BigNumber>;
@@ -581,32 +598,32 @@ export class Jar extends Contract {
 
   setController(
     _controller: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setController(address)"(
     _controller: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setGovernance(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setGovernance(address)"(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setMin(
     _min: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setMin(uint256)"(
     _min: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
@@ -624,70 +641,70 @@ export class Jar extends Contract {
   transfer(
     recipient: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "transfer(address,uint256)"(
     recipient: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferFrom(
     sender: string,
     recipient: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "transferFrom(address,address,uint256)"(
     sender: string,
     recipient: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdraw(
     _shares: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(uint256)"(
     _shares: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdrawAll(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdrawAll()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     allowance(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "allowance(address,address)"(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "approve(address,uint256)"(
       spender: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     available(overrides?: CallOverrides): Promise<BigNumber>;
@@ -698,11 +715,15 @@ export class Jar extends Contract {
 
     "balance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    totalLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "totalLiquidity()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     controller(overrides?: CallOverrides): Promise<string>;
@@ -716,20 +737,20 @@ export class Jar extends Contract {
     decreaseAllowance(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "decreaseAllowance(address,uint256)"(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     deposit(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "deposit(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     depositAll(overrides?: CallOverrides): Promise<void>;
@@ -751,25 +772,25 @@ export class Jar extends Contract {
     harvest(
       reserve: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "harvest(address,uint256)"(
       reserve: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "increaseAllowance(address,uint256)"(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     max(overrides?: CallOverrides): Promise<BigNumber>;
@@ -786,29 +807,29 @@ export class Jar extends Contract {
 
     setController(
       _controller: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setGovernance(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setMin(_min: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "setMin(uint256)"(
       _min: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
@@ -826,34 +847,34 @@ export class Jar extends Contract {
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     transferFrom(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "transferFrom(address,address,uint256)"(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     withdraw(_shares: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "withdraw(uint256)"(
       _shares: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     withdrawAll(overrides?: CallOverrides): Promise<void>;
@@ -865,7 +886,7 @@ export class Jar extends Contract {
     Approval(
       owner: string | null,
       spender: string | null,
-      value: null,
+      value: null
     ): TypedEventFilter<
       [string, string, BigNumber],
       { owner: string; spender: string; value: BigNumber }
@@ -874,7 +895,7 @@ export class Jar extends Contract {
     Transfer(
       from: string | null,
       to: string | null,
-      value: null,
+      value: null
     ): TypedEventFilter<
       [string, string, BigNumber],
       { from: string; to: string; value: BigNumber }
@@ -885,25 +906,25 @@ export class Jar extends Contract {
     allowance(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "allowance(address,address)"(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "approve(address,uint256)"(
       spender: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     available(overrides?: CallOverrides): Promise<BigNumber>;
@@ -914,11 +935,15 @@ export class Jar extends Contract {
 
     "balance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    totalLiquidity(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "totalLiquidity()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     controller(overrides?: CallOverrides): Promise<BigNumber>;
@@ -932,39 +957,39 @@ export class Jar extends Contract {
     decreaseAllowance(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "decreaseAllowance(address,uint256)"(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     deposit(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deposit(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     depositAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "depositAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     earn(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "earn()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getRatio(overrides?: CallOverrides): Promise<BigNumber>;
@@ -978,25 +1003,25 @@ export class Jar extends Contract {
     harvest(
       reserve: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "harvest(address,uint256)"(
       reserve: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "increaseAllowance(address,uint256)"(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     max(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1013,32 +1038,32 @@ export class Jar extends Contract {
 
     setController(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setMin(
       _min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setMin(uint256)"(
       _min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1056,45 +1081,45 @@ export class Jar extends Contract {
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferFrom(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "transferFrom(address,address,uint256)"(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdraw(
       _shares: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(uint256)"(
       _shares: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdrawAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdrawAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
@@ -1102,25 +1127,25 @@ export class Jar extends Contract {
     allowance(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "allowance(address,address)"(
       owner: string,
       spender: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     approve(
       spender: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "approve(address,uint256)"(
       spender: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     available(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1131,14 +1156,20 @@ export class Jar extends Contract {
 
     "balance()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    totalLiquidity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "totalLiquidity()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     balanceOf(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     controller(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1152,39 +1183,39 @@ export class Jar extends Contract {
     decreaseAllowance(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "decreaseAllowance(address,uint256)"(
       spender: string,
       subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     deposit(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deposit(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     depositAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "depositAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     earn(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "earn()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getRatio(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1198,25 +1229,25 @@ export class Jar extends Contract {
     harvest(
       reserve: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "harvest(address,uint256)"(
       reserve: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     increaseAllowance(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "increaseAllowance(address,uint256)"(
       spender: string,
       addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     max(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1233,32 +1264,32 @@ export class Jar extends Contract {
 
     setController(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setMin(
       _min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setMin(uint256)"(
       _min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1276,45 +1307,45 @@ export class Jar extends Contract {
     transfer(
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "transfer(address,uint256)"(
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferFrom(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "transferFrom(address,address,uint256)"(
       sender: string,
       recipient: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdraw(
       _shares: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256)"(
       _shares: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

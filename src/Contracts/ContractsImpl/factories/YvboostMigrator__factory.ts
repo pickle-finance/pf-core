@@ -10,7 +10,7 @@ import type { YvboostMigrator } from "../YvboostMigrator";
 export class YvboostMigrator__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): YvboostMigrator {
     return new Contract(address, _abi, signerOrProvider) as YvboostMigrator;
   }

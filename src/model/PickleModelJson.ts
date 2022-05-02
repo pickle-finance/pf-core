@@ -51,6 +51,7 @@ export enum AssetProtocol {
   TECTONIC = "Tectonic",
   STARGATE = "Stargate",
   HUMMUS = "Hummus",
+  FRAX = "Frax",
   // ADD_PROTOCOL
 }
 
@@ -258,7 +259,7 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: false,
     pickleZapAddress: "",
     router: "",
-  }
+  },
   // ADD_PROTOCOL
 ];
 
@@ -286,6 +287,7 @@ export enum HarvestStyle {
 
 export enum AssetType {
   JAR = "jar",
+  BRINERY = "brinery",
   STANDALONE_FARM = "standalone_farm",
   EXTERNAL = "external",
 }
@@ -363,6 +365,10 @@ export interface StandaloneFarmDefinition extends PickleAsset {
   farmNickname: string;
 }
 
+export interface BrineryDefinition extends PickleAsset {
+  details: BrineryDetails;
+}
+
 export interface HistoricalYield {
   d1?: number;
   d3?: number;
@@ -382,11 +388,34 @@ export interface JarDetails extends AssetDetails {
   protocolApr?: HistoricalYield;
 }
 
+export interface BrineryDetails extends AssetDetails {
+  distributionAddr: string;
+  strategyAddr: string;
+  veAddr: string;
+  lockerAddr: string;
+  pickleLockedUnderlying?: number;
+  totalVeSupply?: number;
+  pickleVeBalance?: number;
+  weeklyRewards?: number;
+  distributorPending?: number;
+}
+
 export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+
+export interface FarmDetails {
+  allocShare?: number;
+  tokenBalance?: number;
+  valueBalance?: number;
+  picklePerBlock?: number;
+  picklePerDay?: number;
+  poolId?: number;
+  farmApyComponents?: AssetAprComponent[];
+  historicalApr?: HistoricalYield;
+}
 
 export interface FarmDetails {
   allocShare?: number;
@@ -447,6 +476,7 @@ export interface PickleModelJson {
 export interface PickleModelAssets {
   jars: JarDefinition[];
   standaloneFarms: StandaloneFarmDefinition[];
+  brineries: BrineryDefinition[];
   external: ExternalAssetDefinition[];
 }
 

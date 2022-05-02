@@ -46,99 +46,99 @@ interface YearnRegistryInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "setGovernance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "acceptGovernance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "latestRelease",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "latestVault", values: [string]): string;
   encodeFunctionData(functionFragment: "newRelease", values: [string]): string;
   encodeFunctionData(
     functionFragment: "newVault",
-    values: [string, string, string, string, string],
+    values: [string, string, string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "newExperimentalVault",
-    values: [string, string, string, string, string, string],
+    values: [string, string, string, string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "endorseVault",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "setBanksy", values: [string]): string;
   encodeFunctionData(
     functionFragment: "tagVault",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "numReleases",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "releases",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "numVaults", values: [string]): string;
   encodeFunctionData(
     functionFragment: "vaults",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "tokens",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "numTokens", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "isRegistered",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "governance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "pendingGovernance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "tags", values: [string]): string;
   encodeFunctionData(functionFragment: "banksy", values: [string]): string;
 
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "acceptGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "latestRelease",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "latestVault",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "newRelease", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "newVault", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "newExperimentalVault",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "endorseVault",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setBanksy", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tagVault", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "numReleases",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "releases", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "numVaults", data: BytesLike): Result;
@@ -147,12 +147,12 @@ interface YearnRegistryInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "numTokens", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "isRegistered",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "tags", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "banksy", data: BytesLike): Result;
@@ -178,26 +178,26 @@ export class YearnRegistry extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -210,7 +210,7 @@ export class YearnRegistry extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: YearnRegistryInterface;
@@ -218,20 +218,20 @@ export class YearnRegistry extends Contract {
   functions: {
     setGovernance(
       governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setGovernance(address)"(
       governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     latestRelease(overrides?: CallOverrides): Promise<[string]>;
@@ -242,17 +242,17 @@ export class YearnRegistry extends Contract {
 
     "latestVault(address)"(
       token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     newRelease(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "newRelease(address)"(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "newVault(address,address,address,string,string)"(
@@ -261,7 +261,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "newVault(address,address,address,string,string,uint256)"(
@@ -271,7 +271,7 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "newExperimentalVault(address,address,address,address,string,string)"(
@@ -281,7 +281,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "newExperimentalVault(address,address,address,address,string,string,uint256)"(
@@ -292,41 +292,41 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "endorseVault(address)"(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "endorseVault(address,uint256)"(
       vault: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setBanksy(address)"(
       tagger: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setBanksy(address,bool)"(
       tagger: string,
       allowed: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     tagVault(
       vault: string,
       tag: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "tagVault(address,string)"(
       vault: string,
       tag: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     numReleases(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -337,33 +337,33 @@ export class YearnRegistry extends Contract {
 
     "releases(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     numVaults(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "numVaults(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     vaults(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     "vaults(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     tokens(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     "tokens(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     numTokens(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -374,7 +374,7 @@ export class YearnRegistry extends Contract {
 
     "isRegistered(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     governance(overrides?: CallOverrides): Promise<[string]>;
@@ -393,26 +393,26 @@ export class YearnRegistry extends Contract {
 
     "banksy(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
   };
 
   setGovernance(
     governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setGovernance(address)"(
     governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   acceptGovernance(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "acceptGovernance()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   latestRelease(overrides?: CallOverrides): Promise<string>;
@@ -423,17 +423,17 @@ export class YearnRegistry extends Contract {
 
   "latestVault(address)"(
     token: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   newRelease(
     vault: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "newRelease(address)"(
     vault: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "newVault(address,address,address,string,string)"(
@@ -442,7 +442,7 @@ export class YearnRegistry extends Contract {
     rewards: string,
     name: string,
     symbol: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "newVault(address,address,address,string,string,uint256)"(
@@ -452,7 +452,7 @@ export class YearnRegistry extends Contract {
     name: string,
     symbol: string,
     releaseDelta: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "newExperimentalVault(address,address,address,address,string,string)"(
@@ -462,7 +462,7 @@ export class YearnRegistry extends Contract {
     rewards: string,
     name: string,
     symbol: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "newExperimentalVault(address,address,address,address,string,string,uint256)"(
@@ -473,41 +473,41 @@ export class YearnRegistry extends Contract {
     name: string,
     symbol: string,
     releaseDelta: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "endorseVault(address)"(
     vault: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "endorseVault(address,uint256)"(
     vault: string,
     releaseDelta: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setBanksy(address)"(
     tagger: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setBanksy(address,bool)"(
     tagger: string,
     allowed: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   tagVault(
     vault: string,
     tag: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "tagVault(address,string)"(
     vault: string,
     tag: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   numReleases(overrides?: CallOverrides): Promise<BigNumber>;
@@ -518,33 +518,33 @@ export class YearnRegistry extends Contract {
 
   "releases(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   numVaults(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "numVaults(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   vaults(
     arg0: string,
     arg1: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   "vaults(address,uint256)"(
     arg0: string,
     arg1: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   tokens(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   "tokens(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   numTokens(overrides?: CallOverrides): Promise<BigNumber>;
@@ -555,7 +555,7 @@ export class YearnRegistry extends Contract {
 
   "isRegistered(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<boolean>;
 
   governance(overrides?: CallOverrides): Promise<string>;
@@ -579,7 +579,7 @@ export class YearnRegistry extends Contract {
 
     "setGovernance(address)"(
       governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     acceptGovernance(overrides?: CallOverrides): Promise<void>;
@@ -594,14 +594,14 @@ export class YearnRegistry extends Contract {
 
     "latestVault(address)"(
       token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     newRelease(vault: string, overrides?: CallOverrides): Promise<void>;
 
     "newRelease(address)"(
       vault: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "newVault(address,address,address,string,string)"(
@@ -610,7 +610,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "newVault(address,address,address,string,string,uint256)"(
@@ -620,7 +620,7 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "newExperimentalVault(address,address,address,address,string,string)"(
@@ -630,7 +630,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "newExperimentalVault(address,address,address,address,string,string,uint256)"(
@@ -641,41 +641,41 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "endorseVault(address)"(
       vault: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "endorseVault(address,uint256)"(
       vault: string,
       releaseDelta: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setBanksy(address)"(
       tagger: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setBanksy(address,bool)"(
       tagger: string,
       allowed: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     tagVault(
       vault: string,
       tag: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "tagVault(address,string)"(
       vault: string,
       tag: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     numReleases(overrides?: CallOverrides): Promise<BigNumber>;
@@ -686,33 +686,33 @@ export class YearnRegistry extends Contract {
 
     "releases(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     numVaults(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "numVaults(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     vaults(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "vaults(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     tokens(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     "tokens(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     numTokens(overrides?: CallOverrides): Promise<BigNumber>;
@@ -723,7 +723,7 @@ export class YearnRegistry extends Contract {
 
     "isRegistered(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     governance(overrides?: CallOverrides): Promise<string>;
@@ -742,7 +742,7 @@ export class YearnRegistry extends Contract {
 
     "banksy(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
   };
 
@@ -750,7 +750,7 @@ export class YearnRegistry extends Contract {
     NewRelease(
       release_id: BigNumberish | null,
       template: null,
-      api_version: null,
+      api_version: null
     ): TypedEventFilter<
       [BigNumber, string, string],
       { release_id: BigNumber; template: string; api_version: string }
@@ -760,7 +760,7 @@ export class YearnRegistry extends Contract {
       token: string | null,
       vault_id: BigNumberish | null,
       vault: null,
-      api_version: null,
+      api_version: null
     ): TypedEventFilter<
       [string, BigNumber, string, string],
       { token: string; vault_id: BigNumber; vault: string; api_version: string }
@@ -770,39 +770,39 @@ export class YearnRegistry extends Contract {
       token: string | null,
       deployer: string | null,
       vault: null,
-      api_version: null,
+      api_version: null
     ): TypedEventFilter<
       [string, string, string, string],
       { token: string; deployer: string; vault: string; api_version: string }
     >;
 
     NewGovernance(
-      governance: null,
+      governance: null
     ): TypedEventFilter<[string], { governance: string }>;
 
     VaultTagged(
       vault: null,
-      tag: null,
+      tag: null
     ): TypedEventFilter<[string, string], { vault: string; tag: string }>;
   };
 
   estimateGas: {
     setGovernance(
       governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setGovernance(address)"(
       governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     latestRelease(overrides?: CallOverrides): Promise<BigNumber>;
@@ -813,17 +813,17 @@ export class YearnRegistry extends Contract {
 
     "latestVault(address)"(
       token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     newRelease(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "newRelease(address)"(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "newVault(address,address,address,string,string)"(
@@ -832,7 +832,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "newVault(address,address,address,string,string,uint256)"(
@@ -842,7 +842,7 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "newExperimentalVault(address,address,address,address,string,string)"(
@@ -852,7 +852,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "newExperimentalVault(address,address,address,address,string,string,uint256)"(
@@ -863,41 +863,41 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "endorseVault(address)"(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "endorseVault(address,uint256)"(
       vault: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setBanksy(address)"(
       tagger: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setBanksy(address,bool)"(
       tagger: string,
       allowed: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     tagVault(
       vault: string,
       tag: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "tagVault(address,string)"(
       vault: string,
       tag: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     numReleases(overrides?: CallOverrides): Promise<BigNumber>;
@@ -908,33 +908,33 @@ export class YearnRegistry extends Contract {
 
     "releases(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     numVaults(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "numVaults(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     vaults(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "vaults(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     tokens(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     "tokens(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     numTokens(overrides?: CallOverrides): Promise<BigNumber>;
@@ -945,7 +945,7 @@ export class YearnRegistry extends Contract {
 
     "isRegistered(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     governance(overrides?: CallOverrides): Promise<BigNumber>;
@@ -960,34 +960,34 @@ export class YearnRegistry extends Contract {
 
     "tags(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     banksy(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "banksy(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     setGovernance(
       governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setGovernance(address)"(
       governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     latestRelease(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -996,22 +996,22 @@ export class YearnRegistry extends Contract {
 
     latestVault(
       token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "latestVault(address)"(
       token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     newRelease(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "newRelease(address)"(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "newVault(address,address,address,string,string)"(
@@ -1020,7 +1020,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "newVault(address,address,address,string,string,uint256)"(
@@ -1030,7 +1030,7 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "newExperimentalVault(address,address,address,address,string,string)"(
@@ -1040,7 +1040,7 @@ export class YearnRegistry extends Contract {
       rewards: string,
       name: string,
       symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "newExperimentalVault(address,address,address,address,string,string,uint256)"(
@@ -1051,41 +1051,41 @@ export class YearnRegistry extends Contract {
       name: string,
       symbol: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "endorseVault(address)"(
       vault: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "endorseVault(address,uint256)"(
       vault: string,
       releaseDelta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setBanksy(address)"(
       tagger: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setBanksy(address,bool)"(
       tagger: string,
       allowed: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     tagVault(
       vault: string,
       tag: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "tagVault(address,string)"(
       vault: string,
       tag: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     numReleases(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1094,44 +1094,44 @@ export class YearnRegistry extends Contract {
 
     releases(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "releases(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     numVaults(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "numVaults(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     vaults(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "vaults(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     tokens(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "tokens(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     numTokens(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1140,12 +1140,12 @@ export class YearnRegistry extends Contract {
 
     isRegistered(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "isRegistered(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1155,27 +1155,27 @@ export class YearnRegistry extends Contract {
     pendingGovernance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "pendingGovernance()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     tags(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "tags(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     banksy(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "banksy(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

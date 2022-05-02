@@ -12,9 +12,11 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import minichefAbi from "../Contracts/ABIs/minichef.json";
+import brineryAbi from "../Contracts/ABIs/brinery.json";
 import {
   AssetEnablement,
   AssetProtocol,
+  BrineryDefinition,
   JarDefinition,
 } from "../model/PickleModelJson";
 import {
@@ -38,13 +40,14 @@ import {
   ExternalToken,
 } from "../price/ExternalTokenModel";
 import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
+import { formatEther } from "ethers/lib/utils";
 
 export interface UserTokens {
   [key: string]: UserTokenData;
 }
 
 export interface BalanceAllowance {
-  balance: string; 
+  balance: string;
   allowance: string;
 }
 
@@ -52,7 +55,7 @@ interface SingleRequiredComponentAllowance {
   assetContract: string;
   componentContract: string;
   allowance: string;
-};
+}
 
 export interface UserTokenData {
   assetKey: string;
@@ -69,6 +72,7 @@ export interface UserData {
   earnings: IUserEarningsSummary;
   votes: IUserVote[];
   dill: IUserDillStats;
+  brineries: IUserBrineryStats[];
   pickles: UserPickles;
   errors: string[];
 }
@@ -84,6 +88,15 @@ export interface IUserDillStats {
   claimable: string;
   dillApproval: string;
 }
+
+export interface IUserBrineryStats {
+  assetKey: string;
+  depositTokenBalance: string;
+  allowance: string;
+  claimable: number;
+  balance: number;
+}
+
 export interface IUserVote {
   farmDepositToken: string;
   weight: string;
@@ -110,6 +123,7 @@ const emptyUserData = (): UserData => {
       claimable: "0",
       dillApproval: "0",
     },
+    brineries: [],
     pickles: {
       dillApproval: "0",
     },
@@ -167,6 +181,7 @@ export class UserModel implements ConsoleErrorLogger {
         this.getUserEarningsSummary(),
         this.getUserGaugeVotesGuard(),
         this.getUserDillStatsGuard(),
+        this.getUserBrineryStatsGuard(),
         this.getUserPickles(),
       ]);
       if (this.callback !== undefined) {
@@ -316,9 +331,9 @@ export class UserModel implements ConsoleErrorLogger {
     }
 
     const allChainTokens: ExternalToken[] =
-    ExternalTokenModelSingleton.getAllTokens().filter(
-      (x) => x.chain === chain,
-    );
+      ExternalTokenModelSingleton.getAllTokens().filter(
+        (x) => x.chain === chain,
+      );
 
     const depositTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
       chainAssets.flatMap((x) => () => {
@@ -364,7 +379,13 @@ export class UserModel implements ConsoleErrorLogger {
       chain,
     );
 
-    const userAllowanceOfChainTokensPromise: Promise<SingleRequiredComponentAllowance[]> = this.getRequiredComponentTokenAllowances(chain, chainAssets, allChainTokens);
+    const userAllowanceOfChainTokensPromise: Promise<
+      SingleRequiredComponentAllowance[]
+    > = this.getRequiredComponentTokenAllowances(
+      chain,
+      chainAssets,
+      allChainTokens,
+    );
 
     const pTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
       chainAssets.map((x) => () => {
@@ -412,7 +433,7 @@ export class UserModel implements ConsoleErrorLogger {
       );
     }
 
-      const userBalanceOfChainTokensPromise: Promise<BigNumber[]> =
+    const userBalanceOfChainTokensPromise: Promise<BigNumber[]> =
       this.callMulti(
         allChainTokens.map(
           (x) => () =>
@@ -559,23 +580,32 @@ export class UserModel implements ConsoleErrorLogger {
     const components = jar.depositToken.components || [];
     for (let i = 0; i < components.length; i++) {
       let tokenBal: BigNumber | undefined = undefined;
-      const foundToken: ExternalToken | undefined = chainTokens.find((x) => x.id === components[i]);
+      const foundToken: ExternalToken | undefined = chainTokens.find(
+        (x) => x.id === components[i],
+      );
       for (let j = 0; !tokenBal && j < chainTokens.length; j++) {
         if (chainTokens[j].id === components[i]) {
           tokenBal =
             j < userTokenBalances.length - 1
               ? userTokenBalances[j]
               : BigNumber.from(0);
-          }
+        }
       }
-      const tokenAllowObj: SingleRequiredComponentAllowance | undefined = 
-        userTokenAllowances.find((x) => foundToken &&
-        x.assetContract === jar.contract && foundToken.contractAddr.toLowerCase() === x.componentContract.toLowerCase() );
+      const tokenAllowObj: SingleRequiredComponentAllowance | undefined =
+        userTokenAllowances.find(
+          (x) =>
+            foundToken &&
+            x.assetContract === jar.contract &&
+            foundToken.contractAddr.toLowerCase() ===
+              x.componentContract.toLowerCase(),
+        );
 
       const bal = (tokenBal || BigNumber.from(0)).toString();
-      const allow = (tokenAllowObj ? tokenAllowObj.allowance : BigNumber.from(0)).toString();
-      
-      ret[components[i]] = {balance: bal, allowance: allow};
+      const allow = (
+        tokenAllowObj ? tokenAllowObj.allowance : BigNumber.from(0)
+      ).toString();
+
+      ret[components[i]] = { balance: bal, allowance: allow };
     }
     return ret;
   }
@@ -583,16 +613,18 @@ export class UserModel implements ConsoleErrorLogger {
   async getRequiredComponentTokenAllowances(
     chain: ChainNetwork,
     chainAssets: JarDefinition[],
-    allChainTokens: ExternalToken[]): Promise<SingleRequiredComponentAllowance[]> {
-
+    allChainTokens: ExternalToken[],
+  ): Promise<SingleRequiredComponentAllowance[]> {
     const requiredComponentAllowances: SingleRequiredComponentAllowance[] = [];
-    const uni3Assets = chainAssets.filter((x) => x.protocol === AssetProtocol.UNISWAP_V3);
-    for( let i = 0; i < uni3Assets.length; i++ ) {
+    const uni3Assets = chainAssets.filter(
+      (x) => x.protocol === AssetProtocol.UNISWAP_V3,
+    );
+    for (let i = 0; i < uni3Assets.length; i++) {
       const assetContract = uni3Assets[i].contract;
       const components = uni3Assets[i].depositToken.components || [];
-      for( let j = 0; j < components.length; j++ ) {
+      for (let j = 0; j < components.length; j++) {
         const token = allChainTokens.find((x) => x.id === components[j]);
-        if( token ) {
+        if (token) {
           requiredComponentAllowances.push({
             assetContract: assetContract,
             componentContract: token.contractAddr,
@@ -602,21 +634,25 @@ export class UserModel implements ConsoleErrorLogger {
       }
     }
     const userAllowanceOfChainTokensPromise: Promise<BigNumber[]> =
-    this.callMulti(
-      requiredComponentAllowances.map(
-        (x) => () =>
-        new MulticallContract(x.componentContract, erc20Abi).
-        allowance(this.walletId, x.assetContract)
-      ),
-      chain,
-    );
+      this.callMulti(
+        requiredComponentAllowances.map(
+          (x) => () =>
+            new MulticallContract(x.componentContract, erc20Abi).allowance(
+              this.walletId,
+              x.assetContract,
+            ),
+        ),
+        chain,
+      );
 
     try {
-      const asBigNumberArray: BigNumber[] = await userAllowanceOfChainTokensPromise;
-      for( let i = 0; i < requiredComponentAllowances.length; i++ ) {
-        requiredComponentAllowances[i].allowance = asBigNumberArray[i].toString();
+      const asBigNumberArray: BigNumber[] =
+        await userAllowanceOfChainTokensPromise;
+      for (let i = 0; i < requiredComponentAllowances.length; i++) {
+        requiredComponentAllowances[i].allowance =
+          asBigNumberArray[i].toString();
       }
-    } catch( err ) {
+    } catch (err) {
       this.logUserModelError(
         "Loading component allowances on chain " + chain,
         "" + err,
@@ -932,6 +968,84 @@ export class UserModel implements ConsoleErrorLogger {
       claimable: userClaimable.toString(),
       dillApproval: allowance.toString(),
     };
+  }
+
+  async getUserBrineryStats(): Promise<IUserBrineryStats[]> {
+    const brineries = this.model.assets.brineries;
+    const userBrineries = brineries.map(
+      async (asset: BrineryDefinition): Promise<IUserBrineryStats> => {
+        const mcBrineryContract = new MulticallContract(
+          asset.contract,
+          brineryAbi,
+        );
+
+        const mcDepositToken = new MulticallContract(
+          asset.depositToken.addr,
+          erc20Abi,
+        );
+        const [userPending, userBalance, index, userIndex] = (
+          await this.callMulti(
+            [
+              () => mcBrineryContract.claimable(this.walletId),
+              () => mcBrineryContract.balanceOf(this.walletId),
+              () => mcBrineryContract.index(),
+              () => mcBrineryContract.supplyIndex(this.walletId),
+              () => mcDepositToken.balanceOf(this.walletId),
+              () => mcDepositToken.allowance(this.walletId, asset.contract),
+            ],
+            asset.chain,
+          )
+        ).map((x: BigNumber) => parseFloat(formatEther(x)));
+
+        const [userDepositBalanceBN, userBrineryAllowance] =
+          await this.callMulti(
+            [
+              () => mcDepositToken.balanceOf(this.walletId),
+              () => mcDepositToken.allowance(this.walletId, asset.contract),
+            ],
+            asset.chain,
+          );
+
+        const pickleLockedUnderlying =
+          asset.details.pickleLockedUnderlying || 1;
+        const distributorPending = asset.details.distributorPending || 0;
+
+        const userTotalPending =
+          userPending +
+          (distributorPending * userBalance) / pickleLockedUnderlying +
+          (index - userIndex) * userBalance;
+
+        return {
+          assetKey: asset.details.apiKey,
+          claimable: userTotalPending,
+          balance: userBalance,
+          depositTokenBalance: userDepositBalanceBN.toString(),
+          allowance: userBrineryAllowance.toString(),
+        };
+      },
+    );
+    const ret: IUserBrineryStats[] = [];
+    for (let i = 0; i < userBrineries.length; i++) {
+      ret.push(await userBrineries[i]);
+    }
+    return ret;
+  }
+
+  async getUserBrineryStatsGuard(): Promise<IUserBrineryStats[]> {
+    DEBUG_OUT("Begin getUserBrineryStatsGuard");
+    const start = Date.now();
+    try {
+      const r = await this.getUserBrineryStats();
+      this.workingData.brineries = r;
+      this.sendUpdate();
+      DEBUG_OUT("End getUserBrineryStatsGuard: " + (Date.now() - start));
+      return r;
+    } catch (error) {
+      this.logUserModelError("in getUserBrineryStats", "" + error);
+      this.sendUpdate();
+      DEBUG_OUT("End getUserBrineryStatsGuard: " + (Date.now() - start));
+      return [];
+    }
   }
 
   normalizeIndexes(

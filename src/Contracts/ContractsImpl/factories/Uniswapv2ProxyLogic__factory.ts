@@ -10,7 +10,7 @@ import type { Uniswapv2ProxyLogic } from "../Uniswapv2ProxyLogic";
 export class Uniswapv2ProxyLogic__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): Uniswapv2ProxyLogic {
     return new Contract(address, _abi, signerOrProvider) as Uniswapv2ProxyLogic;
   }

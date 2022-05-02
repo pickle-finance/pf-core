@@ -10,7 +10,7 @@ import type { StabilityPool } from "../StabilityPool";
 export class StabilityPool__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): StabilityPool {
     return new Contract(address, _abi, signerOrProvider) as StabilityPool;
   }

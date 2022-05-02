@@ -392,10 +392,11 @@ import {
   JAR_METIS_HUMMUS_USDT,
   JAR_AURORA_TRI_BSTN_NEAR_LP,
   JAR_CURVE_STG_USDC_LP,
+  BRINERY_VEFXS,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
-import { AssetBehavior, JarBehavior } from "./JarBehaviorResolver";
+import { AssetBehavior, BrineryBehavior, ExternalAssetBehavior, JarBehavior } from "./JarBehaviorResolver";
 import { AbstractJarBehavior } from "./AbstractJarBehavior";
 import { DinoEth } from "./impl/dino-eth";
 import { AlcxEth } from "./impl/alcx-eth";
@@ -636,6 +637,7 @@ import { TriXtriStnear } from "./impl/aurora-tri-xtri-stnear";
 import { TriStnearNear } from "./impl/aurora-tri-stnear-near";
 import { TriBstnNear } from "./impl/aurora-tri-bstn-near";
 import { CurveStgUsdc } from "./impl/curve-stg-usdc";
+import { PveFxsAsset } from "./impl/vefxs";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -646,7 +648,7 @@ export class noOpJarBehavior extends AbstractJarBehavior {
     return 0;
   }
 }
-const jarToBehavior: Map<string, JarBehavior> = new Map<string, JarBehavior>();
+const jarToBehavior: Map<string, JarBehavior | ExternalAssetBehavior | BrineryBehavior> = new Map<string, JarBehavior | ExternalAssetBehavior | BrineryBehavior>();
 // Converted
 jarToBehavior.set(JAR_sCRV.id, new noOpJarBehavior());
 jarToBehavior.set(JAR_steCRV.id, new SteCrv());
@@ -1077,6 +1079,8 @@ jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyJar()
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
+
+jarToBehavior.set(BRINERY_VEFXS.id, new PveFxsAsset())
 // ADD_ASSET token behavior class
 
 // Yet to convert

@@ -38,118 +38,127 @@ interface RewarderInterface extends ethers.utils.Interface {
     "updatePool(uint256)": FunctionFragment;
     "userInfo(uint256,address)": FunctionFragment;
     "rewardRate()": FunctionFragment;
+    "rewardPerSecond()": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "addPool",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "claimOwnership",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "massUpdatePools",
-    values: [BigNumberish[]],
+    values: [BigNumberish[]]
   ): string;
   encodeFunctionData(
     functionFragment: "onSushiReward",
-    values: [BigNumberish, string, string, BigNumberish, BigNumberish],
+    values: [BigNumberish, string, string, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "pendingOwner",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "pendingToken",
-    values: [BigNumberish, string],
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "pendingTokens",
-    values: [BigNumberish, string, BigNumberish],
+    values: [BigNumberish, string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "poolIds",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "poolInfo",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setPool",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setRewardRate",
-    values: [BigNumberish, BigNumberish[]],
+    values: [BigNumberish, BigNumberish[]]
   ): string;
   encodeFunctionData(
     functionFragment: "tokenPerBlock",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string, boolean, boolean],
+    values: [string, boolean, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "updatePool",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "userInfo",
-    values: [BigNumberish, string],
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "rewardRate",
-    values?: undefined,
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "rewardPerSecond",
+    values?: undefined
   ): string;
 
   decodeFunctionResult(functionFragment: "addPool", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "claimOwnership",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "massUpdatePools",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "onSushiReward",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingOwner",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "pendingToken",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "pendingTokens",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "poolIds", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolInfo", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setPool", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setRewardRate",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "tokenPerBlock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "updatePool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "userInfo", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "rewardRate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "rewardPerSecond",
+    data: BytesLike
+  ): Result;
 
   events: {
     "OnReward(address,uint256,uint256,address)": EventFragment;
@@ -174,26 +183,26 @@ export class Rewarder extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -206,7 +215,7 @@ export class Rewarder extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: RewarderInterface;
@@ -215,31 +224,31 @@ export class Rewarder extends Contract {
     addPool(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "addPool(uint256,uint256)"(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     claimOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "claimOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     onSushiReward(
@@ -248,7 +257,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "onSushiReward(uint256,address,address,uint256,uint256)"(
@@ -257,7 +266,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -271,20 +280,20 @@ export class Rewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { pending: BigNumber }>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber] & { pending: BigNumber }>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -296,7 +305,7 @@ export class Rewarder extends Contract {
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -306,17 +315,17 @@ export class Rewarder extends Contract {
 
     poolIds(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accTokenPerShare: BigNumber;
@@ -327,7 +336,7 @@ export class Rewarder extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accTokenPerShare: BigNumber;
@@ -339,25 +348,25 @@ export class Rewarder extends Contract {
     setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setPool(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setRewardRate(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setRewardRate(uint256,uint256[])"(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     tokenPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -368,30 +377,30 @@ export class Rewarder extends Contract {
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -399,7 +408,7 @@ export class Rewarder extends Contract {
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -407,36 +416,40 @@ export class Rewarder extends Contract {
     rewardRate(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "rewardRate()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    rewardPerSecond(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "rewardPerSecond()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   addPool(
     _pid: BigNumberish,
     allocPoint: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "addPool(uint256,uint256)"(
     _pid: BigNumberish,
     allocPoint: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   claimOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "claimOwnership()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   massUpdatePools(
     pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "massUpdatePools(uint256[])"(
     pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   onSushiReward(
@@ -445,7 +458,7 @@ export class Rewarder extends Contract {
     to: string,
     arg3: BigNumberish,
     lpToken: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "onSushiReward(uint256,address,address,uint256,uint256)"(
@@ -454,7 +467,7 @@ export class Rewarder extends Contract {
     to: string,
     arg3: BigNumberish,
     lpToken: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
@@ -468,20 +481,20 @@ export class Rewarder extends Contract {
   pendingToken(
     _pid: BigNumberish,
     _user: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "pendingToken(uint256,address)"(
     _pid: BigNumberish,
     _user: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   pendingTokens(
     pid: BigNumberish,
     user: string,
     arg2: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [string[], BigNumber[]] & {
       rewardTokens: string[];
@@ -493,7 +506,7 @@ export class Rewarder extends Contract {
     pid: BigNumberish,
     user: string,
     arg2: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [string[], BigNumber[]] & {
       rewardTokens: string[];
@@ -505,12 +518,12 @@ export class Rewarder extends Contract {
 
   "poolIds(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   poolInfo(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
       accTokenPerShare: BigNumber;
@@ -521,7 +534,7 @@ export class Rewarder extends Contract {
 
   "poolInfo(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
       accTokenPerShare: BigNumber;
@@ -533,25 +546,25 @@ export class Rewarder extends Contract {
   setPool(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setPool(uint256,uint256)"(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setRewardRate(
     _tokenPerBlock: BigNumberish,
     _pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setRewardRate(uint256,uint256[])"(
     _tokenPerBlock: BigNumberish,
     _pids: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   tokenPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -562,30 +575,30 @@ export class Rewarder extends Contract {
     newOwner: string,
     direct: boolean,
     renounce: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "transferOwnership(address,bool,bool)"(
     newOwner: string,
     direct: boolean,
     renounce: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   updatePool(
     pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "updatePool(uint256)"(
     pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   userInfo(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
@@ -593,7 +606,7 @@ export class Rewarder extends Contract {
   "userInfo(uint256,address)"(
     arg0: BigNumberish,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
@@ -602,17 +615,21 @@ export class Rewarder extends Contract {
 
   "rewardRate()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+  rewardPerSecond(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "rewardPerSecond()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   callStatic: {
     addPool(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "addPool(uint256,uint256)"(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     claimOwnership(overrides?: CallOverrides): Promise<void>;
@@ -621,12 +638,12 @@ export class Rewarder extends Contract {
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     onSushiReward(
@@ -635,7 +652,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "onSushiReward(uint256,address,address,uint256,uint256)"(
@@ -644,7 +661,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -658,20 +675,20 @@ export class Rewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -683,7 +700,7 @@ export class Rewarder extends Contract {
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [string[], BigNumber[]] & {
         rewardTokens: string[];
@@ -695,12 +712,12 @@ export class Rewarder extends Contract {
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accTokenPerShare: BigNumber;
@@ -711,7 +728,7 @@ export class Rewarder extends Contract {
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accTokenPerShare: BigNumber;
@@ -723,25 +740,25 @@ export class Rewarder extends Contract {
     setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setPool(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setRewardRate(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setRewardRate(uint256,uint256[])"(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     tokenPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -752,19 +769,19 @@ export class Rewarder extends Contract {
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accTokenPerShare: BigNumber;
@@ -775,7 +792,7 @@ export class Rewarder extends Contract {
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
         accTokenPerShare: BigNumber;
@@ -787,7 +804,7 @@ export class Rewarder extends Contract {
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -795,7 +812,7 @@ export class Rewarder extends Contract {
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
@@ -803,6 +820,10 @@ export class Rewarder extends Contract {
     rewardRate(overrides?: CallOverrides): Promise<BigNumber>;
 
     "rewardRate()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    rewardPerSecond(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "rewardPerSecond()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -810,7 +831,7 @@ export class Rewarder extends Contract {
       user: string | null,
       pid: BigNumberish | null,
       amount: null,
-      to: string | null,
+      to: string | null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, string],
       { user: string; pid: BigNumber; amount: BigNumber; to: string }
@@ -818,7 +839,7 @@ export class Rewarder extends Contract {
 
     OwnershipTransferred(
       previousOwner: string | null,
-      newOwner: string | null,
+      newOwner: string | null
     ): TypedEventFilter<
       [string, string],
       { previousOwner: string; newOwner: string }
@@ -826,7 +847,7 @@ export class Rewarder extends Contract {
 
     PoolAdded(
       pid: BigNumberish | null,
-      allocPoint: null,
+      allocPoint: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { pid: BigNumber; allocPoint: BigNumber }
@@ -834,7 +855,7 @@ export class Rewarder extends Contract {
 
     PoolSet(
       pid: BigNumberish | null,
-      allocPoint: null,
+      allocPoint: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { pid: BigNumber; allocPoint: BigNumber }
@@ -844,7 +865,7 @@ export class Rewarder extends Contract {
       pid: BigNumberish | null,
       lastRewardBlock: null,
       lpSupply: null,
-      accTokenPerShare: null,
+      accTokenPerShare: null
     ): TypedEventFilter<
       [BigNumber, BigNumber, BigNumber, BigNumber],
       {
@@ -857,7 +878,7 @@ export class Rewarder extends Contract {
 
     RewardRateUpdated(
       oldRate: null,
-      newRate: null,
+      newRate: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { oldRate: BigNumber; newRate: BigNumber }
@@ -868,31 +889,31 @@ export class Rewarder extends Contract {
     addPool(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "addPool(uint256,uint256)"(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     claimOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "claimOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     onSushiReward(
@@ -901,7 +922,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "onSushiReward(uint256,address,address,uint256,uint256)"(
@@ -910,7 +931,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -924,65 +945,65 @@ export class Rewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "pendingTokens(uint256,address,uint256)"(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     poolIds(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     poolInfo(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setPool(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setRewardRate(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setRewardRate(uint256,uint256[])"(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     tokenPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -993,72 +1014,76 @@ export class Rewarder extends Contract {
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     rewardRate(overrides?: CallOverrides): Promise<BigNumber>;
 
     "rewardRate()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    rewardPerSecond(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "rewardPerSecond()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     addPool(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "addPool(uint256,uint256)"(
       _pid: BigNumberish,
       allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     claimOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "claimOwnership()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     massUpdatePools(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "massUpdatePools(uint256[])"(
       pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     onSushiReward(
@@ -1067,7 +1092,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "onSushiReward(uint256,address,address,uint256,uint256)"(
@@ -1076,7 +1101,7 @@ export class Rewarder extends Contract {
       to: string,
       arg3: BigNumberish,
       lpToken: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1090,71 +1115,71 @@ export class Rewarder extends Contract {
     pendingToken(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "pendingToken(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     pendingTokens(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "pendingTokens(uint256,address,uint256)"(
       pid: BigNumberish,
       user: string,
       arg2: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     poolIds(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "poolIds(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     poolInfo(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "poolInfo(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setPool(uint256,uint256)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setRewardRate(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setRewardRate(uint256,uint256[])"(
       _tokenPerBlock: BigNumberish,
       _pids: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     tokenPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1165,40 +1190,46 @@ export class Rewarder extends Contract {
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "transferOwnership(address,bool,bool)"(
       newOwner: string,
       direct: boolean,
       renounce: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     updatePool(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "updatePool(uint256)"(
       pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     userInfo(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "userInfo(uint256,address)"(
       arg0: BigNumberish,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     rewardRate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "rewardRate()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    rewardPerSecond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "rewardPerSecond()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
   };
 }

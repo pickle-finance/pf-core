@@ -10,7 +10,7 @@ import type { StakingPools } from "../StakingPools";
 export class StakingPools__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): StakingPools {
     return new Contract(address, _abi, signerOrProvider) as StakingPools;
   }
