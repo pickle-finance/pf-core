@@ -122,9 +122,9 @@ export class PveFxsAsset implements BrineryBehavior {
 
     return {
       components: [
-        { name: "FXS distribution", apr: fxsApr * 100, compoundable: false },
+        { name: "FXS", apr: fxsApr * 100, compoundable: false },
         {
-          name: "Flywheel profits",
+          name: "flywheel",
           apr: flywheelApr * 100,
           compoundable: false,
         },

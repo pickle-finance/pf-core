@@ -552,11 +552,7 @@ export class PickleModel implements ConsoleErrorLogger {
       .filter((x) => this.brineryFilter(x))
       .filter((x) => this.configuredChains.includes(x.chain));
 
-      // Bwar help me
-      const ree = this.getJars()
-      console.log({ree})
-
-      try {
+    try {
       const brineryAprs = await Promise.all(
         brineriesWithBehaviors.map((asset) => {
           const ret: Promise<AssetProjectedApr> = new JarBehaviorDiscovery()
@@ -565,9 +561,8 @@ export class PickleModel implements ConsoleErrorLogger {
           return ret;
         }),
       );
-      console.log(brineryAprs);
       for (let i = 0; i < brineriesWithBehaviors.length; i++) {
-        brineriesWithBehaviors[i].aprStats = brineryAprs[i];
+        brineriesWithBehaviors[i].aprStats = this.cleanAprStats(brineryAprs[i]);
       }
     } catch (error) {
       this.logError("loadApyComponents", error);
