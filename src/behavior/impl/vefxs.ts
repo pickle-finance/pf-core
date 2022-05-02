@@ -100,9 +100,9 @@ export class PveFxsAsset implements BrineryBehavior {
 
     // Set harvest data
     definition.details.harvestStats = {
-      balanceUSD: pickleLockedFxs * fxsPrice,
-      earnableUSD: 0,
-      harvestableUSD: feeDistributorEarnedFxs * fxsPrice, // Used to calculate user entitlements
+        balanceUSD: pickleLockedFxs * fxsPrice,
+        earnableUSD: 0,
+        harvestableUSD: feeDistributorEarnedFxs * fxsPrice, // Used to calculate user entitlements
     };
 
     // Base APR calc
@@ -118,7 +118,7 @@ export class PveFxsAsset implements BrineryBehavior {
 
     return {
       components: [
-        { name: "FXS", apr: fxsApr * 100, compoundable: false },
+        { name: "fxs", apr: fxsApr * 100, compoundable: false },
         {
           name: "flywheel",
           apr: flywheelApr * 100,
@@ -146,7 +146,7 @@ export class PveFxsAsset implements BrineryBehavior {
   ): number => {
     const fraxJars = model.getJars().filter(
       (x) =>
-        x.chain === definition.chain && x.details.apiKey.includes("UNIV3-FRAX"), // To improve by including tag in Frax Jar definition
+        x.chain === definition.chain && x.details?.apiKey.includes("UNIV3-FRAX"), // To improve by including tag in Frax Jar definition
     );
     const flywheelProfits = fraxJars.reduce((acc, currJar: JarDefinition) => {
       const annualizedRevenueToVault =

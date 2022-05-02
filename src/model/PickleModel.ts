@@ -547,11 +547,11 @@ export class PickleModel implements ConsoleErrorLogger {
   async loadBrineryData(): Promise<void> {
     DEBUG_OUT("Begin loadBrineryData");
     const start = Date.now();
-
+    
     const brineriesWithBehaviors: PickleAsset[] = this.allAssets
-      .filter((x) => this.brineryFilter(x))
-      .filter((x) => this.configuredChains.includes(x.chain));
-
+    .filter((x) => this.brineryFilter(x))
+    .filter((x) => this.configuredChains.includes(x.chain));
+    
     try {
       const brineryAprs = await Promise.all(
         brineriesWithBehaviors.map((asset) => {
