@@ -174,7 +174,6 @@ export class UserModel implements ConsoleErrorLogger {
   }
 
   async generateUserModel(): Promise<UserData> {
-    console.log("reeee")
     await this.initCommsMgr();
     try {
       await Promise.all([
