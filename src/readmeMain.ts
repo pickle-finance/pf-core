@@ -115,6 +115,28 @@ const pickleJarsEth = (
   return body;
 };
 
+const brineriesInfo = (assets: PickleModelAssets): string => {
+  const brineries = assets.brineries;
+  let body = `## Brineries\n\n`;
+  brineries.map((asset) => {
+    const url: string = Chains.get(asset.chain).explorer + "/address/";
+    body +=
+      `### ${asset.id} \n\n` +
+      `Brinery: [${asset.contract}](${url + asset.contract})\n\n` +
+      `Strategy: [${asset.details.strategyAddr}](${
+        url + asset.details.strategyAddr
+      })\n\n` +
+      `Locker: [${asset.details.lockerAddr}](${
+        url + asset.details.lockerAddr
+      })\n\n` +
+      `veAddress: [${asset.details.veAddr}](${
+        url + asset.details.veAddr
+      })\n\n` +
+      `---\n\n`;
+  });
+  return body;
+};
+
 const contractsList = (chain: ChainNetwork) => {
   const url: string = Chains.get(chain).explorer + "/address/";
   const addresses = ADDRESSES.get(chain);
@@ -279,7 +301,10 @@ const pickleJars = (assets: PickleModelAssets, chain: ChainNetwork): string => {
   return body;
 };
 
-const getMasterChefIds = async (chefAddr: string, network: ChainNetwork): Promise<Record<string, string>> => {
+const getMasterChefIds = async (
+  chefAddr: string,
+  network: ChainNetwork,
+): Promise<Record<string, string>> => {
   const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
   const networkId = Chains.get(network).id;
   const provider: Provider = new ethers.providers.JsonRpcProvider(
@@ -304,7 +329,10 @@ const getMasterChefIds = async (chefAddr: string, network: ChainNetwork): Promis
   }
 };
 
-const getMiniChefIds = async (chefAddr: string, network: ChainNetwork): Promise<Record<string, string>> => {
+const getMiniChefIds = async (
+  chefAddr: string,
+  network: ChainNetwork,
+): Promise<Record<string, string>> => {
   const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
   const networkId = Chains.get(network).id;
   const provider: Provider = new ethers.providers.JsonRpcProvider(
@@ -361,34 +389,42 @@ const main = async () => {
     (x) => x !== ChainNetwork.Ethereum,
   );
 
-
   interface ChefChain {
-    chefType: string,
-    chef: string,
-    chain: ChainNetwork,
-  };
-  const params: ChefChain[] = nonMainnetNetworks.map((x) => {
-    if( ADDRESSES.get(x) && ADDRESSES.get(x).minichef !== NULL_ADDRESS ) {
-      return {
-        chefType: "mini",
-        chain: x,
-        chef: ADDRESSES.get(x).minichef,
-      };
-    }
-    return undefined;
-  }).filter((x) => x !== undefined);
-  params.push({chefType: "master", chef: ADDRESSES.get(ChainNetwork.Ethereum).masterChef, chain: ChainNetwork.Ethereum});
-  const orderedList: Record<string, string>[] = await Promise.all(params.map(async (x) => {
-    if( x.chefType === "mini" ) {
-      return getMiniChefIds(x.chef, x.chain);
-    } else {
-      return getMasterChefIds(x.chef, x.chain);
-    }
-  }));
+    chefType: string;
+    chef: string;
+    chain: ChainNetwork;
+  }
+  const params: ChefChain[] = nonMainnetNetworks
+    .map((x) => {
+      if (ADDRESSES.get(x) && ADDRESSES.get(x).minichef !== NULL_ADDRESS) {
+        return {
+          chefType: "mini",
+          chain: x,
+          chef: ADDRESSES.get(x).minichef,
+        };
+      }
+      return undefined;
+    })
+    .filter((x) => x !== undefined);
+  params.push({
+    chefType: "master",
+    chef: ADDRESSES.get(ChainNetwork.Ethereum).masterChef,
+    chain: ChainNetwork.Ethereum,
+  });
+  const orderedList: Record<string, string>[] = await Promise.all(
+    params.map(async (x) => {
+      if (x.chefType === "mini") {
+        return getMiniChefIds(x.chef, x.chain);
+      } else {
+        return getMasterChefIds(x.chef, x.chain);
+      }
+    }),
+  );
   updateModelIndices(assets, orderedList);
 
   stringArr.push(pickleEthInfo(assets));
   stringArr.push(pickleJarsEth(assets, await getAllocPoints()));
+  stringArr.push(brineriesInfo(assets));
   for (let i = 0; i < nonMainnetNetworks.length; i++) {
     stringArr.push(pickleJars(assets, nonMainnetNetworks[i]));
   }
