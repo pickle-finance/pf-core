@@ -37,69 +37,69 @@ interface Uniswapv2ProxyLogicInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "factory", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "lpTokensToPrimitive",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "optimalOneSideSupply",
-    values: [string, string, string],
+    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "primitiveToLpTokens",
-    values: [string, string, string],
+    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "refundDust",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "removeLiquidity",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "router", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "supplyLiquidity",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "swapUniLPTokens",
-    values: [string, string, string],
+    values: [string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "swapUniswap",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "weth", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lpTokensToPrimitive",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "optimalOneSideSupply",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "primitiveToLpTokens",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "refundDust", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "removeLiquidity",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "router", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "supplyLiquidity",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "swapUniLPTokens",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "swapUniswap",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "weth", data: BytesLike): Result;
 
@@ -112,26 +112,26 @@ export class Uniswapv2ProxyLogic extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -144,7 +144,7 @@ export class Uniswapv2ProxyLogic extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: Uniswapv2ProxyLogicInterface;
@@ -157,63 +157,63 @@ export class Uniswapv2ProxyLogic extends Contract {
     lpTokensToPrimitive(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "lpTokensToPrimitive(address,address)"(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     optimalOneSideSupply(
       pair: string,
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "optimalOneSideSupply(address,address,address)"(
       pair: string,
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     primitiveToLpTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "primitiveToLpTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     refundDust(
       pair: string,
       recipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "refundDust(address,address)"(
       pair: string,
       recipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     removeLiquidity(
       pair: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "removeLiquidity(address)"(
       pair: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     router(overrides?: CallOverrides): Promise<[string]>;
@@ -223,39 +223,39 @@ export class Uniswapv2ProxyLogic extends Contract {
     supplyLiquidity(
       token0: string,
       token1: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "supplyLiquidity(address,address)"(
       token0: string,
       token1: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     swapUniLPTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "swapUniLPTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     swapUniswap(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "swapUniswap(address,address)"(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     weth(overrides?: CallOverrides): Promise<[string]>;
@@ -270,63 +270,63 @@ export class Uniswapv2ProxyLogic extends Contract {
   lpTokensToPrimitive(
     from: string,
     to: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "lpTokensToPrimitive(address,address)"(
     from: string,
     to: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   optimalOneSideSupply(
     pair: string,
     from: string,
     to: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "optimalOneSideSupply(address,address,address)"(
     pair: string,
     from: string,
     to: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   primitiveToLpTokens(
     from: string,
     to: string,
     dustRecipient: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "primitiveToLpTokens(address,address,address)"(
     from: string,
     to: string,
     dustRecipient: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   refundDust(
     pair: string,
     recipient: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "refundDust(address,address)"(
     pair: string,
     recipient: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   removeLiquidity(
     pair: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "removeLiquidity(address)"(
     pair: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   router(overrides?: CallOverrides): Promise<string>;
@@ -336,39 +336,39 @@ export class Uniswapv2ProxyLogic extends Contract {
   supplyLiquidity(
     token0: string,
     token1: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "supplyLiquidity(address,address)"(
     token0: string,
     token1: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   swapUniLPTokens(
     from: string,
     to: string,
     dustRecipient: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "swapUniLPTokens(address,address,address)"(
     from: string,
     to: string,
     dustRecipient: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   swapUniswap(
     from: string,
     to: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "swapUniswap(address,address)"(
     from: string,
     to: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   weth(overrides?: CallOverrides): Promise<string>;
@@ -383,60 +383,60 @@ export class Uniswapv2ProxyLogic extends Contract {
     lpTokensToPrimitive(
       from: string,
       to: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "lpTokensToPrimitive(address,address)"(
       from: string,
       to: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     optimalOneSideSupply(
       pair: string,
       from: string,
       to: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "optimalOneSideSupply(address,address,address)"(
       pair: string,
       from: string,
       to: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     primitiveToLpTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "primitiveToLpTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     refundDust(
       pair: string,
       recipient: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "refundDust(address,address)"(
       pair: string,
       recipient: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     removeLiquidity(pair: string, overrides?: CallOverrides): Promise<void>;
 
     "removeLiquidity(address)"(
       pair: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     router(overrides?: CallOverrides): Promise<string>;
@@ -446,39 +446,39 @@ export class Uniswapv2ProxyLogic extends Contract {
     supplyLiquidity(
       token0: string,
       token1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "supplyLiquidity(address,address)"(
       token0: string,
       token1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     swapUniLPTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "swapUniLPTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     swapUniswap(
       from: string,
       to: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "swapUniswap(address,address)"(
       from: string,
       to: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     weth(overrides?: CallOverrides): Promise<string>;
@@ -496,63 +496,63 @@ export class Uniswapv2ProxyLogic extends Contract {
     lpTokensToPrimitive(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "lpTokensToPrimitive(address,address)"(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     optimalOneSideSupply(
       pair: string,
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "optimalOneSideSupply(address,address,address)"(
       pair: string,
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     primitiveToLpTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "primitiveToLpTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     refundDust(
       pair: string,
       recipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "refundDust(address,address)"(
       pair: string,
       recipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     removeLiquidity(
       pair: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "removeLiquidity(address)"(
       pair: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     router(overrides?: CallOverrides): Promise<BigNumber>;
@@ -562,39 +562,39 @@ export class Uniswapv2ProxyLogic extends Contract {
     supplyLiquidity(
       token0: string,
       token1: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "supplyLiquidity(address,address)"(
       token0: string,
       token1: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     swapUniLPTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "swapUniLPTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     swapUniswap(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "swapUniswap(address,address)"(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     weth(overrides?: CallOverrides): Promise<BigNumber>;
@@ -610,63 +610,63 @@ export class Uniswapv2ProxyLogic extends Contract {
     lpTokensToPrimitive(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "lpTokensToPrimitive(address,address)"(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     optimalOneSideSupply(
       pair: string,
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "optimalOneSideSupply(address,address,address)"(
       pair: string,
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     primitiveToLpTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "primitiveToLpTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     refundDust(
       pair: string,
       recipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "refundDust(address,address)"(
       pair: string,
       recipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     removeLiquidity(
       pair: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "removeLiquidity(address)"(
       pair: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     router(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -676,39 +676,39 @@ export class Uniswapv2ProxyLogic extends Contract {
     supplyLiquidity(
       token0: string,
       token1: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "supplyLiquidity(address,address)"(
       token0: string,
       token1: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     swapUniLPTokens(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "swapUniLPTokens(address,address,address)"(
       from: string,
       to: string,
       dustRecipient: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     swapUniswap(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "swapUniswap(address,address)"(
       from: string,
       to: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     weth(overrides?: CallOverrides): Promise<PopulatedTransaction>;

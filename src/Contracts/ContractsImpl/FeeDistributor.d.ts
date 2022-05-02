@@ -52,15 +52,15 @@ interface FeeDistributorInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "checkpoint_token",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "ve_for_at",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "checkpoint_total_supply",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "claim", values?: undefined): string;
   encodeFunctionData(
@@ -86,160 +86,160 @@ interface FeeDistributorInterface extends ethers.utils.Interface {
         string,
         string,
         string,
-        string,
-      ],
-    ],
+        string
+      ]
+    ]
   ): string;
   encodeFunctionData(functionFragment: "burn", values: [string]): string;
   encodeFunctionData(
     functionFragment: "commit_admin",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "apply_admin",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "toggle_allow_checkpoint_token",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "kill_me", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "recover_balance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "start_time",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "time_cursor",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "time_cursor_of",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "user_epoch_of",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "last_token_time",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "tokens_per_week",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "voting_escrow",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "total_received",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "token_last_balance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "ve_supply",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "admin", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "future_admin",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "can_checkpoint_token",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "emergency_return",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "is_killed", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "checkpoint_token",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "ve_for_at", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "checkpoint_total_supply",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claim_many", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "commit_admin",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "apply_admin",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "toggle_allow_checkpoint_token",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "kill_me", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "recover_balance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "start_time", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "time_cursor",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "time_cursor_of",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "user_epoch_of",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "last_token_time",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "tokens_per_week",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "voting_escrow",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "total_received",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "token_last_balance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "ve_supply", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "admin", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "future_admin",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "can_checkpoint_token",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "emergency_return",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "is_killed", data: BytesLike): Result;
 
@@ -264,26 +264,26 @@ export class FeeDistributor extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -296,47 +296,47 @@ export class FeeDistributor extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: FeeDistributorInterface;
 
   functions: {
     checkpoint_token(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "checkpoint_token()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     ve_for_at(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "ve_for_at(address,uint256)"(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     checkpoint_total_supply(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "checkpoint_total_supply()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "claim()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "claim(address)"(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     claim_many(
@@ -360,9 +360,9 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "claim_many(address[20])"(
@@ -386,63 +386,63 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     burn(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "burn(address)"(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     commit_admin(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "commit_admin(address)"(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     apply_admin(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "apply_admin()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     toggle_allow_checkpoint_token(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "toggle_allow_checkpoint_token()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     kill_me(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "kill_me()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     recover_balance(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "recover_balance(address)"(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     start_time(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -455,22 +455,22 @@ export class FeeDistributor extends Contract {
 
     time_cursor_of(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "time_cursor_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     user_epoch_of(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "user_epoch_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     last_token_time(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -479,12 +479,12 @@ export class FeeDistributor extends Contract {
 
     tokens_per_week(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "tokens_per_week(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     voting_escrow(overrides?: CallOverrides): Promise<[string]>;
@@ -505,12 +505,12 @@ export class FeeDistributor extends Contract {
 
     ve_supply(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "ve_supply(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     admin(overrides?: CallOverrides): Promise<[string]>;
@@ -535,40 +535,40 @@ export class FeeDistributor extends Contract {
   };
 
   checkpoint_token(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "checkpoint_token()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   ve_for_at(
     _user: string,
     _timestamp: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "ve_for_at(address,uint256)"(
     _user: string,
     _timestamp: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   checkpoint_total_supply(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "checkpoint_total_supply()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "claim()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "claim(address)"(
     _addr: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   claim_many(
@@ -592,9 +592,9 @@ export class FeeDistributor extends Contract {
       string,
       string,
       string,
-      string,
+      string
     ],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "claim_many(address[20])"(
@@ -618,63 +618,63 @@ export class FeeDistributor extends Contract {
       string,
       string,
       string,
-      string,
+      string
     ],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   burn(
     _coin: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "burn(address)"(
     _coin: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   commit_admin(
     _addr: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "commit_admin(address)"(
     _addr: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   apply_admin(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "apply_admin()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   toggle_allow_checkpoint_token(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "toggle_allow_checkpoint_token()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   kill_me(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "kill_me()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   recover_balance(
     _coin: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "recover_balance(address)"(
     _coin: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   start_time(overrides?: CallOverrides): Promise<BigNumber>;
@@ -689,14 +689,14 @@ export class FeeDistributor extends Contract {
 
   "time_cursor_of(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   user_epoch_of(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "user_epoch_of(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   last_token_time(overrides?: CallOverrides): Promise<BigNumber>;
@@ -705,12 +705,12 @@ export class FeeDistributor extends Contract {
 
   tokens_per_week(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "tokens_per_week(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   voting_escrow(overrides?: CallOverrides): Promise<string>;
@@ -733,7 +733,7 @@ export class FeeDistributor extends Contract {
 
   "ve_supply(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   admin(overrides?: CallOverrides): Promise<string>;
@@ -764,13 +764,13 @@ export class FeeDistributor extends Contract {
     ve_for_at(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "ve_for_at(address,uint256)"(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     checkpoint_total_supply(overrides?: CallOverrides): Promise<void>;
@@ -781,7 +781,7 @@ export class FeeDistributor extends Contract {
 
     "claim(address)"(
       _addr: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     claim_many(
@@ -805,9 +805,9 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "claim_many(address[20])"(
@@ -831,9 +831,9 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     burn(_coin: string, overrides?: CallOverrides): Promise<boolean>;
@@ -844,7 +844,7 @@ export class FeeDistributor extends Contract {
 
     "commit_admin(address)"(
       _addr: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     apply_admin(overrides?: CallOverrides): Promise<void>;
@@ -863,7 +863,7 @@ export class FeeDistributor extends Contract {
 
     "recover_balance(address)"(
       _coin: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     start_time(overrides?: CallOverrides): Promise<BigNumber>;
@@ -878,14 +878,14 @@ export class FeeDistributor extends Contract {
 
     "time_cursor_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     user_epoch_of(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "user_epoch_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     last_token_time(overrides?: CallOverrides): Promise<BigNumber>;
@@ -894,12 +894,12 @@ export class FeeDistributor extends Contract {
 
     tokens_per_week(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "tokens_per_week(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     voting_escrow(overrides?: CallOverrides): Promise<string>;
@@ -920,12 +920,12 @@ export class FeeDistributor extends Contract {
 
     ve_supply(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "ve_supply(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     admin(overrides?: CallOverrides): Promise<string>;
@@ -955,12 +955,12 @@ export class FeeDistributor extends Contract {
     ApplyAdmin(admin: null): TypedEventFilter<[string], { admin: string }>;
 
     ToggleAllowCheckpointToken(
-      toggle_flag: null,
+      toggle_flag: null
     ): TypedEventFilter<[boolean], { toggle_flag: boolean }>;
 
     CheckpointToken(
       time: null,
-      tokens: null,
+      tokens: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { time: BigNumber; tokens: BigNumber }
@@ -970,7 +970,7 @@ export class FeeDistributor extends Contract {
       recipient: string | null,
       amount: null,
       claim_epoch: null,
-      max_epoch: null,
+      max_epoch: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, BigNumber],
       {
@@ -984,40 +984,40 @@ export class FeeDistributor extends Contract {
 
   estimateGas: {
     checkpoint_token(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "checkpoint_token()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     ve_for_at(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "ve_for_at(address,uint256)"(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     checkpoint_total_supply(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "checkpoint_total_supply()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "claim()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "claim(address)"(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     claim_many(
@@ -1041,9 +1041,9 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "claim_many(address[20])"(
@@ -1067,63 +1067,63 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     burn(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "burn(address)"(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     commit_admin(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "commit_admin(address)"(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     apply_admin(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "apply_admin()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     toggle_allow_checkpoint_token(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "toggle_allow_checkpoint_token()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     kill_me(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "kill_me()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     recover_balance(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "recover_balance(address)"(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     start_time(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1138,14 +1138,14 @@ export class FeeDistributor extends Contract {
 
     "time_cursor_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     user_epoch_of(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "user_epoch_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     last_token_time(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1154,12 +1154,12 @@ export class FeeDistributor extends Contract {
 
     tokens_per_week(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "tokens_per_week(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     voting_escrow(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1180,12 +1180,12 @@ export class FeeDistributor extends Contract {
 
     ve_supply(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "ve_supply(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     admin(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1211,40 +1211,40 @@ export class FeeDistributor extends Contract {
 
   populateTransaction: {
     checkpoint_token(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "checkpoint_token()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     ve_for_at(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "ve_for_at(address,uint256)"(
       _user: string,
       _timestamp: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     checkpoint_total_supply(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "checkpoint_total_supply()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "claim()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "claim(address)"(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     claim_many(
@@ -1268,9 +1268,9 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "claim_many(address[20])"(
@@ -1294,63 +1294,63 @@ export class FeeDistributor extends Contract {
         string,
         string,
         string,
-        string,
+        string
       ],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     burn(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "burn(address)"(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     commit_admin(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "commit_admin(address)"(
       _addr: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     apply_admin(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "apply_admin()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     toggle_allow_checkpoint_token(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "toggle_allow_checkpoint_token()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     kill_me(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "kill_me()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     recover_balance(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "recover_balance(address)"(
       _coin: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     start_time(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1363,38 +1363,38 @@ export class FeeDistributor extends Contract {
 
     time_cursor_of(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "time_cursor_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     user_epoch_of(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "user_epoch_of(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     last_token_time(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "last_token_time()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     tokens_per_week(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "tokens_per_week(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     voting_escrow(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1408,25 +1408,25 @@ export class FeeDistributor extends Contract {
     total_received(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "total_received()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     token_last_balance(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "token_last_balance()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     ve_supply(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "ve_supply(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     admin(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1438,17 +1438,17 @@ export class FeeDistributor extends Contract {
     "future_admin()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     can_checkpoint_token(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "can_checkpoint_token()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     emergency_return(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "emergency_return()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     is_killed(overrides?: CallOverrides): Promise<PopulatedTransaction>;

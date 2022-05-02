@@ -1,14 +1,10 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber } from "@ethersproject/bignumber";
-import { ethers } from "ethers";
 import { PickleModel } from "../..";
-import { JAR_LQTY } from "../../model/JarsAndFarms";
 import {
   JarDefinition,
   AssetProjectedApr,
-  PickleAsset,
-  ExternalAssetDefinition,
   HistoricalYield,
   BrineryDefinition,
 } from "../../model/PickleModelJson";
@@ -19,7 +15,6 @@ import {
 } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
-import { getOrLoadYearnDataFromDune } from "../../protocols/DuneDataUtility";
 import { Contract as MultiContract } from "ethers-multicall";
 
 const DISTRUBTOR_ABI = [
@@ -101,6 +96,7 @@ export class PveFxsAsset implements BrineryBehavior {
     definition.details.totalVeSupply = veFxsTotalSupply;
     definition.details.pickleLockedUnderlying = pickleLockedFxs;
     definition.details.pickleVeBalance = pickleVeBalance;
+    definition.details.distributorPending = feeDistributorEarnedFxs;
 
     // Set harvest data
     definition.details.harvestStats = {

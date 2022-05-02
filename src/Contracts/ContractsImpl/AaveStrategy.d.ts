@@ -42,6 +42,7 @@ interface AaveStrategyInterface extends ethers.utils.Interface {
     "getCurrentLeverage()": FunctionFragment;
     "getLeveragedSupplyTarget(uint256)": FunctionFragment;
     "getMarketColFactor()": FunctionFragment;
+    "getHarvestable()": FunctionFragment;
     "getMaticAccrued()": FunctionFragment;
     "getMaxLeverage()": FunctionFragment;
     "getName()": FunctionFragment;
@@ -94,451 +95,459 @@ interface AaveStrategyInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "REFERRAL_CODE",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "addKeeper", values: [string]): string;
   encodeFunctionData(functionFragment: "amdai", values?: undefined): string;
   encodeFunctionData(functionFragment: "balanceOf", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "balanceOfPool",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "balanceOfWant",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "controller",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "dai", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "daiColFactor",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "deleverageToMin",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "deleverageUntil",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "execute",
-    values: [string, BytesLike],
+    values: [string, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getBorrowable",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getBorrowed",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getBorrowedView",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getColFactor",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getCurrentLeverage",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getLeveragedSupplyTarget",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getMarketColFactor",
-    values?: undefined,
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getHarvestable",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getMaticAccrued",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getMaxLeverage",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getName", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getRedeemable",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getSafeLeverageColFactor",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getSupplied",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getSuppliedUnleveraged",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getSuppliedView",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "governance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "harvest", values?: undefined): string;
   encodeFunctionData(functionFragment: "harvesters", values: [string]): string;
   encodeFunctionData(
     functionFragment: "incentivesController",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "lendingPool",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "leverageToMax",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "leverageUntil",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "performanceDevFee",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "performanceDevMax",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "performanceTreasuryFee",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "performanceTreasuryMax",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "removeKeeper",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "revokeHarvesters",
-    values: [string[]],
+    values: [string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "setColFactorLeverageBuffer",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setController",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setGovernance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setMarketColFactor",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setPerformanceDevFee",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setPerformanceTreasuryFee",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setStrategist",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "setTimelock", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setWithdrawalDevFundFee",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setWithdrawalTreasuryFee",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "stableDebtDai",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "strategist",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "sync", values?: undefined): string;
   encodeFunctionData(functionFragment: "timelock", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "univ2Router2",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "variableDebtDai",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "want", values?: undefined): string;
   encodeFunctionData(functionFragment: "weth", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "whitelistHarvesters",
-    values: [string[]],
+    values: [string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawAll",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawForSwap",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawalDevFundFee",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawalDevFundMax",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawalTreasuryFee",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawalTreasuryMax",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "wmatic", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "REFERRAL_CODE",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "addKeeper", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "amdai", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfPool",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfWant",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "controller", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "dai", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "daiColFactor",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "deleverageToMin",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "deleverageUntil",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "execute", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getBorrowable",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getBorrowed",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getBorrowedView",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getColFactor",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCurrentLeverage",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getLeveragedSupplyTarget",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getMarketColFactor",
-    data: BytesLike,
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getHarvestable",
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getMaticAccrued",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getMaxLeverage",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getName", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getRedeemable",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getSafeLeverageColFactor",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getSupplied",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getSuppliedUnleveraged",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getSuppliedView",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "harvest", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "harvesters", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "incentivesController",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "lendingPool",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "leverageToMax",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "leverageUntil",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "performanceDevFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "performanceDevMax",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "performanceTreasuryFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "performanceTreasuryMax",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "removeKeeper",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "revokeHarvesters",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setColFactorLeverageBuffer",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setController",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setMarketColFactor",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setPerformanceDevFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setPerformanceTreasuryFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setStrategist",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setTimelock",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setWithdrawalDevFundFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setWithdrawalTreasuryFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "stableDebtDai",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "strategist", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "sync", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "timelock", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "univ2Router2",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "variableDebtDai",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "want", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "weth", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "whitelistHarvesters",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawAll",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawForSwap",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawalDevFundFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawalDevFundMax",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawalTreasuryFee",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "withdrawalTreasuryMax",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "wmatic", data: BytesLike): Result;
 
@@ -551,26 +560,26 @@ export class AaveStrategy extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -583,7 +592,7 @@ export class AaveStrategy extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: AaveStrategyInterface;
@@ -595,12 +604,12 @@ export class AaveStrategy extends Contract {
 
     addKeeper(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "addKeeper(address)"(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     amdai(overrides?: CallOverrides): Promise<[string]>;
@@ -632,41 +641,41 @@ export class AaveStrategy extends Contract {
     "daiColFactor()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     deleverageToMin(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deleverageToMin()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     deleverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deleverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     deposit(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deposit()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     execute(
       _target: string,
       _data: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "execute(address,bytes)"(
       _target: string,
       _data: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getBorrowable(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -691,17 +700,21 @@ export class AaveStrategy extends Contract {
 
     getLeveragedSupplyTarget(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getLeveragedSupplyTarget(uint256)"(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getMarketColFactor(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "getMarketColFactor()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getHarvestable(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "getHarvestable()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMaticAccrued(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -722,7 +735,7 @@ export class AaveStrategy extends Contract {
     getSafeLeverageColFactor(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "getSafeLeverageColFactor()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getSupplied(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -742,18 +755,18 @@ export class AaveStrategy extends Contract {
     "governance()"(overrides?: CallOverrides): Promise<[string]>;
 
     harvest(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "harvest()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     harvesters(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     "harvesters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     incentivesController(overrides?: CallOverrides): Promise<[string]>;
@@ -765,21 +778,21 @@ export class AaveStrategy extends Contract {
     "lendingPool()"(overrides?: CallOverrides): Promise<[string]>;
 
     leverageToMax(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "leverageToMax()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     leverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "leverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     performanceDevFee(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -800,122 +813,122 @@ export class AaveStrategy extends Contract {
 
     removeKeeper(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "removeKeeper(address)"(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     revokeHarvesters(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "revokeHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setColFactorLeverageBuffer(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setColFactorLeverageBuffer(uint256)"(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setController(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setMarketColFactor(
       _daiColFactor: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setMarketColFactor(uint256)"(
       _daiColFactor: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setPerformanceDevFee(
       _performanceDevFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setPerformanceDevFee(uint256)"(
       _performanceDevFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setPerformanceTreasuryFee(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setPerformanceTreasuryFee(uint256)"(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setStrategist(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setTimelock(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setWithdrawalDevFundFee(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setWithdrawalDevFundFee(uint256)"(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setWithdrawalTreasuryFee(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setWithdrawalTreasuryFee(uint256)"(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     stableDebtDai(overrides?: CallOverrides): Promise<[string]>;
@@ -927,11 +940,11 @@ export class AaveStrategy extends Contract {
     "strategist()"(overrides?: CallOverrides): Promise<[string]>;
 
     sync(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "sync()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     timelock(overrides?: CallOverrides): Promise<[string]>;
@@ -956,40 +969,40 @@ export class AaveStrategy extends Contract {
 
     whitelistHarvesters(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "whitelistHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(address)"(
       _asset: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdrawAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdrawAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdrawForSwap(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdrawForSwap(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdrawalDevFundFee(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -1019,12 +1032,12 @@ export class AaveStrategy extends Contract {
 
   addKeeper(
     _keeper: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "addKeeper(address)"(
     _keeper: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   amdai(overrides?: CallOverrides): Promise<string>;
@@ -1056,41 +1069,41 @@ export class AaveStrategy extends Contract {
   "daiColFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   deleverageToMin(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deleverageToMin()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   deleverageUntil(
     _supplyAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deleverageUntil(uint256)"(
     _supplyAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   deposit(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deposit()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   execute(
     _target: string,
     _data: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> },
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "execute(address,bytes)"(
     _target: string,
     _data: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> },
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getBorrowable(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1115,17 +1128,21 @@ export class AaveStrategy extends Contract {
 
   getLeveragedSupplyTarget(
     supplyBalance: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getLeveragedSupplyTarget(uint256)"(
     supplyBalance: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getMarketColFactor(overrides?: CallOverrides): Promise<BigNumber>;
 
   "getMarketColFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getHarvestable(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "getHarvestable()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMaticAccrued(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1164,18 +1181,18 @@ export class AaveStrategy extends Contract {
   "governance()"(overrides?: CallOverrides): Promise<string>;
 
   harvest(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "harvest()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   harvesters(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   "harvesters(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<boolean>;
 
   incentivesController(overrides?: CallOverrides): Promise<string>;
@@ -1187,21 +1204,21 @@ export class AaveStrategy extends Contract {
   "lendingPool()"(overrides?: CallOverrides): Promise<string>;
 
   leverageToMax(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "leverageToMax()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   leverageUntil(
     _supplyAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "leverageUntil(uint256)"(
     _supplyAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   performanceDevFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1222,122 +1239,122 @@ export class AaveStrategy extends Contract {
 
   removeKeeper(
     _keeper: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "removeKeeper(address)"(
     _keeper: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   revokeHarvesters(
     _harvesters: string[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "revokeHarvesters(address[])"(
     _harvesters: string[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setColFactorLeverageBuffer(
     _colFactorLeverageBuffer: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setColFactorLeverageBuffer(uint256)"(
     _colFactorLeverageBuffer: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setController(
     _controller: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setController(address)"(
     _controller: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setGovernance(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setGovernance(address)"(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setMarketColFactor(
     _daiColFactor: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setMarketColFactor(uint256)"(
     _daiColFactor: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setPerformanceDevFee(
     _performanceDevFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setPerformanceDevFee(uint256)"(
     _performanceDevFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setPerformanceTreasuryFee(
     _performanceTreasuryFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setPerformanceTreasuryFee(uint256)"(
     _performanceTreasuryFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setStrategist(
     _strategist: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setStrategist(address)"(
     _strategist: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setTimelock(
     _timelock: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setTimelock(address)"(
     _timelock: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setWithdrawalDevFundFee(
     _withdrawalDevFundFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setWithdrawalDevFundFee(uint256)"(
     _withdrawalDevFundFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setWithdrawalTreasuryFee(
     _withdrawalTreasuryFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setWithdrawalTreasuryFee(uint256)"(
     _withdrawalTreasuryFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   stableDebtDai(overrides?: CallOverrides): Promise<string>;
@@ -1349,11 +1366,11 @@ export class AaveStrategy extends Contract {
   "strategist()"(overrides?: CallOverrides): Promise<string>;
 
   sync(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "sync()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   timelock(overrides?: CallOverrides): Promise<string>;
@@ -1378,40 +1395,40 @@ export class AaveStrategy extends Contract {
 
   whitelistHarvesters(
     _harvesters: string[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "whitelistHarvesters(address[])"(
     _harvesters: string[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(address)"(
     _asset: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdrawAll(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdrawAll()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdrawForSwap(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdrawForSwap(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdrawalDevFundFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1443,7 +1460,7 @@ export class AaveStrategy extends Contract {
 
     "addKeeper(address)"(
       _keeper: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     amdai(overrides?: CallOverrides): Promise<string>;
@@ -1480,12 +1497,12 @@ export class AaveStrategy extends Contract {
 
     deleverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "deleverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     deposit(overrides?: CallOverrides): Promise<void>;
@@ -1495,13 +1512,13 @@ export class AaveStrategy extends Contract {
     execute(
       _target: string,
       _data: BytesLike,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "execute(address,bytes)"(
       _target: string,
       _data: BytesLike,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     getBorrowable(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1526,17 +1543,21 @@ export class AaveStrategy extends Contract {
 
     getLeveragedSupplyTarget(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getLeveragedSupplyTarget(uint256)"(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getMarketColFactor(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getMarketColFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getHarvestable(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getHarvestable()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMaticAccrued(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1582,7 +1603,7 @@ export class AaveStrategy extends Contract {
 
     "harvesters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     incentivesController(overrides?: CallOverrides): Promise<string>;
@@ -1599,12 +1620,12 @@ export class AaveStrategy extends Contract {
 
     leverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "leverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     performanceDevFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1627,114 +1648,114 @@ export class AaveStrategy extends Contract {
 
     "removeKeeper(address)"(
       _keeper: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     revokeHarvesters(
       _harvesters: string[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "revokeHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setColFactorLeverageBuffer(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setColFactorLeverageBuffer(uint256)"(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setController(
       _controller: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setGovernance(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setMarketColFactor(
       _daiColFactor: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     "setMarketColFactor(uint256)"(
       _daiColFactor: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     setPerformanceDevFee(
       _performanceDevFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setPerformanceDevFee(uint256)"(
       _performanceDevFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setPerformanceTreasuryFee(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setPerformanceTreasuryFee(uint256)"(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setStrategist(
       _strategist: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setTimelock(_timelock: string, overrides?: CallOverrides): Promise<void>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setWithdrawalDevFundFee(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setWithdrawalDevFundFee(uint256)"(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setWithdrawalTreasuryFee(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setWithdrawalTreasuryFee(uint256)"(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     stableDebtDai(overrides?: CallOverrides): Promise<string>;
@@ -1771,22 +1792,22 @@ export class AaveStrategy extends Contract {
 
     whitelistHarvesters(
       _harvesters: string[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "whitelistHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(address)"(
       _asset: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     withdrawAll(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1795,12 +1816,12 @@ export class AaveStrategy extends Contract {
 
     withdrawForSwap(
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "withdrawForSwap(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     withdrawalDevFundFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1833,12 +1854,12 @@ export class AaveStrategy extends Contract {
 
     addKeeper(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "addKeeper(address)"(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     amdai(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1870,41 +1891,41 @@ export class AaveStrategy extends Contract {
     "daiColFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     deleverageToMin(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deleverageToMin()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     deleverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deleverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     deposit(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deposit()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     execute(
       _target: string,
       _data: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "execute(address,bytes)"(
       _target: string,
       _data: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getBorrowable(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1929,17 +1950,21 @@ export class AaveStrategy extends Contract {
 
     getLeveragedSupplyTarget(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getLeveragedSupplyTarget(uint256)"(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getMarketColFactor(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getMarketColFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getHarvestable(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getHarvestable()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMaticAccrued(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1978,18 +2003,18 @@ export class AaveStrategy extends Contract {
     "governance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     harvest(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "harvest()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     harvesters(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "harvesters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     incentivesController(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2001,21 +2026,21 @@ export class AaveStrategy extends Contract {
     "lendingPool()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     leverageToMax(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "leverageToMax()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     leverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "leverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     performanceDevFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2036,122 +2061,122 @@ export class AaveStrategy extends Contract {
 
     removeKeeper(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "removeKeeper(address)"(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     revokeHarvesters(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "revokeHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setColFactorLeverageBuffer(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setColFactorLeverageBuffer(uint256)"(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setController(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setMarketColFactor(
       _daiColFactor: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setMarketColFactor(uint256)"(
       _daiColFactor: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setPerformanceDevFee(
       _performanceDevFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setPerformanceDevFee(uint256)"(
       _performanceDevFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setPerformanceTreasuryFee(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setPerformanceTreasuryFee(uint256)"(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setStrategist(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setTimelock(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setWithdrawalDevFundFee(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setWithdrawalDevFundFee(uint256)"(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setWithdrawalTreasuryFee(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setWithdrawalTreasuryFee(uint256)"(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     stableDebtDai(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2163,11 +2188,11 @@ export class AaveStrategy extends Contract {
     "strategist()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     sync(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "sync()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     timelock(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2192,40 +2217,40 @@ export class AaveStrategy extends Contract {
 
     whitelistHarvesters(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "whitelistHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(address)"(
       _asset: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdrawAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdrawAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdrawForSwap(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdrawForSwap(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdrawalDevFundFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2256,12 +2281,12 @@ export class AaveStrategy extends Contract {
 
     addKeeper(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "addKeeper(address)"(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     amdai(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2293,41 +2318,41 @@ export class AaveStrategy extends Contract {
     "daiColFactor()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deleverageToMin(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deleverageToMin()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     deleverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deleverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     deposit(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deposit()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     execute(
       _target: string,
       _data: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "execute(address,bytes)"(
       _target: string,
       _data: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getBorrowable(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2341,7 +2366,7 @@ export class AaveStrategy extends Contract {
     getBorrowedView(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getBorrowedView()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getColFactor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2349,41 +2374,47 @@ export class AaveStrategy extends Contract {
     "getColFactor()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCurrentLeverage(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getCurrentLeverage()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getLeveragedSupplyTarget(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getLeveragedSupplyTarget(uint256)"(
       supplyBalance: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getMarketColFactor(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getMarketColFactor()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getHarvestable(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getHarvestable()"(
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getMaticAccrued(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getMaticAccrued()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getMaxLeverage(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getMaxLeverage()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2395,11 +2426,11 @@ export class AaveStrategy extends Contract {
     "getRedeemable()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getSafeLeverageColFactor(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getSafeLeverageColFactor()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getSupplied(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2407,17 +2438,17 @@ export class AaveStrategy extends Contract {
     "getSupplied()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getSuppliedUnleveraged(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getSuppliedUnleveraged()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getSuppliedView(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getSuppliedView()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2425,29 +2456,29 @@ export class AaveStrategy extends Contract {
     "governance()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     harvest(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "harvest()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     harvesters(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "harvesters(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     incentivesController(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "incentivesController()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     lendingPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2455,169 +2486,169 @@ export class AaveStrategy extends Contract {
     "lendingPool()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     leverageToMax(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "leverageToMax()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     leverageUntil(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "leverageUntil(uint256)"(
       _supplyAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     performanceDevFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "performanceDevFee()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     performanceDevMax(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "performanceDevMax()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     performanceTreasuryFee(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "performanceTreasuryFee()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     performanceTreasuryMax(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "performanceTreasuryMax()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     removeKeeper(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "removeKeeper(address)"(
       _keeper: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     revokeHarvesters(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "revokeHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setColFactorLeverageBuffer(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setColFactorLeverageBuffer(uint256)"(
       _colFactorLeverageBuffer: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setController(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setController(address)"(
       _controller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setMarketColFactor(
       _daiColFactor: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setMarketColFactor(uint256)"(
       _daiColFactor: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setPerformanceDevFee(
       _performanceDevFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setPerformanceDevFee(uint256)"(
       _performanceDevFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setPerformanceTreasuryFee(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setPerformanceTreasuryFee(uint256)"(
       _performanceTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setStrategist(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setStrategist(address)"(
       _strategist: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setTimelock(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setTimelock(address)"(
       _timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setWithdrawalDevFundFee(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setWithdrawalDevFundFee(uint256)"(
       _withdrawalDevFundFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setWithdrawalTreasuryFee(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setWithdrawalTreasuryFee(uint256)"(
       _withdrawalTreasuryFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     stableDebtDai(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2629,11 +2660,11 @@ export class AaveStrategy extends Contract {
     "strategist()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sync(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "sync()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     timelock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2647,7 +2678,7 @@ export class AaveStrategy extends Contract {
     variableDebtDai(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "variableDebtDai()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     want(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2660,72 +2691,72 @@ export class AaveStrategy extends Contract {
 
     whitelistHarvesters(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "whitelistHarvesters(address[])"(
       _harvesters: string[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(address)"(
       _asset: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawForSwap(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawForSwap(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawalDevFundFee(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "withdrawalDevFundFee()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdrawalDevFundMax(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "withdrawalDevFundMax()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdrawalTreasuryFee(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "withdrawalTreasuryFee()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdrawalTreasuryMax(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "withdrawalTreasuryMax()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     wmatic(overrides?: CallOverrides): Promise<PopulatedTransaction>;

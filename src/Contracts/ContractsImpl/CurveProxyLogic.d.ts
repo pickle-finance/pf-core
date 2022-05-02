@@ -27,20 +27,20 @@ interface CurveProxyLogicInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "add_liquidity",
-    values: [string, BytesLike, BigNumberish, BigNumberish, string],
+    values: [string, BytesLike, BigNumberish, BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "remove_liquidity_one_coin",
-    values: [string, string, BigNumberish],
+    values: [string, string, BigNumberish]
   ): string;
 
   decodeFunctionResult(
     functionFragment: "add_liquidity",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "remove_liquidity_one_coin",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
 
   events: {};
@@ -52,26 +52,26 @@ export class CurveProxyLogic extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -84,7 +84,7 @@ export class CurveProxyLogic extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: CurveProxyLogicInterface;
@@ -96,7 +96,7 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "add_liquidity(address,bytes4,uint256,uint256,address)"(
@@ -105,21 +105,21 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     remove_liquidity_one_coin(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "remove_liquidity_one_coin(address,address,int128)"(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -129,7 +129,7 @@ export class CurveProxyLogic extends Contract {
     curvePoolSize: BigNumberish,
     curveUnderlyingIndex: BigNumberish,
     underlying: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "add_liquidity(address,bytes4,uint256,uint256,address)"(
@@ -138,21 +138,21 @@ export class CurveProxyLogic extends Contract {
     curvePoolSize: BigNumberish,
     curveUnderlyingIndex: BigNumberish,
     underlying: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   remove_liquidity_one_coin(
     curve: string,
     curveLp: string,
     index: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "remove_liquidity_one_coin(address,address,int128)"(
     curve: string,
     curveLp: string,
     index: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -162,7 +162,7 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "add_liquidity(address,bytes4,uint256,uint256,address)"(
@@ -171,21 +171,21 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     remove_liquidity_one_coin(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "remove_liquidity_one_coin(address,address,int128)"(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
   };
 
@@ -198,7 +198,7 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "add_liquidity(address,bytes4,uint256,uint256,address)"(
@@ -207,21 +207,21 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     remove_liquidity_one_coin(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "remove_liquidity_one_coin(address,address,int128)"(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
@@ -232,7 +232,7 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "add_liquidity(address,bytes4,uint256,uint256,address)"(
@@ -241,21 +241,21 @@ export class CurveProxyLogic extends Contract {
       curvePoolSize: BigNumberish,
       curveUnderlyingIndex: BigNumberish,
       underlying: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     remove_liquidity_one_coin(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "remove_liquidity_one_coin(address,address,int128)"(
       curve: string,
       curveLp: string,
       index: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

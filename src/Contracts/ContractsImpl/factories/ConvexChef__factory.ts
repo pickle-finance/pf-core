@@ -10,7 +10,7 @@ import type { ConvexChef } from "../ConvexChef";
 export class ConvexChef__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): ConvexChef {
     return new Contract(address, _abi, signerOrProvider) as ConvexChef;
   }

@@ -393,10 +393,11 @@ export interface BrineryDetails extends AssetDetails {
   strategyAddr: string;
   veAddr: string;
   lockerAddr: string;
-  pickleLockedUnderlying: number;
-  totalVeSupply: number;
-  pickleVeBalance: number;
-  weeklyRewards: number;
+  pickleLockedUnderlying?: number;
+  totalVeSupply?: number;
+  pickleVeBalance?: number;
+  weeklyRewards?: number;
+  distributorPending?: number;
 }
 
 export interface AssetDetails {

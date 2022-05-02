@@ -10,7 +10,7 @@ import type { Instabrine } from "../Instabrine";
 export class Instabrine__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): Instabrine {
     return new Contract(address, _abi, signerOrProvider) as Instabrine;
   }

@@ -10,7 +10,7 @@ import type { Masterchef } from "../Masterchef";
 export class Masterchef__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): Masterchef {
     return new Contract(address, _abi, signerOrProvider) as Masterchef;
   }

@@ -10,7 +10,7 @@ import type { PickleRewarder } from "../PickleRewarder";
 export class PickleRewarder__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): PickleRewarder {
     return new Contract(address, _abi, signerOrProvider) as PickleRewarder;
   }

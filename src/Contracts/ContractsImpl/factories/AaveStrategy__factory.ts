@@ -10,7 +10,7 @@ import type { AaveStrategy } from "../AaveStrategy";
 export class AaveStrategy__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): AaveStrategy {
     return new Contract(address, _abi, signerOrProvider) as AaveStrategy;
   }
@@ -307,6 +307,19 @@ const _abi = [
     ],
     name: "getMarketColFactor",
     inputs: [],
+  },
+  {
+    inputs: [],
+    name: "getHarvestable",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
   {
     type: "function",

@@ -55,54 +55,54 @@ interface GaugeProxyInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "TOKEN", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "acceptGovernance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "addGauge", values: [string]): string;
   encodeFunctionData(functionFragment: "collect", values?: undefined): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "distribute",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "gauges", values: [string]): string;
   encodeFunctionData(functionFragment: "getGauge", values: [string]): string;
   encodeFunctionData(
     functionFragment: "governance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "length", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "pendingGovernance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "pid", values?: undefined): string;
   encodeFunctionData(functionFragment: "poke", values: [string]): string;
   encodeFunctionData(functionFragment: "reset", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setGovernance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setPID",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "tokenVote",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "tokens", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalWeight",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "usedWeights", values: [string]): string;
   encodeFunctionData(
     functionFragment: "vote",
-    values: [string[], BigNumberish[]],
+    values: [string[], BigNumberish[]]
   ): string;
   encodeFunctionData(
     functionFragment: "votes",
-    values: [string, string],
+    values: [string, string]
   ): string;
   encodeFunctionData(functionFragment: "weights", values: [string]): string;
 
@@ -112,7 +112,7 @@ interface GaugeProxyInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "TOKEN", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "acceptGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "addGauge", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "collect", data: BytesLike): Result;
@@ -124,25 +124,25 @@ interface GaugeProxyInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "length", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "pid", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poke", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "reset", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setPID", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokenVote", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokens", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalWeight",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "usedWeights",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "vote", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "votes", data: BytesLike): Result;
@@ -157,26 +157,26 @@ export class GaugeProxy extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -189,7 +189,7 @@ export class GaugeProxy extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: GaugeProxyInterface;
@@ -212,59 +212,59 @@ export class GaugeProxy extends Contract {
     "TOKEN()"(overrides?: CallOverrides): Promise<[string]>;
 
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     addGauge(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "addGauge(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     collect(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "collect()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     deposit(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deposit()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     distribute(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "distribute()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     gauges(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
     "gauges(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     getGauge(_token: string, overrides?: CallOverrides): Promise<[string]>;
 
     "getGauge(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     governance(overrides?: CallOverrides): Promise<[string]>;
@@ -285,52 +285,52 @@ export class GaugeProxy extends Contract {
 
     poke(
       _owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "poke(address)"(
       _owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     reset(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "reset()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setPID(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setPID(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     tokenVote(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     "tokenVote(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     tokens(overrides?: CallOverrides): Promise<[string[]]>;
@@ -345,38 +345,38 @@ export class GaugeProxy extends Contract {
 
     "usedWeights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     vote(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "vote(address[],uint256[])"(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     votes(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "votes(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     weights(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "weights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
   };
 
@@ -397,45 +397,45 @@ export class GaugeProxy extends Contract {
   "TOKEN()"(overrides?: CallOverrides): Promise<string>;
 
   acceptGovernance(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "acceptGovernance()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   addGauge(
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "addGauge(address)"(
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   collect(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "collect()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   deposit(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deposit()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   distribute(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "distribute()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   gauges(arg0: string, overrides?: CallOverrides): Promise<string>;
@@ -446,7 +446,7 @@ export class GaugeProxy extends Contract {
 
   "getGauge(address)"(
     _token: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   governance(overrides?: CallOverrides): Promise<string>;
@@ -467,52 +467,52 @@ export class GaugeProxy extends Contract {
 
   poke(
     _owner: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "poke(address)"(
     _owner: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   reset(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "reset()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setGovernance(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setGovernance(address)"(
     _governance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setPID(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setPID(uint256)"(
     _pid: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   tokenVote(
     arg0: string,
     arg1: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   "tokenVote(address,uint256)"(
     arg0: string,
     arg1: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   tokens(overrides?: CallOverrides): Promise<string[]>;
@@ -527,38 +527,38 @@ export class GaugeProxy extends Contract {
 
   "usedWeights(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   vote(
     _tokenVote: string[],
     _weights: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "vote(address[],uint256[])"(
     _tokenVote: string[],
     _weights: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   votes(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "votes(address,address)"(
     arg0: string,
     arg1: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   weights(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "weights(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   callStatic: {
@@ -586,7 +586,7 @@ export class GaugeProxy extends Contract {
 
     "addGauge(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     collect(overrides?: CallOverrides): Promise<void>;
@@ -609,7 +609,7 @@ export class GaugeProxy extends Contract {
 
     "getGauge(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     governance(overrides?: CallOverrides): Promise<string>;
@@ -638,31 +638,31 @@ export class GaugeProxy extends Contract {
 
     setGovernance(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setPID(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "setPID(uint256)"(
       _pid: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     tokenVote(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "tokenVote(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     tokens(overrides?: CallOverrides): Promise<string[]>;
@@ -677,38 +677,38 @@ export class GaugeProxy extends Contract {
 
     "usedWeights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     vote(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "vote(address[],uint256[])"(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     votes(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "votes(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     weights(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "weights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
@@ -732,59 +732,59 @@ export class GaugeProxy extends Contract {
     "TOKEN()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     addGauge(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "addGauge(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     collect(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "collect()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     deposit(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deposit()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     distribute(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "distribute()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     gauges(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "gauges(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getGauge(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "getGauge(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     governance(overrides?: CallOverrides): Promise<BigNumber>;
@@ -805,52 +805,52 @@ export class GaugeProxy extends Contract {
 
     poke(
       _owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "poke(address)"(
       _owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     reset(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "reset()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setPID(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setPID(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     tokenVote(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "tokenVote(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     tokens(overrides?: CallOverrides): Promise<BigNumber>;
@@ -865,38 +865,38 @@ export class GaugeProxy extends Contract {
 
     "usedWeights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     vote(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "vote(address[],uint256[])"(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     votes(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "votes(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     weights(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "weights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
@@ -918,65 +918,65 @@ export class GaugeProxy extends Contract {
     "TOKEN()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     addGauge(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "addGauge(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     collect(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "collect()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     deposit(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deposit()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     distribute(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "distribute()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     gauges(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "gauges(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getGauge(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getGauge(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -990,7 +990,7 @@ export class GaugeProxy extends Contract {
     pendingGovernance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "pendingGovernance()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     pid(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -999,52 +999,52 @@ export class GaugeProxy extends Contract {
 
     poke(
       _owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "poke(address)"(
       _owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     reset(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "reset()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setGovernance(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setGovernance(address)"(
       _governance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setPID(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setPID(uint256)"(
       _pid: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     tokenVote(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "tokenVote(address,uint256)"(
       arg0: string,
       arg1: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     tokens(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1057,46 +1057,46 @@ export class GaugeProxy extends Contract {
 
     usedWeights(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "usedWeights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     vote(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "vote(address[],uint256[])"(
       _tokenVote: string[],
       _weights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     votes(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "votes(address,address)"(
       arg0: string,
       arg1: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     weights(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "weights(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

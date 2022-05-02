@@ -10,7 +10,7 @@ import type { GaugeProxy } from "../GaugeProxy";
 export class GaugeProxy__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): GaugeProxy {
     return new Contract(address, _abi, signerOrProvider) as GaugeProxy;
   }

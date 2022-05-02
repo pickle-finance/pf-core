@@ -61,211 +61,211 @@ interface CrvRewardsInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "FEE_DENOMINATOR",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "addExtraReward",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "clearExtraRewards",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "crvDeposits",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "currentRewards",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "cvxCrvRewards",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "cvxCrvToken",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "donate",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "duration", values?: undefined): string;
   encodeFunctionData(functionFragment: "earned", values: [string]): string;
   encodeFunctionData(
     functionFragment: "extraRewards",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "extraRewardsLength",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getReward", values: [boolean]): string;
   encodeFunctionData(
     functionFragment: "historicalRewards",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "lastTimeRewardApplicable",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "lastUpdateTime",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "newRewardRatio",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "operator", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "periodFinish",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "queueNewRewards",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "queuedRewards",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "rewardManager",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "rewardPerToken",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "rewardPerTokenStored",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "rewardRate",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "rewardToken",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "rewards", values: [string]): string;
   encodeFunctionData(functionFragment: "stake", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "stakeAll", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "stakeFor",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "stakingToken",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "userRewardPerTokenPaid",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish, boolean],
+    values: [BigNumberish, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawAll",
-    values: [boolean],
+    values: [boolean]
   ): string;
 
   decodeFunctionResult(
     functionFragment: "FEE_DENOMINATOR",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "addExtraReward",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "clearExtraRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "crvDeposits",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "currentRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "cvxCrvRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "cvxCrvToken",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "donate", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "duration", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "earned", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "extraRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "extraRewardsLength",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "historicalRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "lastTimeRewardApplicable",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "lastUpdateTime",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "newRewardRatio",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "operator", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "periodFinish",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "queueNewRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "queuedRewards",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "rewardManager",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "rewardPerToken",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "rewardPerTokenStored",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "rewardRate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "rewardToken",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "rewards", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
@@ -273,20 +273,20 @@ interface CrvRewardsInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "stakeFor", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "stakingToken",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "userRewardPerTokenPaid",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawAll",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
 
   events: {
@@ -308,26 +308,26 @@ export class CrvRewards extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -340,7 +340,7 @@ export class CrvRewards extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: CrvRewardsInterface;
@@ -352,27 +352,27 @@ export class CrvRewards extends Contract {
 
     addExtraReward(
       _reward: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "addExtraReward(address)"(
       _reward: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     clearExtraRewards(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "clearExtraRewards()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     crvDeposits(overrides?: CallOverrides): Promise<[string]>;
@@ -393,12 +393,12 @@ export class CrvRewards extends Contract {
 
     donate(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "donate(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     duration(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -409,17 +409,17 @@ export class CrvRewards extends Contract {
 
     "earned(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     extraRewards(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     "extraRewards(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     extraRewardsLength(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -428,14 +428,14 @@ export class CrvRewards extends Contract {
 
     "getReward(bool)"(
       _stake: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "getReward(address,bool,bool)"(
       _account: string,
       _claimExtras: boolean,
       _stake: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     historicalRewards(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -445,7 +445,7 @@ export class CrvRewards extends Contract {
     lastTimeRewardApplicable(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "lastTimeRewardApplicable()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     lastUpdateTime(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -466,12 +466,12 @@ export class CrvRewards extends Contract {
 
     queueNewRewards(
       _rewards: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "queueNewRewards(uint256)"(
       _rewards: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     queuedRewards(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -502,37 +502,37 @@ export class CrvRewards extends Contract {
 
     "rewards(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     stake(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "stake(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     stakeAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "stakeAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     stakeFor(
       _for: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "stakeFor(address,uint256)"(
       _for: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     stakingToken(overrides?: CallOverrides): Promise<[string]>;
@@ -545,34 +545,34 @@ export class CrvRewards extends Contract {
 
     userRewardPerTokenPaid(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "userRewardPerTokenPaid(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     withdraw(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(uint256,bool)"(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     withdrawAll(
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdrawAll(bool)"(
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
@@ -582,27 +582,27 @@ export class CrvRewards extends Contract {
 
   addExtraReward(
     _reward: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "addExtraReward(address)"(
     _reward: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "balanceOf(address)"(
     account: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   clearExtraRewards(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "clearExtraRewards()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   crvDeposits(overrides?: CallOverrides): Promise<string>;
@@ -623,12 +623,12 @@ export class CrvRewards extends Contract {
 
   donate(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "donate(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   duration(overrides?: CallOverrides): Promise<BigNumber>;
@@ -639,14 +639,14 @@ export class CrvRewards extends Contract {
 
   "earned(address)"(
     account: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   extraRewards(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   "extraRewards(uint256)"(
     arg0: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   extraRewardsLength(overrides?: CallOverrides): Promise<BigNumber>;
@@ -655,14 +655,14 @@ export class CrvRewards extends Contract {
 
   "getReward(bool)"(
     _stake: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "getReward(address,bool,bool)"(
     _account: string,
     _claimExtras: boolean,
     _stake: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   historicalRewards(overrides?: CallOverrides): Promise<BigNumber>;
@@ -691,12 +691,12 @@ export class CrvRewards extends Contract {
 
   queueNewRewards(
     _rewards: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "queueNewRewards(uint256)"(
     _rewards: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   queuedRewards(overrides?: CallOverrides): Promise<BigNumber>;
@@ -727,37 +727,37 @@ export class CrvRewards extends Contract {
 
   "rewards(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   stake(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "stake(uint256)"(
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   stakeAll(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "stakeAll()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   stakeFor(
     _for: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "stakeFor(address,uint256)"(
     _for: string,
     _amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   stakingToken(overrides?: CallOverrides): Promise<string>;
@@ -770,34 +770,34 @@ export class CrvRewards extends Contract {
 
   userRewardPerTokenPaid(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "userRewardPerTokenPaid(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   withdraw(
     _amount: BigNumberish,
     claim: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(uint256,bool)"(
     _amount: BigNumberish,
     claim: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   withdrawAll(
     claim: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdrawAll(bool)"(
     claim: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -809,14 +809,14 @@ export class CrvRewards extends Contract {
 
     "addExtraReward(address)"(
       _reward: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     clearExtraRewards(overrides?: CallOverrides): Promise<void>;
@@ -843,7 +843,7 @@ export class CrvRewards extends Contract {
 
     "donate(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<boolean>;
 
     duration(overrides?: CallOverrides): Promise<BigNumber>;
@@ -854,17 +854,17 @@ export class CrvRewards extends Contract {
 
     "earned(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     extraRewards(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "extraRewards(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     extraRewardsLength(overrides?: CallOverrides): Promise<BigNumber>;
@@ -873,14 +873,14 @@ export class CrvRewards extends Contract {
 
     "getReward(bool)"(
       _stake: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "getReward(address,bool,bool)"(
       _account: string,
       _claimExtras: boolean,
       _stake: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     historicalRewards(overrides?: CallOverrides): Promise<BigNumber>;
@@ -909,12 +909,12 @@ export class CrvRewards extends Contract {
 
     queueNewRewards(
       _rewards: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "queueNewRewards(uint256)"(
       _rewards: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     queuedRewards(overrides?: CallOverrides): Promise<BigNumber>;
@@ -945,14 +945,14 @@ export class CrvRewards extends Contract {
 
     "rewards(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     stake(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "stake(uint256)"(
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     stakeAll(overrides?: CallOverrides): Promise<void>;
@@ -962,13 +962,13 @@ export class CrvRewards extends Contract {
     stakeFor(
       _for: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "stakeFor(address,uint256)"(
       _for: string,
       _amount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     stakingToken(overrides?: CallOverrides): Promise<string>;
@@ -981,42 +981,42 @@ export class CrvRewards extends Contract {
 
     userRewardPerTokenPaid(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "userRewardPerTokenPaid(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     withdraw(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(uint256,bool)"(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     withdrawAll(claim: boolean, overrides?: CallOverrides): Promise<void>;
 
     "withdrawAll(bool)"(
       claim: boolean,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
     RewardAdded(
-      reward: null,
+      reward: null
     ): TypedEventFilter<[BigNumber], { reward: BigNumber }>;
 
     RewardPaid(
       user: string | null,
-      reward: null,
+      reward: null
     ): TypedEventFilter<
       [string, BigNumber],
       { user: string; reward: BigNumber }
@@ -1024,7 +1024,7 @@ export class CrvRewards extends Contract {
 
     Staked(
       user: string | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber],
       { user: string; amount: BigNumber }
@@ -1032,7 +1032,7 @@ export class CrvRewards extends Contract {
 
     Withdrawn(
       user: string | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber],
       { user: string; amount: BigNumber }
@@ -1046,27 +1046,27 @@ export class CrvRewards extends Contract {
 
     addExtraReward(
       _reward: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "addExtraReward(address)"(
       _reward: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     clearExtraRewards(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "clearExtraRewards()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     crvDeposits(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1087,12 +1087,12 @@ export class CrvRewards extends Contract {
 
     donate(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "donate(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     duration(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1103,17 +1103,17 @@ export class CrvRewards extends Contract {
 
     "earned(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     extraRewards(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "extraRewards(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     extraRewardsLength(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1122,14 +1122,14 @@ export class CrvRewards extends Contract {
 
     "getReward(bool)"(
       _stake: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "getReward(address,bool,bool)"(
       _account: string,
       _claimExtras: boolean,
       _stake: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     historicalRewards(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1158,12 +1158,12 @@ export class CrvRewards extends Contract {
 
     queueNewRewards(
       _rewards: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "queueNewRewards(uint256)"(
       _rewards: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     queuedRewards(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1194,37 +1194,37 @@ export class CrvRewards extends Contract {
 
     "rewards(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     stake(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "stake(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     stakeAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "stakeAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     stakeFor(
       _for: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "stakeFor(address,uint256)"(
       _for: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     stakingToken(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1237,34 +1237,34 @@ export class CrvRewards extends Contract {
 
     userRewardPerTokenPaid(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "userRewardPerTokenPaid(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     withdraw(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(uint256,bool)"(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     withdrawAll(
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdrawAll(bool)"(
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
@@ -1272,35 +1272,35 @@ export class CrvRewards extends Contract {
     FEE_DENOMINATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "FEE_DENOMINATOR()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     addExtraReward(
       _reward: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "addExtraReward(address)"(
       _reward: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     balanceOf(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "balanceOf(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     clearExtraRewards(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "clearExtraRewards()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     crvDeposits(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1310,7 +1310,7 @@ export class CrvRewards extends Contract {
     currentRewards(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "currentRewards()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     cvxCrvRewards(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1323,12 +1323,12 @@ export class CrvRewards extends Contract {
 
     donate(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "donate(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     duration(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1337,68 +1337,68 @@ export class CrvRewards extends Contract {
 
     earned(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "earned(address)"(
       account: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     extraRewards(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "extraRewards(uint256)"(
       arg0: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     extraRewardsLength(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "extraRewardsLength()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getReward(bool)"(
       _stake: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "getReward(address,bool,bool)"(
       _account: string,
       _claimExtras: boolean,
       _stake: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     historicalRewards(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "historicalRewards()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     lastTimeRewardApplicable(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "lastTimeRewardApplicable()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     lastUpdateTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "lastUpdateTime()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     newRewardRatio(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "newRewardRatio()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     operator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1411,12 +1411,12 @@ export class CrvRewards extends Contract {
 
     queueNewRewards(
       _rewards: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "queueNewRewards(uint256)"(
       _rewards: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     queuedRewards(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1430,15 +1430,15 @@ export class CrvRewards extends Contract {
     rewardPerToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "rewardPerToken()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     rewardPerTokenStored(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "rewardPerTokenStored()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     rewardRate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1451,42 +1451,42 @@ export class CrvRewards extends Contract {
 
     rewards(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "rewards(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     stake(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "stake(uint256)"(
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     stakeAll(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "stakeAll()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     stakeFor(
       _for: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "stakeFor(address,uint256)"(
       _for: string,
       _amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     stakingToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1499,34 +1499,34 @@ export class CrvRewards extends Contract {
 
     userRewardPerTokenPaid(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "userRewardPerTokenPaid(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdraw(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256,bool)"(
       _amount: BigNumberish,
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawAll(
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawAll(bool)"(
       claim: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

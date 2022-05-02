@@ -10,7 +10,7 @@ import type { Minichef } from "../Minichef";
 export class Minichef__factory {
   static connect(
     address: string,
-    signerOrProvider: Signer | Provider,
+    signerOrProvider: Signer | Provider
   ): Minichef {
     return new Contract(address, _abi, signerOrProvider) as Minichef;
   }

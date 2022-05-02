@@ -47,81 +47,81 @@ interface StakingPoolsInterface extends ethers.utils.Interface {
 
   encodeFunctionData(
     functionFragment: "acceptGovernance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "createPool", values: [string]): string;
   encodeFunctionData(
     functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "exit", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "getPoolRewardRate",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPoolRewardWeight",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPoolToken",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getPoolTotalDeposited",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getStakeTotalDeposited",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getStakeTotalUnclaimed",
-    values: [string, BigNumberish],
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "governance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "pendingGovernance",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "poolCount", values?: undefined): string;
   encodeFunctionData(functionFragment: "reward", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "rewardRate",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "setPendingGovernance",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setRewardRate",
-    values: [BigNumberish],
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setRewardWeights",
-    values: [BigNumberish[]],
+    values: [BigNumberish[]]
   ): string;
   encodeFunctionData(
     functionFragment: "tokenPoolIds",
-    values: [string],
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "totalRewardWeight",
-    values?: undefined,
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [BigNumberish, BigNumberish],
+    values: [BigNumberish, BigNumberish]
   ): string;
 
   decodeFunctionResult(
     functionFragment: "acceptGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "createPool", data: BytesLike): Result;
@@ -129,55 +129,55 @@ interface StakingPoolsInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "exit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getPoolRewardRate",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getPoolRewardWeight",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getPoolToken",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getPoolTotalDeposited",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getStakeTotalDeposited",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "getStakeTotalUnclaimed",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "pendingGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "poolCount", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "reward", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "rewardRate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setPendingGovernance",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setRewardRate",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "setRewardWeights",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "tokenPoolIds",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "totalRewardWeight",
-    data: BytesLike,
+    data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
@@ -208,26 +208,26 @@ export class StakingPools extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>,
+    listener: TypedListener<EventArgsArray, EventArgsObject>
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -240,124 +240,124 @@ export class StakingPools extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined,
+    toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: StakingPoolsInterface;
 
   functions: {
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     claim(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "claim(uint256)"(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     createPool(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "createPool(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     deposit(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "deposit(uint256,uint256)"(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     exit(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "exit(uint256)"(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     getPoolRewardRate(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getPoolRewardRate(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getPoolRewardWeight(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getPoolRewardWeight(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getPoolToken(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     "getPoolToken(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[string]>;
 
     getPoolTotalDeposited(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getPoolTotalDeposited(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getStakeTotalDeposited(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getStakeTotalDeposited(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     getStakeTotalUnclaimed(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     "getStakeTotalUnclaimed(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     governance(overrides?: CallOverrides): Promise<[string]>;
@@ -382,39 +382,39 @@ export class StakingPools extends Contract {
 
     setPendingGovernance(
       _pendingGovernance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setPendingGovernance(address)"(
       _pendingGovernance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setRewardRate(
       _rewardRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setRewardRate(uint256)"(
       _rewardRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     setRewardWeights(
       _rewardWeights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "setRewardWeights(uint256[])"(
       _rewardWeights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     tokenPoolIds(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "tokenPoolIds(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     totalRewardWeight(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -424,128 +424,128 @@ export class StakingPools extends Contract {
     withdraw(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "withdraw(uint256,uint256)"(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
   acceptGovernance(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "acceptGovernance()"(
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   claim(
     _poolId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "claim(uint256)"(
     _poolId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   createPool(
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "createPool(address)"(
     _token: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   deposit(
     _poolId: BigNumberish,
     _depositAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "deposit(uint256,uint256)"(
     _poolId: BigNumberish,
     _depositAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   exit(
     _poolId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "exit(uint256)"(
     _poolId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   getPoolRewardRate(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getPoolRewardRate(uint256)"(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getPoolRewardWeight(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getPoolRewardWeight(uint256)"(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getPoolToken(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   "getPoolToken(uint256)"(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<string>;
 
   getPoolTotalDeposited(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getPoolTotalDeposited(uint256)"(
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getStakeTotalDeposited(
     _account: string,
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getStakeTotalDeposited(address,uint256)"(
     _account: string,
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getStakeTotalUnclaimed(
     _account: string,
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   "getStakeTotalUnclaimed(address,uint256)"(
     _account: string,
     _poolId: BigNumberish,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   governance(overrides?: CallOverrides): Promise<string>;
@@ -570,39 +570,39 @@ export class StakingPools extends Contract {
 
   setPendingGovernance(
     _pendingGovernance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setPendingGovernance(address)"(
     _pendingGovernance: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setRewardRate(
     _rewardRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setRewardRate(uint256)"(
     _rewardRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   setRewardWeights(
     _rewardWeights: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "setRewardWeights(uint256[])"(
     _rewardWeights: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   tokenPoolIds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "tokenPoolIds(address)"(
     arg0: string,
-    overrides?: CallOverrides,
+    overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   totalRewardWeight(overrides?: CallOverrides): Promise<BigNumber>;
@@ -612,13 +612,13 @@ export class StakingPools extends Contract {
   withdraw(
     _poolId: BigNumberish,
     _withdrawAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "withdraw(uint256,uint256)"(
     _poolId: BigNumberish,
     _withdrawAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -630,97 +630,97 @@ export class StakingPools extends Contract {
 
     "claim(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     createPool(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "createPool(address)"(
       _token: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     deposit(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "deposit(uint256,uint256)"(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     exit(_poolId: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     "exit(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     getPoolRewardRate(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolRewardRate(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPoolRewardWeight(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolRewardWeight(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPoolToken(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     "getPoolToken(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<string>;
 
     getPoolTotalDeposited(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolTotalDeposited(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getStakeTotalDeposited(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getStakeTotalDeposited(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getStakeTotalUnclaimed(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getStakeTotalUnclaimed(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     governance(overrides?: CallOverrides): Promise<string>;
@@ -745,39 +745,39 @@ export class StakingPools extends Contract {
 
     setPendingGovernance(
       _pendingGovernance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setPendingGovernance(address)"(
       _pendingGovernance: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setRewardRate(
       _rewardRate: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setRewardRate(uint256)"(
       _rewardRate: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     setRewardWeights(
       _rewardWeights: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "setRewardWeights(uint256[])"(
       _rewardWeights: BigNumberish[],
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     tokenPoolIds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "tokenPoolIds(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     totalRewardWeight(overrides?: CallOverrides): Promise<BigNumber>;
@@ -787,28 +787,28 @@ export class StakingPools extends Contract {
     withdraw(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
 
     "withdraw(uint256,uint256)"(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
     GovernanceUpdated(
-      governance: null,
+      governance: null
     ): TypedEventFilter<[string], { governance: string }>;
 
     PendingGovernanceUpdated(
-      pendingGovernance: null,
+      pendingGovernance: null
     ): TypedEventFilter<[string], { pendingGovernance: string }>;
 
     PoolCreated(
       poolId: BigNumberish | null,
-      token: string | null,
+      token: string | null
     ): TypedEventFilter<
       [BigNumber, string],
       { poolId: BigNumber; token: string }
@@ -816,20 +816,20 @@ export class StakingPools extends Contract {
 
     PoolRewardWeightUpdated(
       poolId: BigNumberish | null,
-      rewardWeight: null,
+      rewardWeight: null
     ): TypedEventFilter<
       [BigNumber, BigNumber],
       { poolId: BigNumber; rewardWeight: BigNumber }
     >;
 
     RewardRateUpdated(
-      rewardRate: null,
+      rewardRate: null
     ): TypedEventFilter<[BigNumber], { rewardRate: BigNumber }>;
 
     TokensClaimed(
       user: string | null,
       poolId: BigNumberish | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { user: string; poolId: BigNumber; amount: BigNumber }
@@ -838,7 +838,7 @@ export class StakingPools extends Contract {
     TokensDeposited(
       user: string | null,
       poolId: BigNumberish | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { user: string; poolId: BigNumber; amount: BigNumber }
@@ -847,7 +847,7 @@ export class StakingPools extends Contract {
     TokensWithdrawn(
       user: string | null,
       poolId: BigNumberish | null,
-      amount: null,
+      amount: null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { user: string; poolId: BigNumber; amount: BigNumber }
@@ -856,117 +856,117 @@ export class StakingPools extends Contract {
 
   estimateGas: {
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     claim(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "claim(uint256)"(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     createPool(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "createPool(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     deposit(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "deposit(uint256,uint256)"(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     exit(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "exit(uint256)"(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getPoolRewardRate(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolRewardRate(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPoolRewardWeight(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolRewardWeight(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPoolToken(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolToken(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getPoolTotalDeposited(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getPoolTotalDeposited(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getStakeTotalDeposited(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getStakeTotalDeposited(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getStakeTotalUnclaimed(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getStakeTotalUnclaimed(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     governance(overrides?: CallOverrides): Promise<BigNumber>;
@@ -991,39 +991,39 @@ export class StakingPools extends Contract {
 
     setPendingGovernance(
       _pendingGovernance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setPendingGovernance(address)"(
       _pendingGovernance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setRewardRate(
       _rewardRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setRewardRate(uint256)"(
       _rewardRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     setRewardWeights(
       _rewardWeights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "setRewardWeights(uint256[])"(
       _rewardWeights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     tokenPoolIds(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "tokenPoolIds(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     totalRewardWeight(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1033,129 +1033,129 @@ export class StakingPools extends Contract {
     withdraw(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "withdraw(uint256,uint256)"(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     acceptGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "acceptGovernance()"(
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     claim(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "claim(uint256)"(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     createPool(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "createPool(address)"(
       _token: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     deposit(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "deposit(uint256,uint256)"(
       _poolId: BigNumberish,
       _depositAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     exit(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "exit(uint256)"(
       _poolId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getPoolRewardRate(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getPoolRewardRate(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPoolRewardWeight(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getPoolRewardWeight(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPoolToken(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getPoolToken(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getPoolTotalDeposited(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getPoolTotalDeposited(uint256)"(
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getStakeTotalDeposited(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getStakeTotalDeposited(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getStakeTotalUnclaimed(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getStakeTotalUnclaimed(address,uint256)"(
       _account: string,
       _poolId: BigNumberish,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1165,7 +1165,7 @@ export class StakingPools extends Contract {
     pendingGovernance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "pendingGovernance()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     poolCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1182,60 +1182,60 @@ export class StakingPools extends Contract {
 
     setPendingGovernance(
       _pendingGovernance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setPendingGovernance(address)"(
       _pendingGovernance: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setRewardRate(
       _rewardRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setRewardRate(uint256)"(
       _rewardRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     setRewardWeights(
       _rewardWeights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "setRewardWeights(uint256[])"(
       _rewardWeights: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     tokenPoolIds(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "tokenPoolIds(address)"(
       arg0: string,
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     totalRewardWeight(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "totalRewardWeight()"(
-      overrides?: CallOverrides,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     withdraw(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdraw(uint256,uint256)"(
       _poolId: BigNumberish,
       _withdrawAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
 }
