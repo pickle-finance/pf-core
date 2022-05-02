@@ -51,7 +51,7 @@ export enum AssetProtocol {
   TECTONIC = "Tectonic",
   STARGATE = "Stargate",
   HUMMUS = "Hummus",
-  FRAX = "Frax"
+  FRAX = "Frax",
   // ADD_PROTOCOL
 }
 
@@ -391,12 +391,12 @@ export interface JarDetails extends AssetDetails {
 export interface BrineryDetails extends AssetDetails {
   distributionAddr: string;
   strategyAddr: string;
+  veAddr: string;
   lockerAddr: string;
   pickleLockedUnderlying: number;
   totalVeSupply: number;
   pickleVeBalance: number;
   weeklyRewards: number;
-
 }
 
 export interface AssetDetails {

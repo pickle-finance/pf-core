@@ -1084,7 +1084,7 @@ export const JAR_MIM3CRV: JarDefinition = {
     farmNickname: "pCurve MIM/3CRV",
     farmDepositTokenName: "pCurve MIM/3CRV",
   },
-  tags: ["stablecoins"]
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_MIM3CRV);
 
@@ -1222,7 +1222,7 @@ export const JAR_CURVE_CADCUSDC: JarDefinition = {
     farmNickname: "pCurve CADC/USDC",
     farmDepositTokenName: "pCurve CADC/USDC",
   },
-  tags: ["stablecoins"]
+  tags: ["stablecoins"],
 };
 JAR_DEFINITIONS.push(JAR_CURVE_CADCUSDC);
 
@@ -5321,7 +5321,7 @@ export const JAR_AURORA_TRI_STNEAR_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TLP-STNEAR-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -5349,7 +5349,7 @@ export const JAR_AURORA_TRI_STNEAR_XTRI_LP: JarDefinition = {
   details: {
     apiKey: "TLP-STNEAR-XTRI",
     harvestStyle: HarvestStyle.CUSTOM,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -5377,7 +5377,7 @@ export const JAR_AURORA_TRI_USDO_USDT_LP: JarDefinition = {
   details: {
     apiKey: "TLP-USDO-USDT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -5405,7 +5405,7 @@ export const JAR_AURORA_TRI_FLX_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TLP-FLX-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -5433,7 +5433,7 @@ export const JAR_AURORA_TRI_BSTN_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TLP-BSTN-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -7487,7 +7487,6 @@ export const JAR_METIS_HUMMUS_USDT: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_METIS_HUMMUS_USDT);
-
 
 export const JAR_METIS_HUMMUS_USDC: JarDefinition = {
   type: AssetType.JAR,
@@ -11153,7 +11152,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-CRV-G3CRV",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11181,7 +11180,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-MULTI",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11209,7 +11208,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-LQDR-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11237,7 +11236,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-IB-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11265,7 +11264,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-XTAROT-TAROT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11293,7 +11292,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-DEI-SCREAM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11321,7 +11320,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SYN",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11349,7 +11348,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SOLID",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11377,7 +11376,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-YFI-WOOFY",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11405,7 +11404,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-BOMB-PGUNK",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11433,7 +11432,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SOLIDSEX-SOLID",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11461,7 +11460,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-FXS-FRAX",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11489,7 +11488,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-OXD-DEI",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11517,7 +11516,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-TAROT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11545,7 +11544,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-YFI",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11573,7 +11572,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SEX-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11601,7 +11600,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-DEI-DEUS",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11629,7 +11628,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-WEVE",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11657,7 +11656,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-SYN",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11685,7 +11684,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SOLIDSEX",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11713,7 +11712,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-MIM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11742,7 +11741,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-DEI",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11771,7 +11770,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-OXD2",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11799,7 +11798,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-SINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11827,7 +11826,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-RAINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11855,7 +11854,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-BINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11883,7 +11882,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-LINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11911,7 +11910,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-GEIST",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11939,7 +11938,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-HND",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11967,7 +11966,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SOLID-OXSOLID",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -11995,7 +11994,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-RDL",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -12023,7 +12022,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-SEX-G3CRV",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -12051,7 +12050,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-CRV-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -12079,7 +12078,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-BIFI-MAI",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -12107,7 +12106,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SCREAM",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -12135,7 +12134,7 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
   details: {
     apiKey: "OXDSOLIDLYLP-BEETS-FBEETS",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a"
+    controller: "0xB1698A97b497c998b2B2291bb5C48D1d6075836a",
   },
   farm: {
     farmAddress: NULL_ADDRESS,
@@ -12200,22 +12199,23 @@ export const BRINERY_VEFXS: BrineryDefinition = {
   depositToken: {
     addr: "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0",
     name: "FXS",
-    link: "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0&chainId=1",    
+    link: "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0&chainId=1",
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.FRAX,
   details: {
     apiKey: "BRINERY_VEFXS",
+    veAddr: "0xc8418aF6358FFddA74e09Ca9CC3Fe03Ca6aDC5b0",
     distributionAddr: "0xc6764e58b36e26b08Fd1d2AeD4538c02171fA872",
-    strategyAddr: "",
+    strategyAddr: "0x552D92Ad2bb3Aba00872491ea2DC5d6EC3B8A31D",
     lockerAddr: "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
     pickleLockedUnderlying: 0,
     totalVeSupply: 0,
     pickleVeBalance: 0,
     weeklyRewards: 0,
   },
-}
+};
 
 BRINERY_DEFINITIONS.push(BRINERY_VEFXS);
 

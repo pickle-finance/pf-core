@@ -5,6 +5,7 @@ import {
 } from "@ethersproject/abstract-provider";
 import {
   AssetProjectedApr,
+  BrineryDefinition,
   ExternalAssetDefinition,
   HistoricalYield,
   JarDefinition,
@@ -31,7 +32,7 @@ export interface ActiveJarHarvestStats extends JarHarvestStats {
 
 export interface AssetBehavior<T extends PickleAsset> {
   getProtocolApy(
-    _definition: JarDefinition,
+    _definition: T,
     _model: PickleModel,
   ): Promise<HistoricalYield>;
 
@@ -48,7 +49,7 @@ export interface AssetBehavior<T extends PickleAsset> {
     balance: BigNumber,
     available: BigNumber,
     resolver: Signer | Provider,
-  ): Promise<JarHarvestStats>;
+  ): Promise<JarHarvestStats | undefined>;
 
   getCustomHarvester(
     definition: T,
@@ -60,6 +61,7 @@ export interface AssetBehavior<T extends PickleAsset> {
 
 export type JarBehavior = AssetBehavior<JarDefinition>;
 export type ExternalAssetBehavior = AssetBehavior<ExternalAssetDefinition>;
+export type BrineryBehavior = AssetBehavior<BrineryDefinition>;
 
 // Duplicate of interface in tsuke.
 export interface PfCoreGasFlags {

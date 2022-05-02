@@ -531,12 +531,47 @@ export class PickleModel implements ConsoleErrorLogger {
       this.loadApyComponents(),
       this.loadProtocolApr(),
     ]);
+
+    await this.loadBrineryData();
     DEBUG_OUT("End loadJarAndFarmData: " + (Date.now() - start));
+  }
+
+  brineryFilter(asset: PickleAsset): boolean {
+    return (
+      new JarBehaviorDiscovery().findAssetBehavior(asset) !== undefined &&
+      asset.enablement !== AssetEnablement.PERMANENTLY_DISABLED &&
+      asset.type == AssetType.BRINERY
+    );
   }
 
   async loadBrineryData(): Promise<void> {
     DEBUG_OUT("Begin loadBrineryData");
     const start = Date.now();
+
+    const brineriesWithBehaviors: PickleAsset[] = this.allAssets
+      .filter((x) => this.brineryFilter(x))
+      .filter((x) => this.configuredChains.includes(x.chain));
+
+      // Bwar help me
+      const ree = this.getJars()
+      console.log({ree})
+
+      try {
+      const brineryAprs = await Promise.all(
+        brineriesWithBehaviors.map((asset) => {
+          const ret: Promise<AssetProjectedApr> = new JarBehaviorDiscovery()
+            .findAssetBehavior(asset)
+            .getProjectedAprStats(asset as JarDefinition, this);
+          return ret;
+        }),
+      );
+      console.log(brineryAprs);
+      for (let i = 0; i < brineriesWithBehaviors.length; i++) {
+        brineriesWithBehaviors[i].aprStats = brineryAprs[i];
+      }
+    } catch (error) {
+      this.logError("loadApyComponents", error);
+    }
 
     DEBUG_OUT("End loadBrineryData: " + (Date.now() - start));
   }
@@ -1476,7 +1511,8 @@ export class PickleModel implements ConsoleErrorLogger {
       .filter(
         (x) =>
           new JarBehaviorDiscovery().findAssetBehavior(x) !== undefined &&
-          x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
+          x.enablement !== AssetEnablement.PERMANENTLY_DISABLED &&
+          x.type !== AssetType.BRINERY,
       )
       .filter((x) => this.configuredChains.includes(x.chain));
     try {
