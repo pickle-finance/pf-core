@@ -175,8 +175,8 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
   if (jar !== undefined) {
     let rrpy = gauge.rewardRatePerYear;
       if( !Number.isFinite(rrpy) ) {
-      // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
-      rrpy = ((gauge.poolPicklesPerYear || 0) * picklePrice) / (500 / jar.depositToken.price);
+      // rrpy is infinite. Likely zero in the farm. Default to a $1000 pool
+      rrpy = ((gauge.poolPicklesPerYear || 0) * picklePrice) / (1000 / jar.depositToken.price);
     }
     const rewardPerYear: number =
       gauge.allocPoint === 0 ? 0 : rrpy * 100;

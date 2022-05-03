@@ -2,14 +2,7 @@ import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
-import masterchefAbi from "../../Contracts/ABIs/masterchef.json";
-import { Contract as MultiContract } from "ethers-multicall";
-import { formatEther } from "ethers/lib/utils";
-import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { Chains } from "../..";
 
 export class LooksEth extends AbstractJarBehavior {
   protected strategyAbi: any;
@@ -52,42 +45,45 @@ export class LooksEth extends AbstractJarBehavior {
   }
 
   async calculateLooksAPY(
-    rewardsAddress: string,
-    jar: JarDefinition,
-    model: PickleModel,
+    _rewardsAddress: string,
+    _jar: JarDefinition,
+    _model: PickleModel,
   ): Promise<number> {
-    const multicallRewards = new MultiContract(
-      this.rewardAddress,
-      masterchefAbi,
-    );
-    const multicallLp = new MultiContract(jar.depositToken.addr, erc20Abi);
+    // rewards are over. No point in modifying code to check 
+    // for 'endblock' or something, just return 0 instead.
+    return 0;
+    // const multicallRewards = new MultiContract(
+    //   this.rewardAddress,
+    //   masterchefAbi,
+    // );
+    // const multicallLp = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-    const [rewardPerBlockBN, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallRewards.rewardPerBlock(),
-        () => multicallLp.balanceOf(rewardsAddress),
-      ],
-      jar.chain,
-    );
+    // const [rewardPerBlockBN, totalSupplyBN] = await model.callMulti(
+    //   [
+    //     () => multicallRewards.rewardPerBlock(),
+    //     () => multicallLp.balanceOf(rewardsAddress),
+    //   ],
+    //   jar.chain,
+    // );
 
-    const totalSupply = parseFloat(formatEther(totalSupplyBN));
+    // const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
-    const rewardPerBlock = parseFloat(formatEther(rewardPerBlockBN));
+    // const rewardPerBlock = parseFloat(formatEther(rewardPerBlockBN));
 
-    const { pricePerToken } = await getLivePairDataFromContracts(
-      jar,
-      model,
-      18,
-    );
+    // const { pricePerToken } = await getLivePairDataFromContracts(
+    //   jar,
+    //   model,
+    //   18,
+    // );
 
-    const rewardsPerYear =
-      (rewardPerBlock * ONE_YEAR_SECONDS) /
-      Chains.get(jar.chain).secondsPerBlock;
-    const valueRewardedPerYear =
-      model.priceOfSync("looks", jar.chain) * rewardsPerYear;
+    // const rewardsPerYear =
+    //   (rewardPerBlock * ONE_YEAR_SECONDS) /
+    //   Chains.get(jar.chain).secondsPerBlock;
+    // const valueRewardedPerYear =
+    //   model.priceOfSync("looks", jar.chain) * rewardsPerYear;
 
-    const totalValueStaked = totalSupply * pricePerToken;
-    const looksAPY = valueRewardedPerYear / totalValueStaked;
-    return looksAPY * 100;
+    // const totalValueStaked = totalSupply * pricePerToken;
+    // const looksAPY = valueRewardedPerYear / totalValueStaked;
+    // return looksAPY * 100;
   }
 }
