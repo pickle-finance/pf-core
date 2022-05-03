@@ -12200,6 +12200,7 @@ export const BRINERY_VEFXS: BrineryDefinition = {
     addr: "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0",
     name: "FXS",
     link: "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0&chainId=1",
+    components: ["fxs"]
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
