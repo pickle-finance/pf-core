@@ -7,6 +7,8 @@ import {
   JarDefinition,
   HistoricalYield,
   XYK_SWAP_PROTOCOLS,
+  PickleAsset,
+  AssetEnablement,
 } from "../model/PickleModelJson";
 import {
   ICustomHarvester,
@@ -455,4 +457,9 @@ export function createAprComponentImpl(
 // TODO move to math utility or something?
 export function getCompoundingAPY(apr: number): number {
   return 100 * (Math.pow(1 + apr / 365, 365) - 1);
+}
+
+export function isDisabledOrWithdrawOnly(asset: PickleAsset) {
+  const arr = [AssetEnablement.PERMANENTLY_DISABLED, AssetEnablement.DISABLED, AssetEnablement.WITHDRAW_ONLY];
+  return arr.includes(asset.enablement);
 }

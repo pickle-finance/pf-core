@@ -8,6 +8,7 @@ import {
   AbstractJarBehavior,
   aprComponentsToProjectedAprImpl,
   createAprComponentImpl,
+  isDisabledOrWithdrawOnly,
 } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import {
@@ -45,17 +46,6 @@ export abstract class SushiJar extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const apr1: number = await calculateSushiRewardApr(
-      definition.depositToken.addr,
-      model,
-      definition.chain,
-    );
-    const apr1Comp: AssetAprComponent = this.createAprComponent(
-      "sushi",
-      apr1,
-      true,
-    );
-
     const lpApr: number = await new SushiEthPairManager().calculateLpApr(
       model,
       definition.depositToken.addr,
@@ -65,7 +55,22 @@ export abstract class SushiJar extends AbstractJarBehavior {
       lpApr,
       false,
     );
-    return super.aprComponentsToProjectedApr([apr1Comp, lpComp]);
+    const components = [lpComp];
+    if( !isDisabledOrWithdrawOnly(definition)) {
+      const apr1: number = await calculateSushiRewardApr(
+        definition.depositToken.addr,
+        model,
+        definition.chain,
+      );
+      const apr1Comp: AssetAprComponent = this.createAprComponent(
+        "sushi",
+        apr1,
+        true,
+      );
+      components.push(apr1Comp);
+    }
+
+    return super.aprComponentsToProjectedApr(components);
   }
 
   async chefV2AprStats(
@@ -81,6 +86,16 @@ export const chefV2AprStatsStatic = async (
   model: PickleModel,
   rewardToken: string,
 ): Promise<AssetProjectedApr> => {
+  if( isDisabledOrWithdrawOnly(definition)) {
+    // duplicate code but easier to read
+    const lpApr = await new SushiEthPairManager().calculateLpApr(
+      model, definition.depositToken.addr,
+    );  
+    const lpComp: AssetAprComponent = createAprComponentImpl("lp", lpApr, false);
+    return aprComponentsToProjectedAprImpl([lpComp]);
+  }
+
+  // not disabled, show all components
   const aprSushiRewardsPromise = calculateMCv2SushiRewards(
     definition.depositToken.addr,
     model,
@@ -95,8 +110,7 @@ export const chefV2AprStatsStatic = async (
   );
 
   const lpAprPromise = new SushiEthPairManager().calculateLpApr(
-    model,
-    definition.depositToken.addr,
+    model, definition.depositToken.addr,
   );
 
   const lpApr: number = await lpAprPromise;
