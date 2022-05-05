@@ -9,7 +9,6 @@ import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import {
   createAprComponentImpl,
 } from "../../behavior/AbstractJarBehavior";
-import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
 
 export abstract class RoseJar extends AbstractJarBehavior {
   rewarderAddress: string;
