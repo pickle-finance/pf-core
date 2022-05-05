@@ -93,8 +93,8 @@ export interface IUserBrineryStats {
   assetKey: string;
   depositTokenBalance: string;
   allowance: string;
-  claimable: number;
-  balance: number;
+  claimable: string;
+  balance: string;
 }
 
 export interface IUserVote {
@@ -983,7 +983,7 @@ export class UserModel implements ConsoleErrorLogger {
           asset.depositToken.addr,
           erc20Abi,
         );
-        const [userPending, userBalance, index, userIndex] = (
+        const [userPendingBN, userBalanceBN, index, userIndex] =
           await this.callMulti(
             [
               () => mcBrineryContract.claimable(this.walletId),
@@ -994,10 +994,9 @@ export class UserModel implements ConsoleErrorLogger {
               () => mcDepositToken.allowance(this.walletId, asset.contract),
             ],
             asset.chain,
-          )
-        ).map((x: BigNumber) => parseFloat(formatEther(x)));
+          );
 
-        const [userDepositBalanceBN, userBrineryAllowance] =
+        const [userDepositBalanceBN, userBrineryAllowanceBN] =
           await this.callMulti(
             [
               () => mcDepositToken.balanceOf(this.walletId),
@@ -1010,17 +1009,20 @@ export class UserModel implements ConsoleErrorLogger {
           asset.details.pickleLockedUnderlying || 1;
         const distributorPending = asset.details.distributorPending || 0;
 
-        const userTotalPending =
-          userPending +
-          (distributorPending * userBalance) / pickleLockedUnderlying +
-          (index - userIndex) * userBalance;
-
+        const userTotalPending = userPendingBN
+          .add(
+            BigNumber.from((distributorPending * 1e6).toFixed()).mul(
+              userBalanceBN,
+            ),
+          )
+          .div(BigNumber.from((pickleLockedUnderlying * 1e6).toFixed()))
+          
         return {
           assetKey: asset.details.apiKey,
-          claimable: userTotalPending,
-          balance: userBalance,
+          claimable: userTotalPending.toString(),
+          balance: userBalanceBN.toString(),
           depositTokenBalance: userDepositBalanceBN.toString(),
-          allowance: userBrineryAllowance.toString(),
+          allowance: userBrineryAllowanceBN.toString(),
         };
       },
     );
