@@ -1,9 +1,10 @@
 import { ChainNetwork } from ".";
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import { ALL_ASSETS } from "./model/JarsAndFarms";
+import { ALL_ASSETS, JAR_SUSHI_ETH_ALCX } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
 import fs from "fs";
+import { PFCore } from "./core/PFCore";
 
 // This is an example of the code you'd want to run in a client
 async function generateFullApi() {
@@ -18,10 +19,10 @@ async function generateFullApi() {
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
-  const result = await model.generateFullApi();
-  //const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, walletPublicKey, map);
+  // const result = await model.generateFullApi();
+  const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C", map);
   const resultString = JSON.stringify(result, null, 2);
-  process.stdout.write(resultString);
+  // process.stdout.write(resultString);
 }
 
 export interface PersistedData {
