@@ -398,8 +398,9 @@ import {
   JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP,
   JAR_AURORA_TRISOLARIS_BBT_NEAR_LP,
   JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP,
-  JAR_AURORA_ROSE_3POOL_LP,
   JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP,
+  JAR_AURORA_ROSE_USTPOOL_LP,
+  JAR_AURORA_ROSE_3POOL_LP,
   JAR_AURORA_ROSE_FRAXPOOL_LP,
   JAR_AURORA_ROSE_BUSDPOOL_LP,
   JAR_AURORA_ROSE_MAIPOOL_LP,
@@ -671,6 +672,7 @@ import { TriAuroraNear } from "./impl/aurora-tri-aurora-near";
 import { TriNearUsdcV2 } from "./impl/aurora-tri-near-usdc-2";
 import { RosePadRose } from "./impl/aurora-rose-pad-pad-rose";
 import { RoseFraxRose } from "./impl/aurora-rose-pad-rose-frax";
+import { RoseUstpool } from "./impl/aurora-rose-ustpool";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -912,6 +914,7 @@ jarToBehavior.set(JAR_AURORA_TRISOLARIS_BBT_NEAR_LP.id, new TriBbtNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP.id, new TriUsdcShitzu());
 jarToBehavior.set(JAR_AURORA_ROSE_3POOL_LP.id, new Rose3Pool());
 jarToBehavior.set(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP.id, new WannaWannaxStnear());
+jarToBehavior.set(JAR_AURORA_ROSE_USTPOOL_LP.id, new RoseUstpool());
 jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
 jarToBehavior.set(JAR_AURORA_ROSE_BUSDPOOL_LP.id, new RoseBusdpool());
 jarToBehavior.set(JAR_AURORA_ROSE_RUSDPOOL_LP.id, new RoseRusdpool());
