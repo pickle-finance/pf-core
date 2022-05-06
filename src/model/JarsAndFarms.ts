@@ -5288,7 +5288,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
