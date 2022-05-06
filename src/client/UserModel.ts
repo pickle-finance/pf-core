@@ -983,18 +983,17 @@ export class UserModel implements ConsoleErrorLogger {
           asset.depositToken.addr,
           erc20Abi,
         );
-        const [userPendingBN, userBalanceBN, index, userIndex] =
-          await this.callMulti(
-            [
-              () => mcBrineryContract.claimable(this.walletId),
-              () => mcBrineryContract.balanceOf(this.walletId),
-              () => mcBrineryContract.index(),
-              () => mcBrineryContract.supplyIndex(this.walletId),
-              () => mcDepositToken.balanceOf(this.walletId),
-              () => mcDepositToken.allowance(this.walletId, asset.contract),
-            ],
-            asset.chain,
-          );
+        const [userPendingBN, userBalanceBN] = await this.callMulti(
+          [
+            () => mcBrineryContract.claimable(this.walletId),
+            () => mcBrineryContract.balanceOf(this.walletId),
+            () => mcBrineryContract.index(),
+            () => mcBrineryContract.supplyIndex(this.walletId),
+            () => mcDepositToken.balanceOf(this.walletId),
+            () => mcDepositToken.allowance(this.walletId, asset.contract),
+          ],
+          asset.chain,
+        );
 
         const [userDepositBalanceBN, userBrineryAllowanceBN] =
           await this.callMulti(
@@ -1009,14 +1008,12 @@ export class UserModel implements ConsoleErrorLogger {
           asset.details.pickleLockedUnderlying || 1;
         const distributorPending = asset.details.distributorPending || 0;
 
-        const userTotalPending = userPendingBN
-          .add(
-            BigNumber.from((distributorPending * 1e6).toFixed()).mul(
-              userBalanceBN,
-            ),
-          )
-          .div(BigNumber.from((pickleLockedUnderlying * 1e6).toFixed()))
-          
+        const userTotalPending = userPendingBN.add(
+          BigNumber.from((distributorPending * 1e6).toFixed())
+            .mul(userBalanceBN)
+            .div(BigNumber.from((pickleLockedUnderlying * 1e6).toFixed())),
+        );
+
         return {
           assetKey: asset.details.apiKey,
           claimable: userTotalPending.toString(),
