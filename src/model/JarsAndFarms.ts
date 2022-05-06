@@ -7135,6 +7135,41 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
 
+export const JAR_AURORA_TRI_PLY_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 3a",
+  contract: "0x46d42C3DcCC38B92f40b021008AcDc76ab463B12",
+  startBlock: 64969978,
+  depositToken: {
+    addr: "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7",
+    name: "TRI PLY/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x09C9D464b58d96837f8d8b6f4d9fE4aD408d3A4f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["ply", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: [
+        "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
+        "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+      ],
+    },
+  },
+  rewardTokens: ["ply"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRI-PLY-NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTRI PLY/NEAR",
+    farmDepositTokenName: "pTRI PLY/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
+
 // Metis
 export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
   type: AssetType.JAR,

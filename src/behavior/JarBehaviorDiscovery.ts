@@ -410,6 +410,7 @@ import {
   JAR_AURORA_TRISOLARIS_NEAR_USDC_LP,
   JAR_AURORA_ROSE_PAD_ROSE_PAD_LP,
   JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP,
+  JAR_AURORA_TRI_PLY_NEAR,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -673,6 +674,7 @@ import { TriNearUsdcV2 } from "./impl/aurora-tri-near-usdc-2";
 import { RosePadRose } from "./impl/aurora-rose-pad-pad-rose";
 import { RoseFraxRose } from "./impl/aurora-rose-pad-rose-frax";
 import { RoseUstpool } from "./impl/aurora-rose-ustpool";
+import { AuroraAurigamiJar } from "./impl/aurora-aurigami";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -925,6 +927,7 @@ jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP.id, new TriNearUsdcV2());
 jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP.id, new RoseFraxRose());
 jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_PAD_LP.id, new RosePadRose());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP.id, new TriSolaceNear());
+jarToBehavior.set(JAR_AURORA_TRI_PLY_NEAR.id, new AuroraAurigamiJar());
 
 // Metis
 jarToBehavior.set(JAR_METIS_NETSWAP_NETT_METIS.id, new NetswapNettMetis());

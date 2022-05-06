@@ -1712,6 +1712,16 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
+    this.addToken(
+      ChainNetwork.Aurora,
+      "ply",
+      null,
+      "aurigami",
+      "0x09c9d464b58d96837f8d8b6f4d9fe4ad408d3a4f".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+
     // Metis
     this.addToken(
       ChainNetwork.Metis,
