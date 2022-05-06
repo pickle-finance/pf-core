@@ -405,9 +405,7 @@ import {
   JAR_AURORA_ROSE_BUSDPOOL_LP,
   JAR_AURORA_ROSE_MAIPOOL_LP,
   JAR_AURORA_ROSE_RUSDPOOL_LP,
-  // JAR_AURORA_TRISOLARIS_NEAR_USDT_LP,
   JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP,
-  // JAR_AURORA_TRISOLARIS_NEAR_USDC_LP,
   JAR_AURORA_ROSE_PAD_ROSE_PAD_LP,
   JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP,
 } from "../model/JarsAndFarms";
@@ -919,9 +917,7 @@ jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
 jarToBehavior.set(JAR_AURORA_ROSE_BUSDPOOL_LP.id, new RoseBusdpool());
 jarToBehavior.set(JAR_AURORA_ROSE_RUSDPOOL_LP.id, new RoseRusdpool());
 jarToBehavior.set(JAR_AURORA_ROSE_MAIPOOL_LP.id, new RoseMaipool());
-// jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDT_LP.id, new TriNearUsdtV2());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP.id, new TriAuroraNear());
-// jarToBehavior.set(JAR_AURORA_TRISOLARIS_NEAR_USDC_LP.id, new TriNearUsdcV2());
 jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP.id, new RoseFraxRose());
 jarToBehavior.set(JAR_AURORA_ROSE_PAD_ROSE_PAD_LP.id, new RosePadRose());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP.id, new TriSolaceNear());
@@ -1056,7 +1052,6 @@ jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_HND.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_IB.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_GEIST.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_BIFI_MAI.id, new SexJar());
-// jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_SCREAM.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_CRV_G3CRV.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_S_FTM_BEFTM.id, new SexJar());
 jarToBehavior.set(JAR_FANTOM_SEX_V_FTM_SOLIDSEX.id, new SexJar());
