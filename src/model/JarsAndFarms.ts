@@ -7294,7 +7294,7 @@ export const JAR_AURORA_TRI_PLY_NEAR: JarDefinition = {
     farmDepositTokenName: "pTRI PLY/NEAR",
   },
 };
-JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_PLY_NEAR);
 
 // Metis
 export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {

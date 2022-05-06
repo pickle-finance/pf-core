@@ -1719,8 +1719,11 @@ export class ExternalTokenModel {
       "aurigami",
       "0x09c9d464b58d96837f8d8b6f4d9fe4ad408d3a4f".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID,
-    );
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7", // PLY-NEAR
+        "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67", // NEAR-USDT
+      ],    );
 
     // Metis
     this.addToken(
