@@ -1,7 +1,7 @@
 import { multiSushiStrategyAbi } from "../../Contracts/ABIs/multi-sushi-strategy.abi";
 import { AuroraTriDualJar } from "./aurora-tri-dual-jar";
 
-export class TriNearUsdtV2 extends AuroraTriDualJar {
+export class TriNearUsdt extends AuroraTriDualJar {
   constructor() {
     super(multiSushiStrategyAbi, 4, 2);
   }
