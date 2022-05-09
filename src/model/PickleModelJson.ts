@@ -443,6 +443,7 @@ export interface DillDetails {
   pickleLocked: number;
   totalDill: number;
   dillWeeks: DillWeek[];
+  totalPickleSupply: number;
 }
 
 export interface DillWeek {

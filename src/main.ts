@@ -19,8 +19,8 @@ async function generateFullApi() {
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
-  // const result = await model.generateFullApi();
-  const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C", map);
+  const result = await model.generateFullApi();
+  // const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C", map);
   const resultString = JSON.stringify(result, null, 2);
   // process.stdout.write(resultString);
 }
