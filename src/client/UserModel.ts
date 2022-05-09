@@ -88,6 +88,8 @@ export interface IUserDillStats {
   balance: string;
   claimable: string;
   claimableETH: string;
+  totalClaimableToken: string;
+  totalClaimableETH: String;
   dillApproval: string;
 }
 
@@ -123,7 +125,9 @@ const emptyUserData = (): UserData => {
       lockEnd: "0",
       balance: "0",
       claimable: "0",
-      claimableETH: "5",
+      claimableETH: "0",
+      totalClaimableToken: "0",
+      totalClaimableETH: "0",
       dillApproval: "0",
     },
     brineries: [],
@@ -199,7 +203,11 @@ export class UserModel implements ConsoleErrorLogger {
   async generateMinimalModel(): Promise<UserData> {
     await this.initCommsMgr();
     try {
-      await Promise.all([this.getUserTokens(), this.getUserEarningsSummary(), this.getUserDillStatsGuard()]);
+      await Promise.all([
+        this.getUserTokens(),
+        this.getUserEarningsSummary(),
+        this.getUserDillStatsGuard(),
+      ]);
       if (this.callback !== undefined) {
         this.callback.modelFinished(this.workingData);
       }
@@ -931,7 +939,9 @@ export class UserModel implements ConsoleErrorLogger {
         lockEnd: "0",
         balance: "0",
         claimable: "0",
-        claimableETH: "4",
+        claimableETH: "0",
+        totalClaimableToken: "0",
+        totalClaimableETH: "0",
         dillApproval: "0",
       };
     }
@@ -963,15 +973,26 @@ export class UserModel implements ConsoleErrorLogger {
         gasLimit: 1000000,
       }),
       pickleContract.allowance(this.walletId, dillContractAddr),
-      
     ]);
-    console.log("usr",userClaimable);
+
+    let totalClaimable;
+    try {
+      totalClaimable = await feeDistributorContract.callStatic[
+        "claim_all(address)"
+      ](this.walletId, {
+        gasLimit: 1000000,
+      });
+    } catch (err) {
+      totalClaimable = userClaimable;
+    }
     return {
       pickleLocked: lockStats[0].toString(),
       lockEnd: lockStats[1].toString(),
       balance: balance.toString(),
       claimable: userClaimable[0].toString(),
       claimableETH: userClaimable[1].toString(),
+      totalClaimableToken: totalClaimable[0].toString(),
+      totalClaimableETH: totalClaimable[1].toString(),
       dillApproval: allowance.toString(),
     };
   }
