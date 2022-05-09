@@ -398,6 +398,7 @@ export interface BrineryDetails extends AssetDetails {
   pickleVeBalance?: number;
   weeklyRewards?: number;
   distributorPending?: number;
+  rewardToken: string;
 }
 
 export interface AssetDetails {

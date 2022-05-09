@@ -40,7 +40,6 @@ import {
   ExternalToken,
 } from "../price/ExternalTokenModel";
 import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
-import { formatEther } from "ethers/lib/utils";
 export interface UserTokens {
   [key: string]: UserTokenData;
 }
@@ -71,7 +70,7 @@ export interface UserData {
   earnings: IUserEarningsSummary;
   votes: IUserVote[];
   dill: IUserDillStats;
-  brineries: IUserBrineryStats[];
+  brineries: UserBrineries;
   pickles: UserPickles;
   errors: string[];
 }
@@ -91,12 +90,16 @@ export interface IUserDillStats {
   dillApproval: string;
 }
 
-export interface IUserBrineryStats {
+export interface UserBrineries {
+  [key: string]: UserBrineryData;
+}
+
+export interface UserBrineryData {
   assetKey: string;
   depositTokenBalance: string;
   allowance: string;
-  claimable: number;
-  balance: number;
+  claimable: string;
+  balance: string;
 }
 
 export interface IUserVote {
@@ -128,7 +131,7 @@ const emptyUserData = (): UserData => {
       totalClaimableETH: "0",
       dillApproval: "0",
     },
-    brineries: [],
+    brineries: {},
     pickles: {
       dillApproval: "0",
     },
@@ -993,21 +996,21 @@ export class UserModel implements ConsoleErrorLogger {
     };
   }
 
-  async getUserBrineryStats(): Promise<IUserBrineryStats[]> {
+  async getUserBrineryStats(): Promise<UserBrineryData[]> {
     const brineries = this.model.assets.brineries;
-    const userBrineries = brineries.map(
-      async (asset: BrineryDefinition): Promise<IUserBrineryStats> => {
-        const mcBrineryContract = new MulticallContract(
-          asset.contract,
-          brineryAbi,
-        );
+    const userBrineries = await Promise.all(
+      brineries.map(
+        async (asset: BrineryDefinition): Promise<UserBrineryData> => {
+          const mcBrineryContract = new MulticallContract(
+            asset.contract,
+            brineryAbi,
+          );
 
-        const mcDepositToken = new MulticallContract(
-          asset.depositToken.addr,
-          erc20Abi,
-        );
-        const [userPending, userBalance, index, userIndex] = (
-          await this.callMulti(
+          const mcDepositToken = new MulticallContract(
+            asset.depositToken.addr,
+            erc20Abi,
+          );
+          const [userPendingBN, userBalanceBN] = await this.callMulti(
             [
               () => mcBrineryContract.claimable(this.walletId),
               () => mcBrineryContract.balanceOf(this.walletId),
@@ -1017,57 +1020,59 @@ export class UserModel implements ConsoleErrorLogger {
               () => mcDepositToken.allowance(this.walletId, asset.contract),
             ],
             asset.chain,
-          )
-        ).map((x: BigNumber) => parseFloat(formatEther(x)));
-
-        const [userDepositBalanceBN, userBrineryAllowance] =
-          await this.callMulti(
-            [
-              () => mcDepositToken.balanceOf(this.walletId),
-              () => mcDepositToken.allowance(this.walletId, asset.contract),
-            ],
-            asset.chain,
           );
 
-        const pickleLockedUnderlying =
-          asset.details.pickleLockedUnderlying || 1;
-        const distributorPending = asset.details.distributorPending || 0;
+          const [userDepositBalanceBN, userBrineryAllowanceBN] =
+            await this.callMulti(
+              [
+                () => mcDepositToken.balanceOf(this.walletId),
+                () => mcDepositToken.allowance(this.walletId, asset.contract),
+              ],
+              asset.chain,
+            );
 
-        const userTotalPending =
-          userPending +
-          (distributorPending * userBalance) / pickleLockedUnderlying +
-          (index - userIndex) * userBalance;
+          const pickleLockedUnderlying =
+            asset.details.pickleLockedUnderlying || 1;
+          const distributorPending = asset.details.distributorPending || 0;
 
-        return {
-          assetKey: asset.details.apiKey,
-          claimable: userTotalPending,
-          balance: userBalance,
-          depositTokenBalance: userDepositBalanceBN.toString(),
-          allowance: userBrineryAllowance.toString(),
-        };
-      },
+          const userTotalPending = userPendingBN.add(
+            BigNumber.from((distributorPending * 1e6).toFixed())
+              .mul(userBalanceBN)
+              .div(BigNumber.from((pickleLockedUnderlying * 1e6).toFixed())),
+          );
+
+          return {
+            assetKey: asset.details.apiKey,
+            claimable: userTotalPending.toString(),
+            balance: userBalanceBN.toString(),
+            depositTokenBalance: userDepositBalanceBN.toString(),
+            allowance: userBrineryAllowanceBN.toString(),
+          };
+        },
+      ),
     );
-    const ret: IUserBrineryStats[] = [];
-    for (let i = 0; i < userBrineries.length; i++) {
-      ret.push(await userBrineries[i]);
-    }
-    return ret;
+    return userBrineries;
   }
 
-  async getUserBrineryStatsGuard(): Promise<IUserBrineryStats[]> {
+  async getUserBrineryStatsGuard(): Promise<UserBrineries> {
     DEBUG_OUT("Begin getUserBrineryStatsGuard");
     const start = Date.now();
     try {
+      const ret: UserBrineries = {};
       const r = await this.getUserBrineryStats();
-      this.workingData.brineries = r;
+      for (let i = 0; i < r.length; i++) {
+        const assetKey = r[i].assetKey.toLowerCase();
+        ret[assetKey] = r[i];
+      }
+      this.workingData.brineries = ret;
       this.sendUpdate();
       DEBUG_OUT("End getUserBrineryStatsGuard: " + (Date.now() - start));
-      return r;
+      return ret;
     } catch (error) {
       this.logUserModelError("in getUserBrineryStats", "" + error);
       this.sendUpdate();
       DEBUG_OUT("End getUserBrineryStatsGuard: " + (Date.now() - start));
-      return [];
+      return {};
     }
   }
 

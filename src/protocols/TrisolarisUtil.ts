@@ -23,8 +23,8 @@ export const TRI_V2_FARMS = "0x3838956710bcc9D122Dd23863a0549ca8D5675D6";
 
 export const triPoolIds: PoolId = {
   "0x63da4DB6Ef4e7C62168aB03982399F9588fCd198": 0,
-  "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0": 1,
-  "0x03B666f3488a7992b2385B12dF7f35156d7b29cD": 2,
+  // "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0": 1,
+  // "0x03B666f3488a7992b2385B12dF7f35156d7b29cD": 2,
   "0x2fe064B6c7D274082aa5d2624709bC9AE7D16C77": 3,
   "0xbc8A244e8fb683ec1Fd6f88F3cc6E565082174Eb": 4,
   "0x84b123875F0F36B966d0B6Ca14b31121bd9676AD": 5,
@@ -71,6 +71,12 @@ export const triPoolV2Ids = {
     rewarder: "0x42b950FB4dd822ef04C4388450726EFbF1C3CF63",
     reward: "flx",
   },
+  "0xdDAdf88b007B95fEb42DDbd110034C9a8e9746F2": {
+    poolId: 10,
+    rewarder: "0xbbE41F699B0fB747cd4bA21067F6b27e0698Bc30",
+    reward: "solace",
+    eco: true,
+  },
   "0x5913f644A10d98c79F2e0b609988640187256373": {
     poolId: 11,
     rewarder: "0x7B9e31BbEdbfdc99e3CC8b879b9a3B1e379Ce530",
@@ -81,15 +87,74 @@ export const triPoolV2Ids = {
     rewarder: "0xf267212F1D8888e0eD20BbB0c7C87A089cDe6E88",
     reward: "meta",
   },
+  "0xb419ff9221039Bdca7bb92A131DD9CF7DEb9b8e5": {
+    poolId: 13,
+    rewarder: "0xb84293D04137c9061afe34118Dac9931df153826",
+    reward: "xnl",
+    eco: true,
+  },
+  "0xFBc4C42159A5575a772BebA7E3BF91DB508E127a": {
+    poolId: 14,
+    rewarder: "0x028Fbc4BB5787e340524EF41d95875Ac2C382101",
+    reward: "xnl",
+    eco: true,
+  },
+  "0x7B273238C6DD0453C160f305df35c350a123E505": {
+    poolId: 15,
+    rewarder: "0xDAc58A615E2A1a94D7fb726a96C273c057997D50",
+    reward: "gba",
+    eco: true,
+  },
   "0x6277f94a69Df5df0Bc58b25917B9ECEFBf1b846A": {
     poolId: 16,
     rewarder: "0x170431D69544a1BC97855C6564E8460d39508844",
     reward: "near",
   },
+  "0xadAbA7E2bf88Bd10ACb782302A568294566236dC": {
+    poolId: 17,
+    rewarder: "0xABE01A6b6922130C982E221681EB4C4aD07A21dA",
+    reward: "bbt",
+    eco: true,
+  },
+  "0x5E74D85311fe2409c341Ce49Ce432BB950D221DE": {
+    poolId: 19,
+    rewarder: "",
+    reward: "",
+  },
+  "0xbe753E99D0dBd12FB39edF9b884eBF3B1B09f26C": {
+    poolId: 20,
+    rewarder: "0xfe9B7A3bf38cE0CA3D5fA25d371Ff5C6598663d4",
+    reward: "rose",
+  },
+  "0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700": {
+    poolId: 21,
+    rewarder: "0x87a03aFA70302a5a0F6156eBEd27f230ABF0e69C",
+    reward: "rose",
+  },
+  "0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1": {
+    poolId: 22,
+    rewarder: "0x1616B20534d1d1d731C31Ca325F4e909b8f3E0f0",
+    reward: "linear",
+  },
   "0xBBf3D4281F10E537d5b13CA80bE22362310b2bf9": {
     poolId: 23,
     rewarder: "0xDc6d09f5CC085E29972d192cB3AdCDFA6495a741",
     reward: "bstn",
+  },
+  "0x1e0e812FBcd3EB75D8562AD6F310Ed94D258D008": {
+    poolId: 24,
+    rewarder: "0x34c58E960b80217fA3e0323d37563c762a131AD9",
+    reward: "aurora",
+  },
+  "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0": {
+    poolId: 25,
+    rewarder: "0x84C8B673ddBF0F647c350dEd488787d3102ebfa3",
+    reward: "aurora",
+  },
+  "0x03B666f3488a7992b2385B12dF7f35156d7b29cD": {
+    poolId: 26,
+    rewarder: "0x4e0152b260319e5131f853AeCB92c8f992AA0c97",
+    reward: "aurora",
   },
 };
 
@@ -137,15 +202,6 @@ export async function calculateTriFarmsAPY(
         ],
         jar.chain,
       );
-    if (rewarder != "0x0000000000000000000000000000000000000000") {
-      //WIP
-      const multicallRewarder = new MultiContract(
-        rewarder,
-        sushiComplexRewarderAbi,
-      );
-      // const extraReward = await model.callMulti([() => multicallRewarder.rewardToken()], jar.chain);
-      //WIP
-    }
 
     // Return extraReward APY of 0 if there's no rewarder
     if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
@@ -161,11 +217,6 @@ export async function calculateTriFarmsAPY(
         () => rewarderContract.tokenPerBlock(),
         jar.chain,
       );
-
-      // const extraReward = await model.callMulti(
-      //   () => rewarderContract.pendingTokens(),
-      //   jar.chain
-      // );
 
       const rewardId = triPoolV2Ids[jar.depositToken.addr]?.reward;
       const extraRewardRewardsPerYear =
@@ -199,10 +250,20 @@ export async function calculateTriFarmsAPY(
   const totalValueStaked = totalSupply * pricePerToken;
   const triAPY = triRewardedPerYear / totalValueStaked;
 
-  return [
-    createAprComponentImpl("tri", triAPY * 100, true, 0.9),
-    ...(extraRewardAPY > 0
-      ? [
+  if (triPoolV2Ids[jar.depositToken.addr]?.eco === true) {
+    return [
+      createAprComponentImpl(
+        triPoolV2Ids[jar.depositToken.addr]?.reward,
+        extraRewardAPY * 100,
+        true,
+        0.9,
+      ),
+    ]
+  } else {
+    return [
+      createAprComponentImpl("tri", triAPY * 100, true, 0.9),
+      ...(extraRewardAPY > 0
+        ? [
           createAprComponentImpl(
             triPoolV2Ids[jar.depositToken.addr]?.reward,
             extraRewardAPY * 100,
@@ -210,9 +271,11 @@ export async function calculateTriFarmsAPY(
             0.9,
           ),
         ]
-      : []),
-  ];
+        : []),
+    ];
+  }
 }
+
 
 const TRI_PAIR_CACHE_KEY = "triswap.pair.data.cache.key";
 

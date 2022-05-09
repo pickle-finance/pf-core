@@ -158,10 +158,7 @@ export const JAR_UNIV2_ETH_DAI: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: {
-    apiKey: "UNIV2_ETH_DAI",
-    harvestStyle: HarvestStyle.NONE,
-  },
+  details: undefined,
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_DAI);
@@ -181,10 +178,7 @@ export const JAR_UNIV2_ETH_USDC: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: {
-    apiKey: "UNIV2_ETH_USDC",
-    harvestStyle: HarvestStyle.NONE,
-  },
+  details: undefined,
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDC);
@@ -204,10 +198,7 @@ export const JAR_UNIV2_ETH_USDT: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: {
-    apiKey: "UNIV2_ETH_USDT",
-    harvestStyle: HarvestStyle.NONE,
-  },
+  details: undefined,
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDT);
@@ -4891,7 +4882,7 @@ export const JAR_AURORA_TRI_NEAR_USDC: JarDefinition = {
       ],
     },
   },
-  rewardTokens: ["tri"],
+  rewardTokens: ["tri", "aurora"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -4953,7 +4944,7 @@ export const JAR_AURORA_TRI_NEAR_USDT: JarDefinition = {
       ],
     },
   },
-  rewardTokens: ["tri"],
+  rewardTokens: ["tri", "aurora"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
@@ -5297,7 +5288,7 @@ export const JAR_AURORA_TRI_MATIC_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -5361,7 +5352,7 @@ export const JAR_AURORA_TRI_STNEAR_XTRI_LP: JarDefinition = {
     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP STNEAR/XTRI",
     farmDepositTokenName: "pTLP STNEAR/XTRI",
   },
@@ -5389,7 +5380,7 @@ export const JAR_AURORA_TRI_USDO_USDT_LP: JarDefinition = {
     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP USDO/USDT",
     farmDepositTokenName: "pTLP USDO/USDT",
   },
@@ -5417,7 +5408,7 @@ export const JAR_AURORA_TRI_FLX_NEAR_LP: JarDefinition = {
     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTLP FLX/NEAR",
     farmDepositTokenName: "pTLP FLX/NEAR",
   },
@@ -5445,12 +5436,208 @@ export const JAR_AURORA_TRI_BSTN_NEAR_LP: JarDefinition = {
     controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
     farmNickname: "pTRI BSTN/NEAR",
     farmDepositTokenName: "pTRI BSTN/NEAR",
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_TRI_BSTN_NEAR_LP);
+
+export const JAR_AURORA_TRI_ROSE_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1s",
+  contract: "0xFb56aecFb7eF86c524E70E090B15CD4a643BBEc5",
+  startBlock: 64156232,
+  depositToken: {
+    addr: "0xbe753E99D0dBd12FB39edF9b884eBF3B1B09f26C",
+    name: "TLP ROSE/NEAR",
+    link: "https://www.trisolaris.io/#/add/0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["rose", "near"],
+  },
+  rewardTokens: ["tri", "rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-ROSE-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTRI ROSE/NEAR",
+    farmDepositTokenName: "pTRI ROSE/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_ROSE_NEAR_LP);
+
+export const JAR_AURORA_TRI_RUSD_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1t",
+  contract: "0x471a605E4E2Eca369065da90110685d073CBFf1D",
+  startBlock: 64156815,
+  depositToken: {
+    addr: "0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700",
+    name: "TLP RUSD/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x19cc40283B057D6608C22F1D20F17e16C245642E/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["rusd", "near"],
+  },
+  rewardTokens: ["tri", "rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-RUSD-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTRI RUSD/NEAR",
+    farmDepositTokenName: "pTRI RUSD/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_RUSD_NEAR_LP);
+
+export const JAR_AURORA_TRI_LINEAR_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 1u",
+  contract: "0x52C7Bc8a7F8dFF855ed4a8cEF6196c36D00E5cAA",
+  startBlock: 64157710,
+  depositToken: {
+    addr: "0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1",
+    name: "TLP LINEAR/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x19cc40283B057D6608C22F1D20F17e16C245642E/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["linear", "near"],
+  },
+  rewardTokens: ["tri", "linear"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TLP-LINEAR-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTRI LINEAR/NEAR",
+    farmDepositTokenName: "pTRI LINEAR/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_LINEAR_NEAR_LP);
+
+export const JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1v",
+  contract: "0x0EA5D709851ae7A6856677b880b8c56e87e7877B",
+  startBlock: 64160109,
+  depositToken: {
+    addr: "0xdDAdf88b007B95fEb42DDbd110034C9a8e9746F2",
+    name: "TrisolarisLP SOLACE/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x501acE9c35E60f03A2af4d484f49F9B1EFde9f40/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["solace", "near"],
+  },
+  rewardTokens: ["solace"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-SOLACE-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP SOLACE/NEAR",
+    farmDepositTokenName: "pTrisolarisLP SOLACE/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP);
+
+export const JAR_AURORA_TRISOLARIS_BBT_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1x",
+  contract: "0xA3342A7CB3fc1Fb8de3Fb7ef5d4A30e0e56C36CD",
+  startBlock: 64174797,
+  depositToken: {
+    addr: "0xadAbA7E2bf88Bd10ACb782302A568294566236dC",
+    name: "TrisolarisLP BBT/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x4148d2Ce7816F0AE378d98b40eB3A7211E1fcF0D/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["bbt", "near"],
+  },
+  rewardTokens: ["bbt"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-BBT-NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP BBT/NEAR",
+    farmDepositTokenName: "pTrisolarisLP BBT/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_BBT_NEAR_LP);
+
+export const JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1z",
+  contract: "0x7977844f44BFb9d33302FC4A99bB0247BA13478c",
+  startBlock: 64179676,
+  depositToken: {
+    addr: "0x5E74D85311fe2409c341Ce49Ce432BB950D221DE",
+    name: "TrisolarisLP USDC/SHITZU",
+    link: "https://www.trisolaris.io/#/add/0xB12BFcA5A55806AaF64E99521918A4bf0fC40802/0x68e401B61eA53889505cc1366710f733A60C2d41",
+    components: ["usdc", "shitzu"],
+  },
+  rewardTokens: ["tri"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-USDC-SHITZU",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP USDC/SHITZU",
+    farmDepositTokenName: "pTrisolarisLP USDC/SHITZU",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP);
+
+export const JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 1ac",
+  contract: "0x708C457199A699Ce7219d778353F9e82f5C49DC3",
+  startBlock: 64898205,
+  depositToken: {
+    addr: "0x1e0e812FBcd3EB75D8562AD6F310Ed94D258D008",
+    name: "TrisolarisLP AURORA/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x8BEc47865aDe3B172A928df8f990Bc7f2A3b9f79/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["aurora", "near"],
+  },
+  rewardTokens: ["tri", "aurora"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRISOLARISLP-AURORA-NEAR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTrisolarisLP AURORA/NEAR",
+    farmDepositTokenName: "pTrisolarisLP AURORA/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP);
 
 export const JAR_AURORA_WANNA_NEAR: JarDefinition = {
   type: AssetType.JAR,
@@ -5927,6 +6114,34 @@ export const JAR_AURORA_WANNA_WANNA_AURORA: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_WANNA_WANNA_AURORA);
 
+export const JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 2o",
+  contract: "0x527F243112Cc6DE5A9879c93c2091C23E9a3afa5",
+  startBlock: 64263363,
+  depositToken: {
+    addr: "0xE22606659ec950E0328Aa96c7f616aDC4907cBe3",
+    name: "WannaswapLP WANNAX/STNEAR",
+    link: "https://wannaswap.finance/exchange/add/0x5205c30bf2E37494F8cF77D2c19C6BA4d2778B9B/0x07F9F7f963C5cD2BBFFd30CcfB964Be114332E30",
+    components: ["wannax", "stnear"],
+  },
+  rewardTokens: ["wanna"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.WANNASWAP,
+  details: {
+    apiKey: "WANNASWAPLP-WANNAX-STNEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pWannaswapLP WANNAX/STNEAR",
+    farmDepositTokenName: "pWannaswapLP WANNAX/STNEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP);
+
 export const JAR_AURORA_PAD_BTC_NEAR: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 3a",
@@ -6129,11 +6344,146 @@ export const JAR_AURORA_PAD_PAD_FRAX: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_FRAX);
 
-export const JAR_AURORA_PAD_ROSE: JarDefinition = {
+export const JAR_AURORA_PAD_MODA_PAD_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3g",
+  contract: "0x03C648B58683b389c336D08d1214041B69135430",
+  startBlock: 64186807,
+  depositToken: {
+    addr: "0xC8F45738e2900fCaB9B72EA624F48aE2c222e248",
+    name: "PAD PAD/MODA",
+    link: "https://pad.fi/dex/add/0x74974575D2f1668C63036D51ff48dbaa68E52408/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
+    components: ["pad", "moda"],
+  },
+  rewardTokens: ["pad"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD-MODA",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP PAD/MODA",
+    farmDepositTokenName: "pNLP PAD/MODA",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_MODA_PAD_LP);
+
+export const JAR_AURORA_PAD_PAD_DAI_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3h",
+  contract: "0x384d0a6Bb447A916a42b664C06D5F1E711e8014f",
+  startBlock: 64189372,
+  depositToken: {
+    addr: "0xaf3f197Ce82bf524dAb0e9563089d443cB950048",
+    name: "PAD PAD/DAI",
+    link: "https://pad.fi/dex/add/0xe3520349F477A5F6EB06107066048508498A291b/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
+    components: ["pad", "dai"],
+  },
+  rewardTokens: ["pad"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD-DAI",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP PAD/DAI",
+    farmDepositTokenName: "pNLP PAD/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_DAI_LP);
+
+export const JAR_AURORA_PAD_PAD_AURORA_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3k",
+  contract: "0x655552A4c0138dc92a997A16B7a3C10373DfC6a0",
+  startBlock: 64189815,
+  depositToken: {
+    addr: "0xFE28a27a95e51BB2604aBD65375411A059371616",
+    name: "PAD PAD/DAI",
+    link: "https://pad.fi/dex/add/0xe3520349F477A5F6EB06107066048508498A291b/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781",
+    components: ["pad", "aurora"],
+  },
+  rewardTokens: ["pad"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD-AURORA",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP PAD/AURORA",
+    farmDepositTokenName: "pNLP PAD/AURORA",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_AURORA_LP);
+
+export const JAR_AURORA_PAD_NEAR_ETH_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3i",
+  contract: "0x2c8051621f793609aFe5f2B43E8e0b90000Be637",
+  startBlock: 64190817,
+  depositToken: {
+    addr: "0x24886811d2d5E362FF69109aed0A6EE3EeEeC00B",
+    name: "PAD NEAR/ETH",
+    link: "https://pad.fi/dex/add/ETH/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["near", "eth"],
+  },
+  rewardTokens: ["pad"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-NEAR-ETH",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP NEAR/ETH",
+    farmDepositTokenName: "pNLP NEAR/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_NEAR_ETH_LP);
+
+export const JAR_AURORA_PAD_PAD_TRI_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 3j",
+  contract: "0x94da4471aa1fc15053E2A1c5991136A895CD66fB",
+  startBlock: 64191709,
+  depositToken: {
+    addr: "0x50F63D48a52397C1a469Ccd057905CC8d2609B85",
+    name: "PAD PAD/TRI",
+    link: "https://pad.fi/dex/add/0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781/0xFa94348467f64D5A457F75F8bc40495D33c65aBB",
+    components: ["pad", "tri"],
+  },
+  rewardTokens: ["pad"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.NEARPAD,
+  details: {
+    apiKey: "NLP-PAD-TRI",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pNLP PAD/TRI",
+    farmDepositTokenName: "pNLP PAD/TRI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_PAD_PAD_TRI_LP);
+
+export const JAR_AURORA_ROSE_PAD_ROSE_PAD_LP: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 4a",
-  contract: "0x13B2e3a0Af367b061Ae66A74E8C9FC9E1129006f",
-  startBlock: 55893051,
+  contract: "0x3F00480fB625Be95abf6c462C84Be1916baF6446",
+  startBlock: 64255592,
   depositToken: {
     addr: "0xC6C3cc84EabD4643C382C988fA2830657fc70a6B",
     name: "PAD PAD/ROSE",
@@ -6149,7 +6499,7 @@ export const JAR_AURORA_PAD_ROSE: JarDefinition = {
     },
   },
   rewardTokens: ["rose"],
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
@@ -6162,13 +6512,13 @@ export const JAR_AURORA_PAD_ROSE: JarDefinition = {
     farmDepositTokenName: "pNLP PAD/ROSE",
   },
 };
-JAR_DEFINITIONS.push(JAR_AURORA_PAD_ROSE);
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_PAD_ROSE_PAD_LP);
 
-export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
+export const JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP: JarDefinition = {
   type: AssetType.JAR,
   id: "nearJar 4b",
-  contract: "0xb42e32fE70aA4d6908EA76899586cd18f0177157",
-  startBlock: 55851729,
+  contract: "0x566112Ba8Bf50218Ac5D485DcbE0eBF240707D11",
+  startBlock: 64255996,
   depositToken: {
     addr: "0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707",
     name: "PAD FRAX/ROSE",
@@ -6176,7 +6526,7 @@ export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
     components: ["frax", "rose"],
   },
   rewardTokens: ["rose"],
-  enablement: AssetEnablement.PERMANENTLY_DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
@@ -6189,7 +6539,169 @@ export const JAR_AURORA_ROSE_FRAX: JarDefinition = {
     farmDepositTokenName: "pNLP FRAX/ROSE",
   },
 };
-JAR_DEFINITIONS.push(JAR_AURORA_ROSE_FRAX);
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP);
+
+export const JAR_AURORA_ROSE_3POOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4c",
+  contract: "0x0FeEc68AFB4716Af45349bcFdc317E872BD50335",
+  startBlock: 64237051,
+  depositToken: {
+    addr: "0xfF79D5bff48e1C01b722560D6ffDfCe9FC883587",
+    name: "RoseLP 3POOL",
+    link: "https://app.rose.fi/#/pools/pools/stables",
+    components: ["rose3pool"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-3POOL",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-3POOL",
+    farmDepositTokenName: "pROSELP-3POOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_3POOL_LP);
+
+export const JAR_AURORA_ROSE_FRAXPOOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4d",
+  contract: "0xF25466cadAD7ACd09249A8e4baDF62C43c6e0375",
+  startBlock: 64237051,
+  depositToken: {
+    addr: "0x4463A118A2fB34640ff8eF7Fe1B3abAcd4aC9fB7",
+    name: "RoseLP FRAXPOOL",
+    link: "https://app.rose.fi/#/pools/pools/frax",
+    components: ["rose3pool", "frax"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-FRAXPOOL",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-FRAXPOOL",
+    farmDepositTokenName: "pROSELP-FRAXPOOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_FRAXPOOL_LP);
+
+export const JAR_AURORA_ROSE_USTPOOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4e",
+  contract: "0xe7a47b1Be32161736FE083E8425b7Be97099B2Ed",
+  startBlock: 64238136,
+  depositToken: {
+    addr: "0x94A7644E4D9CA0e685226254f88eAdc957D3c263",
+    name: "RoseLP USTPOOL",
+    link: "https://app.rose.fi/#/pools/pools/ust",
+    components: ["rose3pool", "ust"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-USTPOOL",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-USTPOOL",
+    farmDepositTokenName: "pROSELP-USTPOOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_USTPOOL_LP);
+
+export const JAR_AURORA_ROSE_BUSDPOOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4f",
+  contract: "0x149228d9d745e5aBdeb0640aE4dB51BdEC7de1AA",
+  startBlock: 64829885,
+  depositToken: {
+    addr: "0x158f57CF9A4DBFCD1Bc521161d86AeCcFC5aF3Bc",
+    name: "RoseLP BUSDPOOL",
+    link: "https://app.rose.fi/#/pools/pools/busd",
+    components: ["rose3pool", "busd"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-BUSDPOOL",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-BUSDPOOL",
+    farmDepositTokenName: "pROSELP-BUSDPOOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_BUSDPOOL_LP);
+
+export const JAR_AURORA_ROSE_MAIPOOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4g",
+  contract: "0x4850d60B10520081653F012E000049Bc82dE365F",
+  startBlock: 64828260,
+  depositToken: {
+    addr: "0xA7ae42224Bf48eCeFc5f838C230EE339E5fd8e62",
+    name: "RoseLP MAIPOOL",
+    link: "https://app.rose.fi/#/pools/pools/mai",
+    components: ["rose3pool", "mai"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-MAIPOOL",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-MAIPOOL",
+    farmDepositTokenName: "pROSELP-MAIPOOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_MAIPOOL_LP);
+
+export const JAR_AURORA_ROSE_RUSDPOOL_LP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "nearJar 4h",
+  contract: "0x5ae33A37398Fe95131c2150D3D4A5D539C791d50",
+  startBlock: 64833747,
+  depositToken: {
+    addr: "0x56f87a0cB4713eB513BAf57D5E81750433F5fcB9",
+    name: "RoseLP RUSDPOOL",
+    link: "https://app.rose.fi/#/pools/pools/rusd",
+    components: ["rose3pool", "rusd"],
+  },
+  rewardTokens: ["rose"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.ROSE,
+  details: {
+    apiKey: "ROSELP-RUSDPOOL",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pROSELP-RUSDPOOL",
+    farmDepositTokenName: "pROSELP-RUSDPOOL",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_ROSE_RUSDPOOL_LP);
 
 export const JAR_AURORA_BRL_AURORA_NEAR: JarDefinition = {
   type: AssetType.JAR,
@@ -6692,6 +7204,41 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_AURORA_BRL_UST_NEAR);
+
+export const JAR_AURORA_TRI_PLY_NEAR: JarDefinition = {
+  type: AssetType.JAR,
+  id: "auroraJar 3a",
+  contract: "0x46d42C3DcCC38B92f40b021008AcDc76ab463B12",
+  startBlock: 64969978,
+  depositToken: {
+    addr: "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7",
+    name: "TRI PLY/NEAR",
+    link: "https://www.trisolaris.io/#/add/0x09C9D464b58d96837f8d8b6f4d9fE4aD408d3A4f/0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+    components: ["ply", "near"],
+    nativePath: {
+      //UniswapV2Router02 (Trisolaris)--> [WETH, NEAR]
+      target: "0x2CB45Edb4517d5947aFdE3BEAbF95A582506858B",
+      path: [
+        "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
+        "0xC42C30aC6Cc15faC9bD938618BcaA1a1FaE8501d",
+      ],
+    },
+  },
+  rewardTokens: ["ply"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Aurora,
+  protocol: AssetProtocol.TRISOLARIS,
+  details: {
+    apiKey: "TRI-PLY-NEAR",
+    harvestStyle: HarvestStyle.CUSTOM,
+  },
+  farm: {
+    farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
+    farmNickname: "pTRI PLY/NEAR",
+    farmDepositTokenName: "pTRI PLY/NEAR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_AURORA_TRI_PLY_NEAR);
 
 // Metis
 export const JAR_METIS_NETSWAP_NETT_METIS: JarDefinition = {
@@ -12220,6 +12767,7 @@ export const BRINERY_VEFXS: BrineryDefinition = {
     distributionAddr: "0xc6764e58b36e26b08Fd1d2AeD4538c02171fA872",
     strategyAddr: "0x552D92Ad2bb3Aba00872491ea2DC5d6EC3B8A31D",
     lockerAddr: "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
+    rewardToken: "fxs"
   },
 };
 

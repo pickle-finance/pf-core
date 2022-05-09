@@ -13,10 +13,19 @@
         "name": "_rewardPerSecond",
         "internalType": "uint256"
       },
-      { "type": "address", "name": "_MASTERCHEF_V2", "internalType": "address" }
+      {
+        "type": "address",
+        "name": "_MASTERCHEF_V2",
+        "internalType": "address"
+      }
     ]
   },
-  { "type": "event", "name": "LogInit", "inputs": [], "anonymous": false },
+  {
+    "type": "event",
+    "name": "LogInit",
+    "inputs": [],
+    "anonymous": false
+  },
   {
     "type": "event",
     "name": "LogOnReward",
@@ -155,8 +164,16 @@
     "outputs": [],
     "name": "add",
     "inputs": [
-      { "type": "uint256", "name": "allocPoint", "internalType": "uint256" },
-      { "type": "uint256", "name": "_pid", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "allocPoint",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "_pid",
+        "internalType": "uint256"
+      }
     ]
   },
   {
@@ -172,7 +189,11 @@
     "outputs": [],
     "name": "massUpdatePools",
     "inputs": [
-      { "type": "uint256[]", "name": "pids", "internalType": "uint256[]" }
+      {
+        "type": "uint256[]",
+        "name": "pids",
+        "internalType": "uint256[]"
+      }
     ]
   },
   {
@@ -181,24 +202,56 @@
     "outputs": [],
     "name": "onSushiReward",
     "inputs": [
-      { "type": "uint256", "name": "pid", "internalType": "uint256" },
-      { "type": "address", "name": "_user", "internalType": "address" },
-      { "type": "address", "name": "to", "internalType": "address" },
-      { "type": "uint256", "name": "", "internalType": "uint256" },
-      { "type": "uint256", "name": "lpToken", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "pid",
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "_user",
+        "internalType": "address"
+      },
+      {
+        "type": "address",
+        "name": "to",
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "lpToken",
+        "internalType": "uint256"
+      }
     ]
   },
   {
     "type": "function",
     "stateMutability": "view",
-    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "outputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
+    ],
     "name": "owner",
     "inputs": []
   },
   {
     "type": "function",
     "stateMutability": "view",
-    "outputs": [{ "type": "address", "name": "", "internalType": "address" }],
+    "outputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
+    ],
     "name": "pendingOwner",
     "inputs": []
   },
@@ -206,12 +259,24 @@
     "type": "function",
     "stateMutability": "view",
     "outputs": [
-      { "type": "uint256", "name": "pending", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "pending",
+        "internalType": "uint256"
+      }
     ],
     "name": "pendingToken",
     "inputs": [
-      { "type": "uint256", "name": "_pid", "internalType": "uint256" },
-      { "type": "address", "name": "_user", "internalType": "address" }
+      {
+        "type": "uint256",
+        "name": "_pid",
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "_user",
+        "internalType": "address"
+      }
     ]
   },
   {
@@ -231,17 +296,41 @@
     ],
     "name": "pendingTokens",
     "inputs": [
-      { "type": "uint256", "name": "pid", "internalType": "uint256" },
-      { "type": "address", "name": "user", "internalType": "address" },
-      { "type": "uint256", "name": "", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "pid",
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
     ]
   },
   {
     "type": "function",
     "stateMutability": "view",
-    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
     "name": "poolIds",
-    "inputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }]
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ]
   },
   {
     "type": "function",
@@ -252,17 +341,35 @@
         "name": "accSushiPerShare",
         "internalType": "uint128"
       },
-      { "type": "uint64", "name": "lastRewardTime", "internalType": "uint64" },
-      { "type": "uint64", "name": "allocPoint", "internalType": "uint64" }
+      {
+        "type": "uint64",
+        "name": "lastRewardTime",
+        "internalType": "uint64"
+      },
+      {
+        "type": "uint64",
+        "name": "allocPoint",
+        "internalType": "uint64"
+      }
     ],
     "name": "poolInfo",
-    "inputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }]
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ]
   },
   {
     "type": "function",
     "stateMutability": "view",
     "outputs": [
-      { "type": "uint256", "name": "pools", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "pools",
+        "internalType": "uint256"
+      }
     ],
     "name": "poolLength",
     "inputs": []
@@ -270,15 +377,40 @@
   {
     "type": "function",
     "stateMutability": "view",
-    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
     "name": "rewardPerSecond",
     "inputs": []
   },
   {
     "type": "function",
     "stateMutability": "view",
-    "outputs": [{ "type": "uint256", "name": "", "internalType": "uint256" }],
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
     "name": "tokenPerBlock",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "outputs": [
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      }
+    ],
+    "name": "rewardPerBlock",
     "inputs": []
   },
   {
@@ -287,8 +419,16 @@
     "outputs": [],
     "name": "set",
     "inputs": [
-      { "type": "uint256", "name": "_pid", "internalType": "uint256" },
-      { "type": "uint256", "name": "_allocPoint", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "_pid",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "_allocPoint",
+        "internalType": "uint256"
+      }
     ]
   },
   {
@@ -310,9 +450,21 @@
     "outputs": [],
     "name": "transferOwnership",
     "inputs": [
-      { "type": "address", "name": "newOwner", "internalType": "address" },
-      { "type": "bool", "name": "direct", "internalType": "bool" },
-      { "type": "bool", "name": "renounce", "internalType": "bool" }
+      {
+        "type": "address",
+        "name": "newOwner",
+        "internalType": "address"
+      },
+      {
+        "type": "bool",
+        "name": "direct",
+        "internalType": "bool"
+      },
+      {
+        "type": "bool",
+        "name": "renounce",
+        "internalType": "bool"
+      }
     ]
   },
   {
@@ -334,24 +486,50 @@
             "name": "lastRewardTime",
             "internalType": "uint64"
           },
-          { "type": "uint64", "name": "allocPoint", "internalType": "uint64" }
+          {
+            "type": "uint64",
+            "name": "allocPoint",
+            "internalType": "uint64"
+          }
         ]
       }
     ],
     "name": "updatePool",
-    "inputs": [{ "type": "uint256", "name": "pid", "internalType": "uint256" }]
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "pid",
+        "internalType": "uint256"
+      }
+    ]
   },
   {
     "type": "function",
     "stateMutability": "view",
     "outputs": [
-      { "type": "uint256", "name": "amount", "internalType": "uint256" },
-      { "type": "uint256", "name": "rewardDebt", "internalType": "uint256" }
+      {
+        "type": "uint256",
+        "name": "amount",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "rewardDebt",
+        "internalType": "uint256"
+      }
     ],
     "name": "userInfo",
     "inputs": [
-      { "type": "uint256", "name": "", "internalType": "uint256" },
-      { "type": "address", "name": "", "internalType": "address" }
+      {
+        "type": "uint256",
+        "name": "",
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
     ]
   }
 ]

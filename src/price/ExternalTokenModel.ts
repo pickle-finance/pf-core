@@ -1439,10 +1439,38 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
+      "solace",
+      null,
+      "solace",
+      "0x501acE9c35E60f03A2af4d484f49F9B1EFde9f40".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "linear",
+      null,
+      "linear-protocol",
+      "0x918dbe087040a41b786f0da83190c293dae24749".toLowerCase(),
+      24,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
       "pad",
       null,
       "nearpad",
       "0x885f8CF6E45bdd3fdcDc644efdcd0AC93880c781".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "wannax",
+      null,
+      "wanna",
+      "0x5205c30bf2E37494F8cF77D2c19C6BA4d2778B9B".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
@@ -1476,20 +1504,19 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Aurora,
-      "rose",
-      null,
-      "rose",
-      "0xdcD6D4e2B3e1D1E1E6Fa8C21C8A323DcbecfF970".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.SWAP_PAIRS,
-      ["0xeD4C231b98b474f7cAeCAdD2736e5ebC642ad707"],
-    );
-    this.addToken(
-      ChainNetwork.Aurora,
       "luna",
       null,
       "terra-luna",
       "0xC4bdd27c33ec7daa6fcfd8532ddB524Bf4038096".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "moda",
+      null,
+      "moda-dao",
+      "0x74974575D2f1668C63036D51ff48dbaa68E52408".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
@@ -1537,6 +1564,79 @@ export class ExternalTokenModel {
       "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "mai",
+      null,
+      "mimatic",
+      "0xc9BAA8cfdDe8E328787E29b4B078abf2DaDc2055".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "rose",
+      null,
+      "rose",
+      "0xdcd6d4e2b3e1d1e1e6fa8c21c8a323dcbecff970".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "rose3pool",
+      null,
+      "lp-3pool-curve",
+      "0xfF79D5bff48e1C01b722560D6ffDfCe9FC883587".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "shitzu",
+      null,
+      "shitzu",
+      "0x68e401B61eA53889505cc1366710f733A60C2d41".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "xnl",
+      null,
+      "chronicle",
+      "0x7cA1C28663b76CFDe424A9494555B94846205585".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "gba",
+      null,
+      "golden-banana",
+      "0xc2ac78ffddf39e5cd6d83bbd70c1d67517c467ef".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "bbt",
+      null,
+      "bluebit",
+      "0x4148d2ce7816f0ae378d98b40eb3a7211e1fcf0d".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Aurora,
+      "rusd",
+      null,
+      "",
+      "0x19cc40283B057D6608C22F1D20F17e16C245642E".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]
     );
     this.addToken(
       ChainNetwork.Aurora,
@@ -1611,6 +1711,19 @@ export class ExternalTokenModel {
       8,
       ExternalTokenFetchStyle.ID,
     );
+
+    this.addToken(
+      ChainNetwork.Aurora,
+      "ply",
+      null,
+      "aurigami",
+      "0x09c9d464b58d96837f8d8b6f4d9fe4ad408d3a4f".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      [
+        "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7", // PLY-NEAR
+        "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67", // NEAR-USDT
+      ],    );
 
     // Metis
     this.addToken(
