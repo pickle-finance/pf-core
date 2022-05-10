@@ -1,9 +1,5 @@
 import { JarHarvestStats, PickleModel } from "../..";
-import {
-  AssetProjectedApr,
-  HistoricalYield,
-  JarDefinition,
-} from "../../model/PickleModelJson";
+import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { BalancerJar } from "./balancer-jar";
 import { Contract as MultiContract } from "ethers-multicall";
@@ -11,6 +7,7 @@ import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { BigNumber, ethers } from "ethers";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
+import { getBalancerPoolDayAPY } from "../../protocols/BalancerUtil";
 
 export class BalancerVstaEth extends BalancerJar {
   private rewardAddress = "0x65207da01293C692a37f59D1D9b1624F0f21177c";
@@ -22,7 +19,7 @@ export class BalancerVstaEth extends BalancerJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    // const lp = await getBalancerPoolDayAPY(jar, model);
+    const lp = await getBalancerPoolDayAPY(jar, model);
 
     const multicallUniStakingRewards = new MultiContract(
       this.rewardAddress,
@@ -49,22 +46,9 @@ export class BalancerVstaEth extends BalancerJar {
     const totalValueStaked = totalSupply * pricePerToken;
     const vstaAPY = valueRewardedPerYear / totalValueStaked;
     return this.aprComponentsToProjectedApr([
-      //   this.createAprComponent("lp", lp, false),
+      this.createAprComponent("lp", lp, false),
       this.createAprComponent("vsta", vstaAPY * 100, true),
     ]);
-  }
-
-  // Disable LP calcs b/c new pool
-  async getProtocolApy(
-    _definition: JarDefinition,
-    _model: PickleModel,
-  ): Promise<HistoricalYield> {
-    return {
-      d1: 0,
-      d3: 0,
-      d7: 0,
-      d30: 0,
-    };
   }
 
   async getHarvestableUSD(

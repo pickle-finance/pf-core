@@ -233,30 +233,30 @@ export const calculateBalPoolAPRs = async (
   const miningWeek = getCurrentLiquidityMiningWeek();
   let currentWeekData = weeksLMData[getWeek(miningWeek)] as LiquidityMiningWeek;
   let n = 1;
-  while (!currentWeekData && miningWeek - n >= 1) {
+  while (!currentWeekData && n < 3) {
     // balLMUrl can take some time to include current week rewards
     currentWeekData = weeksLMData[
       getWeek(miningWeek - n)
     ] as LiquidityMiningWeek;
     n++;
   }
-  if (!currentWeekData) {
-    return [] as AssetAprComponent[];
-  }
-  const miningRewards: LiquidityMiningPools = {};
+
+  const poolAprComponents: AssetAprComponent[] = [];
+
   if (currentWeekData) {
-    Object.assign(
-      miningRewards,
-      currentWeekData.find((pool) => pool.chainId === 42161)?.pools,
-    );
-  }
+    const miningRewards: LiquidityMiningPools = {};
+    if (currentWeekData) {
+      Object.assign(
+        miningRewards,
+        currentWeekData.find((pool) => pool.chainId === 42161)?.pools,
+      );
+    }
 
-  const { totalPoolValue } = poolData;
+    const { totalPoolValue } = poolData;
 
-  const poolRewardsPerWeek =
-    miningRewards[balPoolIds[jar.depositToken.addr.toLowerCase()]];
-  const poolAprComponents: AssetAprComponent[] = poolRewardsPerWeek.map(
-    (reward) => {
+    const poolRewardsPerWeek =
+      miningRewards[balPoolIds[jar.depositToken.addr.toLowerCase()]];
+    poolRewardsPerWeek.forEach((reward) => {
       const rewardValue =
         reward.amount * model.priceOfSync(reward.tokenAddress, jar.chain);
       const name = ExternalTokenModelSingleton.getToken(
@@ -264,9 +264,9 @@ export const calculateBalPoolAPRs = async (
         jar.chain,
       ).id;
       const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
-      return { name: name, apr: apr, compoundable: true };
-    },
-  );
+      poolAprComponents.push({ name: name, apr: apr, compoundable: true });
+    });
+  }
 
   const lp: AssetAprComponent = {
     name: "lp",
