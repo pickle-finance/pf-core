@@ -976,7 +976,7 @@ export class UserModel implements ConsoleErrorLogger {
     let totalClaimable;
     try {
       totalClaimable = await feeDistributorContract.callStatic["claim_all(address)"](this.walletId, {
-        gasLimit: 1000000,
+        gasLimit: 9000000,
       });
     } catch (err) {
       // If out of gas, totalClaimable will be same as userClaimable
