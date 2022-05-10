@@ -158,7 +158,10 @@ export const JAR_UNIV2_ETH_DAI: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_DAI",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_DAI);
@@ -178,7 +181,10 @@ export const JAR_UNIV2_ETH_USDC: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_USDC",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDC);
@@ -198,7 +204,10 @@ export const JAR_UNIV2_ETH_USDT: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_USDT",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDT);
