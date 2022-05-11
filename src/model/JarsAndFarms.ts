@@ -2918,7 +2918,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
     components: ["usdc", "wbtc", "weth"],
   },
   rewardTokens: ["hal"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
@@ -2974,7 +2974,7 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
     components: ["bal", "weth"],
   },
   rewardTokens: ["bal"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
