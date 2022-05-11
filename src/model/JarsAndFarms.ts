@@ -1639,7 +1639,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
