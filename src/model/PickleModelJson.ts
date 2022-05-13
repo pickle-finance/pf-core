@@ -444,7 +444,7 @@ export interface DillDetails {
   pickleLocked: number;
   totalDill: number;
   dillWeeks: DillWeek[];
-  totalPickleSupply: number;
+  totalPickle: String;
 }
 
 export interface DillWeek {

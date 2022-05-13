@@ -182,7 +182,7 @@ export async function getDillDetails(
       pickleLocked: picklesLockedFloat,
       totalDill: dillSupplyFloat,
       dillWeeks: mapResult,
-      totalPickleSupply: Number(pickleSupply),
+      totalPickle: String(pickleSupply),
     };
   } catch (e) {
     console.log(e);
