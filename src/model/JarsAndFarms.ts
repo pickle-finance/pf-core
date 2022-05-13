@@ -726,7 +726,7 @@ export const JAR_UNIV2_MBABA_UST: JarDefinition = {
     components: ["mbaba", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
