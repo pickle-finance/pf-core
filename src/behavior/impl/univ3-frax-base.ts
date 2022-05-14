@@ -11,7 +11,7 @@ import {
 } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
-import gaugeABI from "../../Contracts/ABIs/frax-gauge.json";
+import gaugeABI from "../../Contracts/ABIs/frax-univ3-gauge.json";
 import {
   calculateFee,
   getLiquidityForAmounts,
