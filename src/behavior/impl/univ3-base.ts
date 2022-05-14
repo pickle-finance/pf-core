@@ -26,7 +26,7 @@ export class Univ3Base extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const { position } = await getUniV3(definition, model);
+    const { position, proportion } = await getUniV3(definition, model);
 
     const jarAmount0 = +position.amount0.toExact();
     const jarAmount1 = +position.amount1.toExact();
@@ -34,6 +34,7 @@ export class Univ3Base extends AbstractJarBehavior {
     definition.depositToken.componentTokens[0] = jarAmount0;
     definition.depositToken.componentTokens[1] = jarAmount1;
     definition.depositToken.totalSupply = definition.details.tokenBalance;
+    definition.depositToken.proportion = proportion.toString()
 
     const pJarUSD =
       model.priceOfSync(

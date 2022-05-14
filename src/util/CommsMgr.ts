@@ -404,9 +404,14 @@ export class CommsMgr {
       );
       return Promise.resolve();
     } catch (error) {
+      const where = "[" + tmpCallbacks.length + "-request multicall] ";
+      const errMsg = tmpCallbacks.length === 0 ? "Zero requests" : 
+        tmpCallbacks.length > 1 ? "One or more contract requests have failed." : 
+        tmpCallbacks.length > 0 && tmpCallbacks[0] ? tmpCallbacks[0].toString() + " has failed." : 
+        "An unknown error has occurred";
       this.logger.logError(
-        "ternaryExecuteTmpCalls",
-        error,
+        where,
+        errMsg,
         `${chain} multicall failed`,
       );
       if (tmpIds.length === 1) {

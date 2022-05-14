@@ -158,7 +158,10 @@ export const JAR_UNIV2_ETH_DAI: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_DAI",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_DAI);
@@ -178,7 +181,10 @@ export const JAR_UNIV2_ETH_USDC: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_USDC",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDC);
@@ -198,7 +204,10 @@ export const JAR_UNIV2_ETH_USDT: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_USDT",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDT);
@@ -717,7 +726,7 @@ export const JAR_UNIV2_MBABA_UST: JarDefinition = {
     components: ["mbaba", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -1630,7 +1639,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -2938,7 +2947,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
     components: ["usdc", "wbtc", "weth"],
   },
   rewardTokens: ["hal"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
@@ -2994,7 +3003,7 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
     components: ["bal", "weth"],
   },
   rewardTokens: ["bal"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
