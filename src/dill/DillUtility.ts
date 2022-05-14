@@ -7,7 +7,7 @@ import {
 import { BigNumber, ethers } from "ethers";
 import { Contract as MultiContract } from "ethers-multicall";
 import dillAbi from "../Contracts/ABIs/dill.json";
-import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
+import feeDistributorAbi from "../Contracts/ABIs/feeDistributorVer2.json";
 import Erc20Abi from "../Contracts/ABIs/erc20.json";
 import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
 import moment from "moment";
@@ -19,7 +19,7 @@ const week = 7 * 24 * 60 * 60;
 const firstMeaningfulDistributionTimestamp = 1619049600;
 
 export const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
-const FEE_DISTRIBUTOR = "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc";
+const FEE_DISTRIBUTOR = "0x2c6C87E7E6195ab7A4f19d3CF31D867580Bb2a1b";
 const pickleAddress = "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5";
 /**
  * This implementation is kinda dumb and just takes the current APR

@@ -32,8 +32,8 @@ import {
   Dill__factory,
   Erc20,
   Erc20__factory,
-  FeeDistributorV2,
-  FeeDistributorV2__factory,
+  FeeDistributorVer2,
+  FeeDistributorVer2__factory,
 } from "../Contracts/ContractsImpl";
 import {
   ExternalTokenModelSingleton,
@@ -204,7 +204,7 @@ export class UserModel implements ConsoleErrorLogger {
   async generateMinimalModel(): Promise<UserData> {
     await this.initCommsMgr();
     try {
-      await Promise.all([this.getUserTokens(), this.getUserEarningsSummary()]);
+      await Promise.all([this.getUserTokens(), this.getUserEarningsSummary(), this.getUserDillStatsGuard()]);
       if (this.callback !== undefined) {
         this.callback.modelFinished(this.workingData);
       }
@@ -954,7 +954,7 @@ export class UserModel implements ConsoleErrorLogger {
       this.providerFor(ChainNetwork.Ethereum),
     );
 
-    const feeDistributorContract: FeeDistributorV2 = FeeDistributorV2__factory.connect(
+    const feeDistributorContract: FeeDistributorVer2 = FeeDistributorVer2__factory.connect(
       feeDistributorAddr,
       this.providerFor(ChainNetwork.Ethereum),
     );

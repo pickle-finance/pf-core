@@ -67,7 +67,7 @@ export const ADDRESSES = new Map([
       masterChef: "0xbD17B1ce622d73bD438b9E658acA5996dc394b0d",
       controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
       dill: "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf",
-      feeDistributor: "0x345a89895C0e63D961d9D5da5E5929cB92B915FF",//"0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc", //changed to v2
+      feeDistributor: "0x2c6C87E7E6195ab7A4f19d3CF31D867580Bb2a1b",// v2(old)"0x345a89895C0e63D961d9D5da5E5929cB92B915FF",// v1 "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc", 
       gaugeProxy: "0x2e57627ACf6c1812F99e274d0ac61B786c19E74f",
       treasury: "0x066419eaef5de53cc5da0d8702b990c5bc7d1ab3",
     },
