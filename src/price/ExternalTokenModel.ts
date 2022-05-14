@@ -363,7 +363,7 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Ethereum,
       "temple",
-      "temple",
+      null,
       "temple",
       "0x470EBf5f030Ed85Fc1ed4C2d36B9DD02e77CF1b7".toLowerCase(),
       18,
