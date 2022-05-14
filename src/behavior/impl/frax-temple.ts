@@ -3,16 +3,10 @@ import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
 } from "../AbstractJarBehavior";
-import { ironchefAbi } from "../../Contracts/ABIs/ironchef.abi";
 import { PickleModel } from "../../model/PickleModel";
-import { BigNumber, ethers } from "ethers";
-import { formatEther } from "ethers/lib/utils";
-import controllerAbi from "../../Contracts/ABIs/controller.json";
-import strategyAbi from "../../Contracts/ABIs/strategy.json";
+import { BigNumber } from "ethers";
 import gaugeABI from "../../Contracts/ABIs/frax-gauge.json";
 import { Contract as MultiContract } from "ethers-multicall";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
 
 const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
 const gaugeAddress = "0x10460d02226d6ef7B2419aE150E6377BdbB7Ef16";
