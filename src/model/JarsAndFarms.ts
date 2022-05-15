@@ -1868,7 +1868,7 @@ JAR_DEFINITIONS.push(JAR_STAR_USDT);
 
 export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
   type: AssetType.JAR,
-  id: "pJar U3j",
+  id: "pJar 2a",
   contract: "0x4eB6e19c043513db1451eEe57F0d58ebea2C6150",
   startBlock: 14194675,
   depositToken: {
