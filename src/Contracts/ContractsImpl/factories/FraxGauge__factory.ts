@@ -25,127 +25,38 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "address",
-        name: "_lp_pool_address",
-        type: "address",
+        internalType: "address[]",
+        name: "_rewardTokens",
+        type: "address[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_rewardManagers",
+        type: "address[]",
+      },
+      {
+        internalType: "uint256[]",
+        name: "_rewardRates",
+        type: "uint256[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_gaugeControllers",
+        type: "address[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_rewardDistributors",
+        type: "address[]",
       },
       {
         internalType: "address",
-        name: "_timelock_address",
+        name: "_stakingToken",
         type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_rewards_distributor_address",
-        type: "address",
-      },
-      {
-        internalType: "int24",
-        name: "_uni_tick_lower",
-        type: "int24",
-      },
-      {
-        internalType: "int24",
-        name: "_uni_tick_upper",
-        type: "int24",
-      },
-      {
-        internalType: "int24",
-        name: "_uni_ideal_tick",
-        type: "int24",
       },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "liquidity",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "token_id",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "secs",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "source_address",
-        type: "address",
-      },
-    ],
-    name: "LockNFT",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "multiplier",
-        type: "uint256",
-      },
-    ],
-    name: "LockedNFTMaxMultiplierUpdated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "secs",
-        type: "uint256",
-      },
-    ],
-    name: "LockedNFTMinTime",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "secs",
-        type: "uint256",
-      },
-    ],
-    name: "LockedNFTTimeForMaxMultiplier",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "multiplier",
-        type: "uint256",
-      },
-    ],
-    name: "MaxVeFXSMultiplier",
-    type: "event",
   },
   {
     anonymous: false,
@@ -183,44 +94,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "RecoveredERC20",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "token_id",
-        type: "uint256",
-      },
-    ],
-    name: "RecoveredERC721",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
         internalType: "address",
         name: "user",
@@ -229,48 +102,29 @@ const _abi = [
       {
         indexed: false,
         internalType: "uint256",
-        name: "farm_reward",
+        name: "amount",
         type: "uint256",
       },
       {
         indexed: false,
         internalType: "uint256",
-        name: "liq_tok0_reward",
+        name: "secs",
         type: "uint256",
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "liq_tok1_reward",
-        type: "uint256",
+        internalType: "bytes32",
+        name: "kek_id",
+        type: "bytes32",
       },
       {
         indexed: false,
         internalType: "address",
-        name: "token_address",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "destination_address",
+        name: "source_address",
         type: "address",
       },
     ],
-    name: "RewardPaid",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "token",
-        type: "address",
-      },
-    ],
-    name: "RewardsPeriodRenewed",
+    name: "StakeLocked",
     type: "event",
   },
   {
@@ -290,9 +144,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "token_id",
-        type: "uint256",
+        internalType: "bytes32",
+        name: "kek_id",
+        type: "bytes32",
       },
       {
         indexed: false,
@@ -305,49 +159,10 @@ const _abi = [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "scale_factor",
-        type: "uint256",
-      },
-    ],
-    name: "veFXSPctForMaxBoostUpdated",
-    type: "event",
-  },
-  {
     inputs: [],
     name: "acceptOwnership",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "migrator_address",
-        type: "address",
-      },
-    ],
-    name: "addMigrator",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "bypassEmissionFactor",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -383,6 +198,24 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "reward_token_address",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "new_manager_address",
+        type: "address",
+      },
+    ],
+    name: "changeTokenManager",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -399,19 +232,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "curator_address",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "address",
@@ -422,6 +242,19 @@ const _abi = [
     name: "earned",
     outputs: [
       {
+        internalType: "uint256[]",
+        name: "new_earned",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "fraxPerLPStored",
+    outputs: [
+      {
         internalType: "uint256",
         name: "",
         type: "uint256",
@@ -432,11 +265,11 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "emissionFactor",
+    name: "fraxPerLPToken",
     outputs: [
       {
         internalType: "uint256",
-        name: "emission_factor",
+        name: "",
         type: "uint256",
       },
     ],
@@ -445,7 +278,63 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "frax_is_token0",
+    name: "getAllRewardTokens",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "destination_address",
+        type: "address",
+      },
+    ],
+    name: "getReward",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getRewardForDuration",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "rewards_per_duration_arr",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "caller_addr",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "reward_token_addr",
+        type: "address",
+      },
+    ],
+    name: "isTokenManagerFor",
     outputs: [
       {
         internalType: "bool",
@@ -458,33 +347,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "gauge_controller",
-    outputs: [
-      {
-        internalType: "contract IFraxGaugeController",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getReward",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getRewardForDuration",
+    name: "lastUpdateTime",
     outputs: [
       {
         internalType: "uint256",
@@ -498,27 +361,19 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_address",
-        type: "address",
+        internalType: "bytes32",
+        name: "kek_id",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "addl_liq",
+        type: "uint256",
       },
     ],
-    name: "greylistAddress",
+    name: "lockAdditional",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "ideal_tick",
-    outputs: [
-      {
-        internalType: "int24",
-        name: "",
-        type: "int24",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -602,27 +457,71 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "lockedStakes",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "kek_id",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "start_timestamp",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "liquidity",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "ending_timestamp",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "lock_multiplier",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "account",
         type: "address",
       },
     ],
-    name: "lockedNFTsOf",
+    name: "lockedStakesOf",
     outputs: [
       {
         components: [
           {
+            internalType: "bytes32",
+            name: "kek_id",
+            type: "bytes32",
+          },
+          {
             internalType: "uint256",
-            name: "token_id",
+            name: "start_timestamp",
             type: "uint256",
           },
           {
             internalType: "uint256",
             name: "liquidity",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "start_timestamp",
             type: "uint256",
           },
           {
@@ -635,18 +534,8 @@ const _abi = [
             name: "lock_multiplier",
             type: "uint256",
           },
-          {
-            internalType: "int24",
-            name: "tick_lower",
-            type: "int24",
-          },
-          {
-            internalType: "int24",
-            name: "tick_upper",
-            type: "int24",
-          },
         ],
-        internalType: "struct FraxUniV3Farm_Stable.LockedNFT[]",
+        internalType: "struct FraxUnifiedFarm_ERC20.LockedStake[]",
         name: "",
         type: "tuple[]",
       },
@@ -655,26 +544,38 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "lp_pool",
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "lockedStakesOfLength",
     outputs: [
       {
-        internalType: "contract IUniswapV3Pool",
+        internalType: "uint256",
         name: "",
-        type: "address",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [],
-    name: "migrationsOn",
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "maxLPForMaxBoost",
     outputs: [
       {
-        internalType: "bool",
+        internalType: "uint256",
         name: "",
-        type: "bool",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -689,7 +590,7 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "token_id",
+        name: "amount",
         type: "uint256",
       },
       {
@@ -716,9 +617,9 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "uint256",
-        name: "token_id",
-        type: "uint256",
+        internalType: "bytes32",
+        name: "kek_id",
+        type: "bytes32",
       },
     ],
     name: "migrator_withdraw_locked",
@@ -735,6 +636,25 @@ const _abi = [
       },
     ],
     name: "minVeFXSForMaxBoost",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "proxy_address",
+        type: "address",
+      },
+    ],
+    name: "minVeFXSForMaxBoostProxy",
     outputs: [
       {
         internalType: "uint256",
@@ -772,40 +692,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes",
-        name: "",
-        type: "bytes",
-      },
-    ],
-    name: "onERC721Received",
-    outputs: [
-      {
-        internalType: "bytes4",
-        name: "",
-        type: "bytes4",
-      },
-    ],
-    stateMutability: "pure",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "owner",
     outputs: [
@@ -813,6 +699,70 @@ const _abi = [
         internalType: "address",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "periodFinish",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "proxy_address",
+        type: "address",
+      },
+    ],
+    name: "proxyStakedFrax",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "staker_address",
+        type: "address",
+      },
+    ],
+    name: "proxyToggleStaker",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "proxy_lp_balances",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -840,36 +790,30 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "tokenAddress",
+        name: "",
         type: "address",
       },
+    ],
+    name: "rewardManagers",
+    outputs: [
       {
-        internalType: "uint256",
-        name: "token_id",
-        type: "uint256",
+        internalType: "address",
+        name: "",
+        type: "address",
       },
     ],
-    name: "recoverERC721",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "migrator_address",
-        type: "address",
+        internalType: "uint256",
+        name: "token_idx",
+        type: "uint256",
       },
     ],
-    name: "removeMigrator",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rewardRate0",
+    name: "rewardRates",
     outputs: [
       {
         internalType: "uint256",
@@ -881,26 +825,19 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "reward_rate_manual",
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "rewardTokenAddrToIdx",
     outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rewardsCollectionPaused",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -921,12 +858,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "rewards_distributor",
+    name: "rewardsPerToken",
     outputs: [
       {
-        internalType: "contract FraxGaugeFXSRewardsDistributor",
-        name: "",
-        type: "address",
+        internalType: "uint256[]",
+        name: "newRewardsPerTokenStored",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -935,89 +872,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new_curator",
-        type: "address",
+        internalType: "uint256[6]",
+        name: "_misc_vars",
+        type: "uint256[6]",
       },
     ],
-    name: "setCurator",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_gauge_controller_address",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_rewards_distributor_address",
-        type: "address",
-      },
-    ],
-    name: "setGaugeRelatedAddrs",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_lock_time_for_max_multiplier",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_lock_time_min",
-        type: "uint256",
-      },
-    ],
-    name: "setLockedNFTTimeForMinAndMaxMultiplier",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_reward_rate_manual",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "sync_too",
-        type: "bool",
-      },
-    ],
-    name: "setManualRewardRate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_lock_max_multiplier",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_vefxs_max_multiplier",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_vefxs_per_frax_for_max_boost",
-        type: "uint256",
-      },
-    ],
-    name: "setMultipliers",
+    name: "setMiscVariables",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1048,25 +908,27 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint32",
-        name: "_new_twap_duration",
-        type: "uint32",
+        internalType: "address",
+        name: "reward_token_address",
+        type: "address",
       },
-    ],
-    name: "setTWAP",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
+      {
+        internalType: "uint256",
+        name: "_new_rate",
+        type: "uint256",
+      },
       {
         internalType: "address",
-        name: "_new_timelock",
+        name: "_gauge_controller_address",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_rewards_distributor_address",
         type: "address",
       },
     ],
-    name: "setTimelock",
+    name: "setRewardVars",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1075,7 +937,7 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "token_id",
+        name: "liquidity",
         type: "uint256",
       },
       {
@@ -1093,11 +955,11 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "migrator_address",
+        name: "proxy_address",
         type: "address",
       },
     ],
-    name: "stakerAllowMigrator",
+    name: "stakerSetVeFXSProxy",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1110,9 +972,28 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "stakerDisallowMigrator",
+    name: "stakerToggleMigrator",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "staker_designated_proxies",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -1130,12 +1011,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "stakingPaused",
+    name: "stakingToken",
     outputs: [
       {
-        internalType: "bool",
+        internalType: "contract IUniswapV2Pair",
         name: "",
-        type: "bool",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -1156,27 +1037,7 @@ const _abi = [
         type: "bool",
       },
     ],
-    name: "sync_gauge_weight",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "timelock_address",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "toggleEmissionFactorBypass",
+    name: "sync_gauge_weights",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1184,6 +1045,32 @@ const _abi = [
   {
     inputs: [],
     name: "toggleMigrations",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "migrator_address",
+        type: "address",
+      },
+    ],
+    name: "toggleMigrator",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_proxy_addr",
+        type: "address",
+      },
+    ],
+    name: "toggleValidVeFXSProxy",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1209,84 +1096,6 @@ const _abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "twap_duration",
-    outputs: [
-      {
-        internalType: "uint32",
-        name: "",
-        type: "uint32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "uni_required_fee",
-    outputs: [
-      {
-        internalType: "uint24",
-        name: "",
-        type: "uint24",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "uni_tick_lower",
-    outputs: [
-      {
-        internalType: "int24",
-        name: "",
-        type: "int24",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "uni_tick_upper",
-    outputs: [
-      {
-        internalType: "int24",
-        name: "",
-        type: "int24",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "uni_token0",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "uni_token1",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -1330,6 +1139,19 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
+        name: "vefxs_multiplier",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "vefxs_boost_scale_factor",
+    outputs: [
+      {
+        internalType: "uint256",
         name: "",
         type: "uint256",
       },
@@ -1366,27 +1188,19 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "token_id",
-        type: "uint256",
+        internalType: "bytes32",
+        name: "kek_id",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "destination_address",
+        type: "address",
       },
     ],
     name: "withdrawLocked",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "withdrawalsPaused",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
 ];

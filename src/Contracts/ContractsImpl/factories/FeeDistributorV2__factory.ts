@@ -221,6 +221,43 @@ const _abi = [
   {
     stateMutability: "nonpayable",
     type: "function",
+    name: "claim_all",
+    inputs: [],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+      },
+      {
+        name: "",
+        type: "uint256",
+      },
+    ],
+  },
+  {
+    stateMutability: "nonpayable",
+    type: "function",
+    name: "claim_all",
+    inputs: [
+      {
+        name: "_addr",
+        type: "address",
+      },
+    ],
+    outputs: [
+      {
+        name: "",
+        type: "uint256",
+      },
+      {
+        name: "",
+        type: "uint256",
+      },
+    ],
+  },
+  {
+    stateMutability: "nonpayable",
+    type: "function",
     name: "claim_many",
     inputs: [
       {
@@ -251,10 +288,6 @@ const _abi = [
         type: "bool",
       },
     ],
-  },
-  {
-    stateMutability: "payable",
-    type: "fallback",
   },
   {
     stateMutability: "nonpayable",

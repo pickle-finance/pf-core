@@ -22,84 +22,71 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 interface FraxGaugeInterface extends ethers.utils.Interface {
   functions: {
     "acceptOwnership()": FunctionFragment;
-    "addMigrator(address)": FunctionFragment;
-    "bypassEmissionFactor()": FunctionFragment;
     "calcCurCombinedWeight(address)": FunctionFragment;
+    "changeTokenManager(address,address)": FunctionFragment;
     "combinedWeightOf(address)": FunctionFragment;
-    "curator_address()": FunctionFragment;
     "earned(address)": FunctionFragment;
-    "emissionFactor()": FunctionFragment;
-    "frax_is_token0()": FunctionFragment;
-    "gauge_controller()": FunctionFragment;
-    "getReward()": FunctionFragment;
+    "fraxPerLPStored()": FunctionFragment;
+    "fraxPerLPToken()": FunctionFragment;
+    "getAllRewardTokens()": FunctionFragment;
+    "getReward(address)": FunctionFragment;
     "getRewardForDuration()": FunctionFragment;
-    "greylistAddress(address)": FunctionFragment;
-    "ideal_tick()": FunctionFragment;
+    "isTokenManagerFor(address,address)": FunctionFragment;
+    "lastUpdateTime()": FunctionFragment;
+    "lockAdditional(bytes32,uint256)": FunctionFragment;
     "lockMultiplier(uint256)": FunctionFragment;
     "lock_max_multiplier()": FunctionFragment;
     "lock_time_for_max_multiplier()": FunctionFragment;
     "lock_time_min()": FunctionFragment;
     "lockedLiquidityOf(address)": FunctionFragment;
-    "lockedNFTsOf(address)": FunctionFragment;
-    "lp_pool()": FunctionFragment;
-    "migrationsOn()": FunctionFragment;
+    "lockedStakes(address,uint256)": FunctionFragment;
+    "lockedStakesOf(address)": FunctionFragment;
+    "lockedStakesOfLength(address)": FunctionFragment;
+    "maxLPForMaxBoost(address)": FunctionFragment;
     "migrator_stakeLocked_for(address,uint256,uint256,uint256)": FunctionFragment;
-    "migrator_withdraw_locked(address,uint256)": FunctionFragment;
+    "migrator_withdraw_locked(address,bytes32)": FunctionFragment;
     "minVeFXSForMaxBoost(address)": FunctionFragment;
+    "minVeFXSForMaxBoostProxy(address)": FunctionFragment;
     "nominateNewOwner(address)": FunctionFragment;
     "nominatedOwner()": FunctionFragment;
-    "onERC721Received(address,address,uint256,bytes)": FunctionFragment;
     "owner()": FunctionFragment;
+    "periodFinish()": FunctionFragment;
+    "proxyStakedFrax(address)": FunctionFragment;
+    "proxyToggleStaker(address)": FunctionFragment;
+    "proxy_lp_balances(address)": FunctionFragment;
     "recoverERC20(address,uint256)": FunctionFragment;
-    "recoverERC721(address,uint256)": FunctionFragment;
-    "removeMigrator(address)": FunctionFragment;
-    "rewardRate0()": FunctionFragment;
-    "reward_rate_manual()": FunctionFragment;
-    "rewardsCollectionPaused()": FunctionFragment;
+    "rewardManagers(address)": FunctionFragment;
+    "rewardRates(uint256)": FunctionFragment;
+    "rewardTokenAddrToIdx(address)": FunctionFragment;
     "rewardsDuration()": FunctionFragment;
-    "rewards_distributor()": FunctionFragment;
-    "setCurator(address)": FunctionFragment;
-    "setGaugeRelatedAddrs(address,address)": FunctionFragment;
-    "setLockedNFTTimeForMinAndMaxMultiplier(uint256,uint256)": FunctionFragment;
-    "setManualRewardRate(uint256,bool)": FunctionFragment;
-    "setMultipliers(uint256,uint256,uint256)": FunctionFragment;
+    "rewardsPerToken()": FunctionFragment;
+    "setMiscVariables(uint256[6])": FunctionFragment;
     "setPauses(bool,bool,bool)": FunctionFragment;
-    "setTWAP(uint32)": FunctionFragment;
-    "setTimelock(address)": FunctionFragment;
+    "setRewardVars(address,uint256,address,address)": FunctionFragment;
     "stakeLocked(uint256,uint256)": FunctionFragment;
-    "stakerAllowMigrator(address)": FunctionFragment;
-    "stakerDisallowMigrator(address)": FunctionFragment;
+    "stakerSetVeFXSProxy(address)": FunctionFragment;
+    "stakerToggleMigrator(address)": FunctionFragment;
+    "staker_designated_proxies(address)": FunctionFragment;
     "stakesUnlocked()": FunctionFragment;
-    "stakingPaused()": FunctionFragment;
+    "stakingToken()": FunctionFragment;
     "sync()": FunctionFragment;
-    "sync_gauge_weight(bool)": FunctionFragment;
-    "timelock_address()": FunctionFragment;
-    "toggleEmissionFactorBypass()": FunctionFragment;
+    "sync_gauge_weights(bool)": FunctionFragment;
     "toggleMigrations()": FunctionFragment;
+    "toggleMigrator(address)": FunctionFragment;
+    "toggleValidVeFXSProxy(address)": FunctionFragment;
     "totalCombinedWeight()": FunctionFragment;
     "totalLiquidityLocked()": FunctionFragment;
-    "twap_duration()": FunctionFragment;
-    "uni_required_fee()": FunctionFragment;
-    "uni_tick_lower()": FunctionFragment;
-    "uni_tick_upper()": FunctionFragment;
-    "uni_token0()": FunctionFragment;
-    "uni_token1()": FunctionFragment;
     "unlockStakes()": FunctionFragment;
     "userStakedFrax(address)": FunctionFragment;
     "veFXSMultiplier(address)": FunctionFragment;
+    "vefxs_boost_scale_factor()": FunctionFragment;
     "vefxs_max_multiplier()": FunctionFragment;
     "vefxs_per_frax_for_max_boost()": FunctionFragment;
-    "withdrawLocked(uint256)": FunctionFragment;
-    "withdrawalsPaused()": FunctionFragment;
+    "withdrawLocked(bytes32,address)": FunctionFragment;
   };
 
   encodeFunctionData(
     functionFragment: "acceptOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "addMigrator", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "bypassEmissionFactor",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -107,38 +94,42 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "changeTokenManager",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "combinedWeightOf",
     values: [string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "curator_address",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "earned", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "emissionFactor",
+    functionFragment: "fraxPerLPStored",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "frax_is_token0",
+    functionFragment: "fraxPerLPToken",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "gauge_controller",
+    functionFragment: "getAllRewardTokens",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "getReward", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getReward", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getRewardForDuration",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "greylistAddress",
-    values: [string]
+    functionFragment: "isTokenManagerFor",
+    values: [string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "ideal_tick",
+    functionFragment: "lastUpdateTime",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lockAdditional",
+    values: [BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "lockMultiplier",
@@ -161,13 +152,20 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "lockedNFTsOf",
+    functionFragment: "lockedStakes",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lockedStakesOf",
     values: [string]
   ): string;
-  encodeFunctionData(functionFragment: "lp_pool", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "migrationsOn",
-    values?: undefined
+    functionFragment: "lockedStakesOfLength",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "maxLPForMaxBoost",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "migrator_stakeLocked_for",
@@ -175,10 +173,14 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "migrator_withdraw_locked",
-    values: [string, BigNumberish]
+    values: [string, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "minVeFXSForMaxBoost",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "minVeFXSForMaxBoostProxy",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -189,79 +191,82 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     functionFragment: "nominatedOwner",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "onERC721Received",
-    values: [string, string, BigNumberish, BytesLike]
-  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "periodFinish",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "proxyStakedFrax",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "proxyToggleStaker",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "proxy_lp_balances",
+    values: [string]
+  ): string;
   encodeFunctionData(
     functionFragment: "recoverERC20",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "recoverERC721",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "removeMigrator",
+    functionFragment: "rewardManagers",
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "rewardRate0",
-    values?: undefined
+    functionFragment: "rewardRates",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "reward_rate_manual",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rewardsCollectionPaused",
-    values?: undefined
+    functionFragment: "rewardTokenAddrToIdx",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "rewardsDuration",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "rewards_distributor",
+    functionFragment: "rewardsPerToken",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "setCurator", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "setGaugeRelatedAddrs",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLockedNFTTimeForMinAndMaxMultiplier",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setManualRewardRate",
-    values: [BigNumberish, boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMultipliers",
-    values: [BigNumberish, BigNumberish, BigNumberish]
+    functionFragment: "setMiscVariables",
+    values: [
+      [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ]
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setPauses",
     values: [boolean, boolean, boolean]
   ): string;
   encodeFunctionData(
-    functionFragment: "setTWAP",
-    values: [BigNumberish]
+    functionFragment: "setRewardVars",
+    values: [string, BigNumberish, string, string]
   ): string;
-  encodeFunctionData(functionFragment: "setTimelock", values: [string]): string;
   encodeFunctionData(
     functionFragment: "stakeLocked",
     values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "stakerAllowMigrator",
+    functionFragment: "stakerSetVeFXSProxy",
     values: [string]
   ): string;
   encodeFunctionData(
-    functionFragment: "stakerDisallowMigrator",
+    functionFragment: "stakerToggleMigrator",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "staker_designated_proxies",
     values: [string]
   ): string;
   encodeFunctionData(
@@ -269,25 +274,25 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "stakingPaused",
+    functionFragment: "stakingToken",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "sync", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "sync_gauge_weight",
+    functionFragment: "sync_gauge_weights",
     values: [boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "timelock_address",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "toggleEmissionFactorBypass",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "toggleMigrations",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "toggleMigrator",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "toggleValidVeFXSProxy",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "totalCombinedWeight",
@@ -295,30 +300,6 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "totalLiquidityLocked",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "twap_duration",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "uni_required_fee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "uni_tick_lower",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "uni_tick_upper",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "uni_token0",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "uni_token1",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -334,6 +315,10 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "vefxs_boost_scale_factor",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "vefxs_max_multiplier",
     values?: undefined
   ): string;
@@ -343,11 +328,7 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawLocked",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawalsPaused",
-    values?: undefined
+    values: [BytesLike, string]
   ): string;
 
   decodeFunctionResult(
@@ -355,36 +336,28 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "addMigrator",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "bypassEmissionFactor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "calcCurCombinedWeight",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "changeTokenManager",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "combinedWeightOf",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "curator_address",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "earned", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "emissionFactor",
+    functionFragment: "fraxPerLPStored",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "frax_is_token0",
+    functionFragment: "fraxPerLPToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "gauge_controller",
+    functionFragment: "getAllRewardTokens",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
@@ -393,10 +366,17 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "greylistAddress",
+    functionFragment: "isTokenManagerFor",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "ideal_tick", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "lastUpdateTime",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lockAdditional",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "lockMultiplier",
     data: BytesLike
@@ -418,12 +398,19 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "lockedNFTsOf",
+    functionFragment: "lockedStakes",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "lp_pool", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "migrationsOn",
+    functionFragment: "lockedStakesOf",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lockedStakesOfLength",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "maxLPForMaxBoost",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -439,6 +426,10 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "minVeFXSForMaxBoostProxy",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "nominateNewOwner",
     data: BytesLike
   ): Result;
@@ -446,33 +437,37 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     functionFragment: "nominatedOwner",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "onERC721Received",
+    functionFragment: "periodFinish",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "proxyStakedFrax",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "proxyToggleStaker",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "proxy_lp_balances",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "recoverERC20",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "recoverERC721",
+    functionFragment: "rewardManagers",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "removeMigrator",
+    functionFragment: "rewardRates",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "rewardRate0",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "reward_rate_manual",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardsCollectionPaused",
+    functionFragment: "rewardTokenAddrToIdx",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -480,30 +475,16 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "rewards_distributor",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setCurator", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setGaugeRelatedAddrs",
+    functionFragment: "rewardsPerToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setLockedNFTTimeForMinAndMaxMultiplier",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setManualRewardRate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMultipliers",
+    functionFragment: "setMiscVariables",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setPauses", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "setTWAP", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setTimelock",
+    functionFragment: "setRewardVars",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -511,11 +492,15 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "stakerAllowMigrator",
+    functionFragment: "stakerSetVeFXSProxy",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "stakerDisallowMigrator",
+    functionFragment: "stakerToggleMigrator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "staker_designated_proxies",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -523,24 +508,24 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "stakingPaused",
+    functionFragment: "stakingToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "sync", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "sync_gauge_weight",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "timelock_address",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "toggleEmissionFactorBypass",
+    functionFragment: "sync_gauge_weights",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "toggleMigrations",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "toggleMigrator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "toggleValidVeFXSProxy",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -552,24 +537,6 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "twap_duration",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "uni_required_fee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "uni_tick_lower",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "uni_tick_upper",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "uni_token0", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "uni_token1", data: BytesLike): Result;
-  decodeFunctionResult(
     functionFragment: "unlockStakes",
     data: BytesLike
   ): Result;
@@ -579,6 +546,10 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "veFXSMultiplier",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "vefxs_boost_scale_factor",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -593,44 +564,18 @@ interface FraxGaugeInterface extends ethers.utils.Interface {
     functionFragment: "withdrawLocked",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawalsPaused",
-    data: BytesLike
-  ): Result;
 
   events: {
-    "LockNFT(address,uint256,uint256,uint256,address)": EventFragment;
-    "LockedNFTMaxMultiplierUpdated(uint256)": EventFragment;
-    "LockedNFTMinTime(uint256)": EventFragment;
-    "LockedNFTTimeForMaxMultiplier(uint256)": EventFragment;
-    "MaxVeFXSMultiplier(uint256)": EventFragment;
     "OwnerChanged(address,address)": EventFragment;
     "OwnerNominated(address)": EventFragment;
-    "RecoveredERC20(address,uint256)": EventFragment;
-    "RecoveredERC721(address,uint256)": EventFragment;
-    "RewardPaid(address,uint256,uint256,uint256,address,address)": EventFragment;
-    "RewardsPeriodRenewed(address)": EventFragment;
-    "WithdrawLocked(address,uint256,uint256,address)": EventFragment;
-    "veFXSPctForMaxBoostUpdated(uint256)": EventFragment;
+    "StakeLocked(address,uint256,uint256,bytes32,address)": EventFragment;
+    "WithdrawLocked(address,uint256,bytes32,address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "LockNFT"): EventFragment;
-  getEvent(
-    nameOrSignatureOrTopic: "LockedNFTMaxMultiplierUpdated"
-  ): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "LockedNFTMinTime"): EventFragment;
-  getEvent(
-    nameOrSignatureOrTopic: "LockedNFTTimeForMaxMultiplier"
-  ): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MaxVeFXSMultiplier"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnerChanged"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnerNominated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RecoveredERC20"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RecoveredERC721"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RewardPaid"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RewardsPeriodRenewed"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "StakeLocked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawLocked"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "veFXSPctForMaxBoostUpdated"): EventFragment;
 }
 
 export class FraxGauge extends Contract {
@@ -685,20 +630,6 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    addMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "addMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    bypassEmissionFactor(overrides?: CallOverrides): Promise<[boolean]>;
-
-    "bypassEmissionFactor()"(overrides?: CallOverrides): Promise<[boolean]>;
-
     calcCurCombinedWeight(
       account: string,
       overrides?: CallOverrides
@@ -721,6 +652,18 @@ export class FraxGauge extends Contract {
       }
     >;
 
+    changeTokenManager(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "changeTokenManager(address,address)"(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     combinedWeightOf(
       account: string,
       overrides?: CallOverrides
@@ -731,58 +674,73 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    curator_address(overrides?: CallOverrides): Promise<[string]>;
-
-    "curator_address()"(overrides?: CallOverrides): Promise<[string]>;
-
-    earned(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    earned(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]] & { new_earned: BigNumber[] }>;
 
     "earned(address)"(
       account: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber[]] & { new_earned: BigNumber[] }>;
 
-    emissionFactor(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { emission_factor: BigNumber }>;
+    fraxPerLPStored(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "emissionFactor()"(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { emission_factor: BigNumber }>;
+    "fraxPerLPStored()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    frax_is_token0(overrides?: CallOverrides): Promise<[boolean]>;
+    fraxPerLPToken(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "frax_is_token0()"(overrides?: CallOverrides): Promise<[boolean]>;
+    "fraxPerLPToken()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    gauge_controller(overrides?: CallOverrides): Promise<[string]>;
+    getAllRewardTokens(overrides?: CallOverrides): Promise<[string[]]>;
 
-    "gauge_controller()"(overrides?: CallOverrides): Promise<[string]>;
+    "getAllRewardTokens()"(overrides?: CallOverrides): Promise<[string[]]>;
 
     getReward(
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "getReward()"(
+    "getReward(address)"(
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    getRewardForDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getRewardForDuration(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]] & { rewards_per_duration_arr: BigNumber[] }>;
 
-    "getRewardForDuration()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "getRewardForDuration()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]] & { rewards_per_duration_arr: BigNumber[] }>;
 
-    greylistAddress(
-      _address: string,
+    isTokenManagerFor(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    "isTokenManagerFor(address,address)"(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    lastUpdateTime(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "lastUpdateTime()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    lockAdditional(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "greylistAddress(address)"(
-      _address: string,
+    "lockAdditional(bytes32,uint256)"(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    ideal_tick(overrides?: CallOverrides): Promise<[number]>;
-
-    "ideal_tick()"(overrides?: CallOverrides): Promise<[number]>;
 
     lockMultiplier(
       secs: BigNumberish,
@@ -820,67 +778,87 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    lockedNFTsOf(
+    lockedStakes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        kek_id: string;
+        start_timestamp: BigNumber;
+        liquidity: BigNumber;
+        ending_timestamp: BigNumber;
+        lock_multiplier: BigNumber;
+      }
+    >;
+
+    "lockedStakes(address,uint256)"(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        kek_id: string;
+        start_timestamp: BigNumber;
+        liquidity: BigNumber;
+        ending_timestamp: BigNumber;
+        lock_multiplier: BigNumber;
+      }
+    >;
+
+    lockedStakesOf(
       account: string,
       overrides?: CallOverrides
     ): Promise<
       [
-        ([
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          number,
-          number
-        ] & {
-          token_id: BigNumber;
-          liquidity: BigNumber;
+        ([string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+          kek_id: string;
           start_timestamp: BigNumber;
+          liquidity: BigNumber;
           ending_timestamp: BigNumber;
           lock_multiplier: BigNumber;
-          tick_lower: number;
-          tick_upper: number;
         })[]
       ]
     >;
 
-    "lockedNFTsOf(address)"(
+    "lockedStakesOf(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<
       [
-        ([
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          BigNumber,
-          number,
-          number
-        ] & {
-          token_id: BigNumber;
-          liquidity: BigNumber;
+        ([string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+          kek_id: string;
           start_timestamp: BigNumber;
+          liquidity: BigNumber;
           ending_timestamp: BigNumber;
           lock_multiplier: BigNumber;
-          tick_lower: number;
-          tick_upper: number;
         })[]
       ]
     >;
 
-    lp_pool(overrides?: CallOverrides): Promise<[string]>;
+    lockedStakesOfLength(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
-    "lp_pool()"(overrides?: CallOverrides): Promise<[string]>;
+    "lockedStakesOfLength(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
-    migrationsOn(overrides?: CallOverrides): Promise<[boolean]>;
+    maxLPForMaxBoost(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
-    "migrationsOn()"(overrides?: CallOverrides): Promise<[boolean]>;
+    "maxLPForMaxBoost(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     migrator_stakeLocked_for(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -888,7 +866,7 @@ export class FraxGauge extends Contract {
 
     "migrator_stakeLocked_for(address,uint256,uint256,uint256)"(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -896,13 +874,13 @@ export class FraxGauge extends Contract {
 
     migrator_withdraw_locked(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "migrator_withdraw_locked(address,uint256)"(
+    "migrator_withdraw_locked(address,bytes32)"(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -913,6 +891,16 @@ export class FraxGauge extends Contract {
 
     "minVeFXSForMaxBoost(address)"(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    minVeFXSForMaxBoostProxy(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    "minVeFXSForMaxBoostProxy(address)"(
+      proxy_address: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -930,25 +918,43 @@ export class FraxGauge extends Contract {
 
     "nominatedOwner()"(overrides?: CallOverrides): Promise<[string]>;
 
-    onERC721Received(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    "onERC721Received(address,address,uint256,bytes)"(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     "owner()"(overrides?: CallOverrides): Promise<[string]>;
+
+    periodFinish(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "periodFinish()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    proxyStakedFrax(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    "proxyStakedFrax(address)"(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    proxyToggleStaker(
+      staker_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "proxyToggleStaker(address)"(
+      staker_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    proxy_lp_balances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
+    "proxy_lp_balances(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     recoverERC20(
       tokenAddress: string,
@@ -962,109 +968,66 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    recoverERC721(
-      tokenAddress: string,
-      token_id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    rewardManagers(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
-    "recoverERC721(address,uint256)"(
-      tokenAddress: string,
-      token_id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    "rewardManagers(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    removeMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "removeMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    rewardRate0(
+    rewardRates(
+      token_idx: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { rwd_rate: BigNumber }>;
 
-    "rewardRate0()"(
+    "rewardRates(uint256)"(
+      token_idx: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { rwd_rate: BigNumber }>;
 
-    reward_rate_manual(overrides?: CallOverrides): Promise<[BigNumber]>;
+    rewardTokenAddrToIdx(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
-    "reward_rate_manual()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    rewardsCollectionPaused(overrides?: CallOverrides): Promise<[boolean]>;
-
-    "rewardsCollectionPaused()"(overrides?: CallOverrides): Promise<[boolean]>;
+    "rewardTokenAddrToIdx(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     rewardsDuration(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "rewardsDuration()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    rewards_distributor(overrides?: CallOverrides): Promise<[string]>;
+    rewardsPerToken(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]] & { newRewardsPerTokenStored: BigNumber[] }>;
 
-    "rewards_distributor()"(overrides?: CallOverrides): Promise<[string]>;
+    "rewardsPerToken()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]] & { newRewardsPerTokenStored: BigNumber[] }>;
 
-    setCurator(
-      _new_curator: string,
+    setMiscVariables(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "setCurator(address)"(
-      _new_curator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setGaugeRelatedAddrs(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setGaugeRelatedAddrs(address,address)"(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setLockedNFTTimeForMinAndMaxMultiplier(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setLockedNFTTimeForMinAndMaxMultiplier(uint256,uint256)"(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setManualRewardRate(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setManualRewardRate(uint256,bool)"(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setMultipliers(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setMultipliers(uint256,uint256,uint256)"(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
+    "setMiscVariables(uint256[6])"(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1082,65 +1045,71 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setTWAP(
-      _new_twap_duration: BigNumberish,
+    setRewardVars(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "setTWAP(uint32)"(
-      _new_twap_duration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setTimelock(
-      _new_timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setTimelock(address)"(
-      _new_timelock: string,
+    "setRewardVars(address,uint256,address,address)"(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     stakeLocked(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "stakeLocked(uint256,uint256)"(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    stakerAllowMigrator(
+    stakerSetVeFXSProxy(
+      proxy_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "stakerSetVeFXSProxy(address)"(
+      proxy_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    stakerToggleMigrator(
       migrator_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "stakerAllowMigrator(address)"(
+    "stakerToggleMigrator(address)"(
       migrator_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    stakerDisallowMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    staker_designated_proxies(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    "stakerDisallowMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    "staker_designated_proxies(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     stakesUnlocked(overrides?: CallOverrides): Promise<[boolean]>;
 
     "stakesUnlocked()"(overrides?: CallOverrides): Promise<[boolean]>;
 
-    stakingPaused(overrides?: CallOverrides): Promise<[boolean]>;
+    stakingToken(overrides?: CallOverrides): Promise<[string]>;
 
-    "stakingPaused()"(overrides?: CallOverrides): Promise<[boolean]>;
+    "stakingToken()"(overrides?: CallOverrides): Promise<[string]>;
 
     sync(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1150,25 +1119,13 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    sync_gauge_weight(
+    sync_gauge_weights(
       force_update: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "sync_gauge_weight(bool)"(
+    "sync_gauge_weights(bool)"(
       force_update: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    timelock_address(overrides?: CallOverrides): Promise<[string]>;
-
-    "timelock_address()"(overrides?: CallOverrides): Promise<[string]>;
-
-    toggleEmissionFactorBypass(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "toggleEmissionFactorBypass()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -1180,6 +1137,26 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    toggleMigrator(
+      migrator_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "toggleMigrator(address)"(
+      migrator_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    toggleValidVeFXSProxy(
+      _proxy_addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "toggleValidVeFXSProxy(address)"(
+      _proxy_addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     totalCombinedWeight(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "totalCombinedWeight()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -1187,30 +1164,6 @@ export class FraxGauge extends Contract {
     totalLiquidityLocked(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "totalLiquidityLocked()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    twap_duration(overrides?: CallOverrides): Promise<[number]>;
-
-    "twap_duration()"(overrides?: CallOverrides): Promise<[number]>;
-
-    uni_required_fee(overrides?: CallOverrides): Promise<[number]>;
-
-    "uni_required_fee()"(overrides?: CallOverrides): Promise<[number]>;
-
-    uni_tick_lower(overrides?: CallOverrides): Promise<[number]>;
-
-    "uni_tick_lower()"(overrides?: CallOverrides): Promise<[number]>;
-
-    uni_tick_upper(overrides?: CallOverrides): Promise<[number]>;
-
-    "uni_tick_upper()"(overrides?: CallOverrides): Promise<[number]>;
-
-    uni_token0(overrides?: CallOverrides): Promise<[string]>;
-
-    "uni_token0()"(overrides?: CallOverrides): Promise<[string]>;
-
-    uni_token1(overrides?: CallOverrides): Promise<[string]>;
-
-    "uni_token1()"(overrides?: CallOverrides): Promise<[string]>;
 
     unlockStakes(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1233,10 +1186,16 @@ export class FraxGauge extends Contract {
     veFXSMultiplier(
       account: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber] & { vefxs_multiplier: BigNumber }>;
 
     "veFXSMultiplier(address)"(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { vefxs_multiplier: BigNumber }>;
+
+    vefxs_boost_scale_factor(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "vefxs_boost_scale_factor()"(
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -1253,18 +1212,16 @@ export class FraxGauge extends Contract {
     ): Promise<[BigNumber]>;
 
     withdrawLocked(
-      token_id: BigNumberish,
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "withdrawLocked(uint256)"(
-      token_id: BigNumberish,
+    "withdrawLocked(bytes32,address)"(
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    withdrawalsPaused(overrides?: CallOverrides): Promise<[boolean]>;
-
-    "withdrawalsPaused()"(overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   acceptOwnership(
@@ -1274,20 +1231,6 @@ export class FraxGauge extends Contract {
   "acceptOwnership()"(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  addMigrator(
-    migrator_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "addMigrator(address)"(
-    migrator_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  bypassEmissionFactor(overrides?: CallOverrides): Promise<boolean>;
-
-  "bypassEmissionFactor()"(overrides?: CallOverrides): Promise<boolean>;
 
   calcCurCombinedWeight(
     account: string,
@@ -1311,6 +1254,18 @@ export class FraxGauge extends Contract {
     }
   >;
 
+  changeTokenManager(
+    reward_token_address: string,
+    new_manager_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "changeTokenManager(address,address)"(
+    reward_token_address: string,
+    new_manager_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   combinedWeightOf(
     account: string,
     overrides?: CallOverrides
@@ -1321,54 +1276,66 @@ export class FraxGauge extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  curator_address(overrides?: CallOverrides): Promise<string>;
-
-  "curator_address()"(overrides?: CallOverrides): Promise<string>;
-
-  earned(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+  earned(account: string, overrides?: CallOverrides): Promise<BigNumber[]>;
 
   "earned(address)"(
     account: string,
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber[]>;
 
-  emissionFactor(overrides?: CallOverrides): Promise<BigNumber>;
+  fraxPerLPStored(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "emissionFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "fraxPerLPStored()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  frax_is_token0(overrides?: CallOverrides): Promise<boolean>;
+  fraxPerLPToken(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "frax_is_token0()"(overrides?: CallOverrides): Promise<boolean>;
+  "fraxPerLPToken()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  gauge_controller(overrides?: CallOverrides): Promise<string>;
+  getAllRewardTokens(overrides?: CallOverrides): Promise<string[]>;
 
-  "gauge_controller()"(overrides?: CallOverrides): Promise<string>;
+  "getAllRewardTokens()"(overrides?: CallOverrides): Promise<string[]>;
 
   getReward(
+    destination_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "getReward()"(
+  "getReward(address)"(
+    destination_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  getRewardForDuration(overrides?: CallOverrides): Promise<BigNumber>;
+  getRewardForDuration(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  "getRewardForDuration()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "getRewardForDuration()"(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  greylistAddress(
-    _address: string,
+  isTokenManagerFor(
+    caller_addr: string,
+    reward_token_addr: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  "isTokenManagerFor(address,address)"(
+    caller_addr: string,
+    reward_token_addr: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  lastUpdateTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "lastUpdateTime()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  lockAdditional(
+    kek_id: BytesLike,
+    addl_liq: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "greylistAddress(address)"(
-    _address: string,
+  "lockAdditional(bytes32,uint256)"(
+    kek_id: BytesLike,
+    addl_liq: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  ideal_tick(overrides?: CallOverrides): Promise<number>;
-
-  "ideal_tick()"(overrides?: CallOverrides): Promise<number>;
 
   lockMultiplier(
     secs: BigNumberish,
@@ -1404,47 +1371,83 @@ export class FraxGauge extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  lockedNFTsOf(
+  lockedStakes(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      kek_id: string;
+      start_timestamp: BigNumber;
+      liquidity: BigNumber;
+      ending_timestamp: BigNumber;
+      lock_multiplier: BigNumber;
+    }
+  >;
+
+  "lockedStakes(address,uint256)"(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      kek_id: string;
+      start_timestamp: BigNumber;
+      liquidity: BigNumber;
+      ending_timestamp: BigNumber;
+      lock_multiplier: BigNumber;
+    }
+  >;
+
+  lockedStakesOf(
     account: string,
     overrides?: CallOverrides
   ): Promise<
-    ([BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, number, number] & {
-      token_id: BigNumber;
-      liquidity: BigNumber;
+    ([string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      kek_id: string;
       start_timestamp: BigNumber;
+      liquidity: BigNumber;
       ending_timestamp: BigNumber;
       lock_multiplier: BigNumber;
-      tick_lower: number;
-      tick_upper: number;
     })[]
   >;
 
-  "lockedNFTsOf(address)"(
+  "lockedStakesOf(address)"(
     account: string,
     overrides?: CallOverrides
   ): Promise<
-    ([BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, number, number] & {
-      token_id: BigNumber;
-      liquidity: BigNumber;
+    ([string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      kek_id: string;
       start_timestamp: BigNumber;
+      liquidity: BigNumber;
       ending_timestamp: BigNumber;
       lock_multiplier: BigNumber;
-      tick_lower: number;
-      tick_upper: number;
     })[]
   >;
 
-  lp_pool(overrides?: CallOverrides): Promise<string>;
+  lockedStakesOfLength(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  "lp_pool()"(overrides?: CallOverrides): Promise<string>;
+  "lockedStakesOfLength(address)"(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  migrationsOn(overrides?: CallOverrides): Promise<boolean>;
+  maxLPForMaxBoost(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  "migrationsOn()"(overrides?: CallOverrides): Promise<boolean>;
+  "maxLPForMaxBoost(address)"(
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   migrator_stakeLocked_for(
     staker_address: string,
-    token_id: BigNumberish,
+    amount: BigNumberish,
     secs: BigNumberish,
     start_timestamp: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1452,7 +1455,7 @@ export class FraxGauge extends Contract {
 
   "migrator_stakeLocked_for(address,uint256,uint256,uint256)"(
     staker_address: string,
-    token_id: BigNumberish,
+    amount: BigNumberish,
     secs: BigNumberish,
     start_timestamp: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1460,13 +1463,13 @@ export class FraxGauge extends Contract {
 
   migrator_withdraw_locked(
     staker_address: string,
-    token_id: BigNumberish,
+    kek_id: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "migrator_withdraw_locked(address,uint256)"(
+  "migrator_withdraw_locked(address,bytes32)"(
     staker_address: string,
-    token_id: BigNumberish,
+    kek_id: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1477,6 +1480,16 @@ export class FraxGauge extends Contract {
 
   "minVeFXSForMaxBoost(address)"(
     account: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  minVeFXSForMaxBoostProxy(
+    proxy_address: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "minVeFXSForMaxBoostProxy(address)"(
+    proxy_address: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -1494,25 +1507,43 @@ export class FraxGauge extends Contract {
 
   "nominatedOwner()"(overrides?: CallOverrides): Promise<string>;
 
-  onERC721Received(
-    arg0: string,
-    arg1: string,
-    arg2: BigNumberish,
-    arg3: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  "onERC721Received(address,address,uint256,bytes)"(
-    arg0: string,
-    arg1: string,
-    arg2: BigNumberish,
-    arg3: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   owner(overrides?: CallOverrides): Promise<string>;
 
   "owner()"(overrides?: CallOverrides): Promise<string>;
+
+  periodFinish(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "periodFinish()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  proxyStakedFrax(
+    proxy_address: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "proxyStakedFrax(address)"(
+    proxy_address: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  proxyToggleStaker(
+    staker_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "proxyToggleStaker(address)"(
+    staker_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  proxy_lp_balances(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  "proxy_lp_balances(address)"(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   recoverERC20(
     tokenAddress: string,
@@ -1526,105 +1557,62 @@ export class FraxGauge extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  recoverERC721(
-    tokenAddress: string,
-    token_id: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  rewardManagers(arg0: string, overrides?: CallOverrides): Promise<string>;
 
-  "recoverERC721(address,uint256)"(
-    tokenAddress: string,
-    token_id: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  "rewardManagers(address)"(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
-  removeMigrator(
-    migrator_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  rewardRates(
+    token_idx: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  "removeMigrator(address)"(
-    migrator_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  "rewardRates(uint256)"(
+    token_idx: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  rewardRate0(overrides?: CallOverrides): Promise<BigNumber>;
+  rewardTokenAddrToIdx(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  "rewardRate0()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  reward_rate_manual(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "reward_rate_manual()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  rewardsCollectionPaused(overrides?: CallOverrides): Promise<boolean>;
-
-  "rewardsCollectionPaused()"(overrides?: CallOverrides): Promise<boolean>;
+  "rewardTokenAddrToIdx(address)"(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   rewardsDuration(overrides?: CallOverrides): Promise<BigNumber>;
 
   "rewardsDuration()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  rewards_distributor(overrides?: CallOverrides): Promise<string>;
+  rewardsPerToken(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  "rewards_distributor()"(overrides?: CallOverrides): Promise<string>;
+  "rewardsPerToken()"(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  setCurator(
-    _new_curator: string,
+  setMiscVariables(
+    _misc_vars: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "setCurator(address)"(
-    _new_curator: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setGaugeRelatedAddrs(
-    _gauge_controller_address: string,
-    _rewards_distributor_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setGaugeRelatedAddrs(address,address)"(
-    _gauge_controller_address: string,
-    _rewards_distributor_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setLockedNFTTimeForMinAndMaxMultiplier(
-    _lock_time_for_max_multiplier: BigNumberish,
-    _lock_time_min: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setLockedNFTTimeForMinAndMaxMultiplier(uint256,uint256)"(
-    _lock_time_for_max_multiplier: BigNumberish,
-    _lock_time_min: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setManualRewardRate(
-    _reward_rate_manual: BigNumberish,
-    sync_too: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setManualRewardRate(uint256,bool)"(
-    _reward_rate_manual: BigNumberish,
-    sync_too: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setMultipliers(
-    _lock_max_multiplier: BigNumberish,
-    _vefxs_max_multiplier: BigNumberish,
-    _vefxs_per_frax_for_max_boost: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setMultipliers(uint256,uint256,uint256)"(
-    _lock_max_multiplier: BigNumberish,
-    _vefxs_max_multiplier: BigNumberish,
-    _vefxs_per_frax_for_max_boost: BigNumberish,
+  "setMiscVariables(uint256[6])"(
+    _misc_vars: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1642,65 +1630,71 @@ export class FraxGauge extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setTWAP(
-    _new_twap_duration: BigNumberish,
+  setRewardVars(
+    reward_token_address: string,
+    _new_rate: BigNumberish,
+    _gauge_controller_address: string,
+    _rewards_distributor_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "setTWAP(uint32)"(
-    _new_twap_duration: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setTimelock(
-    _new_timelock: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setTimelock(address)"(
-    _new_timelock: string,
+  "setRewardVars(address,uint256,address,address)"(
+    reward_token_address: string,
+    _new_rate: BigNumberish,
+    _gauge_controller_address: string,
+    _rewards_distributor_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   stakeLocked(
-    token_id: BigNumberish,
+    liquidity: BigNumberish,
     secs: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "stakeLocked(uint256,uint256)"(
-    token_id: BigNumberish,
+    liquidity: BigNumberish,
     secs: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  stakerAllowMigrator(
+  stakerSetVeFXSProxy(
+    proxy_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "stakerSetVeFXSProxy(address)"(
+    proxy_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  stakerToggleMigrator(
     migrator_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "stakerAllowMigrator(address)"(
+  "stakerToggleMigrator(address)"(
     migrator_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  stakerDisallowMigrator(
-    migrator_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  staker_designated_proxies(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
-  "stakerDisallowMigrator(address)"(
-    migrator_address: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  "staker_designated_proxies(address)"(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   stakesUnlocked(overrides?: CallOverrides): Promise<boolean>;
 
   "stakesUnlocked()"(overrides?: CallOverrides): Promise<boolean>;
 
-  stakingPaused(overrides?: CallOverrides): Promise<boolean>;
+  stakingToken(overrides?: CallOverrides): Promise<string>;
 
-  "stakingPaused()"(overrides?: CallOverrides): Promise<boolean>;
+  "stakingToken()"(overrides?: CallOverrides): Promise<string>;
 
   sync(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1710,25 +1704,13 @@ export class FraxGauge extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  sync_gauge_weight(
+  sync_gauge_weights(
     force_update: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "sync_gauge_weight(bool)"(
+  "sync_gauge_weights(bool)"(
     force_update: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  timelock_address(overrides?: CallOverrides): Promise<string>;
-
-  "timelock_address()"(overrides?: CallOverrides): Promise<string>;
-
-  toggleEmissionFactorBypass(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "toggleEmissionFactorBypass()"(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -1740,6 +1722,26 @@ export class FraxGauge extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  toggleMigrator(
+    migrator_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "toggleMigrator(address)"(
+    migrator_address: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  toggleValidVeFXSProxy(
+    _proxy_addr: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "toggleValidVeFXSProxy(address)"(
+    _proxy_addr: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   totalCombinedWeight(overrides?: CallOverrides): Promise<BigNumber>;
 
   "totalCombinedWeight()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1747,30 +1749,6 @@ export class FraxGauge extends Contract {
   totalLiquidityLocked(overrides?: CallOverrides): Promise<BigNumber>;
 
   "totalLiquidityLocked()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  twap_duration(overrides?: CallOverrides): Promise<number>;
-
-  "twap_duration()"(overrides?: CallOverrides): Promise<number>;
-
-  uni_required_fee(overrides?: CallOverrides): Promise<number>;
-
-  "uni_required_fee()"(overrides?: CallOverrides): Promise<number>;
-
-  uni_tick_lower(overrides?: CallOverrides): Promise<number>;
-
-  "uni_tick_lower()"(overrides?: CallOverrides): Promise<number>;
-
-  uni_tick_upper(overrides?: CallOverrides): Promise<number>;
-
-  "uni_tick_upper()"(overrides?: CallOverrides): Promise<number>;
-
-  uni_token0(overrides?: CallOverrides): Promise<string>;
-
-  "uni_token0()"(overrides?: CallOverrides): Promise<string>;
-
-  uni_token1(overrides?: CallOverrides): Promise<string>;
-
-  "uni_token1()"(overrides?: CallOverrides): Promise<string>;
 
   unlockStakes(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -1800,6 +1778,10 @@ export class FraxGauge extends Contract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  vefxs_boost_scale_factor(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "vefxs_boost_scale_factor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   vefxs_max_multiplier(overrides?: CallOverrides): Promise<BigNumber>;
 
   "vefxs_max_multiplier()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1811,37 +1793,21 @@ export class FraxGauge extends Contract {
   ): Promise<BigNumber>;
 
   withdrawLocked(
-    token_id: BigNumberish,
+    kek_id: BytesLike,
+    destination_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "withdrawLocked(uint256)"(
-    token_id: BigNumberish,
+  "withdrawLocked(bytes32,address)"(
+    kek_id: BytesLike,
+    destination_address: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  withdrawalsPaused(overrides?: CallOverrides): Promise<boolean>;
-
-  "withdrawalsPaused()"(overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     acceptOwnership(overrides?: CallOverrides): Promise<void>;
 
     "acceptOwnership()"(overrides?: CallOverrides): Promise<void>;
-
-    addMigrator(
-      migrator_address: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "addMigrator(address)"(
-      migrator_address: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    bypassEmissionFactor(overrides?: CallOverrides): Promise<boolean>;
-
-    "bypassEmissionFactor()"(overrides?: CallOverrides): Promise<boolean>;
 
     calcCurCombinedWeight(
       account: string,
@@ -1865,6 +1831,18 @@ export class FraxGauge extends Contract {
       }
     >;
 
+    changeTokenManager(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "changeTokenManager(address,address)"(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     combinedWeightOf(
       account: string,
       overrides?: CallOverrides
@@ -1875,47 +1853,66 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    curator_address(overrides?: CallOverrides): Promise<string>;
-
-    "curator_address()"(overrides?: CallOverrides): Promise<string>;
-
-    earned(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+    earned(account: string, overrides?: CallOverrides): Promise<BigNumber[]>;
 
     "earned(address)"(
       account: string,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber[]>;
 
-    emissionFactor(overrides?: CallOverrides): Promise<BigNumber>;
+    fraxPerLPStored(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "emissionFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "fraxPerLPStored()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    frax_is_token0(overrides?: CallOverrides): Promise<boolean>;
+    fraxPerLPToken(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "frax_is_token0()"(overrides?: CallOverrides): Promise<boolean>;
+    "fraxPerLPToken()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    gauge_controller(overrides?: CallOverrides): Promise<string>;
+    getAllRewardTokens(overrides?: CallOverrides): Promise<string[]>;
 
-    "gauge_controller()"(overrides?: CallOverrides): Promise<string>;
+    "getAllRewardTokens()"(overrides?: CallOverrides): Promise<string[]>;
 
-    getReward(overrides?: CallOverrides): Promise<BigNumber>;
+    getReward(
+      destination_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
 
-    "getReward()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "getReward(address)"(
+      destination_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
 
-    getRewardForDuration(overrides?: CallOverrides): Promise<BigNumber>;
+    getRewardForDuration(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    "getRewardForDuration()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "getRewardForDuration()"(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    greylistAddress(_address: string, overrides?: CallOverrides): Promise<void>;
+    isTokenManagerFor(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    "greylistAddress(address)"(
-      _address: string,
+    "isTokenManagerFor(address,address)"(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    lastUpdateTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "lastUpdateTime()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lockAdditional(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    ideal_tick(overrides?: CallOverrides): Promise<number>;
-
-    "ideal_tick()"(overrides?: CallOverrides): Promise<number>;
+    "lockAdditional(bytes32,uint256)"(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     lockMultiplier(
       secs: BigNumberish,
@@ -1951,63 +1948,83 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    lockedNFTsOf(
+    lockedStakes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        kek_id: string;
+        start_timestamp: BigNumber;
+        liquidity: BigNumber;
+        ending_timestamp: BigNumber;
+        lock_multiplier: BigNumber;
+      }
+    >;
+
+    "lockedStakes(address,uint256)"(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        kek_id: string;
+        start_timestamp: BigNumber;
+        liquidity: BigNumber;
+        ending_timestamp: BigNumber;
+        lock_multiplier: BigNumber;
+      }
+    >;
+
+    lockedStakesOf(
       account: string,
       overrides?: CallOverrides
     ): Promise<
-      ([
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        number,
-        number
-      ] & {
-        token_id: BigNumber;
-        liquidity: BigNumber;
+      ([string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        kek_id: string;
         start_timestamp: BigNumber;
+        liquidity: BigNumber;
         ending_timestamp: BigNumber;
         lock_multiplier: BigNumber;
-        tick_lower: number;
-        tick_upper: number;
       })[]
     >;
 
-    "lockedNFTsOf(address)"(
+    "lockedStakesOf(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<
-      ([
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        number,
-        number
-      ] & {
-        token_id: BigNumber;
-        liquidity: BigNumber;
+      ([string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        kek_id: string;
         start_timestamp: BigNumber;
+        liquidity: BigNumber;
         ending_timestamp: BigNumber;
         lock_multiplier: BigNumber;
-        tick_lower: number;
-        tick_upper: number;
       })[]
     >;
 
-    lp_pool(overrides?: CallOverrides): Promise<string>;
+    lockedStakesOfLength(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "lp_pool()"(overrides?: CallOverrides): Promise<string>;
+    "lockedStakesOfLength(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    migrationsOn(overrides?: CallOverrides): Promise<boolean>;
+    maxLPForMaxBoost(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "migrationsOn()"(overrides?: CallOverrides): Promise<boolean>;
+    "maxLPForMaxBoost(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     migrator_stakeLocked_for(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: CallOverrides
@@ -2015,7 +2032,7 @@ export class FraxGauge extends Contract {
 
     "migrator_stakeLocked_for(address,uint256,uint256,uint256)"(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: CallOverrides
@@ -2023,13 +2040,13 @@ export class FraxGauge extends Contract {
 
     migrator_withdraw_locked(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "migrator_withdraw_locked(address,uint256)"(
+    "migrator_withdraw_locked(address,bytes32)"(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -2040,6 +2057,16 @@ export class FraxGauge extends Contract {
 
     "minVeFXSForMaxBoost(address)"(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    minVeFXSForMaxBoostProxy(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "minVeFXSForMaxBoostProxy(address)"(
+      proxy_address: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2054,25 +2081,43 @@ export class FraxGauge extends Contract {
 
     "nominatedOwner()"(overrides?: CallOverrides): Promise<string>;
 
-    onERC721Received(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    "onERC721Received(address,address,uint256,bytes)"(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
     owner(overrides?: CallOverrides): Promise<string>;
 
     "owner()"(overrides?: CallOverrides): Promise<string>;
+
+    periodFinish(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "periodFinish()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proxyStakedFrax(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "proxyStakedFrax(address)"(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    proxyToggleStaker(
+      staker_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "proxyToggleStaker(address)"(
+      staker_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    proxy_lp_balances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "proxy_lp_balances(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     recoverERC20(
       tokenAddress: string,
@@ -2086,102 +2131,62 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    recoverERC721(
-      tokenAddress: string,
-      token_id: BigNumberish,
+    rewardManagers(arg0: string, overrides?: CallOverrides): Promise<string>;
+
+    "rewardManagers(address)"(
+      arg0: string,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<string>;
 
-    "recoverERC721(address,uint256)"(
-      tokenAddress: string,
-      token_id: BigNumberish,
+    rewardRates(
+      token_idx: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
 
-    removeMigrator(
-      migrator_address: string,
+    "rewardRates(uint256)"(
+      token_idx: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
 
-    "removeMigrator(address)"(
-      migrator_address: string,
+    rewardTokenAddrToIdx(
+      arg0: string,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<BigNumber>;
 
-    rewardRate0(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardRate0()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    reward_rate_manual(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "reward_rate_manual()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardsCollectionPaused(overrides?: CallOverrides): Promise<boolean>;
-
-    "rewardsCollectionPaused()"(overrides?: CallOverrides): Promise<boolean>;
+    "rewardTokenAddrToIdx(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     rewardsDuration(overrides?: CallOverrides): Promise<BigNumber>;
 
     "rewardsDuration()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards_distributor(overrides?: CallOverrides): Promise<string>;
+    rewardsPerToken(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    "rewards_distributor()"(overrides?: CallOverrides): Promise<string>;
+    "rewardsPerToken()"(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    setCurator(_new_curator: string, overrides?: CallOverrides): Promise<void>;
-
-    "setCurator(address)"(
-      _new_curator: string,
+    setMiscVariables(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setGaugeRelatedAddrs(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setGaugeRelatedAddrs(address,address)"(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setLockedNFTTimeForMinAndMaxMultiplier(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setLockedNFTTimeForMinAndMaxMultiplier(uint256,uint256)"(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setManualRewardRate(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setManualRewardRate(uint256,bool)"(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setMultipliers(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setMultipliers(uint256,uint256,uint256)"(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
+    "setMiscVariables(uint256[6])"(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -2199,91 +2204,109 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setTWAP(
-      _new_twap_duration: BigNumberish,
+    setRewardVars(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "setTWAP(uint32)"(
-      _new_twap_duration: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setTimelock(
-      _new_timelock: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setTimelock(address)"(
-      _new_timelock: string,
+    "setRewardVars(address,uint256,address,address)"(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     stakeLocked(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     "stakeLocked(uint256,uint256)"(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    stakerAllowMigrator(
+    stakerSetVeFXSProxy(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "stakerSetVeFXSProxy(address)"(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    stakerToggleMigrator(
       migrator_address: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "stakerAllowMigrator(address)"(
+    "stakerToggleMigrator(address)"(
       migrator_address: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    stakerDisallowMigrator(
-      migrator_address: string,
+    staker_designated_proxies(
+      arg0: string,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<string>;
 
-    "stakerDisallowMigrator(address)"(
-      migrator_address: string,
+    "staker_designated_proxies(address)"(
+      arg0: string,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<string>;
 
     stakesUnlocked(overrides?: CallOverrides): Promise<boolean>;
 
     "stakesUnlocked()"(overrides?: CallOverrides): Promise<boolean>;
 
-    stakingPaused(overrides?: CallOverrides): Promise<boolean>;
+    stakingToken(overrides?: CallOverrides): Promise<string>;
 
-    "stakingPaused()"(overrides?: CallOverrides): Promise<boolean>;
+    "stakingToken()"(overrides?: CallOverrides): Promise<string>;
 
     sync(overrides?: CallOverrides): Promise<void>;
 
     "sync()"(overrides?: CallOverrides): Promise<void>;
 
-    sync_gauge_weight(
+    sync_gauge_weights(
       force_update: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "sync_gauge_weight(bool)"(
+    "sync_gauge_weights(bool)"(
       force_update: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    timelock_address(overrides?: CallOverrides): Promise<string>;
-
-    "timelock_address()"(overrides?: CallOverrides): Promise<string>;
-
-    toggleEmissionFactorBypass(overrides?: CallOverrides): Promise<void>;
-
-    "toggleEmissionFactorBypass()"(overrides?: CallOverrides): Promise<void>;
 
     toggleMigrations(overrides?: CallOverrides): Promise<void>;
 
     "toggleMigrations()"(overrides?: CallOverrides): Promise<void>;
+
+    toggleMigrator(
+      migrator_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "toggleMigrator(address)"(
+      migrator_address: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    toggleValidVeFXSProxy(
+      _proxy_addr: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "toggleValidVeFXSProxy(address)"(
+      _proxy_addr: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     totalCombinedWeight(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -2292,30 +2315,6 @@ export class FraxGauge extends Contract {
     totalLiquidityLocked(overrides?: CallOverrides): Promise<BigNumber>;
 
     "totalLiquidityLocked()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    twap_duration(overrides?: CallOverrides): Promise<number>;
-
-    "twap_duration()"(overrides?: CallOverrides): Promise<number>;
-
-    uni_required_fee(overrides?: CallOverrides): Promise<number>;
-
-    "uni_required_fee()"(overrides?: CallOverrides): Promise<number>;
-
-    uni_tick_lower(overrides?: CallOverrides): Promise<number>;
-
-    "uni_tick_lower()"(overrides?: CallOverrides): Promise<number>;
-
-    uni_tick_upper(overrides?: CallOverrides): Promise<number>;
-
-    "uni_tick_upper()"(overrides?: CallOverrides): Promise<number>;
-
-    uni_token0(overrides?: CallOverrides): Promise<string>;
-
-    "uni_token0()"(overrides?: CallOverrides): Promise<string>;
-
-    uni_token1(overrides?: CallOverrides): Promise<string>;
-
-    "uni_token1()"(overrides?: CallOverrides): Promise<string>;
 
     unlockStakes(overrides?: CallOverrides): Promise<void>;
 
@@ -2341,6 +2340,10 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    vefxs_boost_scale_factor(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "vefxs_boost_scale_factor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     vefxs_max_multiplier(overrides?: CallOverrides): Promise<BigNumber>;
 
     "vefxs_max_multiplier()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2352,54 +2355,19 @@ export class FraxGauge extends Contract {
     ): Promise<BigNumber>;
 
     withdrawLocked(
-      token_id: BigNumberish,
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "withdrawLocked(uint256)"(
-      token_id: BigNumberish,
+    "withdrawLocked(bytes32,address)"(
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    withdrawalsPaused(overrides?: CallOverrides): Promise<boolean>;
-
-    "withdrawalsPaused()"(overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
-    LockNFT(
-      user: string | null,
-      liquidity: null,
-      token_id: null,
-      secs: null,
-      source_address: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber, string],
-      {
-        user: string;
-        liquidity: BigNumber;
-        token_id: BigNumber;
-        secs: BigNumber;
-        source_address: string;
-      }
-    >;
-
-    LockedNFTMaxMultiplierUpdated(
-      multiplier: null
-    ): TypedEventFilter<[BigNumber], { multiplier: BigNumber }>;
-
-    LockedNFTMinTime(
-      secs: null
-    ): TypedEventFilter<[BigNumber], { secs: BigNumber }>;
-
-    LockedNFTTimeForMaxMultiplier(
-      secs: null
-    ): TypedEventFilter<[BigNumber], { secs: BigNumber }>;
-
-    MaxVeFXSMultiplier(
-      multiplier: null
-    ): TypedEventFilter<[BigNumber], { multiplier: BigNumber }>;
-
     OwnerChanged(
       oldOwner: null,
       newOwner: null
@@ -2412,63 +2380,37 @@ export class FraxGauge extends Contract {
       newOwner: null
     ): TypedEventFilter<[string], { newOwner: string }>;
 
-    RecoveredERC20(
-      token: null,
-      amount: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { token: string; amount: BigNumber }
-    >;
-
-    RecoveredERC721(
-      token: null,
-      token_id: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { token: string; token_id: BigNumber }
-    >;
-
-    RewardPaid(
+    StakeLocked(
       user: string | null,
-      farm_reward: null,
-      liq_tok0_reward: null,
-      liq_tok1_reward: null,
-      token_address: null,
-      destination_address: null
+      amount: null,
+      secs: null,
+      kek_id: null,
+      source_address: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber, BigNumber, string, string],
+      [string, BigNumber, BigNumber, string, string],
       {
         user: string;
-        farm_reward: BigNumber;
-        liq_tok0_reward: BigNumber;
-        liq_tok1_reward: BigNumber;
-        token_address: string;
-        destination_address: string;
+        amount: BigNumber;
+        secs: BigNumber;
+        kek_id: string;
+        source_address: string;
       }
     >;
-
-    RewardsPeriodRenewed(
-      token: null
-    ): TypedEventFilter<[string], { token: string }>;
 
     WithdrawLocked(
       user: string | null,
       liquidity: null,
-      token_id: null,
+      kek_id: null,
       destination_address: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber, string],
+      [string, BigNumber, string, string],
       {
         user: string;
         liquidity: BigNumber;
-        token_id: BigNumber;
+        kek_id: string;
         destination_address: string;
       }
     >;
-
-    veFXSPctForMaxBoostUpdated(
-      scale_factor: null
-    ): TypedEventFilter<[BigNumber], { scale_factor: BigNumber }>;
   };
 
   estimateGas: {
@@ -2480,20 +2422,6 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    addMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "addMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    bypassEmissionFactor(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "bypassEmissionFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     calcCurCombinedWeight(
       account: string,
       overrides?: CallOverrides
@@ -2502,6 +2430,18 @@ export class FraxGauge extends Contract {
     "calcCurCombinedWeight(address)"(
       account: string,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    changeTokenManager(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "changeTokenManager(address,address)"(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     combinedWeightOf(
@@ -2514,10 +2454,6 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    curator_address(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "curator_address()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     earned(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "earned(address)"(
@@ -2525,23 +2461,25 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    emissionFactor(overrides?: CallOverrides): Promise<BigNumber>;
+    fraxPerLPStored(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "emissionFactor()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "fraxPerLPStored()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    frax_is_token0(overrides?: CallOverrides): Promise<BigNumber>;
+    fraxPerLPToken(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "frax_is_token0()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "fraxPerLPToken()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    gauge_controller(overrides?: CallOverrides): Promise<BigNumber>;
+    getAllRewardTokens(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "gauge_controller()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "getAllRewardTokens()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getReward(
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "getReward()"(
+    "getReward(address)"(
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2549,19 +2487,33 @@ export class FraxGauge extends Contract {
 
     "getRewardForDuration()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    greylistAddress(
-      _address: string,
+    isTokenManagerFor(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "isTokenManagerFor(address,address)"(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    lastUpdateTime(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "lastUpdateTime()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lockAdditional(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "greylistAddress(address)"(
-      _address: string,
+    "lockAdditional(bytes32,uint256)"(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    ideal_tick(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "ideal_tick()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     lockMultiplier(
       secs: BigNumberish,
@@ -2597,27 +2549,51 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    lockedNFTsOf(
+    lockedStakes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "lockedStakes(address,uint256)"(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    lockedStakesOf(
       account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "lockedNFTsOf(address)"(
+    "lockedStakesOf(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    lp_pool(overrides?: CallOverrides): Promise<BigNumber>;
+    lockedStakesOfLength(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "lp_pool()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "lockedStakesOfLength(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    migrationsOn(overrides?: CallOverrides): Promise<BigNumber>;
+    maxLPForMaxBoost(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "migrationsOn()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "maxLPForMaxBoost(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     migrator_stakeLocked_for(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2625,7 +2601,7 @@ export class FraxGauge extends Contract {
 
     "migrator_stakeLocked_for(address,uint256,uint256,uint256)"(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2633,13 +2609,13 @@ export class FraxGauge extends Contract {
 
     migrator_withdraw_locked(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "migrator_withdraw_locked(address,uint256)"(
+    "migrator_withdraw_locked(address,bytes32)"(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2650,6 +2626,16 @@ export class FraxGauge extends Contract {
 
     "minVeFXSForMaxBoost(address)"(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    minVeFXSForMaxBoostProxy(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "minVeFXSForMaxBoostProxy(address)"(
+      proxy_address: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2667,25 +2653,43 @@ export class FraxGauge extends Contract {
 
     "nominatedOwner()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    onERC721Received(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "onERC721Received(address,address,uint256,bytes)"(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    periodFinish(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "periodFinish()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    proxyStakedFrax(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "proxyStakedFrax(address)"(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    proxyToggleStaker(
+      staker_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "proxyToggleStaker(address)"(
+      staker_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    proxy_lp_balances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "proxy_lp_balances(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     recoverERC20(
       tokenAddress: string,
@@ -2699,105 +2703,62 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    recoverERC721(
-      tokenAddress: string,
-      token_id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    rewardManagers(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    "rewardManagers(address)"(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "recoverERC721(address,uint256)"(
-      tokenAddress: string,
-      token_id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    rewardRates(
+      token_idx: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    removeMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    "rewardRates(uint256)"(
+      token_idx: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "removeMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    rewardTokenAddrToIdx(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    rewardRate0(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardRate0()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    reward_rate_manual(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "reward_rate_manual()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardsCollectionPaused(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardsCollectionPaused()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "rewardTokenAddrToIdx(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     rewardsDuration(overrides?: CallOverrides): Promise<BigNumber>;
 
     "rewardsDuration()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    rewards_distributor(overrides?: CallOverrides): Promise<BigNumber>;
+    rewardsPerToken(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "rewards_distributor()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "rewardsPerToken()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setCurator(
-      _new_curator: string,
+    setMiscVariables(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "setCurator(address)"(
-      _new_curator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setGaugeRelatedAddrs(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setGaugeRelatedAddrs(address,address)"(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setLockedNFTTimeForMinAndMaxMultiplier(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setLockedNFTTimeForMinAndMaxMultiplier(uint256,uint256)"(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setManualRewardRate(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setManualRewardRate(uint256,bool)"(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setMultipliers(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setMultipliers(uint256,uint256,uint256)"(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
+    "setMiscVariables(uint256[6])"(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2815,65 +2776,71 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setTWAP(
-      _new_twap_duration: BigNumberish,
+    setRewardVars(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "setTWAP(uint32)"(
-      _new_twap_duration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setTimelock(
-      _new_timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setTimelock(address)"(
-      _new_timelock: string,
+    "setRewardVars(address,uint256,address,address)"(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     stakeLocked(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "stakeLocked(uint256,uint256)"(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    stakerAllowMigrator(
+    stakerSetVeFXSProxy(
+      proxy_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "stakerSetVeFXSProxy(address)"(
+      proxy_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    stakerToggleMigrator(
       migrator_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "stakerAllowMigrator(address)"(
+    "stakerToggleMigrator(address)"(
       migrator_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    stakerDisallowMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    staker_designated_proxies(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "stakerDisallowMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    "staker_designated_proxies(address)"(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     stakesUnlocked(overrides?: CallOverrides): Promise<BigNumber>;
 
     "stakesUnlocked()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    stakingPaused(overrides?: CallOverrides): Promise<BigNumber>;
+    stakingToken(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "stakingPaused()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "stakingToken()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     sync(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2883,25 +2850,13 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    sync_gauge_weight(
+    sync_gauge_weights(
       force_update: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "sync_gauge_weight(bool)"(
+    "sync_gauge_weights(bool)"(
       force_update: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    timelock_address(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "timelock_address()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    toggleEmissionFactorBypass(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "toggleEmissionFactorBypass()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -2913,6 +2868,26 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    toggleMigrator(
+      migrator_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "toggleMigrator(address)"(
+      migrator_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    toggleValidVeFXSProxy(
+      _proxy_addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "toggleValidVeFXSProxy(address)"(
+      _proxy_addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     totalCombinedWeight(overrides?: CallOverrides): Promise<BigNumber>;
 
     "totalCombinedWeight()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2920,30 +2895,6 @@ export class FraxGauge extends Contract {
     totalLiquidityLocked(overrides?: CallOverrides): Promise<BigNumber>;
 
     "totalLiquidityLocked()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    twap_duration(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "twap_duration()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    uni_required_fee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "uni_required_fee()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    uni_tick_lower(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "uni_tick_lower()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    uni_tick_upper(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "uni_tick_upper()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    uni_token0(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "uni_token0()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    uni_token1(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "uni_token1()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     unlockStakes(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -2973,6 +2924,10 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    vefxs_boost_scale_factor(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "vefxs_boost_scale_factor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     vefxs_max_multiplier(overrides?: CallOverrides): Promise<BigNumber>;
 
     "vefxs_max_multiplier()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2984,18 +2939,16 @@ export class FraxGauge extends Contract {
     ): Promise<BigNumber>;
 
     withdrawLocked(
-      token_id: BigNumberish,
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "withdrawLocked(uint256)"(
-      token_id: BigNumberish,
+    "withdrawLocked(bytes32,address)"(
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    withdrawalsPaused(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "withdrawalsPaused()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -3005,24 +2958,6 @@ export class FraxGauge extends Contract {
 
     "acceptOwnership()"(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    addMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "addMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    bypassEmissionFactor(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "bypassEmissionFactor()"(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     calcCurCombinedWeight(
@@ -3035,6 +2970,18 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    changeTokenManager(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "changeTokenManager(address,address)"(
+      reward_token_address: string,
+      new_manager_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     combinedWeightOf(
       account: string,
       overrides?: CallOverrides
@@ -3042,12 +2989,6 @@ export class FraxGauge extends Contract {
 
     "combinedWeightOf(address)"(
       account: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    curator_address(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "curator_address()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3061,29 +3002,33 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    emissionFactor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    fraxPerLPStored(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "emissionFactor()"(
+    "fraxPerLPStored()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    frax_is_token0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    fraxPerLPToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "frax_is_token0()"(
+    "fraxPerLPToken()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    gauge_controller(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getAllRewardTokens(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    "gauge_controller()"(
+    "getAllRewardTokens()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getReward(
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "getReward()"(
+    "getReward(address)"(
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3095,19 +3040,35 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    greylistAddress(
-      _address: string,
+    isTokenManagerFor(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "isTokenManagerFor(address,address)"(
+      caller_addr: string,
+      reward_token_addr: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    lastUpdateTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "lastUpdateTime()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    lockAdditional(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "greylistAddress(address)"(
-      _address: string,
+    "lockAdditional(bytes32,uint256)"(
+      kek_id: BytesLike,
+      addl_liq: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    ideal_tick(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "ideal_tick()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lockMultiplier(
       secs: BigNumberish,
@@ -3149,27 +3110,51 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    lockedNFTsOf(
+    lockedStakes(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "lockedStakes(address,uint256)"(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    lockedStakesOf(
       account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "lockedNFTsOf(address)"(
+    "lockedStakesOf(address)"(
       account: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    lp_pool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    lockedStakesOfLength(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    "lp_pool()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "lockedStakesOfLength(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    migrationsOn(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    maxLPForMaxBoost(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    "migrationsOn()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "maxLPForMaxBoost(address)"(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     migrator_stakeLocked_for(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -3177,7 +3162,7 @@ export class FraxGauge extends Contract {
 
     "migrator_stakeLocked_for(address,uint256,uint256,uint256)"(
       staker_address: string,
-      token_id: BigNumberish,
+      amount: BigNumberish,
       secs: BigNumberish,
       start_timestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -3185,13 +3170,13 @@ export class FraxGauge extends Contract {
 
     migrator_withdraw_locked(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "migrator_withdraw_locked(address,uint256)"(
+    "migrator_withdraw_locked(address,bytes32)"(
       staker_address: string,
-      token_id: BigNumberish,
+      kek_id: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3202,6 +3187,16 @@ export class FraxGauge extends Contract {
 
     "minVeFXSForMaxBoost(address)"(
       account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    minVeFXSForMaxBoostProxy(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "minVeFXSForMaxBoostProxy(address)"(
+      proxy_address: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3221,25 +3216,43 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    onERC721Received(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "onERC721Received(address,address,uint256,bytes)"(
-      arg0: string,
-      arg1: string,
-      arg2: BigNumberish,
-      arg3: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    periodFinish(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "periodFinish()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    proxyStakedFrax(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "proxyStakedFrax(address)"(
+      proxy_address: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    proxyToggleStaker(
+      staker_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "proxyToggleStaker(address)"(
+      staker_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    proxy_lp_balances(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "proxy_lp_balances(address)"(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     recoverERC20(
       tokenAddress: string,
@@ -3253,45 +3266,33 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    recoverERC721(
-      tokenAddress: string,
-      token_id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "recoverERC721(address,uint256)"(
-      tokenAddress: string,
-      token_id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    removeMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "removeMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    rewardRate0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "rewardRate0()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    reward_rate_manual(
+    rewardManagers(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "reward_rate_manual()"(
+    "rewardManagers(address)"(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    rewardsCollectionPaused(
+    rewardRates(
+      token_idx: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "rewardsCollectionPaused()"(
+    "rewardRates(uint256)"(
+      token_idx: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    rewardTokenAddrToIdx(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "rewardTokenAddrToIdx(address)"(
+      arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3301,71 +3302,33 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    rewards_distributor(
+    rewardsPerToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "rewardsPerToken()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "rewards_distributor()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    setCurator(
-      _new_curator: string,
+    setMiscVariables(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "setCurator(address)"(
-      _new_curator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setGaugeRelatedAddrs(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setGaugeRelatedAddrs(address,address)"(
-      _gauge_controller_address: string,
-      _rewards_distributor_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setLockedNFTTimeForMinAndMaxMultiplier(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setLockedNFTTimeForMinAndMaxMultiplier(uint256,uint256)"(
-      _lock_time_for_max_multiplier: BigNumberish,
-      _lock_time_min: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setManualRewardRate(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setManualRewardRate(uint256,bool)"(
-      _reward_rate_manual: BigNumberish,
-      sync_too: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setMultipliers(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setMultipliers(uint256,uint256,uint256)"(
-      _lock_max_multiplier: BigNumberish,
-      _vefxs_max_multiplier: BigNumberish,
-      _vefxs_per_frax_for_max_boost: BigNumberish,
+    "setMiscVariables(uint256[6])"(
+      _misc_vars: [
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish,
+        BigNumberish
+      ],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3383,56 +3346,62 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setTWAP(
-      _new_twap_duration: BigNumberish,
+    setRewardVars(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "setTWAP(uint32)"(
-      _new_twap_duration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setTimelock(
-      _new_timelock: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setTimelock(address)"(
-      _new_timelock: string,
+    "setRewardVars(address,uint256,address,address)"(
+      reward_token_address: string,
+      _new_rate: BigNumberish,
+      _gauge_controller_address: string,
+      _rewards_distributor_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     stakeLocked(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "stakeLocked(uint256,uint256)"(
-      token_id: BigNumberish,
+      liquidity: BigNumberish,
       secs: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    stakerAllowMigrator(
+    stakerSetVeFXSProxy(
+      proxy_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "stakerSetVeFXSProxy(address)"(
+      proxy_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    stakerToggleMigrator(
       migrator_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "stakerAllowMigrator(address)"(
+    "stakerToggleMigrator(address)"(
       migrator_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    stakerDisallowMigrator(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    staker_designated_proxies(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "stakerDisallowMigrator(address)"(
-      migrator_address: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    "staker_designated_proxies(address)"(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     stakesUnlocked(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -3441,9 +3410,9 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    stakingPaused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    stakingToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "stakingPaused()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "stakingToken()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sync(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -3453,27 +3422,13 @@ export class FraxGauge extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    sync_gauge_weight(
+    sync_gauge_weights(
       force_update: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "sync_gauge_weight(bool)"(
+    "sync_gauge_weights(bool)"(
       force_update: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    timelock_address(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "timelock_address()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    toggleEmissionFactorBypass(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "toggleEmissionFactorBypass()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3482,6 +3437,26 @@ export class FraxGauge extends Contract {
     ): Promise<PopulatedTransaction>;
 
     "toggleMigrations()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    toggleMigrator(
+      migrator_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "toggleMigrator(address)"(
+      migrator_address: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    toggleValidVeFXSProxy(
+      _proxy_addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "toggleValidVeFXSProxy(address)"(
+      _proxy_addr: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -3500,36 +3475,6 @@ export class FraxGauge extends Contract {
     "totalLiquidityLocked()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
-
-    twap_duration(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "twap_duration()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    uni_required_fee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "uni_required_fee()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    uni_tick_lower(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "uni_tick_lower()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    uni_tick_upper(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "uni_tick_upper()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    uni_token0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "uni_token0()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    uni_token1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "uni_token1()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     unlockStakes(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -3559,6 +3504,14 @@ export class FraxGauge extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    vefxs_boost_scale_factor(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "vefxs_boost_scale_factor()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     vefxs_max_multiplier(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -3576,19 +3529,15 @@ export class FraxGauge extends Contract {
     ): Promise<PopulatedTransaction>;
 
     withdrawLocked(
-      token_id: BigNumberish,
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "withdrawLocked(uint256)"(
-      token_id: BigNumberish,
+    "withdrawLocked(bytes32,address)"(
+      kek_id: BytesLike,
+      destination_address: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    withdrawalsPaused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "withdrawalsPaused()"(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }

@@ -424,6 +424,19 @@ const _abi = [
   },
   {
     type: "function",
+    stateMutability: "view",
+    outputs: [
+      {
+        type: "uint256",
+        name: "",
+        internalType: "uint256",
+      },
+    ],
+    name: "rewardPerBlock",
+    inputs: [],
+  },
+  {
+    type: "function",
     stateMutability: "nonpayable",
     outputs: [],
     name: "set",

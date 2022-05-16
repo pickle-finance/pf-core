@@ -34,6 +34,7 @@ interface SushiComplexRewarderInterface extends ethers.utils.Interface {
     "poolLength()": FunctionFragment;
     "rewardPerSecond()": FunctionFragment;
     "tokenPerBlock()": FunctionFragment;
+    "rewardPerBlock()": FunctionFragment;
     "set(uint256,uint256)": FunctionFragment;
     "setRewardPerSecond(uint256)": FunctionFragment;
     "transferOwnership(address,bool,bool)": FunctionFragment;
@@ -88,6 +89,10 @@ interface SushiComplexRewarderInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "tokenPerBlock",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "rewardPerBlock",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -146,6 +151,10 @@ interface SushiComplexRewarderInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "tokenPerBlock",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "rewardPerBlock",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
@@ -363,6 +372,10 @@ export class SushiComplexRewarder extends Contract {
 
     "tokenPerBlock()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    rewardPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "rewardPerBlock()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
@@ -559,6 +572,10 @@ export class SushiComplexRewarder extends Contract {
 
   "tokenPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+  rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "rewardPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   set(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
@@ -750,6 +767,10 @@ export class SushiComplexRewarder extends Contract {
     tokenPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
 
     "tokenPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "rewardPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     set(
       _pid: BigNumberish,
@@ -992,6 +1013,10 @@ export class SushiComplexRewarder extends Contract {
 
     "tokenPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "rewardPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     set(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
@@ -1167,6 +1192,12 @@ export class SushiComplexRewarder extends Contract {
     tokenPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "tokenPerBlock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    rewardPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "rewardPerBlock()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     set(
       _pid: BigNumberish,

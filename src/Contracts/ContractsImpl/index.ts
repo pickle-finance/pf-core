@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { AaveStrategy } from "./AaveStrategy";
+export type { Aurigami } from "./Aurigami";
 export type { BalancerVault } from "./BalancerVault";
 export type { BasisStaking } from "./BasisStaking";
 export type { BeamFarms } from "./BeamFarms";
@@ -35,6 +36,7 @@ export type { FinnFarms } from "./FinnFarms";
 export type { FlareFarms } from "./FlareFarms";
 export type { FossilFarms } from "./FossilFarms";
 export type { FraxGauge } from "./FraxGauge";
+export type { FraxUniv3Gauge } from "./FraxUniv3Gauge";
 export type { FxsPool } from "./FxsPool";
 export type { GaugeController } from "./GaugeController";
 export type { GaugeProxy } from "./GaugeProxy";
@@ -87,6 +89,7 @@ export type { Univ3Pool } from "./Univ3Pool";
 export type { Univ3Staking } from "./Univ3Staking";
 export type { VvsFarms } from "./VvsFarms";
 export type { WannaFarms } from "./WannaFarms";
+export type { WannaV2Farms } from "./WannaV2Farms";
 export type { Xtarot } from "./Xtarot";
 export type { YearnRegistry } from "./YearnRegistry";
 export type { YvboostMigrator } from "./YvboostMigrator";
@@ -94,6 +97,7 @@ export type { YvecrvZap } from "./YvecrvZap";
 export type { ZipFarms } from "./ZipFarms";
 
 export { AaveStrategy__factory } from "./factories/AaveStrategy__factory";
+export { Aurigami__factory } from "./factories/Aurigami__factory";
 export { BalancerVault__factory } from "./factories/BalancerVault__factory";
 export { BasisStaking__factory } from "./factories/BasisStaking__factory";
 export { BeamFarms__factory } from "./factories/BeamFarms__factory";
@@ -127,6 +131,7 @@ export { FinnFarms__factory } from "./factories/FinnFarms__factory";
 export { FlareFarms__factory } from "./factories/FlareFarms__factory";
 export { FossilFarms__factory } from "./factories/FossilFarms__factory";
 export { FraxGauge__factory } from "./factories/FraxGauge__factory";
+export { FraxUniv3Gauge__factory } from "./factories/FraxUniv3Gauge__factory";
 export { FxsPool__factory } from "./factories/FxsPool__factory";
 export { GaugeController__factory } from "./factories/GaugeController__factory";
 export { GaugeProxy__factory } from "./factories/GaugeProxy__factory";
@@ -179,6 +184,7 @@ export { Univ3Pool__factory } from "./factories/Univ3Pool__factory";
 export { Univ3Staking__factory } from "./factories/Univ3Staking__factory";
 export { VvsFarms__factory } from "./factories/VvsFarms__factory";
 export { WannaFarms__factory } from "./factories/WannaFarms__factory";
+export { WannaV2Farms__factory } from "./factories/WannaV2Farms__factory";
 export { Xtarot__factory } from "./factories/Xtarot__factory";
 export { YearnRegistry__factory } from "./factories/YearnRegistry__factory";
 export { YvboostMigrator__factory } from "./factories/YvboostMigrator__factory";
