@@ -1,6 +1,6 @@
 {
   "asset.description.balancer.rewards.lp": "A {{stakeLocation}} strategy using {{protocol}}'s PFLINK<{{{tokens}}}><{{{poolUrl}}}> pool, a Balancer-style liquidity pool composed of {{{tokens}}} tokens. The receipt token is staked in {{{stakeLocation}}} for {{{rewards}}} rewards. All rewards are sold to purchase more LP tokens.",
-  "asset.description.brinery": "Temp",
+  "asset.description.brinery.rewards.lp": "A Pickle Brinery that accepts {{protocol}} governance token ({{{tokens}}}) deposits in exchange for perpetual fee claims. Receipt pTokens are issued to represent your proportionate share of locked tokens.",
   "asset.description.curve.rewards.lp": "A {{stakeLocation}} strategy using {{protocol}}'s PFLINK<{{{tokens}}}><{{{poolUrl}}}> pool, a Curve-style liquidity pool composed of {{{tokens}}} tokens. The receipt token is staked in {{{stakeLocation}}} for {{{rewards}}} rewards. All rewards are sold to purchase more LP tokens.",
   "asset.description.single.staking": "A {{stakeLocation}} strategy using {{protocol}}'s PFLINK<{{{tokens}}}><{{{poolUrl}}}> pool. A user deposits {{{tokens}}} tokens. The receipt token is staked in {{{stakeLocation}}} for {{{rewards}}} rewards. All rewards are sold for more deposit token and reinvested in the pool.",
   "asset.description.standard.lp": "A {{stakeLocation}} strategy using {{protocol}}'s PFLINK<{{{tokens}}}><{{{poolUrl}}}> pool, a liquidity pool composed of {{{tokens}}} tokens. The deposit token is staked in {{{stakeLocation}}} for {{{rewards}}} rewards. All rewards are sold to purchase more LP tokens.",
@@ -33,6 +33,7 @@
   "custom.saddled4.desc": "A Saddle strategy for earning yield on 4 dollar-coins (AlUSD, Fei, Frax, and LUSD). This strategy accepts the PFLINK<deposit token><https://saddle.exchange/#/pools/d4/deposit> and stakes it in the rewarder contract, which earns FXS, LQTY, ALCX, and Tribe rewards. All rewards are then sold off and used to buy more LP.",
   "custom.steCRV.desc": "A Convex strategy for PFLINK<stETH pool><https://www.curve.fi/steth/deposit> stETH pool aims to peg the staked ETH in LIDO to 1 ETH and making stETH liquid. Learn more about PFLINK<LIDO><https://www.lido.fi>. CVX, LIDO and CRV reward is reinvested for more LP.",
   "custom.yvBOOST-ETH.desc": "A Sushiswap strategy for PFLINK<ETH/YVBOOST><https://app.sushi.com/add/ETH/0x9d409a0A012CFbA9B15F6D4B36Ac57A46966Ab9a>. yvBOOST is the upgraded version of yveCRV, which incorporate the weekly reward from veCRV automatically. SUSHI reward is reinvested for more LP. PFLINK<Here is a video showing how yvBOOST works.",
+  "obtain.pool.brinery": "Deposit the {{protocol}} governance token ({{token}}) in PFLINK<{{poolName}}><{{{link}}}> pool.",
   "obtain.pool.multitoken": "Deposit any of {{{tokens}}} into {{protocol}}'s PFLINK<{{poolName}}><{{{link}}}> pool.",
   "obtain.pool.multitoken.all": "Deposit all of {{tokens}} into {{protocol}}'s PFLINK<{{poolName}}><{{{link}}}> pool.",
   "obtain.pool.onetoken": "Deposit {{token}} in {{protocol}}'s PFLINK<{{poolName}}><{{{link}}}> pool.",

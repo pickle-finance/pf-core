@@ -24,7 +24,10 @@ function getDocs(language: string) {
   );
 
   for (let i = 0; i < toVerify.length; i++) {
-    if (toVerify[ i ].type === AssetType.BRINERY) console.log(toVerify[ i ])
+    // if (toVerify[ i ].type === AssetType.BRINERY) {
+    //   console.log("docs main");
+    //   console.log(toVerify[ i ]);
+    // }
     const apiKey = toVerify[ i ]?.details?.apiKey;
     if (apiKey !== undefined) {
       const foundDocs = allDocs.find((x) => x.apiKey === apiKey);
@@ -37,5 +40,5 @@ function getDocs(language: string) {
   return docs;
 }
 
-// console.log(JSON.stringify(getDocs("en"), null, 2));
+console.log(JSON.stringify(getDocs("en"), null, 2));
 // console.log(JSON.stringify(getDocs("de"), null, 2));

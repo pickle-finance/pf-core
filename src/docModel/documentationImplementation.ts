@@ -1,6 +1,8 @@
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 import {
   AssetProtocol,
+  AssetType,
+  BrineryDefinition,
   JarDefinition,
   PickleAsset,
   XYK_SWAP_PROTOCOLS,
@@ -12,6 +14,7 @@ import {
   BALANCER_REWARDS_JAR_DESCRIPTION,
   BRINERY_JAR_DESCRIPTION,
   CURVE_REWARDS_JAR_DESCRIPTION,
+  OBTAIN_KEY_BRINERY,
   OBTAIN_KEY_MULTITOKEN_POOL_ALL,
   OBTAIN_KEY_MULTITOKEN_POOL_ANY,
   OBTAIN_KEY_ONETOKEN_POOL,
@@ -109,6 +112,7 @@ export function documentationAssetDefinitionToResult(
     if (!components.includes(related[ i ])) {
       relatedTokens[ related[ i ] ] = getTokenDescription(chain, related[ i ], language, format);
     }
+    relatedTokens[ related[ i ] ] = getTokenDescription(chain, related[ i ], language, format);
   }
 
   return {
@@ -207,6 +211,12 @@ allDocsGenerators.push(
   ));
 allDocsGenerators.push(
   new DocsGenImpl(
+    (asset) => autoMatch(asset, BRINERY_JAR_DESCRIPTION, [ AssetProtocol.FRAX ]),
+    (asset) => generateBrineryDocumentation(asset)
+  )
+)
+allDocsGenerators.push(
+  new DocsGenImpl(
     (asset) => autoMatch(asset, BALANCER_REWARDS_JAR_DESCRIPTION, [ AssetProtocol.BEETHOVENX, AssetProtocol.BALANCER ]),
     (asset) => generateBalancerStyleDocumentation(asset)
   ));
@@ -276,9 +286,16 @@ export function generateBrineryDocumentation(
     generateAutomaticSocials(asset);
   const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
 
-  let obtain: TranslationKeyWithProperties[] = [];
-  obtain.push({ key: OBTAIN_KEY_TWOTOKEN_POOL });
-  obtain = obtain.concat(getZapObtains(asset));
+  const obtain: TranslationKeyWithProperties[] = [];
+  obtain.push({
+    key: OBTAIN_KEY_BRINERY,
+    properties: {
+      token: asset.depositToken.components[ 0 ].toUpperCase(),
+      protocol: asset.protocol,
+      poolName: asset.depositToken.name.toUpperCase(),
+      link: asset.depositToken.link
+    }
+  });
 
   const oneDefinition: AssetDocumentationDefinition = {
     apiKey: asset.details.apiKey,
@@ -427,6 +444,23 @@ export function generateAutomaticDescriptionProperties(asset: PickleAsset): {
   return properties;
 }
 
+export function generateBrineryDescriptionProperties(asset: PickleAsset): {
+  [ key: string ]: string;
+} {
+  const pair: string[] = asset.depositToken.components || [];
+  const toUpper = pair.map((x) => x.toUpperCase()).join("/");
+  const sl = (asset as BrineryDefinition).protocol;
+  const reward = (asset as BrineryDefinition).details.rewardToken;
+  const properties = {
+    protocol: asset.protocol,
+    tokens: toUpper,
+    poolUrl: asset.depositToken.link,
+    stakeLocation: sl,
+    rewards: reward,
+  };
+  return properties;
+}
+
 export function generateAutomaticXYKDescription(
   asset: PickleAsset,
 ): TranslationKeyWithProperties | undefined {
@@ -441,7 +475,7 @@ export function generateAutomaticBrineryDescription(
 ): TranslationKeyWithProperties | undefined {
   return {
     key: BRINERY_JAR_DESCRIPTION,
-    properties: generateAutomaticDescriptionProperties(asset),
+    properties: generateBrineryDescriptionProperties(asset),
   };
 }
 

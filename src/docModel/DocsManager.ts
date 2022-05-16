@@ -29,7 +29,6 @@ export class DocsManager {
     );
     const automaticDocDefinitions: AssetDocumentationDefinition[] = [];
     for (let i = 0; i < missingApiKeys.length; i++) {
-      if (missingApiKeys[ i ].details.apiKey.toLowerCase() === "brinery_vefxs") console.log(missingApiKeys[ i ])
       const tmp = generateAutomaticDefinition([
         missingApiKeys[ i ].details.apiKey,
       ]);
@@ -46,6 +45,7 @@ export class DocsManager {
   ): DocumentationModelResult {
     const result: DocumentationModelResult = {};
     const allDocDefinitions = this.getAllJarDocumentationDefinitions();
+    console.log(allDocDefinitions);
     for (let i = 0; i < allDocDefinitions.length; i++) {
       const d = DocsManager.getDocumentationForAsset(
         allDocDefinitions[ i ],
