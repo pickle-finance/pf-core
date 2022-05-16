@@ -235,6 +235,13 @@ export const getUniV3 = async (
       stateMutability: "view",
       type: "function",
     },
+    {
+      inputs: [],
+      name: "getProportion",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
   ];
 
   const jarV3 = new MultiContract(jar.contract, jarV3Abi);
@@ -250,6 +257,7 @@ export const getUniV3 = async (
     token1,
     tickLower,
     tickUpper,
+    proportion
   ] = await model.callMulti(
     [
       () => poolContract.slot0(),
@@ -260,6 +268,7 @@ export const getUniV3 = async (
       () => jarV3.token1(),
       () => jarV3.getLowerTick(),
       () => jarV3.getUpperTick(),
+      () => jarV3.getProportion(),
     ],
     jar.chain,
   );
@@ -288,7 +297,7 @@ export const getUniV3 = async (
     tickLower,
     tickUpper,
   });
-  return { position, tokenA, tokenB, pool };
+  return { position, tokenA, tokenB, pool, proportion };
 };
 
 export async function queryUniswapTicks(

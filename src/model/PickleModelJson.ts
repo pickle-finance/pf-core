@@ -321,6 +321,7 @@ export interface DepositToken {
   totalSupply?: number;
   components?: string[];
   componentTokens?: number[];
+  proportion?: string;
   style?: DepositTokenStyle;
   price?: number;
   nativePath?: {

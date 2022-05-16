@@ -158,7 +158,10 @@ export const JAR_UNIV2_ETH_DAI: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_DAI",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_DAI);
@@ -178,7 +181,10 @@ export const JAR_UNIV2_ETH_USDC: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_USDC",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDC);
@@ -198,7 +204,10 @@ export const JAR_UNIV2_ETH_USDT: JarDefinition = {
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
-  details: undefined,
+  details: {
+    apiKey: "UNIV2_ETH_USDT",
+    harvestStyle: HarvestStyle.NONE,
+  },
   farm: undefined,
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_ETH_USDT);
@@ -717,7 +726,7 @@ export const JAR_UNIV2_MBABA_UST: JarDefinition = {
     components: ["mbaba", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -1630,7 +1639,7 @@ export const JAR_UNIV3_USDC_USDT: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "usdt"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -1856,6 +1865,35 @@ export const JAR_STAR_USDT: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_STAR_USDT);
+
+export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar 2a",
+  contract: "0x4eB6e19c043513db1451eEe57F0d58ebea2C6150",
+  startBlock: 14194675,
+  depositToken: {
+    addr: "0x6021444f1706f15465bEe85463BCc7d7cC17Fc03",
+    name: "UniV2 FRAX/TEMPLE",
+    link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0x6B175474E89094C44Da98b954EedeAC495271d0F/500",
+    components: ["temple", "frax"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["fxs", "temple"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UNISWAP,
+  details: {
+    controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
+    apiKey: "UNIV2-FRAX-TEMPLE",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0xb7a632f93e3cbcc9444114bcd162b704e07355a9",
+    farmNickname: "pUNIv2 FRAX/TEMPLE",
+    farmDepositTokenName: "pUNIv2 FRAX/TEMPLE",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UNIV2_FRAX_TEMPLE);
 
 // Polygon
 
@@ -2909,7 +2947,7 @@ export const JAR_ARBITRUM_BAL_TRICRYPTO: JarDefinition = {
     components: ["usdc", "wbtc", "weth"],
   },
   rewardTokens: ["hal"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
@@ -2965,7 +3003,7 @@ export const JAR_ARBITRUM_BAL_ETH: JarDefinition = {
     components: ["bal", "weth"],
   },
   rewardTokens: ["bal"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.BALANCER,
   details: {
