@@ -20,7 +20,7 @@ const firstMeaningfulDistributionTimestamp = 1619049600;
 
 export const DILL_CONTRACT = "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf";
 const FEE_DISTRIBUTOR = "0x2c6C87E7E6195ab7A4f19d3CF31D867580Bb2a1b";
-const pickleAddress = "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5";
+const PICKLE_TOKEN = "0x429881672B9AE42b8EbA0E26cD9C73711b891Ca5";
 /**
  * This implementation is kinda dumb and just takes the current APR
  * of all compoundable reward tokens of all jars and adds them together.
@@ -84,7 +84,7 @@ export async function getDillDetails(
       FEE_DISTRIBUTOR,
       feeDistributorAbi,
     );
-    const pickleContract = new MultiContract(pickleAddress, Erc20Abi);
+    const pickleContract = new MultiContract(PICKLE_TOKEN, Erc20Abi);
    
     // const pickleContract: Erc20 = Erc20__factory.connect(
     //   ADDRESSES.get(ChainNetwork.Ethereum).pickle,

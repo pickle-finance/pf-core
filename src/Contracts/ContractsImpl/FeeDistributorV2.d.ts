@@ -26,6 +26,7 @@ interface FeeDistributorV2Interface extends ethers.utils.Interface {
     "ve_for_at(address,uint256)": FunctionFragment;
     "checkpoint_total_supply()": FunctionFragment;
     "claim()": FunctionFragment;
+    "claim_all()": FunctionFragment;
     "claim_many(address[20])": FunctionFragment;
     "burn(address)": FunctionFragment;
     "commit_admin(address)": FunctionFragment;
@@ -67,6 +68,7 @@ interface FeeDistributorV2Interface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "claim", values?: undefined): string;
+  encodeFunctionData(functionFragment: "claim_all", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "claim_many",
     values: [
@@ -190,6 +192,7 @@ interface FeeDistributorV2Interface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "claim_all", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claim_many", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(
@@ -365,6 +368,15 @@ export class FeeDistributorV2 extends Contract {
     ): Promise<ContractTransaction>;
 
     "claim(address)"(
+      _addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "claim_all()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "claim_all(address)"(
       _addr: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -619,6 +631,15 @@ export class FeeDistributorV2 extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  "claim_all()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "claim_all(address)"(
+    _addr: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   claim_many(
     _receivers: [
       string,
@@ -846,6 +867,13 @@ export class FeeDistributorV2 extends Contract {
     "claim()"(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
     "claim(address)"(
+      _addr: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber, BigNumber]>;
+
+    "claim_all()"(overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
+
+    "claim_all(address)"(
       _addr: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber, BigNumber]>;
@@ -1114,6 +1142,15 @@ export class FeeDistributorV2 extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    "claim_all()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "claim_all(address)"(
+      _addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     claim_many(
       _receivers: [
         string,
@@ -1355,6 +1392,15 @@ export class FeeDistributorV2 extends Contract {
     ): Promise<PopulatedTransaction>;
 
     "claim(address)"(
+      _addr: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "claim_all()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "claim_all(address)"(
       _addr: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

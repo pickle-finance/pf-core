@@ -272,10 +272,6 @@
         ]
     },
     {
-        "stateMutability": "payable",
-        "type": "fallback"
-    },
-    {
         "stateMutability": "nonpayable",
         "type": "function",
         "name": "commit_admin",
