@@ -7,7 +7,7 @@ import {
 import { BigNumber, ethers } from "ethers";
 import { Contract as MultiContract } from "ethers-multicall";
 import dillAbi from "../Contracts/ABIs/dill.json";
-import feeDistributorAbi from "../Contracts/ABIs/feeDistributorVer2.json";
+import feeDistributorAbi from "../Contracts/ABIs/fee-distributor-v2.json";
 import Erc20Abi from "../Contracts/ABIs/erc20.json";
 import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
 import moment from "moment";
