@@ -445,7 +445,8 @@ export interface DillDetails {
   pickleLocked: number;
   totalDill: number;
   dillWeeks: DillWeek[];
-  totalPickle: string;
+  dillWeeksV2: DillWeekV2[];
+  totalPickle: number;
 }
 
 export interface DillWeek {
@@ -459,11 +460,26 @@ export interface DillWeek {
   isProjected: boolean;
   distributionTime: Date;
 }
+
+export interface DillWeekV2 {
+  weeklyPickleAmount: number;
+  totalPickleAmount: number;
+  weeklyEthAmount: number;
+  totalEthAmount: number;
+  weeklyDillAmount: number;
+  totalDillAmount: number;
+  pickleDillRatio: number;
+  picklePriceUsd: number;
+  buybackUsd: number;
+  isProjected: boolean;
+  distributionTime: Date;
+}
 export interface PlatformData {
   platformTVL: number;
   platformBlendedRate: number;
   harvestPending: number;
   picklePerBlock: string;
+  newPicklePerBlock: string;
 }
 export interface PickleModelJson {
   assets: PickleModelAssets;

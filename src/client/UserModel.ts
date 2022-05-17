@@ -34,6 +34,8 @@ import {
   Erc20__factory,
   FeeDistributorV2,
   FeeDistributorV2__factory,
+  FeeDistributor,
+  FeeDistributor__factory,
 } from "../Contracts/ContractsImpl";
 import {
   ExternalTokenModelSingleton,
@@ -84,9 +86,10 @@ export interface IUserDillStats {
   lockEnd: string;
   balance: string;
   claimable: string;
-  claimableETH: string;
-  totalClaimableToken: string;
-  totalClaimableETH: string;
+  claimableV2: string;
+  claimableETHV2: string;
+  totalClaimableTokenV2: string;
+  totalClaimableETHV2: string;
   dillApproval: string;
 }
 
@@ -126,9 +129,10 @@ const emptyUserData = (): UserData => {
       lockEnd: "0",
       balance: "0",
       claimable: "0",
-      claimableETH: "0",
-      totalClaimableToken: "0",
-      totalClaimableETH: "0",
+      claimableV2: "0",
+      claimableETHV2: "0",
+      totalClaimableTokenV2: "0",
+      totalClaimableETHV2: "0",
       dillApproval: "0",
     },
     brineries: {},
@@ -936,26 +940,32 @@ export class UserModel implements ConsoleErrorLogger {
         lockEnd: "0",
         balance: "0",
         claimable: "0",
-        claimableETH: "0",
-        totalClaimableToken: "0",
-        totalClaimableETH: "0",
+        claimableV2: "0",
+        claimableETHV2: "0",
+        totalClaimableTokenV2: "0",
+        totalClaimableETHV2: "0",
         dillApproval: "0",
       };
     }
   }
   async getUserDillStats(): Promise<IUserDillStats> {
     const dillContractAddr: string = ADDRESSES.get(ChainNetwork.Ethereum).dill;
+    const feeDistributorAddrV2: string = ADDRESSES.get(
+      ChainNetwork.Ethereum,
+    ).feeDistributorV2;
     const feeDistributorAddr: string = ADDRESSES.get(
       ChainNetwork.Ethereum,
     ).feeDistributor;
-
     const dillContract: Dill = Dill__factory.connect(
       dillContractAddr,
       this.providerFor(ChainNetwork.Ethereum),
     );
-
-    const feeDistributorContract: FeeDistributorV2 = FeeDistributorV2__factory.connect(
+    const feeDistributorContract: FeeDistributor = FeeDistributor__factory.connect(
       feeDistributorAddr,
+      this.providerFor(ChainNetwork.Ethereum),
+    );
+    const feeDistributorContractV2: FeeDistributorV2 = FeeDistributorV2__factory.connect(
+      feeDistributorAddrV2,
       this.providerFor(ChainNetwork.Ethereum),
     );
 
@@ -963,11 +973,14 @@ export class UserModel implements ConsoleErrorLogger {
       ADDRESSES.get(ChainNetwork.Ethereum).pickle,
       this.providerFor(ChainNetwork.Ethereum),
     );
-
+    
+    const claimable = await feeDistributorContract.callStatic["claim(address)"](this.walletId, {
+      gasLimit: 1000000,
+    });
     const [lockStats, balance, userClaimable, allowance] = await Promise.all([
       dillContract.locked(this.walletId, { gasLimit: 1000000 }),
       dillContract["balanceOf(address)"](this.walletId, { gasLimit: 1000000 }),
-      feeDistributorContract.callStatic["claim(address)"](this.walletId, {
+      feeDistributorContractV2.callStatic["claim(address)"](this.walletId, {
         gasLimit: 1000000,
       }),
       pickleContract.allowance(this.walletId, dillContractAddr),
@@ -975,7 +988,7 @@ export class UserModel implements ConsoleErrorLogger {
 
     let totalClaimable;
     try {
-      totalClaimable = await feeDistributorContract.callStatic["claim_all(address)"](this.walletId, {
+      totalClaimable = await feeDistributorContractV2.callStatic["claim_all(address)"](this.walletId, {
         gasLimit: 9000000,
       });
     } catch (err) {
@@ -988,10 +1001,11 @@ export class UserModel implements ConsoleErrorLogger {
       pickleLocked: lockStats[0].toString(),
       lockEnd: lockStats[1].toString(),
       balance: balance.toString(),
-      claimable: userClaimable[0].toString(),
-      claimableETH: userClaimable[1].toString(),
-      totalClaimableToken: totalClaimable[0].toString(),
-      totalClaimableETH: totalClaimable[1].toString(),
+      claimable: claimable.toString(),
+      claimableV2: userClaimable[0].toString(),
+      claimableETHV2: userClaimable[1].toString(),
+      totalClaimableTokenV2: totalClaimable[0].toString(),
+      totalClaimableETHV2: totalClaimable[1].toString(),
       dillApproval: allowance.toString(),
     };
   }
