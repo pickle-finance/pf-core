@@ -22,7 +22,8 @@ export class NetswapJar extends AbstractJarBehavior {
     const poolStats = this.poolsStats?.data?.farmPools?.filter(
       (x) => x.pair.id.toLowerCase() === jar.depositToken.addr.toLowerCase(),
     );
-    const rewarder = poolStats[0]?.rewarder;
+    let rewarder;
+    if (poolStats && poolStats.length > 0) rewarder = poolStats[0]?.rewarder;
 
     if (rewarder) {
       const rewardTokenAddr = rewarder.rewardToken.address;

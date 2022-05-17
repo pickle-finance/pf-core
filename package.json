@@ -22,7 +22,8 @@
     "format": "prettier --write \"./**/*.{json,js,jsx,ts,tsx}\" --ignore-path .gitignore",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "typechain": "typechain --target ethers-v5 --outDir ./src/Contracts/ContractsImpl ./src/Contracts/ABIs/**/*.json"
+    "typechain": "typechain --target ethers-v5 --outDir ./src/Contracts/ContractsImpl ./src/Contracts/ABIs/**/*.json",
+    "local": "yarn build && yarn start > build-output.json"
   },
   "files": [
     "/lib"
