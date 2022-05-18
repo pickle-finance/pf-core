@@ -116,7 +116,7 @@ export async function getDillDetails(
       workingTimeBNV2 = workingTimeBNV2.add(ethers.BigNumber.from(week));
     }
 
-    const payoutV2idx = payoutTimes.indexOf(payoutTimesV2[0]);
+    const payoutV2idx = payoutTimes.findIndex(t => t.eq(payoutTimesV2[0]));
 
     const batch1Promise = model.callMulti(
       [
@@ -225,10 +225,10 @@ export async function getDillDetails(
       if (payoutV2idx >= 0 && index >= payoutV2idx) {
         // After the release date of V2, add params of both V1 and V2
         weeklyPickleAmount += isProjected
-          ? thisWeekProjectedDistribution / picklePrice
+          ? 0 // Subject to change
           : payoutsV2[index - payoutV2idx];
         weeklyEthAmount = isProjected
-          ? thisWeekProjectedDistribution / picklePrice
+          ? 0 // Subject to change
           : payoutsEthV2[index - payoutV2idx];
 
         totalDillAmount += dillAmountsV2[index - payoutV2idx];
