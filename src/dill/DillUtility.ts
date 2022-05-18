@@ -2,7 +2,6 @@ import {
   AssetEnablement,
   DillDetails,
   DillWeek,
-  DillWeekV2,
   JarDefinition,
 } from "../model/PickleModelJson";
 import { BigNumber, ethers } from "ethers";
@@ -203,15 +202,12 @@ export async function getDillDetails(
     let totalEthAmount = 0;
     const picklePriceSeries = await picklePriceSeriesPromise;
 
-    let totalPickleAmountV2 = 0;
-    let lastTotalDillAmountV2 = 0;
-    const picklePriceSeriesV2 = await picklePriceSeriesPromiseV2;
-
     const mapResult: DillWeek[] = payoutTimes.map((time, index): DillWeek => {
       // Fees get distributed at the beginning of the following period.
       const distributionTime = new Date((time.toNumber() + week) * 1000);
       const isProjected = distributionTime > new Date();
-      const weeklyPickleAmount = isProjected
+
+      let weeklyPickleAmount = isProjected
         ? thisWeekProjectedDistribution / picklePrice
         : payouts[index];
 
@@ -220,20 +216,48 @@ export async function getDillDetails(
       );
       const picklePriceUsd = historicalEntry ? historicalEntry[1] : picklePrice;
 
-      const totalDillAmount: number = dillAmounts[index];
-      const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
+      let totalDillAmount: number = dillAmounts[index];
+      let pickleDillRatio = weeklyPickleAmount / totalDillAmount;
 
-      totalPickleAmount += weeklyPickleAmount;
+      let weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
 
-      const weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
-      lastTotalDillAmount = totalDillAmount;
-
-      const buybackUsd =
-        Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
+      let buybackUsd = 0;
+      Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
         100;
+
+      let weeklyEthAmount = 0;
+
+      const indexV2 = payoutTimesV2.indexOf(time);
+
+      if (indexV2 > -1) { 
+        weeklyPickleAmount += isProjected
+          ? thisWeekProjectedDistribution / picklePrice
+          : payoutsV2[indexV2];
+        weeklyEthAmount = isProjected
+          ? thisWeekProjectedDistribution / picklePrice
+          : payoutsEthV2[indexV2];
+
+        totalDillAmount += dillAmountsV2[indexV2];
+        pickleDillRatio = weeklyPickleAmount / totalDillAmount;
+        totalPickleAmount += weeklyPickleAmount;
+        totalEthAmount += weeklyEthAmount;
+        weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
+        lastTotalDillAmount = totalDillAmount;
+        buybackUsd =
+          Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
+          100;
+      } else {
+        totalPickleAmount += weeklyPickleAmount;
+        lastTotalDillAmount = totalDillAmount;
+        buybackUsd =
+          Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
+          100;
+      }
       return {
         weeklyPickleAmount,
         totalPickleAmount,
+        weeklyEthAmount,
+        totalEthAmount,
         weeklyDillAmount,
         totalDillAmount,
         pickleDillRatio,
@@ -243,58 +267,12 @@ export async function getDillDetails(
         distributionTime,
       };
     });
-    const mapResultV2: DillWeekV2[] = payoutTimesV2.map(
-      (time, index): DillWeekV2 => {
-        // Fees get distributed at the beginning of the following period.
-        const distributionTime = new Date((time.toNumber() + week) * 1000);
-        const isProjected = distributionTime > new Date();
-        const weeklyPickleAmount = isProjected
-          ? thisWeekProjectedDistribution / picklePrice
-          : payoutsV2[index];
-        const weeklyEthAmount = isProjected
-          ? thisWeekProjectedDistribution / picklePrice
-          : payoutsEthV2[index];
-        const historicalEntry = picklePriceSeriesV2.find((value) =>
-          moment(value[0]).isSame(distributionTime, "day"),
-        );
-        const picklePriceUsd = historicalEntry
-          ? historicalEntry[1]
-          : picklePrice;
-
-        const totalDillAmount: number = dillAmountsV2[index];
-        const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
-
-        totalPickleAmountV2 += weeklyPickleAmount;
-        totalEthAmount += weeklyEthAmount;
-        const weeklyDillAmount = totalDillAmount - lastTotalDillAmountV2;
-        lastTotalDillAmountV2 = totalDillAmount;
-
-        const buybackUsd =
-          Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
-          100;
-
-        return {
-          weeklyPickleAmount,
-          totalPickleAmount: totalPickleAmountV2,
-          weeklyEthAmount,
-          totalEthAmount,
-          weeklyDillAmount,
-          totalDillAmount,
-          pickleDillRatio,
-          picklePriceUsd,
-          buybackUsd,
-          isProjected,
-          distributionTime,
-        };
-      },
-    );
 
     DEBUG_OUT("End getDillDetails: " + (Date.now() - start));
     return {
       pickleLocked: picklesLockedFloat,
       totalDill: dillSupplyFloat,
       dillWeeks: mapResult,
-      dillWeeksV2: mapResultV2,
       totalPickle: pickleSupplyFloat,
     };
   } catch (e) {

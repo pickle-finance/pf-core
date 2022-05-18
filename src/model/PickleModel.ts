@@ -1689,7 +1689,6 @@ export class PickleModel implements ConsoleErrorLogger {
       platformBlendedRate: tvl === 0 ? 0 : blendedRateSum / tvl,
       harvestPending: harvestPending,
       picklePerBlock: ppb.toString(),
-      newPicklePerBlock: ((ppb).mul(3)).toString()
     };
   }
 
