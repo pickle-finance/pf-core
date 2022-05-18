@@ -81,9 +81,6 @@ export async function getDillDetails(
   const picklePriceSeriesPromise = fetchHistoricalPriceSeries({
     from: new Date(firstMeaningfulDistributionTimestamp * 1000),
   });
-  const picklePriceSeriesPromiseV2 = fetchHistoricalPriceSeries({
-    from: new Date(firstMeaningfulDistributionTimestampV2 * 1000),
-  });
 
   try {
     const dillContract = new MultiContract(DILL_CONTRACT, dillAbi);
@@ -118,6 +115,8 @@ export async function getDillDetails(
       payoutTimesV2.push(workingTimeBNV2);
       workingTimeBNV2 = workingTimeBNV2.add(ethers.BigNumber.from(week));
     }
+
+    const payoutV2idx = payoutTimes.indexOf(payoutTimesV2[0]);
 
     const batch1Promise = model.callMulti(
       [
@@ -221,38 +220,30 @@ export async function getDillDetails(
 
       let weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
 
-      let buybackUsd = 0;
-      Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
-        100;
-
       let weeklyEthAmount = 0;
 
-      const indexV2 = payoutTimesV2.indexOf(time);
-
-      if (indexV2 > -1) { 
+      if (payoutV2idx >= 0 && index >= payoutV2idx) {
+        // After the release date of V2, add params of both V1 and V2
         weeklyPickleAmount += isProjected
           ? thisWeekProjectedDistribution / picklePrice
-          : payoutsV2[indexV2];
+          : payoutsV2[index - payoutV2idx];
         weeklyEthAmount = isProjected
           ? thisWeekProjectedDistribution / picklePrice
-          : payoutsEthV2[indexV2];
+          : payoutsEthV2[index - payoutV2idx];
 
-        totalDillAmount += dillAmountsV2[indexV2];
-        pickleDillRatio = weeklyPickleAmount / totalDillAmount;
-        totalPickleAmount += weeklyPickleAmount;
-        totalEthAmount += weeklyEthAmount;
-        weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
-        lastTotalDillAmount = totalDillAmount;
-        buybackUsd =
-          Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
-          100;
-      } else {
-        totalPickleAmount += weeklyPickleAmount;
-        lastTotalDillAmount = totalDillAmount;
-        buybackUsd =
-          Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
-          100;
+        totalDillAmount += dillAmountsV2[index - payoutV2idx];
       }
+
+      pickleDillRatio = weeklyPickleAmount / totalDillAmount;
+      totalPickleAmount += weeklyPickleAmount;
+      totalEthAmount += weeklyEthAmount;
+      weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
+      lastTotalDillAmount = totalDillAmount;
+
+      const buybackUsd =
+        Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
+        100;
+
       return {
         weeklyPickleAmount,
         totalPickleAmount,
