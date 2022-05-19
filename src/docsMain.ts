@@ -12,7 +12,7 @@ function getDocs(language: string) {
       documentationAssetDefinitionToResult(
         language,
         DocsFormat.HTML,
-        allDocs[ i ],
+        allDocs[i],
       ),
     );
   }
@@ -24,11 +24,7 @@ function getDocs(language: string) {
   );
 
   for (let i = 0; i < toVerify.length; i++) {
-    // if (toVerify[ i ].type === AssetType.BRINERY) {
-    //   console.log("docs main");
-    //   console.log(toVerify[ i ]);
-    // }
-    const apiKey = toVerify[ i ]?.details?.apiKey;
+    const apiKey = toVerify[i]?.details?.apiKey;
     if (apiKey !== undefined) {
       const foundDocs = allDocs.find((x) => x.apiKey === apiKey);
 

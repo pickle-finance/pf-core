@@ -4,8 +4,7 @@ export const UNI3_REWARDS_JAR_DESCRIPTION =
   "asset.description.univ3.rewards.lp";
 export const BALANCER_REWARDS_JAR_DESCRIPTION =
   "asset.description.balancer.rewards.lp";
-export const BRINERY_JAR_DESCRIPTION =
-  "asset.description.brinery.rewards.lp";
+export const BRINERY_JAR_DESCRIPTION = "asset.description.brinery.rewards.lp";
 export const BRINERY_BOOSTED_JAR_DESCRIPTION =
   "asset.description.brineryBoosterJar.rewards.lp";
 export const CURVE_REWARDS_JAR_DESCRIPTION =
@@ -39,7 +38,7 @@ export enum SocialKeys {
 }
 
 export interface DocumentationModelDefinition {
-  [ key: string ]: AssetDocumentationDefinition;
+  [key: string]: AssetDocumentationDefinition;
 }
 
 export interface AssetDocumentationDefinition {
@@ -57,11 +56,11 @@ export interface TranslationKeyWithProperties {
 }
 
 export interface TranslationKeyProperties {
-  [ key: string ]: string;
+  [key: string]: string;
 }
 
 export interface DocumentationModelResult {
-  [ key: string ]: AssetDocumentationResult;
+  [key: string]: AssetDocumentationResult;
 }
 
 export interface AssetDocumentationResult {
@@ -71,8 +70,8 @@ export interface AssetDocumentationResult {
   social?: string[];
   obtain: string[];
   risks: string[];
-  componentTokens: { [ key: string ]: string };
-  relevantTokens: { [ key: string ]: string };
+  componentTokens: { [key: string]: string };
+  relevantTokens: { [key: string]: string };
 }
 
 export enum DocsFormat {
@@ -82,5 +81,5 @@ export enum DocsFormat {
 }
 
 export type SocialKeyValueObj = {
-  [ key in SocialKeys ]?: string;
+  [key in SocialKeys]?: string;
 };

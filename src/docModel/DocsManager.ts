@@ -11,7 +11,7 @@ import {
 } from "./DocsInterfaces";
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 
-export const SUPPORTED_LANGUAGES = [ "en", "es" ];
+export const SUPPORTED_LANGUAGES = ["en", "es"];
 
 export class DocsManager {
   public static getAllJarDocumentationDefinitions(): AssetDocumentationDefinition[] {
@@ -30,10 +30,10 @@ export class DocsManager {
     const automaticDocDefinitions: AssetDocumentationDefinition[] = [];
     for (let i = 0; i < missingApiKeys.length; i++) {
       const tmp = generateAutomaticDefinition([
-        missingApiKeys[ i ].details.apiKey,
+        missingApiKeys[i].details.apiKey,
       ]);
-      if (tmp && tmp.length > 0 && tmp[ 0 ] !== undefined) {
-        automaticDocDefinitions.push(tmp[ 0 ]);
+      if (tmp && tmp.length > 0 && tmp[0] !== undefined) {
+        automaticDocDefinitions.push(tmp[0]);
       }
     }
     return manualDocs.concat(automaticDocDefinitions);
@@ -47,11 +47,11 @@ export class DocsManager {
     const allDocDefinitions = this.getAllJarDocumentationDefinitions();
     for (let i = 0; i < allDocDefinitions.length; i++) {
       const d = DocsManager.getDocumentationForAsset(
-        allDocDefinitions[ i ],
+        allDocDefinitions[i],
         language,
         linkType,
       );
-      result[ allDocDefinitions[ i ].apiKey ] = d;
+      result[allDocDefinitions[i].apiKey] = d;
     }
     return result;
   }
@@ -94,21 +94,21 @@ export class DocsManager {
       if (docs.social) {
         ret += "<p>Social: ";
         for (let i = 0; i < docs.social.length; i++) {
-          ret += docs.social[ i ] + " - ";
+          ret += docs.social[i] + " - ";
         }
         ret += "</p>\n";
       }
       if (docs.obtain) {
         ret += "<ul>\n";
         for (let i = 0; i < docs.obtain.length; i++) {
-          ret += "  <li>" + docs.obtain[ i ] + "</li>\n";
+          ret += "  <li>" + docs.obtain[i] + "</li>\n";
         }
         ret += "</ul>\n";
       }
       if (docs.risks) {
         ret += "<ul>\n";
         for (let i = 0; i < docs.risks.length; i++) {
-          ret += "  <li>" + docs.risks[ i ] + "</li>\n";
+          ret += "  <li>" + docs.risks[i] + "</li>\n";
         }
         ret += "</ul>\n";
       }
