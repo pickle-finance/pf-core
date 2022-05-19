@@ -8,6 +8,7 @@ import sushiMiniChefAbi from "../../Contracts/ABIs/sushi-minichef.json";
 import sushiComplexRewarderAbi from "../../Contracts/ABIs/sushi-complex-rewarder.json";
 import { formatEther, defaultAbiCoder } from "ethers/lib/utils";
 import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
+import { Contract } from "ethers";
 
 export const SUSHI_MINICHEF = "0xdDCbf776dF3dE60163066A5ddDF2277cB445E0F3";
 export const GNO_COMPLEX_REWARDER =
@@ -148,14 +149,30 @@ export abstract class GnosisSushiJar extends AbstractJarBehavior {
     chefAddress = SUSHI_MINICHEF;
     poolId = gnosisSushiPoolIds[jar.depositToken.addr];
     console.log("DING")
-    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
+    let extraRewardsValue = 0;
+    try {
+      // Check if there is a rewarder for this pool, call can fail if no provider, so we use normal ethers provider
+      const provider = model.providerFor(jar.chain);
+      const mcContract = new Contract(chefAddress,sushiMiniChefAbi,provider);
+      const rewarderAddr = await model.call(()=>mcContract.rewarder(poolId),jar.chain,true);
+      const rewarderContract = new MultiContract(rewarderAddr, sushiComplexRewarderAbi);
+      const pendingGnoBN = await model.callMulti(()=>rewarderContract.pendingToken(poolId, jar.details.strategyAddr),jar.chain);
+      const gnoPrice = model.priceOfSync("gno", jar.chain);
+      const pendingGnoValue = gnoPrice * parseFloat(formatEther(pendingGnoBN));
+      extraRewardsValue += pendingGnoValue;
+    } catch (error) {
+      // ignore, an error here means no rewarder found
+    }
+    let totalHarvestable = await this.getHarvestableUSDMasterchefCommsMgrImplementation(
       jar,
       model,
-      ["sushi", "gno"],
+      ["sushi"],
       chefAddress,
-      "pendingReward",
+      "pendingSushi",
       poolId,
     );
+    
+    return totalHarvestable + extraRewardsValue;
   }
 
   async getProjectedAprStats(
