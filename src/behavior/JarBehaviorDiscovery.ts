@@ -553,7 +553,6 @@ import { PadPadFrax } from "./impl/aurora-nearpad-pad-frax";
 import { ArbitrumGohmEth } from "./impl/arbitrum-gohm-eth";
 import { ArbitrumMagicEth } from "./impl/arbitrum-magic-eth";
 import { CurveCvxEth } from "./impl/cvx-eth";
-import { PadRoseFrax } from "./impl/rose-frax";
 import { BrlAuroraNear } from "./impl/aurora-brl-aurora-near";
 import { BrlAvaxNear } from "./impl/aurora-brl-avax-near";
 import { BrlBrlAurora } from "./impl/aurora-brl-brl-aurora";
