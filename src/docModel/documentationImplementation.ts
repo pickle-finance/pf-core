@@ -1,7 +1,6 @@
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 import {
   AssetProtocol,
-  AssetType,
   BrineryDefinition,
   JarDefinition,
   PickleAsset,

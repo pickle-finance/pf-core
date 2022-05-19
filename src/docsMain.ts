@@ -1,7 +1,7 @@
 import { documentationAssetDefinitionToResult } from "./docModel/documentationImplementation";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { DocsFormat, DocsManager } from ".";
-import { AssetEnablement, AssetType } from "./model/PickleModelJson";
+import { AssetEnablement } from "./model/PickleModelJson";
 
 function getDocs(language: string) {
   const docs = [];
