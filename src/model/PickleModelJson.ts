@@ -445,12 +445,14 @@ export interface DillDetails {
   pickleLocked: number;
   totalDill: number;
   dillWeeks: DillWeek[];
-  totalPickle: string;
+  totalPickle: number;
 }
 
 export interface DillWeek {
   weeklyPickleAmount: number;
   totalPickleAmount: number;
+  weeklyEthAmount: number;
+  totalEthAmount: number;
   weeklyDillAmount: number;
   totalDillAmount: number;
   pickleDillRatio: number;
@@ -459,6 +461,7 @@ export interface DillWeek {
   isProjected: boolean;
   distributionTime: Date;
 }
+
 export interface PlatformData {
   platformTVL: number;
   platformBlendedRate: number;
