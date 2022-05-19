@@ -45,7 +45,6 @@ export class DocsManager {
   ): DocumentationModelResult {
     const result: DocumentationModelResult = {};
     const allDocDefinitions = this.getAllJarDocumentationDefinitions();
-    console.log(allDocDefinitions);
     for (let i = 0; i < allDocDefinitions.length; i++) {
       const d = DocsManager.getDocumentationForAsset(
         allDocDefinitions[ i ],

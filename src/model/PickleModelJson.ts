@@ -370,6 +370,11 @@ export interface BrineryDefinition extends PickleAsset {
   details: BrineryDetails;
 }
 
+export interface BrineryBoostedJarDefinition extends PickleAsset {
+  // this may need more dev when we have a brinery boosted jar
+  details: BrineryBoostedJarDetails;
+}
+
 export interface HistoricalYield {
   d1?: number;
   d3?: number;
@@ -402,11 +407,15 @@ export interface BrineryDetails extends AssetDetails {
   rewardToken: string;
 }
 
+export interface BrineryBoostedJarDetails extends AssetDetails {
+  todo: 0 // add details when jars exist
+}
+
 export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
 
 export interface FarmDetails {
   allocShare?: number;
@@ -473,7 +482,7 @@ export interface PickleModelJson {
   dill: DillDetails;
   xykSwapProtocols: XYKSwapProtocol[];
   tokens: IExternalToken[];
-  prices: { [key: string]: number };
+  prices: { [ key: string ]: number };
   platform: PlatformData;
   chains: RawChain[];
   timestamp: number;

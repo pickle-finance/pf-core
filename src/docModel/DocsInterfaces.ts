@@ -6,6 +6,8 @@ export const BALANCER_REWARDS_JAR_DESCRIPTION =
   "asset.description.balancer.rewards.lp";
 export const BRINERY_JAR_DESCRIPTION =
   "asset.description.brinery.rewards.lp";
+export const BRINERY_BOOSTED_JAR_DESCRIPTION =
+  "asset.description.brineryBoosterJar.rewards.lp";
 export const CURVE_REWARDS_JAR_DESCRIPTION =
   "asset.description.curve.rewards.lp";
 export const SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION =
