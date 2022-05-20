@@ -116,12 +116,6 @@ export function documentationAssetDefinitionToResult(
         format,
       );
     }
-    relatedTokens[related[i]] = getTokenDescription(
-      chain,
-      related[i],
-      language,
-      format,
-    );
   }
 
   return {
