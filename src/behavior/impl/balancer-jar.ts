@@ -50,7 +50,7 @@ export class BalancerJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     if (!this.poolData) this.poolData = await getPoolData(jar, model);
-    const res = await calculateBalPoolAPRs(jar, model, this.poolData);
+    const res = await calculateBalPoolAPRs(jar, model);
     const aprsPostFee = res.map((component) =>
       this.createAprComponent(
         component.name,

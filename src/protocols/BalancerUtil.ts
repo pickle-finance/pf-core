@@ -2,7 +2,6 @@ import { BigNumber, Contract, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20 from "../Contracts/ABIs/erc20.json";
 import { ChainNetwork, Chains, PickleModel } from "..";
-import fetch from "cross-fetch";
 import { readQueryFromGraphDetails } from "../graph/TheGraph";
 import {
   AssetAprComponent,
@@ -10,50 +9,8 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
-import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 
-const balLMUrl =
-  "https://raw.githubusercontent.com/balancer-labs/frontend-v2/master/src/lib/utils/liquidityMining/MultiTokenLiquidityMining.json";
 const balVaultAddr = "0xBA12222222228d8Ba445958a75a0704d566BF2C8";
-
-// Liquidity mining started on June 1, 2020 00:00 UTC
-const liquidityMiningStartTime = Date.UTC(2020, 5, 1, 0, 0);
-
-function getCurrentLiquidityMiningWeek() {
-  const dateLeft = toUtcTime(new Date());
-  const dateRight = liquidityMiningStartTime;
-  const diff = differenceInDays(dateLeft, dateRight) / 7;
-  const roundingFunc = (value: number) =>
-    value < 0 ? Math.ceil(value) : Math.floor(value); // Math.trunc is not supported by IE
-  const diffInWeeksRet = roundingFunc(diff);
-  return diffInWeeksRet + 1;
-}
-
-// Balancer stuff
-function toUtcTime(date: Date) {
-  return Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-    date.getUTCHours(),
-    date.getUTCMinutes(),
-    date.getUTCSeconds(),
-  );
-}
-
-function getWeek(miningWeek: number) {
-  return `week_${miningWeek}`;
-}
-
-type LiquidityMiningPools = Record<
-  string,
-  { tokenAddress: string; amount: number }[]
->;
-
-type LiquidityMiningWeek = Array<{
-  chainId: number;
-  pools: LiquidityMiningPools;
-}>;
 
 // make sure keys are lower-cased!
 const balPoolIds: { [poolTokenAddress: string]: string } = {
@@ -226,47 +183,8 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
 export const calculateBalPoolAPRs = async (
   jar: JarDefinition,
   model: PickleModel,
-  poolData: PoolData,
 ): Promise<AssetAprComponent[]> => {
-  const weeksLMResp = await fetch(balLMUrl);
-  const weeksLMData = await weeksLMResp.json();
-  const miningWeek = getCurrentLiquidityMiningWeek();
-  let currentWeekData = weeksLMData[getWeek(miningWeek)] as LiquidityMiningWeek;
-  let n = 1;
-  while (!currentWeekData && n < 3) {
-    // balLMUrl can take some time to include current week rewards
-    currentWeekData = weeksLMData[
-      getWeek(miningWeek - n)
-    ] as LiquidityMiningWeek;
-    n++;
-  }
-
   const poolAprComponents: AssetAprComponent[] = [];
-
-  if (currentWeekData) {
-    const miningRewards: LiquidityMiningPools = {};
-    if (currentWeekData) {
-      Object.assign(
-        miningRewards,
-        currentWeekData.find((pool) => pool.chainId === 42161)?.pools,
-      );
-    }
-
-    const { totalPoolValue } = poolData;
-
-    const poolRewardsPerWeek =
-      miningRewards[balPoolIds[jar.depositToken.addr.toLowerCase()]];
-    poolRewardsPerWeek.forEach((reward) => {
-      const rewardValue =
-        reward.amount * model.priceOfSync(reward.tokenAddress, jar.chain);
-      const name = ExternalTokenModelSingleton.getToken(
-        reward.tokenAddress,
-        jar.chain,
-      ).id;
-      const apr = (((rewardValue / 7) * 365) / totalPoolValue) * 100;
-      poolAprComponents.push({ name: name, apr: apr, compoundable: true });
-    });
-  }
 
   const lp: AssetAprComponent = {
     name: "lp",
@@ -278,119 +196,3 @@ export const calculateBalPoolAPRs = async (
 
   return poolAprComponents;
 };
-
-/*
- Stuff copied from somewhere else
- */
-
-function differenceInDays(
-  dirtyDateLeft: Date | number,
-  dirtyDateRight: Date | number,
-): number {
-  const dateLeft = toDate(dirtyDateLeft);
-  const dateRight = toDate(dirtyDateRight);
-
-  const sign = compareLocalAsc(dateLeft, dateRight);
-  const difference = Math.abs(differenceInCalendarDays(dateLeft, dateRight));
-
-  dateLeft.setDate(dateLeft.getDate() - sign * difference);
-
-  // Math.abs(diff in full days - diff in calendar days) === 1 if last calendar day is not full
-  // If so, result must be decreased by 1 in absolute value
-  const isLastDayNotFull = Number(
-    compareLocalAsc(dateLeft, dateRight) === -sign,
-  );
-  const result = sign * (difference - isLastDayNotFull);
-  // Prevent negative zero
-  return result === 0 ? 0 : result;
-}
-
-export default function toDate(argument: Date | number): Date {
-  const argStr = Object.prototype.toString.call(argument);
-
-  // Clone the date
-  if (
-    argument instanceof Date ||
-    (typeof argument === "object" && argStr === "[object Date]")
-  ) {
-    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
-    return new Date(argument.getTime());
-  } else if (typeof argument === "number" || argStr === "[object Number]") {
-    return new Date(argument);
-  } else {
-    if (
-      (typeof argument === "string" || argStr === "[object String]") &&
-      typeof console !== "undefined"
-    ) {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "Starting with v2.0.0-beta.1 date-fns doesn't accept strings as date arguments. Please use `parseISO` to parse strings. See: https://git.io/fjule",
-      );
-      // eslint-disable-next-line no-console
-      console.warn(new Error().stack);
-    }
-    return new Date(NaN);
-  }
-}
-
-function compareLocalAsc(dateLeft: Date, dateRight: Date): number {
-  const diff =
-    dateLeft.getFullYear() - dateRight.getFullYear() ||
-    dateLeft.getMonth() - dateRight.getMonth() ||
-    dateLeft.getDate() - dateRight.getDate() ||
-    dateLeft.getHours() - dateRight.getHours() ||
-    dateLeft.getMinutes() - dateRight.getMinutes() ||
-    dateLeft.getSeconds() - dateRight.getSeconds() ||
-    dateLeft.getMilliseconds() - dateRight.getMilliseconds();
-
-  if (diff < 0) {
-    return -1;
-  } else if (diff > 0) {
-    return 1;
-    // Return 0 if diff is 0; return NaN if diff is NaN
-  } else {
-    return diff;
-  }
-}
-
-const MILLISECONDS_IN_DAY = 86400000;
-function differenceInCalendarDays(
-  dirtyDateLeft: Date | number,
-  dirtyDateRight: Date | number,
-): number {
-  const startOfDayLeft = startOfDay(dirtyDateLeft);
-  const startOfDayRight = startOfDay(dirtyDateRight);
-
-  const timestampLeft =
-    startOfDayLeft.getTime() - getTimezoneOffsetInMilliseconds(startOfDayLeft);
-  const timestampRight =
-    startOfDayRight.getTime() -
-    getTimezoneOffsetInMilliseconds(startOfDayRight);
-
-  // Round the number of days to the nearest integer
-  // because the number of milliseconds in a day is not constant
-  // (e.g. it's different in the day of the daylight saving time clock shift)
-  return Math.round((timestampLeft - timestampRight) / MILLISECONDS_IN_DAY);
-}
-
-function startOfDay(dirtyDate: Date | number): Date {
-  const date = toDate(dirtyDate);
-  date.setHours(0, 0, 0, 0);
-  return date;
-}
-
-function getTimezoneOffsetInMilliseconds(date) {
-  const utcDate = new Date(
-    Date.UTC(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-      date.getHours(),
-      date.getMinutes(),
-      date.getSeconds(),
-      date.getMilliseconds(),
-    ),
-  );
-  utcDate.setUTCFullYear(date.getFullYear());
-  return date.getTime() - utcDate.getTime();
-}
