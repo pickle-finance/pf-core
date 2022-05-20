@@ -12751,6 +12751,7 @@ export const ASSET_PBAMM: ExternalAssetDefinition = {
     addr: "0x5f98805a4e8be255a32880fdec7f6728c6568ba0",
     name: "LUSD",
     link: "https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
+    components: ["lusd"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
