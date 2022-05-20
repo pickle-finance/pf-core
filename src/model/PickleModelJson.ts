@@ -340,6 +340,7 @@ export interface PickleAsset {
   id: string;
   contract: string;
   startBlock: number;
+  startTimestamp?: number;
   depositToken: DepositToken;
   enablement: AssetEnablement;
   chain: ChainNetwork;
@@ -408,14 +409,14 @@ export interface BrineryDetails extends AssetDetails {
 }
 
 export interface BrineryBoostedJarDetails extends AssetDetails {
-  todo: 0 // add details when jars exist
+  todo: 0; // add details when jars exist
 }
 
 export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
 
 export interface FarmDetails {
   allocShare?: number;
@@ -482,7 +483,7 @@ export interface PickleModelJson {
   dill: DillDetails;
   xykSwapProtocols: XYKSwapProtocol[];
   tokens: IExternalToken[];
-  prices: { [ key: string ]: number };
+  prices: { [key: string]: number };
   platform: PlatformData;
   chains: RawChain[];
   timestamp: number;

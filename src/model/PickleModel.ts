@@ -67,7 +67,7 @@ export const ADDRESSES = new Map([
       masterChef: "0xbD17B1ce622d73bD438b9E658acA5996dc394b0d",
       controller: "0x6847259b2B3A4c17e7c43C54409810aF48bA5210",
       dill: "0xbBCf169eE191A1Ba7371F30A1C344bFC498b29Cf",
-      feeDistributor: "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc", 
+      feeDistributor: "0x74C6CadE3eF61d64dcc9b97490d9FbB231e4BdCc",
       feeDistributorV2: "0x2c6C87E7E6195ab7A4f19d3CF31D867580Bb2a1b",
       gaugeProxy: "0x2e57627ACf6c1812F99e274d0ac61B786c19E74f",
       treasury: "0x066419eaef5de53cc5da0d8702b990c5bc7d1ab3",
@@ -517,6 +517,7 @@ export class PickleModel implements ConsoleErrorLogger {
       this.loadDepositTokenTotalSupplyData(),
       this.loadJarBalanceData(),
       this.ensureComponentTokensLoaded(),
+      this.getJarTimestamp(),
     ]);
 
     const asOne = async (): Promise<any> => {
@@ -548,11 +549,11 @@ export class PickleModel implements ConsoleErrorLogger {
   async loadBrineryData(): Promise<void> {
     DEBUG_OUT("Begin loadBrineryData");
     const start = Date.now();
-    
+
     const brineriesWithBehaviors: PickleAsset[] = this.allAssets
-    .filter((x) => this.brineryFilter(x))
-    .filter((x) => this.configuredChains.includes(x.chain));
-    
+      .filter((x) => this.brineryFilter(x))
+      .filter((x) => this.configuredChains.includes(x.chain));
+
     try {
       const brineryAprs = await Promise.all(
         brineriesWithBehaviors.map((asset) => {
@@ -708,6 +709,18 @@ export class PickleModel implements ConsoleErrorLogger {
       ),
     );
     DEBUG_OUT("End ensureComponentTokensLoaded: " + (Date.now() - start));
+    return r;
+  }
+
+  async getJarTimestamp(): Promise<any> {
+    DEBUG_OUT("Begin getJarTimestamp");
+    const start = Date.now();
+    const r = await Promise.all(
+      this.configuredChains.map((x) =>
+        this.addJarTimestamp(this.semiActiveJars(x), x),
+      ),
+    );
+    DEBUG_OUT("End getJarTimestamp: " + (Date.now() - start));
     return r;
   }
 
@@ -971,6 +984,29 @@ export class PickleModel implements ConsoleErrorLogger {
       jars[i].details.totalSupply = parseFloat(
         ethers.utils.formatUnits(supply[i], jars[i].details.decimals),
       );
+    }
+  }
+
+  // All jars must be on same chain
+  async addJarTimestamp(
+    jars: JarDefinition[],
+    chain: ChainNetwork,
+  ): Promise<void> {
+    if (jars === undefined || jars.length === 0) return;
+
+    let timestamp: number[] = undefined;
+    try {
+      const provider = this.providerFor(chain);
+      timestamp = (
+        await Promise.all(
+          jars.map((oneJar) => provider.getBlock(oneJar.startBlock)),
+        )
+      ).map((x) => x.timestamp);
+    } catch (error) {
+      console.log("Failed on addJarTimestamp");
+    }
+    for (let i = 0; timestamp !== undefined && i < jars.length; i++) {
+      jars[i].startTimestamp = timestamp[i];
     }
   }
 
