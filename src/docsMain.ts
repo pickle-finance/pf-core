@@ -6,6 +6,7 @@ import { AssetEnablement } from "./model/PickleModelJson";
 function getDocs(language: string) {
   const docs = [];
   const allDocs = DocsManager.getAllJarDocumentationDefinitions();
+
   for (let i = 0; i < allDocs.length; i++) {
     docs.push(
       documentationAssetDefinitionToResult(
@@ -21,10 +22,12 @@ function getDocs(language: string) {
       x.enablement === AssetEnablement.ENABLED ||
       x.enablement === AssetEnablement.DEV,
   );
+
   for (let i = 0; i < toVerify.length; i++) {
     const apiKey = toVerify[i]?.details?.apiKey;
     if (apiKey !== undefined) {
       const foundDocs = allDocs.find((x) => x.apiKey === apiKey);
+
       if (foundDocs === undefined) {
         console.log("Docs missing for asset " + apiKey);
       }

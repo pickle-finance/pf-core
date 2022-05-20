@@ -4,6 +4,9 @@ export const UNI3_REWARDS_JAR_DESCRIPTION =
   "asset.description.univ3.rewards.lp";
 export const BALANCER_REWARDS_JAR_DESCRIPTION =
   "asset.description.balancer.rewards.lp";
+export const BRINERY_JAR_DESCRIPTION = "asset.description.brinery.rewards.lp";
+export const BRINERY_BOOSTED_JAR_DESCRIPTION =
+  "asset.description.brineryBoosterJar.rewards.lp";
 export const CURVE_REWARDS_JAR_DESCRIPTION =
   "asset.description.curve.rewards.lp";
 export const SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION =
@@ -16,6 +19,7 @@ export const OBTAIN_KEY_MULTITOKEN_POOL_ANY = "obtain.pool.multitoken";
 export const OBTAIN_KEY_MULTITOKEN_POOL_ALL = "obtain.pool.multitoken.all";
 export const OBTAIN_KEY_UNIV3 = "obtain.pool.uni3";
 export const OBTAIN_KEY_ZAPPER = "obtain.pool.zapper";
+export const OBTAIN_KEY_BRINERY = "obtain.pool.brinery";
 
 export const RISK_DIVERGENCE_LOSS = "risk.divergence.loss";
 export const RISK_SMART_CONTRACT = "risk.smart.contract";

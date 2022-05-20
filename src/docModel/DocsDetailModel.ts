@@ -167,6 +167,10 @@ PROTOCOL_SOCIAL_MODEL[AssetProtocol.CONVEX] = {
   "social.key.website.withname": "https://www.convexfinance.com/",
   "social.key.telegram.withname": "https://t.me/convexEthChat",
 };
+PROTOCOL_SOCIAL_MODEL[AssetProtocol.FRAX] = {
+  "social.key.website.withname": "https://frax.finance/",
+  "social.key.telegram.withname": "https://t.me/fraxfinance",
+};
 
 export const TOKEN_SOCIAL_MODEL: { [key: string]: SocialKeyValueObj } = {};
 TOKEN_SOCIAL_MODEL["looks"] = {
