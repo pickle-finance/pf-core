@@ -836,7 +836,6 @@ jarToBehavior.set(JAR_MOVR_FINN_USDC_MOVR.id, new FinnUsdcMovr());
 jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
 jarToBehavior.set(JAR_CRO_VVS_CRO_BIFI.id, new VvsCroBifi());
 jarToBehavior.set(JAR_CRO_VVS_CRO_DAI.id, new VvsCroDai());
-jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
 jarToBehavior.set(JAR_CRO_VVS_CRO_SHIB.id, new VvsCroShib());
 jarToBehavior.set(JAR_CRO_VVS_CRO_USDC.id, new VvsCroUsdc());
 jarToBehavior.set(JAR_CRO_VVS_CRO_USDT.id, new VvsCroUsdt());
