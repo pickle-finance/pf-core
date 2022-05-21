@@ -2770,6 +2770,15 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Gnosis,
+      "swapr",
+      null,
+      "swapr",
+      "0x532801ED6f82FFfD2DAB70A19fC2d7B2772C4f4b".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
       "sushi",
       null,
       "sushi",
