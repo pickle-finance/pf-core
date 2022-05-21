@@ -2822,6 +2822,24 @@ export class ExternalTokenModel {
       8,
       ExternalTokenFetchStyle.ID
     );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "cow",
+      null,
+      "cow-protocol",
+      "0x177127622c4A00F3d409B75571e12cB3c8973d3c".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
+    this.addToken(
+      ChainNetwork.Gnosis,
+      "dxd",
+      null,
+      "dxdao",
+      "0xb90D6bec20993Be5d72A5ab353343f7a0281f158".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID
+    );
 
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();

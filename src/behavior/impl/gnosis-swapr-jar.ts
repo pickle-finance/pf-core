@@ -13,7 +13,32 @@ const swaprRewarders = {
     name: "GNO-XDAI",
     rewarder: "0x070386C4d038FE96ECC9D7fB722b3378Aace4863",
     rewards: ["swapr", "gno"],
-  }
+  },
+  "0x8028457E452D7221dB69B1e0563AA600A059fab1": {
+    name: "COW-WETH",
+    rewarder: "0xDa72E71f84DC15c80941D70494D6BD8a623DCBB4",
+    rewards: ["swapr", "gno", "cow"],
+  },
+  "0x5fCA4cBdC182e40aeFBCb91AFBDE7AD8d3Dc18a8": {
+    name: "GNO-WETH",
+    rewarder: "0x40b37ba95f9BCf8930E6f8A65e5B4534518c3EAB",
+    rewards: ["swapr", "gno"],
+  },
+  "0xf6Be7AD58F4BAA454666b0027839a01BcD721Ac3": {
+    name: "BTC-WETH",
+    rewarder: "0x60eC5c7Ddfe17203c706D7082224f67d0e005fcC",
+    rewards: ["swapr", "gno"],
+  },
+  "0x558d777B24366f011E35A9f59114D1b45110d67B": {
+    name: "DXD-GNO",
+    rewarder: "0x6148399F63c3dfdDf33A77c63A87C54e597D80E5",
+    rewards: ["swapr", "gno"],
+  },
+  "0x1865d5445010E0baf8Be2eB410d3Eae4A68683c2": {
+    name: "XDAI-WETH",
+    rewarder: "0xCB3aAba65599341B5beb24b6001611077c5979E6",
+    rewards: ["swapr", "gno"],
+  },
 }
 
 export async function calculateGnosisSwaprAPY(

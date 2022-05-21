@@ -420,6 +420,11 @@ import {
   JAR_GNOSIS_SUSHI_WETH_XDAI,
   JAR_GNOSIS_SUSHI_XDAI_USDT,
   JAR_GNOSIS_SWAPR_GNO_XDAI,
+  JAR_GNOSIS_SWAPR_COW_WETH,
+  JAR_GNOSIS_SWAPR_GNO_WETH,
+  JAR_GNOSIS_SWAPR_BTC_WETH,
+  JAR_GNOSIS_SWAPR_DXD_GNO,
+  JAR_GNOSIS_SWAPR_XDAI_WETH,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -695,6 +700,11 @@ import { GnosisSushiWethGno } from "./impl/gnosis-sushi-weth-gno";
 import { GnosisSushiWethXdai } from "./impl/gnosis-sushi-weth-xdai";
 import { GnosisSushiXdaiUsdt } from "./impl/gnosis-sushi-xdai-usdt";
 import { GnosisSwaprGnoXdai } from "./impl/gnosis-swapr-gno-xdai";
+import { GnosisSwaprCowWeth } from "./impl/gnosis-swapr-cow-weth";
+import { GnosisSwaprGnoWeth } from "./impl/gnosis-swapr-gno-weth";
+import { GnosisSwaprBtcWeth } from "./impl/gnosis-swapr-btc-weth";
+import { GnosisSwaprDxdGno } from "./impl/gnosis-swapr-dxd-gno";
+import { GnosisSwaprXdaiWeth } from "./impl/gnosis-swapr-xdai-weth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1160,6 +1170,11 @@ jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_GNO.id, new GnosisSushiWethGno());
 jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_XDAI.id, new GnosisSushiWethXdai());
 jarToBehavior.set(JAR_GNOSIS_SUSHI_XDAI_USDT.id, new GnosisSushiXdaiUsdt());
 jarToBehavior.set(JAR_GNOSIS_SWAPR_GNO_XDAI.id, new GnosisSwaprGnoXdai());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_COW_WETH.id, new GnosisSwaprCowWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_GNO_WETH.id, new GnosisSwaprGnoWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_BTC_WETH.id, new GnosisSwaprBtcWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_DXD_GNO.id, new GnosisSwaprDxdGno());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_XDAI_WETH.id, new GnosisSwaprXdaiWeth());
 
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
