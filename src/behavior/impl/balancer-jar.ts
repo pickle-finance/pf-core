@@ -15,15 +15,10 @@ import {
   PoolData,
 } from "../../protocols/BalancerUtil";
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
-import { AbstractJarBehavior, oneRewardSubtotal } from "../AbstractJarBehavior";
+import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { Contract as MultiContract } from "ethers-multicall";
-
-const balancerRewardTokens = {
-  arbitrum: ["bal", "pickle"],
-};
 
 export class BalancerJar extends AbstractJarBehavior {
   poolData: PoolData | undefined;
@@ -104,55 +99,11 @@ export class BalancerJar extends AbstractJarBehavior {
   }
 
   async getHarvestableUSD(
-    jar: JarDefinition,
-    model: PickleModel,
-    resolver: Signer | Provider,
+    _jar: JarDefinition,
+    _model: PickleModel,
+    _resolver: Signer | Provider,
   ): Promise<number> {
-    const strategyAddr = jar.details.strategyAddr;
-    const prices: Prices = {
-      bal: model.priceOfSync("bal", jar.chain),
-      pickle: model.priceOfSync("pickle", jar.chain),
-    };
-    let total = 0;
-    try {
-      const manager = new BalancerClaimsManager(strategyAddr, resolver, prices);
-      await manager.fetchData(model.getDataStore());
-      total += manager.claimableAmountUsd;
-    } catch (error) {
-      console.log(error);
-    }
-    const rewardTokens = balancerRewardTokens[jar.chain];
-    const rewardContracts: MultiContract[] = rewardTokens.map(
-      (x) => new MultiContract(model.address(x, jar.chain), erc20Abi),
-    );
-
-    const promises: Promise<any>[] = [];
-    for (let i = 0; i < rewardTokens.length; i++) {
-      promises.push(
-        model
-          .callMulti(
-            () => rewardContracts[i].balanceOf(jar.details.strategyAddr),
-            jar.chain,
-          )
-          .catch(() => BigNumber.from("0")),
-      );
-    }
-
-    const walletBalances: any[] = await Promise.all(promises);
-    const rewardTokenPrices = rewardTokens.map((x) =>
-      model.priceOfSync(x, jar.chain),
-    );
-
-    walletBalances.forEach(
-      (walletBalance, i) =>
-        (total += oneRewardSubtotal(
-          BigNumber.from(0),
-          walletBalance,
-          rewardTokenPrices[i],
-          model.tokenDecimals(rewardTokens[i], jar.chain),
-        )),
-    );
-    return total;
+    return 0;
   }
 
   getCustomHarvester(
