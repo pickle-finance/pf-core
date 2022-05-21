@@ -10064,7 +10064,7 @@ export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
     components: ["ftm", "matic", "sol", "avax", "luna", "bnb"],
   },
   rewardTokens: ["beets"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   stakingProtocol: AssetProtocol.BEETHOVENX,
