@@ -13160,6 +13160,34 @@ export const JAR_GNOSIS_SWAPR_XDAI_WETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_GNOSIS_SWAPR_XDAI_WETH);
 
+export const JAR_GNOSIS_SWAPR_COW_GNO: JarDefinition = {
+  type: AssetType.JAR,
+  id: "gnosisJar 2g",
+  contract: "0x0ba5150815bC9F97BB33FD176Fd3deeB31Db563a",
+  startBlock: 22267495,
+  depositToken: {
+    addr: "0xDBF14bce36F661B29F6c8318a1D8944650c73F38",
+    name: "Swapr COW/GNO",
+    link: "https://swapr.eth.link/#/add/0x177127622c4A00F3d409B75571e12cB3c8973d3c/0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb?chainId=100",
+    components: ["cow", "gno"],
+  },
+  rewardTokens: ["swapr", "gno", "cow"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Gnosis,
+  protocol: AssetProtocol.SWAPR,
+  details: {
+    apiKey: "SWAPR-COW-GNO",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xe5E231De20C68AabB8D669f87971aE57E2AbF680",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSushi COW/GNO",
+    farmDepositTokenName: "pSushi COW/GNO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_GNOSIS_SWAPR_COW_GNO);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

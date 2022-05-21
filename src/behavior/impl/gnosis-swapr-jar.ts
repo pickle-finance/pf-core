@@ -39,6 +39,11 @@ const swaprRewarders = {
     rewarder: "0xCB3aAba65599341B5beb24b6001611077c5979E6",
     rewards: ["swapr", "gno"],
   },
+  "0xDBF14bce36F661B29F6c8318a1D8944650c73F38": {
+    name: "COW-GNO",
+    rewarder: "0x95DBc58bCBB3Bc866EdFFC107d65D479d83799E5",
+    rewards: ["swapr", "gno", "cow"],
+  },
 }
 
 export async function calculateGnosisSwaprAPY(
