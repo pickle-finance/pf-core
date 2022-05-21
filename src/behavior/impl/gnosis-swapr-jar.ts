@@ -1,5 +1,5 @@
-import { JarDefinition, AssetAprComponent } from "../../model/PickleModelJson";
-import { createAprComponentImpl } from "../AbstractJarBehavior";
+import { JarDefinition, AssetAprComponent, AssetProjectedApr } from "../../model/PickleModelJson";
+import { createAprComponentImpl, AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Contract as MultiContract } from "ethers-multicall";
 import { PickleModel } from "../../model/PickleModel";
 import swaprRewarderAbi from "../../Contracts/ABIs/swapr-rewarder.json";
@@ -11,14 +11,9 @@ const swaprRewarders = {
   "0xD7b118271B1B7d26C9e044Fc927CA31DccB22a5a": {
     name: "GNO-XDAI",
     rewarder: "0x070386C4d038FE96ECC9D7fB722b3378Aace4863",
-    rewards: ["0x532801ed6f82fffd2dab70a19fc2d7b2772c4f4b", "0x9c58bacc331c9aa871afd802db6379a98e80cedb"],
+    rewards: ["swapr", "gnosis"],
+    rewardsAddresess: ["0x532801ed6f82fffd2dab70a19fc2d7b2772c4f4b", "0x9c58bacc331c9aa871afd802db6379a98e80cedb"],
   }
-}
-
-// All reward tokens available on the swapr platform
-const swaprRewardTokens = {
-  "0x532801ed6f82fffd2dab70a19fc2d7b2772c4f4b": "swapr",
-  "0x9c58bacc331c9aa871afd802db6379a98e80cedb": "gnosis",
 }
 
 export async function calculateGnosisSwaprAPY(
@@ -58,7 +53,7 @@ export async function calculateGnosisSwaprAPY(
   const rewardsReturn = [];
   for (let i = 0; i < rewardData.length; i++) {
     const rewardTokenAddress = rewardData[i][0];
-    const rewardTokenName = swaprRewardTokens[rewardTokenAddress];
+    const rewardTokenName = swaprRewarders[jar.depositToken.addr].rewards[i];
 
     if (swaprRewarders[jar.depositToken.addr].rewards.includes(rewardTokenAddress)) {
 
@@ -74,6 +69,35 @@ export async function calculateGnosisSwaprAPY(
       ])
     }
   }
-
   return rewardsReturn;
+}
+
+export abstract class GnosisSwaprJar extends AbstractJarBehavior {
+  strategyAbi: any;
+  constructor(strategyAbi: any) {
+    super();
+    this.strategyAbi = strategyAbi;
+  }
+  async getHarvestableUSD(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<number> {
+    console.log("PING1")
+    return await this.getHarvestableUSDCommsMgrImplementation(
+      jar,
+      model,
+      swaprRewarders[jar.depositToken.addr].rewards,
+      this.strategyAbi,
+    );
+  }
+
+  async getProjectedAprStats(
+    definition: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetProjectedApr> {
+    console.log("PING2")
+    return this.aprComponentsToProjectedApr(
+      await calculateGnosisSwaprAPY(definition, model),
+    );
+  }
 }

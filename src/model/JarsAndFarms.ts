@@ -12992,6 +12992,34 @@ export const JAR_GNOSIS_SUSHI_WETH_XDAI: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_GNOSIS_SUSHI_WETH_XDAI);
 
+export const JAR_GNOSIS_SWAPR_GNO_XDAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "gnosisJar 2a",
+  contract: "0x1aAb05ea242B3d34ACEf4F844f4EE035D781aE6f",
+  startBlock: 22184613,
+  depositToken: {
+    addr: "0xD7b118271B1B7d26C9e044Fc927CA31DccB22a5a",
+    name: "Swapr GNO/XDAI",
+    link: "https://swapr.eth.link/#/add/0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb/XDAI?chainId=100",
+    components: ["gno", "xdai"],
+  },
+  rewardTokens: ["swapr", "gno"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Gnosis,
+  protocol: AssetProtocol.SWAPR,
+  details: {
+    apiKey: "SUSHISWAP-GNO-XDAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xe5E231De20C68AabB8D669f87971aE57E2AbF680",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSushi GNO/XDAI",
+    farmDepositTokenName: "pSushi GNO/XDAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_GNOSIS_SWAPR_GNO_XDAI);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

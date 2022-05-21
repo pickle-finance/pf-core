@@ -14,7 +14,7 @@ async function generateFullApi() {
     new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
   );
 
-  const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x => x.chain === ChainNetwork.Gnosis), map);
+  const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x => x.id === "gnosisJar 2a"), map);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
