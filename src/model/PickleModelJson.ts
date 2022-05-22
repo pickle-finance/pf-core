@@ -348,6 +348,7 @@ export interface PickleAsset {
   id: string;
   contract: string;
   startBlock: number;
+  startTimestamp?: number;
   depositToken: DepositToken;
   enablement: AssetEnablement;
   chain: ChainNetwork;
@@ -376,6 +377,11 @@ export interface StandaloneFarmDefinition extends PickleAsset {
 
 export interface BrineryDefinition extends PickleAsset {
   details: BrineryDetails;
+}
+
+export interface BrineryBoostedJarDefinition extends PickleAsset {
+  // this may need more dev when we have a brinery boosted jar
+  details: BrineryBoostedJarDetails;
 }
 
 export interface HistoricalYield {
@@ -408,6 +414,10 @@ export interface BrineryDetails extends AssetDetails {
   weeklyRewards?: number;
   distributorPending?: number;
   rewardToken: string;
+}
+
+export interface BrineryBoostedJarDetails extends AssetDetails {
+  todo: 0; // add details when jars exist
 }
 
 export interface AssetDetails {
@@ -453,12 +463,14 @@ export interface DillDetails {
   pickleLocked: number;
   totalDill: number;
   dillWeeks: DillWeek[];
-  totalPickle: string;
+  totalPickle: number;
 }
 
 export interface DillWeek {
   weeklyPickleAmount: number;
   totalPickleAmount: number;
+  weeklyEthAmount: number;
+  totalEthAmount: number;
   weeklyDillAmount: number;
   totalDillAmount: number;
   pickleDillRatio: number;
@@ -467,6 +479,7 @@ export interface DillWeek {
   isProjected: boolean;
   distributionTime: Date;
 }
+
 export interface PlatformData {
   platformTVL: number;
   platformBlendedRate: number;

@@ -1,6 +1,7 @@
 import { ALL_ASSETS } from "../model/JarsAndFarms";
 import {
   AssetProtocol,
+  BrineryDefinition,
   JarDefinition,
   PickleAsset,
   XYK_SWAP_PROTOCOLS,
@@ -10,7 +11,9 @@ import {
   AssetDocumentationDefinition,
   AssetDocumentationResult,
   BALANCER_REWARDS_JAR_DESCRIPTION,
+  BRINERY_JAR_DESCRIPTION,
   CURVE_REWARDS_JAR_DESCRIPTION,
+  OBTAIN_KEY_BRINERY,
   OBTAIN_KEY_MULTITOKEN_POOL_ALL,
   OBTAIN_KEY_MULTITOKEN_POOL_ANY,
   OBTAIN_KEY_ONETOKEN_POOL,
@@ -106,7 +109,12 @@ export function documentationAssetDefinitionToResult(
   }
   for (let i = 0; i < related.length; i++) {
     if (!components.includes(related[i])) {
-      relatedTokens[related[i]] = getTokenDescription(chain, related[i], language, format);
+      relatedTokens[related[i]] = getTokenDescription(
+        chain,
+        related[i],
+        language,
+        format,
+      );
     }
   }
 
@@ -121,9 +129,13 @@ export function documentationAssetDefinitionToResult(
   };
 }
 
-export function getTokenDescription(chain: string, token: string, language: string, format: DocsFormat): string {
-  const descKey =
-  "token." + chain + "." + token.toLowerCase() + ".desc";
+export function getTokenDescription(
+  chain: string,
+  token: string,
+  language: string,
+  format: DocsFormat,
+): string {
+  const descKey = "token." + chain + "." + token.toLowerCase() + ".desc";
   const backupKey = "token.all." + token.toLowerCase() + ".desc";
   const val = translateFirstOfKeysWithFallback(
     language,
@@ -177,11 +189,14 @@ export function getObtainTranslationProperties(
 interface DocsGenerator {
   accepts(asset: PickleAsset): boolean;
   generate(asset: PickleAsset): AssetDocumentationDefinition;
-};
+}
 class DocsGenImpl implements DocsGenerator {
-  private acc: (asset:PickleAsset) => boolean;
-  private gen: (asset:PickleAsset) => AssetDocumentationDefinition;
-  constructor(acc: (asset:PickleAsset) => boolean, gen: (asset:PickleAsset) => AssetDocumentationDefinition) {
+  private acc: (asset: PickleAsset) => boolean;
+  private gen: (asset: PickleAsset) => AssetDocumentationDefinition;
+  constructor(
+    acc: (asset: PickleAsset) => boolean,
+    gen: (asset: PickleAsset) => AssetDocumentationDefinition,
+  ) {
     this.acc = acc;
     this.gen = gen;
   }
@@ -191,39 +206,68 @@ class DocsGenImpl implements DocsGenerator {
   generate(asset: PickleAsset): AssetDocumentationDefinition {
     return this.gen(asset);
   }
-
 }
 const allDocsGenerators: DocsGenerator[] = [];
 allDocsGenerators.push(
-  new DocsGenImpl((asset) => asset.docsKey === XYK_JAR_DESCRIPTION || 
-    (asset.docsKey === undefined && XYK_SWAP_PROTOCOLS.map((x) => x.protocol).map((x) => x.toString()).includes(asset.protocol)), 
-    (asset) => generateXykDocumentation(asset))
+  new DocsGenImpl(
+    (asset) =>
+      asset.docsKey === XYK_JAR_DESCRIPTION ||
+      (asset.docsKey === undefined &&
+        XYK_SWAP_PROTOCOLS.map((x) => x.protocol)
+          .map((x) => x.toString())
+          .includes(asset.protocol)),
+    (asset) => generateXYKDocumentation(asset),
+  ),
 );
 allDocsGenerators.push(
   new DocsGenImpl(
     (asset) => asset.protocol === AssetProtocol.UNISWAP_V3,
-    (asset) => generateXykDocumentation(asset)
-));
+    (asset) => generateXYKDocumentation(asset),
+  ),
+);
 allDocsGenerators.push(
   new DocsGenImpl(
-    (asset) => autoMatch(asset, BALANCER_REWARDS_JAR_DESCRIPTION, [AssetProtocol.BEETHOVENX, AssetProtocol.BALANCER]),
-    (asset) => generateBalancerStyleDocumentation(asset)
-));
+    (asset) => autoMatch(asset, BRINERY_JAR_DESCRIPTION, [AssetProtocol.FRAX]),
+    (asset) => generateBrineryDocumentation(asset),
+  ),
+);
 allDocsGenerators.push(
   new DocsGenImpl(
-    (asset) => autoMatch(asset, CURVE_REWARDS_JAR_DESCRIPTION, [AssetProtocol.CURVE]),
-    (asset) => generateCurveStyleDocumentation(asset)
-));
+    (asset) =>
+      autoMatch(asset, BALANCER_REWARDS_JAR_DESCRIPTION, [
+        AssetProtocol.BEETHOVENX,
+        AssetProtocol.BALANCER,
+      ]),
+    (asset) => generateBalancerStyleDocumentation(asset),
+  ),
+);
 allDocsGenerators.push(
   new DocsGenImpl(
-    (asset) => autoMatch(asset, SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION, [AssetProtocol.STARGATE]),
-    (asset) => generateSingleStakingStyleDocumentation(asset)
-));
+    (asset) =>
+      autoMatch(asset, CURVE_REWARDS_JAR_DESCRIPTION, [AssetProtocol.CURVE]),
+    (asset) => generateCurveStyleDocumentation(asset),
+  ),
+);
+allDocsGenerators.push(
+  new DocsGenImpl(
+    (asset) =>
+      autoMatch(asset, SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION, [
+        AssetProtocol.STARGATE,
+      ]),
+    (asset) => generateSingleStakingStyleDocumentation(asset),
+  ),
+);
 
-export const autoMatch = (asset: PickleAsset, docsKey: string, protocols: AssetProtocol[]) => {
-  return (asset.docsKey && asset.docsKey === docsKey) ||
-          (asset.docsKey === undefined && protocols.includes(asset.protocol));
-}
+export const autoMatch = (
+  asset: PickleAsset,
+  docsKey: string,
+  protocols: AssetProtocol[],
+) => {
+  return (
+    (asset.docsKey && asset.docsKey === docsKey) ||
+    (asset.docsKey === undefined && protocols.includes(asset.protocol))
+  );
+};
 export function generateAutomaticDefinition(
   keys: string[],
 ): AssetDocumentationDefinition[] {
@@ -234,19 +278,22 @@ export function generateAutomaticDefinition(
     );
     if (asset) {
       let oneReturn: AssetDocumentationDefinition = undefined;
-      for( let i = 0; oneReturn === undefined && i < allDocsGenerators.length; i++ ) {
-        if( allDocsGenerators[i].accepts(asset)) {
+      for (
+        let i = 0;
+        oneReturn === undefined && i < allDocsGenerators.length;
+        i++
+      ) {
+        if (allDocsGenerators[i].accepts(asset)) {
           oneReturn = allDocsGenerators[i].generate(asset);
         }
       }
-      if( oneReturn )
-        ret.push(oneReturn);
+      if (oneReturn) ret.push(oneReturn);
     }
   }
   return ret;
 }
 
-export function generateXykDocumentation(
+export function generateXYKDocumentation(
   asset: PickleAsset,
 ): AssetDocumentationDefinition {
   const desc = generateAutomaticXYKDescription(asset);
@@ -257,6 +304,34 @@ export function generateXykDocumentation(
   let obtain: TranslationKeyWithProperties[] = [];
   obtain.push({ key: OBTAIN_KEY_TWOTOKEN_POOL });
   obtain = obtain.concat(getZapObtains(asset));
+
+  const oneDefinition: AssetDocumentationDefinition = {
+    apiKey: asset.details.apiKey,
+    descriptionKey: desc,
+    social: socials,
+    obtain: obtain,
+    risks: risks,
+  };
+  return oneDefinition;
+}
+export function generateBrineryDocumentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
+  const desc = generateAutomaticBrineryDescription(asset);
+  const socials: TranslationKeyWithProperties[] =
+    generateAutomaticSocials(asset);
+  const risks: TranslationKeyWithProperties[] = getAutomaticRisks(asset);
+
+  const obtain: TranslationKeyWithProperties[] = [];
+  obtain.push({
+    key: OBTAIN_KEY_BRINERY,
+    properties: {
+      token: asset.depositToken.components[0].toUpperCase(),
+      protocol: asset.protocol,
+      poolName: asset.depositToken.name.toUpperCase(),
+      link: asset.depositToken.link,
+    },
+  });
 
   const oneDefinition: AssetDocumentationDefinition = {
     apiKey: asset.details.apiKey,
@@ -319,13 +394,15 @@ export function generateSingleStakingStyleDocumentation(
     properties: generateAutomaticDescriptionProperties(asset),
   };
   const obtain: TranslationKeyWithProperties[] = [];
-  obtain.push({ key: OBTAIN_KEY_ONETOKEN_POOL, 
+  obtain.push({
+    key: OBTAIN_KEY_ONETOKEN_POOL,
     properties: {
       token: asset.depositToken.components[0],
       protocol: asset.protocol,
       poolName: asset.depositToken.name.toUpperCase(),
-      link: asset.depositToken.link
-    }});
+      link: asset.depositToken.link,
+    },
+  });
   //obtain = obtain.concat(getZapObtains(asset));
   const ret = generateAllStyleDocumentation(asset, desc, obtain);
   ret.risks = ret.risks.filter((x) => x.key !== RISK_DIVERGENCE_LOSS);
@@ -401,12 +478,38 @@ export function generateAutomaticDescriptionProperties(asset: PickleAsset): {
   return properties;
 }
 
+export function generateBrineryDescriptionProperties(asset: PickleAsset): {
+  [key: string]: string;
+} {
+  const pair: string[] = asset.depositToken.components || [];
+  const toUpper = pair.map((x) => x.toUpperCase()).join("/");
+  const sl = (asset as BrineryDefinition).protocol;
+  const reward = (asset as BrineryDefinition).details.rewardToken;
+  const properties = {
+    protocol: asset.protocol,
+    tokens: toUpper,
+    poolUrl: asset.depositToken.link,
+    stakeLocation: sl,
+    rewards: reward,
+  };
+  return properties;
+}
+
 export function generateAutomaticXYKDescription(
   asset: PickleAsset,
 ): TranslationKeyWithProperties | undefined {
   return {
     key: XYK_JAR_DESCRIPTION,
     properties: generateAutomaticDescriptionProperties(asset),
+  };
+}
+
+export function generateAutomaticBrineryDescription(
+  asset: PickleAsset,
+): TranslationKeyWithProperties | undefined {
+  return {
+    key: BRINERY_JAR_DESCRIPTION,
+    properties: generateBrineryDescriptionProperties(asset),
   };
 }
 

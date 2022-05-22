@@ -1,6 +1,5 @@
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import aurigamiAbi from "../../Contracts/ABIs/aurigami.json";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
 import { Contract as MultiContract } from "ethers-multicall";

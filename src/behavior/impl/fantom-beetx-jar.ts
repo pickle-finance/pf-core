@@ -83,6 +83,7 @@ export class BeetXJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
+    if (jar.id === "fanJar 4d") return 0;
     return this.getHarvestableUSDCommsMgrImplementation(
       jar,
       model,
