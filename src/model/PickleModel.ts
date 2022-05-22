@@ -182,6 +182,16 @@ export const ADDRESSES = new Map([
       treasury: "0xe4ee7edddbebda077975505d11decb16498264fb",
     },
   ],
+  [
+    ChainNetwork.Gnosis,
+    {
+      pickle: NULL_ADDRESS,
+      masterChef: NULL_ADDRESS,
+      controller: "0xe5E231De20C68AabB8D669f87971aE57E2AbF680",
+      minichef: NULL_ADDRESS,
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
+    },
+  ],
 
   // ADD_CHAIN
 ]);
