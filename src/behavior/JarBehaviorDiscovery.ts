@@ -410,10 +410,31 @@ import {
   JAR_AURORA_ROSE_PAD_ROSE_PAD_LP,
   JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP,
   JAR_AURORA_TRI_PLY_NEAR,
+  JAR_GNOSIS_SUSHI_LINK_XDAI,
+  JAR_GNOSIS_SUSHI_SUSHI_GNO,
+  JAR_GNOSIS_SUSHI_XDAI_GNO,
+  JAR_GNOSIS_SUSHI_USDC_XDAI,
+  JAR_GNOSIS_SUSHI_USDC_USDT,
+  JAR_GNOSIS_SUSHI_WETH_BTC,
+  JAR_GNOSIS_SUSHI_WETH_GNO,
+  JAR_GNOSIS_SUSHI_WETH_XDAI,
+  JAR_GNOSIS_SUSHI_XDAI_USDT,
+  JAR_GNOSIS_SWAPR_GNO_XDAI,
+  JAR_GNOSIS_SWAPR_COW_WETH,
+  JAR_GNOSIS_SWAPR_GNO_WETH,
+  JAR_GNOSIS_SWAPR_BTC_WETH,
+  JAR_GNOSIS_SWAPR_DXD_GNO,
+  JAR_GNOSIS_SWAPR_XDAI_WETH,
+  JAR_GNOSIS_SWAPR_COW_GNO,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
-import { AssetBehavior, BrineryBehavior, ExternalAssetBehavior, JarBehavior } from "./JarBehaviorResolver";
+import {
+  AssetBehavior,
+  BrineryBehavior,
+  ExternalAssetBehavior,
+  JarBehavior,
+} from "./JarBehaviorResolver";
 import { AbstractJarBehavior } from "./AbstractJarBehavior";
 import { DinoEth } from "./impl/dino-eth";
 import { AlcxEth } from "./impl/alcx-eth";
@@ -674,6 +695,14 @@ import { RosePadRose } from "./impl/aurora-rose-pad-pad-rose";
 import { RoseFraxRose } from "./impl/aurora-rose-pad-rose-frax";
 import { RoseUstpool } from "./impl/aurora-rose-ustpool";
 import { AuroraAurigamiJar } from "./impl/aurora-aurigami";
+import { GnosisSwaprGnoXdai } from "./impl/gnosis-swapr-gno-xdai";
+import { GnosisSwaprCowWeth } from "./impl/gnosis-swapr-cow-weth";
+import { GnosisSwaprGnoWeth } from "./impl/gnosis-swapr-gno-weth";
+import { GnosisSwaprBtcWeth } from "./impl/gnosis-swapr-btc-weth";
+import { GnosisSwaprDxdGno } from "./impl/gnosis-swapr-dxd-gno";
+import { GnosisSwaprXdaiWeth } from "./impl/gnosis-swapr-xdai-weth";
+import { GnosisSwaprCowGno } from "./impl/gnosis-swapr-cow-gno";
+import { GnosisSushiJar } from "./impl/gnosis-sushi-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -684,7 +713,10 @@ export class noOpJarBehavior extends AbstractJarBehavior {
     return 0;
   }
 }
-const jarToBehavior: Map<string, JarBehavior | ExternalAssetBehavior | BrineryBehavior> = new Map<string, JarBehavior | ExternalAssetBehavior | BrineryBehavior>();
+const jarToBehavior: Map<
+  string,
+  JarBehavior | ExternalAssetBehavior | BrineryBehavior
+> = new Map<string, JarBehavior | ExternalAssetBehavior | BrineryBehavior>();
 // Converted
 jarToBehavior.set(JAR_sCRV.id, new noOpJarBehavior());
 jarToBehavior.set(JAR_steCRV.id, new SteCrv());
@@ -914,7 +946,10 @@ jarToBehavior.set(JAR_AURORA_TRI_LINEAR_NEAR_LP.id, new TriLinearNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_BBT_NEAR_LP.id, new TriBbtNear());
 jarToBehavior.set(JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP.id, new TriUsdcShitzu());
 jarToBehavior.set(JAR_AURORA_ROSE_3POOL_LP.id, new Rose3Pool());
-jarToBehavior.set(JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP.id, new WannaWannaxStnear());
+jarToBehavior.set(
+  JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP.id,
+  new WannaWannaxStnear(),
+);
 jarToBehavior.set(JAR_AURORA_ROSE_USTPOOL_LP.id, new RoseUstpool());
 jarToBehavior.set(JAR_AURORA_ROSE_FRAXPOOL_LP.id, new RoseFraxpool());
 jarToBehavior.set(JAR_AURORA_ROSE_BUSDPOOL_LP.id, new RoseBusdpool());
@@ -1088,50 +1123,175 @@ jarToBehavior.set(JAR_FANTOM_SPIRIT_GSCARAB_SCARAB.id, new SpiritJar());
 
 jarToBehavior.set(JAR_FANTOM_STAR_USDC.id, new StargateJar());
 
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT.id, new OxdSolidlyJar());
-(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT.id, new OxdSolidlyJar());
-(JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM.id, new OxdSolidlyJar());
-jarToBehavior.set(JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id, new OxdSolidlyJar());
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT.id,
+  new OxdSolidlyJar(),
+);
+JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT.id, new OxdSolidlyJar();
+JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT.id, new OxdSolidlyJar();
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM.id,
+  new OxdSolidlyJar(),
+);
+jarToBehavior.set(
+  JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI.id,
+  new OxdSolidlyJar(),
+);
 
+// Gnosis
+jarToBehavior.set(JAR_GNOSIS_SUSHI_LINK_XDAI.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_SUSHI_GNO.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_XDAI_GNO.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_USDC_XDAI.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_USDC_USDT.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_BTC.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_GNO.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_WETH_XDAI.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SUSHI_XDAI_USDT.id, new GnosisSushiJar());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_GNO_XDAI.id, new GnosisSwaprGnoXdai());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_COW_WETH.id, new GnosisSwaprCowWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_GNO_WETH.id, new GnosisSwaprGnoWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_BTC_WETH.id, new GnosisSwaprBtcWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_DXD_GNO.id, new GnosisSwaprDxdGno());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_XDAI_WETH.id, new GnosisSwaprXdaiWeth());
+jarToBehavior.set(JAR_GNOSIS_SWAPR_COW_GNO.id, new GnosisSwaprCowGno());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
 
-jarToBehavior.set(BRINERY_VEFXS.id, new PveFxsAsset())
+jarToBehavior.set(BRINERY_VEFXS.id, new PveFxsAsset());
 // ADD_ASSET token behavior class
 
 // Yet to convert
