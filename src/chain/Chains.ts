@@ -47,9 +47,9 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: [
       "https://rpc.ankr.com/eth",
       "https://eth-rpc.gateway.pokt.network",
-      "https://api.mycryptoapi.com/eth",
+      "https://cloudflare-eth.com/", // can be flaky at times
+      // "https://api.mycryptoapi.com/eth",  // flaky
       // "https://main-light.eth.linkpool.io",  // requires a 5s timeout inbetween successive calls
-      // "https://cloudflare-eth.com/", // can be flaky at times
       // "https://main-rpc.linkpool.io",
       // "https://rpc.flashbots.net",  // flaky
       // "https://mainnet.infura.io/v3/", // dead
