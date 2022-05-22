@@ -332,11 +332,17 @@ export class UserModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
   ): Promise<UserTokenData[]> {
     const ret = [];
-    const chainAssets = this.model.assets.jars.filter(
-      (x) =>
-        x.chain === chain &&
-        x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
-    );
+
+    /* Only include assets with pTokens */
+    const chainAssets = Object.values(this.model.assets)
+      .flat()
+      .filter(
+        (x) =>
+          x.type !== "brinery" &&
+          x.details?.apiKey !== "sushi-pickle-eth" &&
+          x.chain === chain &&
+          x.enablement !== AssetEnablement.PERMANENTLY_DISABLED,
+      );
 
     if (chainAssets.length === 0) {
       return [];
