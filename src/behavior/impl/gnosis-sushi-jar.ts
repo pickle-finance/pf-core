@@ -1,14 +1,23 @@
-import { AssetProjectedApr, JarDefinition, AssetAprComponent } from "../../model/PickleModelJson";
-import { AbstractJarBehavior, createAprComponentImpl } from "../AbstractJarBehavior";
+import {
+  AssetProjectedApr,
+  JarDefinition,
+  AssetAprComponent,
+} from "../../model/PickleModelJson";
+import {
+  AbstractJarBehavior,
+  createAprComponentImpl,
+} from "../AbstractJarBehavior";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { Contract as MultiContract } from "ethers-multicall";
 import { PickleModel } from "../../model/PickleModel";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import sushiMiniChefAbi from "../../Contracts/ABIs/sushi-minichef.json";
 import sushiComplexRewarderAbi from "../../Contracts/ABIs/sushi-complex-rewarder.json";
+import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { formatEther, defaultAbiCoder } from "ethers/lib/utils";
 import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
 import { Contract } from "ethers";
+import { Chains } from "../../chain/Chains";
 
 export const SUSHI_MINICHEF = "0xdDCbf776dF3dE60163066A5ddDF2277cB445E0F3";
 export const GNO_COMPLEX_REWARDER =
@@ -39,17 +48,22 @@ export async function calculateGnosisSushiAPY(
   );
   const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
 
-  const [sushiPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN, rewarder] =
-    await model.callMulti(
-      [
-        () => multicallsushiMinichef.sushiPerSecond(),
-        () => multicallsushiMinichef.totalAllocPoint(),
-        () => multicallsushiMinichef.poolInfo(poolId),
-        () => lpToken.balanceOf(SUSHI_MINICHEF),
-        () => multicallsushiMinichef.rewarder(poolId),
-      ],
-      jar.chain,
-    );
+  const [
+    sushiPerSecondBN,
+    totalAllocPointBN,
+    poolInfo,
+    totalSupplyBN,
+    rewarder,
+  ] = await model.callMulti(
+    [
+      () => multicallsushiMinichef.sushiPerSecond(),
+      () => multicallsushiMinichef.totalAllocPoint(),
+      () => multicallsushiMinichef.poolInfo(poolId),
+      () => lpToken.balanceOf(SUSHI_MINICHEF),
+      () => multicallsushiMinichef.rewarder(poolId),
+    ],
+    jar.chain,
+  );
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const sushiRewardsPerSecond =
@@ -68,7 +82,6 @@ export async function calculateGnosisSushiAPY(
 
   const sushiAPY = (valueRewardedPerYear / totalValueStaked) * 100;
 
-
   // Getting GNO rewards
   const provider = model.providerFor(jar.chain);
 
@@ -77,12 +90,15 @@ export async function calculateGnosisSushiAPY(
     5,
   );
 
-  const rewarderContract = new MultiContract(GNO_COMPLEX_REWARDER, sushiComplexRewarderAbi);
+  const rewarderContract = new MultiContract(
+    GNO_COMPLEX_REWARDER,
+    sushiComplexRewarderAbi,
+  );
 
   const [poolInfoCR, gnoPerSecondBN] = await model.callMulti(
     [
       () => rewarderContract.poolInfo(poolId),
-      () => rewarderContract.rewardPerSecond()
+      () => rewarderContract.rewardPerSecond(),
     ],
     jar.chain,
   );
@@ -104,47 +120,67 @@ export async function calculateGnosisSushiAPY(
   const gnoAPY = (gnoValueRewardedPerYear / totalValueStaked) * 100;
 
   return [
-    createAprComponentImpl("sushi", sushiAPY, true, 0.958),
-    createAprComponentImpl("gno", gnoAPY, true, 0.958),
+    createAprComponentImpl(
+      "sushi",
+      sushiAPY,
+      true,
+      1 - Chains.get(jar.chain).defaultPerformanceFee,
+    ),
+    createAprComponentImpl(
+      "gno",
+      gnoAPY,
+      true,
+      1 - Chains.get(jar.chain).defaultPerformanceFee,
+    ),
   ];
 }
 
-export abstract class GnosisSushiJar extends AbstractJarBehavior {
-  strategyAbi: any;
-  constructor(strategyAbi: any) {
+export class GnosisSushiJar extends AbstractJarBehavior {
+  protected strategyAbi: any;
+
+  constructor() {
     super();
-    this.strategyAbi = strategyAbi;
+    this.strategyAbi = sushiStrategyAbi;
   }
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    let chefAddress: string;
-    let poolId: number;
-    chefAddress = SUSHI_MINICHEF;
-    poolId = gnosisSushiPoolIds[jar.depositToken.addr];
+    const chefAddress = SUSHI_MINICHEF;
+    const poolId = gnosisSushiPoolIds[jar.depositToken.addr];
     let extraRewardsValue = 0;
     try {
       // Check if there is a rewarder for this pool, call can fail if no provider, so we use normal ethers provider
       const provider = model.providerFor(jar.chain);
       const mcContract = new Contract(chefAddress, sushiMiniChefAbi, provider);
-      const rewarderAddr = await model.call(() => mcContract.rewarder(poolId), jar.chain, true);
-      const rewarderContract = new MultiContract(rewarderAddr, sushiComplexRewarderAbi);
-      const pendingGnoBN = await model.callMulti(() => rewarderContract.pendingToken(poolId, jar.details.strategyAddr), jar.chain);
+      const rewarderAddr = await model.call(
+        () => mcContract.rewarder(poolId),
+        jar.chain,
+        true,
+      );
+      const rewarderContract = new MultiContract(
+        rewarderAddr,
+        sushiComplexRewarderAbi,
+      );
+      const pendingGnoBN = await model.callMulti(
+        () => rewarderContract.pendingToken(poolId, jar.details.strategyAddr),
+        jar.chain,
+      );
       const gnoPrice = model.priceOfSync("gno", jar.chain);
       const pendingGnoValue = gnoPrice * parseFloat(formatEther(pendingGnoBN));
       extraRewardsValue += pendingGnoValue;
     } catch (error) {
       // ignore, an error here means no rewarder found
     }
-    let totalHarvestable = await this.getHarvestableUSDMasterchefCommsMgrImplementation(
-      jar,
-      model,
-      ["sushi"],
-      chefAddress,
-      "pendingSushi",
-      poolId,
-    );
+    const totalHarvestable =
+      await this.getHarvestableUSDMasterchefCommsMgrImplementation(
+        jar,
+        model,
+        ["sushi"],
+        chefAddress,
+        "pendingSushi",
+        poolId,
+      );
 
     return totalHarvestable + extraRewardsValue;
   }

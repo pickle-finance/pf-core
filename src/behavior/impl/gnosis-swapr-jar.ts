@@ -1,5 +1,12 @@
-import { JarDefinition, AssetAprComponent, AssetProjectedApr } from "../../model/PickleModelJson";
-import { createAprComponentImpl, AbstractJarBehavior } from "../AbstractJarBehavior";
+import {
+  JarDefinition,
+  AssetAprComponent,
+  AssetProjectedApr,
+} from "../../model/PickleModelJson";
+import {
+  createAprComponentImpl,
+  AbstractJarBehavior,
+} from "../AbstractJarBehavior";
 import { Contract as MultiContract } from "ethers-multicall";
 import { PickleModel } from "../../model/PickleModel";
 import swaprRewarderAbi from "../../Contracts/ABIs/swapr-rewarder.json";
@@ -44,27 +51,23 @@ const swaprRewarders = {
     rewarder: "0x95DBc58bCBB3Bc866EdFFC107d65D479d83799E5",
     rewards: ["swapr", "gno", "cow"],
   },
-}
+};
 
 export async function calculateGnosisSwaprAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
   const rewarder = swaprRewarders[jar.depositToken.addr].rewarder;
-  const multicallRewarder = new MultiContract(
-    rewarder,
-    swaprRewarderAbi,
-  );
+  const multicallRewarder = new MultiContract(rewarder, swaprRewarderAbi);
 
-  const [rewardTokens, duration, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallRewarder.getRewardTokens(),
-        () => multicallRewarder.secondsDuration(),
-        () => multicallRewarder.totalStakedTokensAmount(),
-      ],
-      jar.chain,
-    );
+  const [rewardTokens, duration, totalSupplyBN] = await model.callMulti(
+    [
+      () => multicallRewarder.getRewardTokens(),
+      () => multicallRewarder.secondsDuration(),
+      () => multicallRewarder.totalStakedTokensAmount(),
+    ],
+    jar.chain,
+  );
 
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
@@ -73,11 +76,8 @@ export async function calculateGnosisSwaprAPY(
   const rewardData = [];
   for (let i = 0; i < rewardTokens.length; i++) {
     rewardData.push(
-      await model.callMulti(
-        () => multicallRewarder.rewards(i),
-        jar.chain
-      )
-    )
+      await model.callMulti(() => multicallRewarder.rewards(i), jar.chain),
+    );
   }
 
   const rewardsReturn = [];
@@ -88,15 +88,21 @@ export async function calculateGnosisSwaprAPY(
 
     if (price) {
       const amountBN = rewardData[i][1];
-      const amount = (parseFloat(formatEther(amountBN)));
+      const amount = parseFloat(formatEther(amountBN));
       const rewardPerSecond = amount / duration;
       const rewardPerYear = rewardPerSecond * ONE_YEAR_IN_SECONDS;
-      const valueRewardedPerYear = model.priceOfSync(rewardTokenName, jar.chain) * rewardPerYear;
+      const valueRewardedPerYear =
+        model.priceOfSync(rewardTokenName, jar.chain) * rewardPerYear;
       const rewardAPY = (valueRewardedPerYear / totalValueStaked) * 100;
 
       rewardsReturn.push(
-        createAprComponentImpl(rewardTokenName, rewardAPY, true, 1 - Chains.get(jar.chain).defaultPerformanceFee)
-      )
+        createAprComponentImpl(
+          rewardTokenName,
+          rewardAPY,
+          true,
+          1 - Chains.get(jar.chain).defaultPerformanceFee,
+        ),
+      );
     }
   }
   return rewardsReturn;
@@ -113,15 +119,12 @@ export abstract class GnosisSwaprJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const rewarder = swaprRewarders[jar.depositToken.addr].rewarder;
-    const multicallRewarder = new MultiContract(
-      rewarder,
-      swaprRewarderAbi,
-    );
+    const multicallRewarder = new MultiContract(rewarder, swaprRewarderAbi);
 
     const harvestableReturn = await model.callMulti(
       () => multicallRewarder.claimableRewards(jar.contract),
-      jar.chain
-    )
+      jar.chain,
+    );
 
     return harvestableReturn.reduce((x, y) => x + y);
   }
