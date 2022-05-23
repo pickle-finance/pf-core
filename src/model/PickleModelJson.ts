@@ -243,14 +243,14 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     protocol: AssetProtocol.SOLID,
     chain: ChainNetwork.Fantom,
     zappable: true,
-    pickleZapAddress: "0xE9B3E153Ea1277bCD6214DA500126c67Dd9AD32e",
+    pickleZapAddress: "0x079546926bd2743b4a685E1551F9600Dc6BD5b28",
     router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
   },
   {
     protocol: AssetProtocol.OXD,
     chain: ChainNetwork.Fantom,
     zappable: true,
-    pickleZapAddress: "0xE9B3E153Ea1277bCD6214DA500126c67Dd9AD32e",
+    pickleZapAddress: "0x079546926bd2743b4a685E1551F9600Dc6BD5b28",
     router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
   },
   {
