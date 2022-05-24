@@ -216,10 +216,6 @@ export async function getDillDetails(
       const picklePriceUsd = historicalEntry ? historicalEntry[1] : picklePrice;
 
       let totalDillAmount: number = dillAmounts[index];
-      let pickleDillRatio = weeklyPickleAmount / totalDillAmount;
-
-      let weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
-
       let weeklyEthAmount = 0;
 
       if (payoutV2idx >= 0 && index >= payoutV2idx) {
@@ -231,13 +227,14 @@ export async function getDillDetails(
           ? 0 // Subject to change
           : payoutsEthV2[index - payoutV2idx];
 
-        totalDillAmount += dillAmountsV2[index - payoutV2idx];
+        totalDillAmount = dillAmountsV2[index - payoutV2idx];
       }
 
-      pickleDillRatio = weeklyPickleAmount / totalDillAmount;
+      const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
+      const weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
+      
       totalPickleAmount += weeklyPickleAmount;
       totalEthAmount += weeklyEthAmount;
-      weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
       lastTotalDillAmount = totalDillAmount;
 
       const buybackUsd =
