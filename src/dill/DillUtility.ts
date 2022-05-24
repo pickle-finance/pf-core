@@ -230,8 +230,8 @@ export async function getDillDetails(
         totalDillAmount = dillAmountsV2[index - payoutV2idx];
       }
 
-      let pickleDillRatio = weeklyPickleAmount / totalDillAmount;
-      let weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
+      const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
+      const weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
       
       totalPickleAmount += weeklyPickleAmount;
       totalEthAmount += weeklyEthAmount;
