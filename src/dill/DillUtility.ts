@@ -116,7 +116,7 @@ export async function getDillDetails(
       workingTimeBNV2 = workingTimeBNV2.add(ethers.BigNumber.from(week));
     }
 
-    const payoutV2idx = payoutTimes.findIndex(t => t.eq(payoutTimesV2[0]));
+    const payoutV2idx = payoutTimes.findIndex((t) => t.eq(payoutTimesV2[0]));
 
     const batch1Promise = model.callMulti(
       [
@@ -227,12 +227,17 @@ export async function getDillDetails(
           ? 0 // Subject to change
           : payoutsEthV2[index - payoutV2idx];
 
-        totalDillAmount = dillAmountsV2[index - payoutV2idx];
+        totalDillAmount = 0;
+        let i = index - payoutV2idx;
+        while (!totalDillAmount) {
+          totalDillAmount = dillAmountsV2[i];
+          i--;
+        }
       }
 
       const pickleDillRatio = weeklyPickleAmount / totalDillAmount;
       const weeklyDillAmount = totalDillAmount - lastTotalDillAmount;
-      
+
       totalPickleAmount += weeklyPickleAmount;
       totalEthAmount += weeklyEthAmount;
       lastTotalDillAmount = totalDillAmount;
