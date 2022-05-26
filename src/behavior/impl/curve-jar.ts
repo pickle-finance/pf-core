@@ -72,7 +72,7 @@ export async function getCurveRawStats(
   factory?: boolean,
 ): Promise<RawStatAPYs | RawStatArbAPYs | any> {
   const metadata = curveMetadataForChains.get(
-    network + (Boolean(factory) && `factory`),
+    network + (factory ? "factory" : ""),
   );
   if (!metadata) return undefined;
 

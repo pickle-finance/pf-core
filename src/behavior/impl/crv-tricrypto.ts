@@ -115,7 +115,7 @@ export class CrvTricrypto extends CurveJar {
     const curveRawStats: any = await getCurveRawStats(model, jar.chain);
     const lp: AssetAprComponent = this.createAprComponent(
       "lp",
-      curveRawStats.tricrypto ? curveRawStats.tricrypto : 0,
+      curveRawStats?.tricrypto ? curveRawStats.tricrypto : 0,
       false,
     );
     return this.aprComponentsToProjectedApr([lp, crvApy]);
