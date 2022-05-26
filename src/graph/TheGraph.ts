@@ -10,8 +10,6 @@ const SUBGRAPH_URL_PICKLE_POLYGON =
 const SUBGRAPH_URL_PICKLE_ARBITRUM =
   "https://api.thegraph.com/subgraphs/name/pickle-finance/pickle-arbitrum";
 
-// TODO - add Pickle subgraph on Harmony
-
 //ADD_PROTOCOL
 const SUBGRAPH_URL_UNISWAP =
   "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2";
@@ -25,8 +23,6 @@ const SUBGRAPH_URL_SUSHISWAP_POLYGON =
   "https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange";
 const SUBGRAPH_URL_SUSHISWAP_ARBITRUM =
   "https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange";
-const SUBGRAPH_URL_SUSHISWAP_HARMONY =
-  "https://sushi.graph.t.hmny.io/subgraphs/name/sushiswap/harmony-exchange";
 const SUBGRAPH_URL_COMETH =
   "https://api.thegraph.com/subgraphs/name/cometh-game/comethswap";
 const SUBGRAPH_URL_QUICKSWAP =
@@ -57,7 +53,6 @@ export const chainToPickleSubgraphUrl: Map<string, string> = new Map([
   [ChainNetwork.Ethereum, SUBGRAPH_URL_PICKLE_MAINNET],
   [ChainNetwork.Polygon, SUBGRAPH_URL_PICKLE_POLYGON],
   [ChainNetwork.Arbitrum, SUBGRAPH_URL_PICKLE_ARBITRUM],
-  // TODO - add Pickle subgraph on Harmony
 ]);
 
 export async function readQueryFromPickleSubgraph(
@@ -124,8 +119,6 @@ export function graphUrlFromDetails(
           return SUBGRAPH_URL_SUSHISWAP_POLYGON;
         case ChainNetwork.Arbitrum:
           return SUBGRAPH_URL_SUSHISWAP_ARBITRUM;
-        case ChainNetwork.Harmony:
-          return SUBGRAPH_URL_SUSHISWAP_HARMONY;
       }
       break;
     }

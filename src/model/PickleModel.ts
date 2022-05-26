@@ -104,15 +104,6 @@ export const ADDRESSES = new Map([
     },
   ],
   [
-    ChainNetwork.Harmony,
-    {
-      pickle: NULL_ADDRESS,
-      masterChef: NULL_ADDRESS,
-      controller: "0xf4396dca6201e0ca120073acda087b53f7159e24",
-      minichef: NULL_ADDRESS,
-    },
-  ],
-  [
     ChainNetwork.Moonriver,
     {
       pickle: NULL_ADDRESS,

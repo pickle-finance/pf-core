@@ -52,7 +52,7 @@ export enum AssetProtocol {
   STARGATE = "Stargate",
   HUMMUS = "Hummus",
   FRAX = "Frax",
-  SWAPR = "Swapr"
+  SWAPR = "Swapr",
   // ADD_PROTOCOL
 }
 
@@ -70,13 +70,6 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: true,
     pickleZapAddress: "0x8ee424b02da912c1c9491c6a33cafd5fcbb52edc",
     router: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
-  },
-  {
-    protocol: AssetProtocol.SUSHISWAP,
-    chain: ChainNetwork.Harmony,
-    zappable: false,
-    pickleZapAddress: "",
-    router: "one17qf8q2jlpe2qz5mze09zdgn0ey92sv4r323k20",
   },
   {
     protocol: AssetProtocol.UNISWAP,
@@ -424,7 +417,7 @@ export interface AssetDetails {
   apiKey: string;
   harvestStats?: JarHarvestStats | ActiveJarHarvestStats;
 }
-export interface StandaloneFarmDetails extends AssetDetails, FarmDetails { }
+export interface StandaloneFarmDetails extends AssetDetails, FarmDetails {}
 
 export interface FarmDetails {
   allocShare?: number;

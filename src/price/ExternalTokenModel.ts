@@ -1004,55 +1004,6 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
-    // Harmony
-    this.addToken(
-      ChainNetwork.Harmony,
-      "wone",
-      "wONE",
-      "harmony",
-      "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.ID,
-      [],
-      true,
-    );
-    this.addToken(
-      ChainNetwork.Harmony,
-      "1eth",
-      null,
-      "ethereum",
-      "0x6983D1E6DEf3690C4d616b13597A09e6193EA013".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(
-      ChainNetwork.Harmony,
-      "1dai",
-      null,
-      "dai",
-      "0xEf977d2f931C1978Db5F6747666fa1eACB0d0339".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(
-      ChainNetwork.Harmony,
-      "1wbtc",
-      null,
-      "wrapped-bitcoin",
-      "0x3095c7557bCb296ccc6e363DE01b760bA031F2d9".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(
-      ChainNetwork.Harmony,
-      "sushi",
-      null,
-      "sushi",
-      "0xBEC775Cb42AbFa4288dE81F387a9b1A3c4Bc552A".toLowerCase(),
-      18,
-      ExternalTokenFetchStyle.ID,
-    );
-
     // Moonriver
     this.addToken(
       ChainNetwork.Moonriver,

@@ -82,9 +82,6 @@ import {
   JAR_OKEX_JSWAP_JF_USDT,
   JAR_OKEX_JSWAP_USDT_DAIK,
   JAR_OKEX_JSWAP_DAIK_USDC,
-  JAR_ONE_SUSHI_ETH_DAI,
-  JAR_ONE_SUSHI_ETH_ONE,
-  JAR_ONE_SUSHI_WBTC_ETH,
   JAR_MOVR_SOLAR_MOVR,
   JAR_MOVR_SOLAR_DAI_USDC,
   JAR_MOVR_SOLAR_MOVR_USDC,
@@ -501,9 +498,6 @@ import { JswapEthkUsdt } from "./impl/jswap-ethk-usdt";
 import { JswapJfUsdt } from "./impl/jswap-jf-usdt";
 import { JswapDaikkUsdc } from "./impl/jswap-daik-usdc";
 import { JswapDaikkUsdt } from "./impl/jswap-daik-usdt";
-import { HSlpEthDai } from "./impl/hslp-eth-dai";
-import { HSlpEthOne } from "./impl/hslp-eth-one";
-import { HSlpWbtcEth } from "./impl/hslp-wbtc-eth";
 import { SolarMovr } from "./impl/solar-movr";
 import { SolarDaiUsdc } from "./impl/solar-dai-usdc";
 import { SolarMovrUsdc } from "./impl/solar-movr-usdc";
@@ -832,11 +826,6 @@ jarToBehavior.set(JAR_OKEX_JSWAP_BTCK_USDT.id, new JswapBtckUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_ETHK_USDT.id, new JswapEthkUsdt());
 jarToBehavior.set(JAR_OKEX_JSWAP_DAIK_USDC.id, new JswapDaikkUsdc());
 jarToBehavior.set(JAR_OKEX_JSWAP_USDT_DAIK.id, new JswapDaikkUsdt());
-
-// Harmony
-jarToBehavior.set(JAR_ONE_SUSHI_ETH_DAI.id, new HSlpEthDai());
-jarToBehavior.set(JAR_ONE_SUSHI_ETH_ONE.id, new HSlpEthOne());
-jarToBehavior.set(JAR_ONE_SUSHI_WBTC_ETH.id, new HSlpWbtcEth());
 
 // Moonriver
 jarToBehavior.set(JAR_MOVR_SOLAR_MOVR.id, new SolarMovr());
