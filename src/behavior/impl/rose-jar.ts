@@ -1,19 +1,21 @@
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
-import { AssetAprComponent, AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { AbstractJarBehavior } from "../AbstractJarBehavior";
+import {
+  AssetAprComponent,
+  AssetProjectedApr,
+  JarDefinition,
+} from "../../model/PickleModelJson";
 import roseFarmAbi from "../../Contracts/ABIs/rose-farm.json";
 import { PickleModel } from "../../model/PickleModel";
 import { Contract as MultiContract } from "ethers-multicall";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import {
-  createAprComponentImpl,
-} from "../../behavior/AbstractJarBehavior";
+import { createAprComponentImpl } from "../../behavior/AbstractJarBehavior";
+import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 
-export abstract class RoseJar extends AbstractJarBehavior {
+export abstract class RoseJar extends AuroraMultistepHarvestJar {
   rewarderAddress: string;
   constructor(rewarderAddress: string) {
-    super();
+    super(4, 1);
     this.rewarderAddress = rewarderAddress;
   }
 
@@ -65,13 +67,6 @@ export abstract class RoseJar extends AbstractJarBehavior {
 
     const totalValueStaked = totalSupply * pricePerToken;
     const roseAPY = 100 * (valueRewardedPerYear / totalValueStaked);
-    return [
-      createAprComponentImpl(
-        "rose",
-        roseAPY,
-        true,
-        0.9,
-      ),
-    ]
+    return [createAprComponentImpl("rose", roseAPY, true, 0.9)];
   }
 }
