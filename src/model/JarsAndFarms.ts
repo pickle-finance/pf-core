@@ -4268,7 +4268,7 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     addr: "0x14BE4d09c5A8237403b83A8A410bAcE16E8667DC",
     name: "FINN FINN/KSM",
     link: "https://www.huckleberry.finance/#/add/0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080/0x9A92B5EBf1F6F6f7d93696FCD44e5Cf75035A756",
-    components: ["finn", "ksm"],
+    components: ["finn", "stksm"],
   },
   rewardTokens: ["finn"],
   enablement: AssetEnablement.ENABLED,
@@ -4366,6 +4366,34 @@ export const JAR_MOVR_FINN_USDC_MOVR: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_MOVR_FINN_USDC_MOVR);
+
+export const JAR_MOVR_SOLAR_STKSM_XCKSM: JarDefinition = {
+  type: AssetType.JAR,
+  id: "moonJar 1v",
+  contract: "0x65C65bD644eC631ef800A05397548cB25Cb8AC90",
+  startBlock: 1890360,
+  depositToken: {
+    addr: "0x493147C85Fe43F7B056087a6023dF32980Bcb2D1",
+    name: "SOLAR STKSM/XCKSM",
+    link: "https://app.solarbeam.io/exchange/stable-pool/add/stksm",
+    components: ["stksm", "xcksm"],
+  },
+  rewardTokens: ["solar", "movr", "ldo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Moonriver,
+  protocol: AssetProtocol.SOLARBEAM,
+  details: {
+    apiKey: "SLP-STKSM-XCKSM",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xf34514260f18bDB3ED1142b69A6055F51089AC7D",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSOLAR STKSM/XCKSM",
+    farmDepositTokenName: "pSOLAR STKSM/XCKSM",
+  },
+};
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_STKSM_XCKSM);
 
 //Cronos
 
@@ -5499,7 +5527,7 @@ export const JAR_AURORA_TRI_ROSE_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TLP-ROSE-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -5527,7 +5555,7 @@ export const JAR_AURORA_TRI_RUSD_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TLP-RUSD-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -5555,7 +5583,7 @@ export const JAR_AURORA_TRI_LINEAR_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TLP-LINEAR-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -5583,7 +5611,7 @@ export const JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TRISOLARISLP-SOLACE-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -5611,7 +5639,7 @@ export const JAR_AURORA_TRISOLARIS_BBT_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TRISOLARISLP-BBT-NEAR",
     harvestStyle: HarvestStyle.CUSTOM,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -5639,7 +5667,7 @@ export const JAR_AURORA_TRISOLARIS_USDC_SHITZU_LP: JarDefinition = {
   details: {
     apiKey: "TRISOLARISLP-USDC-SHITZU",
     harvestStyle: HarvestStyle.CUSTOM,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -5667,7 +5695,7 @@ export const JAR_AURORA_TRISOLARIS_AURORA_NEAR_LP: JarDefinition = {
   details: {
     apiKey: "TRISOLARISLP-AURORA-NEAR",
     harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -6170,7 +6198,7 @@ export const JAR_AURORA_WANNASWAP_WANNAX_STNEAR_LP: JarDefinition = {
   details: {
     apiKey: "WANNASWAPLP-WANNAX-STNEAR",
     harvestStyle: HarvestStyle.CUSTOM,
-    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E"
+    controller: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
   },
   farm: {
     farmAddress: "0x13cc0A2644f4f727db23f5B9dB3eBd72134085b7",
@@ -13245,7 +13273,7 @@ export const BRINERY_VEFXS: BrineryDefinition = {
     addr: "0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0",
     name: "FXS",
     link: "https://app.sushi.com/swap?inputCurrency=ETH&outputCurrency=0x3432B6A60D23Ca0dFCa7761B7ab56459D9C964D0&chainId=1",
-    components: ["fxs"]
+    components: ["fxs"],
   },
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
@@ -13256,7 +13284,7 @@ export const BRINERY_VEFXS: BrineryDefinition = {
     distributionAddr: "0xc6764e58b36e26b08Fd1d2AeD4538c02171fA872",
     strategyAddr: "0x552D92Ad2bb3Aba00872491ea2DC5d6EC3B8A31D",
     lockerAddr: "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF",
-    rewardToken: "fxs"
+    rewardToken: "fxs",
   },
 };
 

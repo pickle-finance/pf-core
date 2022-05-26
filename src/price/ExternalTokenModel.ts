@@ -82,7 +82,8 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Ethereum,
-      "snx", null, // A null means just capitalize the id,  snx -> SNX
+      "snx",
+      null, // A null means just capitalize the id,  snx -> SNX
       "havven",
       "0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f".toLowerCase(),
       18,
@@ -1220,15 +1221,6 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Moonriver,
-      "ksm",
-      null,
-      "kusama",
-      "0xffffffff1fcacbd218edc0eba20fc2308c778080".toLowerCase(),
-      12,
-      ExternalTokenFetchStyle.ID,
-    );
-    this.addToken(
-      ChainNetwork.Moonriver,
       "finn",
       null,
       "huckleberry",
@@ -1254,7 +1246,33 @@ export class ExternalTokenModel {
       10,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "ldo",
+      null,
+      "lido-dao",
+      "0x6Ccf12B480A99C54b23647c995f4525D544A7E72".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "stksm",
+      null,
+      "kusama",
+      "0xFfc7780C34B450d917d557E728f033033CB4fA8C".toLowerCase(),
+      12,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Moonriver,
+      "xcksm",
+      null,
+      "kusama",
+      "0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
     // Cronos
     this.addToken(
       ChainNetwork.Cronos,
@@ -1463,7 +1481,10 @@ export class ExternalTokenModel {
       "0x918dbe087040a41b786f0da83190c293dae24749".toLowerCase(),
       24,
       ExternalTokenFetchStyle.SWAP_PAIRS,
-      ["0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]
+      [
+        "0xbceA13f9125b0E3B66e979FedBCbf7A4AfBa6fd1",
+        "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
+      ],
     );
     this.addToken(
       ChainNetwork.Aurora,
@@ -1645,7 +1666,10 @@ export class ExternalTokenModel {
       "0x19cc40283B057D6608C22F1D20F17e16C245642E".toLowerCase(),
       18,
       ExternalTokenFetchStyle.SWAP_PAIRS,
-      ["0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700", "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0"]
+      [
+        "0xbC0e71aE3Ef51ae62103E003A9Be2ffDe8421700",
+        "0x20F8AeFB5697B77E0BB835A8518BE70775cdA1b0",
+      ],
     );
     this.addToken(
       ChainNetwork.Aurora,
@@ -1732,7 +1756,8 @@ export class ExternalTokenModel {
       [
         "0x044b6B0CD3Bb13D2b9057781Df4459C66781dCe7", // PLY-NEAR
         "0x2e02Bea8e9118f7d2ccadA1d402286Cc6d54bd67", // NEAR-USDT
-      ]);
+      ],
+    );
 
     // Metis
     this.addToken(
@@ -2748,7 +2773,7 @@ export class ExternalTokenModel {
       "chainlink",
       "0xE2e73A1c69ecF83F464EFCE6A5be353a37cA09b2".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2757,7 +2782,7 @@ export class ExternalTokenModel {
       "dai",
       "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2766,7 +2791,7 @@ export class ExternalTokenModel {
       "gnosis",
       "0x9C58BAcC331c9aa871AFD802DB6379a98e80CEdb".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2775,7 +2800,7 @@ export class ExternalTokenModel {
       "swapr",
       "0x532801ED6f82FFfD2DAB70A19fC2d7B2772C4f4b".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2784,7 +2809,7 @@ export class ExternalTokenModel {
       "sushi",
       "0x2995D1317DcD4f0aB89f4AE60F3f020A4F17C7CE".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2793,7 +2818,7 @@ export class ExternalTokenModel {
       "usd-coin",
       "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83".toLowerCase(),
       6,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2802,7 +2827,7 @@ export class ExternalTokenModel {
       "tether",
       "0x4ECaBa5870353805a9F068101A40E0f32ed605C6".toLowerCase(),
       6,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2811,7 +2836,7 @@ export class ExternalTokenModel {
       "ethereum",
       "0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2820,7 +2845,7 @@ export class ExternalTokenModel {
       "wrapped-bitcoin",
       "0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252".toLowerCase(),
       8,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2829,7 +2854,7 @@ export class ExternalTokenModel {
       "cow-protocol",
       "0x177127622c4A00F3d409B75571e12cB3c8973d3c".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
     this.addToken(
       ChainNetwork.Gnosis,
@@ -2838,7 +2863,7 @@ export class ExternalTokenModel {
       "dxdao",
       "0xb90D6bec20993Be5d72A5ab353343f7a0281f158".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.ID
+      ExternalTokenFetchStyle.ID,
     );
 
     // Make the reverse map to fascilitate contract lookups
