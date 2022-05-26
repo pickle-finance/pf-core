@@ -146,7 +146,6 @@ export async function calculateSolarFarmsAPY(
             model.priceOfSync(reward.rewardName, jar.chain) *
             100) /
           totalValueStaked;
-        console.log(reward.rewardName, apr, apr != 0);
 
         return {
           name: reward.rewardName,
