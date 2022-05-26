@@ -220,7 +220,13 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasTokenSymbol: "xDAI",
     explorer: "https://blockscout.com/xdai/mainnet",
     rpcs: [
-      "https://rpc.xdaichain.com",
+      "https://rpc.ankr.com/gnosis",
+      "https://xdai-rpc.gateway.pokt.network",
+      "https://gnosis-mainnet.public.blastapi.io",
+      "https://xdai-archive.blockscout.com",
+      "https://xdai.poanetwork.dev",
+      "https://rpc.gnosischain.com",
+      // "https://rpc.xdaichain.com",  //dead
     ],
     multicallAddress: "0x88b373B83166E72FD55648Ce114712633f1782E2",
     defaultPerformanceFee: 0.042,
