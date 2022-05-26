@@ -9,6 +9,7 @@ import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
+import { ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 
 export const SOLAR_FARMS = "0xf03b75831397D4695a6b9dDdEEA0E578faa30907";
 export const SOLAR_V2_FARMS = "0xA3Dce528195b8D15ea166C623DB197B2C3f8D127";
@@ -42,6 +43,7 @@ export const solarPoolV2Ids: PoolId = {
 export const solarPoolV3Ids: PoolId = {
   "0xe537f70a8b62204832B8Ba91940B77d3f79AEb81": 10,
   "0x0d171b55fC8d3BDDF17E376FdB2d90485f900888": 12,
+  "0x493147C85Fe43F7B056087a6023dF32980Bcb2D1": 13,
 };
 
 export async function calculateSolarFarmsAPY(
@@ -119,17 +121,41 @@ export async function calculateSolarFarmsAPY(
       ],
       jar.chain,
     );
+    const rewards = rewardInfo.addresses
+      .map((address: string, idx: number) => {
+        const token = ExternalTokenModelSingleton.getToken(address, jar.chain);
+        const rewardsPerSecBN = rewardInfo.rewardsPerSec[idx];
+        const rewardsPerSec = parseFloat(formatEther(rewardsPerSecBN));
+        if (!rewardsPerSec) return null;
+        return {
+          rewardName: token.id,
+          price: model.priceOfSync(token.id, jar.chain),
+          rewardsPerSec,
+        };
+      })
+      .filter((x: any) => x);
 
     const totalValueStaked =
       parseFloat(formatEther(totalSupplyBN)) * pricePerToken;
 
-    const solarAPY =
-      (+formatEther(rewardInfo.rewardsPerSec[0]) *
-        ONE_YEAR_IN_SECONDS *
-        model.priceOfSync("solar", jar.chain)) /
-      totalValueStaked;
+    const rewardComponents = rewards
+      .map((reward) => {
+        const apr =
+          (reward.rewardsPerSec *
+            ONE_YEAR_IN_SECONDS *
+            model.priceOfSync(reward.rewardName, jar.chain) *
+            100) /
+          totalValueStaked;
+        console.log(reward.rewardName, apr, apr != 0);
 
-    return [{ name: "solar", apr: solarAPY * 100, compoundable: true }];
+        return {
+          name: reward.rewardName,
+          compoundable: true,
+          apr,
+        };
+      })
+      .filter((x: any) => x.apr > 0.1);
+    return rewardComponents;
   }
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));

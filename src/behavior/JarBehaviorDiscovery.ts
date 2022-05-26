@@ -426,6 +426,7 @@ import {
   JAR_GNOSIS_SWAPR_DXD_GNO,
   JAR_GNOSIS_SWAPR_XDAI_WETH,
   JAR_GNOSIS_SWAPR_COW_GNO,
+  JAR_MOVR_SOLAR_STKSM_XCKSM,
 } from "../model/JarsAndFarms";
 import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
 
@@ -703,6 +704,7 @@ import { GnosisSwaprDxdGno } from "./impl/gnosis-swapr-dxd-gno";
 import { GnosisSwaprXdaiWeth } from "./impl/gnosis-swapr-xdai-weth";
 import { GnosisSwaprCowGno } from "./impl/gnosis-swapr-cow-gno";
 import { GnosisSushiJar } from "./impl/gnosis-sushi-jar";
+import { SolarStksmXcksm } from "./impl/movr-solar-stksm-xcksm";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -863,6 +865,7 @@ jarToBehavior.set(JAR_MOVR_FINN_FINN_KSM.id, new FinnFinnKsm());
 jarToBehavior.set(JAR_MOVR_FINN_FINN_RMRK.id, new FinnFinnRmrk());
 jarToBehavior.set(JAR_MOVR_FINN_MOVR_FINN.id, new FinnMovrFinn());
 jarToBehavior.set(JAR_MOVR_FINN_USDC_MOVR.id, new FinnUsdcMovr());
+jarToBehavior.set(JAR_MOVR_SOLAR_STKSM_XCKSM.id, new SolarStksmXcksm());
 
 // Cronos
 jarToBehavior.set(JAR_CRO_VVS_CRO_ETH.id, new VvsCroEth());
