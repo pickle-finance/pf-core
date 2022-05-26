@@ -108,7 +108,11 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "harmony",
     gasTokenSymbol: "one",
     explorer: "https://explorer.harmony.one",
-    rpcs: ["https://api.harmony.one"],
+    rpcs: [
+      "https://api.harmony.one",
+      "https://harmony-0-rpc.gateway.pokt.network",
+      "https://rpc.hermesdefi.io",
+    ],
     multicallAddress: "0x5e9e5eea23b37a0d37d6dcac2f1edfba5cbc84f9",
     defaultPerformanceFee: 0.1,
     wrappedNativeAddress: "0xcF664087a5bB0237a0BAd6742852ec6c8d69A27a",
