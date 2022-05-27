@@ -4185,7 +4185,7 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     farmDepositTokenName: "pFINN FINN/KSM",
   },
 };
-JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
+// JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
 
 export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
   type: AssetType.JAR,
@@ -4294,7 +4294,7 @@ export const JAR_MOVR_SOLAR_STKSM_XCKSM: JarDefinition = {
     farmDepositTokenName: "pSOLAR STKSM/XCKSM",
   },
 };
-JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_STKSM_XCKSM);
+// JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_STKSM_XCKSM);
 
 //Cronos
 
