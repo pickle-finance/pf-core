@@ -110,9 +110,9 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     rpcs: [
       "https://moonriver.public.blastapi.io",
       "https://rpc.api.moonriver.moonbeam.network",
-      "https://moonriver.api.onfinality.io/public",
       "https://rpc.moonriver.moonbeam.network",
       // "wss://wss.api.moonriver.moonbeam.network",
+      // "https://moonriver.api.onfinality.io/public",  // dead
     ],
     multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
     defaultPerformanceFee: 0.1,
@@ -165,7 +165,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "moonbeam",
     gasTokenSymbol: "glmr",
     explorer: "https://moonbeam.moonscan.io",
-    rpcs: ["https://rpc.api.moonbeam.network"],
+    rpcs: ["https://rpc.ankr.com/moonbeam", "https://rpc.api.moonbeam.network"],
     multicallAddress: "0xDad6760bd3FC33b741D46df1e205558BB22D1507",
     defaultPerformanceFee: 0.1,
     wrappedNativeAddress: "0xAcc15dC74880C9944775448304B263D191c6077F",

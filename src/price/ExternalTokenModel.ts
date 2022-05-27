@@ -1990,9 +1990,9 @@ export class ExternalTokenModel {
       "solarflare",
       "0xE3e43888fa7803cDC7BEA478aB327cF1A0dc11a7".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ExternalTokenFetchStyle.ID,
       [
-        "0x976888647affb4b2d7ac1952cb12ca048cd67762", // FLARE-USDC
+        "0x26A2abD79583155EA5d34443b62399879D42748A", // FLARE-WGLMR
       ],
     );
     this.addToken(

@@ -8470,7 +8470,7 @@ export const JAR_FLARE_FLARE_USDC: JarDefinition = {
   },
 };
 
-JAR_DEFINITIONS.push(JAR_FLARE_FLARE_USDC);
+// JAR_DEFINITIONS.push(JAR_FLARE_FLARE_USDC);
 
 export const JAR_FLARE_GLMR_MOVR: JarDefinition = {
   type: AssetType.JAR,
@@ -8524,7 +8524,7 @@ export const JAR_FLARE_GLMR_USDC: JarDefinition = {
     farmDepositTokenName: "pFLP GLMR/USDC",
   },
 };
-JAR_DEFINITIONS.push(JAR_FLARE_GLMR_USDC);
+// JAR_DEFINITIONS.push(JAR_FLARE_GLMR_USDC);
 
 export const JAR_FLARE_GLMR_ETH: JarDefinition = {
   type: AssetType.JAR,
@@ -8551,7 +8551,7 @@ export const JAR_FLARE_GLMR_ETH: JarDefinition = {
     farmDepositTokenName: "pFLP GLMR/ETH",
   },
 };
-JAR_DEFINITIONS.push(JAR_FLARE_GLMR_ETH);
+// JAR_DEFINITIONS.push(JAR_FLARE_GLMR_ETH);
 
 export const JAR_FLARE_GLMR_WBTC: JarDefinition = {
   type: AssetType.JAR,
@@ -8578,7 +8578,7 @@ export const JAR_FLARE_GLMR_WBTC: JarDefinition = {
     farmDepositTokenName: "pFLP GLMR/WBTC",
   },
 };
-JAR_DEFINITIONS.push(JAR_FLARE_GLMR_WBTC);
+// JAR_DEFINITIONS.push(JAR_FLARE_GLMR_WBTC);
 
 // Optimism
 export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
