@@ -208,7 +208,11 @@ export class UserModel implements ConsoleErrorLogger {
   async generateMinimalModel(): Promise<UserData> {
     await this.initCommsMgr();
     try {
-      await Promise.all([this.getUserTokens(), this.getUserEarningsSummary(), this.getUserDillStatsGuard()]);
+      await Promise.all([
+        this.getUserTokens(),
+        this.getUserEarningsSummary(),
+        this.getUserDillStatsGuard(),
+      ]);
       if (this.callback !== undefined) {
         this.callback.modelFinished(this.workingData);
       }
@@ -377,14 +381,6 @@ export class UserModel implements ConsoleErrorLogger {
             ).contractAddr,
             erc20Abi,
           );
-
-          console.log(
-            this.model.tokens.find(
-              (token) =>
-                token.chain === chain &&
-                token.id === x.depositToken.components?.[1],
-            ),
-          );
           return [
             mcContract0.balanceOf(this.walletId),
             mcContract1.balanceOf(this.walletId),
@@ -503,7 +499,7 @@ export class UserModel implements ConsoleErrorLogger {
       pTokenBalances = await pTokenBalancesPromise;
       DEBUG_OUT(
         "Finished Initializing ptoken balances: " +
-        JSON.stringify(pTokenBalances),
+          JSON.stringify(pTokenBalances),
       );
     } catch (error) {
       this.logUserModelError(
@@ -615,7 +611,7 @@ export class UserModel implements ConsoleErrorLogger {
             foundToken &&
             x.assetContract === jar.contract &&
             foundToken.contractAddr.toLowerCase() ===
-            x.componentContract.toLowerCase(),
+              x.componentContract.toLowerCase(),
         );
 
       const bal = (tokenBal || BigNumber.from(0)).toString();
@@ -701,10 +697,10 @@ export class UserModel implements ConsoleErrorLogger {
       const poolLengthBN: BigNumber = skip
         ? BigNumber.from(0)
         : await new Contract(
-          chef,
-          minichefAbi,
-          this.providerFor(chain),
-        ).poolLength();
+            chef,
+            minichefAbi,
+            this.providerFor(chain),
+          ).poolLength();
       const poolLength = parseFloat(poolLengthBN.toString());
       const poolIds: number[] = Array.from(Array(poolLength).keys());
       const miniChefMulticall: MulticallContract = new MulticallContract(
@@ -924,7 +920,7 @@ export class UserModel implements ConsoleErrorLogger {
 
   logUserModelError = (context: string, err: string): void => {
     const msg = "Error [" + context + "] " + err;
-    console.log(msg);
+    console.debug(msg);
     this.workingData.errors.push(msg);
   };
 
@@ -966,21 +962,30 @@ export class UserModel implements ConsoleErrorLogger {
       dillContractAddr,
       this.providerFor(ChainNetwork.Ethereum),
     );
-    const feeDistributorContract: FeeDistributor = FeeDistributor__factory.connect(
-      feeDistributorAddr,
-      this.providerFor(ChainNetwork.Ethereum),
-    );
-    const feeDistributorContractV2: FeeDistributorV2 = FeeDistributorV2__factory.connect(
-      feeDistributorAddrV2,
-      this.providerFor(ChainNetwork.Ethereum),
-    );
+    const feeDistributorContract: FeeDistributor =
+      FeeDistributor__factory.connect(
+        feeDistributorAddr,
+        this.providerFor(ChainNetwork.Ethereum),
+      );
+    const feeDistributorContractV2: FeeDistributorV2 =
+      FeeDistributorV2__factory.connect(
+        feeDistributorAddrV2,
+        this.providerFor(ChainNetwork.Ethereum),
+      );
 
     const pickleContract: Erc20 = Erc20__factory.connect(
       ADDRESSES.get(ChainNetwork.Ethereum).pickle,
       this.providerFor(ChainNetwork.Ethereum),
     );
 
-    const [lockStats, balance, claimable, userClaimable, allowance, totalClaimable] = await Promise.all([
+    const [
+      lockStats,
+      balance,
+      claimable,
+      userClaimable,
+      allowance,
+      totalClaimable,
+    ] = await Promise.all([
       dillContract.locked(this.walletId, { gasLimit: 1000000 }),
       dillContract["balanceOf(address)"](this.walletId, { gasLimit: 1000000 }),
       feeDistributorContract.callStatic["claim(address)"](this.walletId, {
@@ -993,9 +998,12 @@ export class UserModel implements ConsoleErrorLogger {
       feeDistributorContractV2.callStatic["claim_all(address)"](this.walletId, {
         gasLimit: 9000000,
       }).catch((err) => {
-        this.logUserModelError("in getUserDillStats: total claimable", "" + err);
-        return [0, 0]
-      })
+        this.logUserModelError(
+          "in getUserDillStats: total claimable",
+          "" + err,
+        );
+        return [0, 0];
+      }),
     ]);
 
     // To handle edge case if totalCLaimable call fails
