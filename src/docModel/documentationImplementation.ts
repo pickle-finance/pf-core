@@ -222,7 +222,7 @@ allDocsGenerators.push(
 allDocsGenerators.push(
   new DocsGenImpl(
     (asset) => asset.protocol === AssetProtocol.UNISWAP_V3,
-    (asset) => generateXYKDocumentation(asset),
+    (asset) => generateUni3Documentation(asset),
   ),
 );
 allDocsGenerators.push(
