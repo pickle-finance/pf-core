@@ -4185,7 +4185,7 @@ export const JAR_MOVR_FINN_FINN_KSM: JarDefinition = {
     farmDepositTokenName: "pFINN FINN/KSM",
   },
 };
-// JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
+JAR_DEFINITIONS.push(JAR_MOVR_FINN_FINN_KSM);
 
 export const JAR_MOVR_FINN_FINN_RMRK: JarDefinition = {
   type: AssetType.JAR,
@@ -4294,7 +4294,7 @@ export const JAR_MOVR_SOLAR_STKSM_XCKSM: JarDefinition = {
     farmDepositTokenName: "pSOLAR STKSM/XCKSM",
   },
 };
-// JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_STKSM_XCKSM);
+JAR_DEFINITIONS.push(JAR_MOVR_SOLAR_STKSM_XCKSM);
 
 //Cronos
 
@@ -8469,8 +8469,7 @@ export const JAR_FLARE_FLARE_USDC: JarDefinition = {
     farmDepositTokenName: "pFLP FLARE/USDC",
   },
 };
-
-// JAR_DEFINITIONS.push(JAR_FLARE_FLARE_USDC);
+JAR_DEFINITIONS.push(JAR_FLARE_FLARE_USDC);
 
 export const JAR_FLARE_GLMR_MOVR: JarDefinition = {
   type: AssetType.JAR,
@@ -8524,7 +8523,7 @@ export const JAR_FLARE_GLMR_USDC: JarDefinition = {
     farmDepositTokenName: "pFLP GLMR/USDC",
   },
 };
-// JAR_DEFINITIONS.push(JAR_FLARE_GLMR_USDC);
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_USDC);
 
 export const JAR_FLARE_GLMR_ETH: JarDefinition = {
   type: AssetType.JAR,
@@ -8551,7 +8550,7 @@ export const JAR_FLARE_GLMR_ETH: JarDefinition = {
     farmDepositTokenName: "pFLP GLMR/ETH",
   },
 };
-// JAR_DEFINITIONS.push(JAR_FLARE_GLMR_ETH);
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_ETH);
 
 export const JAR_FLARE_GLMR_WBTC: JarDefinition = {
   type: AssetType.JAR,
@@ -8578,7 +8577,7 @@ export const JAR_FLARE_GLMR_WBTC: JarDefinition = {
     farmDepositTokenName: "pFLP GLMR/WBTC",
   },
 };
-// JAR_DEFINITIONS.push(JAR_FLARE_GLMR_WBTC);
+JAR_DEFINITIONS.push(JAR_FLARE_GLMR_WBTC);
 
 // Optimism
 export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
