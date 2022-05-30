@@ -425,7 +425,11 @@ import {
   JAR_GNOSIS_SWAPR_COW_GNO,
   JAR_MOVR_SOLAR_STKSM_XCKSM,
 } from "../model/JarsAndFarms";
-import { JarDefinition, PickleAsset } from "../model/PickleModelJson";
+import {
+  AssetProjectedApr,
+  JarDefinition,
+  PickleAsset,
+} from "../model/PickleModelJson";
 
 import {
   AssetBehavior,
@@ -707,6 +711,16 @@ export class noOpJarBehavior extends AbstractJarBehavior {
     _resolver: Signer | Provider,
   ): Promise<number> {
     return 0;
+  }
+  async getProjectedAprStats(
+    _definition: JarDefinition,
+    _model: PickleModel,
+  ): Promise<AssetProjectedApr> {
+    return {
+      components: [],
+      apr: 0,
+      apy: 0,
+    };
   }
 }
 const jarToBehavior: Map<
