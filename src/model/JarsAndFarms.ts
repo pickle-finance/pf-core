@@ -591,7 +591,7 @@ export const JAR_UNIV2_MIR_UST: JarDefinition = {
     components: ["mir", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -618,7 +618,7 @@ export const JAR_UNIV2_MTSLA_UST: JarDefinition = {
     components: ["mtsla", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -645,7 +645,7 @@ export const JAR_UNIV2_MAAPL_UST: JarDefinition = {
     components: ["maapl", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -672,7 +672,7 @@ export const JAR_UNIV2_MQQQ_UST: JarDefinition = {
     components: ["mqqq", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -699,7 +699,7 @@ export const JAR_UNIV2_MSLV_UST: JarDefinition = {
     components: ["mslv", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -5150,7 +5150,7 @@ export const JAR_AURORA_TRI_UST_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["tri"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -5996,7 +5996,7 @@ export const JAR_AURORA_WANNA_NEAR_LUNA: JarDefinition = {
     },
   },
   rewardTokens: ["wanna"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
   details: {
@@ -6031,7 +6031,7 @@ export const JAR_AURORA_WANNA_UST_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["wanna"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
   details: {
@@ -6439,7 +6439,7 @@ export const JAR_AURORA_ROSE_USTPOOL_LP: JarDefinition = {
     components: ["rose3pool", "ust"],
   },
   rewardTokens: ["rose"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
@@ -6881,7 +6881,7 @@ export const JAR_AURORA_BRL_NEAR_LUNA: JarDefinition = {
     },
   },
   rewardTokens: ["brl"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
@@ -7022,7 +7022,7 @@ export const JAR_AURORA_BRL_UST_NEAR: JarDefinition = {
     },
   },
   rewardTokens: ["brl"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.AURORASWAP,
   details: {
@@ -9857,7 +9857,7 @@ export const JAR_FANTOM_BEETX_FTM_MATIC_SOL_AVAX_LUNA_BNB: JarDefinition = {
     components: ["ftm", "matic", "sol", "avax", "luna", "bnb"],
   },
   rewardTokens: ["beets"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
   protocol: AssetProtocol.BEETHOVENX,
   stakingProtocol: AssetProtocol.BEETHOVENX,
