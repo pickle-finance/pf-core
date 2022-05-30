@@ -2298,7 +2298,7 @@ export const JAR_QUICK_DINO_ETH: JarDefinition = {
   depositToken: {
     addr: "0x9f03309A588e33A239Bf49ed8D68b2D45C7A1F11",
     name: "Quick DINO/ETH",
-    link: "https://app.sushi.com/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
+    link: "https://quickswap.exchange/#/add/0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619/0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
     components: ["dino", "weth"],
     nativePath: {
       //(quickSwap)uniswapv2router02 --> WMATIC, WETH
