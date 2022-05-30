@@ -2347,7 +2347,7 @@ export const JAR_POLY_SUSHI_PICKLE_DAI: JarDefinition = {
   rewardTokens: ["sushi"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Polygon,
-  protocol: AssetProtocol.QUICKSWAP,
+  protocol: AssetProtocol.SUSHISWAP,
   details: {
     apiKey: "PSLP-PICKLE",
     harvestStyle: HarvestStyle.PASSIVE,
