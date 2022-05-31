@@ -1136,7 +1136,7 @@ export const JAR_MIMETH: JarDefinition = {
     components: ["mim", "weth"],
   },
   rewardTokens: ["spell"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -1979,7 +1979,7 @@ export const JAR_COMETH_MATIC_MUST: JarDefinition = {
     components: ["matic", "must"],
   },
   rewardTokens: ["must"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.COMETHSWAP,
   details: {
@@ -2275,7 +2275,7 @@ export const JAR_SUSHI_DINO_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["dino"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -2310,7 +2310,7 @@ export const JAR_QUICK_DINO_ETH: JarDefinition = {
     },
   },
   rewardTokens: ["dino"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.QUICKSWAP,
   details: {
@@ -2376,7 +2376,7 @@ export const JAR_POLY_SUSHI_WORK_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["dino"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Polygon,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -3428,7 +3428,7 @@ export const JAR_OKEX_JSWAP_USDT_DAIK: JarDefinition = {
     },
   },
   rewardTokens: ["jswap"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.OKEx,
   protocol: AssetProtocol.JSWAP,
   details: {
@@ -3484,7 +3484,7 @@ export const JAR_MOVR_SOLAR_MOVR: JarDefinition = {
     components: ["solar", "movr"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3519,7 +3519,7 @@ export const JAR_MOVR_SOLAR_DAI_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3582,7 +3582,7 @@ export const JAR_MOVR_SOLAR_SOLAR_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3617,7 +3617,7 @@ export const JAR_MOVR_SOLAR_USDT_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3653,7 +3653,7 @@ export const JAR_MOVR_SOLAR_BUSD_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3689,7 +3689,7 @@ export const JAR_MOVR_SOLAR_ETH_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3724,7 +3724,7 @@ export const JAR_MOVR_SOLAR_BNB_BUSD: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3759,7 +3759,7 @@ export const JAR_MOVR_SOLAR_WBTC_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3786,7 +3786,7 @@ export const JAR_MOVR_SOLAR_AVAX_MOVR: JarDefinition = {
     components: ["avax", "movr"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3857,7 +3857,7 @@ export const JAR_MOVR_SOLAR_MIM_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3912,7 +3912,7 @@ export const JAR_MOVR_SOLAR_MOVR_RIB: JarDefinition = {
     components: ["movr", "rib"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -3939,7 +3939,7 @@ export const JAR_MOVR_SOLAR_MOVR_RELAY: JarDefinition = {
     components: ["movr", "relay"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -4001,7 +4001,7 @@ export const JAR_MOVR_SOLAR_PETS_MOVR: JarDefinition = {
     components: ["pets", "movr"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -4029,7 +4029,7 @@ export const JAR_MOVR_SOLAR_FRAX_MOVR: JarDefinition = {
     components: ["frax", "movr"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -4056,7 +4056,7 @@ export const JAR_MOVR_SOLAR_MIM_MOVR: JarDefinition = {
     components: ["mim", "movr"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -4083,7 +4083,7 @@ export const JAR_MOVR_SOLAR_BNB_MOVR: JarDefinition = {
     components: ["bnb", "movr"],
   },
   rewardTokens: ["solar"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.SOLARBEAM,
   details: {
@@ -4145,7 +4145,7 @@ export const JAR_MOVR_FINN_DOT_FINN: JarDefinition = {
     },
   },
   rewardTokens: ["finn"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Moonriver,
   protocol: AssetProtocol.FINN,
   details: {
