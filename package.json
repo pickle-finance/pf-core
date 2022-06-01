@@ -1,6 +1,6 @@
 {
   "name": "picklefinance-core",
-  "version": "0.4.46",
+  "version": "0.4.47",
   "description": "A repository for all picklefinance core code",
   "engines": {
     "node": ">= 14.16"
