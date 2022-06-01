@@ -1,4 +1,5 @@
 import { ChainNetwork } from "../chain/Chains";
+import { PickleModel } from "../model/PickleModel";
 import { AssetProtocol } from "../model/PickleModelJson";
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 
@@ -43,5 +44,13 @@ export class SolidlyPairManager extends GenericSwapUtility {
       totalSupply: pair.totalSupply,
       pricePerToken: pair.reserveUSD / pair.totalSupply,
     };
+  }
+
+  async calculateLpApr(_model: PickleModel, _pair: string): Promise<number> {
+    /* 
+      Swap fees for Solidly gauges do not go to LP providers.
+      No point displaying LP APR
+    */
+    return 0;
   }
 }
