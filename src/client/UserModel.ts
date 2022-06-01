@@ -18,6 +18,7 @@ import {
   AssetProtocol,
   BrineryDefinition,
   JarDefinition,
+  XYK_SWAP_PROTOCOLS,
 } from "../model/PickleModelJson";
 import {
   ADDRESSES,
@@ -42,6 +43,8 @@ import {
   ExternalToken,
 } from "../price/ExternalTokenModel";
 import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
+import { ethers } from "ethers";
+import { ADDRESS_ZERO } from "@uniswap/v3-sdk";
 export interface UserTokens {
   [key: string]: UserTokenData;
 }
@@ -49,6 +52,17 @@ export interface UserTokens {
 export interface BalanceAllowance {
   balance: string;
   allowance: string;
+}
+
+export interface ChainNativetoken {
+  nativeAddress: string;
+  native: BalanceAllowance;
+  wrapped: {
+    [key: string]: BalanceAllowance; // keyed by asset protocol on particular chain
+  };
+}
+interface NativeTokens {
+  [key: string]: ChainNativetoken;
 }
 
 interface SingleRequiredComponentAllowance {
@@ -69,6 +83,7 @@ export interface UserTokenData {
 }
 export interface UserData {
   tokens: UserTokens;
+  nativeTokens: NativeTokens;
   earnings: IUserEarningsSummary;
   votes: IUserVote[];
   dill: IUserDillStats;
@@ -123,6 +138,7 @@ const emptyUserData = (): UserData => {
       earnings: 0,
       jarEarnings: [],
     },
+    nativeTokens: {},
     votes: [],
     dill: {
       pickleLocked: "0",
@@ -195,6 +211,7 @@ export class UserModel implements ConsoleErrorLogger {
         this.getUserDillStatsGuard(),
         this.getUserBrineryStatsGuard(),
         this.getUserPickles(),
+        this.getUserNativeBalances(),
       ]);
       if (this.callback !== undefined) {
         this.callback.modelFinished(this.workingData);
@@ -301,6 +318,105 @@ export class UserModel implements ConsoleErrorLogger {
       this.sendUpdate();
       DEBUG_OUT("End getUserTokens: " + (Date.now() - start));
       return {};
+    }
+  }
+
+  async getUserNativeBalances(): Promise<NativeTokens> {
+    DEBUG_OUT("Begin getUserNativeBalances");
+    const start = Date.now();
+    try {
+      const ret: NativeTokens = {};
+      await Promise.all(
+        this.getChainsToRun().map(async (x) => {
+          const chainRes = await this.getUserNativeSingleChain(x);
+          ret[x] = chainRes;
+          this.workingData.nativeTokens[x] = chainRes;
+        }),
+      );
+      this.sendUpdate();
+      DEBUG_OUT("End getUserNativeBalances: " + (Date.now() - start));
+      return ret;
+    } catch (err) {
+      this.logUserModelError("getUserNativeBalances", "" + err);
+      this.sendUpdate();
+      DEBUG_OUT("End getUserNativeBalances: " + (Date.now() - start));
+      return {};
+    }
+  }
+
+  async getUserNativeSingleChain(
+    chain: ChainNetwork,
+  ): Promise<ChainNativetoken> {
+    try {
+      const provider = this.providerFor(chain);
+      const wrappedNativeAddress = Chains.get(chain).wrappedNativeAddress;
+
+      const wrappedNativeContract = new Contract(
+        wrappedNativeAddress,
+        erc20Abi,
+        provider,
+      );
+
+      const [wrappedNativeBalance, nativeBalance] = await Promise.all([
+        wrappedNativeContract.balanceOf(this.walletId),
+        provider.getBalance(this.walletId),
+      ]);
+
+      const protocols = XYK_SWAP_PROTOCOLS.filter(
+        (x) => x.chain === chain && x.pickleZapAddress,
+      ).map((xykProtocol) => {
+        const { protocol, pickleZapAddress } = xykProtocol;
+        return {
+          protocol,
+          zapAddress: pickleZapAddress,
+        };
+      });
+
+      const wrappedNativeMc = new MulticallContract(
+        wrappedNativeAddress,
+        erc20Abi,
+      );
+
+      const allowances = await this.callMulti(
+        protocols.map((x) => () => {
+          return wrappedNativeMc.allowance(this.walletId, x.zapAddress);
+        }),
+        chain,
+      );
+
+      const nativeBalancesAndAlllowances = protocols.reduce(
+        (acc, protocol, idx) => {
+          return {
+            ...acc,
+            [protocol.protocol]: {
+              balance: wrappedNativeBalance.toString(),
+              allowance: allowances[idx].toString(),
+            },
+          };
+        },
+        {},
+      );
+
+      this.sendUpdate();
+      return {
+        nativeAddress: wrappedNativeAddress,
+        native: {
+          balance: nativeBalance.toString(),
+          allowance: ethers.constants.MaxUint256.toString(),
+        },
+        wrapped: nativeBalancesAndAlllowances,
+      };
+    } catch (error) {
+      this.logUserModelError(
+        "Loading user tokens on chain " + chain,
+        "" + error,
+      );
+      this.sendUpdate();
+      return {
+        nativeAddress: ADDRESS_ZERO,
+        native: { balance: "0", allowance: "0" },
+        wrapped: {},
+      };
     }
   }
 

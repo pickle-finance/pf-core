@@ -13,6 +13,7 @@ export abstract class AbstractChain implements IChain {
   multicallAddress?: string;
   gasToken: string;
   defaultPerformanceFee: number;
+  wrappedNativeAddress: string;
   private preferredProvider: Provider;
   private signer: Signer;
   constructor(rawChain: RawChain) {
@@ -23,6 +24,7 @@ export abstract class AbstractChain implements IChain {
     this.rpcProviderUrls = rawChain.rpcs;
     this.gasToken = rawChain.gasToken;
     this.defaultPerformanceFee = rawChain.defaultPerformanceFee;
+    this.wrappedNativeAddress = rawChain.wrappedNativeAddress;
     if (rawChain.multicallAddress)
       this.multicallAddress = rawChain.multicallAddress;
   }

@@ -156,13 +156,6 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     router: "0xa3a1eF5Ae6561572023363862e238aFA84C72ef5",
   },
   {
-    protocol: AssetProtocol.ROSE,
-    chain: ChainNetwork.Aurora,
-    zappable: false,
-    pickleZapAddress: "",
-    router: "",
-  },
-  {
     protocol: AssetProtocol.AURORASWAP,
     chain: ChainNetwork.Aurora,
     zappable: true,
@@ -246,13 +239,6 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: true,
     pickleZapAddress: "0x079546926bd2743b4a685E1551F9600Dc6BD5b28",
     router: "0xa38cd27185a464914D3046f0AB9d43356B34829D",
-  },
-  {
-    protocol: AssetProtocol.TECTONIC,
-    chain: ChainNetwork.Cronos,
-    zappable: false,
-    pickleZapAddress: "",
-    router: "",
   },
   {
     protocol: AssetProtocol.SWAPR,

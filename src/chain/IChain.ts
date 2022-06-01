@@ -9,6 +9,7 @@ export interface IChain {
   readonly secondsPerBlock: number;
   readonly gasToken: string;
   readonly defaultPerformanceFee: number;
+  readonly wrappedNativeAddress: string;
 
   getPreferredWeb3Provider(): Provider;
   setPreferredWeb3Provider(provider: Provider);
