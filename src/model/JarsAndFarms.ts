@@ -8688,6 +8688,34 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_ZIP);
 
+export const JAR_OPTIMISM_ZIP_ETH_OP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 1e",
+  contract: "0x143bF0f2bf1632eEEe03dD3a0Eeb5BDaA59f884E",
+  startBlock: 10163293,
+  depositToken: {
+    addr: "0x167dc49c498729223D1565dF3207771B4Ee19853",
+    name: "ZIP ETH/OP",
+    link: "https://www.zipswap.fi/#/add/v2/ETH/0x4200000000000000000000000000000000000042",
+    components: ["eth", "op"],
+  },
+  rewardTokens: ["zip"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.ZIPSWAP,
+  details: {
+    apiKey: "ZLP-ETH-OP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pZLP ETH/OP",
+    farmDepositTokenName: "pZLP ETH/OP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_ZIP_ETH_OP);
+
 export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 2a",

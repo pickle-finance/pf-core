@@ -2075,6 +2075,16 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "op",
+      null,
+      "optimism",
+      "0x4200000000000000000000000000000000000042".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+
     // Fantom
     this.addToken(
       ChainNetwork.Fantom,

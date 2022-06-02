@@ -424,6 +424,7 @@ import {
   JAR_GNOSIS_SWAPR_XDAI_WETH,
   JAR_GNOSIS_SWAPR_COW_GNO,
   JAR_MOVR_SOLAR_STKSM_XCKSM,
+  JAR_OPTIMISM_ZIP_ETH_OP,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -635,10 +636,6 @@ import { BeamGlmrUsdc } from "./impl/beam-glmr-usdc";
 import { BeamUsdcUsdt } from "./impl/beam-usdc-usdt";
 import { HadesMetis } from "./impl/metis-hades";
 import { HellshareMetis } from "./impl/metis-hellshare";
-import { ZipswapEthUsdc } from "./impl/optimism-zip-eth-usdc";
-import { ZipswapEthDai } from "./impl/optimism-zip-eth-dai";
-import { ZipswapEthBtc } from "./impl/optimism-zip-eth-btc";
-import { ZipswapEthZip } from "./impl/optimism-zip-eth-zip";
 import { BalancerJar } from "./impl/balancer-jar";
 import { MoonbeamFlareJar } from "./impl/flare-jar";
 import { FinnDotFinn } from "./impl/movr-finn-dot-finn";
@@ -703,6 +700,7 @@ import { GnosisSwaprXdaiWeth } from "./impl/gnosis-swapr-xdai-weth";
 import { GnosisSwaprCowGno } from "./impl/gnosis-swapr-cow-gno";
 import { GnosisSushiJar } from "./impl/gnosis-sushi-jar";
 import { SolarStksmXcksm } from "./impl/movr-solar-stksm-xcksm";
+import { ZipswapJar } from "./impl/optimism-zipswap-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1022,14 +1020,14 @@ jarToBehavior.set(JAR_FLARE_GLMR_USDC.id, new MoonbeamFlareJar());
 jarToBehavior.set(JAR_FLARE_GLMR_WBTC.id, new MoonbeamFlareJar());
 
 // Optimism
-jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapEthUsdc());
-jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapEthDai());
-jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapEthBtc());
-jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapEthZip());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapJar());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapJar());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapJar());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapJar());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_OP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
 
 // Fantom
-
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_ICE.id, new BooJar());
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_SPELL.id, new BooJar());
