@@ -8700,7 +8700,7 @@ export const JAR_OPTIMISM_ZIP_ETH_OP: JarDefinition = {
     components: ["eth", "op"],
   },
   rewardTokens: ["zip"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
   details: {
