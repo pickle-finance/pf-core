@@ -6,13 +6,14 @@ import {
 import {
   createAprComponentImpl,
   AbstractJarBehavior,
+  ONE_YEAR_IN_SECONDS
 } from "../AbstractJarBehavior";
 import { Contract as MultiContract } from "ethers-multicall";
 import { PickleModel } from "../../model/PickleModel";
 import swaprRewarderAbi from "../../Contracts/ABIs/swapr-rewarder.json";
-import { formatEther } from "ethers/lib/utils";
-import { ONE_YEAR_IN_SECONDS } from "../../behavior/AbstractJarBehavior";
+import { formatEther, formatUnits } from "ethers/lib/utils";
 import { Chains } from "../../chain/Chains";
+import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 
 // Info for individual rewarder contracts
 const swaprRewarders = {
@@ -108,11 +109,11 @@ export async function calculateGnosisSwaprAPY(
   return rewardsReturn;
 }
 
-export abstract class GnosisSwaprJar extends AbstractJarBehavior {
+export class GnosisSwaprJar extends AbstractJarBehavior {
   strategyAbi: any;
-  constructor(strategyAbi: any) {
+  constructor() {
     super();
-    this.strategyAbi = strategyAbi;
+    this.strategyAbi = swaprRewarderAbi;
   }
   async getHarvestableUSD(
     jar: JarDefinition,
@@ -121,12 +122,35 @@ export abstract class GnosisSwaprJar extends AbstractJarBehavior {
     const rewarder = swaprRewarders[jar.depositToken.addr].rewarder;
     const multicallRewarder = new MultiContract(rewarder, swaprRewarderAbi);
 
-    const harvestableReturn = await model.callMulti(
-      () => multicallRewarder.claimableRewards(jar.contract),
+    // Returns a list of claimable amounts
+    const claimablesBN = await model.callMulti(
+      () => multicallRewarder.claimableRewards(jar.details.strategyAddr),
       jar.chain,
     );
 
-    return harvestableReturn.reduce((x, y) => x + y);
+    /*
+      Get the claimables tokens
+      Note: some rewarders give out some weird worthless tokens 
+      (e.g, 0x070386C4d038FE96ECC9D7fB722b3378Aace4863 give an extra worthless token)
+    */
+    const tokensInfo = await model.callMulti(
+      claimablesBN.map((_, i) => () => multicallRewarder.rewards(i)),
+      jar.chain,
+    );
+    const rewardTokens = tokensInfo.map((info) =>
+      ExternalTokenModelSingleton.getToken(info.token, jar.chain),
+    );
+    
+    const claimablesUSD = claimablesBN
+      .map((c, i) => {
+        if (!rewardTokens[i]) return;
+        const price = model.priceOfSync(rewardTokens[i].contractAddr, jar.chain);
+        const claimable = parseFloat(formatUnits(c, rewardTokens[i].decimals));
+        return claimable * price;
+      })
+      .filter((x) => x);
+
+    return claimablesUSD.reduce((x, y) => x + y);
   }
 
   async getProjectedAprStats(
