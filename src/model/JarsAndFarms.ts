@@ -1876,7 +1876,6 @@ export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
     name: "UniV2 FRAX/TEMPLE",
     link: "https://www.stax.fi/app/vaults",
     components: ["temple", "frax"],
-    style: { erc20: false },
   },
   rewardTokens: ["fxs", "temple"],
   enablement: AssetEnablement.DEV,
