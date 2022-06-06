@@ -1874,7 +1874,7 @@ export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
   depositToken: {
     addr: "0x6021444f1706f15465bEe85463BCc7d7cC17Fc03",
     name: "UniV2 FRAX/TEMPLE",
-    link: "https://app.uniswap.org/#/add/0x853d955aCEf822Db058eb8505911ED77F175b99e/0x6B175474E89094C44Da98b954EedeAC495271d0F/500",
+    link: "https://www.stax.fi/app/vaults",
     components: ["temple", "frax"],
     style: { erc20: false },
   },
