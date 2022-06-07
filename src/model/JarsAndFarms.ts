@@ -1610,7 +1610,7 @@ export const JAR_UNIV3_LOOKS_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "looks"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
