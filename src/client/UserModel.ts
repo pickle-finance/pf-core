@@ -55,10 +55,11 @@ export interface BalanceAllowance {
 }
 
 export interface ChainNativetoken {
-  nativeAddress: string;
+  wrappedAddress: string;
   native: BalanceAllowance;
-  wrapped: {
-    [key: string]: BalanceAllowance; // keyed by asset protocol on particular chain
+  wrappedBalance: string;
+  wrappedAllowances: {
+    [key: string]: string; // keyed by asset protocol on particular chain
   };
 }
 interface NativeTokens {
@@ -384,27 +385,24 @@ export class UserModel implements ConsoleErrorLogger {
         chain,
       );
 
-      const nativeBalancesAndAlllowances = protocols.reduce(
-        (acc, protocol, idx) => {
-          return {
-            ...acc,
-            [protocol.protocol]: {
-              balance: wrappedNativeBalance.toString(),
-              allowance: allowances[idx].toString(),
-            },
-          };
-        },
-        {},
-      );
+      const wrappedAllowances = protocols.reduce((acc, protocol, idx) => {
+        return {
+          ...acc,
+          [protocol.protocol]: {
+            allowance: allowances[idx].toString(),
+          },
+        };
+      }, {});
 
       this.sendUpdate();
       return {
-        nativeAddress: wrappedNativeAddress,
+        wrappedAddress: wrappedNativeAddress,
         native: {
           balance: nativeBalance.toString(),
           allowance: ethers.constants.MaxUint256.toString(),
         },
-        wrapped: nativeBalancesAndAlllowances,
+        wrappedBalance: wrappedNativeBalance.toString(),
+        wrappedAllowances,
       };
     } catch (error) {
       this.logUserModelError(
@@ -413,9 +411,10 @@ export class UserModel implements ConsoleErrorLogger {
       );
       this.sendUpdate();
       return {
-        nativeAddress: ADDRESS_ZERO,
+        wrappedAddress: ADDRESS_ZERO,
         native: { balance: "0", allowance: "0" },
-        wrapped: {},
+        wrappedBalance: "0",
+        wrappedAllowances: {},
       };
     }
   }
