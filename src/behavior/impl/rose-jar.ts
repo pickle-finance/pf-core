@@ -6,7 +6,7 @@ import {
 } from "../../model/PickleModelJson";
 import roseFarmAbi from "../../Contracts/ABIs/rose-farm.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { createAprComponentImpl } from "../../behavior/AbstractJarBehavior";
@@ -23,7 +23,7 @@ export abstract class RoseJar extends AuroraMultistepHarvestJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["rose"],
@@ -45,18 +45,16 @@ export abstract class RoseJar extends AuroraMultistepHarvestJar {
     model: PickleModel,
   ): Promise<AssetAprComponent[]> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+    const multiProvider = model.multiproviderFor(jar.chain);
 
-    const multicallRoseRewards = new MultiContract(
+    const multicallRoseRewards = new Contract(
       this.rewarderAddress,
       roseFarmAbi,
     );
-    const [rewardData, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
-        () => multicallRoseRewards.totalSupply(),
-      ],
-      jar.chain,
-    );
+    const [rewardData, totalSupplyBN] = await multiProvider.all([
+      multicallRoseRewards.rewardData(model.address("rose", jar.chain)),
+      multicallRoseRewards.totalSupply(),
+    ]);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const roseRewardsPerYear =

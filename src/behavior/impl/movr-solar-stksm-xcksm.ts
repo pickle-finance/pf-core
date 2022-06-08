@@ -2,7 +2,7 @@ import { PickleModel } from "../../model/PickleModel";
 import { JarDefinition } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { MoonriverSolarJar } from "./moonriver-solar-jar";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { BigNumber } from "ethers";
@@ -19,7 +19,8 @@ export class SolarStksmXcksm extends MoonriverSolarJar {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const stksmMc = new MultiContract(
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const stksmMc = new Contract(
       ExternalTokenModelSingleton.getToken(
         "stksm",
         definition.chain,
@@ -27,7 +28,7 @@ export class SolarStksmXcksm extends MoonriverSolarJar {
       erc20Abi,
     );
 
-    const xcksmMc = new MultiContract(
+    const xcksmMc = new Contract(
       ExternalTokenModelSingleton.getToken(
         "xcksm",
         definition.chain,
@@ -35,16 +36,13 @@ export class SolarStksmXcksm extends MoonriverSolarJar {
       erc20Abi,
     );
 
-    const lpTokenMc = new MultiContract(definition.depositToken.addr, erc20Abi);
+    const lpTokenMc = new Contract(definition.depositToken.addr, erc20Abi);
 
-    const [stSupply, xcSupply, totalSupply] = await model.callMulti(
-      [
-        () => stksmMc.balanceOf(POOL),
-        () => xcksmMc.balanceOf(POOL),
-        () => lpTokenMc.totalSupply(),
-      ],
-      definition.chain,
-    );
+    const [stSupply, xcSupply, totalSupply] = await multiProvider.all([
+      stksmMc.balanceOf(POOL),
+      xcksmMc.balanceOf(POOL),
+      lpTokenMc.totalSupply(),
+    ]);
 
     const pricePerToken = stSupply
       .add(xcSupply)

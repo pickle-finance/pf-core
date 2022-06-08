@@ -2,7 +2,7 @@ import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import brlChefAbi from "../Contracts/ABIs/brl-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -40,19 +40,17 @@ export async function calculateBrlFarmsAPY(
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = brlPoolIds[jar.depositToken.addr];
-  const multicallBrlFarms = new MultiContract(BRL_FARMS, brlChefAbi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallBrlFarms = new Contract(BRL_FARMS, brlChefAbi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
   const [brlPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallBrlFarms.BRLPerBlock(),
-        () => multicallBrlFarms.totalAllocPoint(),
-        () => multicallBrlFarms.poolInfo(poolId),
-        () => lpToken.balanceOf(BRL_FARMS),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallBrlFarms.BRLPerBlock(),
+      multicallBrlFarms.totalAllocPoint(),
+      multicallBrlFarms.poolInfo(poolId),
+      lpToken.balanceOf(BRL_FARMS),
+    ]);
 
   const rewardsPerBlock =
     (parseFloat(formatEther(brlPerBlockBN)) * poolInfo.allocPoint.toNumber()) /

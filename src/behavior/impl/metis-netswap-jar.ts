@@ -5,7 +5,7 @@ import strategyABI from "../../Contracts/ABIs/strategy.json";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { BigNumber, ethers } from "ethers";
 
 export class NetswapJar extends AbstractJarBehavior {
@@ -45,7 +45,7 @@ export class NetswapJar extends AbstractJarBehavior {
       }
       return this.getHarvestableMultiRewards(jar, model, ["nett", tokenId]);
     } else {
-      return this.getHarvestableUSDCommsMgrImplementation(
+      return this.getHarvestableUSDDefaultImplementation(
         jar,
         model,
         ["nett"],
@@ -101,19 +101,16 @@ export class NetswapJar extends AbstractJarBehavior {
         ],
       },
     ];
-    const strategyContract = new MultiContract(
-      jar.details.strategyAddr,
-      stratAbi,
-    );
-    const [chefAddress, poolId] = await model.callMulti(
-      [() => strategyContract.masterchef(), () => strategyContract.poolId()],
-      jar.chain,
-    );
-    const chefContract = new MultiContract(chefAddress, chefAbi);
-    const rewardTokens = await model.callMulti(
-      () => chefContract.pendingTokens(poolId, jar.details.strategyAddr),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategyContract = new Contract(jar.details.strategyAddr, stratAbi);
+    const [chefAddress, poolId] = await multiProvider.all([
+      strategyContract.masterchef(),
+      strategyContract.poolId(),
+    ]);
+    const chefContract = new Contract(chefAddress, chefAbi);
+    const [rewardTokens] = await multiProvider.all([
+      chefContract.pendingTokens(poolId, jar.details.strategyAddr),
+    ]);
 
     const pendingHarvests: {
       [address: string]: {
@@ -158,14 +155,10 @@ export class NetswapJar extends AbstractJarBehavior {
     };
 
     const rewardTokensAddresses = Object.keys(pendingHarvests);
-    const stratBalancesBN: BigNumber[] = await model.callMulti(
-      rewardTokensAddresses.map(
-        (address) => () =>
-          new MultiContract(address, erc20Abi).balanceOf(
-            jar.details.strategyAddr,
-          ),
+    const stratBalancesBN: BigNumber[] = await multiProvider.all(
+      rewardTokensAddresses.map((address) =>
+        new Contract(address, erc20Abi).balanceOf(jar.details.strategyAddr),
       ),
-      jar.chain,
     );
 
     const stratBalances = stratBalancesBN.map((bal, idx) => {

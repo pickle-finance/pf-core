@@ -10,7 +10,7 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 
 const VAULT_ADDRESS = "0x20dd72Ed959b6147912C2e529F0a0C651c33c9ce";
@@ -101,7 +101,7 @@ export const getBalancerPoolDayAPY = async (
   model: PickleModel,
 ): Promise<number> => {
   const blocktime = Chains.get(jar.chain).secondsPerBlock;
-  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
+  const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
   const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(
@@ -127,7 +127,7 @@ export const getBalancerPerformance = async (
   model: PickleModel,
 ): Promise<HistoricalYield> => {
   const blocktime = Chains.get(jar.chain).secondsPerBlock;
-  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
+  const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
@@ -159,16 +159,16 @@ export const getPoolData = async (
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<number> => {
-  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
+  const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const graphResp: GraphResponse | undefined = await queryTheGraph(
     jar,
     blockNum,
   );
-  const poolContract = new MultiContract(jar.depositToken.addr, erc20Abi);
-  const poolTokenTotalSupplyBN: BigNumber = await model.callMulti(
-    () => poolContract.totalSupply(),
-    jar.chain,
-  );
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const poolContract = new Contract(jar.depositToken.addr, erc20Abi);
+  const [poolTokenTotalSupplyBN]: BigNumber[] = await multiProvider.all([
+    poolContract.totalSupply(),
+  ]);
   const poolTokenTotalSupply = parseFloat(
     ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
   ); // balancer LP tokens always have 18 decimals
@@ -182,11 +182,15 @@ export const getPoolData = async (
     try {
       // Less efficient. Fallback in case the graph doesn't work
       const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
-      const balVaultContract = new MultiContract(VAULT_ADDRESS, balVaultABI);
-      const poolTokensResp = await model.callMulti(
-        () => balVaultContract.callStatic["getPoolTokens"](vaultPoolId),
-        jar.chain,
+      const balVaultContract = new Contract(
+        VAULT_ADDRESS,
+        balVaultABI,
+        multiProvider,
       );
+      const poolTokensResp = await balVaultContract.callStatic.getPoolTokens(
+        vaultPoolId,
+      );
+
       const { tokens, balances } = poolTokensResp;
       const filtered = tokens.map((tokenAddr: string, i: number) => {
         return [
@@ -225,18 +229,16 @@ export const calculateBalPoolAPRs = async (
   pricePerToken: number,
 ): Promise<AssetAprComponent[]> => {
   const poolId = masterChefIds[jar.depositToken.addr.toLowerCase()];
-  const multicallMasterchef = new MultiContract(MC_ADDRESS, beethovenxChefAbi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallMasterchef = new Contract(MC_ADDRESS, beethovenxChefAbi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
   const [beetsPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallMasterchef.beetsPerBlock(),
-        () => multicallMasterchef.totalAllocPoint(),
-        () => multicallMasterchef.poolInfo(poolId),
-        () => lpToken.balanceOf(MC_ADDRESS),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallMasterchef.beetsPerBlock(),
+      multicallMasterchef.totalAllocPoint(),
+      multicallMasterchef.poolInfo(poolId),
+      lpToken.balanceOf(MC_ADDRESS),
+    ]);
   const totalSupply = parseFloat(ethers.utils.formatEther(totalSupplyBN));
   const rewardsPerBlock =
     (parseFloat(ethers.utils.formatEther(beetsPerBlockBN)) *

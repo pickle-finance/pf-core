@@ -9,7 +9,7 @@ import {
   ExternalTokenModelSingleton,
 } from "./ExternalTokenModel";
 import { DEBUG_OUT, PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 /*
  * This file could benefit from multi-calls and possibly even a caching
@@ -17,18 +17,16 @@ import { Contract as MultiContract } from "ethers-multicall";
  *
  */
 async function getPairReserves(
-  contract: MultiContract,
+  contract: Contract,
   model: PickleModel,
   chain: ChainNetwork,
 ) {
-  const [token0, token1, reserves] = await model.callMulti(
-    [
-      () => contract.token0(),
-      () => contract.token1(),
-      () => contract.getReserves(),
-    ],
-    chain,
-  );
+  const multiProvider = model.multiproviderFor(chain);
+  const [token0, token1, reserves] = await multiProvider.all([
+    contract.token0(),
+    contract.token1(),
+    contract.getReserves(),
+  ]);
 
   return {
     token0: token0.toLowerCase(),
@@ -71,7 +69,7 @@ export const fetchSingleTokenSwapPairPriceAndSave = async (
 ): Promise<void> => {
   const pairReserves = [];
   for (const pair of token.swapPairs) {
-    const poolContract = new MultiContract(pair, v2PoolABI);
+    const poolContract = new Contract(pair, v2PoolABI);
     const { token0, token1, reserves } = await getPairReserves(
       poolContract,
       model,
@@ -106,13 +104,14 @@ export const fetchSingleTokenSwapPairPriceAndSave = async (
       )[0];
     }
 
-    const numTokenContract = new MultiContract(numeratorToken, erc20Abi);
-    const denomTokenContract = new MultiContract(denomToken, erc20Abi);
+    const multiProvider = model.multiproviderFor(token.chain);
+    const numTokenContract = new Contract(numeratorToken, erc20Abi);
+    const denomTokenContract = new Contract(denomToken, erc20Abi);
 
-    const [numDecimals, denomDecimals] = await model.callMulti(
-      [() => numTokenContract.decimals(), () => denomTokenContract.decimals()],
-      token.chain,
-    );
+    const [numDecimals, denomDecimals] = await multiProvider.all([
+      numTokenContract.decimals(),
+      denomTokenContract.decimals(),
+    ]);
 
     // Get reserve values and normalize to 18 decimal places
     const numerator = pairReserves[i][numeratorToken]

@@ -9,7 +9,7 @@ import { CurveJar, getCurveRawStats } from "./curve-jar";
 import { formatEther } from "ethers/lib/utils";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateCurveApyArbitrum } from "../../protocols/CurveUtil";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 export class CrvTricrypto extends CurveJar {
   constructor() {
@@ -39,20 +39,18 @@ export class CrvTricrypto extends CurveJar {
     ];
     const triPool = "0x960ea3e3C7FB317332d990873d354E18d7645590";
     const triTokenAddress = "0x8e0b8c8bb9db49a46697f3a5bb8a308e744821d2";
-    const pool = new MultiContract(triPool, curvePoolAbi);
-    const triToken = new MultiContract(triTokenAddress, erc20Abi);
+    const pool = new Contract(triPool, curvePoolAbi);
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const triToken = new Contract(triTokenAddress, erc20Abi);
 
     const [balance0, balance1, balance2, supply, virtualPrice] =
-      await model.callMulti(
-        [
-          () => pool.balances(0),
-          () => pool.balances(1),
-          () => pool.balances(2),
-          () => triToken.totalSupply(),
-          () => pool.get_virtual_price(),
-        ],
-        definition.chain,
-      );
+      await multiProvider.all([
+        pool.balances(0),
+        pool.balances(1),
+        pool.balances(2),
+        triToken.totalSupply(),
+        pool.get_virtual_price(),
+      ]);
 
     const wbtcPrice = model.priceOfSync("wbtc", definition.chain);
     const ethPrice = model.priceOfSync("weth", definition.chain);
@@ -86,15 +84,14 @@ export class CrvTricrypto extends CurveJar {
       },
     ];
 
-    const gauge = new MultiContract(this.gaugeAddress, curveThirdPartyGaugeAbi);
-    const crv = await model.callMulti(
-      () =>
-        gauge.claimable_reward_write(
-          jar.details.strategyAddr,
-          model.address("crv", ChainNetwork.Arbitrum),
-        ),
-      jar.chain,
-    );
+    const gauge = new Contract(this.gaugeAddress, curveThirdPartyGaugeAbi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const [crv] = await multiProvider.all([
+      gauge.claimable_reward_write(
+        jar.details.strategyAddr,
+        model.address("crv", ChainNetwork.Arbitrum),
+      ),
+    ]);
     const crvPrice = model.priceOfSync("curve-dao-token", jar.chain);
     const harvestable = crv.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));

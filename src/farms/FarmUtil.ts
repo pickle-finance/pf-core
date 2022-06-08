@@ -6,7 +6,7 @@ import {
   NULL_ADDRESS,
   PickleModel,
 } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
 import MinichefAbi from "../Contracts/ABIs/minichef.json";
 import { ethers } from "ethers";
@@ -312,39 +312,25 @@ export async function loadGaugeDataEth(
   }
   const ethAddresses = ADDRESSES.get(ChainNetwork.Ethereum);
 
-  const proxy: MultiContract = new MultiContract(
-    ethAddresses.gaugeProxy,
-    gaugeProxyAbi,
-  );
-  const masterChef: MultiContract = new MultiContract(
+  const multiProvider = model.multiproviderFor(ChainNetwork.Ethereum);
+  const proxy: Contract = new Contract(ethAddresses.gaugeProxy, gaugeProxyAbi);
+  const masterChef: Contract = new Contract(
     ethAddresses.masterChef,
     MasterchefAbi,
   );
-  const [tokensOnProxy, totalWeight, ppb] = await model.callMulti(
-    [
-      () => proxy.tokens(),
-      () => proxy.totalWeight(),
-      () => masterChef.picklePerBlock(),
-    ],
-    ChainNetwork.Ethereum,
-  );
+  const [tokensOnProxy, totalWeight, ppb] = await multiProvider.all([
+    proxy.tokens(),
+    proxy.totalWeight(),
+    masterChef.picklePerBlock(),
+  ]);
 
-  const mcGaugeProxy = new MultiContract(
-    ethAddresses.gaugeProxy,
-    gaugeProxyAbi,
-  );
+  const mcGaugeProxy = new Contract(ethAddresses.gaugeProxy, gaugeProxyAbi);
   const tokens = tokensToQuery ? tokensToQuery : tokensOnProxy;
-  const gaugeAddressesPromises = model.callMulti(
-    tokens.map((token) => {
-      return () => mcGaugeProxy.getGauge(token);
-    }),
-    ChainNetwork.Ethereum,
+  const gaugeAddressesPromises = multiProvider.all(
+    tokens.map((token) => mcGaugeProxy.getGauge(token)),
   );
-  const gaugeWeightsPromises = model.callMulti(
-    tokens.map((token) => {
-      return () => mcGaugeProxy.weights(token);
-    }),
-    ChainNetwork.Ethereum,
+  const gaugeWeightsPromises = multiProvider.all(
+    tokens.map((token) => mcGaugeProxy.weights(token)),
   );
 
   const [gaugeAddresses, gaugeWeights] = await Promise.all([
@@ -352,19 +338,15 @@ export async function loadGaugeDataEth(
     gaugeWeightsPromises,
   ]);
 
-  const gaugeRewardRatesPromises = model.callMulti(
-    tokens.map((_token, index) => {
-      return () =>
-        new MultiContract(gaugeAddresses[index], gaugeAbi).rewardRate();
-    }),
-    ChainNetwork.Ethereum,
+  const gaugeRewardRatesPromises = multiProvider.all(
+    tokens.map((_token, index) =>
+      new Contract(gaugeAddresses[index], gaugeAbi).rewardRate(),
+    ),
   );
-  const derivedSuppliesPromises = model.callMulti(
-    tokens.map((_token, index) => {
-      return () =>
-        new MultiContract(gaugeAddresses[index], gaugeAbi).derivedSupply();
-    }),
-    ChainNetwork.Ethereum,
+  const derivedSuppliesPromises = multiProvider.all(
+    tokens.map((_token, index) =>
+      new Contract(gaugeAddresses[index], gaugeAbi).derivedSupply(),
+    ),
   );
 
   const [gaugeRewardRates, derivedSupplies] = await Promise.all([
@@ -416,32 +398,29 @@ export async function loadGaugeDataForMinichef(
 ): Promise<IRawGaugeData[]> {
   // TODO this implementation is not efficient if requesting only a single jar
   if (tokens !== undefined && tokens.length === 0) return [];
-  const minichef = new MultiContract(minichefAddr, MinichefAbi);
+  const multiProvider = model.multiproviderFor(chain);
+  const minichef = new Contract(minichefAddr, MinichefAbi);
   const [ppsBN, poolLengthBN] = await Promise.all([
-    model
-      .callMulti(() => minichef.picklePerSecond(), chain)
+    multiProvider
+      .all([minichef.picklePerSecond()])
+      .then((x) => x[0])
       .catch(() => ethers.BigNumber.from(0)),
-    model
-      .callMulti(() => minichef.poolLength(), chain)
+    multiProvider
+      .all([minichef.poolLength()])
+      .then((x) => x[0])
       .catch(() => ethers.BigNumber.from(0)),
   ]);
   const poolLength = parseFloat(poolLengthBN.toString());
   const picklePerSecond = parseFloat(ethers.utils.formatEther(ppsBN));
 
   // load pool infos
-  const miniChefMulticall = new MultiContract(minichefAddr, MinichefAbi);
+  const miniChefMulticall = new Contract(minichefAddr, MinichefAbi);
   const poolIds: number[] = Array.from(Array(poolLength).keys());
-  const lpTokens: any[] = await model.callMulti(
-    poolIds.map((id) => {
-      return () => miniChefMulticall.lpToken(id);
-    }),
-    chain,
+  const lpTokens: any[] = await multiProvider.all(
+    poolIds.map((id) => miniChefMulticall.lpToken(id)),
   );
-  const poolInfo: any[] = await model.callMulti(
-    poolIds.map((id) => {
-      return () => miniChefMulticall.poolInfo(id);
-    }),
-    chain,
+  const poolInfo: any[] = await multiProvider.all(
+    poolIds.map((id) => miniChefMulticall.poolInfo(id)),
   );
   const totalAllocPoints = poolInfo.reduce((acc, curr) => {
     return acc + curr.allocPoint.toNumber();

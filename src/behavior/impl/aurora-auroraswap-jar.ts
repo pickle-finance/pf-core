@@ -13,7 +13,7 @@ export abstract class AuroraBrlJar extends AuroraMultistepHarvestJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["brl"],

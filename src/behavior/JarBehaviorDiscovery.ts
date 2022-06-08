@@ -700,7 +700,6 @@ export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
     _jar: JarDefinition,
     _model: PickleModel,
-    _resolver: Signer | Provider,
   ): Promise<number> {
     return 0;
   }

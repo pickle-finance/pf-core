@@ -7,7 +7,7 @@ import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
 import { PoolId } from "../../protocols/ProtocolUtil";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { Chains } from "../../chain/Chains";
 
 const rallyIds: PoolId = {
@@ -20,7 +20,7 @@ export class RlyEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
+    return this.getHarvestableUSDMasterchefImplementation(
       jar,
       model,
       ["rly"],
@@ -49,23 +49,21 @@ export class RlyEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallRallyRewardPools = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallRallyRewardPools = new Contract(
       RALLY_REWARD_POOLS,
       rallyRewardPoolsAbi,
     );
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     const poolId = rallyIds[jar.depositToken.addr];
     const [rlyPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallRallyRewardPools.rallyPerBlock(),
-          () => multicallRallyRewardPools.totalAllocPoint(),
-          () => multicallRallyRewardPools.poolInfo(poolId),
-          () => lpToken.balanceOf(multicallRallyRewardPools.address),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallRallyRewardPools.rallyPerBlock(),
+        multicallRallyRewardPools.totalAllocPoint(),
+        multicallRallyRewardPools.poolInfo(poolId),
+        lpToken.balanceOf(multicallRallyRewardPools.address),
+      ]);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rlyPerBlock =

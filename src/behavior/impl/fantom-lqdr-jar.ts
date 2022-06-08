@@ -15,7 +15,7 @@ import {
 } from "../AbstractJarBehavior";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther, formatUnits } from "ethers/lib/utils";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { SpookyPairManager } from "../../protocols/SpookyUtil";
 import { SpiritPairManager } from "../../protocols/SpiritUtil";
@@ -50,7 +50,7 @@ const rewarderTotalAlloc = {
 export class LqdrJar extends AbstractJarBehavior {
   protected strategyAbi: any;
   protected rewarderAddr: string;
-  protected multicallRewarder: MultiContract;
+  protected multicallRewarder: Contract;
 
   constructor() {
     super();
@@ -69,7 +69,7 @@ export class LqdrJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     let runningTotal = 0;
-    const harvestableLqdrPromise = this.getHarvestableUSDCommsMgrImplementation(
+    const harvestableLqdrPromise = this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["lqdr"],
@@ -77,23 +77,16 @@ export class LqdrJar extends AbstractJarBehavior {
     );
 
     if (await this.rewarderContractExist(jar, model)) {
+      const multiProvider = model.multiproviderFor(jar.chain);
       const poolId = poolIds[jar.depositToken.addr];
-      const [rewardTokenAddr, pendingTokenBN] = await model.callMulti(
-        [
-          () => this.multicallRewarder.rewardToken(),
-          () =>
-            this.multicallRewarder.pendingToken(
-              poolId,
-              jar.details.strategyAddr,
-            ),
-        ],
-        jar.chain,
-      );
-      const rewardTokenContract = new MultiContract(rewardTokenAddr, erc20Abi);
-      const strategyBalanceBN = await model.callMulti(
-        () => rewardTokenContract.balanceOf(jar.details.strategyAddr),
-        jar.chain,
-      );
+      const [rewardTokenAddr, pendingTokenBN] = await multiProvider.all([
+        this.multicallRewarder.rewardToken(),
+        this.multicallRewarder.pendingToken(poolId, jar.details.strategyAddr),
+      ]);
+      const rewardTokenContract = new Contract(rewardTokenAddr, erc20Abi);
+      const [strategyBalanceBN] = await multiProvider.all([
+        rewardTokenContract.balanceOf(jar.details.strategyAddr),
+      ]);
       const rewardToken = ExternalTokenModelSingleton.getToken(
         rewardTokenAddr,
         jar.chain,
@@ -120,31 +113,25 @@ export class LqdrJar extends AbstractJarBehavior {
   ): Promise<AssetProjectedApr> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const poolId = poolIds[jar.depositToken.addr];
-
-    const multicallFarms = new MultiContract(LQDR_FARMS, lqdrFarmsAbi);
-    const [lqdrStrategyAddress, rewarderAddress] = await model.callMulti(
-      [
-        () => multicallFarms.strategies(poolId),
-        () => multicallFarms.rewarder(poolId),
-      ],
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallFarms = new Contract(LQDR_FARMS, lqdrFarmsAbi);
+    const [lqdrStrategyAddress, rewarderAddress] = await multiProvider.all([
+      multicallFarms.strategies(poolId),
+      multicallFarms.rewarder(poolId),
+    ]);
     this.rewarderAddr = rewarderAddress;
-    const lqdrStrategyContract = new MultiContract(
+    const lqdrStrategyContract = new Contract(
       lqdrStrategyAddress,
       lqdrStrategyAbi,
     );
 
     const [lqdrPerBlockBN, totalAllocPointBN, poolInfo, totalStakedBN] =
-      await model.callMulti(
-        [
-          () => multicallFarms.lqdrPerBlock(),
-          () => multicallFarms.totalAllocPoint(),
-          () => multicallFarms.poolInfo(poolId),
-          () => lqdrStrategyContract.balanceOfPool(),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallFarms.lqdrPerBlock(),
+        multicallFarms.totalAllocPoint(),
+        multicallFarms.poolInfo(poolId),
+        lqdrStrategyContract.balanceOfPool(),
+      ]);
     const blocksPerYear =
       ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
     const lqdrPerYear =
@@ -169,14 +156,11 @@ export class LqdrJar extends AbstractJarBehavior {
 
     if (await this.rewarderContractExist(jar, model)) {
       const [rewardTokenAddr, tokenPerBlockBN, rewardPoolInfo] =
-        await model.callMulti(
-          [
-            () => this.multicallRewarder.rewardToken(),
-            () => this.multicallRewarder.tokenPerBlock(),
-            () => this.multicallRewarder.poolInfo(poolId),
-          ],
-          jar.chain,
-        );
+        await multiProvider.all([
+          this.multicallRewarder.rewardToken(),
+          this.multicallRewarder.tokenPerBlock(),
+          this.multicallRewarder.poolInfo(poolId),
+        ]);
 
       const rewardToken = ExternalTokenModelSingleton.getToken(
         rewardTokenAddr,
@@ -221,23 +205,20 @@ export class LqdrJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<boolean> {
+    const multiProvider = model.multiproviderFor(jar.chain);
     if (!this.rewarderAddr) {
       const poolId = poolIds[jar.depositToken.addr];
-      const farms = new MultiContract(LQDR_FARMS, lqdrFarmsAbi);
-      const rewarderAddress = await model.callMulti(
-        () => farms.rewarder(poolId),
-        jar.chain,
-      );
+      const farms = new Contract(LQDR_FARMS, lqdrFarmsAbi);
+      const [rewarderAddress] = await multiProvider.all([
+        farms.rewarder(poolId),
+      ]);
       this.rewarderAddr = rewarderAddress;
     }
     if (
       !this.multicallRewarder &&
       Object.keys(rewarderTotalAlloc).includes(this.rewarderAddr)
     ) {
-      this.multicallRewarder = new MultiContract(
-        this.rewarderAddr,
-        lqdrRewarderAbi,
-      );
+      this.multicallRewarder = new Contract(this.rewarderAddr, lqdrRewarderAbi);
     }
 
     if (this.multicallRewarder) return true;

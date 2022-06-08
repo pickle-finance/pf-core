@@ -1,7 +1,7 @@
 import { PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { PoolId } from "./ProtocolUtil";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
 import { sorbettiereAbi } from "../Contracts/ABIs/sorbettiere.abi";
@@ -28,22 +28,20 @@ export async function calculateAbradabraApy(
 ): Promise<number> {
   const poolId = abracadabraIds[definition.depositToken.addr];
 
-  const multicallSorbettiereFarm = new MultiContract(
+  const multiProvider = model.multiproviderFor(definition.chain);
+  const multicallSorbettiereFarm = new Contract(
     SORBETTIERE_REWARDS,
     sorbettiereAbi,
   );
-  const lpToken = new MultiContract(definition.depositToken.addr, erc20Abi);
+  const lpToken = new Contract(definition.depositToken.addr, erc20Abi);
 
   const [icePerSecondBN, totalAllocPointBN, poolInfo, supplyInRewarderBN] =
-    await model.callMulti(
-      [
-        () => multicallSorbettiereFarm.icePerSecond(),
-        () => multicallSorbettiereFarm.totalAllocPoint(),
-        () => multicallSorbettiereFarm.poolInfo(poolId),
-        () => lpToken.balanceOf(multicallSorbettiereFarm.address),
-      ],
-      definition.chain,
-    );
+    await multiProvider.all([
+      multicallSorbettiereFarm.icePerSecond(),
+      multicallSorbettiereFarm.totalAllocPoint(),
+      multicallSorbettiereFarm.poolInfo(poolId),
+      lpToken.balanceOf(multicallSorbettiereFarm.address),
+    ]);
 
   const supplyInRewarder = parseFloat(formatEther(supplyInRewarderBN));
   const icePerSec: number = parseFloat(formatEther(icePerSecondBN));
@@ -67,22 +65,20 @@ export async function calculateAbracadabraApyArbitrum(
 ) {
   const lpTokenAddress: string = jar.depositToken.addr;
   const poolId = abracadabraIdsArbitrum[lpTokenAddress];
-  const multicallSorbettiereFarm = new MultiContract(
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallSorbettiereFarm = new Contract(
     SORBETTIERE_ARBITRUM,
     sorbettiereAbi,
   );
-  const lpToken = new MultiContract(lpTokenAddress, erc20Abi);
+  const lpToken = new Contract(lpTokenAddress, erc20Abi);
 
   const [icePerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallSorbettiereFarm.icePerSecond(),
-        () => multicallSorbettiereFarm.totalAllocPoint(),
-        () => multicallSorbettiereFarm.poolInfo(poolId),
-        () => lpToken.balanceOf(multicallSorbettiereFarm.address),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallSorbettiereFarm.icePerSecond(),
+      multicallSorbettiereFarm.totalAllocPoint(),
+      multicallSorbettiereFarm.poolInfo(poolId),
+      lpToken.balanceOf(multicallSorbettiereFarm.address),
+    ]);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const icePerSecond =

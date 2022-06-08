@@ -2,7 +2,7 @@ import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import aurigamiAbi from "../../Contracts/ABIs/aurigami.json";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther } from "ethers/lib/utils";
@@ -28,7 +28,7 @@ export class AuroraAurigamiJar extends AuroraMultistepHarvestJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["ply"],
@@ -43,12 +43,12 @@ export class AuroraAurigamiJar extends AuroraMultistepHarvestJar {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const poolId = auriPoolIds[jar.depositToken.addr];
-    const multicallAuriFarms = new MultiContract(REWARDS, aurigamiAbi);
+    const multicallAuriFarms = new Contract(REWARDS, aurigamiAbi);
+    const multiProvider = model.multiproviderFor(jar.chain);
 
-    const [poolInfo] = await model.callMulti(
-      [() => multicallAuriFarms.getPoolInfo(poolId)],
-      jar.chain,
-    );
+    const [poolInfo] = await multiProvider.all([
+      multicallAuriFarms.getPoolInfo(poolId),
+    ]);
 
     const { totalStake, rewardPerSeconds } = poolInfo;
 

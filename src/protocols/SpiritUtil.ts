@@ -8,7 +8,7 @@ import {
 import { GenericSwapUtility, IExtendedPairData } from "./GenericSwapUtil";
 import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import {
   createAprComponentImpl,
@@ -41,15 +41,16 @@ export async function calculateSpiritFarmsAPY(
   model: PickleModel,
 ): Promise<AssetAprComponent> {
   const gaugeAddr = spiritGauge[jar.depositToken.addr];
-  const multicallGauge = new MultiContract(gaugeAddr, gaugeAbi);
+  const multicallGauge = new Contract(gaugeAddr, gaugeAbi);
 
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-  const [rewardRateBN, totalSupplyBN] = await model.callMulti(
-    [() => multicallGauge.rewardRate(), () => lpToken.balanceOf(gaugeAddr)],
-    jar.chain,
-  );
+  const [rewardRateBN, totalSupplyBN] = await multiProvider.all([
+    multicallGauge.rewardRate(),
+    lpToken.balanceOf(gaugeAddr),
+  ]);
 
   // multiply the rewardRate by 0.4 for no boost
   const rewardsPerYear =

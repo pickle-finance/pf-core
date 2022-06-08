@@ -6,7 +6,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { formatEther } from "ethers/lib/utils";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 export class ArbitrumDodoUsdc extends AbstractJarBehavior {
   protected strategyAbi: any;
@@ -27,7 +27,7 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["dodo"],
@@ -42,11 +42,11 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     const rewards = "0x38Dbb42C4972116c88E27edFacD2451cf1b14255"; // DODO-USDC
     const DODO_PER_BLOCK = 0.51321;
 
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
-    const totalSupplyBN = await model.callMulti(
-      () => lpToken.balanceOf(rewards),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
+    const totalSupplyBN = await multiProvider
+      .all([lpToken.balanceOf(rewards)])
+      .then((x) => x[0]);
     const totalSupply = +formatEther(totalSupplyBN);
     const { pricePerToken } = await getLivePairDataFromContracts(
       jar,

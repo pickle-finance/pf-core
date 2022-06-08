@@ -6,7 +6,7 @@ import {
 } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import beamFarmsAbi from "../../Contracts/ABIs/beam-farms.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
@@ -42,7 +42,7 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["glint"],
@@ -72,16 +72,14 @@ export abstract class MoonbeamBeamJar extends AbstractJarBehavior {
   ): Promise<number> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const poolId = beamPoolIds[jar.depositToken.addr];
-    const multicallBeamFarms = new MultiContract(BEAM_FARMS, beamFarmsAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallBeamFarms = new Contract(BEAM_FARMS, beamFarmsAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
-    const [beamPerSecBN, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallBeamFarms.poolRewardsPerSec(poolId),
-        () => lpToken.balanceOf(BEAM_FARMS),
-      ],
-      jar.chain,
-    );
+    const [beamPerSecBN, totalSupplyBN] = await multiProvider.all([
+      multicallBeamFarms.poolRewardsPerSec(poolId),
+      lpToken.balanceOf(BEAM_FARMS),
+    ]);
 
     const rewardsPerYear =
       parseFloat(formatEther(beamPerSecBN.rewardsPerSec[0])) *

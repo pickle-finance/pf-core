@@ -7,7 +7,7 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import wannaChefAbi from "../Contracts/ABIs/wanna-farms.json";
 import wannaV2FarmsAbi from "../Contracts/ABIs/wanna-v2-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -43,8 +43,8 @@ export const wannaPoolV2Ids = {
     poolId: 2,
     rewarder: "0x7856aD9B2133302685C112557ED295974E1acc93",
     reward: "meta",
-  }
-}
+  },
+};
 
 export async function calculateWannaFarmsAPY(
   jar: JarDefinition,
@@ -59,47 +59,44 @@ export async function calculateWannaFarmsAPY(
     rewarder,
     extraRewardAPY = 0;
 
+  const multiProvider = model.multiproviderFor(jar.chain);
   if (Number.isInteger(wannaPoolIds[jar.depositToken.addr])) {
     const poolId = wannaPoolIds[jar.depositToken.addr];
-    const multicallWannaFarms = new MultiContract(WANNA_FARMS, wannaChefAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallWannaFarms = new Contract(WANNA_FARMS, wannaChefAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     [wannaPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallWannaFarms.wannaPerBlock(),
-          () => multicallWannaFarms.totalAllocPoint(),
-          () => multicallWannaFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(WANNA_FARMS),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallWannaFarms.wannaPerBlock(),
+        multicallWannaFarms.totalAllocPoint(),
+        multicallWannaFarms.poolInfo(poolId),
+        lpToken.balanceOf(WANNA_FARMS),
+      ]);
   } else if (Number.isInteger(wannaPoolV2Ids[jar.depositToken.addr]?.poolId)) {
     const poolId = wannaPoolV2Ids[jar.depositToken.addr]?.poolId;
-    const multicallWannaV2Farms = new MultiContract(WANNA_V2_FARMS, wannaV2FarmsAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallWannaV2Farms = new Contract(WANNA_V2_FARMS, wannaV2FarmsAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     [wannaPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN, rewarder] =
-      await model.callMulti(
-        [
-          () => multicallWannaV2Farms.wannaPerBlock(),
-          () => multicallWannaV2Farms.totalAllocPoint(),
-          () => multicallWannaV2Farms.poolInfo(poolId),
-          () => lpToken.balanceOf(WANNA_V2_FARMS),
-          () => multicallWannaV2Farms.rewarder(poolId),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallWannaV2Farms.wannaPerBlock(),
+        multicallWannaV2Farms.totalAllocPoint(),
+        multicallWannaV2Farms.poolInfo(poolId),
+        lpToken.balanceOf(WANNA_V2_FARMS),
+        multicallWannaV2Farms.rewarder(poolId),
+      ]);
 
     if (!wannaPoolV2Ids[jar.depositToken.addr]?.rewarder) {
       extraRewardAPY = 0;
     } else {
-      const rewarderContract = new MultiContract(wannaPoolV2Ids[jar.depositToken.addr]?.rewarder, sushiComplexRewarderAbi);
-
-      const extraRewardPerBlock = await model.callMulti(
-        () => rewarderContract.rewardPerBlock(),
-        jar.chain,
+      const rewarderContract = new Contract(
+        wannaPoolV2Ids[jar.depositToken.addr]?.rewarder,
+        sushiComplexRewarderAbi,
       );
+
+      const [extraRewardPerBlock] = await multiProvider.all([
+        rewarderContract.rewardPerBlock(),
+      ]);
 
       const rewardId = wannaPoolV2Ids[jar.depositToken.addr]?.reward;
       const extraRewardRewardsPerYear =
@@ -108,12 +105,14 @@ export async function calculateWannaFarmsAPY(
             extraRewardPerBlock,
             model.tokenDecimals(rewardId, jar.chain),
           ),
-        ) * ONE_YEAR_IN_SECONDS *
+        ) *
+          ONE_YEAR_IN_SECONDS *
           model.priceOfSync(rewardId, jar.chain)) /
         Chains.get(jar.chain).secondsPerBlock;
       const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
-      extraRewardAPY = extraRewardRewardsPerYear / (totalSupply * pricePerToken);
+      extraRewardAPY =
+        extraRewardRewardsPerYear / (totalSupply * pricePerToken);
     }
   }
 
@@ -136,13 +135,13 @@ export async function calculateWannaFarmsAPY(
     createAprComponentImpl("wanna", wannaAPY * 100, true, 0.9),
     ...(extraRewardAPY > 0
       ? [
-        createAprComponentImpl(
-          wannaPoolV2Ids[jar.depositToken.addr]?.reward,
-          extraRewardAPY * 100,
-          true,
-          0.9,
-        ),
-      ]
+          createAprComponentImpl(
+            wannaPoolV2Ids[jar.depositToken.addr]?.reward,
+            extraRewardAPY * 100,
+            true,
+            0.9,
+          ),
+        ]
       : []),
   ];
 }

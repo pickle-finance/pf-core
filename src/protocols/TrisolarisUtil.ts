@@ -8,7 +8,7 @@ import triFarmsAbi from "../Contracts/ABIs/tri-farms.json";
 import triv2FarmsAbi from "../Contracts/ABIs/triv2-farms.json";
 import sushiComplexRewarderAbi from "../Contracts/ABIs/sushi-complex-rewarder.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -170,53 +170,47 @@ export async function calculateTriFarmsAPY(
     totalSupplyBN,
     rewarder,
     extraRewardAPY = 0;
+  const multiProvider = model.multiproviderFor(jar.chain);
   if (Number.isInteger(triPoolIds[jar.depositToken.addr])) {
     const poolId = triPoolIds[jar.depositToken.addr];
-    const multicallTriFarms = new MultiContract(TRI_FARMS, triFarmsAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallTriFarms = new Contract(TRI_FARMS, triFarmsAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     [triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallTriFarms.triPerBlock(),
-          () => multicallTriFarms.totalAllocPoint(),
-          () => multicallTriFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(TRI_FARMS),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallTriFarms.triPerBlock(),
+        multicallTriFarms.totalAllocPoint(),
+        multicallTriFarms.poolInfo(poolId),
+        lpToken.balanceOf(TRI_FARMS),
+      ]);
   } else if (Number.isInteger(triPoolV2Ids[jar.depositToken.addr]?.poolId)) {
     const poolId = triPoolV2Ids[jar.depositToken.addr]?.poolId;
-    const multicallTriV2Farms = new MultiContract(TRI_V2_FARMS, triv2FarmsAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallTriV2Farms = new Contract(TRI_V2_FARMS, triv2FarmsAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     // First get TRI APY
     [triPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN, rewarder] =
-      await model.callMulti(
-        [
-          () => multicallTriV2Farms.triPerBlock(),
-          () => multicallTriV2Farms.totalAllocPoint(),
-          () => multicallTriV2Farms.poolInfo(poolId),
-          () => lpToken.balanceOf(TRI_V2_FARMS),
-          () => multicallTriV2Farms.rewarder(poolId),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallTriV2Farms.triPerBlock(),
+        multicallTriV2Farms.totalAllocPoint(),
+        multicallTriV2Farms.poolInfo(poolId),
+        lpToken.balanceOf(TRI_V2_FARMS),
+        multicallTriV2Farms.rewarder(poolId),
+      ]);
 
     // Return extraReward APY of 0 if there's no rewarder
     if (!triPoolV2Ids[jar.depositToken.addr]?.rewarder) {
       extraRewardAPY = 0;
     } else {
       // Get extraReward APY
-      const rewarderContract = new MultiContract(
+      const rewarderContract = new Contract(
         triPoolV2Ids[jar.depositToken.addr]?.rewarder,
         sushiComplexRewarderAbi,
       );
 
-      const extraRewardPerBlock = await model.callMulti(
-        () => rewarderContract.tokenPerBlock(),
-        jar.chain,
-      );
+      const [extraRewardPerBlock] = await multiProvider.all([
+        rewarderContract.tokenPerBlock(),
+      ]);
 
       const rewardId = triPoolV2Ids[jar.depositToken.addr]?.reward;
       const extraRewardRewardsPerYear =
@@ -258,24 +252,23 @@ export async function calculateTriFarmsAPY(
         true,
         0.9,
       ),
-    ]
+    ];
   } else {
     return [
       createAprComponentImpl("tri", triAPY * 100, true, 0.9),
       ...(extraRewardAPY > 0
         ? [
-          createAprComponentImpl(
-            triPoolV2Ids[jar.depositToken.addr]?.reward,
-            extraRewardAPY * 100,
-            true,
-            0.9,
-          ),
-        ]
+            createAprComponentImpl(
+              triPoolV2Ids[jar.depositToken.addr]?.reward,
+              extraRewardAPY * 100,
+              true,
+              0.9,
+            ),
+          ]
         : []),
     ];
   }
 }
-
 
 const TRI_PAIR_CACHE_KEY = "triswap.pair.data.cache.key";
 

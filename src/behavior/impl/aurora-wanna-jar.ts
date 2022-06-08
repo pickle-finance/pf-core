@@ -17,7 +17,7 @@ export abstract class AuroraWannaJar extends AuroraMultistepHarvestJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
+    return this.getHarvestableUSDMasterchefImplementation(
       jar,
       model,
       ["wanna"],

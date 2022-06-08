@@ -2,7 +2,7 @@ import { JarDefinition } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import fossilFarmsAbi from "../Contracts/ABIs/fossil-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -18,18 +18,16 @@ export async function calculateFossilFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
 ) {
-  const multicallFossilFarms = new MultiContract(FOSSIL_FARMS, fossilFarmsAbi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallFossilFarms = new Contract(FOSSIL_FARMS, fossilFarmsAbi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
   const [dinoPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallFossilFarms.dinoPerBlock(),
-        () => multicallFossilFarms.totalAllocPoint(),
-        () => multicallFossilFarms.poolInfo(dinoPoolIds[jar.depositToken.addr]),
-        () => lpToken.balanceOf(FOSSIL_FARMS),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallFossilFarms.dinoPerBlock(),
+      multicallFossilFarms.totalAllocPoint(),
+      multicallFossilFarms.poolInfo(dinoPoolIds[jar.depositToken.addr]),
+      lpToken.balanceOf(FOSSIL_FARMS),
+    ]);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const rewardsPerBlock =

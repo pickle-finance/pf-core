@@ -12,7 +12,7 @@ import {
   createAprComponentImpl,
   ONE_YEAR_IN_SECONDS,
 } from "../AbstractJarBehavior";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { TethysPairManager } from "../../protocols/TethysUtil";
 import { formatEther } from "ethers/lib/utils";
 
@@ -34,7 +34,7 @@ export class HadesJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["hellshare"],
@@ -63,19 +63,17 @@ export class HadesJar extends AbstractJarBehavior {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const poolId = hadesPoolIds[jar.depositToken.addr];
-    const multicallHadesFarms = new MultiContract(HADES_FARM, hadesFarmAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallHadesFarms = new Contract(HADES_FARM, hadesFarmAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     const [hadesPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallHadesFarms.tSharePerSecond(),
-          () => multicallHadesFarms.totalAllocPoint(),
-          () => multicallHadesFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(HADES_FARM),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallHadesFarms.tSharePerSecond(),
+        multicallHadesFarms.totalAllocPoint(),
+        multicallHadesFarms.poolInfo(poolId),
+        lpToken.balanceOf(HADES_FARM),
+      ]);
 
     const rewardsPerYear =
       (parseFloat(formatEther(hadesPerSecBn)) *

@@ -1,9 +1,4 @@
-import { Provider } from "@ethersproject/abstract-provider";
-import { Signer } from "@ethersproject/abstract-signer";
-import {
-  Provider as MulticallProvider,
-  Contract as MulticallContract,
-} from "ethers-multicall";
+import { MultiProvider, Contract } from "ethers-multiprovider";
 import { BigNumber } from "@ethersproject/bignumber";
 import { ChainNetwork, Chains, PickleModelJson } from "..";
 import { getUserJarSummary, IUserEarningsSummary } from "./UserEarnings";
@@ -27,24 +22,14 @@ import {
   getZeroValueMulticallForChain,
   getZeroValueMulticallForNonErc20,
 } from "../model/PickleModel";
-import { Contract } from "@ethersproject/contracts";
-import {
-  Dill,
-  Dill__factory,
-  Erc20,
-  Erc20__factory,
-  FeeDistributorV2,
-  FeeDistributorV2__factory,
-  FeeDistributor,
-  FeeDistributor__factory,
-} from "../Contracts/ContractsImpl";
 import {
   ExternalTokenModelSingleton,
   ExternalToken,
 } from "../price/ExternalTokenModel";
-import { ChainsConfigs, CommsMgr } from "../util/CommsMgr";
-import { ethers } from "ethers";
+import { ethers, Signer } from "ethers";
 import { ADDRESS_ZERO } from "@uniswap/v3-sdk";
+import { CommsMgrV2 } from "../util/CommsMgrV2";
+
 export interface UserTokens {
   [key: string]: UserTokenData;
 }
@@ -166,11 +151,11 @@ export class UserModel implements ConsoleErrorLogger {
   walletId: string;
   workingData: UserData;
   configuredChains: ChainNetwork[];
-  commsMgr: CommsMgr;
+  commsMgr2: CommsMgrV2;
   constructor(
     model: PickleModelJson.PickleModelJson,
     walletId: string,
-    rpcs: Map<ChainNetwork, Provider | Signer>,
+    rpcs: Map<ChainNetwork, ethers.providers.Provider | Signer>,
     callback?: IUserModelCallback,
   ) {
     if (callback) {
@@ -194,17 +179,16 @@ export class UserModel implements ConsoleErrorLogger {
   }
 
   async initCommsMgr(): Promise<void> {
-    const CHAINS_CONFIGS: ChainsConfigs = {
+    const CHAINS_CONFIGS = {
       default: { secondsBetweenCalls: 0.5, callsPerMulticall: 80 },
     };
-    this.commsMgr = new CommsMgr(this, CHAINS_CONFIGS);
-    await this.commsMgr.configureRPCs(Chains.list());
-    this.commsMgr.start();
+    this.commsMgr2 = new CommsMgrV2();
+    await this.commsMgr2.init();
   }
 
   async generateUserModel(): Promise<UserData> {
-    await this.initCommsMgr();
     try {
+      await this.initCommsMgr();
       await Promise.all([
         this.getUserTokens(),
         this.getUserEarningsSummary(),
@@ -219,13 +203,13 @@ export class UserModel implements ConsoleErrorLogger {
       }
       return this.workingData;
     } finally {
-      this.commsMgr.stop();
+      await this.commsMgr2.stop();
     }
   }
 
   async generateMinimalModel(): Promise<UserData> {
-    await this.initCommsMgr();
     try {
+      await this.initCommsMgr();
       await Promise.all([
         this.getUserTokens(),
         this.getUserEarningsSummary(),
@@ -236,7 +220,7 @@ export class UserModel implements ConsoleErrorLogger {
       }
       return this.workingData;
     } finally {
-      this.commsMgr.stop();
+      await this.commsMgr2.stop();
     }
   }
 
@@ -265,10 +249,11 @@ export class UserModel implements ConsoleErrorLogger {
               const contract = new Contract(
                 ADDRESSES.get(x).pickle,
                 erc20Abi,
-                this.providerFor(x),
+                this.multiproviderFor(x),
               );
-              r = await contract
-                .balanceOf(this.walletId)
+              r = await this.multiproviderFor(x)
+                .all([contract.balanceOf(this.walletId)])
+                .then((x) => x[0])
                 .catch(() => BigNumber.from("0"));
             }
             this.workingData.pickles[x.toString()] = r.toString();
@@ -349,18 +334,20 @@ export class UserModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
   ): Promise<ChainNativetoken> {
     try {
-      const provider = this.providerFor(chain);
+      const multiProvider = this.multiproviderFor(chain);
       const wrappedNativeAddress = Chains.get(chain).wrappedNativeAddress;
 
       const wrappedNativeContract = new Contract(
         wrappedNativeAddress,
         erc20Abi,
-        provider,
+        multiProvider,
       );
 
       const [wrappedNativeBalance, nativeBalance] = await Promise.all([
-        wrappedNativeContract.balanceOf(this.walletId),
-        provider.getBalance(this.walletId),
+        multiProvider
+          .all([wrappedNativeContract.balanceOf(this.walletId)])
+          .then((x) => x[0]),
+        multiProvider.getBalance(this.walletId),
       ]);
 
       const protocols = XYK_SWAP_PROTOCOLS.filter(
@@ -373,16 +360,12 @@ export class UserModel implements ConsoleErrorLogger {
         };
       });
 
-      const wrappedNativeMc = new MulticallContract(
-        wrappedNativeAddress,
-        erc20Abi,
-      );
+      const wrappedNativeMc = new Contract(wrappedNativeAddress, erc20Abi);
 
-      const allowances = await this.callMulti(
-        protocols.map((x) => () => {
-          return wrappedNativeMc.allowance(this.walletId, x.zapAddress);
-        }),
-        chain,
+      const allowances = await multiProvider.all(
+        protocols.map((x) =>
+          wrappedNativeMc.allowance(this.walletId, x.zapAddress),
+        ),
       );
 
       const wrappedAllowances = protocols.reduce((acc, protocol, idx) => {
@@ -452,6 +435,7 @@ export class UserModel implements ConsoleErrorLogger {
   ): Promise<UserTokenData[]> {
     const ret = [];
 
+    const multiProvider = this.multiproviderFor(chain);
     /* Only include assets with pTokens */
     const chainAssets = Object.values(this.model.assets)
       .flat()
@@ -472,15 +456,15 @@ export class UserModel implements ConsoleErrorLogger {
         (x) => x.chain === chain,
       );
 
-    const depositTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
-      chainAssets.flatMap((x) => () => {
+    const depositTokenBalancesPromise: Promise<BigNumber[]> = multiProvider.all(
+      chainAssets.flatMap((x) => {
         DEBUG_OUT("start depositTokenBalancesPromise for " + x.details.apiKey);
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) {
           return erc20Guard;
         }
         if (x.protocol === AssetProtocol.UNISWAP_V3) {
-          const mcContract0 = new MulticallContract(
+          const mcContract0 = new Contract(
             this.model.tokens.find(
               (token) =>
                 token.chain === chain &&
@@ -488,7 +472,7 @@ export class UserModel implements ConsoleErrorLogger {
             ).contractAddr,
             erc20Abi,
           );
-          const mcContract1 = new MulticallContract(
+          const mcContract1 = new Contract(
             this.model.tokens.find(
               (token) =>
                 token.chain === chain &&
@@ -501,11 +485,10 @@ export class UserModel implements ConsoleErrorLogger {
             mcContract1.balanceOf(this.walletId),
           ];
         }
-        const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
+        const mcContract = new Contract(x.depositToken.addr, erc20Abi);
         const rval = mcContract.balanceOf(this.walletId);
         return rval;
       }),
-      chain,
     );
 
     const userAllowanceOfChainTokensPromise: Promise<
@@ -516,37 +499,34 @@ export class UserModel implements ConsoleErrorLogger {
       allChainTokens,
     );
 
-    const pTokenBalancesPromise: Promise<BigNumber[]> = this.callMulti(
-      chainAssets.map((x) => () => {
+    const pTokenBalancesPromise: Promise<BigNumber[]> = multiProvider.all(
+      chainAssets.map((x) => {
         DEBUG_OUT("start pTokenBalancesPromise for " + x.details.apiKey);
 
-        const mcContract = new MulticallContract(x.contract, erc20Abi);
+        const mcContract = new Contract(x.contract, erc20Abi);
         return mcContract.balanceOf(this.walletId);
       }),
-      chain,
     );
 
-    const jarAllowancePromise: Promise<BigNumber[]> = this.callMulti(
-      chainAssets.map((x) => () => {
+    const jarAllowancePromise: Promise<BigNumber[]> = multiProvider.all(
+      chainAssets.map((x) => {
         DEBUG_OUT("start jarAllowancePromise for " + x.details.apiKey);
         const erc20Guard = getZeroValueMulticallForNonErc20(x);
         if (erc20Guard) return erc20Guard;
-        const mcContract = new MulticallContract(x.depositToken.addr, erc20Abi);
+        const mcContract = new Contract(x.depositToken.addr, erc20Abi);
         return mcContract.allowance(this.walletId, x.contract);
       }),
-      chain,
     );
 
-    const farmAllowancePromise: Promise<BigNumber[]> = this.callMulti(
-      chainAssets.map((x) => () => {
+    const farmAllowancePromise: Promise<BigNumber[]> = multiProvider.all(
+      chainAssets.map((x) => {
         if (x.farm && x.farm.farmAddress) {
-          const mcContract = new MulticallContract(x.contract, erc20Abi);
+          const mcContract = new Contract(x.contract, erc20Abi);
           return mcContract.allowance(this.walletId, x.farm.farmAddress);
         } else {
           return getZeroValueMulticallForChain(x.chain);
         }
       }),
-      chain,
     );
 
     let stakedAndPendingPromise: Promise<StakedAndPendingRet> = undefined;
@@ -563,102 +543,129 @@ export class UserModel implements ConsoleErrorLogger {
     }
 
     const userBalanceOfChainTokensPromise: Promise<BigNumber[]> =
-      this.callMulti(
-        allChainTokens.map(
-          (x) => () =>
-            new MulticallContract(x.contractAddr, erc20Abi).balanceOf(
-              this.walletId,
-            ),
+      multiProvider.all(
+        allChainTokens.map((x) =>
+          new Contract(x.contractAddr, erc20Abi).balanceOf(this.walletId),
         ),
-        chain,
       );
 
-    let depositTokenBalances = [];
-    let userBalanceOfChainTokens = [];
-    let userAllowanceOfChainTokens: SingleRequiredComponentAllowance[] = [];
-    let pTokenBalances = [];
-    let stakedInFarm = [];
-    let picklePending = [];
-    let jarAllowance = [];
-    let farmAllowance = [];
-    try {
-      depositTokenBalances = await depositTokenBalancesPromise;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading deposit token balances on chain " + chain,
-        "" + error,
-      );
-      depositTokenBalances = [];
-    }
-    try {
-      userBalanceOfChainTokens = await userBalanceOfChainTokensPromise;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading user Balance Of Chain Tokens on chain " + chain,
-        "" + error,
-      );
-      userBalanceOfChainTokens = [];
-    }
-    try {
-      userAllowanceOfChainTokens = await userAllowanceOfChainTokensPromise;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading user Balance Of Component Tokens on chain " + chain,
-        "" + error,
-      );
-      userAllowanceOfChainTokens = [];
-    }
+    // let depositTokenBalances = [];
+    // let userBalanceOfChainTokens = [];
+    // let userAllowanceOfChainTokens: SingleRequiredComponentAllowance[] = [];
+    // let pTokenBalances = [];
+    // let stakedInFarm = [];
+    // let picklePending = [];
+    // let jarAllowance = [];
+    // let farmAllowance = [];
 
-    try {
-      DEBUG_OUT("Initializing ptoken balances");
-      pTokenBalances = await pTokenBalancesPromise;
-      DEBUG_OUT(
-        "Finished Initializing ptoken balances: " +
-          JSON.stringify(pTokenBalances),
-      );
-    } catch (error) {
-      this.logUserModelError(
-        "Loading ptoken balances on chain " + chain,
-        "" + error,
-      );
-      pTokenBalances = [];
-    }
-    try {
-      stakedInFarm = (await stakedAndPendingPromise).staked;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading staked ptoken balances on chain " + chain,
-        "" + error,
-      );
-      stakedInFarm = [];
-    }
-    try {
-      picklePending = (await stakedAndPendingPromise).pending;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading pending pickles on chain " + chain,
-        "" + error,
-      );
-      picklePending = [];
-    }
-    try {
-      jarAllowance = await jarAllowancePromise;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading deposit token allowances on chain " + chain,
-        "" + error,
-      );
-      jarAllowance = [];
-    }
-    try {
-      farmAllowance = await farmAllowancePromise;
-    } catch (error) {
-      this.logUserModelError(
-        "Loading ptoken allowances on chain " + chain,
-        "" + error,
-      );
-      farmAllowance = [];
-    }
+    const [
+      depositTokenBalances,
+      userBalanceOfChainTokens,
+      userAllowanceOfChainTokens,
+      pTokenBalances,
+      stakedInFarm,
+      picklePending,
+      jarAllowance,
+      farmAllowance,
+    ] = await Promise.allSettled([
+      depositTokenBalancesPromise,
+      userBalanceOfChainTokensPromise,
+      userAllowanceOfChainTokensPromise,
+      pTokenBalancesPromise,
+      stakedAndPendingPromise.then((x) => x.staked),
+      stakedAndPendingPromise.then((x) => x.pending),
+      jarAllowancePromise,
+      farmAllowancePromise,
+    ]).then((x) =>
+      x.map((z) => {
+        if (z.status === "fulfilled") {
+          return z.value;
+        }
+        this.logUserModelError(
+          "getUserTokensSingleChain on chain " + chain,
+          "" + z.reason,
+        );
+        return [];
+      }),
+    );
+    // try {
+    //   depositTokenBalances = await depositTokenBalancesPromise;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading deposit token balances on chain " + chain,
+    //     "" + error,
+    //   );
+    //   depositTokenBalances = [];
+    // }
+    // try {
+    //   userBalanceOfChainTokens = await userBalanceOfChainTokensPromise;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading user Balance Of Chain Tokens on chain " + chain,
+    //     "" + error,
+    //   );
+    //   userBalanceOfChainTokens = [];
+    // }
+    // try {
+    //   userAllowanceOfChainTokens = await userAllowanceOfChainTokensPromise;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading user Balance Of Component Tokens on chain " + chain,
+    //     "" + error,
+    //   );
+    //   userAllowanceOfChainTokens = [];
+    // }
+
+    // try {
+    //   DEBUG_OUT("Initializing ptoken balances");
+    //   pTokenBalances = await pTokenBalancesPromise;
+    //   DEBUG_OUT(
+    //     "Finished Initializing ptoken balances: " +
+    //       JSON.stringify(pTokenBalances),
+    //   );
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading ptoken balances on chain " + chain,
+    //     "" + error,
+    //   );
+    //   pTokenBalances = [];
+    // }
+    // try {
+    //   stakedInFarm = (await stakedAndPendingPromise).staked;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading staked ptoken balances on chain " + chain,
+    //     "" + error,
+    //   );
+    //   stakedInFarm = [];
+    // }
+    // try {
+    //   picklePending = (await stakedAndPendingPromise).pending;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading pending pickles on chain " + chain,
+    //     "" + error,
+    //   );
+    //   picklePending = [];
+    // }
+    // try {
+    //   jarAllowance = await jarAllowancePromise;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading deposit token allowances on chain " + chain,
+    //     "" + error,
+    //   );
+    //   jarAllowance = [];
+    // }
+    // try {
+    //   farmAllowance = await farmAllowancePromise;
+    // } catch (error) {
+    //   this.logUserModelError(
+    //     "Loading ptoken allowances on chain " + chain,
+    //     "" + error,
+    //   );
+    //   farmAllowance = [];
+    // }
     for (let j = 0; j < chainAssets.length; j++) {
       DEBUG_OUT(
         "Creating usertoken data " + j + " " + chainAssets[j].details.apiKey,
@@ -669,8 +676,8 @@ export class UserModel implements ConsoleErrorLogger {
         componentTokenBalances: this.getComponentTokensForJar(
           chainAssets[j],
           allChainTokens,
-          userBalanceOfChainTokens,
-          userAllowanceOfChainTokens,
+          <BigNumber[]>userBalanceOfChainTokens,
+          <SingleRequiredComponentAllowance[]>userAllowanceOfChainTokens,
         ),
         pAssetBalance: pTokenBalances[j]?.toString() || "0",
         pStakedBalance: stakedInFarm[j]?.toString() || "0",
@@ -744,6 +751,7 @@ export class UserModel implements ConsoleErrorLogger {
     chainAssets: JarDefinition[],
     allChainTokens: ExternalToken[],
   ): Promise<SingleRequiredComponentAllowance[]> {
+    const multiProvider = this.multiproviderFor(chain);
     const requiredComponentAllowances: SingleRequiredComponentAllowance[] = [];
     const uni3Assets = chainAssets.filter(
       (x) => x.protocol === AssetProtocol.UNISWAP_V3,
@@ -763,15 +771,13 @@ export class UserModel implements ConsoleErrorLogger {
       }
     }
     const userAllowanceOfChainTokensPromise: Promise<BigNumber[]> =
-      this.callMulti(
-        requiredComponentAllowances.map(
-          (x) => () =>
-            new MulticallContract(x.componentContract, erc20Abi).allowance(
-              this.walletId,
-              x.assetContract,
-            ),
+      multiProvider.all(
+        requiredComponentAllowances.map((x) =>
+          new Contract(x.componentContract, erc20Abi).allowance(
+            this.walletId,
+            x.assetContract,
+          ),
         ),
-        chain,
       );
 
     try {
@@ -794,6 +800,7 @@ export class UserModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
     chainAssets: PickleModelJson.JarDefinition[],
   ): Promise<StakedAndPendingRet> {
+    const multiProvider = this.multiproviderFor(chain);
     const chef = ADDRESSES.get(chain).minichef;
     const skip: boolean =
       chef === null || chef === undefined || chef === NULL_ADDRESS;
@@ -811,22 +818,16 @@ export class UserModel implements ConsoleErrorLogger {
     } else {
       const poolLengthBN: BigNumber = skip
         ? BigNumber.from(0)
-        : await new Contract(
-            chef,
-            minichefAbi,
-            this.providerFor(chain),
-          ).poolLength();
+        : await multiProvider
+            .all([new Contract(chef, minichefAbi).poolLength()])
+            .then((x) => x[0]);
       const poolLength = parseFloat(poolLengthBN.toString());
       const poolIds: number[] = Array.from(Array(poolLength).keys());
-      const miniChefMulticall: MulticallContract = new MulticallContract(
-        chef,
-        minichefAbi,
-      );
-      const lpTokens: string[] = await this.callMulti(
-        poolIds.map((id) => () => {
+      const miniChefMulticall: Contract = new Contract(chef, minichefAbi);
+      const lpTokens: string[] = await multiProvider.all(
+        poolIds.map((id) => {
           return miniChefMulticall.lpToken(id);
         }),
-        chain,
       );
       const lpLower: string[] = lpTokens.map((x) => x.toLowerCase());
       const stakedInFarmPromise = this.getStakedInFarmMinichef(
@@ -861,15 +862,15 @@ export class UserModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
     chainAssets: JarDefinition[],
   ): Promise<BigNumber[]> {
+    const multiProvider = this.multiproviderFor(chain);
     const filteredChainAssets = chainAssets.filter(
       (x) => x.farm && x.farm.farmAddress,
     );
-    const stakedBalances: BigNumber[] = await this.callMulti(
-      filteredChainAssets.map((x) => () => {
-        const mcContract = new MulticallContract(x.farm.farmAddress, gaugeAbi);
+    const stakedBalances: BigNumber[] = await multiProvider.all(
+      filteredChainAssets.map((x) => {
+        const mcContract = new Contract(x.farm.farmAddress, gaugeAbi);
         return mcContract.balanceOf(this.walletId);
       }),
-      chain,
     );
 
     // return an array with the same indexes as in the input jar
@@ -889,15 +890,12 @@ export class UserModel implements ConsoleErrorLogger {
     lpLower: string[],
   ): Promise<BigNumber[]> {
     const chef = ADDRESSES.get(chain).minichef;
-    const miniChefMulticall: MulticallContract = new MulticallContract(
-      chef,
-      minichefAbi,
-    );
-    const userInfos: any[] = await this.callMulti(
-      poolIds.map((id) => () => {
+    const multiProvider = this.multiproviderFor(chain);
+    const miniChefMulticall: Contract = new Contract(chef, minichefAbi);
+    const userInfos: any[] = await multiProvider.all(
+      poolIds.map((id) => {
         return miniChefMulticall.userInfo(id, this.walletId);
       }),
-      chain,
     );
     const ret: BigNumber[] = [];
     for (let i = 0; i < chainAssets.length; i++) {
@@ -917,15 +915,15 @@ export class UserModel implements ConsoleErrorLogger {
     chain: ChainNetwork,
     chainAssets: JarDefinition[],
   ): Promise<BigNumber[]> {
+    const multiProvider = this.multiproviderFor(chain);
     const filteredChainAssets = chainAssets.filter(
       (x) => x.farm && x.farm.farmAddress,
     );
-    const pending: BigNumber[] = await this.callMulti(
-      filteredChainAssets.map((x) => () => {
-        const mcContract = new MulticallContract(x.farm.farmAddress, gaugeAbi);
+    const pending: BigNumber[] = await multiProvider.all(
+      filteredChainAssets.map((x) => {
+        const mcContract = new Contract(x.farm.farmAddress, gaugeAbi);
         return mcContract.earned(this.walletId);
       }),
-      chain,
     );
 
     // return an array with the same indexes as in the input jar
@@ -944,16 +942,13 @@ export class UserModel implements ConsoleErrorLogger {
     poolIds: number[],
     lpLower: string[],
   ): Promise<BigNumber[]> {
+    const multiProvider = this.multiproviderFor(chain);
     const chef = ADDRESSES.get(chain).minichef;
-    const miniChefMulticall: MulticallContract = new MulticallContract(
-      chef,
-      minichefAbi,
-    );
-    const picklePending: BigNumber[] = await this.callMulti(
-      poolIds.map((id) => () => {
+    const miniChefMulticall: Contract = new Contract(chef, minichefAbi);
+    const picklePending: BigNumber[] = await multiProvider.all(
+      poolIds.map((id) => {
         return miniChefMulticall.pendingPickle(id, this.walletId);
       }),
-      chain,
     );
     const ret: BigNumber[] = [];
     for (let i = 0; i < chainAssets.length; i++) {
@@ -986,19 +981,22 @@ export class UserModel implements ConsoleErrorLogger {
     }
   }
   async getUserGaugeVotes(): Promise<IUserVote[]> {
+    const multiProvider = this.multiproviderFor(ChainNetwork.Ethereum);
     const gaugeProxy = ADDRESSES.get(ChainNetwork.Ethereum).gaugeProxy;
     const gaugeProxyContract = new Contract(
       gaugeProxy,
       gaugeProxyAbi,
-      this.providerFor(ChainNetwork.Ethereum),
+      multiProvider,
     );
-    const eligibleTokens: string[] = await gaugeProxyContract.tokens();
-    const gaugeProxyMC = new MulticallContract(gaugeProxy, gaugeProxyAbi);
-    const userVotes: BigNumber[] = await this.callMulti(
-      eligibleTokens.map((x) => () => {
+    const [eligibleTokens]: string[][] = await multiProvider.all([
+      gaugeProxyContract.tokens(),
+    ]);
+
+    const gaugeProxyMC = new Contract(gaugeProxy, gaugeProxyAbi);
+    const userVotes: BigNumber[] = await multiProvider.all(
+      eligibleTokens.map((x) => {
         return gaugeProxyMC.votes(this.walletId, x);
       }),
-      ChainNetwork.Ethereum,
     );
     const ret: IUserVote[] = [];
     for (let i = 0; i < userVotes.length; i++) {
@@ -1065,7 +1063,59 @@ export class UserModel implements ConsoleErrorLogger {
       };
     }
   }
+
   async getUserDillStats(): Promise<IUserDillStats> {
+    const feeDist1Abi = [
+      {
+        name: "claim",
+        outputs: [{ type: "uint256", name: "" }],
+        inputs: [{ type: "address", name: "_addr" }],
+        stateMutability: "view",
+        type: "function",
+      },
+    ];
+    const feeDist2Abi = [
+      {
+        name: "claim",
+        inputs: [{ name: "_addr", type: "address" }],
+        stateMutability: "view",
+        outputs: [
+          { name: "", type: "uint256" },
+          { name: "", type: "uint256" },
+        ],
+        type: "function",
+      },
+      {
+        name: "claim_all",
+        stateMutability: "view",
+        inputs: [{ name: "_addr", type: "address" }],
+        outputs: [
+          { name: "", type: "uint256" },
+          { name: "", type: "uint256" },
+        ],
+        type: "function",
+      },
+    ];
+    const dillAbi = [
+      {
+        name: "balanceOf",
+        outputs: [{ type: "uint256", name: "" }],
+        inputs: [{ type: "address", name: "addr" }],
+        stateMutability: "view",
+        type: "function",
+      },
+      {
+        name: "locked",
+        outputs: [
+          { type: "int128", name: "amount" },
+          { type: "uint256", name: "end" },
+        ],
+        inputs: [{ type: "address", name: "arg0" }],
+        stateMutability: "view",
+        type: "function",
+        gas: "3359",
+      },
+    ];
     const dillContractAddr: string = ADDRESSES.get(ChainNetwork.Ethereum).dill;
     const feeDistributorAddrV2: string = ADDRESSES.get(
       ChainNetwork.Ethereum,
@@ -1073,53 +1123,42 @@ export class UserModel implements ConsoleErrorLogger {
     const feeDistributorAddr: string = ADDRESSES.get(
       ChainNetwork.Ethereum,
     ).feeDistributor;
-    const dillContract: Dill = Dill__factory.connect(
-      dillContractAddr,
-      this.providerFor(ChainNetwork.Ethereum),
+    const multiProvider = this.multiproviderFor(ChainNetwork.Ethereum);
+    const dillContract = new Contract(dillContractAddr, dillAbi, multiProvider);
+    const feeDistributorContract = new Contract(
+      feeDistributorAddr,
+      feeDist1Abi,
+      multiProvider,
     );
-    const feeDistributorContract: FeeDistributor =
-      FeeDistributor__factory.connect(
-        feeDistributorAddr,
-        this.providerFor(ChainNetwork.Ethereum),
-      );
-    const feeDistributorContractV2: FeeDistributorV2 =
-      FeeDistributorV2__factory.connect(
-        feeDistributorAddrV2,
-        this.providerFor(ChainNetwork.Ethereum),
-      );
+    const feeDistributorContractV2 = new Contract(
+      feeDistributorAddrV2,
+      feeDist2Abi,
+      multiProvider,
+    );
 
-    const pickleContract: Erc20 = Erc20__factory.connect(
+    const pickleContract = new Contract(
       ADDRESSES.get(ChainNetwork.Ethereum).pickle,
-      this.providerFor(ChainNetwork.Ethereum),
+      erc20Abi,
+      multiProvider,
     );
 
-    const [
-      lockStats,
-      balance,
-      claimable,
-      userClaimable,
-      allowance,
-      totalClaimable,
-    ] = await Promise.all([
-      dillContract.locked(this.walletId, { gasLimit: 1000000 }),
-      dillContract["balanceOf(address)"](this.walletId, { gasLimit: 1000000 }),
-      feeDistributorContract.callStatic["claim(address)"](this.walletId, {
-        gasLimit: 1000000,
-      }),
-      feeDistributorContractV2.callStatic["claim(address)"](this.walletId, {
-        gasLimit: 1000000,
-      }),
-      pickleContract.allowance(this.walletId, dillContractAddr),
-      feeDistributorContractV2.callStatic["claim_all(address)"](this.walletId, {
-        gasLimit: 9000000,
-      }).catch((err) => {
+    const [lockStats, balance, claimable, userClaimable, allowance] =
+      await multiProvider.all([
+        dillContract.locked(this.walletId),
+        dillContract.balanceOf(this.walletId),
+        feeDistributorContract.claim(this.walletId),
+        feeDistributorContractV2.claim(this.walletId),
+        pickleContract.allowance(this.walletId, dillContractAddr),
+      ]);
+    const totalClaimable = await feeDistributorContractV2.callStatic
+      .claim_all(this.walletId)
+      .catch((err) => {
         this.logUserModelError(
           "in getUserDillStats: total claimable",
           "" + err,
         );
         return [0, 0];
-      }),
-    ]);
+      });
 
     // To handle edge case if totalCLaimable call fails
     let totalClaimableV2 = totalClaimable;
@@ -1145,35 +1184,27 @@ export class UserModel implements ConsoleErrorLogger {
     const userBrineries = await Promise.all(
       brineries.map(
         async (asset: BrineryDefinition): Promise<UserBrineryData> => {
-          const mcBrineryContract = new MulticallContract(
-            asset.contract,
-            brineryAbi,
-          );
+          const multiProvider = this.multiproviderFor(asset.chain);
+          const mcBrineryContract = new Contract(asset.contract, brineryAbi);
 
-          const mcDepositToken = new MulticallContract(
+          const mcDepositToken = new Contract(
             asset.depositToken.addr,
             erc20Abi,
           );
-          const [userPendingBN, userBalanceBN] = await this.callMulti(
-            [
-              () => mcBrineryContract.claimable(this.walletId),
-              () => mcBrineryContract.balanceOf(this.walletId),
-              () => mcBrineryContract.index(),
-              () => mcBrineryContract.supplyIndex(this.walletId),
-              () => mcDepositToken.balanceOf(this.walletId),
-              () => mcDepositToken.allowance(this.walletId, asset.contract),
-            ],
-            asset.chain,
-          );
+          const [userPendingBN, userBalanceBN] = await multiProvider.all([
+            mcBrineryContract.claimable(this.walletId),
+            mcBrineryContract.balanceOf(this.walletId),
+            mcBrineryContract.index(),
+            mcBrineryContract.supplyIndex(this.walletId),
+            mcDepositToken.balanceOf(this.walletId),
+            mcDepositToken.allowance(this.walletId, asset.contract),
+          ]);
 
           const [userDepositBalanceBN, userBrineryAllowanceBN] =
-            await this.callMulti(
-              [
-                () => mcDepositToken.balanceOf(this.walletId),
-                () => mcDepositToken.allowance(this.walletId, asset.contract),
-              ],
-              asset.chain,
-            );
+            await multiProvider.all([
+              mcDepositToken.balanceOf(this.walletId),
+              mcDepositToken.allowance(this.walletId, asset.contract),
+            ]);
 
           const pickleLockedUnderlying =
             asset.details.pickleLockedUnderlying || 1;
@@ -1239,19 +1270,8 @@ export class UserModel implements ConsoleErrorLogger {
     return retval;
   }
 
-  providerFor(network: ChainNetwork): Provider {
-    return Chains.get(network).getPreferredWeb3Provider();
-  }
-  multicallProviderFor(chain: ChainNetwork): MulticallProvider {
-    return new MulticallProvider(this.providerFor(chain), Chains.get(chain).id);
-  }
-
-  async callMulti(
-    // tslint:disable-next-line
-    contractCallback: Function | Function[],
-    chain: ChainNetwork,
-  ) {
-    return await this.commsMgr.callMulti(contractCallback, chain);
+  multiproviderFor(network: ChainNetwork): MultiProvider {
+    return this.commsMgr2.getProvider(network);
   }
 }
 interface StakedAndPendingRet {

@@ -1,4 +1,4 @@
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ethers } from "ethers";
 import { Chains, PickleModel } from "../..";
 import {
@@ -28,18 +28,18 @@ export class BeetXJar extends AbstractJarBehavior {
       try {
         this.pricePerToken = await getPoolData(jar, model);
         if (jar.depositToken.addr === fBeets) {
-          const fBeetsMulticontract = new MultiContract(fBeets, erc20Abi);
-          const fBeetsUnderlyingMulticontract = new MultiContract(
+          const multiProvider = model.multiproviderFor(jar.chain);
+
+          const fBeetsMulticontract = new Contract(fBeets, erc20Abi);
+          const fBeetsUnderlyingMulticontract = new Contract(
             fBeetsUnderlying,
             erc20Abi,
           );
-          const [fBeetsTotalSupplyBN, underlyingLocked] = await model.callMulti(
-            [
-              () => fBeetsMulticontract.totalSupply(),
-              () => fBeetsUnderlyingMulticontract.balanceOf(fBeets),
-            ],
-            jar.chain,
-          );
+          const [fBeetsTotalSupplyBN, underlyingLocked] =
+            await multiProvider.all([
+              fBeetsMulticontract.totalSupply(),
+              fBeetsUnderlyingMulticontract.balanceOf(fBeets),
+            ]);
           const ratio =
             parseFloat(ethers.utils.formatEther(underlyingLocked)) /
             parseFloat(ethers.utils.formatEther(fBeetsTotalSupplyBN));
@@ -83,8 +83,8 @@ export class BeetXJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    if (jar.id === "fanJar 4d") return 0;
-    return this.getHarvestableUSDCommsMgrImplementation(
+    // if (jar.id === "fanJar 4d") return 0;
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["beets"],

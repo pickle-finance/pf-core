@@ -4,7 +4,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { foldingStrategyAbi } from "../../Contracts/ABIs/folding-strategy.abi";
 import AaveStrategyAbi from "../../Contracts/ABIs/aave-strategy.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork } from "../../chain/Chains";
 import fetch from "cross-fetch";
 
@@ -21,14 +21,9 @@ export class DaiJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const strategy = new MultiContract(
-      jar.details.strategyAddr,
-      foldingStrategyAbi,
-    );
-    const matic = await model.callMulti(
-      () => strategy.getMaticAccrued(),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategy = new Contract(jar.details.strategyAddr, foldingStrategyAbi);
+    const [matic] = await multiProvider.all([strategy.getMaticAccrued()]);
     const maticPrice = model.priceOfSync("matic", jar.chain);
     const harvestable = matic.mul(maticPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
@@ -66,16 +61,14 @@ export class DaiJar extends AbstractJarBehavior {
         super.createAprComponent("Error Loading APY", 0, false),
       ]);
 
-    const aaveStrategy = new MultiContract(strategyAddress, AaveStrategyAbi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const aaveStrategy = new Contract(strategyAddress, AaveStrategyAbi);
     const [supplied, borrowed, balance] = (
-      await model.callMulti(
-        [
-          () => aaveStrategy.getSuppliedView(),
-          () => aaveStrategy.getBorrowedView(),
-          () => aaveStrategy.balanceOfPool(),
-        ],
-        jar.chain,
-      )
+      await multiProvider.all([
+        aaveStrategy.getSuppliedView(),
+        aaveStrategy.getBorrowedView(),
+        aaveStrategy.balanceOfPool(),
+      ])
     ).map((x) => parseFloat(ethers.utils.formatEther(x)));
 
     let rawSupplyAPY = +pool["avg1DaysLiquidityRate"];

@@ -14,7 +14,7 @@ import {
 } from "../../protocols/SolarUtil";
 import solarV2Abi from "../../Contracts/ABIs/solarv2-farms.json";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { BigNumber, ethers } from "ethers";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { Chains } from "../..";
@@ -46,17 +46,15 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
         type: "function",
       },
     ];
-    const strategyContract = new MultiContract(
-      jar.details.strategyAddr,
-      stratAbi,
-    );
-    const [chefAddress, poolId]: [string, BigNumber] = await model.callMulti(
-      [() => strategyContract.solarChef(), () => strategyContract.poolId()],
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategyContract = new Contract(jar.details.strategyAddr, stratAbi);
+    const [chefAddress, poolId] = await multiProvider.all([
+      strategyContract.solarChef(),
+      strategyContract.poolId(),
+    ]);
     switch (chefAddress) {
       case SOLAR_FARMS:
-        return this.getHarvestableUSDMasterchefCommsMgrImplementation(
+        return this.getHarvestableUSDMasterchefImplementation(
           jar,
           model,
           ["solar"],
@@ -64,7 +62,6 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
           "pendingSolar",
           poolId.toNumber(),
         );
-        break;
 
       case SOLAR_V2_FARMS:
       case SOLAR_V3_FARMS:
@@ -74,7 +71,6 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
           chefAddress,
           poolId.toNumber(),
         );
-        break;
 
       default:
         model.logError(
@@ -92,11 +88,11 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     chefAddress: string,
     poolId: number,
   ): Promise<number> {
-    const chefContract = new MultiContract(chefAddress, solarV2Abi);
-    const rewardTokens = await model.callMulti(
-      () => chefContract.pendingTokens(poolId, jar.details.strategyAddr),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const chefContract = new Contract(chefAddress, solarV2Abi);
+    const [rewardTokens] = await multiProvider.all([
+      chefContract.pendingTokens(poolId, jar.details.strategyAddr),
+    ]);
 
     const pendingHarvests: {
       [address: string]: {
@@ -147,14 +143,10 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
     });
 
     const rewardTokensAddresses = Object.keys(pendingHarvests);
-    const stratBalancesBN: BigNumber[] = await model.callMulti(
-      rewardTokensAddresses.map(
-        (address) => () =>
-          new MultiContract(address, erc20Abi).balanceOf(
-            jar.details.strategyAddr,
-          ),
+    const stratBalancesBN: BigNumber[] = await multiProvider.all(
+      rewardTokensAddresses.map((address) =>
+        new Contract(address, erc20Abi).balanceOf(jar.details.strategyAddr),
       ),
-      jar.chain,
     );
 
     const stratBalances = stratBalancesBN.map((bal, idx) => {

@@ -1,4 +1,4 @@
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import stargateStrategyAbi from "../../Contracts/ABIs/stargate-strategy.json";
@@ -67,16 +67,17 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const strategy = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategy = new Contract(
       jar.details.strategyAddr,
       stargateStrategyAbi,
     );
-    const pool = new MultiContract(jar.depositToken.addr, pool_abi);
+    const pool = new Contract(jar.depositToken.addr, pool_abi);
 
-    const [underlying, ratio] = await model.callMulti(
-      [() => strategy.underlying(), () => pool.convertRate()],
-      jar.chain,
-    );
+    const [underlying, ratio] = await multiProvider.all([
+      strategy.underlying(),
+      pool.convertRate(),
+    ]);
     const underlyingPrice = model.priceOfSync(underlying, jar.chain);
 
     return underlyingPrice * parseFloat(ratio);
@@ -86,7 +87,7 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["stg"],
@@ -101,22 +102,19 @@ export class StargateJar extends AbstractJarBehavior {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const starAddresses = starMapping[jar.chain];
-    const starchefMC = new MultiContract(starAddresses.farm, starchefAbi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const starchefMC = new Contract(starAddresses.farm, starchefAbi);
 
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     const [stgPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN, decimals] =
-      await model.callMulti(
-        [
-          () => starchefMC.stargatePerBlock(),
-          () => starchefMC.totalAllocPoint(),
-          () =>
-            starchefMC.poolInfo(starAddresses.poolId[jar.depositToken.addr]),
-          () => lpToken.balanceOf(starAddresses.farm),
-          () => lpToken.decimals(),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        starchefMC.stargatePerBlock(),
+        starchefMC.totalAllocPoint(),
+        starchefMC.poolInfo(starAddresses.poolId[jar.depositToken.addr]),
+        lpToken.balanceOf(starAddresses.farm),
+        lpToken.decimals(),
+      ]);
 
     const rewardsPerYear =
       (parseFloat(formatEther(stgPerSecBn)) *

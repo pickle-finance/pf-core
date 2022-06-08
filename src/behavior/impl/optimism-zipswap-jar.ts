@@ -2,7 +2,7 @@ import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import zipFarms from "../../Contracts/ABIs/zip-farms.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
@@ -31,7 +31,7 @@ export class ZipswapJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["zip"],
@@ -56,19 +56,17 @@ export class ZipswapJar extends AbstractJarBehavior {
   ): Promise<number> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const poolId = zipPoolIds[jar.depositToken.addr];
-    const multicallZipFarms = new MultiContract(ZIP_FARMS, zipFarms);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallZipFarms = new Contract(ZIP_FARMS, zipFarms);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     const [zipPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallZipFarms.zipPerSecond(),
-          () => multicallZipFarms.totalAllocPoint(),
-          () => multicallZipFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(ZIP_FARMS),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallZipFarms.zipPerSecond(),
+        multicallZipFarms.totalAllocPoint(),
+        multicallZipFarms.poolInfo(poolId),
+        lpToken.balanceOf(ZIP_FARMS),
+      ]);
 
     const rewardsPerYear =
       (parseFloat(formatEther(zipPerSecondBN)) *

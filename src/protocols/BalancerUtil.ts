@@ -1,4 +1,5 @@
-import { BigNumber, Contract, ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
+import { Contract } from "ethers-multiprovider";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20 from "../Contracts/ABIs/erc20.json";
 import { ChainNetwork, Chains, PickleModel } from "..";
@@ -84,7 +85,7 @@ export const getBalancerPoolDayAPY = async (
     jar.chain === ChainNetwork.Arbitrum
       ? 3 // in Chains.ts the value is wrongly set to 13
       : Chains.get(jar.chain).secondsPerBlock;
-  const blockNum = await model.providerFor(jar.chain).getBlockNumber();
+  const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
   const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(
@@ -113,7 +114,7 @@ export const getBalancerPerformance = async (
     asset.chain === ChainNetwork.Arbitrum
       ? 3 // in Chains.ts the value is wrongly set to 13
       : Chains.get(asset.chain).secondsPerBlock;
-  const blockNum = await model.providerFor(asset.chain).getBlockNumber();
+  const blockNum = await model.multiproviderFor(asset.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
@@ -142,11 +143,16 @@ export const getBalancerPerformance = async (
 };
 
 export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
-  const provider = model.providerFor(jar.chain);
-  const balVaultContract = new Contract(balVaultAddr, balVaultABI, provider);
-  const poolTokensResp = await balVaultContract.callStatic["getPoolTokens"](
-    balPoolIds[jar.depositToken.addr.toLowerCase()],
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const balVaultContract = new Contract(
+    balVaultAddr,
+    balVaultABI,
+    multiProvider,
   );
+  const balPoolId = balPoolIds[jar.depositToken.addr.toLowerCase()];
+  const [poolTokensResp] = await multiProvider.all([
+    balVaultContract.getPoolTokens(balPoolId),
+  ]);
   const { tokens, balances } = poolTokensResp;
   const filtered = tokens.map((tokenAddr: string, i: number) => {
     return [
@@ -159,8 +165,14 @@ export const getPoolData = async (jar: JarDefinition, model: PickleModel) => {
       ),
     ];
   });
-  const poolContract = new Contract(jar.depositToken.addr, erc20, provider);
-  const poolTokenTotalSupplyBN: BigNumber = await poolContract.totalSupply();
+  const poolContract = new Contract(
+    jar.depositToken.addr,
+    erc20,
+    multiProvider,
+  );
+  const [poolTokenTotalSupplyBN]: BigNumber[] = await multiProvider.all([
+    poolContract.totalSupply(),
+  ]);
   const poolTokenTotalSupply = parseFloat(
     ethers.utils.formatUnits(poolTokenTotalSupplyBN.toString(), 18),
   ); // balancer LP tokens always have 18 decimals

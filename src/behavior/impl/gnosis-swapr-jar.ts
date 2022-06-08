@@ -6,9 +6,9 @@ import {
 import {
   createAprComponentImpl,
   AbstractJarBehavior,
-  ONE_YEAR_IN_SECONDS
+  ONE_YEAR_IN_SECONDS,
 } from "../AbstractJarBehavior";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { PickleModel } from "../../model/PickleModel";
 import swaprRewarderAbi from "../../Contracts/ABIs/swapr-rewarder.json";
 import { formatEther, formatUnits } from "ethers/lib/utils";
@@ -59,16 +59,14 @@ export async function calculateGnosisSwaprAPY(
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
   const rewarder = swaprRewarders[jar.depositToken.addr].rewarder;
-  const multicallRewarder = new MultiContract(rewarder, swaprRewarderAbi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallRewarder = new Contract(rewarder, swaprRewarderAbi);
 
-  const [rewardTokens, duration, totalSupplyBN] = await model.callMulti(
-    [
-      () => multicallRewarder.getRewardTokens(),
-      () => multicallRewarder.secondsDuration(),
-      () => multicallRewarder.totalStakedTokensAmount(),
-    ],
-    jar.chain,
-  );
+  const [rewardTokens, duration, totalSupplyBN] = await multiProvider.all([
+    multicallRewarder.getRewardTokens(),
+    multicallRewarder.secondsDuration(),
+    multicallRewarder.totalStakedTokensAmount(),
+  ]);
 
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
@@ -77,7 +75,7 @@ export async function calculateGnosisSwaprAPY(
   const rewardData = [];
   for (let i = 0; i < rewardTokens.length; i++) {
     rewardData.push(
-      await model.callMulti(() => multicallRewarder.rewards(i), jar.chain),
+      await multiProvider.all([multicallRewarder.rewards(i)]).then((x) => x[0]),
     );
   }
 
@@ -120,31 +118,33 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const rewarder = swaprRewarders[jar.depositToken.addr].rewarder;
-    const multicallRewarder = new MultiContract(rewarder, swaprRewarderAbi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallRewarder = new Contract(rewarder, swaprRewarderAbi);
 
     // Returns a list of claimable amounts
-    const claimablesBN = await model.callMulti(
-      () => multicallRewarder.claimableRewards(jar.details.strategyAddr),
-      jar.chain,
-    );
+    const [claimablesBN] = await multiProvider.all([
+      multicallRewarder.claimableRewards(jar.details.strategyAddr),
+    ]);
 
     /*
       Get the claimables tokens
       Note: some rewarders give out some weird worthless tokens 
       (e.g, 0x070386C4d038FE96ECC9D7fB722b3378Aace4863 give an extra worthless token)
     */
-    const tokensInfo = await model.callMulti(
-      claimablesBN.map((_, i) => () => multicallRewarder.rewards(i)),
-      jar.chain,
+    const tokensInfo = await multiProvider.all(
+      claimablesBN.map((_, i) => multicallRewarder.rewards(i)),
     );
     const rewardTokens = tokensInfo.map((info) =>
       ExternalTokenModelSingleton.getToken(info.token, jar.chain),
     );
-    
+
     const claimablesUSD = claimablesBN
       .map((c, i) => {
         if (!rewardTokens[i]) return;
-        const price = model.priceOfSync(rewardTokens[i].contractAddr, jar.chain);
+        const price = model.priceOfSync(
+          rewardTokens[i].contractAddr,
+          jar.chain,
+        );
         const claimable = parseFloat(formatUnits(c, rewardTokens[i].decimals));
         return claimable * price;
       })

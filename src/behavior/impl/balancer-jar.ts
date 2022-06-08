@@ -18,7 +18,7 @@ import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClai
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
 import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 export class BalancerJar extends AbstractJarBehavior {
   poolData: PoolData | undefined;
@@ -44,7 +44,15 @@ export class BalancerJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    if (!this.poolData) this.poolData = await getPoolData(jar, model);
+    if (!this.poolData) {
+      try {
+        this.poolData = await getPoolData(jar, model);
+      } catch (error) {
+        const msg = `Error in getProjectedAprStats (${jar.details.apiKey}): ${error}`;
+        console.log(msg);
+        return;
+      }
+    }
     const res = await calculateBalPoolAPRs(jar, model);
     const aprsPostFee = res.map((component) =>
       this.createAprComponent(
@@ -68,19 +76,17 @@ export class BalancerJar extends AbstractJarBehavior {
     model: PickleModel,
     balance: BigNumber, // total want balance in strategy+jar
     available: BigNumber, // strategy want balance + jar earnable balance (95% of jar want balance)
-    resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
     const ret = await super.getAssetHarvestData(
       definition,
       model,
       balance,
       available,
-      resolver,
     );
-    const earnableInJar = await model.callMulti(
-      () => new MultiContract(definition.contract, jarAbi).available(),
-      definition.chain,
-    );
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const [earnableInJar] = await multiProvider.all([
+      new Contract(definition.contract, jarAbi).available(),
+    ]);
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
@@ -101,7 +107,6 @@ export class BalancerJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     _jar: JarDefinition,
     _model: PickleModel,
-    _resolver: Signer | Provider,
   ): Promise<number> {
     return 0;
   }

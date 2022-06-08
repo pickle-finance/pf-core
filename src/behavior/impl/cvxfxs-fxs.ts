@@ -4,7 +4,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { convexStrategyMim3CRVAbi } from "../../Contracts/ABIs/convex-strategy-mim3crv.abi";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 const FXS_POOL = "0xd658a338613198204dca1143ac3f01a722b5d94a";
 
@@ -37,11 +37,12 @@ export class CvxfxsFxs extends AbstractJarBehavior {
         outputs: [{ name: "", type: "uint256" }],
       },
     ];
-    const pool = new MultiContract(FXS_POOL, fxsPoolABI);
-    const [virtualPrice, lpPrice] = await model.callMulti(
-      [() => pool.get_virtual_price(), () => pool.lp_price()],
-      asset.chain,
-    );
+    const multiProvider = model.multiproviderFor(asset.chain);
+    const pool = new Contract(FXS_POOL, fxsPoolABI);
+    const [virtualPrice, lpPrice] = await multiProvider.all([
+      pool.get_virtual_price(),
+      pool.lp_price(),
+    ]);
 
     const price =
       +ethers.utils.formatEther(virtualPrice) *
@@ -64,7 +65,7 @@ export class CvxfxsFxs extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["crv", "cvx", "fxs"],

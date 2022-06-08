@@ -1,5 +1,5 @@
-import { Contract as MultiContract } from "ethers-multicall";
-import { BigNumber, Contract as SingleContract } from "ethers";
+import { Contract } from "ethers-multiprovider";
+import { BigNumber } from "ethers";
 import { formatEther } from "ethers/lib/utils";
 import { PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
@@ -83,11 +83,11 @@ const convexPools: PoolInfo = {
 export async function getCvxTotalSupply(
   model: PickleModel,
 ): Promise<BigNumber> {
-  const cvxContract = new MultiContract(model.addr("cvx"), erc20Abi);
-  const cvxTotalSupplyBN = await model.callMulti(
-    () => cvxContract.totalSupply(),
-    ChainNetwork.Ethereum,
-  );
+  const multiProvider = model.multiproviderFor(ChainNetwork.Ethereum);
+  const cvxContract = new Contract(model.addr("cvx"), erc20Abi);
+  const [cvxTotalSupplyBN] = await multiProvider.all([
+    cvxContract.totalSupply(),
+  ]);
   return cvxTotalSupplyBN;
 }
 
@@ -148,14 +148,14 @@ export async function getConvexRewarderPromise(
   model: PickleModel,
   definition: JarDefinition,
 ): Promise<string> {
-  const cvxBoosterContract = new MultiContract(CVX_BOOSTER, cvxBoosterAbi);
+  const multiProvider = model.multiproviderFor(definition.chain);
+  const cvxBoosterContract = new Contract(CVX_BOOSTER, cvxBoosterAbi);
   const rewarder =
     cvxPool.rewarder ||
     (
-      await model.callMulti(
-        () => cvxBoosterContract.poolInfo(cvxPool.poolId),
-        definition.chain,
-      )
+      await multiProvider
+        .all([cvxBoosterContract.poolInfo(cvxPool.poolId)])
+        .then((x) => x[0])
     ).crvRewards;
   return rewarder;
 }
@@ -167,23 +167,18 @@ export async function getPriceMultiplierFromMinter(
   let priceMultiplier = 1;
   // See if there's 1) a linked minter contract; and 2) a price multiplier
   try {
-    const crvPool = new SingleContract(
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const crvPool = new Contract(
       definition.depositToken.addr,
       curvePoolAbi,
-      model.providerFor(definition.chain),
+      multiProvider,
     );
 
-    const minterAddr = await model.call(
-      () => crvPool.minter(),
-      definition.chain,
-      true,
-    ); // if this call fails, then there is no linked minter contract
+    // if this call fails, then there is no linked minter contract
+    const minterAddr = await crvPool.minter();
 
-    const minter = new MultiContract(minterAddr, fxsPoolABI);
-    const lpPriceBN = await model.callMulti(
-      () => minter.lp_price(),
-      definition.chain,
-    );
+    const minter = new Contract(minterAddr, fxsPoolABI);
+    const [lpPriceBN] = await multiProvider.all([minter.lp_price()]);
     priceMultiplier = +formatEther(lpPriceBN);
   } catch (e) {
     // TODO do something here??
@@ -200,14 +195,14 @@ export async function getExtraRewards1(
   model: PickleModel,
   definition: JarDefinition,
 ): Promise<BigNumber> {
-  const extraRewardsContract = new MultiContract(
+  const multiProvider = model.multiproviderFor(definition.chain);
+  const extraRewardsContract = new Contract(
     extraRewardsAddress,
     ExtraRewardsABI,
   );
-  return model.callMulti(
-    () => extraRewardsContract.currentRewards(),
-    definition.chain,
-  );
+  return multiProvider
+    .all([extraRewardsContract.currentRewards()])
+    .then((x) => x[0]);
 }
 export async function getProjectedConvexAprStats(
   definition: JarDefinition,
@@ -231,29 +226,20 @@ export async function getProjectedConvexAprStats(
     const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
     let crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
 
-    const crvRewardsMC = new MultiContract(
-      await rewarderPromise,
-      CrvRewardsABI,
-    );
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const crvRewardsMC = new Contract(await rewarderPromise, CrvRewardsABI);
     let extraRewardsAddress2Promise: Promise<string> | undefined = undefined;
     if (cvxPool.extraReward) {
-      extraRewardsAddress2Promise = model.callMulti(
-        () => crvRewardsMC.extraRewards(1),
-        definition.chain,
-      );
+      extraRewardsAddress2Promise = multiProvider
+        .all([crvRewardsMC.extraRewards(1)])
+        .then((x) => x[0]);
     }
-    const [depositLocked, duration, mcRewardRate]: [
-      BigNumber,
-      BigNumber,
-      BigNumber,
-    ] = await model.callMulti(
-      [
-        () => crvRewardsMC.totalSupply(),
-        () => crvRewardsMC.duration(),
-        () => crvRewardsMC.rewardRate(),
-      ],
-      definition.chain,
-    );
+    const [depositLocked, duration, mcRewardRate]: BigNumber[] =
+      await multiProvider.all([
+        crvRewardsMC.totalSupply(),
+        crvRewardsMC.duration(),
+        crvRewardsMC.rewardRate(),
+      ]);
 
     const depositTokenPrice = definition.depositToken.price;
     const poolValue =
@@ -283,10 +269,9 @@ export async function getProjectedConvexAprStats(
     const isExtraCvx = cvxPool.rewardName === "cvx"; // extraReward token is CVX
     let extraRewardApr: number;
     if (cvxPool.rewardName) {
-      const [extraRewardsAddress]: [string] = await model.callMulti(
-        [() => crvRewardsMC.extraRewards(0)],
-        definition.chain,
-      );
+      const [extraRewardsAddress]: string[] = await multiProvider.all([
+        crvRewardsMC.extraRewards(0),
+      ]);
       const extraRewardCurrentRewardsPromise: Promise<BigNumber> =
         getExtraRewards1(extraRewardsAddress, model, definition);
       const extraRewardCurrentRewards = await extraRewardCurrentRewardsPromise;
@@ -307,14 +292,13 @@ export async function getProjectedConvexAprStats(
     if (cvxPool.extraReward) {
       const extraRewardsAddress2: string = await extraRewardsAddress2Promise;
 
-      const extraRewardsContract2 = new MultiContract(
+      const extraRewardsContract2 = new Contract(
         extraRewardsAddress2,
         ExtraRewardsABI,
       );
-      const extraReward2CurrentRewards = await model.callMulti(
-        () => extraRewardsContract2.currentRewards(),
-        definition.chain,
-      );
+      const [extraReward2CurrentRewards] = await multiProvider.all([
+        extraRewardsContract2.currentRewards(),
+      ]);
 
       const extraRewardAmount2 = +formatEther(extraReward2CurrentRewards);
       const extraRewardValuePerYear2 =

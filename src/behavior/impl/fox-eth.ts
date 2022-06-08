@@ -4,7 +4,7 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { feiAbi } from "../../Contracts/ABIs/fei-reward.abi";
 import { PickleModel } from "../../model/PickleModel";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { calculateUniswapLpApr } from "../../protocols/UniswapUtil";
@@ -16,11 +16,11 @@ export class FoxEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const rewards = new MultiContract(this.rewardAddress, feiAbi);
-    const fox: BigNumber = await model.callMulti(
-      () => rewards.earned(jar.details.strategyAddr),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const rewards = new Contract(this.rewardAddress, feiAbi);
+    const [fox]: BigNumber[] = await multiProvider.all([
+      rewards.earned(jar.details.strategyAddr),
+    ]);
     const foxPrice = model.priceOfSync("shapeshift-fox-token", jar.chain);
     const harvestable = fox.mul((1e8 * foxPrice).toFixed()).div(1e8);
     return parseFloat(ethers.utils.formatEther(harvestable));
@@ -51,18 +51,16 @@ export class FoxEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallUniStakingRewards = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallUniStakingRewards = new Contract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallUniStakingRewards.rewardRate(),
-        () => multicallUniStakingRewards.totalSupply(),
-      ],
-      jar.chain,
-    );
+    const [rewardRateBN, totalSupplyBN] = await multiProvider.all([
+      multicallUniStakingRewards.rewardRate(),
+      multicallUniStakingRewards.totalSupply(),
+    ]);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const foxRewardRate = parseFloat(formatEther(rewardRateBN));

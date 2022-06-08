@@ -1,6 +1,7 @@
 import { Provider } from "@ethersproject/abstract-provider";
 import { Signer } from "@ethersproject/abstract-signer";
 import { BigNumber, Contract as SingleContract, ethers } from "ethers";
+import { Contract } from "ethers-multiprovider";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
@@ -34,7 +35,7 @@ export class Univ3Base extends AbstractJarBehavior {
     definition.depositToken.componentTokens[0] = jarAmount0;
     definition.depositToken.componentTokens[1] = jarAmount1;
     definition.depositToken.totalSupply = definition.details.tokenBalance;
-    definition.depositToken.proportion = proportion.toString()
+    definition.depositToken.proportion = proportion.toString();
 
     const pJarUSD =
       model.priceOfSync(
@@ -54,7 +55,6 @@ export class Univ3Base extends AbstractJarBehavior {
   async getHarvestableUSD(
     _jar: JarDefinition,
     _model: PickleModel,
-    _resolver: Signer | Provider,
   ): Promise<number> {
     // Do not implement.
     return 0;
@@ -64,22 +64,17 @@ export class Univ3Base extends AbstractJarBehavior {
     model: PickleModel,
     _balance: BigNumber,
     _available: BigNumber,
-    _resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
-    const provider = model.providerFor(definition.chain);
-    const strategy = new SingleContract(
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const strategy = new Contract(
       definition.details.strategyAddr,
       univ3StrategyABI,
-      provider,
+      multiProvider,
     );
 
-    const [bal0, bal1] = await model.call(
-      () =>
-        strategy.callStatic.getHarvestable({
-          from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
-        }),
-      definition.chain,
-    ); // This is Tsuke
+    const [bal0, bal1] = await strategy.callStatic.getHarvestable({
+      from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
+    }); // This is Tsuke
 
     const decimals0: number = model.tokenDecimals(
       definition.depositToken.components[0],

@@ -1,6 +1,4 @@
-import {
-  Contract as MultiContract,
-} from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 import { ChainNetwork, Chains, PickleModel } from "../../src";
@@ -20,7 +18,7 @@ import {
 } from "../../src/model/PickleModelJson";
 import { ExternalTokenModelSingleton } from "../../src/price/ExternalTokenModel";
 import { ADDRESSES, ConsoleErrorLogger } from "../../src/model/PickleModel";
-import { CommsMgr } from "../../src/util/CommsMgr";
+import { CommsMgrV2 } from "../../src/util/CommsMgrV2";
 
 describe("Testing defined model", () => {
   test("Ensure no duplicate ids", async () => {
@@ -81,37 +79,47 @@ describe("Testing defined model", () => {
   test("ensure contract same as that set in controller", async () => {
     Chains.globalInitialize(new Map<ChainNetwork, Provider | Signer>());
     const err = [];
-    const jars: JarDefinition[] = (ALL_ASSETS.filter((x) => x.type === AssetType.JAR) as JarDefinition[])
-      .filter((x) => x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
+    const jars: JarDefinition[] = (
+      ALL_ASSETS.filter((x) => x.type === AssetType.JAR) as JarDefinition[]
+    ).filter((x) => x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
     const logger: ConsoleErrorLogger = {
       logError: function (where: string, error: any, context?: any): void {
         err.push(`[${where}] [${context}] - ${error}`);
-      }
-    }
-    const cmgr = new CommsMgr(logger);
-    cmgr.start();
+      },
+    };
+    // const cmgr = new CommsMgr(logger);
+    // cmgr.start();
+    const cmgr = new CommsMgrV2();
+    await cmgr.init();
     const promises: Promise<any>[] = [];
     for (let i = 0; i < jars.length; i++) {
       //console.log("Firing Promise: " + i + " / " + jars.length);
       const jar = jars[i];
-      const controllerAddress = jar.details.controller || ADDRESSES.get(jar.chain).controller;
-      const controllerContract = new MultiContract(controllerAddress, controllerAbi);
-      const result = cmgr.callMulti(() => controllerContract.jars(jar.depositToken.addr), jar.chain);
+      const controllerAddress =
+        jar.details.controller || ADDRESSES.get(jar.chain).controller;
+      const controllerContract = new Contract(controllerAddress, controllerAbi);
+      const multiProvider = cmgr.getProvider(jar.chain);
+
+      const result = multiProvider
+        .all([controllerContract.jars(jar.depositToken.addr)])
+        .then((x) => x[0]);
       promises.push(result);
     }
     let results = undefined;
     try {
       results = await Promise.all(promises);
     } finally {
-      cmgr.stop();
+      await cmgr.stop();
     }
     for (let i = 0; i < jars.length; i++) {
       const jar = jars[i];
       const controllerThinks = results[i].toLowerCase();
       const jarIs = jar.contract.toLowerCase();
-      if( controllerThinks !== jarIs) {
+      if (controllerThinks !== jarIs) {
         const k = jars[i].details.apiKey;
-        err.push(`${k} contract does not match controller jar for want token: jar=${jarIs}, controllerThinks=${controllerThinks}`);
+        err.push(
+          `${k} contract does not match controller jar for want token: jar=${jarIs}, controllerThinks=${controllerThinks}`,
+        );
       }
     }
     console.log("Errors: " + JSON.stringify(err));
@@ -219,7 +227,7 @@ describe("Testing defined model", () => {
             withCustomHarvest[i].details.apiKey + " has no custom harvester",
           );
         }
-        model.commsMgr.stop();
+        await model.commsMgr2.stop();
       }
     }
     console.log("Errors: " + JSON.stringify(err));

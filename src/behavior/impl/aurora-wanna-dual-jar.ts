@@ -33,7 +33,7 @@ export abstract class AuroraWannaDualJar extends AuroraMultistepHarvestJar {
         `Token ${jar.depositToken.addr} has no registered poolId`,
       );
     }
-    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
+    return this.getHarvestableUSDMasterchefImplementation(
       jar,
       model,
       ["wanna"],

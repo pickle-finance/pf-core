@@ -3,7 +3,7 @@ import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getLivePairDataFromContracts } from "../../protocols/GenericSwapUtil";
@@ -22,7 +22,7 @@ export class NewoUsdc extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["newo"],
@@ -54,18 +54,16 @@ export class NewoUsdc extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallUniStakingRewards = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallUniStakingRewards = new Contract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallUniStakingRewards.rewardRate(),
-        () => multicallUniStakingRewards.totalSupply(),
-      ],
-      jar.chain,
-    );
+    const [rewardRateBN, totalSupplyBN] = await multiProvider.all([
+      multicallUniStakingRewards.rewardRate(),
+      multicallUniStakingRewards.totalSupply(),
+    ]);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rewardRate = parseFloat(formatEther(rewardRateBN));

@@ -4,7 +4,7 @@ import { ConvexDualReward } from "./convex-dual-reward";
 import { BigNumber } from "ethers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 const pool = "0xb576491f1e6e5e62f1d8f26062ee822b40b0e0d4";
 export class CurveCvxEth extends ConvexDualReward {
@@ -16,15 +16,13 @@ export class CurveCvxEth extends ConvexDualReward {
     asset: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const cvxToken = new MultiContract(
-      model.address("cvx", asset.chain),
-      erc20Abi,
-    );
-    const poolToken = new MultiContract(asset.depositToken.addr, erc20Abi);
-    const [poolCvx, totalSupply] = await model.callMulti(
-      [() => cvxToken.balanceOf(pool), () => poolToken.totalSupply()],
-      asset.chain,
-    );
+    const multiProvider = model.multiproviderFor(asset.chain);
+    const cvxToken = new Contract(model.address("cvx", asset.chain), erc20Abi);
+    const poolToken = new Contract(asset.depositToken.addr, erc20Abi);
+    const [poolCvx, totalSupply] = await multiProvider.all([
+      cvxToken.balanceOf(pool),
+      poolToken.totalSupply(),
+    ]);
 
     const cvxPrice = model.priceOfSync("cvx", asset.chain);
     const depositTokenPrice = poolCvx

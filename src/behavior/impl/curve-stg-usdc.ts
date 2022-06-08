@@ -7,7 +7,7 @@ import { PickleModel } from "../../model/PickleModel";
 import { BigNumber } from "ethers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import strategyABI from "../../Contracts/ABIs/strategy.json";
 import { CurveJar, getCurveRawStats } from "./curve-jar";
 
@@ -23,15 +23,13 @@ export class CurveStgUsdc extends CurveJar {
     asset: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const stgToken = new MultiContract(
-      model.address("stg", asset.chain),
-      erc20Abi,
-    );
-    const poolToken = new MultiContract(asset.depositToken.addr, erc20Abi);
-    const [poolCvx, totalSupply] = await model.callMulti(
-      [() => stgToken.balanceOf(pool), () => poolToken.totalSupply()],
-      asset.chain,
-    );
+    const multiProvider = model.multiproviderFor(asset.chain);
+    const stgToken = new Contract(model.address("stg", asset.chain), erc20Abi);
+    const poolToken = new Contract(asset.depositToken.addr, erc20Abi);
+    const [poolCvx, totalSupply] = await multiProvider.all([
+      stgToken.balanceOf(pool),
+      poolToken.totalSupply(),
+    ]);
     const stgPrice = model.priceOfSync("stg", asset.chain);
 
     const depositTokenPrice = poolCvx
@@ -48,7 +46,7 @@ export class CurveStgUsdc extends CurveJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["stg"],

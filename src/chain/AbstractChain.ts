@@ -1,6 +1,4 @@
-import { Provider } from "@ethersproject/abstract-provider";
-import { Signer } from "@ethersproject/abstract-signer";
-import { ethers } from "ethers";
+import { ethers, Signer } from "ethers";
 import { RawChain } from "./Chains";
 import { IChain } from "./IChain";
 
@@ -14,7 +12,7 @@ export abstract class AbstractChain implements IChain {
   gasToken: string;
   defaultPerformanceFee: number;
   wrappedNativeAddress: string;
-  private preferredProvider: Provider;
+  private preferredProvider: ethers.providers.Provider;
   private signer: Signer;
   constructor(rawChain: RawChain) {
     this.secondsPerBlock = rawChain.secondsPerBlock;
@@ -28,29 +26,29 @@ export abstract class AbstractChain implements IChain {
     if (rawChain.multicallAddress)
       this.multicallAddress = rawChain.multicallAddress;
   }
-  getRandomWeb3Provider(): Provider {
+  getRandomWeb3Provider(): ethers.providers.Provider {
     const url: string =
       this.rpcProviderUrls[~~(Math.random() * this.rpcProviderUrls.length)];
     return this.asProvider(url);
   }
-  private asProvider(s: string): Provider {
+  private asProvider(s: string): ethers.providers.Provider {
     return new ethers.providers.JsonRpcProvider(s);
   }
 
   setSigner(signer: Signer): void {
     this.signer = signer;
   }
-  setPreferredWeb3Provider(provider: Provider): void {
+  setPreferredWeb3Provider(provider: ethers.providers.Provider): void {
     this.preferredProvider = provider;
   }
-  getPreferredWeb3Provider(): Provider {
+  getPreferredWeb3Provider(): ethers.providers.Provider {
     return this.preferredProvider !== undefined
       ? this.preferredProvider
       : this.signer !== undefined && this.signer.provider
       ? this.signer.provider
       : this.getRandomWeb3Provider();
   }
-  getProviderOrSigner(): Provider | Signer {
+  getProviderOrSigner(): ethers.providers.Provider | Signer {
     return this.signer !== undefined
       ? this.signer
       : this.preferredProvider !== undefined

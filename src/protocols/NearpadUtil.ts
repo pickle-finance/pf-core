@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import sushiChefAbi from "../Contracts/ABIs/sushi-chef.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -29,7 +29,7 @@ export const padPoolIds: PoolId = {
   "0x50F63D48a52397C1a469Ccd057905CC8d2609B85": 12,
   "0xA188D79D6bdbc1120a662DE9eB72384E238AF104": 13,
   "0xB53bC2537e641C37c7B7A8D33aba1B30283CDA2f": 14,
-  "0xC8F45738e2900fCaB9B72EA624F48aE2c222e248": 16
+  "0xC8F45738e2900fCaB9B72EA624F48aE2c222e248": 16,
 };
 
 export async function calculatePadFarmsAPY(
@@ -39,19 +39,17 @@ export async function calculatePadFarmsAPY(
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = padPoolIds[jar.depositToken.addr];
-  const multicallPadFarms = new MultiContract(PAD_FARMS, sushiChefAbi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallPadFarms = new Contract(PAD_FARMS, sushiChefAbi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
   const [padPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallPadFarms.sushiPerBlock(),
-        () => multicallPadFarms.totalAllocPoint(),
-        () => multicallPadFarms.poolInfo(poolId),
-        () => lpToken.balanceOf(PAD_FARMS),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallPadFarms.sushiPerBlock(),
+      multicallPadFarms.totalAllocPoint(),
+      multicallPadFarms.poolInfo(poolId),
+      lpToken.balanceOf(PAD_FARMS),
+    ]);
 
   const rewardsPerBlock =
     (parseFloat(formatEther(padPerBlockBN)) * poolInfo.allocPoint.toNumber()) /

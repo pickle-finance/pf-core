@@ -1,7 +1,7 @@
 import { Chains } from "../chain/Chains";
 import { PickleModel } from "../model/PickleModel";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
@@ -21,39 +21,31 @@ export async function calculateMasterChefRewardsAPR(
   }
 
   const pptPromise = getLivePairDataFromContracts(jar, model, 18);
-  const controller = new MultiContract(controllerAddr, controllerAbi);
-  const strategyAddr = await model.callMulti(
-    () => controller.strategies(jar.depositToken.addr),
-    jar.chain,
-  );
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const controller = new Contract(controllerAddr, controllerAbi);
+  const [strategyAddr] = await multiProvider.all([
+    controller.strategies(jar.depositToken.addr),
+  ]);
 
-  const strategyContract = new MultiContract(strategyAddr, strategyAbi);
-  const [masterchefAddress, poolId, rewardTokenAddress] = await model.callMulti(
-    [
-      () => strategyContract.masterChef(),
-      () => strategyContract.poolId(),
-      () => strategyContract.rewardToken(),
-    ],
-    jar.chain,
-  );
+  const strategyContract = new Contract(strategyAddr, strategyAbi);
+  const [masterchefAddress, poolId, rewardTokenAddress] =
+    await multiProvider.all([
+      strategyContract.masterChef(),
+      strategyContract.poolId(),
+      strategyContract.rewardToken(),
+    ]);
 
-  const multicallMasterchef = new MultiContract(
-    masterchefAddress,
-    MasterchefAbi,
-  );
+  const multicallMasterchef = new Contract(masterchefAddress, MasterchefAbi);
 
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
   const [sushiPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallMasterchef.rewardPerBlock(),
-        () => multicallMasterchef.totalAllocPoint(),
-        () => multicallMasterchef.poolInfo(poolId),
-        () => lpToken.balanceOf(masterchefAddress),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallMasterchef.rewardPerBlock(),
+      multicallMasterchef.totalAllocPoint(),
+      multicallMasterchef.poolInfo(poolId),
+      lpToken.balanceOf(masterchefAddress),
+    ]);
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const rewardsPerBlock =

@@ -54,7 +54,7 @@ export class SteCrv extends AbstractJarBehavior {
         type: "function",
       },
     ];
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["crv", "cvx", "ldo"],

@@ -9,7 +9,7 @@ import { getLivePairDataFromContracts } from "../protocols/GenericSwapUtil";
 import CurvePoolABI from "../Contracts/ABIs/curve-pool.json";
 import MetaPoolABI from "../Contracts/ABIs/meta-pool.json";
 import { ethers } from "ethers";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 /*
     Most of this class has been moved into the jar behavior classes directly.
@@ -56,15 +56,17 @@ export async function getStableswapPriceAddress(
 ): Promise<number> {
   const curveStyle =
     asset.protocol === AssetProtocol.CURVE ||
-    asset.protocol === AssetProtocol.YEARN || asset.protocol === AssetProtocol.ROSE;
+    asset.protocol === AssetProtocol.YEARN ||
+    asset.protocol === AssetProtocol.ROSE;
   const PoolABI = curveStyle ? CurvePoolABI : MetaPoolABI;
 
-  const pool = new MultiContract(addr, PoolABI);
+  const multiProvider = model.multiproviderFor(asset.chain);
+  const pool = new Contract(addr, PoolABI);
   let virtualPrice = 0;
   try {
-    virtualPrice = await (curveStyle
-      ? model.callMulti(() => pool.get_virtual_price(), asset.chain)
-      : model.callMulti(() => pool.getVirtualPrice(), asset.chain));
+    [virtualPrice] = await (curveStyle
+      ? multiProvider.all([pool.get_virtual_price()])
+      : multiProvider.all([pool.getVirtualPrice()]));
   } catch (e) {
     model.logError("getStableswapPriceAddress", e, asset.details.apiKey);
   }

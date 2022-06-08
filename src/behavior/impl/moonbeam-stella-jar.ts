@@ -2,7 +2,7 @@ import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import stellaFarmsAbi from "../../Contracts/ABIs/stella-farms.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import {
   AbstractJarBehavior,
   ONE_YEAR_IN_SECONDS,
@@ -35,7 +35,7 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["stella"],
@@ -60,22 +60,17 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
   ): Promise<number> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const poolId = stellaPoolIds[jar.depositToken.addr];
-    const multicallStellaFarms = new MultiContract(
-      STELLA_FARMS,
-      stellaFarmsAbi,
-    );
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallStellaFarms = new Contract(STELLA_FARMS, stellaFarmsAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     const [stellaPerBlockBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallStellaFarms.stellaPerBlock(),
-          () => multicallStellaFarms.totalAllocPoint(),
-          () => multicallStellaFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(STELLA_FARMS),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallStellaFarms.stellaPerBlock(),
+        multicallStellaFarms.totalAllocPoint(),
+        multicallStellaFarms.poolInfo(poolId),
+        lpToken.balanceOf(STELLA_FARMS),
+      ]);
 
     const rewardsPerYear =
       (parseFloat(formatEther(stellaPerBlockBn)) *

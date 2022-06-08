@@ -1,8 +1,7 @@
 import { AbstractChain } from "./AbstractChain";
 import { IChain } from "./IChain";
-import { Provider } from "@ethersproject/abstract-provider";
-import { Signer } from "@ethersproject/abstract-signer";
-import { setMulticallAddress } from "ethers-multicall";
+import { ethers, Signer } from "ethers";
+import { setMulticallAddress } from "ethers-multiprovider";
 
 export interface RawChain {
   chainId: number;
@@ -43,16 +42,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "ethereum",
     gasTokenSymbol: "eth",
     explorer: "https://etherscan.io",
-    rpcs: [
-      "https://rpc.ankr.com/eth",
-      "https://eth-rpc.gateway.pokt.network",
-      "https://cloudflare-eth.com/", // can be flaky at times
-      // "https://api.mycryptoapi.com/eth",  // flaky
-      // "https://main-light.eth.linkpool.io",  // requires a 5s timeout inbetween successive calls
-      // "https://main-rpc.linkpool.io",
-      // "https://rpc.flashbots.net",  // flaky
-      // "https://mainnet.infura.io/v3/", // dead
-    ],
+    rpcs: ["https://rpc.ankr.com/eth"],
     defaultPerformanceFee: 0.2,
     wrappedNativeAddress: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   },
@@ -64,12 +54,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "matic-network",
     gasTokenSymbol: "matic",
     explorer: "https://polygonscan.com",
-    rpcs: [
-      "https://polygon-rpc.com",
-      "https://rpc-mainnet.maticvigil.com",
-      "https://matic-mainnet.chainstacklabs.com/",
-      // "https://rpc-mainnet.matic.network", // dead
-    ],
+    rpcs: ["https://polygon-rpc.com"],
     defaultPerformanceFee: 0.2,
     wrappedNativeAddress: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
   },
@@ -107,13 +92,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "moonriver",
     gasTokenSymbol: "movr",
     explorer: "https://moonriver.moonscan.io",
-    rpcs: [
-      "https://moonriver.public.blastapi.io",
-      "https://rpc.api.moonriver.moonbeam.network",
-      "https://rpc.moonriver.moonbeam.network",
-      // "wss://wss.api.moonriver.moonbeam.network",
-      // "https://moonriver.api.onfinality.io/public",  // dead
-    ],
+    rpcs: ["https://rpc.api.moonriver.moonbeam.network"],
     multicallAddress: "0x4c4a5d20f1ee40eaacb6a7787d20d16b7997363b",
     defaultPerformanceFee: 0.1,
     wrappedNativeAddress: "0x98878B06940aE243284CA214f92Bb71a2b032B8A",
@@ -165,7 +144,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "moonbeam",
     gasTokenSymbol: "glmr",
     explorer: "https://moonbeam.moonscan.io",
-    rpcs: ["https://rpc.ankr.com/moonbeam", "https://rpc.api.moonbeam.network"],
+    rpcs: ["https://rpc.api.moonbeam.network"],
     multicallAddress: "0xDad6760bd3FC33b741D46df1e205558BB22D1507",
     defaultPerformanceFee: 0.1,
     wrappedNativeAddress: "0xAcc15dC74880C9944775448304B263D191c6077F",
@@ -191,11 +170,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "fantom",
     gasTokenSymbol: "ftm",
     explorer: "https://ftmscan.com",
-    rpcs: [
-      "https://rpc.ankr.com/fantom",
-      // "https://rpc.ftm.tools/",
-      // "https://ftmrpc.ultimatenodes.io/",  // dead
-    ],
+    rpcs: ["https://rpc.ankr.com/fantom"],
     multicallAddress: "0x11473D6E641dF17cd6331D45b135E35B49edBea8",
     defaultPerformanceFee: 0.042,
     wrappedNativeAddress: "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
@@ -208,15 +183,7 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     gasToken: "xDai",
     gasTokenSymbol: "xDAI",
     explorer: "https://blockscout.com/xdai/mainnet",
-    rpcs: [
-      "https://rpc.ankr.com/gnosis",
-      "https://xdai-rpc.gateway.pokt.network",
-      "https://gnosis-mainnet.public.blastapi.io",
-      "https://xdai-archive.blockscout.com",
-      "https://xdai.poanetwork.dev",
-      "https://rpc.gnosischain.com",
-      // "https://rpc.xdaichain.com",  //dead
-    ],
+    rpcs: ["https://rpc.ankr.com/gnosis"],
     multicallAddress: "0x88b373B83166E72FD55648Ce114712633f1782E2",
     defaultPerformanceFee: 0.042,
     wrappedNativeAddress: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
@@ -256,7 +223,9 @@ export class Chains {
     return [...Chains.singleton.chainMap.keys()];
   }
 
-  static globalInitialize(chains: Map<ChainNetwork, Provider | Signer>): void {
+  static globalInitialize(
+    chains: Map<ChainNetwork, ethers.providers.Provider | Signer>,
+  ): void {
     for (let i = 0; i < this.singleton.rawData.length; i++) {
       if (Chains.singleton.rawData[i].multicallAddress) {
         setMulticallAddress(
@@ -271,9 +240,9 @@ export class Chains {
       if (resolver) {
         const isSigner: boolean = (resolver as Signer).provider !== undefined;
         const signer: Signer = isSigner ? (resolver as Signer) : undefined;
-        const provider: Provider = isSigner
+        const provider: ethers.providers.Provider = isSigner
           ? (resolver as Signer).provider
-          : (resolver as Provider);
+          : (resolver as ethers.providers.Provider);
         if (signer) Chains.get(key).setSigner(signer);
         if (provider) Chains.get(key).setPreferredWeb3Provider(provider);
       } else {
@@ -298,7 +267,9 @@ export class Chains {
     throw new Error(`Chain ${id} is not a supported chain`);
   }
 
-  static getResolver(network: ChainNetwork): Provider | Signer {
+  static getResolver(
+    network: ChainNetwork,
+  ): ethers.providers.Provider | Signer {
     const chain = Chains.singleton.chainMap.get(network);
     if (!chain) {
       throw new Error(`${network} is not a supported chain`);

@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import tethysChefAbi from "../Contracts/ABIs/tethys.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -27,7 +27,6 @@ export const tethysPoolIds: PoolId = {
   "0x74Ca39F7aB9B685B8eA8c4ab19E7Ab6b474Dd22D": 7,
   "0x3Ca47677e7D8796e6470307Ad15c1fBFd43f0D6F": 8,
   "0xCc15d8f93be780aD78fD1A016fB0F15F2543b5Dc": 9,
-
 };
 
 export async function calculateTethysFarmsAPY(
@@ -37,19 +36,17 @@ export async function calculateTethysFarmsAPY(
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
   const poolId = tethysPoolIds[jar.depositToken.addr];
-  const multicallTethysFarms = new MultiContract(TETHYS_FARMS, tethysChefAbi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallTethysFarms = new Contract(TETHYS_FARMS, tethysChefAbi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
   const [tethysPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallTethysFarms.tethysPerSecond(),
-        () => multicallTethysFarms.totalAllocPoint(),
-        () => multicallTethysFarms.poolInfo(poolId),
-        () => lpToken.balanceOf(TETHYS_FARMS),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallTethysFarms.tethysPerSecond(),
+      multicallTethysFarms.totalAllocPoint(),
+      multicallTethysFarms.poolInfo(poolId),
+      lpToken.balanceOf(TETHYS_FARMS),
+    ]);
 
   const rewardsPerYear =
     (parseFloat(formatEther(tethysPerSecBn)) *

@@ -1,4 +1,3 @@
-import { Provider } from "@ethersproject/abstract-provider";
 import { ethers } from "ethers";
 import { ChainNetwork, Chains } from "../../src/chain/Chains";
 import { IChain } from "../../src/chain/IChain";
@@ -24,7 +23,7 @@ describe("Testing ChainModel", () => {
   });
   test("preferred provider", async () => {
     const chain: IChain = Chains.get(ChainNetwork.Ethereum);
-    const infura: Provider = new ethers.providers.InfuraProvider();
+    const infura: ethers.providers.Provider = new ethers.providers.InfuraProvider();
     expect(chain).toBeDefined();
     chain.setPreferredWeb3Provider(infura);
     expect(chain.getPreferredWeb3Provider()).toBeDefined();

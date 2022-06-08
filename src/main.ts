@@ -4,6 +4,7 @@ import { Provider } from "@ethersproject/providers";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
 import fs from "fs";
+import { AssetProtocol } from "./model/PickleModelJson";
 
 // This is an example of the code you'd want to run in a client
 async function generateFullApi() {
@@ -22,6 +23,7 @@ async function generateFullApi() {
   //const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, "walletPublicKey", map);
   const resultString = JSON.stringify(result, null, 2);
   process.stdout.write(resultString);
+  process.exit(0);
 }
 
 export interface PersistedData {

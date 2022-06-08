@@ -4,7 +4,7 @@ import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { alcxStrategyAbi } from "../../Contracts/ABIs/alcx-strategy.abi";
 import { PickleModel } from "../../model/PickleModel";
 import { SushiJar } from "./sushi-jar";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 export class AlcxEth extends SushiJar {
   constructor() {
@@ -14,24 +14,22 @@ export class AlcxEth extends SushiJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const strategy = new MultiContract(
-      jar.details.strategyAddr,
-      alcxStrategyAbi,
-    );
-    const alcxToken = new MultiContract(model.addr("alcx"), erc20Abi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategy = new Contract(jar.details.strategyAddr, alcxStrategyAbi);
+    const alcxToken = new Contract(model.addr("alcx"), erc20Abi);
     const [alcx, sushi, alcxWallet]: [BigNumber, BigNumber, BigNumber] =
       await Promise.all([
-        model
-          .callMulti(() => strategy.getHarvestableAlcx(), jar.chain)
+        multiProvider
+          .all([strategy.getHarvestableAlcx()])
+          .then((x) => x[0])
           .catch(() => BigNumber.from("0")),
-        model
-          .callMulti(() => strategy.getHarvestableSushi(), jar.chain)
+        multiProvider
+          .all([strategy.getHarvestableSushi()])
+          .then((x) => x[0])
           .catch(() => BigNumber.from("0")),
-        model
-          .callMulti(
-            () => alcxToken.balanceOf(jar.details.strategyAddr),
-            jar.chain,
-          )
+        multiProvider
+          .all([alcxToken.balanceOf(jar.details.strategyAddr)])
+          .then((x) => x[0])
           .catch(() => BigNumber.from("0")),
       ]);
     const alcxPrice = model.priceOfSync("alcx", jar.chain);

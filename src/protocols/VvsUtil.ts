@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import vvsFarmsAbi from "../Contracts/ABIs/vvs-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -67,25 +67,23 @@ export async function calculateVvsFarmsAPY(
   ];
   const poolId =
     vvsPoolIds[jar.depositToken.addr] ?? vvsPoolIdsV2[jar.depositToken.addr];
-  const multicallVvsFarms = new MultiContract(VVS_FARMS, vvsFarmsAbi);
-  const multicallVvsFarmsV2 = new MultiContract(VVS_FARMS_V2, chefV2Abi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallVvsFarms = new Contract(VVS_FARMS, vvsFarmsAbi);
+  const multicallVvsFarmsV2 = new Contract(VVS_FARMS_V2, chefV2Abi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
   const [
     vvsPerBlockBN,
     totalAllocPointBN,
     poolInfo,
     totalSupplyBN,
     poolRewarders,
-  ] = await model.callMulti(
-    [
-      () => multicallVvsFarms.vvsPerBlock(),
-      () => multicallVvsFarms.totalAllocPoint(),
-      () => multicallVvsFarms.poolInfo(poolId),
-      () => lpToken.balanceOf(VVS_FARMS),
-      () => multicallVvsFarmsV2.poolRewarders(poolId),
-    ],
-    jar.chain,
-  );
+  ] = await multiProvider.all([
+    multicallVvsFarms.vvsPerBlock(),
+    multicallVvsFarms.totalAllocPoint(),
+    multicallVvsFarms.poolInfo(poolId),
+    lpToken.balanceOf(VVS_FARMS),
+    multicallVvsFarmsV2.poolRewarders(poolId),
+  ]);
 
   const rewardsPerBlock =
     (parseFloat(formatEther(vvsPerBlockBN)) * poolInfo.allocPoint.toNumber()) /
@@ -195,19 +193,17 @@ async function getBonusApr(
         inputs: [],
       },
     ];
+    const multiProvider = model.multiproviderFor(jar.chain);
     const bonusesApys = Promise.all(
       rewarders.map(async (rewarder) => {
-        const rewarderContract = new MultiContract(rewarder, rewarderAbi);
+        const rewarderContract = new Contract(rewarder, rewarderAbi);
         const [rewardsPerSecondBN, totalAllocPointBN, poolInfo, rewardAddress] =
-          await model.callMulti(
-            [
-              () => rewarderContract.rewardPerSecond(),
-              () => rewarderContract.totalAllocPoint(),
-              () => rewarderContract.poolInfo(poolId),
-              () => rewarderContract.rewardToken(),
-            ],
-            jar.chain,
-          );
+          await multiProvider.all([
+            rewarderContract.rewardPerSecond(),
+            rewarderContract.totalAllocPoint(),
+            rewarderContract.poolInfo(poolId),
+            rewarderContract.rewardToken(),
+          ]);
 
         const rewardToken = ExternalTokenModelSingleton.getToken(
           rewardAddress,

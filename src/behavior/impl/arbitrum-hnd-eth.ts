@@ -1,4 +1,4 @@
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
@@ -27,7 +27,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["dodo"],
@@ -40,16 +40,14 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const rewardsAddr = "0x23fFB3687d3800FDDde75E7e604392fEa15c8757"; // HND-ETH
-    const mcDodoRewards = new MultiContract(rewardsAddr, mcdodoAbi);
+    const mcDodoRewards = new Contract(rewardsAddr, mcdodoAbi);
 
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
-    const [dodoInfo, totalSupplyBN] = await model.callMulti(
-      [
-        () => mcDodoRewards.rewardTokenInfos(0),
-        () => lpToken.balanceOf(rewardsAddr),
-      ],
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
+    const [dodoInfo, totalSupplyBN] = await multiProvider.all([
+      mcDodoRewards.rewardTokenInfos(0),
+      lpToken.balanceOf(rewardsAddr),
+    ]);
 
     const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
     const totalSupply = +formatEther(totalSupplyBN);

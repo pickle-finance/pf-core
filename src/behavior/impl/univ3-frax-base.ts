@@ -19,7 +19,7 @@ import {
   getTickFromPrice,
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 
 const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
@@ -62,7 +62,6 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
   async getHarvestableUSD(
     _jar: JarDefinition,
     _model: PickleModel,
-    _resolver: Signer | Provider,
   ): Promise<number> {
     // Do not implement.
     return 0;
@@ -73,7 +72,6 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
     _model: PickleModel,
     _balance: BigNumber,
     _available: BigNumber,
-    _resolver: Signer | Provider,
   ): Promise<JarHarvestStats> {
     const jarV3Abi = [
       {
@@ -84,47 +82,51 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
         type: "function",
       },
     ];
-    const strategy = new MultiContract(
-      definition.details.strategyAddr,
-      strategyABI,
+    const multiProvider = _model.multiproviderFor(definition.chain);
+    const strategy = new Contract(definition.details.strategyAddr, strategyABI);
+    const jar = new Contract(definition.contract, jarV3Abi);
+    const gaugeContract = new Contract(this.gaugeAddress, gaugeABI);
+    const fxsToken = new Contract(
+      _model.address("fxs", definition.chain),
+      erc20Abi,
     );
-    const jar = new MultiContract(definition.contract, jarV3Abi);
-    const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
-    const fxsToken = new MultiContract(_model.address("fxs", definition.chain), erc20Abi);
 
     const promises = [];
     promises.push(
-      _model
-        .callMulti(() => strategy.getHarvestable(), definition.chain)
-        .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
+      multiProvider
+        .all([strategy.getHarvestable()])
+        .then((x: BigNumber[]) => parseFloat(ethers.utils.formatEther(x[0]))),
     );
 
     promises.push(
-      _model
-        .callMulti(() => fxsToken.balanceOf(definition.details.strategyAddr), definition.chain)
-        .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
+      multiProvider
+        .all([fxsToken.balanceOf(definition.details.strategyAddr)])
+        .then((x: BigNumber[]) => parseFloat(ethers.utils.formatEther(x[0]))),
     );
 
     promises.push(
-      _model
-        .callMulti(() => jar.liquidityOfThis(), definition.chain)
-        .then((x: BigNumber) => parseFloat(ethers.utils.formatUnits(x, 18))),
+      multiProvider
+        .all([jar.liquidityOfThis()])
+        .then((x: BigNumber[]) =>
+          parseFloat(ethers.utils.formatUnits(x[0], 18)),
+        ),
     );
     promises.push(
-      _model
-        .callMulti(
-          () => gaugeContract.veFXSMultiplier(lockerAddress),
-          definition.chain,
-        )
-        .then((x: BigNumber) => parseFloat(ethers.utils.formatEther(x))),
+      multiProvider
+        .all([gaugeContract.veFXSMultiplier(lockerAddress)])
+        .then((x: BigNumber[]) => parseFloat(ethers.utils.formatEther(x[0]))),
     );
-    const [harvestable, fxsBalance, liquidity, mult] = await Promise.all(promises);
+    const [harvestable, fxsBalance, liquidity, mult] = await Promise.all(
+      promises,
+    );
 
     return {
       balanceUSD:
         definition.details.tokenBalance * definition.depositToken.price,
       earnableUSD: liquidity * definition.depositToken.price, // This jar is always earned on user deposit
-      harvestableUSD: (harvestable + fxsBalance) * _model.priceOfSync("fxs", definition.chain),
+      harvestableUSD:
+        (harvestable + fxsBalance) *
+        _model.priceOfSync("fxs", definition.chain),
       multiplier: mult,
     };
   }
@@ -224,16 +226,15 @@ export abstract class Univ3FraxBase extends AbstractJarBehavior {
 
     //FXS APR
 
-    const gaugeContract = new MultiContract(this.gaugeAddress, gaugeABI);
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const gaugeContract = new Contract(this.gaugeAddress, gaugeABI);
 
-    const [totalCombinedWeight, rewardRate, multiplier] = await model.callMulti(
-      [
-        () => gaugeContract.totalCombinedWeight(),
-        () => gaugeContract.rewardRate0(),
-        () => gaugeContract.veFXSMultiplier(lockerAddress),
-      ],
-      definition.chain,
-    );
+    const [totalCombinedWeight, rewardRate, multiplier] =
+      await multiProvider.all([
+        gaugeContract.totalCombinedWeight(),
+        gaugeContract.rewardRate0(),
+        gaugeContract.veFXSMultiplier(lockerAddress),
+      ]);
 
     const fxsValuePerYearBN = rewardRate
       .mul(

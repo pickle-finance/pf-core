@@ -15,7 +15,7 @@ import {
 } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 const DISTRUBTOR_ABI = [
   "function getYieldForDuration() view returns(uint256)",
@@ -48,7 +48,6 @@ export class PveFxsAsset implements BrineryBehavior {
     _model: PickleModel,
     _balance: BigNumber,
     _available: BigNumber,
-    _resolver: Signer | Provider,
   ): Promise<JarHarvestStats | undefined> {
     return undefined;
   }
@@ -58,13 +57,14 @@ export class PveFxsAsset implements BrineryBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     // Contract instantiation
-    const feeDistributor = new MultiContract(
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const feeDistributor = new Contract(
       definition.details.distributionAddr,
       DISTRUBTOR_ABI,
     );
 
-    const veFxs = new MultiContract(definition.details.veAddr, VEFXS_ABI);
-    const pveFxs = new MultiContract(definition.contract, erc20Abi);
+    const veFxs = new Contract(definition.details.veAddr, VEFXS_ABI);
+    const pveFxs = new Contract(definition.contract, erc20Abi);
 
     const fxsPrice = model.priceOfSync("fxs", definition.chain);
 
@@ -76,19 +76,14 @@ export class PveFxsAsset implements BrineryBehavior {
       pickleVeBalance,
       pickleLockedFxs,
     ] = (
-      await model.callMulti(
-        [
-          () => feeDistributor.getYieldForDuration(),
-          () =>
-            feeDistributor.eligibleCurrentVeFXS(definition.details.lockerAddr),
-          () => feeDistributor.earned(definition.details.lockerAddr),
-
-          () => veFxs.totalSupply(),
-          () => veFxs.balanceOf(definition.details.lockerAddr),
-          () => pveFxs.totalSupply(),
-        ],
-        definition.chain,
-      )
+      await multiProvider.all([
+        feeDistributor.getYieldForDuration(),
+        feeDistributor.eligibleCurrentVeFXS(definition.details.lockerAddr),
+        feeDistributor.earned(definition.details.lockerAddr),
+        veFxs.totalSupply(),
+        veFxs.balanceOf(definition.details.lockerAddr),
+        pveFxs.totalSupply(),
+      ])
     ).map((x: BigNumber) => parseFloat(formatEther(x)));
 
     // Set definition properties
@@ -100,9 +95,9 @@ export class PveFxsAsset implements BrineryBehavior {
 
     // Set harvest data
     definition.details.harvestStats = {
-        balanceUSD: pickleLockedFxs * fxsPrice,
-        earnableUSD: 0,
-        harvestableUSD: feeDistributorEarnedFxs * fxsPrice, // Used to calculate user entitlements
+      balanceUSD: pickleLockedFxs * fxsPrice,
+      earnableUSD: 0,
+      harvestableUSD: feeDistributorEarnedFxs * fxsPrice, // Used to calculate user entitlements
     };
 
     // Base APR calc
@@ -146,7 +141,8 @@ export class PveFxsAsset implements BrineryBehavior {
   ): number => {
     const fraxJars = model.getJars().filter(
       (x) =>
-        x.chain === definition.chain && x.details?.apiKey.includes("UNIV3-FRAX"), // To improve by including tag in Frax Jar definition
+        x.chain === definition.chain &&
+        x.details?.apiKey.includes("UNIV3-FRAX"), // To improve by including tag in Frax Jar definition
     );
     const flywheelProfits = fraxJars.reduce((acc, currJar: JarDefinition) => {
       const annualizedRevenueToVault =

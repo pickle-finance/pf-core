@@ -48,7 +48,6 @@ export interface AssetBehavior<T extends PickleAsset> {
     model: PickleModel,
     balance: BigNumber,
     available: BigNumber,
-    resolver: Signer | Provider,
   ): Promise<JarHarvestStats | undefined>;
 
   getCustomHarvester(

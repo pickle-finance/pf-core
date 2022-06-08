@@ -6,11 +6,10 @@ import {
 import { PickleModel } from "../../model/PickleModel";
 import { BigNumber } from "ethers";
 import gaugeABI from "../../Contracts/ABIs/frax-gauge.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 const lockerAddress = "0xd639C2eA4eEFfAD39b599410d00252E6c80008DF";
 const gaugeAddress = "0x10460d02226d6ef7B2419aE150E6377BdbB7Ef16";
-
 
 export class FraxTemple extends AbstractJarBehavior {
   constructor() {
@@ -37,7 +36,7 @@ export class FraxTemple extends AbstractJarBehavior {
         type: "function",
       },
     ];
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["fxs", "temple"],
@@ -49,13 +48,17 @@ export class FraxTemple extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const [templeAPY,fxsAPY] = await Promise.all([
+    const [templeAPY, fxsAPY] = await Promise.all([
       this.calculateTempleAPY(jar, model),
       this.calculateFXSAPY(jar, model),
       //calculateLPAPY(jar,model),
     ]);
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("temple", parseFloat(templeAPY.toString()) / 100, true),
+      this.createAprComponent(
+        "temple",
+        parseFloat(templeAPY.toString()) / 100,
+        true,
+      ),
       this.createAprComponent("fxs", parseFloat(fxsAPY.toString()) / 100, true),
     ]);
   }
@@ -65,16 +68,14 @@ export class FraxTemple extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-
-    const gaugeContract = new MultiContract(gaugeAddress, gaugeABI);
-    const [totalCombinedWeight, rewardRate, multiplier] = await model.callMulti(
-      [
-        () => gaugeContract.totalCombinedWeight(),
-        () => gaugeContract.rewardRates(1),
-        () => gaugeContract.veFXSMultiplier(lockerAddress),
-      ],
-      definition.chain,
-    );
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const gaugeContract = new Contract(gaugeAddress, gaugeABI);
+    const [totalCombinedWeight, rewardRate, multiplier] =
+      await multiProvider.all([
+        gaugeContract.totalCombinedWeight(),
+        gaugeContract.rewardRates(1),
+        gaugeContract.veFXSMultiplier(lockerAddress),
+      ]);
 
     const fxsValuePerYearBN = rewardRate
       .mul(
@@ -102,16 +103,14 @@ export class FraxTemple extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-
-    const gaugeContract = new MultiContract(gaugeAddress, gaugeABI);
-    const [totalCombinedWeight, rewardRate, multiplier] = await model.callMulti(
-      [
-        () => gaugeContract.totalCombinedWeight(),
-        () => gaugeContract.rewardRates(0),
-        () => gaugeContract.veFXSMultiplier(lockerAddress),
-      ],
-      definition.chain,
-    );
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const gaugeContract = new Contract(gaugeAddress, gaugeABI);
+    const [totalCombinedWeight, rewardRate, multiplier] =
+      await multiProvider.all([
+        gaugeContract.totalCombinedWeight(),
+        gaugeContract.rewardRates(0),
+        gaugeContract.veFXSMultiplier(lockerAddress),
+      ]);
 
     const fxsValuePerYearBN = rewardRate
       .mul(

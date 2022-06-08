@@ -6,7 +6,7 @@ import {
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import booChefAbi from "../Contracts/ABIs/boo-farm.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -47,19 +47,17 @@ export async function calculateSpookyFarmsAPY(
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
   const poolId = booPoolIds[jar.depositToken.addr];
 
-  const multicallBooFarms = new MultiContract(BOO_FARMS, booChefAbi);
-  const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallBooFarms = new Contract(BOO_FARMS, booChefAbi);
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
   const [booPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-    await model.callMulti(
-      [
-        () => multicallBooFarms.booPerSecond(),
-        () => multicallBooFarms.totalAllocPoint(),
-        () => multicallBooFarms.poolInfo(poolId),
-        () => lpToken.balanceOf(BOO_FARMS),
-      ],
-      jar.chain,
-    );
+    await multiProvider.all([
+      multicallBooFarms.booPerSecond(),
+      multicallBooFarms.totalAllocPoint(),
+      multicallBooFarms.poolInfo(poolId),
+      lpToken.balanceOf(BOO_FARMS),
+    ]);
 
   const rewardsPerYear =
     (parseFloat(formatEther(booPerSecondBN)) *

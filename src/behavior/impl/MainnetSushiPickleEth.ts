@@ -17,7 +17,7 @@ import { GenericSwapUtility } from "../../protocols/GenericSwapUtil";
 import { getSwapUtilityForAsset } from "../../protocols/ProtocolUtil";
 import { getDepositTokenPrice } from "../../price/DepositTokenPriceUtility";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 export class MainnetSushiPickleEth implements ExternalAssetBehavior {
   getCustomHarvester(
@@ -65,11 +65,11 @@ export class MainnetSushiPickleEth implements ExternalAssetBehavior {
   ): Promise<JarHarvestStats> {
     const depositToken = definition.depositToken.addr;
     const sushiMCAddr = definition.contract;
-    const sushiMC = new MultiContract(depositToken, erc20Abi);
-    const bal: BigNumber = await model.callMulti(
-      () => sushiMC.balanceOf(sushiMCAddr),
-      definition.chain,
-    );
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const sushiMC = new Contract(depositToken, erc20Abi);
+    const [bal]: BigNumber[] = await multiProvider.all([
+      sushiMC.balanceOf(sushiMCAddr),
+    ]);
     const pricePerToken = (
       100 * model.priceOfSync(depositToken, definition.chain)
     ).toFixed();

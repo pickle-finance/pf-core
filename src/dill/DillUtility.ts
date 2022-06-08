@@ -5,7 +5,7 @@ import {
   JarDefinition,
 } from "../model/PickleModelJson";
 import { BigNumber, ethers } from "ethers";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import dillAbi from "../Contracts/ABIs/dill.json";
 import feeDistributorAbiV2 from "../Contracts/ABIs/fee-distributor-v2.json";
 import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
@@ -75,24 +75,20 @@ export async function getDillDetails(
 ): Promise<DillDetails> {
   DEBUG_OUT("Begin getDillDetails");
   const start = Date.now();
-  const multicallProvider = model.multicallProviderFor(chain);
-  await multicallProvider.init();
 
   const picklePriceSeriesPromise = fetchHistoricalPriceSeries({
     from: new Date(firstMeaningfulDistributionTimestamp * 1000),
   });
 
+  const multiProvider = model.multiproviderFor(chain);
   try {
-    const dillContract = new MultiContract(DILL_CONTRACT, dillAbi);
-    const feeDistContract = new MultiContract(
-      FEE_DISTRIBUTOR,
-      feeDistributorAbi,
-    );
-    const feeDistContractV2 = new MultiContract(
+    const dillContract = new Contract(DILL_CONTRACT, dillAbi);
+    const feeDistContract = new Contract(FEE_DISTRIBUTOR, feeDistributorAbi);
+    const feeDistContractV2 = new Contract(
       FEE_DISTRIBUTOR_V2,
       feeDistributorAbiV2,
     );
-    const pickleContract = new MultiContract(PICKLE_TOKEN, Erc20Abi);
+    const pickleContract = new Contract(PICKLE_TOKEN, Erc20Abi);
 
     // Ignore initial negligible distributions that distort
     // PICKLE/DILL ratio range.
@@ -118,42 +114,32 @@ export async function getDillDetails(
 
     const payoutV2idx = payoutTimes.findIndex((t) => t.eq(payoutTimesV2[0]));
 
-    const batch1Promise = model.callMulti(
-      [
-        () => dillContract.supply(),
-        () => dillContract.totalSupply(),
-        () => feeDistContract.time_cursor(),
-        () => feeDistContractV2.time_cursor(),
-        () => pickleContract.totalSupply(),
-      ],
-      chain,
-    );
+    const batch1Promise = multiProvider.all([
+      dillContract.supply(),
+      dillContract.totalSupply(),
+      feeDistContract.time_cursor(),
+      feeDistContractV2.time_cursor(),
+      pickleContract.totalSupply(),
+    ]);
 
     const batch2Promise = Promise.all([
-      model.callMulti(
-        payoutTimes.map((time) => () => feeDistContract.tokens_per_week(time)),
-        chain,
+      multiProvider.all(
+        payoutTimes.map((time) => feeDistContract.tokens_per_week(time)),
       ),
-      model.callMulti(
-        payoutTimes.map((time) => () => feeDistContract.ve_supply(time)),
-        chain,
+      multiProvider.all(
+        payoutTimes.map((time) => feeDistContract.ve_supply(time)),
       ),
     ]);
 
     const batch3Promise = Promise.all([
-      model.callMulti(
-        payoutTimesV2.map(
-          (time) => () => feeDistContractV2.tokens_per_week(time),
-        ),
-        chain,
+      multiProvider.all(
+        payoutTimesV2.map((time) => feeDistContractV2.tokens_per_week(time)),
       ),
-      model.callMulti(
-        payoutTimesV2.map((time) => () => feeDistContractV2.eth_per_week(time)),
-        chain,
+      multiProvider.all(
+        payoutTimesV2.map((time) => feeDistContractV2.eth_per_week(time)),
       ),
-      model.callMulti(
-        payoutTimesV2.map((time) => () => feeDistContractV2.ve_supply(time)),
-        chain,
+      multiProvider.all(
+        payoutTimesV2.map((time) => feeDistContractV2.ve_supply(time)),
       ),
     ]);
 

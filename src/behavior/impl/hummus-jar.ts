@@ -1,4 +1,4 @@
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
@@ -28,7 +28,7 @@ export class HummusJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["hum"],
@@ -42,14 +42,12 @@ export class HummusJar extends AbstractJarBehavior {
   ): Promise<AssetProjectedApr> {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-    const humchefMC = new MultiContract(HUM_REWARDS, hummuschefAbi);
-    const strategyMC = new MultiContract(jar.details.strategyAddr, strategyAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const humchefMC = new Contract(HUM_REWARDS, hummuschefAbi);
+    const strategyMC = new Contract(jar.details.strategyAddr, strategyAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
-    const [poolId] = await model.callMulti(
-      [() => strategyMC._poolId()],
-      jar.chain,
-    );
+    const [poolId] = await multiProvider.all([strategyMC._poolId()]);
 
     const [
       humPerSecBn,
@@ -58,17 +56,14 @@ export class HummusJar extends AbstractJarBehavior {
       baseRewardsFactor,
       totalSupplyBN,
       decimals,
-    ] = await model.callMulti(
-      [
-        () => humchefMC.humPerSec(),
-        () => humchefMC.totalAdjustedAllocPoint(),
-        () => humchefMC.poolInfo(poolId),
-        () => humchefMC.dialutingRepartition(),
-        () => lpToken.balanceOf(HUM_REWARDS),
-        () => lpToken.decimals(),
-      ],
-      jar.chain,
-    );
+    ] = await multiProvider.all([
+      humchefMC.humPerSec(),
+      humchefMC.totalAdjustedAllocPoint(),
+      humchefMC.poolInfo(poolId),
+      humchefMC.dialutingRepartition(),
+      lpToken.balanceOf(HUM_REWARDS),
+      lpToken.decimals(),
+    ]);
 
     // Factor given to farmers vs ve lockers
     const factor = baseRewardsFactor.toNumber() / 1000;

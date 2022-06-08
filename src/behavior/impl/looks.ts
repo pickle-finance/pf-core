@@ -10,7 +10,7 @@ import { readQueryFromGraphDetails } from "../../graph/TheGraph";
 import { ChainNetwork, Chains } from "../..";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 
 const LOOKS_STAKING = "0xbcd7254a1d759efa08ec7c3291b2e85c5dcc12ce";
 const LOOKS_DISTRIBUTOR = "0x465a790b428268196865a3ae2648481ad7e0d3b1";
@@ -31,7 +31,7 @@ export class pLooks extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["weth"],
@@ -43,11 +43,11 @@ export class pLooks extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const distributor = new MultiContract(LOOKS_DISTRIBUTOR, distributorAbi);
-    const [totalLooksStaked] = await model.callMulti(
-      () => distributor.userInfo(LOOKS_STAKING),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const distributor = new Contract(LOOKS_DISTRIBUTOR, distributorAbi);
+    const [[totalLooksStaked]] = await multiProvider.all([
+      distributor.userInfo(LOOKS_STAKING),
+    ]);
     return (
       +formatEther(totalLooksStaked) * model.priceOfSync("looks", jar.chain)
     );
@@ -99,11 +99,11 @@ export class pLooks extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const distributor = new MultiContract(LOOKS_DISTRIBUTOR, distributorAbi);
-    const rewardPerBlock = await model.callMulti(
-      () => distributor.rewardPerBlockForStaking(),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const distributor = new Contract(LOOKS_DISTRIBUTOR, distributorAbi);
+    const [rewardPerBlock] = await multiProvider.all([
+      distributor.rewardPerBlockForStaking(),
+    ]);
     const lookRewardsPerYear =
       (+formatEther(rewardPerBlock) *
         ONE_YEAR_SECONDS *

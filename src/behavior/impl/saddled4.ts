@@ -4,7 +4,7 @@ import { saddleStrategyAbi } from "../../Contracts/ABIs/saddle-strategy.abi";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
@@ -41,22 +41,17 @@ export class SaddleD4 extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const swapFlashLoanAddress = "0xC69DDcd4DFeF25D8a793241834d4cc4b3668EAD6";
-    const multicallCommunalFarm = new MultiContract(
-      COMMUNAL_FARM,
-      communalFarmAbi,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallCommunalFarm = new Contract(COMMUNAL_FARM, communalFarmAbi);
 
     const [fxsRateBN, tribeRateBN, alcxRateBN, lqtyRateBN, totalValueLockedBN] =
-      await model.callMulti(
-        [
-          () => multicallCommunalFarm.rewardRates(0),
-          () => multicallCommunalFarm.rewardRates(1),
-          () => multicallCommunalFarm.rewardRates(2),
-          () => multicallCommunalFarm.rewardRates(3),
-          () => multicallCommunalFarm.totalLiquidityLocked(),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallCommunalFarm.rewardRates(0),
+        multicallCommunalFarm.rewardRates(1),
+        multicallCommunalFarm.rewardRates(2),
+        multicallCommunalFarm.rewardRates(3),
+        multicallCommunalFarm.totalLiquidityLocked(),
+      ]);
 
     const fxsValPerYear =
       model.priceOfSync("fxs", jar.chain) *
@@ -75,15 +70,14 @@ export class SaddleD4 extends AbstractJarBehavior {
       parseFloat(formatEther(lqtyRateBN)) *
       ONE_YEAR_SECONDS;
 
-    const multicallSwapFlashLoan = new MultiContract(
+    const multicallSwapFlashLoan = new Contract(
       swapFlashLoanAddress,
       swapFlashLoanAbi,
     );
 
-    const virtualPrice = await model.callMulti(
-      () => multicallSwapFlashLoan.getVirtualPrice(),
-      jar.chain,
-    );
+    const [virtualPrice] = await multiProvider.all([
+      multicallSwapFlashLoan.getVirtualPrice(),
+    ]);
     const priceOfSaddle = parseFloat(formatEther(virtualPrice));
     const totalValueStaked =
       parseFloat(formatEther(totalValueLockedBN)) * priceOfSaddle;
@@ -105,7 +99,7 @@ export class SaddleD4 extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["fxs", "tribe", "alcx", "lqty"],

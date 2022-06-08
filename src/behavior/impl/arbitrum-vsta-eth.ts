@@ -2,7 +2,7 @@ import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { BalancerJar } from "./balancer-jar";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { BigNumber, ethers } from "ethers";
@@ -21,18 +21,16 @@ export class BalancerVstaEth extends BalancerJar {
   ): Promise<AssetProjectedApr> {
     const lp = await getBalancerPoolDayAPY(jar, model);
 
-    const multicallUniStakingRewards = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallUniStakingRewards = new Contract(
       this.rewardAddress,
       stakingRewardsAbi,
     );
 
-    const [rewardRateBN, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallUniStakingRewards.rewardRate(),
-        () => multicallUniStakingRewards.totalStaked(),
-      ],
-      jar.chain,
-    );
+    const [rewardRateBN, totalSupplyBN] = await multiProvider.all([
+      multicallUniStakingRewards.rewardRate(),
+      multicallUniStakingRewards.totalStaked(),
+    ]);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rewardRate = parseFloat(formatEther(rewardRateBN));
@@ -55,7 +53,7 @@ export class BalancerVstaEth extends BalancerJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["vsta"],

@@ -1,10 +1,8 @@
 import fs from "fs";
 import fetch from "cross-fetch";
-import { Signer } from "@ethersproject/abstract-signer";
 import { PickleModelJson, PickleModelAssets } from "./model/PickleModelJson";
 import { ADDRESSES, NULL_ADDRESS } from "./model/PickleModel";
-import { ethers } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { ethers, Signer } from "ethers";
 import MinichefAbi from "./Contracts/ABIs/minichef.json";
 import MasterchefAbi from "./Contracts/ABIs/masterchef.json";
 import erc20abi from "./Contracts/ABIs/erc20.json";
@@ -184,10 +182,8 @@ const emissionsTable = (allocPoints: AllocPoints[]): string => {
 const getAllocPoints = async (): Promise<AllocPoints[]> => {
   const rpcProviderUrl = Chains.get(ChainNetwork.Ethereum).rpcProviderUrls[0];
   const networkId = Chains.get(ChainNetwork.Ethereum).id;
-  const provider: Provider = new ethers.providers.JsonRpcProvider(
-    rpcProviderUrl,
-    networkId,
-  );
+  const provider: ethers.providers.Provider =
+    new ethers.providers.JsonRpcProvider(rpcProviderUrl, networkId);
   const multiProvider = new MulticallProvider(provider, networkId);
   const chefMulticall = new MulticallContract(
     ADDRESSES.get(ChainNetwork.Ethereum).masterChef,
@@ -307,10 +303,8 @@ const getMasterChefIds = async (
 ): Promise<Record<string, string>> => {
   const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
   const networkId = Chains.get(network).id;
-  const provider: Provider = new ethers.providers.JsonRpcProvider(
-    rpcProviderUrl,
-    networkId,
-  );
+  const provider: ethers.providers.Provider =
+    new ethers.providers.JsonRpcProvider(rpcProviderUrl, networkId);
   const multiProvider = new MulticallProvider(provider, networkId);
   const chefMulticall = new MulticallContract(chefAddr, MasterchefAbi);
   try {
@@ -335,10 +329,8 @@ const getMiniChefIds = async (
 ): Promise<Record<string, string>> => {
   const rpcProviderUrl = Chains.get(network).rpcProviderUrls[0];
   const networkId = Chains.get(network).id;
-  const provider: Provider = new ethers.providers.JsonRpcProvider(
-    rpcProviderUrl,
-    networkId,
-  );
+  const provider: ethers.providers.Provider =
+    new ethers.providers.JsonRpcProvider(rpcProviderUrl, networkId);
   const multiProvider = new MulticallProvider(provider, networkId);
   const chefMulticall = new MulticallContract(chefAddr, MinichefAbi);
   try {
@@ -379,7 +371,9 @@ const updateModelIndices = (
 
 const main = async () => {
   // ADD_CHAIN
-  Chains.globalInitialize(new Map<ChainNetwork, Provider | Signer>());
+  Chains.globalInitialize(
+    new Map<ChainNetwork, ethers.providers.Provider | Signer>(),
+  );
   setMulticallAddress(42161, "0x813715eF627B01f4931d8C6F8D2459F26E19137E"); // provider address for Arbitrum
 
   const stringArr: string[] = [];

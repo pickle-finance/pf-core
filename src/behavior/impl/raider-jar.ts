@@ -1,6 +1,6 @@
 import { sushiStrategyAbi } from "../../Contracts/ABIs/sushi-strategy.abi";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { SushiPolyPairManager } from "../../protocols/SushiSwapUtil";
@@ -18,7 +18,7 @@ export abstract class RaiderJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["raider"],
@@ -51,18 +51,16 @@ async function calculateRaiderAPY(
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<number> {
-  const multicallStakingRewards = new MultiContract(
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const multicallStakingRewards = new Contract(
     rewardsAddress,
     raiderRewardsAbi,
   );
 
-  const [dailyRewardsBN, totalSupplyBN] = await model.callMulti(
-    [
-      () => multicallStakingRewards.dailyEmissionsRate(),
-      () => multicallStakingRewards.totalStakedSupply(),
-    ],
-    jar.chain,
-  );
+  const [dailyRewardsBN, totalSupplyBN] = await multiProvider.all([
+    multicallStakingRewards.dailyEmissionsRate(),
+    multicallStakingRewards.totalStakedSupply(),
+  ]);
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const raiderRewardsPerYear = parseFloat(formatEther(dailyRewardsBN)) * 365;
 

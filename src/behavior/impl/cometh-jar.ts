@@ -5,7 +5,7 @@ import {
 } from "../AbstractJarBehavior";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
 import { PickleModel } from "../../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import {
   getLivePairDataFromContracts,
@@ -26,7 +26,7 @@ export abstract class ComethJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDCommsMgrImplementation(
+    return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
       ["must"],
@@ -58,20 +58,18 @@ export abstract class ComethJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallStakingRewards = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallStakingRewards = new Contract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
     const [rewardsDurationBN, rewardsForDurationBN, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallStakingRewards.rewardsDuration(),
-          () => multicallStakingRewards.getRewardForDuration(),
-          () => multicallStakingRewards.totalSupply(),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallStakingRewards.rewardsDuration(),
+        multicallStakingRewards.getRewardForDuration(),
+        multicallStakingRewards.totalSupply(),
+      ]);
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const rewardsDuration = rewardsDurationBN.toNumber(); //epoch

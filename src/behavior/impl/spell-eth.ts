@@ -38,7 +38,7 @@ export class SpellEth extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDMasterchefCommsMgrImplementation(
+    return this.getHarvestableUSDMasterchefImplementation(
       jar,
       model,
       ["spell"],

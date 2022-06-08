@@ -3,7 +3,7 @@ import erc20Abi from "../Contracts/ABIs/erc20.json";
 import solarFarmsAbi from "../Contracts/ABIs/solar-farms.json";
 import solarFarmsV2Abi from "../Contracts/ABIs/solarv2-farms.json";
 import { PickleModel } from "../model/PickleModel";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { ChainNetwork, Chains } from "../chain/Chains";
 import { formatEther } from "ethers/lib/utils";
 import { PoolId } from "./ProtocolUtil";
@@ -60,20 +60,18 @@ export async function calculateSolarFarmsAPY(
 
   const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
+  const multiProvider = model.multiproviderFor(jar.chain);
   if (Number.isInteger(solarPoolIds[jar.depositToken.addr])) {
     const poolId = solarPoolIds[jar.depositToken.addr];
-    const multicallSolarFarms = new MultiContract(SOLAR_FARMS, solarFarmsAbi);
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallSolarFarms = new Contract(SOLAR_FARMS, solarFarmsAbi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
     [solarPerBlockBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallSolarFarms.solarPerBlock(),
-          () => multicallSolarFarms.totalAllocPoint(),
-          () => multicallSolarFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(SOLAR_FARMS),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallSolarFarms.solarPerBlock(),
+        multicallSolarFarms.totalAllocPoint(),
+        multicallSolarFarms.poolInfo(poolId),
+        lpToken.balanceOf(SOLAR_FARMS),
+      ]);
 
     const rewardsPerBlock =
       (parseFloat(formatEther(solarPerBlockBN)) *
@@ -85,21 +83,15 @@ export async function calculateSolarFarmsAPY(
       ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
   } else if (Number.isInteger(solarPoolV2Ids[jar.depositToken.addr])) {
     const poolId = solarPoolV2Ids[jar.depositToken.addr];
-    const multicallSolarFarms = new MultiContract(
-      SOLAR_V2_FARMS,
-      solarFarmsV2Abi,
-    );
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
+    const multicallSolarFarms = new Contract(SOLAR_V2_FARMS, solarFarmsV2Abi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
     [solarPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
-      await model.callMulti(
-        [
-          () => multicallSolarFarms.solarPerSec(),
-          () => multicallSolarFarms.totalAllocPoint(),
-          () => multicallSolarFarms.poolInfo(poolId),
-          () => lpToken.balanceOf(SOLAR_V2_FARMS),
-        ],
-        jar.chain,
-      );
+      await multiProvider.all([
+        multicallSolarFarms.solarPerSec(),
+        multicallSolarFarms.totalAllocPoint(),
+        multicallSolarFarms.poolInfo(poolId),
+        lpToken.balanceOf(SOLAR_V2_FARMS),
+      ]);
 
     const rewardsPerSec =
       (parseFloat(formatEther(solarPerSecBN)) *
@@ -109,18 +101,12 @@ export async function calculateSolarFarmsAPY(
     rewardsPerYear = rewardsPerSec * (360 * 24 * 60 * 60);
   } else if (Number.isInteger(solarPoolV3Ids[jar.depositToken.addr])) {
     const poolId = solarPoolV3Ids[jar.depositToken.addr];
-    const multicallSolarFarms = new MultiContract(
-      SOLAR_V3_FARMS,
-      solarFarmsV2Abi,
-    );
-    const lpToken = new MultiContract(jar.depositToken.addr, erc20Abi);
-    [rewardInfo, totalSupplyBN] = await model.callMulti(
-      [
-        () => multicallSolarFarms.poolRewardsPerSec(poolId),
-        () => lpToken.balanceOf(SOLAR_V3_FARMS),
-      ],
-      jar.chain,
-    );
+    const multicallSolarFarms = new Contract(SOLAR_V3_FARMS, solarFarmsV2Abi);
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
+    [rewardInfo, totalSupplyBN] = await multiProvider.all([
+      multicallSolarFarms.poolRewardsPerSec(poolId),
+      lpToken.balanceOf(SOLAR_V3_FARMS),
+    ]);
     const rewards = rewardInfo.addresses
       .map((address: string, idx: number) => {
         const token = ExternalTokenModelSingleton.getToken(address, jar.chain);

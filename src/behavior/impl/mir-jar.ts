@@ -6,7 +6,7 @@ import { PickleModel } from "../../model/PickleModel";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import stakingRewardsAbi from "../../Contracts/ABIs/staking-rewards.json";
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import {
   getLivePairDataFromContracts,
   IPairData,
@@ -37,18 +37,16 @@ export abstract class MirJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multicallUniStakingRewards = new MultiContract(
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const multicallUniStakingRewards = new Contract(
       rewardsAddress,
       stakingRewardsAbi,
     );
 
-    const promises1: Promise<any> = model.callMulti(
-      [
-        () => multicallUniStakingRewards.rewardRate(),
-        () => multicallUniStakingRewards.totalSupply(),
-      ],
-      jar.chain,
-    );
+    const promises1: Promise<any> = multiProvider.all([
+      multicallUniStakingRewards.rewardRate(),
+      multicallUniStakingRewards.totalSupply(),
+    ]);
     const promises2: Promise<IPairData> = getLivePairDataFromContracts(
       jar,
       model,
@@ -89,11 +87,11 @@ export abstract class MirJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const rewards = new MultiContract(this.rewardAddress, mirRewardAbi);
-    const mir = await model.callMulti(
-      () => rewards.earned(jar.details.strategyAddr),
-      jar.chain,
-    );
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const rewards = new Contract(this.rewardAddress, mirRewardAbi);
+    const [mir] = await multiProvider.all([
+      rewards.earned(jar.details.strategyAddr),
+    ]);
     const mirPrice = model.priceOfSync("mirror-protocol", jar.chain);
     const harvestable = mir.mul(mirPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));

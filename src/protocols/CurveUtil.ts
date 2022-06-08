@@ -1,4 +1,4 @@
-import { Contract as MultiContract } from "ethers-multicall";
+import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import CurvePoolABI from "../Contracts/ABIs/pool.json";
 import { ChainNetwork, PickleModel } from "..";
@@ -40,11 +40,12 @@ export async function getCurveLpPriceData(
   model: PickleModel,
   chain: ChainNetwork,
 ): Promise<number> {
-  const multicallPoolContract = new MultiContract(tokenAddress, CurvePoolABI);
+  const multiProvider = model.multiproviderFor(chain);
+  const multicallPoolContract = new Contract(tokenAddress, CurvePoolABI);
 
-  const pricePerToken = await model
-    .callMulti(() => multicallPoolContract.get_virtual_price(), chain)
-    .then((x) => parseFloat(formatEther(x)));
+  const pricePerToken = await multiProvider
+    .all([multicallPoolContract.get_virtual_price()])
+    .then((x) => parseFloat(formatEther(x[0])));
 
   return pricePerToken;
 }
@@ -56,10 +57,10 @@ export async function calculateCurveApyArbitrum(
   _gauge: string,
   tokens: string[],
 ) {
-  const swap = new MultiContract(swapAddress, swap_abi);
-  const balances: BigNumber[] = await model.callMulti(
-    Array.from(Array(tokens.length).keys()).map((x) => () => swap.balances(x)),
-    jar.chain,
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const swap = new Contract(swapAddress, swap_abi);
+  const balances: BigNumber[] = await multiProvider.all(
+    Array.from(Array(tokens.length).keys()).map((x) => swap.balances(x)),
   );
 
   // TODO This is the fail

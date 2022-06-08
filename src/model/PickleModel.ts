@@ -18,10 +18,6 @@ import {
 } from "./PickleModelJson";
 import { BigNumber, BigNumberish, ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import {
-  Provider as MulticallProvider,
-  Contract as MultiContract,
-} from "ethers-multicall";
 import controllerAbi from "../Contracts/ABIs/controller.json";
 import strategyAbi from "../Contracts/ABIs/strategy.json";
 import jarAbi from "../Contracts/ABIs/jar.json";
@@ -49,7 +45,12 @@ import {
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { setAllPricesOnTokens } from "./PriceCacheLoader";
 import { timeout } from "../util/PromiseTimeout";
-import { CommsMgr } from "../util/CommsMgr";
+import { CommsMgrV2 } from "../util/CommsMgrV2";
+import {
+  MultiProvider,
+  Contract as MultiContract,
+  ContractCall,
+} from "ethers-multiprovider";
 
 export interface PfDataStore {
   readData(key: string): Promise<string | undefined>;
@@ -207,7 +208,7 @@ export class PickleModel implements ConsoleErrorLogger {
   resourceCache: Map<string, any>;
   private configuredChains: ChainNetwork[];
   private minimalMode = false;
-  commsMgr: CommsMgr;
+  commsMgr2: CommsMgrV2 = new CommsMgrV2();
 
   constructor(
     allAssets: PickleAsset[],
@@ -217,7 +218,6 @@ export class PickleModel implements ConsoleErrorLogger {
     this.allAssets = JSON.parse(JSON.stringify(allAssets));
     this.initializeChains(chains);
     this.resourceCache = new Map<string, any>();
-    this.commsMgr = new CommsMgr(this);
   }
 
   setDataStore(dataStore: PfDataStore): void {
@@ -387,12 +387,8 @@ export class PickleModel implements ConsoleErrorLogger {
     return undefined;
   }
 
-  providerFor(network: ChainNetwork): Provider {
-    // return Chains.get(network).getPreferredWeb3Provider();
-    return this.commsMgr.getProvider(network);
-  }
-  multicallProviderFor(chain: ChainNetwork): MulticallProvider {
-    return new MulticallProvider(this.providerFor(chain), Chains.get(chain).id);
+  multiproviderFor(network: ChainNetwork): MultiProvider {
+    return this.commsMgr2.getProvider(network);
   }
   getResourceCache(): Map<string, any> {
     return this.resourceCache;
@@ -464,6 +460,9 @@ export class PickleModel implements ConsoleErrorLogger {
     DEBUG_OUT("End loadSwapData: " + (Date.now() - start));
   }
 
+  /**
+   * @TODO Let CommsMgr decide on the live chains. It has access to more RPCs
+   */
   async checkConfiguredChainsConnections(): Promise<void> {
     const liveChains: ChainNetwork[] = [];
     await Promise.all(
@@ -478,12 +477,11 @@ export class PickleModel implements ConsoleErrorLogger {
       }),
     );
     this.setConfiguredChains(liveChains);
-    await this.commsMgr.configureRPCs(liveChains);
   }
 
   async generateFullApi(): Promise<PickleModelJson> {
-    this.commsMgr.start();
     await this.checkConfiguredChainsConnections();
+    await this.commsMgr2.init(this.configuredChains);
     await this.loadJarAndFarmData();
     this.dillDetails = await getDillDetails(
       getWeeklyDistribution(this.getJars()),
@@ -492,16 +490,16 @@ export class PickleModel implements ConsoleErrorLogger {
       ChainNetwork.Ethereum,
     );
     this.platformData = await this.loadPlatformData();
-    this.commsMgr.stop();
+    await this.commsMgr2.stop();
     return this.toJson();
   }
 
   async generateMinimalApi(): Promise<PickleModelJson> {
-    this.commsMgr.start();
-    this.minimalMode = true;
     await this.checkConfiguredChainsConnections();
+    await this.commsMgr2.init(this.configuredChains);
+    this.minimalMode = true;
     await this.loadJarAndFarmData();
-    this.commsMgr.stop();
+    await this.commsMgr2.stop();
     return this.toJson();
   }
 
@@ -611,15 +609,13 @@ export class PickleModel implements ConsoleErrorLogger {
     return ret;
   }
 
-  async initializeChains(
-    chains: Map<ChainNetwork, Provider | Signer>,
-  ): Promise<void> {
+  initializeChains(chains: Map<ChainNetwork, Provider | Signer>) {
     const allChains: ChainNetwork[] = Chains.list();
     Chains.globalInitialize(chains);
-    await this.setConfiguredChains(allChains);
+    this.setConfiguredChains(allChains);
   }
 
-  async setConfiguredChains(chains: ChainNetwork[]): Promise<void> {
+  setConfiguredChains(chains: ChainNetwork[]) {
     this.configuredChains = chains;
   }
 
@@ -756,14 +752,13 @@ export class PickleModel implements ConsoleErrorLogger {
       }
     }
 
+    const multiProvider = this.multiproviderFor(chain);
     let results: string[] = undefined;
     try {
-      results = await this.callMulti(
-        arr.map(
-          (oneArr) => () =>
-            new MultiContract(oneArr.token, erc20Abi).balanceOf(oneArr.pool),
+      results = await multiProvider.all(
+        arr.map((oneArr) =>
+          new MultiContract(oneArr.token, erc20Abi).balanceOf(oneArr.pool),
         ),
-        chain,
       );
     } catch (error) {
       this.logError("ensureComponentTokensLoadedForChain", error, chain);
@@ -886,13 +881,13 @@ export class PickleModel implements ConsoleErrorLogger {
     if (!jars || jars.length === 0) return;
     const controllerContract = new MultiContract(controllerAddr, controllerAbi);
 
+    const multiProvider = this.multiproviderFor(chain);
     let strategyAddresses: string[] = undefined;
     try {
-      strategyAddresses = await this.callMulti(
-        jars.map((oneJar) => {
-          return () => controllerContract.strategies(oneJar.depositToken.addr);
-        }),
-        chain,
+      strategyAddresses = await multiProvider.all(
+        jars.map((oneJar) =>
+          controllerContract.strategies(oneJar.depositToken.addr),
+        ),
       );
     } catch (error) {
       this.logError("addJarStrategies: strategyAddresses", error, chain);
@@ -916,15 +911,10 @@ export class PickleModel implements ConsoleErrorLogger {
 
     let strategyNames: string[] = undefined;
     try {
-      strategyNames = await this.callMulti(
-        withStrategyAddresses.map(
-          (oneJar) => () =>
-            new MultiContract(
-              oneJar.details.strategyAddr,
-              strategyAbi,
-            ).getName(),
+      strategyNames = await multiProvider.all(
+        withStrategyAddresses.map((oneJar) =>
+          new MultiContract(oneJar.details.strategyAddr, strategyAbi).getName(),
         ),
-        chain,
       );
     } catch (error) {
       this.logError("addJarStrategies: strategyNames", error, chain);
@@ -945,14 +935,13 @@ export class PickleModel implements ConsoleErrorLogger {
   ): Promise<void> {
     if (jars === undefined || jars.length === 0) return;
 
+    const multiProvider = this.multiproviderFor(chain);
     let ratios: string[] = undefined;
     try {
-      ratios = await this.callMulti(
-        jars.map(
-          (oneJar) => () =>
-            new MultiContract(oneJar.contract, jarAbi).getRatio(),
+      ratios = await multiProvider.all(
+        jars.map((oneJar) =>
+          new MultiContract(oneJar.contract, jarAbi).getRatio(),
         ),
-        chain,
       );
     } catch (error) {
       this.logError("addJarRatios: ratios", error, chain);
@@ -969,14 +958,13 @@ export class PickleModel implements ConsoleErrorLogger {
   ): Promise<void> {
     if (jars === undefined || jars.length === 0) return;
 
+    const multiProvider = this.multiproviderFor(chain);
     let supply: string[] = undefined;
     try {
-      supply = await this.callMulti(
-        jars.map(
-          (oneJar) => () =>
-            new MultiContract(oneJar.contract, jarAbi).totalSupply(),
+      supply = await multiProvider.all(
+        jars.map((oneJar) =>
+          new MultiContract(oneJar.contract, jarAbi).totalSupply(),
         ),
-        chain,
       );
     } catch (error) {
       console.log("Failed on addJarTotalSupply");
@@ -997,10 +985,10 @@ export class PickleModel implements ConsoleErrorLogger {
 
     let timestamp: number[] = undefined;
     try {
-      const provider = this.providerFor(chain);
+      const multiProvider = this.multiproviderFor(chain);
       timestamp = (
         await Promise.all(
-          jars.map((oneJar) => provider.getBlock(oneJar.startBlock)),
+          jars.map((oneJar) => multiProvider.getBlock(oneJar.startBlock)),
         )
       ).map((x) => x.timestamp);
     } catch (error) {
@@ -1017,15 +1005,15 @@ export class PickleModel implements ConsoleErrorLogger {
   ): Promise<void> {
     if (jars === undefined || jars.length === 0) return;
 
+    const multiProvider = this.multiproviderFor(chain);
     let balance: string[] = undefined;
     try {
-      balance = await this.callMulti(
+      balance = await multiProvider.all(
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
-            ? () => new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
-            : () => new MultiContract(oneJar.contract, jarAbi).balance(),
+            ? new MultiContract(oneJar.contract, jarAbi).totalLiquidity()
+            : new MultiContract(oneJar.contract, jarAbi).balance(),
         ),
-        chain,
       );
     } catch (error) {
       this.logError("addDepositTokenBalance", error, chain);
@@ -1046,23 +1034,21 @@ export class PickleModel implements ConsoleErrorLogger {
   ): Promise<void> {
     if (jars === undefined || jars.length === 0) return;
 
+    const multiProvider = this.multiproviderFor(chain);
     let supply: string[] = undefined;
     try {
-      supply = await this.callMulti(
+      supply = await multiProvider.all(
         jars.map((oneJar) =>
           oneJar.protocol === AssetProtocol.UNISWAP_V3
-            ? () =>
-                new MultiContract(
-                  oneJar.depositToken.addr,
-                  univ3PoolAbi,
-                ).liquidity()
-            : () =>
-                new MultiContract(
-                  oneJar.depositToken.addr,
-                  erc20Abi,
-                ).totalSupply(),
+            ? new MultiContract(
+                oneJar.depositToken.addr,
+                univ3PoolAbi,
+              ).liquidity()
+            : new MultiContract(
+                oneJar.depositToken.addr,
+                erc20Abi,
+              ).totalSupply(),
         ),
-        chain,
       );
     } catch (error) {
       console.log("Failed on addDepositTokenTotalSupply");
@@ -1143,7 +1129,6 @@ export class PickleModel implements ConsoleErrorLogger {
           this,
           BigNumber.from(0),
           BigNumber.from(0),
-          resolver,
         ),
       );
     }
@@ -1178,14 +1163,13 @@ export class PickleModel implements ConsoleErrorLogger {
     );
     if (!harvestableJars || harvestableJars.length === 0) return;
 
+    const multiProvider = this.multiproviderFor(chain);
     let balanceOfProm: Promise<BigNumber[]> = undefined;
     try {
-      balanceOfProm = this.callMulti(
-        harvestableJars.map(
-          (oneJar) => () =>
-            new MultiContract(oneJar.contract, jarAbi).balance(),
+      balanceOfProm = multiProvider.all(
+        harvestableJars.map((oneJar) =>
+          new MultiContract(oneJar.contract, jarAbi).balance(),
         ),
-        chain,
       );
     } catch (error) {
       this.logError("loadHarvestDataJarAbi: balanceOfProm", error, chain);
@@ -1194,16 +1178,15 @@ export class PickleModel implements ConsoleErrorLogger {
     // Just do the want.balanceOf(strategy) but protect against non-erc20 deposit tokens
     let strategyWantProm: Promise<BigNumber[]> = undefined;
     try {
-      strategyWantProm = this.callMulti(
+      strategyWantProm = multiProvider.all(
         harvestableJars.map((oneJar) => {
           const guard = getZeroValueMulticallForNonErc20(oneJar);
-          if (guard) return () => guard;
-          return () =>
-            new MultiContract(oneJar.depositToken.addr, erc20Abi).balanceOf(
-              oneJar.details.strategyAddr,
-            );
+          if (guard) return guard;
+          return new MultiContract(
+            oneJar.depositToken.addr,
+            erc20Abi,
+          ).balanceOf(oneJar.details.strategyAddr);
         }),
-        chain,
       );
     } catch (error) {
       this.logError("loadHarvestDataJarAbi: strategyWantProm", error, chain);
@@ -1212,12 +1195,10 @@ export class PickleModel implements ConsoleErrorLogger {
     // Load available as a group
     let availableProm: Promise<BigNumber[]> = undefined;
     try {
-      availableProm = this.callMulti(
-        harvestableJars.map(
-          (oneJar) => () =>
-            new MultiContract(oneJar.contract, jarAbi).available(),
+      availableProm = multiProvider.all(
+        harvestableJars.map((oneJar) =>
+          new MultiContract(oneJar.contract, jarAbi).available(),
         ),
-        chain,
       );
     } catch (error) {
       this.logError("loadHarvestDataJarAbi: availableProm", error, chain);
@@ -1270,7 +1251,6 @@ export class PickleModel implements ConsoleErrorLogger {
             this,
             balanceOf[i],
             available[i].add(strategyWant[i]),
-            resolver,
           ),
         );
       } catch (e) {
@@ -1362,31 +1342,19 @@ export class PickleModel implements ConsoleErrorLogger {
   }
 
   async ensureFarmsBalanceLoadedForChain(chain: ChainNetwork): Promise<void> {
-    const ethcallProvider = this.multicallProviderFor(chain);
-    try {
-      await ethcallProvider.init();
-    } catch (error) {
-      this.logError(
-        "ensureFarmsBalanceLoadedForProtocol: ethcallProvider",
-        error,
-        chain,
-      );
-    }
-
+    const multiProvider = this.multiproviderFor(chain);
     // Run on eth standalone farms
     const chainFarms: StandaloneFarmDefinition[] =
       this.getStandaloneFarms().filter((x) => x.chain === chain);
     let chainFarmResultsPromise: Promise<string[]> = undefined;
     if (chainFarms.length !== 0) {
       try {
-        chainFarmResultsPromise = this.callMulti(
-          chainFarms.map(
-            (oneFarm) => () =>
-              new MultiContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(
-                oneFarm.contract,
-              ),
+        chainFarmResultsPromise = multiProvider.all(
+          chainFarms.map((oneFarm) =>
+            new MultiContract(oneFarm.depositToken.addr, erc20Abi).balanceOf(
+              oneFarm.contract,
+            ),
           ),
-          chain,
         );
       } catch (error) {
         this.logError("ensureFarmsBalanceLoadedForProtocol 1", error, chain);
@@ -1401,14 +1369,12 @@ export class PickleModel implements ConsoleErrorLogger {
     let protocolJarsWithFarmResultsPromise: Promise<string[]> = undefined;
     if (protocolJarsWithFarms.length > 0) {
       try {
-        protocolJarsWithFarmResultsPromise = this.callMulti(
-          protocolJarsWithFarms.map(
-            (oneJar) => () =>
-              new MultiContract(oneJar.contract, erc20Abi).balanceOf(
-                oneJar.farm.farmAddress,
-              ),
+        protocolJarsWithFarmResultsPromise = multiProvider.all(
+          protocolJarsWithFarms.map((oneJar) =>
+            new MultiContract(oneJar.contract, erc20Abi).balanceOf(
+              oneJar.farm.farmAddress,
+            ),
           ),
-          chain,
         );
       } catch (error) {
         this.logError("ensureFarmsBalanceLoadedForProtocol 2", error, chain);
@@ -1521,7 +1487,6 @@ export class PickleModel implements ConsoleErrorLogger {
               this,
               null,
               null,
-              this.providerFor(external[i].chain),
             );
           } catch (error) {
             this.logError("ensureExternalAssetBalanceLoaded: bal", error);
@@ -1707,15 +1672,15 @@ export class PickleModel implements ConsoleErrorLogger {
       }
     }
 
+    const multiProvider = this.multiproviderFor(ChainNetwork.Ethereum);
     const masterChef = ADDRESSES.get(ChainNetwork.Ethereum)?.masterChef;
     let ppb = BigNumber.from(0);
     if (masterChef) {
       const contract = new MultiContract(masterChef, MasterchefAbi);
       try {
-        ppb = await this.callMulti(
-          () => contract.picklePerBlock(),
-          ChainNetwork.Ethereum,
-        );
+        ppb = await multiProvider
+          .all([contract.picklePerBlock()])
+          .then((x) => x[0]);
       } catch (error) {
         this.logError("loadPlatformData", error);
       }
@@ -1739,19 +1704,6 @@ export class PickleModel implements ConsoleErrorLogger {
         error,
     );
   }
-
-  // tslint:disable-next-line
-  async call(contractCallback: Function, chain: ChainNetwork, canFail = false) {
-    return await this.commsMgr.callSingle(contractCallback, chain, canFail);
-  }
-
-  async callMulti(
-    // tslint:disable-next-line
-    contractCallback: Function | Function[],
-    chain: ChainNetwork,
-  ) {
-    return await this.commsMgr.callMulti(contractCallback, chain);
-  }
 }
 
 /**
@@ -1761,7 +1713,7 @@ export class PickleModel implements ConsoleErrorLogger {
  */
 export const getZeroValueMulticallForNonErc20 = (
   jar: JarDefinition,
-): Promise<BigNumber> => {
+): ContractCall => {
   if (
     jar.depositToken === undefined ||
     (jar.depositToken.style !== undefined &&
@@ -1773,9 +1725,7 @@ export const getZeroValueMulticallForNonErc20 = (
   return undefined;
 };
 
-export const getZeroValueMulticallForChain = (
-  chain: ChainNetwork,
-): Promise<any> => {
+export const getZeroValueMulticallForChain = (chain: ChainNetwork) => {
   // We need a safe multicall
   const randomErc20Token: string =
     ExternalTokenModelSingleton.getTokens(chain)[0].contractAddr;
