@@ -1878,7 +1878,7 @@ export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
     components: ["temple", "frax"],
   },
   rewardTokens: ["fxs", "temple"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
