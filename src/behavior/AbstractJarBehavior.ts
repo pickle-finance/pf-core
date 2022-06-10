@@ -1,5 +1,4 @@
-import { BigNumber, ethers, Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { BigNumber, ethers } from "ethers";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import {
   AssetAprComponent,

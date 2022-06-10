@@ -1,6 +1,5 @@
 import { BigNumber, Signer } from "ethers";
 import {
-  Provider,
   TransactionResponse,
 } from "@ethersproject/abstract-provider";
 import {

@@ -1,6 +1,4 @@
-import { Provider } from "@ethersproject/abstract-provider";
-import { Signer } from "@ethersproject/abstract-signer";
-import { BigNumber, Contract as SingleContract, ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { Contract } from "ethers-multiprovider";
 import { JarHarvestStats, PickleModel } from "../..";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";

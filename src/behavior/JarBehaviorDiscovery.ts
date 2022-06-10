@@ -1,5 +1,3 @@
-import { Signer } from "ethers";
-import { Provider } from "@ethersproject/providers";
 import {
   JAR_UNIV2_MAAPL_UST,
   JAR_UNIV2_MBABA_UST,

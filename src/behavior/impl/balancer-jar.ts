@@ -1,5 +1,5 @@
-import { Provider, TransactionResponse } from "@ethersproject/providers";
-import { BigNumber, ContractTransaction, ethers, Signer } from "ethers";
+import { TransactionResponse } from "@ethersproject/providers";
+import { BigNumber, ContractTransaction, ethers } from "ethers";
 import strategyAbi from "../../Contracts/ABIs/strategy.json";
 import jarAbi from "../../Contracts/ABIs/jar.json";
 import { JarHarvestStats, PickleModel } from "../..";
