@@ -41,7 +41,6 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
   gnosis: [
     ["https://gnosis-mainnet.public.blastapi.io"],
     ["https://rpc.ankr.com/gnosis"],
-    ["https://rpc.gnosischain.com"],
     ["https://xdai.poanetwork.dev"],
     ["https://dai.poa.network"],
     ["https://rpc.xdaichain.com"],
@@ -49,6 +48,7 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
     ["https://gnosischain-rpc.gateway.pokt.network"],
     ["https://xdai-archive.blockscout.com"],
     ["https://xdai-rpc.gateway.pokt.network"],
+    // ["https://rpc.gnosischain.com"], // doesn't support Access-Control-Allow-Origin, causing calls to it to be blocked on UI by CORS policy
     // ["wss://xdai.poanetwork.dev/wss"],  // offline
     // ["wss://rpc.gnosischain.com/wss"],  // offline
   ],
