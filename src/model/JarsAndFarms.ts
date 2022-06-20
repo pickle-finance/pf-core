@@ -4309,7 +4309,7 @@ export const JAR_CRO_VVS_CRO_BIFI: JarDefinition = {
     components: ["cro", "bifi"],
   },
   rewardTokens: ["vvs"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.VVS,
   details: {
@@ -5533,7 +5533,7 @@ export const JAR_AURORA_TRISOLARIS_BBT_NEAR_LP: JarDefinition = {
     components: ["bbt", "near"],
   },
   rewardTokens: ["bbt"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
@@ -6065,7 +6065,7 @@ export const JAR_AURORA_WANNA_WANNA_AURORA: JarDefinition = {
     },
   },
   rewardTokens: ["wanna"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.WANNASWAP,
   details: {
@@ -6330,9 +6330,9 @@ export const JAR_AURORA_ROSE_PAD_ROSE_PAD_LP: JarDefinition = {
     },
   },
   rewardTokens: ["rose"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.ROSE,
+  protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "NLP-PAD-ROSE",
     harvestStyle: HarvestStyle.CUSTOM,
@@ -6357,9 +6357,9 @@ export const JAR_AURORA_ROSE_PAD_ROSE_FRAX_LP: JarDefinition = {
     components: ["frax", "rose"],
   },
   rewardTokens: ["rose"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
-  protocol: AssetProtocol.ROSE,
+  protocol: AssetProtocol.NEARPAD,
   details: {
     apiKey: "NLP-FRAX-ROSE",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -8134,7 +8134,7 @@ export const JAR_MOONBEAM_STELLA_STELLA_USDC: JarDefinition = {
     },
   },
   rewardTokens: ["stella"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.STELLA,
   details: {
@@ -8232,7 +8232,7 @@ export const JAR_MOONBEAM_BEAM_BUSD_GLMR: JarDefinition = {
     components: ["busd", "glmr"],
   },
   rewardTokens: ["glint"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Moonbeam,
   protocol: AssetProtocol.BEAM,
   details: {
