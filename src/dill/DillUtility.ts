@@ -249,10 +249,10 @@ export async function getDillDetails(
 
     DEBUG_OUT("End getDillDetails: " + (Date.now() - start));
     return {
+      totalPickle: pickleSupplyFloat,
       pickleLocked: picklesLockedFloat,
       totalDill: dillSupplyFloat,
       dillWeeks: mapResult,
-      totalPickle: pickleSupplyFloat,
     };
   } catch (e) {
     console.log(e);
