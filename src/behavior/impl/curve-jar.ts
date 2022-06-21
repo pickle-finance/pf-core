@@ -130,19 +130,16 @@ export abstract class CurveJar extends AbstractJarBehavior {
     const multiProvider = model.multiproviderFor(jar.chain);
     const mcGauge = new Contract(gauge, curveGaugeAbi);
     const mcPool = new Contract(pool, poolAbi);
+    const ctrlr = new Contract(GAUGE_CONTROLLER_ADDR, controllerAbi);
 
-    const [workingSupply, gaugeRate, virtualPrice] = (
+    const [workingSupply, gaugeRate, virtualPrice, weight] = (
       await multiProvider.all([
         mcGauge.working_supply(),
         mcGauge.inflation_rate(),
         mcPool.get_virtual_price(),
+        ctrlr.gauge_relative_weight(gauge),
       ])
     ).map((x) => parseFloat(ethers.utils.formatUnits(x)));
-
-    const ctrlr = new Contract(GAUGE_CONTROLLER_ADDR, controllerAbi);
-    const weight = await multiProvider
-      .all([ctrlr.gauge_relative_weight(gauge)])
-      .then((x) => parseFloat(ethers.utils.formatUnits(x[0])));
 
     // https://github.com/curvefi/curve-dao/blob/b7d6d2b6633fd64aa44e80094f6fb5f17f5e771a/src/components/minter/gaugeStore.js#L212
     const rate =
