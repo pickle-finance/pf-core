@@ -1,19 +1,22 @@
 import { ethers } from "ethers";
-import { ChainNetwork, PickleModel } from "../..";
+import { PickleModel } from "../..";
 import {
   JarDefinition,
   AssetProjectedApr,
   AssetAprComponent,
 } from "../../model/PickleModelJson";
-import { CurveJar, getCurveRawStats } from "./curve-jar";
+import { CurveJar } from "./curve-jar";
 import { formatEther } from "ethers/lib/utils";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateCurveApyArbitrum } from "../../protocols/CurveUtil";
 import { Contract } from "ethers-multiprovider";
+import { fetch } from "cross-fetch";
 
 export class CrvTricrypto extends CurveJar {
+  swapAddress: string;
   constructor() {
-    super("0x97E2768e8E73511cA874545DC5Ff8067eB19B787");
+    super("0x555766f3da968ecbefa690ffd49a2ac02f47aa5f");
+    this.swapAddress = "0x960ea3e3C7FB317332d990873d354E18d7645590";
   }
 
   async getDepositTokenPrice(
@@ -74,26 +77,21 @@ export class CrvTricrypto extends CurveJar {
       {
         stateMutability: "view",
         type: "function",
-        name: "claimable_reward_write",
-        inputs: [
-          { name: "_addr", type: "address" },
-          { name: "_token", type: "address" },
-        ],
+        name: "claimable_tokens",
+        inputs: [{ name: "addr", type: "address" }],
         outputs: [{ name: "", type: "uint256" }],
-        // gas: "2067577",
       },
     ];
 
     const gauge = new Contract(this.gaugeAddress, curveThirdPartyGaugeAbi);
     const multiProvider = model.multiproviderFor(jar.chain);
-    const [crv] = await multiProvider.all([
-      gauge.claimable_reward_write(
-        jar.details.strategyAddr,
-        model.address("crv", ChainNetwork.Arbitrum),
-      ),
+
+    const [claimableTokensBN] = await multiProvider.all([
+      gauge.claimable_tokens(jar.details.strategyAddr),
     ]);
+
     const crvPrice = model.priceOfSync("curve-dao-token", jar.chain);
-    const harvestable = crv.mul(crvPrice.toFixed());
+    const harvestable = claimableTokensBN.mul(crvPrice.toFixed());
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
@@ -101,20 +99,34 @@ export class CrvTricrypto extends CurveJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const apr = await calculateCurveApyArbitrum(
-      jar,
-      model,
-      "0x960ea3e3C7FB317332d990873d354E18d7645590",
-      "0x97E2768e8E73511cA874545DC5Ff8067eB19B787",
-      ["usdt", "wbtc", "weth"],
-    );
-    const crvApy = this.createAprComponent("crv", apr, true);
-    const curveRawStats: any = await getCurveRawStats(model, jar.chain);
-    const lp: AssetAprComponent = this.createAprComponent(
-      "lp",
-      curveRawStats?.tricrypto ? curveRawStats.tricrypto : 0,
-      false,
-    );
-    return this.aprComponentsToProjectedApr([lp, crvApy]);
+    let aprComponents: AssetAprComponent[] = [];
+
+    try {
+      const apr = await calculateCurveApyArbitrum(
+        jar,
+        model,
+        this.swapAddress,
+        this.gaugeAddress,
+        3,
+      );
+      aprComponents.push(this.createAprComponent("crv", apr, true));
+    } catch (error) {
+      model.logError("getProjectedAprStats", error, `${jar.details.apiKey}`);
+    }
+
+    // Get LP APY from API
+    try {
+      const curveApi = "https://api.curve.fi/api/getSubgraphData/arbitrum";
+      const response = await fetch(curveApi).then((x) => x.json());
+      const poolData = response.data.poolList.find(
+        (pool) => pool.address.toLowerCase() === this.swapAddress.toLowerCase(),
+      );
+      const lpApy = Math.max(poolData.latestDailyApy, poolData.latestWeeklyApy);
+      aprComponents.push(this.createAprComponent("lp", lpApy ?? 0, false));
+    } catch (error) {
+      model.logError("getProjectedAprStats", error, `${jar.details.apiKey}`);
+    }
+
+    return this.aprComponentsToProjectedApr(aprComponents);
   }
 }

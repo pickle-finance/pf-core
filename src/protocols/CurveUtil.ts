@@ -3,10 +3,20 @@ import { formatEther } from "ethers/lib/utils";
 import CurvePoolABI from "../Contracts/ABIs/pool.json";
 import { ChainNetwork, PickleModel } from "..";
 import { HistoricalYield, JarDefinition } from "../model/PickleModelJson";
-import { BigNumber } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { fetch } from "cross-fetch";
+import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 
-const swap_abi = ["function balances(uint256) view returns(uint256)"];
+const swap_abi = [
+  "function balances(uint256) view returns(uint256)",
+  "function get_virtual_price() view returns(uint256)",
+  "function coins(uint256) view returns(address)",
+];
+const gaugeAbi = [
+  "function working_supply() view returns(uint256)",
+  "function inflation_rate(uint256) view returns(uint256)",
+  "function integrate_inv_supply(uint256) view returns(uint256)",
+];
 
 const cacheKeyPrefix = "curve.data.cache.key.";
 
@@ -16,6 +26,8 @@ export const curveApiPoly =
   "https://stats.curve.fi/raw-stats-polygon/apys.json";
 export const curveApiArbitrum =
   "https://stats.curve.fi/raw-stats-arbitrum/apys.json";
+export const curveSubgraphArbitrum =
+  "https://api.curve.fi/api/getSubgraphData/arbitrum";
 export const curveApiXdai = "https://stats.curve.fi/raw-stats-xdai/apys.json";
 export const apiUrls = new Map<string, string>();
 apiUrls.set(ChainNetwork.Ethereum, curveApi);
@@ -55,33 +67,66 @@ export async function calculateCurveApyArbitrum(
   model: PickleModel,
   swapAddress: string,
   _gauge: string,
-  tokens: string[],
+  _tokensNo: number,
 ) {
+  // Get CRV emission rate
   const multiProvider = model.multiproviderFor(jar.chain);
-  const swap = new Contract(swapAddress, swap_abi);
-  const balances: BigNumber[] = await multiProvider.all(
-    Array.from(Array(tokens.length).keys()).map((x) => swap.balances(x)),
+  const swapContract = new Contract(swapAddress, swap_abi);
+  const gaugeContract = new Contract(_gauge, gaugeAbi);
+
+  const secondsInOneWeek = 60 * 60 * 24 * 7;
+  const currentWeekEpoch = Math.floor(Date.now() / 1000 / secondsInOneWeek);
+  const [workingSupply, gaugeRate]: BigNumber[] = await multiProvider.all([
+    gaugeContract.working_supply(),
+    gaugeContract.inflation_rate(currentWeekEpoch),
+    swapContract.get_virtual_price(),
+    gaugeContract.integrate_inv_supply(currentWeekEpoch),
+  ]);
+
+  const yearlyCrvRate = gaugeRate
+    .mul(ONE_YEAR_IN_SECONDS)
+    .div(workingSupply)
+    .mul(40)
+    .div(100)
+    .mul(100) // no idea why this makes it work
+    .toNumber();
+
+  const crvPrice = model.priceOfSync("crv", jar.chain);
+  const crvValuePerYear = yearlyCrvRate * crvPrice * 100;
+
+  // Get total pool USD value
+  const coinsProm: Promise<string[]> = multiProvider.all(
+    Array.from(
+      Array.from(Array(_tokensNo).keys()).map((x) => swapContract.coins(x)),
+    ),
+  );
+  const balancesProm: Promise<BigNumber[]> = multiProvider.all(
+    Array.from(
+      Array.from(Array(_tokensNo).keys()).map((x) => swapContract.balances(x)),
+    ),
   );
 
-  // TODO This is the fail
-  const decimals: number[] = tokens.map((x) =>
+  const [tokenAddresses, balancesBN] = await Promise.all([
+    coinsProm,
+    balancesProm,
+  ]);
+  const decimals: number[] = tokenAddresses.map((x) =>
     model.tokenDecimals(x, jar.chain),
   );
-  const prices: number[] = tokens.map((x) => model.priceOfSync(x, jar.chain));
+  const prices: number[] = tokenAddresses.map((x) =>
+    model.priceOfSync(x, jar.chain),
+  );
+
   let totalStakedUsd = 0;
-  for (let i = 0; i < tokens.length; i++) {
-    const oneEdec =
-      "1" +
-      Array.from(Array(decimals[i]).keys())
-        .map((_x) => "0")
-        .join(""); // this is retarded
-    const scaleBal = balances[i].div(oneEdec).toNumber() * prices[i];
-    totalStakedUsd = totalStakedUsd += scaleBal;
-  }
-  const crvPrice = model.priceOfSync("crv", jar.chain);
-  const crvRewardsAmount = crvPrice * 3500761; // Approximation of CRV emissions
-  const crvAPY = crvRewardsAmount / totalStakedUsd;
-  return crvAPY * 100;
+  tokenAddresses.forEach((_, i) => {
+    const balance = parseFloat(
+      ethers.utils.formatUnits(balancesBN[i], decimals[i]),
+    );
+    totalStakedUsd += balance * prices[i];
+  });
+
+  const crvAPY = (crvValuePerYear / totalStakedUsd) * 100;
+  return crvAPY;
 }
 
 export async function getCurvePerformance(
