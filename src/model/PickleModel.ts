@@ -1223,7 +1223,6 @@ export class PickleModel implements ConsoleErrorLogger {
       );
     }
 
-    const resolver = Chains.getResolver(chain);
     const harvestArr: Promise<JarHarvestStats>[] = [];
     for (let i = 0; i < harvestableJars.length; i++) {
       if (
@@ -1262,14 +1261,32 @@ export class PickleModel implements ConsoleErrorLogger {
         );
       }
     }
-    const results: JarHarvestStats[] = await Promise.all(harvestArr);
+    const results: PromiseSettledResult<JarHarvestStats>[] =
+      await Promise.allSettled(harvestArr);
     for (let j = 0; j < harvestableJars.length; j++) {
       if (results && results.length > j && results[j]) {
-        results[j].balanceUSD = toThreeDec(results[j].balanceUSD);
-        results[j].earnableUSD = toThreeDec(results[j].earnableUSD);
-        results[j].harvestableUSD = toThreeDec(results[j].harvestableUSD);
+        const oneSettledResult = results[j];
+        const result = {
+          balanceUSD: 0,
+          earnableUSD: 0,
+          harvestableUSD: 0,
+        };
+        if ("value" in oneSettledResult) {
+          const value = oneSettledResult.value;
+          result.balanceUSD = toThreeDec(value.balanceUSD);
+          result.earnableUSD = toThreeDec(value.earnableUSD);
+          result.harvestableUSD = toThreeDec(value.harvestableUSD);
+        } else {
+          console.log(
+            "Error loading harvest data for jar " +
+              harvestableJars[j].id +
+              ":  " +
+              oneSettledResult.reason,
+          );
+        }
+
+        harvestableJars[j].details.harvestStats = result;
       }
-      harvestableJars[j].details.harvestStats = results[j];
     }
   }
   async ensureStandaloneFarmsBalanceLoaded(
