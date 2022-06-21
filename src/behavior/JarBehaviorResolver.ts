@@ -1,7 +1,5 @@
 import { BigNumber, Signer } from "ethers";
-import {
-  TransactionResponse,
-} from "@ethersproject/abstract-provider";
+import { TransactionResponse } from "@ethersproject/abstract-provider";
 import {
   AssetProjectedApr,
   BrineryDefinition,
@@ -30,10 +28,7 @@ export interface ActiveJarHarvestStats extends JarHarvestStats {
 }
 
 export interface AssetBehavior<T extends PickleAsset> {
-  getProtocolApy(
-    _definition: T,
-    _model: PickleModel,
-  ): Promise<HistoricalYield>;
+  getProtocolApy(_definition: T, _model: PickleModel): Promise<HistoricalYield>;
 
   getProjectedAprStats(
     definition: T,

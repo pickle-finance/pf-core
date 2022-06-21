@@ -29,9 +29,8 @@ async function generateUserData(walletId: string) {
       const resultString = JSON.stringify(earnings, null, 2);
       process.stdout.write(resultString);
     }
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 

@@ -56,7 +56,7 @@ export abstract class SushiJar extends AbstractJarBehavior {
       false,
     );
     const components = [lpComp];
-    if( !isDisabledOrWithdrawOnly(definition)) {
+    if (!isDisabledOrWithdrawOnly(definition)) {
       const apr1: number = await calculateSushiRewardApr(
         definition.depositToken.addr,
         model,
@@ -86,12 +86,17 @@ export const chefV2AprStatsStatic = async (
   model: PickleModel,
   rewardToken: string,
 ): Promise<AssetProjectedApr> => {
-  if( isDisabledOrWithdrawOnly(definition)) {
+  if (isDisabledOrWithdrawOnly(definition)) {
     // duplicate code but easier to read
     const lpApr = await new SushiEthPairManager().calculateLpApr(
-      model, definition.depositToken.addr,
-    );  
-    const lpComp: AssetAprComponent = createAprComponentImpl("lp", lpApr, false);
+      model,
+      definition.depositToken.addr,
+    );
+    const lpComp: AssetAprComponent = createAprComponentImpl(
+      "lp",
+      lpApr,
+      false,
+    );
     return aprComponentsToProjectedAprImpl([lpComp]);
   }
 
@@ -110,7 +115,8 @@ export const chefV2AprStatsStatic = async (
   );
 
   const lpAprPromise = new SushiEthPairManager().calculateLpApr(
-    model, definition.depositToken.addr,
+    model,
+    definition.depositToken.addr,
   );
 
   const lpApr: number = await lpAprPromise;

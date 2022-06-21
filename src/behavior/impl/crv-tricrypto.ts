@@ -101,7 +101,7 @@ export class CrvTricrypto extends CurveJar {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    let aprComponents: AssetAprComponent[] = [];
+    const aprComponents: AssetAprComponent[] = [];
 
     try {
       const apr = await calculateCurveApyArbitrum(

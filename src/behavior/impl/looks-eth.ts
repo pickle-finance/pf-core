@@ -49,7 +49,7 @@ export class LooksEth extends AbstractJarBehavior {
     _jar: JarDefinition,
     _model: PickleModel,
   ): Promise<number> {
-    // rewards are over. No point in modifying code to check 
+    // rewards are over. No point in modifying code to check
     // for 'endblock' or something, just return 0 instead.
     return 0;
     // const multicallRewards = new MultiContract(

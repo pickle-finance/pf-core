@@ -23,7 +23,8 @@ describe("Testing ChainModel", () => {
   });
   test("preferred provider", async () => {
     const chain: IChain = Chains.get(ChainNetwork.Ethereum);
-    const infura: ethers.providers.Provider = new ethers.providers.InfuraProvider();
+    const infura: ethers.providers.Provider =
+      new ethers.providers.InfuraProvider();
     expect(chain).toBeDefined();
     chain.setPreferredWeb3Provider(infura);
     expect(chain.getPreferredWeb3Provider()).toBeDefined();

@@ -460,9 +460,9 @@ export interface DillWeek {
 }
 
 export interface PlatformData {
-  pickleTotalSupply: number,
-  pickleCirculatingSupply: number,
-  pickleMarketCap: number,
+  pickleTotalSupply: number;
+  pickleCirculatingSupply: number;
+  pickleMarketCap: number;
   platformTVL: number;
   platformBlendedRate: number;
   harvestPending: number;

@@ -1687,8 +1687,11 @@ export class PickleModel implements ErrorLogger {
     DEBUG_OUT("End loadPlatformData: " + (Date.now() - start));
     return {
       pickleTotalSupply: this.dillDetails.totalPickle,
-      pickleCirculatingSupply: (this.dillDetails.totalPickle - this.dillDetails.pickleLocked),
-      pickleMarketCap: (this.dillDetails.totalPickle * this.priceOfSync("pickle", ChainNetwork.Ethereum)),
+      pickleCirculatingSupply:
+        this.dillDetails.totalPickle - this.dillDetails.pickleLocked,
+      pickleMarketCap:
+        this.dillDetails.totalPickle *
+        this.priceOfSync("pickle", ChainNetwork.Ethereum),
       picklePerBlock: ppb.mul(3).toString(),
       platformTVL: tvl,
       platformBlendedRate: tvl === 0 ? 0 : blendedRateSum / tvl,
