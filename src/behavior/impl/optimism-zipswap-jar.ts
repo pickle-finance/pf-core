@@ -10,6 +10,7 @@ import {
 import { PickleModel } from "../../model/PickleModel";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther } from "ethers/lib/utils";
+import { Chains } from "../../chain/Chains";
 
 const ZIP_FARMS = "0x1e2F8e5f94f366eF5Dc041233c0738b1c1C2Cb0c";
 
@@ -44,9 +45,13 @@ export class ZipswapJar extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const zipApr: number = await this.calculateZipFarmsAPY(jar, model);
-
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("zip", zipApr, true),
+      this.createAprComponent(
+        "zip",
+        zipApr,
+        true,
+        1 - Chains.get(jar.chain).defaultPerformanceFee,
+      ),
     ]);
   }
 
