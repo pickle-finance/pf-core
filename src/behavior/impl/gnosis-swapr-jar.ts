@@ -15,12 +15,18 @@ import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { Chains } from "../../chain/Chains";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
+import { BigNumber } from "ethers";
 
+const swaprStrategyAbi = [
+  "function getActiveRewardsTokens() view returns(address[])",
+  "function getHarvestable() view returns(address[],uint256[])",
+  "function rewarder() view returns(address)",
+];
 export class GnosisSwaprJar extends AbstractJarBehavior {
   strategyAbi: any;
   constructor() {
     super();
-    this.strategyAbi = swaprRewarderAbi;
+    this.strategyAbi = swaprStrategyAbi;
   }
   async getHarvestableUSD(
     jar: JarDefinition,
@@ -29,7 +35,7 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
     const multiProvider = model.multiproviderFor(jar.chain);
     const strategyContract = new Contract(
       jar.details.strategyAddr,
-      swaprStrategyAbi,
+      this.strategyAbi,
     );
 
     const [[rewardTokensAddresses, harvestableAmounts], activeRewardsTokens] =
@@ -57,13 +63,28 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
     });
 
     // Active Reward Tokens in the strategy
+    const [activRewardsBalancesBN, activeRewardsDecimals]: [
+      BigNumber[],
+      number[],
+    ] = await Promise.all([
+      multiProvider.all(
+        activeRewardsTokens.map((token) =>
+          new Contract(token, erc20Abi).balanceOf(jar.details.strategyAddr),
+        ),
+      ),
+      multiProvider.all(
+        activeRewardsTokens.map((token) =>
+          new Contract(token, erc20Abi).decimals(),
+        ),
+      ),
+    ]);
     activeRewardsTokens.forEach((token, i) => {
       const price = model.priceOfSync(token, jar.chain);
       if (price) {
-        const claimable = parseFloat(
-          formatUnits(harvestableAmounts[i], decimals[i]),
+        const balance = parseFloat(
+          formatUnits(activRewardsBalancesBN[i], activeRewardsDecimals[i]),
         );
-        runningTotal += price * claimable;
+        runningTotal += price * balance;
       }
     });
 
@@ -77,7 +98,7 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
     const multiProvider = model.multiproviderFor(jar.chain);
 
     const [rewarderAddress] = await multiProvider.all([
-      new Contract(jar.details.strategyAddr, swaprStrategyAbi).rewarder(),
+      new Contract(jar.details.strategyAddr, this.strategyAbi).rewarder(),
     ]);
 
     const rewarderContract = new Contract(rewarderAddress, swaprRewarderAbi);
@@ -132,397 +153,3 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
     return this.aprComponentsToProjectedApr(aprComponents);
   }
 }
-
-const swaprStrategyAbi = [
-  {
-    type: "constructor",
-    stateMutability: "nonpayable",
-    inputs: [
-      { type: "address", name: "_governance", internalType: "address" },
-      { type: "address", name: "_strategist", internalType: "address" },
-      { type: "address", name: "_controller", internalType: "address" },
-      { type: "address", name: "_timelock", internalType: "address" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "activeRewardsTokens",
-    inputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "addToNativeRoute",
-    inputs: [{ type: "address[]", name: "path", internalType: "address[]" }],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "balanceOf",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "balanceOfPool",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "balanceOfWant",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "controller",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "deactivateReward",
-    inputs: [{ type: "address", name: "reward", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "deposit",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "payable",
-    outputs: [{ type: "bytes", name: "response", internalType: "bytes" }],
-    name: "execute",
-    inputs: [
-      { type: "address", name: "_target", internalType: "address" },
-      { type: "bytes", name: "_data", internalType: "bytes" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address[]", name: "", internalType: "address[]" }],
-    name: "getActiveRewardsTokens",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [
-      { type: "address[]", name: "", internalType: "address[]" },
-      { type: "uint256[]", name: "", internalType: "uint256[]" },
-    ],
-    name: "getHarvestable",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "pure",
-    outputs: [{ type: "string", name: "", internalType: "string" }],
-    name: "getName",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "governance",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "harvest",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "bool", name: "", internalType: "bool" }],
-    name: "harvesters",
-    inputs: [{ type: "address", name: "", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "native",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "nativeToTokenRoutes",
-    inputs: [
-      { type: "address", name: "", internalType: "address" },
-      { type: "uint256", name: "", internalType: "uint256" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "performanceDevFee",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "performanceDevMax",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "performanceTreasuryFee",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "performanceTreasuryMax",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "revokeHarvesters",
-    inputs: [
-      { type: "address[]", name: "_harvesters", internalType: "address[]" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "rewarder",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setController",
-    inputs: [{ type: "address", name: "_controller", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setGovernance",
-    inputs: [{ type: "address", name: "_governance", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setPerformanceDevFee",
-    inputs: [
-      { type: "uint256", name: "_performanceDevFee", internalType: "uint256" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setPerformanceTreasuryFee",
-    inputs: [
-      {
-        type: "uint256",
-        name: "_performanceTreasuryFee",
-        internalType: "uint256",
-      },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setRewarder",
-    inputs: [{ type: "address", name: "_rewarder", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setStrategist",
-    inputs: [{ type: "address", name: "_strategist", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setTimelock",
-    inputs: [{ type: "address", name: "_timelock", internalType: "address" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setWithdrawalDevFundFee",
-    inputs: [
-      {
-        type: "uint256",
-        name: "_withdrawalDevFundFee",
-        internalType: "uint256",
-      },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "setWithdrawalTreasuryFee",
-    inputs: [
-      {
-        type: "uint256",
-        name: "_withdrawalTreasuryFee",
-        internalType: "uint256",
-      },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "strategist",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "timelock",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "toNativeRoutes",
-    inputs: [
-      { type: "address", name: "", internalType: "address" },
-      { type: "uint256", name: "", internalType: "uint256" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "token0",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "token1",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "uniV2Router",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "want",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "whitelistHarvesters",
-    inputs: [
-      { type: "address[]", name: "_harvesters", internalType: "address[]" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [],
-    name: "withdraw",
-    inputs: [{ type: "uint256", name: "_amount", internalType: "uint256" }],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [{ type: "uint256", name: "balance", internalType: "uint256" }],
-    name: "withdraw",
-    inputs: [
-      { type: "address", name: "_asset", internalType: "contract IERC20" },
-    ],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [{ type: "uint256", name: "balance", internalType: "uint256" }],
-    name: "withdrawAll",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "nonpayable",
-    outputs: [{ type: "uint256", name: "balance", internalType: "uint256" }],
-    name: "withdrawForSwap",
-    inputs: [{ type: "uint256", name: "_amount", internalType: "uint256" }],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "withdrawalDevFundFee",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "withdrawalDevFundMax",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "withdrawalTreasuryFee",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "uint256", name: "", internalType: "uint256" }],
-    name: "withdrawalTreasuryMax",
-    inputs: [],
-  },
-  {
-    type: "function",
-    stateMutability: "view",
-    outputs: [{ type: "address", name: "", internalType: "address" }],
-    name: "xdai",
-    inputs: [],
-  },
-];
