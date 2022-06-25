@@ -17,7 +17,6 @@ import {
 } from "../model/PickleModelJson";
 import {
   ADDRESSES,
-  ConsoleErrorLogger,
   DEBUG_OUT,
   getZeroValueMulticallForChain,
   getZeroValueMulticallForNonErc20,
@@ -145,7 +144,7 @@ const emptyUserData = (): UserData => {
   };
 };
 
-export class UserModel implements ConsoleErrorLogger {
+export class UserModel {
   model: PickleModelJson.PickleModelJson;
   callback: IUserModelCallback | undefined;
   walletId: string;

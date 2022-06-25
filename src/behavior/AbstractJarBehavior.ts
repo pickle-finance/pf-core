@@ -14,11 +14,12 @@ import {
   JarBehavior,
   JarHarvestStats,
 } from "./JarBehaviorResolver";
-import { PickleModel } from "../model/PickleModel";
+import { PickleModel, toError } from "../model/PickleModel";
 import { getDepositTokenPrice } from "../price/DepositTokenPriceUtility";
 import { GenericSwapUtility } from "../protocols/GenericSwapUtil";
 import { getSwapUtilityForAsset } from "../protocols/ProtocolUtil";
 import { Contract as MultiContract } from "ethers-multiprovider";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
 // TODO move these constants out to somewhere better
 export const ONE_YEAR_IN_SECONDS: number = 360 * 24 * 60 * 60;
@@ -156,7 +157,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         strategyAbi,
       );
     } catch (error) {
-      model.logError("getHarvestableUSDComManImplementation", error);
+      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDComManImplementation", '', ''+error, ErrorSeverity.ERROR_3));
     }
 
     const promises: Promise<any>[] = [];

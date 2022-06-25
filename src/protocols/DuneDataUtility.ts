@@ -15,7 +15,7 @@ export async function getOrLoadYearnDataFromDune(model: PickleModel) {
   if (model.resourceCache.get(YEARN_DATA_IN_DUNE_CACHE_KEY))
     return model.resourceCache.get(YEARN_DATA_IN_DUNE_CACHE_KEY);
 
-  const ret = fetchYearnDataFromDune();
+  const ret = await fetchYearnDataFromDune();
   model.resourceCache.set(YEARN_DATA_IN_DUNE_CACHE_KEY, ret);
   return ret;
 }

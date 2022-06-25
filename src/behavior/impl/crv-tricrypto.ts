@@ -11,6 +11,8 @@ import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { calculateCurveApyArbitrum } from "../../protocols/CurveUtil";
 import { Contract } from "ethers-multiprovider";
 import { fetch } from "cross-fetch";
+import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
+import { toError } from "../../model/PickleModel";
 
 export class CrvTricrypto extends CurveJar {
   swapAddress: string;
@@ -111,7 +113,7 @@ export class CrvTricrypto extends CurveJar {
       );
       aprComponents.push(this.createAprComponent("crv", apr, true));
     } catch (error) {
-      model.logError("getProjectedAprStats", error, `${jar.details.apiKey}`);
+      model.logPlatformError(toError(301102, jar.chain, jar.details.apiKey, "getProjectedAprStats", 'error calling calculateCurveApyArbitrum', ''+error, ErrorSeverity.ERROR_3));
     }
 
     // Get LP APY from API
@@ -124,7 +126,7 @@ export class CrvTricrypto extends CurveJar {
       const lpApy = Math.max(poolData.latestDailyApy, poolData.latestWeeklyApy);
       aprComponents.push(this.createAprComponent("lp", lpApy ?? 0, false));
     } catch (error) {
-      model.logError("getProjectedAprStats", error, `${jar.details.apiKey}`);
+      model.logPlatformError(toError(301102, jar.chain, jar.details.apiKey, "getProjectedAprStats", 'Error loading lp apy from curve endpoint', ''+error, ErrorSeverity.ERROR_3));
     }
 
     return this.aprComponentsToProjectedApr(aprComponents);

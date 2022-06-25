@@ -12,6 +12,8 @@ import {
 } from "../model/PickleModelJson";
 import { Contract } from "ethers-multiprovider";
 import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
+import { toError } from "../model/PickleModel";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
 const VAULT_ADDRESS = "0x20dd72Ed959b6147912C2e529F0a0C651c33c9ce";
 export const MC_ADDRESS = "0x8166994d9ebBe5829EC86Bd81258149B87faCfd3";
@@ -216,7 +218,8 @@ export const getPoolData = async (
         throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
       totalSupplyUSD = poolTotalBalanceUSD;
     } catch (error) {
-      model.logError("getPoolData", error, jar.details.apiKey);
+      model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getPoolData", 
+      ``, ''+error, ErrorSeverity.ERROR_4));
     }
   }
 

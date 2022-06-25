@@ -1,5 +1,5 @@
 import { JAR_ALETH, JAR_sCRV } from "../model/JarsAndFarms";
-import { PickleModel } from "../model/PickleModel";
+import { PickleModel, toError } from "../model/PickleModel";
 import {
   AssetProtocol,
   PickleAsset,
@@ -10,6 +10,7 @@ import CurvePoolABI from "../Contracts/ABIs/curve-pool.json";
 import MetaPoolABI from "../Contracts/ABIs/meta-pool.json";
 import { ethers } from "ethers";
 import { Contract } from "ethers-multiprovider";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
 /*
     Most of this class has been moved into the jar behavior classes directly.
@@ -68,7 +69,8 @@ export async function getStableswapPriceAddress(
       ? multiProvider.all([pool.get_virtual_price()])
       : multiProvider.all([pool.getVirtualPrice()]));
   } catch (e) {
-    model.logError("getStableswapPriceAddress", e, asset.details.apiKey);
+    model.logPlatformError(toError(200201, asset.chain, '', "getStableswapPriceAddress", 
+    ``, ''+e, ErrorSeverity.ERROR_5));
   }
   return parseFloat(ethers.utils.formatEther(virtualPrice));
 }

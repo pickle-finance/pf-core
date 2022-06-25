@@ -17,7 +17,7 @@ import {
   PickleAsset,
 } from "../../src/model/PickleModelJson";
 import { ExternalTokenModelSingleton } from "../../src/price/ExternalTokenModel";
-import { ADDRESSES, ConsoleErrorLogger } from "../../src/model/PickleModel";
+import { ADDRESSES } from "../../src/model/PickleModel";
 import { CommsMgrV2 } from "../../src/util/CommsMgrV2";
 
 describe("Testing defined model", () => {
@@ -82,11 +82,6 @@ describe("Testing defined model", () => {
     const jars: JarDefinition[] = (
       ALL_ASSETS.filter((x) => x.type === AssetType.JAR) as JarDefinition[]
     ).filter((x) => x.enablement !== AssetEnablement.PERMANENTLY_DISABLED);
-    const logger: ConsoleErrorLogger = {
-      logError: function (where: string, error: any, context?: any): void {
-        err.push(`[${where}] [${context}] - ${error}`);
-      },
-    };
     // const cmgr = new CommsMgr(logger);
     // cmgr.start();
     const cmgr = new CommsMgrV2();

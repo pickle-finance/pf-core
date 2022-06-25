@@ -5,6 +5,7 @@ import {
   DEBUG_OUT,
   NULL_ADDRESS,
   PickleModel,
+  toError,
 } from "../model/PickleModel";
 import { Contract } from "ethers-multiprovider";
 import MasterchefAbi from "../Contracts/ABIs/masterchef.json";
@@ -18,6 +19,7 @@ import {
   JarDefinition,
   StandaloneFarmDefinition,
 } from "../model/PickleModelJson";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
 export function minichefAddressForChain(
   network: ChainNetwork,
@@ -80,7 +82,8 @@ export async function preloadRawGaugeData(
     try {
       rawGaugeData = await loadGaugeDataEth(tokens, model);
     } catch (error) {
-      model.logError("preloadRawGaugeData", chain.toString(), error);
+      model.logPlatformError(toError(200100, ChainNetwork.Ethereum, '', "preloadRawGaugeData", 
+      `Error calling loadGaugeDataEth`, '', ErrorSeverity.ERROR_5));
     }
   } else {
     // All other chains use minichef currently
@@ -94,7 +97,8 @@ export async function preloadRawGaugeData(
           model,
         );
       } catch (error) {
-        model.logError("preloadRawGaugeData", chain.toString(), error);
+        model.logPlatformError(toError(200100, chain, '', "preloadRawGaugeData", 
+        `Error calling loadGaugeDataForMinichef`, '', ErrorSeverity.ERROR_5));
       }
     }
   }

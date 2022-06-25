@@ -47,11 +47,12 @@ export class pLqty extends AbstractJarBehavior {
     );
     return super.aprComponentsToProjectedApr([apr1Comp]);
   }
-  async calculateLqtyStakingAPY(model: PickleModel) {
+  async calculateLqtyStakingAPY(model: PickleModel): Promise<number> {
     const duneData = await getOrLoadYearnDataFromDune(model);
     if (duneData) {
       let lqtyApy = 0;
       lqtyApy = duneData?.data?.get_result_by_result_id[0].data?.apr / 100;
+      console.log(JSON.stringify(duneData));
       return lqtyApy * 100;
     }
     return 0;

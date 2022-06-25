@@ -1,5 +1,5 @@
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import { PickleModel } from "../../model/PickleModel";
+import { PickleModel, toError } from "../../model/PickleModel";
 import {
   calculateWannaFarmsAPY,
   wannaPoolIds,
@@ -8,6 +8,7 @@ import {
   WANNA_V2_FARMS,
 } from "../../protocols/WannaUtil";
 import { AuroraMultistepHarvestJar } from "./aurora-multistep-harvest-jar";
+import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 
 export abstract class AuroraWannaDualJar extends AuroraMultistepHarvestJar {
   strategyAbi: any;
@@ -28,10 +29,7 @@ export abstract class AuroraWannaDualJar extends AuroraMultistepHarvestJar {
       chefAddress = WANNA_V2_FARMS;
       poolId = wannaPoolV2Ids[jar.depositToken.addr].poolId;
     } else {
-      model.logError(
-        `getHarvestableUSD [${jar.details.apiKey}]`,
-        `Token ${jar.depositToken.addr} has no registered poolId`,
-      );
+      model.logPlatformError(toError(301101, jar.chain, jar.details.apiKey, "getHarvestableUSD", `Token ${jar.depositToken.addr} has no registered poolId`, '', ErrorSeverity.ERROR_3));
     }
     return this.getHarvestableUSDMasterchefImplementation(
       jar,

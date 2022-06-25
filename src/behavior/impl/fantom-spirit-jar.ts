@@ -6,6 +6,8 @@ import {
   calculateSpiritFarmsAPY,
   SpiritPairManager,
 } from "../../protocols/SpiritUtil";
+import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
+import { toError } from "../../model/PickleModel";
 
 export class SpiritJar extends AbstractJarBehavior {
   protected strategyAbi = strategyABI;
@@ -44,13 +46,13 @@ export class SpiritJar extends AbstractJarBehavior {
       const lp = await lpPromise;
       components.push(this.createAprComponent("lp", lp, false));
     } catch (error) {
-      model.logError("getProjectedAprStats:lpComponent", error, jar.id);
+      model.logPlatformError(toError(301102, jar.chain, jar.details.apiKey, "getProjectedAprStats", 'error calling SpiritPairManager calculateLpApr', ''+error, ErrorSeverity.ERROR_3));
     }
     try {
       const spiritComponent = await spiritComponentPromise;
       components.push(spiritComponent);
     } catch (error) {
-      model.logError("getProjectedAprStats:spiritComponent", error, jar.id);
+      model.logPlatformError(toError(301102, jar.chain, jar.details.apiKey, "getProjectedAprStats", 'error calling SpiritPairManager calculateSpiritFarmsAPY', ''+error, ErrorSeverity.ERROR_3));
     }
 
     return this.aprComponentsToProjectedApr(components);

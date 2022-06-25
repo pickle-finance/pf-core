@@ -7,6 +7,8 @@ import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { Contract } from "ethers-multiprovider";
 import { BigNumber, ethers } from "ethers";
+import { toError } from "../../model/PickleModel";
+import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 
 export class NetswapJar extends AbstractJarBehavior {
   private poolsStats: any;
@@ -34,14 +36,7 @@ export class NetswapJar extends AbstractJarBehavior {
           jar.chain,
         ).id;
       } catch (error) {
-        model.logError(
-          `getHarvestableUSD [${jar.details.apiKey}]`,
-          error,
-          `
-          Token: ${rewardTokenAddr}, is not known to PF-Core.
-          Consider adding it to ExternalTokenModel
-          `,
-        );
+        model.logPlatformError(toError(301101, jar.chain, jar.details.apiKey, "getHarvestableUSD", 'Token: ${rewardTokenAddr} is not known to PF-Core. Consider adding it to ExternalTokenModel', ''+error, ErrorSeverity.ERROR_5));
       }
       return this.getHarvestableMultiRewards(jar, model, ["nett", tokenId]);
     } else {
@@ -227,7 +222,7 @@ export class NetswapJar extends AbstractJarBehavior {
       const json = await resp.json();
       this.poolsStats = json;
     } catch (error) {
-      model.logError(`getPoolsStats [${jar.details.apiKey}]`, error);
+      model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "getPoolsStats", 'error calling getPoolsStats for netswap', ''+error, ErrorSeverity.ERROR_3));
     }
   }
 }

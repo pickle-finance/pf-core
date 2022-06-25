@@ -4,7 +4,7 @@ import {
   JarDefinition,
 } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { PickleModel } from "../../model/PickleModel";
+import { PickleModel, toError } from "../../model/PickleModel";
 import {
   calculateSolarFarmsAPY,
   SolarbeamPairManager,
@@ -18,6 +18,7 @@ import { Contract } from "ethers-multiprovider";
 import { BigNumber, ethers } from "ethers";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { Chains } from "../..";
+import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 
 export abstract class MoonriverSolarJar extends AbstractJarBehavior {
   strategyAbi: any;
@@ -73,10 +74,7 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
         );
 
       default:
-        model.logError(
-          `getHarvestableUSD [${jar.details.apiKey}]`,
-          `Strategy solarChef address unknown [${chefAddress}]`,
-        );
+        model.logPlatformError(toError(301101, jar.chain, jar.details.apiKey, "getHarvestableUSD", `Strategy solarChef address unknown [${chefAddress}]`, '', ErrorSeverity.ERROR_5));
         break;
     }
   }
@@ -116,14 +114,9 @@ export abstract class MoonriverSolarJar extends AbstractJarBehavior {
       try {
         tokenId = ExternalTokenModelSingleton.getToken(address, jar.chain).id;
       } catch (error) {
-        model.logError(
-          `getHarvestableUSD [${jar.details.apiKey}]`,
-          error,
-          `
-          Token: ${rewardTokens.symbols[idx]}, Address: ${address}, is not known to PF-Core.
-          Consider adding it to ExternalTokenModel
-          `,
-        );
+        model.logPlatformError(toError(301101, jar.chain, jar.details.apiKey, "getHarvestableUSD", 
+        `Token: ${rewardTokens.symbols[idx]}, Address: ${address}, is not known to PF-Core. Consider adding it to ExternalTokenModel`, 
+        '', ErrorSeverity.ERROR_5));
         return; // ignore this reward token
       }
 

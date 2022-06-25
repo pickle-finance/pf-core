@@ -4,6 +4,8 @@ import strategyABI from "../../Contracts/ABIs/strategy-dual.json";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { SolidlyPairManager } from "../../protocols/SolidUtil";
 import fetch from "cross-fetch";
+import { toError } from "../../model/PickleModel";
+import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 
 const SOLIDEX_API = "https://api.solidexfinance.com/api/getLPDetails?v=fantom";
 
@@ -86,7 +88,7 @@ export class SexJar extends AbstractJarBehavior {
         const data = await resp.json();
         SexJar.apiLpDetails = data.data.poolDetailsAll;
       } catch (error) {
-        model.logError("getApiLpDetails", error, jar.id);
+        model.logPlatformError(toError(301102, jar.chain, jar.details.apiKey, "getProjectedAprStats", 'error calling calculateCurveApyArbitrum', ''+error, ErrorSeverity.ERROR_3));
       }
     }
   }

@@ -7,6 +7,8 @@ import {
 } from "../model/PickleModelJson";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { graphUrlFromDetails, readQueryFromGraph } from "../graph/TheGraph";
+import { toError } from "../model/PickleModel";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
 export abstract class GenericSwapUtility {
   cacheKey: string;
@@ -232,33 +234,40 @@ export async function getLivePairDataFromContracts(
   const tokenB = new Contract(addressB, erc20Abi);
   const pair = new Contract(pairAddress, erc20Abi);
 
-  const [numAInPairBN, numBInPairBN, totalSupplyBN] = await multiProvider.all([
+  const proms = [
     tokenA.balanceOf(pairAddress),
     tokenB.balanceOf(pairAddress),
     pair.totalSupply(),
-  ]);
-  // get num of tokens
-  const numAInPair =
-    numAInPairBN / Math.pow(10, model.tokenDecimals(componentA, jar.chain));
-  const numBInPair =
-    numBInPairBN / Math.pow(10, model.tokenDecimals(componentB, jar.chain));
+  ];
 
   // get prices
   const priceA = model.priceOfSync(addressA, jar.chain);
   const priceB = model.priceOfSync(addressB, jar.chain);
 
-  let reserveUSD;
-  // In case price one token is not listed on coingecko
-  if (priceA && priceB) {
-    reserveUSD = priceA * numAInPair + priceB * numBInPair;
-  } else if (priceA) {
-    reserveUSD = 2 * priceA * numAInPair;
-  } else {
-    reserveUSD = 2 * priceB * numBInPair;
+  try {
+    const [numAInPairBN, numBInPairBN, totalSupplyBN] = await multiProvider.all(proms);
+    // get num of tokens
+    const numAInPair =
+      numAInPairBN / Math.pow(10, model.tokenDecimals(componentA, jar.chain));
+    const numBInPair =
+      numBInPairBN / Math.pow(10, model.tokenDecimals(componentB, jar.chain));
+
+    let reserveUSD;
+    // In case price one token is not listed on coingecko
+    if (priceA && priceB) {
+      reserveUSD = priceA * numAInPair + priceB * numBInPair;
+    } else if (priceA) {
+      reserveUSD = 2 * priceA * numAInPair;
+    } else {
+      reserveUSD = 2 * priceB * numBInPair;
+    }
+
+    const totalSupply = totalSupplyBN / Math.pow(10, depositTokenDecimals);
+    const pricePerToken = reserveUSD / totalSupply;
+
+    return { reserveUSD, totalSupply, pricePerToken };
+  } catch (error ) {
+    model.logPlatformError(toError(200202, jar.chain, jar.details.apiKey, "getLivePairDataFromContracts",  
+    `Error checking LP status for ${componentA} and ${componentB} on ${jar.chain}`, ""+error, ErrorSeverity.ERROR_5));
   }
-
-  const totalSupply = totalSupplyBN / Math.pow(10, depositTokenDecimals);
-  const pricePerToken = reserveUSD / totalSupply;
-
-  return { reserveUSD, totalSupply, pricePerToken };
 }
