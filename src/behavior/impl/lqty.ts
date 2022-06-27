@@ -6,7 +6,7 @@ import {
 } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
-import { getOrLoadYearnDataFromDune } from "../../protocols/DuneDataUtility";
+import { getOrLoadLqtyDataFromDune } from "../../protocols/DuneDataUtility";
 
 export class pLqty extends AbstractJarBehavior {
   protected strategyAbi: any;
@@ -48,11 +48,10 @@ export class pLqty extends AbstractJarBehavior {
     return super.aprComponentsToProjectedApr([apr1Comp]);
   }
   async calculateLqtyStakingAPY(model: PickleModel): Promise<number> {
-    const duneData = await getOrLoadYearnDataFromDune(model);
+    const duneData = await getOrLoadLqtyDataFromDune(model);
     if (duneData) {
       let lqtyApy = 0;
       lqtyApy = duneData?.data?.get_result_by_result_id[0].data?.apr / 100;
-      console.log(JSON.stringify(duneData));
       return lqtyApy * 100;
     }
     return 0;

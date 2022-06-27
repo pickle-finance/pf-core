@@ -17,7 +17,7 @@ import {
 } from "../JarBehaviorResolver";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
-import { getOrLoadYearnDataFromDune } from "../../protocols/DuneDataUtility";
+import { getOrLoadLqtyDataFromDune } from "../../protocols/DuneDataUtility";
 import { Contract } from "ethers-multiprovider";
 
 const stabilityPoolAddr = "0x66017D22b0f8556afDd19FC67041899Eb65a21bb";
@@ -55,7 +55,7 @@ export class PBammAsset implements ExternalAssetBehavior {
     const lqtyApr =
       (remainingLQTY * model.priceOfSync("lqty", definition.chain)) /
       (+formatEther(lusdInSP) * model.priceOfSync("lusd", definition.chain));
-    const duneData = await getOrLoadYearnDataFromDune(model);
+    const duneData = await getOrLoadLqtyDataFromDune(model);
     const liquidationRate =
       duneData?.data?.get_result_by_result_id[0].data?.apr / 100;
     const liquidationYield = (liquidationRate * 0.8 * lqtyApr) / 2;
