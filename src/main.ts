@@ -4,6 +4,7 @@ import { Provider } from "@ethersproject/providers";
 import { ALL_ASSETS } from "./model/JarsAndFarms";
 import { PfDataStore, PickleModel } from "./model/PickleModel";
 import fs from "fs";
+import { ErrorLogger, PlatformError } from "./core/platform/PlatformInterfaces";
 
 // This is an example of the code you'd want to run in a client
 async function generateFullApi() {
@@ -15,12 +16,20 @@ async function generateFullApi() {
   );
 
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
+  const errArr: PlatformError[] = [];
+  const errLogger: ErrorLogger = {
+    logPlatformError: function (err: PlatformError): void {
+      errArr.push(err);
+    }
+  };
+  model.setErrorLogger(errLogger);
   // const store = new LocalPersistedDataStore();
   // store.load();
   // model.setDataStore(store);
   const result = await model.generateFullApi();
   //const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, "walletPublicKey", map);
-  const resultString = JSON.stringify(result, null, 2);
+  const resultString = JSON.stringify(errArr, null, 2);
+  //const resultString = JSON.stringify(result, null, 2);
   process.stdout.write(resultString);
   process.exit(0);
 }

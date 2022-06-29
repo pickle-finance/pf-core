@@ -987,10 +987,10 @@ export class PickleModel implements ErrorLogger {
       timestamp = (
         await Promise.all(
           jars.map((oneJar) => multiProvider.getBlock(oneJar.startBlock)),
-        )
+        ) 
       ).map((x) => x.timestamp);
     } catch (error) {
-      console.log("Failed on addJarTimestamp");
+      this.logPlatformError(toError(106000, chain, '', 'addJarTimestamp', "Failed to add last-updated timestamp to jar", ''+error, ErrorSeverity.ERROR_2));
     }
     for (let i = 0; timestamp !== undefined && i < jars.length; i++) {
       jars[i].startTimestamp = timestamp[i];
