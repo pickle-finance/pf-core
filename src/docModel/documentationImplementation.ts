@@ -23,12 +23,14 @@ import {
   RISK_DIVERGENCE_LOSS,
   RISK_SMART_CONTRACT,
   SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
+  SINGLE_FOLDING_ANY_PROTOCOL_DESCRIPTION,
   SocialKeyValueObj,
   TranslationKeyProperties,
   TranslationKeyWithProperties,
   UNI3_JAR_DESCRIPTION,
   UNI3_REWARDS_JAR_DESCRIPTION,
   XYK_JAR_DESCRIPTION,
+  OBTAIN_KEY_ONETOKEN_JAR,
 } from "./DocsInterfaces";
 import {
   translateFirstOfKeysWithFallback,
@@ -244,17 +246,24 @@ allDocsGenerators.push(
 allDocsGenerators.push(
   new DocsGenImpl(
     (asset) =>
-      autoMatch(asset, CURVE_REWARDS_JAR_DESCRIPTION, [AssetProtocol.CURVE]),
+      autoMatch(asset, CURVE_REWARDS_JAR_DESCRIPTION, [AssetProtocol.CURVE, AssetProtocol.ROSE]),
     (asset) => generateCurveStyleDocumentation(asset),
   ),
 );
 allDocsGenerators.push(
   new DocsGenImpl(
     (asset) =>
-      autoMatch(asset, SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION, [
+      autoMatch(asset, SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION, []),
+    (asset) => generateSingleStakingStyleDocumentation(asset),
+  ),
+);
+allDocsGenerators.push(
+  new DocsGenImpl(
+    (asset) =>
+      autoMatch(asset, SINGLE_FOLDING_ANY_PROTOCOL_DESCRIPTION, [
         AssetProtocol.STARGATE,
       ]),
-    (asset) => generateSingleStakingStyleDocumentation(asset),
+    (asset) => generateSingleFoldingStyleDocumentation(asset),
   ),
 );
 
@@ -262,10 +271,10 @@ export const autoMatch = (
   asset: PickleAsset,
   docsKey: string,
   protocols: AssetProtocol[],
-) => {
+): boolean => {
   return (
     (asset.docsKey && asset.docsKey === docsKey) ||
-    (asset.docsKey === undefined && protocols.includes(asset.protocol))
+    (asset.docsKey === undefined && (protocols.length === 0 || protocols.includes(asset.protocol)))
   );
 };
 export function generateAutomaticDefinition(
@@ -389,13 +398,31 @@ export function generateCurveStyleDocumentation(
 export function generateSingleStakingStyleDocumentation(
   asset: PickleAsset,
 ): AssetDocumentationDefinition {
+  return generateSingleAnyStyleDocumentation(asset,
+    SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
+    OBTAIN_KEY_ONETOKEN_POOL );
+}
+
+export function generateSingleFoldingStyleDocumentation(
+  asset: PickleAsset,
+): AssetDocumentationDefinition {
+  return generateSingleAnyStyleDocumentation(asset,
+    SINGLE_FOLDING_ANY_PROTOCOL_DESCRIPTION,
+    OBTAIN_KEY_ONETOKEN_JAR );
+}
+
+export function generateSingleAnyStyleDocumentation(
+  asset: PickleAsset,
+  descKey: string,
+  obtainKey: string,
+): AssetDocumentationDefinition {
   const desc: TranslationKeyWithProperties = {
-    key: SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION,
+    key: descKey,
     properties: generateAutomaticDescriptionProperties(asset),
   };
   const obtain: TranslationKeyWithProperties[] = [];
   obtain.push({
-    key: OBTAIN_KEY_ONETOKEN_POOL,
+    key: obtainKey,
     properties: {
       token: asset.depositToken.components[0],
       protocol: asset.protocol,

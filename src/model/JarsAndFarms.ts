@@ -1,5 +1,5 @@
 import { ChainNetwork } from "../chain/Chains";
-import { SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION } from "../docModel/DocsInterfaces";
+import { SINGLE_FOLDING_ANY_PROTOCOL_DESCRIPTION, SINGLE_STAKING_ANY_PROTOCOL_DESCRIPTION } from "../docModel/DocsInterfaces";
 import {
   StandaloneFarmDefinition,
   AssetEnablement,
@@ -4792,6 +4792,7 @@ export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
     apiKey: "TECTONIC-WETH",
     harvestStyle: HarvestStyle.PASSIVE,
   },
+  docsKey: SINGLE_FOLDING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: NULL_ADDRESS,
     farmNickname: "pTectonic WETH",
@@ -4819,6 +4820,7 @@ export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
     apiKey: "TECTONIC-CRO",
     harvestStyle: HarvestStyle.PASSIVE,
   },
+  docsKey: SINGLE_FOLDING_ANY_PROTOCOL_DESCRIPTION,
   farm: {
     farmAddress: NULL_ADDRESS,
     farmNickname: "pTectonic CRO",
