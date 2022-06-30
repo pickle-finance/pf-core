@@ -17,6 +17,7 @@ export enum PickleProduct {
 
 export interface LocalError {
     errorCode: number;
+    timestamp: number;
     chain: number;
     asset: string;
     failedCall: string;

@@ -1733,6 +1733,7 @@ export const toError2 = (errorCode: number,
 ): PlatformError => {
   return {
     product: PickleProduct.PFCORE,
+    timestamp: Date.now(),
     errorCode,
     chain,
     asset, 
