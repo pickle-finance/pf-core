@@ -1736,10 +1736,10 @@ export const toError2 = (errorCode: number,
     timestamp: Date.now(),
     errorCode,
     chain,
-    asset, 
-    failedCall,
-    message,
-    causeMessage,
+    asset: asset || '', 
+    failedCall: failedCall || '',
+    message: message || '',
+    causeMessage: causeMessage || '',
     severity
   }
 }
