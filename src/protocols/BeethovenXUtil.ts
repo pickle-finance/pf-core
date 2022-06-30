@@ -115,6 +115,8 @@ export const getBalancerPoolDayAPY = async (
     blockNum - blocksInDay,
   );
   if (currentPoolDayDate === undefined || yesterdayPoolDayData === undefined) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph", 
+    `Error loading balancer apy from graph`, '', ErrorSeverity.ERROR_4));
     return 0;
   }
 
@@ -140,6 +142,12 @@ export const getBalancerPerformance = async (
       queryTheGraph(jar, blockNum - blocksInDay * 7),
       queryTheGraph(jar, blockNum - blocksInDay * 30),
     ]);
+  if( !currentPoolDate) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph", 
+    `Error loading balancer apy from graph`, '', ErrorSeverity.ERROR_4));
+    return { d1: 0, d3: 0, d7: 0, d30: 0 };
+  }
+
   const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
   const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
   const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;

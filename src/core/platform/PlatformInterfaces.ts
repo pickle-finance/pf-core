@@ -9,10 +9,10 @@ export enum ErrorSeverity {
     ERROR_5 = 7,
 }
 export enum PickleProduct {
-    PFCORE = 0,
-    API = 100,
-    API_JOB = 200,
-    TSUKE = 300,
+    PFCORE = 100,
+    API = 200,
+    API_JOB = 300,
+    TSUKE = 400,
 }
 
 export interface LocalError {
@@ -32,3 +32,18 @@ export interface PlatformError extends LocalError {
 export interface ErrorLogger {
     logPlatformError(err: PlatformError): Promise<void>;
 }
+
+/*
+100100 through 101300:  pickle model stuff
+105000 - loadPlatformData
+200100 - preloadRawGaugeData
+200201 - getStableswapPriceAddress
+200202 - getLivePairDataFromContracts
+
+301000 - getHarvestableUSDComManImplementation
+301101 - getHarvestableUSD
+301102 - getProjectedAprStats
+301105 - getProtocolApy
+305000 - utility function for jar behavior
+
+*/

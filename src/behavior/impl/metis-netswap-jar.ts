@@ -222,7 +222,7 @@ export class NetswapJar extends AbstractJarBehavior {
       const json = await resp.json();
       this.poolsStats = json;
     } catch (error) {
-      model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "getPoolsStats", 'error calling getPoolsStats for netswap', ''+error, ErrorSeverity.ERROR_3));
+      model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "NetswapJar/getPoolsStats", 'error calling getPoolsStats for netswap', ''+error, ErrorSeverity.ERROR_3));
     }
   }
 }
