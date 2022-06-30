@@ -196,6 +196,7 @@ export const DEBUG_OUT = (str: string): void => {
 
 
 export class PickleModel implements ErrorLogger {
+  private allErrors: PlatformError[] = [];
   private allAssets: PickleAsset[];
   private dillDetails: DillDetails;
   private platformData: PlatformData;
@@ -222,8 +223,13 @@ export class PickleModel implements ErrorLogger {
   setErrorLogger(logger: ErrorLogger): void {
     this.logger = logger;
   }
+
   setDataStore(dataStore: PfDataStore): void {
     this.permanentDataStore = dataStore;
+  }
+
+  getErrors(): PlatformError[] {
+    return this.allErrors;
   }
 
   getDataStore(): PfDataStore {
@@ -1703,11 +1709,12 @@ export class PickleModel implements ErrorLogger {
     this.logPlatformError({...err, product: PickleProduct.PFCORE});
   }
 
-  logPlatformError(err: PlatformError): void {
+  async logPlatformError(err: PlatformError): Promise<void> {
     if( this.logger ) {
-      this.logger.logPlatformError(err);
+      await this.logger.logPlatformError(err);
     } else {
       // TODO store somewhere?
+      this.allErrors.push(err);
       console.log(`[${err.severity}] [${err.chain}] ${err.asset}] ${err.failedCall}: ${err.message}`);
     }
   }

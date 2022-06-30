@@ -30,6 +30,5 @@ export interface PlatformError extends LocalError {
 }
 
 export interface ErrorLogger {
-    logPlatformError(err: PlatformError): void;
+    logPlatformError(err: PlatformError): Promise<void>;
 }
-  

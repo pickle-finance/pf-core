@@ -18,7 +18,7 @@ async function generateFullApi() {
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
   const errArr: PlatformError[] = [];
   const errLogger: ErrorLogger = {
-    logPlatformError: function (err: PlatformError): void {
+    async logPlatformError(err: PlatformError): Promise<void> {
       errArr.push(err);
     }
   };
@@ -27,9 +27,8 @@ async function generateFullApi() {
   // store.load();
   // model.setDataStore(store);
   const result = await model.generateFullApi();
-  //const result = await PFCore.createPickleModelAndUserModelForSingleAsset(JAR_SUSHI_ETH_ALCX.details.apiKey, "walletPublicKey", map);
-  const resultString = JSON.stringify(errArr, null, 2);
-  //const resultString = JSON.stringify(result, null, 2);
+  const resultString = JSON.stringify(result, null, 2);
+  const errString = JSON.stringify(errArr, null, 2);
   process.stdout.write(resultString);
   process.exit(0);
 }
