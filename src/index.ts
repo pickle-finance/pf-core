@@ -14,7 +14,7 @@ import {
   DocsFormat,
   DocumentationModelResult,
 } from "./docModel/DocsInterfaces";
-
+import * as PlatformInterfaces from "./core/platform/PlatformInterfaces";
 export {
   ChainNetwork,
   Chains,
@@ -29,4 +29,5 @@ export {
   DocsFormat,
   DocumentationModelResult,
   PFCore,
+  PlatformInterfaces,
 };
