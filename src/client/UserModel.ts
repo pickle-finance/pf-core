@@ -370,9 +370,7 @@ export class UserModel {
       const wrappedAllowances = protocols.reduce((acc, protocol, idx) => {
         return {
           ...acc,
-          [protocol.protocol]: {
-            allowance: allowances[idx].toString(),
-          },
+          [protocol.protocol]: allowances[idx].toString(),
         };
       }, {});
 
