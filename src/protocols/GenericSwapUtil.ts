@@ -268,6 +268,6 @@ export async function getLivePairDataFromContracts(
     return { reserveUSD, totalSupply, pricePerToken };
   } catch (error ) {
     model.logPlatformError(toError(200202, jar.chain, jar.details.apiKey, "getLivePairDataFromContracts",  
-    `Error checking LP status for ${componentA} and ${componentB} on ${jar.chain}`, ""+error, ErrorSeverity.ERROR_5));
+    `Error checking LP status`, ""+error, ErrorSeverity.ERROR_3));
   }
 }

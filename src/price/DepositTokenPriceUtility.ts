@@ -69,8 +69,8 @@ export async function getStableswapPriceAddress(
       ? multiProvider.all([pool.get_virtual_price()])
       : multiProvider.all([pool.getVirtualPrice()]));
   } catch (e) {
-    model.logPlatformError(toError(200201, asset.chain, '', "getStableswapPriceAddress", 
-    ``, ''+e, ErrorSeverity.ERROR_5));
+    model.logPlatformError(toError(200201, asset.chain, asset.details.apiKey, "getStableswapPriceAddress", 
+    `Error loading stableswap price for asset`, ''+e, ErrorSeverity.ERROR_3));
   }
   return parseFloat(ethers.utils.formatEther(virtualPrice));
 }
