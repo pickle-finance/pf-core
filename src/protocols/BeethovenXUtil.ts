@@ -57,6 +57,7 @@ interface GraphResponse {
 }
 
 export const queryTheGraph = async (
+  model: PickleModel,
   jar: JarDefinition,
   blockNumber: number,
 ): Promise<GraphResponse | undefined> => {
@@ -76,14 +77,19 @@ export const queryTheGraph = async (
     jar.chain,
   );
   if (!res || !res.data || !res.data.pools || res.data.pools.length === 0) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/1", 
+    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return undefined;
   }
   const poolData = res?.data?.pools[0];
   if (
+    poolData === undefined ||
     poolData.address === undefined ||
     poolData.totalLiquidity === undefined ||
     poolData.totalSwapFee === undefined
   ) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/2", 
+    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return undefined;
   }
   try {
@@ -95,10 +101,13 @@ export const queryTheGraph = async (
   } catch (error) {
     console.log(error);
     console.log(res);
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/3", 
+    `Error loading Beethoven apy from graph`, ''+error, ErrorSeverity.ERROR_4));
+    return undefined;
   }
 };
 
-export const getBalancerPoolDayAPY = async (
+export const getBeethovenPoolDayAPY = async (
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<number> => {
@@ -106,22 +115,16 @@ export const getBalancerPoolDayAPY = async (
   const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
-  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(
-    jar,
-    blockNum,
-  );
-  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(
-    jar,
-    blockNum - blocksInDay,
-  );
+  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(model, jar, blockNum);
+  const b2 = blockNum - blocksInDay;
+  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(model, jar, b2);
   if (currentPoolDayDate === undefined || yesterdayPoolDayData === undefined) {
-    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph", 
-    `Error loading balancer apy from graph`, '', ErrorSeverity.ERROR_4));
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getBeethovenPoolDayAPY", 
+    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return 0;
   }
 
-  const lastDaySwapFee =
-    currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
+  const lastDaySwapFee = currentPoolDayDate.totalSwapFee - yesterdayPoolDayData.totalSwapFee;
   const apy = (lastDaySwapFee / currentPoolDayDate.totalLiquidity) * 365 * 100;
   return apy;
 };
@@ -136,15 +139,15 @@ export const getBalancerPerformance = async (
   const blocksInDay = Math.round(secondsInDay / blocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
     await Promise.all([
-      queryTheGraph(jar, blockNum),
-      queryTheGraph(jar, blockNum - blocksInDay),
-      queryTheGraph(jar, blockNum - blocksInDay * 3),
-      queryTheGraph(jar, blockNum - blocksInDay * 7),
-      queryTheGraph(jar, blockNum - blocksInDay * 30),
+      queryTheGraph(model, jar, blockNum),
+      queryTheGraph(model, jar, blockNum - blocksInDay),
+      queryTheGraph(model, jar, blockNum - blocksInDay * 3),
+      queryTheGraph(model, jar, blockNum - blocksInDay * 7),
+      queryTheGraph(model, jar, blockNum - blocksInDay * 30),
     ]);
   if( !currentPoolDate) {
     model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph", 
-    `Error loading balancer apy from graph`, '', ErrorSeverity.ERROR_4));
+    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return { d1: 0, d3: 0, d7: 0, d30: 0 };
   }
 
@@ -170,10 +173,7 @@ export const getPoolData = async (
   model: PickleModel,
 ): Promise<number> => {
   const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
-  const graphResp: GraphResponse | undefined = await queryTheGraph(
-    jar,
-    blockNum,
-  );
+  const graphResp: GraphResponse | undefined = await queryTheGraph(model, jar, blockNum);
   const multiProvider = model.multiproviderFor(jar.chain);
   const poolContract = new Contract(jar.depositToken.addr, erc20Abi);
   const [poolTokenTotalSupplyBN]: BigNumber[] = await multiProvider.all([
@@ -270,7 +270,7 @@ export const calculateBalPoolAPRs = async (
 
   const lp: AssetAprComponent = {
     name: "lp",
-    apr: await getBalancerPoolDayAPY(jar, model),
+    apr: await getBeethovenPoolDayAPY(jar, model),
     compoundable: false,
   };
   poolAprComponents.push(lp);

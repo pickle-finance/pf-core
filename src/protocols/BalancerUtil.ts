@@ -10,6 +10,8 @@ import {
   HistoricalYield,
   JarDefinition,
 } from "../model/PickleModelJson";
+import { toError } from "../model/PickleModel";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
 const balVaultAddr = "0xBA12222222228d8Ba445958a75a0704d566BF2C8";
 
@@ -38,6 +40,7 @@ export interface PoolData {
 }
 
 export const queryTheGraph = async (
+  model: PickleModel,
   jar: JarDefinition,
   blockNumber: number,
 ): Promise<GraphResponse | undefined> => {
@@ -54,14 +57,19 @@ export const queryTheGraph = async (
     jar.chain,
   );
   if (!res || !res.data || !res.data.pools || res.data.pools.length === 0) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BalancerUtil/queryTheGraph/1", 
+    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return undefined;
   }
   const poolData = res?.data?.pools[0];
   if (
+    poolData === undefined ||
     poolData.address === undefined ||
     poolData.totalLiquidity === undefined ||
     poolData.totalSwapFee === undefined
   ) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BalancerUtil/queryTheGraph/2", 
+    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return undefined;
   }
   try {
@@ -73,6 +81,9 @@ export const queryTheGraph = async (
   } catch (error) {
     console.log(error);
     console.log(res);
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BalancerUtil/queryTheGraph/3", 
+    `Error loading Beethoven apy from graph`, ''+error, ErrorSeverity.ERROR_4));
+    return undefined;
   }
 };
 
@@ -88,15 +99,12 @@ export const getBalancerPoolDayAPY = async (
   const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
-  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(
-    jar,
-    blockNum,
-  );
-  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(
-    jar,
-    blockNum - blocksInDay,
-  );
+  const currentPoolDayDate: GraphResponse | undefined = await queryTheGraph(model, jar, blockNum );
+  const b2 = blockNum - blocksInDay;
+  const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(model, jar, b2);
   if (currentPoolDayDate === undefined || yesterdayPoolDayData === undefined) {
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BalancerUtil/getBalancerPoolDayAPY", 
+    `Error loading Balancer apy from graph`, '', ErrorSeverity.ERROR_4));
     return 0;
   }
 
@@ -119,12 +127,17 @@ export const getBalancerPerformance = async (
   const blocksInDay = Math.round(secondsInDay / blocktime);
   const [currentPoolDate, d1PoolData, d3PoolData, d7PoolData, d30PoolData] =
     await Promise.all([
-      queryTheGraph(asset, blockNum),
-      queryTheGraph(asset, blockNum - blocksInDay),
-      queryTheGraph(asset, blockNum - blocksInDay * 3),
-      queryTheGraph(asset, blockNum - blocksInDay * 7),
-      queryTheGraph(asset, blockNum - blocksInDay * 30),
+      queryTheGraph(model, asset, blockNum),
+      queryTheGraph(model, asset, blockNum - blocksInDay),
+      queryTheGraph(model, asset, blockNum - blocksInDay * 3),
+      queryTheGraph(model, asset, blockNum - blocksInDay * 7),
+      queryTheGraph(model, asset, blockNum - blocksInDay * 30),
     ]);
+  if( !currentPoolDate ) {
+    model.logPlatformError(toError(305000, asset.chain, asset.details.apiKey, "BalancerUtil/queryTheGraph", 
+    `Error loading balancer apy from graph`, '', ErrorSeverity.ERROR_4));
+    return { d1: 0, d3: 0, d7: 0, d30: 0 };
+  }
   const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
   const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
   const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;
