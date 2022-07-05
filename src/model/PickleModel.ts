@@ -997,7 +997,8 @@ export class PickleModel implements ErrorLogger {
         ) 
       ).map((x) => x.timestamp);
     } catch (error) {
-      this.logPlatformError(toError(106000, chain, '', 'addJarTimestamp', "Failed to add last-updated timestamp to jar", ''+error, ErrorSeverity.ERROR_2));
+      const e1 = "Failed to acquire start blocks and timestamps for chain " + chain;
+      this.logPlatformError(toError(106000, chain, '', 'addJarTimestamp', e1, e1, ErrorSeverity.ERROR_2));
     }
     for (let i = 0; timestamp !== undefined && i < jars.length; i++) {
       jars[i].startTimestamp = timestamp[i];
@@ -1738,7 +1739,7 @@ export const toError2 = (errorCode: number,
     chain,
     asset: asset || '', 
     failedCall: failedCall || '',
-    message: message && message !== '' ? message : failedCall || '',
+    message: message || failedCall || '',
     causeMessage: causeMessage || '',
     severity
   }
