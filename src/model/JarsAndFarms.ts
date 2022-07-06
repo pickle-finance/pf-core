@@ -9994,7 +9994,7 @@ export const JAR_FANTOM_V_SEX_FTM: JarDefinition = {
   startBlock: 32386067,
   depositToken: {
     addr: "0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
-    name: "SOLID vFTM/SEX",
+    name: "SOLIDLY vFTM/SEX",
     link: "https://solidly.exchange/liquidity/0xFCEC86aF8774d69e2e4412B8De3f4aBf1f671ecC",
     components: ["ftm", "sex"],
   },
@@ -10023,7 +10023,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_V_SEX_FTM);
 //   startBlock:,
 // depositToken: {
 //     addr: "0x154eA0E896695824C87985a52230674C2BE7731b",
-//     name: "SOLID sUSDC/FRAX",
+//     name: "SOLIDLY sUSDC/FRAX",
 //     link: "https://solidly.exchange/liquidity/0x154eA0E896695824C87985a52230674C2BE7731b",
 //     components: ["usdc", "frax"],
 //   },
@@ -10052,7 +10052,7 @@ export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
   startBlock: 32513558,
   depositToken: {
     addr: "0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
-    name: "SOLID sBTC/RENBTC",
+    name: "SOLIDLY sBTC/RENBTC",
     link: "https://solidly.exchange/liquidity/0x6058345A4D8B89Ddac7042Be08091F91a404B80b",
     components: ["btc", "renbtc"],
     nativePath: {
@@ -10089,7 +10089,7 @@ export const JAR_FANTOM_SEX_S_USDC_MIM: JarDefinition = {
   startBlock: 32652856,
   depositToken: {
     addr: "0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
-    name: "SOLID sUSDC/MIM",
+    name: "SOLIDLY sUSDC/MIM",
     link: "https://solidly.exchange/liquidity/0xbcab7d083Cf6a01e0DdA9ed7F8a02b47d125e682",
     components: ["usdc", "mim"],
     nativePath: {
@@ -10127,7 +10127,7 @@ export const JAR_FANTOM_SEX_V_FTM_TOMB: JarDefinition = {
   startBlock: 32652856,
   depositToken: {
     addr: "0x60a861Cd30778678E3d613db96139440Bd333143",
-    name: "SOLID vFTM/TOMB",
+    name: "SOLIDLY vFTM/TOMB",
     link: "https://solidly.exchange/liquidity/0x60a861Cd30778678E3d613db96139440Bd333143",
     components: ["ftm", "tomb"],
   },
@@ -10156,7 +10156,7 @@ export const JAR_FANTOM_SEX_V_FTM_CRV: JarDefinition = {
   startBlock: 32655009,
   depositToken: {
     addr: "0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
-    name: "SOLID vFTM/CRV",
+    name: "SOLIDLY vFTM/CRV",
     link: "https://solidly.exchange/liquidity/0xED7Fd242ce91a541ABcaE52f3d617dacA7fe6e34",
     components: ["ftm", "crv"],
   },
@@ -10185,7 +10185,7 @@ export const JAR_FANTOM_SEX_V_FXS_FRAX: JarDefinition = {
   startBlock: 32675050,
   depositToken: {
     addr: "0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
-    name: "SOLID vFXS/FRAX",
+    name: "SOLIDLY vFXS/FRAX",
     link: "https://solidly.exchange/liquidity/0x4bBd8467ccd49D5360648CE14830f43a7fEB6e45",
     components: ["fxs", "frax"],
     nativePath: {
@@ -10222,7 +10222,7 @@ export const JAR_FANTOM_SEX_V_USDC_OXD: JarDefinition = {
   startBlock: 32676235,
   depositToken: {
     addr: "0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
-    name: "SOLID vUSDC/OXD",
+    name: "SOLIDLY vUSDC/OXD",
     link: "https://solidly.exchange/liquidity/0xEaFB5Ae6eEa34954eE5e5a27B068B8705CE926a6",
     components: ["usdc", "oxdv1"],
   },
@@ -10251,7 +10251,7 @@ export const JAR_FANTOM_SEX_V_YFI_WOOFY: JarDefinition = {
   startBlock: 32677507,
   depositToken: {
     addr: "0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
-    name: "SOLID vYFI/WOOFY",
+    name: "SOLIDLY vYFI/WOOFY",
     link: "https://solidly.exchange/liquidity/0x4b3a172283ecB7d07AB881a9443d38cB1c98F4d0",
     components: ["yfi", "woofy"],
     nativePath: {
@@ -10288,7 +10288,7 @@ export const JAR_FANTOM_SEX_V_USDC_SYN: JarDefinition = {
   startBlock: 32678517,
   depositToken: {
     addr: "0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
-    name: "SOLID vUSDC/SYN",
+    name: "SOLIDLY vUSDC/SYN",
     link: "https://solidly.exchange/liquidity/0xB1b3B96cf35435b2518093acD50E02fe03A0131f",
     components: ["usdc", "syn"],
   },
@@ -10317,7 +10317,7 @@ export const JAR_FANTOM_SEX_V_FTM_YFI: JarDefinition = {
   startBlock: 32680351,
   depositToken: {
     addr: "0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
-    name: "SOLID vFTM/YFI",
+    name: "SOLIDLY vFTM/YFI",
     link: "https://solidly.exchange/liquidity/0xEa5f4ECf6900833f9B7038e5D8d67142ABb09Dcc",
     components: ["ftm", "yfi"],
   },
@@ -10346,7 +10346,7 @@ export const JAR_FANTOM_SEX_V_FTM_OATH: JarDefinition = {
   startBlock: 32687038,
   depositToken: {
     addr: "0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
-    name: "SOLID vFTM/OATH",
+    name: "SOLIDLY vFTM/OATH",
     link: "https://solidly.exchange/liquidity/0x6B987e02Ca5eAE26D8B2bCAc724D4e03b3B0c295",
     components: ["ftm", "oath"],
   },
@@ -10375,7 +10375,7 @@ export const JAR_FANTOM_SEX_V_FTM_MULTI: JarDefinition = {
   startBlock: 32688709,
   depositToken: {
     addr: "0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
-    name: "SOLID vFTM/MULTI",
+    name: "SOLIDLY vFTM/MULTI",
     link: "https://solidly.exchange/liquidity/0x94bE7e51efE2A0C06c2281b6b385FCD12C84d6F9",
     components: ["ftm", "multi"],
   },
@@ -10404,7 +10404,7 @@ export const JAR_FANTOM_SEX_S_SOLID_SOLIDSEX: JarDefinition = {
   startBlock: 32690372,
   depositToken: {
     addr: "0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
-    name: "SOLID sSOLID/SOLIDSEX",
+    name: "SOLIDLY sSOLID/SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0x62E2819Dd417F3b430B6fa5Fd34a49A377A02ac8",
     components: ["solid", "solidsex"],
     nativePath: {
@@ -10441,7 +10441,7 @@ export const JAR_FANTOM_SEX_V_FTM_LQDR: JarDefinition = {
   startBlock: 32690926,
   depositToken: {
     addr: "0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
-    name: "SOLID vFTM/LQDR",
+    name: "SOLIDLY vFTM/LQDR",
     link: "https://solidly.exchange/liquidity/0x9861B8a9Acc9B4f249981164bFe7f84202068bfE",
     components: ["ftm", "lqdr"],
   },
@@ -10470,7 +10470,7 @@ export const JAR_FANTOM_SEX_V_FTM_HND: JarDefinition = {
   startBlock: 32691451,
   depositToken: {
     addr: "0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
-    name: "SOLID vFTM/HND",
+    name: "SOLIDLY vFTM/HND",
     link: "https://solidly.exchange/liquidity/0x6aAE93f2915b899e87b49a9254434D36ac9570d8",
     components: ["ftm", "hnd"],
   },
@@ -10499,7 +10499,7 @@ export const JAR_FANTOM_SEX_V_FTM_IB: JarDefinition = {
   startBlock: 32691922,
   depositToken: {
     addr: "0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
-    name: "SOLID vFTM/IB",
+    name: "SOLIDLY vFTM/IB",
     link: "https://solidly.exchange/liquidity/0x304B61f3481C977Ffbe630B55f2aBeEe74792664",
     components: ["ftm", "ib"],
   },
@@ -10528,7 +10528,7 @@ export const JAR_FANTOM_SEX_V_FTM_GEIST: JarDefinition = {
   startBlock: 32695198,
   depositToken: {
     addr: "0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
-    name: "SOLID vFTM/GEIST",
+    name: "SOLIDLY vFTM/GEIST",
     link: "https://solidly.exchange/liquidity/0xAe885ef155F2835Dce9c66b0A7a3A0c8c0622aa1",
     components: ["ftm", "geist"],
   },
@@ -10557,7 +10557,7 @@ export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
   startBlock: 32688280,
   depositToken: {
     addr: "0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
-    name: "SOLID vBIFI/MAI",
+    name: "SOLIDLY vBIFI/MAI",
     link: "https://solidly.exchange/liquidity/0x8aeB0503E13F7bea02F80986a8FDb2AccE5C6b6C",
     components: ["bifi", "mimatic"],
     nativePath: {
@@ -10594,7 +10594,7 @@ JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_BIFI_MAI);
 //   startBlock:,
 // depositToken: {
 //     addr: "0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-//     name: "SOLID vFTM/SCREAM",
+//     name: "SOLIDLY vFTM/SCREAM",
 //     link: "https://solidly.exchange/liquidity/0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
 //     components: ["ftm", "scream"],
 //   },
@@ -10623,7 +10623,7 @@ export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
   startBlock: 32752906,
   depositToken: {
     addr: "0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
-    name: "SOLID vCRV/G3CRV",
+    name: "SOLIDLY vCRV/G3CRV",
     link: "https://solidly.exchange/liquidity/0x6Ca598726d7c9Ed382A101789c5f086F7165eFa1",
     components: ["crv", "g3crv"],
     nativePath: {
@@ -10660,7 +10660,7 @@ export const JAR_FANTOM_SEX_S_FTM_BEFTM: JarDefinition = {
   startBlock: 32753558,
   depositToken: {
     addr: "0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
-    name: "SOLID sFTM/BEFTM",
+    name: "SOLIDLY sFTM/BEFTM",
     link: "https://solidly.exchange/liquidity/0x387a11D161f6855Bd3c801bA6C79Fe9b824Ce1f3",
     components: ["ftm", "beftm"],
   },
@@ -10689,7 +10689,7 @@ export const JAR_FANTOM_SEX_V_FTM_SOLIDSEX: JarDefinition = {
   startBlock: 32754199,
   depositToken: {
     addr: "0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
-    name: "SOLID vFTM/SOLIDSEX",
+    name: "SOLIDLY vFTM/SOLIDSEX",
     link: "https://solidly.exchange/liquidity/0xa66901D1965F5410dEeB4d0Bb43f7c1B628Cb20b",
     components: ["ftm", "solidsex"],
   },
@@ -10718,7 +10718,7 @@ export const JAR_FANTOM_SEX_S_USDC_DAI: JarDefinition = {
   startBlock: 32755499,
   depositToken: {
     addr: "0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
-    name: "SOLID sUSDC/DAI",
+    name: "SOLIDLY sUSDC/DAI",
     link: "https://solidly.exchange/liquidity/0xC0240Ee4405f11EFb87A00B432A8be7b7Afc97CC",
     components: ["usdc", "dai"],
     nativePath: {
@@ -10756,7 +10756,7 @@ export const JAR_FANTOM_SEX_V_FTM_SYN: JarDefinition = {
   startBlock: 32756110,
   depositToken: {
     addr: "0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
-    name: "SOLID vFTM/SYN",
+    name: "SOLIDLY vFTM/SYN",
     link: "https://solidly.exchange/liquidity/0x8aa410d8B0Cc3dE48AAC8eB5d928646A00e6ff04",
     components: ["ftm", "syn"],
   },
@@ -10785,7 +10785,7 @@ export const JAR_FANTOM_SEX_V_TAROT_XTAROT: JarDefinition = {
   startBlock: 32756803,
   depositToken: {
     addr: "0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
-    name: "SOLID vTAROT/XTAROT",
+    name: "SOLIDLY vTAROT/XTAROT",
     link: "https://solidly.exchange/liquidity/0x4FE782133af0f7604B9B89Bf95893ADDE265FEFD",
     components: ["tarot", "xtarot"],
     nativePath: {
@@ -10822,7 +10822,7 @@ export const JAR_FANTOM_SEX_S_USDC_DEI: JarDefinition = {
   startBlock: 32757865,
   depositToken: {
     addr: "0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
-    name: "SOLID sUSDC/DEI",
+    name: "SOLIDLY sUSDC/DEI",
     link: "https://solidly.exchange/liquidity/0x5821573d8F04947952e76d94f3ABC6d7b43bF8d0",
     components: ["usdc", "dei"],
   },
@@ -10852,7 +10852,7 @@ export const JAR_FANTOM_SEX_V_FTM_RDL: JarDefinition = {
   startBlock: 32758395,
   depositToken: {
     addr: "0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
-    name: "SOLID vFTM/RDL",
+    name: "SOLIDLY vFTM/RDL",
     link: "https://solidly.exchange/liquidity/0x5ef8f0bd4F071B0199603a28ec9343F3651999c0",
     components: ["ftm", "rdl"],
   },
@@ -10881,7 +10881,7 @@ export const JAR_FANTOM_SEX_V_GEIST_G3CRV: JarDefinition = {
   startBlock: 32759165,
   depositToken: {
     addr: "0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
-    name: "SOLID vGEIST/G3CRV",
+    name: "SOLIDLY vGEIST/G3CRV",
     link: "https://solidly.exchange/liquidity/0x6c90B69aF6DBD929458497a8D1013Aa255ac71F1",
     components: ["geist", "g3crv"],
     nativePath: {
@@ -10918,7 +10918,7 @@ export const JAR_FANTOM_SEX_V_SOLIDSEX_G3CRV: JarDefinition = {
   startBlock: 32759165,
   depositToken: {
     addr: "0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
-    name: "SOLID vSOLIDSEX/G3CRV",
+    name: "SOLIDLY vSOLIDSEX/G3CRV",
     link: "https://solidly.exchange/liquidity/0x817CafF2dAC62BDCcE1EBE332cA128215Dbd9e9a",
     components: ["solidsex", "g3crv"],
   },
@@ -10947,7 +10947,7 @@ export const JAR_FANTOM_SEX_V_FTM_USDC: JarDefinition = {
   startBlock: 32760328,
   depositToken: {
     addr: "0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
-    name: "SOLID vFTM/USDC",
+    name: "SOLIDLY vFTM/USDC",
     link: "https://solidly.exchange/liquidity/0xBad7D3DF8E1614d985C3D9ba9f6ecd32ae7Dc20a",
     components: ["ftm", "usdc"],
   },
@@ -10976,7 +10976,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_RAINSPIRIT: JarDefinition = {
   startBlock: 32760874,
   depositToken: {
     addr: "0xCa395560B6003D921D9408aF011C6C61399F66cA",
-    name: "SOLID sSPIRIT/RAINSPIRIT",
+    name: "SOLIDLY sSPIRIT/RAINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xCa395560B6003D921D9408aF011C6C61399F66cA",
     components: ["spirit", "rainspirit"],
     nativePath: {
@@ -11013,7 +11013,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_LINSPIRIT: JarDefinition = {
   startBlock: 32761481,
   depositToken: {
     addr: "0xd6be7592E5C424623c8C9557738970aE19ab5de2",
-    name: "SOLID sSPIRIT/LINSPIRIT",
+    name: "SOLIDLY sSPIRIT/LINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xd6be7592E5C424623c8C9557738970aE19ab5de2",
     components: ["spirit", "linspirit"],
     nativePath: {
@@ -11050,7 +11050,7 @@ export const JAR_FANTOM_SEX_V_FTM_SOLID: JarDefinition = {
   startBlock: 32762078,
   depositToken: {
     addr: "0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
-    name: "SOLID vFTM/SOLID",
+    name: "SOLIDLY vFTM/SOLID",
     link: "https://solidly.exchange/liquidity/0xe4bc39fdD4618a76f6472079C329bdfa820afA75",
     components: ["ftm", "solid"],
   },
@@ -11079,7 +11079,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_SINSPIRIT: JarDefinition = {
   startBlock: 32762744,
   depositToken: {
     addr: "0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
-    name: "SOLID sSPIRIT/SINSPIRIT",
+    name: "SOLIDLY sSPIRIT/SINSPIRIT",
     link: "https://solidly.exchange/liquidity/0x742C384D6EDeC91466042ba84E5e751c4eAFf962",
     components: ["spirit", "sinspirit"],
     nativePath: {
@@ -11116,7 +11116,7 @@ export const JAR_FANTOM_SEX_S_SPIRIT_BINSPIRIT: JarDefinition = {
   startBlock: 32764321,
   depositToken: {
     addr: "0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
-    name: "SOLID sSPIRIT/BINSPIRIT",
+    name: "SOLIDLY sSPIRIT/BINSPIRIT",
     link: "https://solidly.exchange/liquidity/0xa7Ea870dc93ffB712ca74b43eFCA9B07556d1303",
     components: ["spirit", "binspirit"],
     nativePath: {
@@ -11153,7 +11153,7 @@ export const JAR_FANTOM_SEX_V_USDC_DAI: JarDefinition = {
   startBlock: 32764921,
   depositToken: {
     addr: "0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
-    name: "SOLID vUSDC/DAI",
+    name: "SOLIDLY vUSDC/DAI",
     link: "https://solidly.exchange/liquidity/0x4e9B80F91E954AE532fF765822fcB5a6bC36cAa6",
     components: ["usdc", "dai"],
     nativePath: {
@@ -11191,7 +11191,7 @@ export const JAR_FANTOM_SEX_V_FTM_TAROT: JarDefinition = {
   startBlock: 32830912,
   depositToken: {
     addr: "0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
-    name: "SOLID vFTM/TAROT",
+    name: "SOLIDLY vFTM/TAROT",
     link: "https://solidly.exchange/liquidity/0x783f1eDBE336981dFCb74Bd0B803655F55AaDF48",
     components: ["ftm", "tarot"],
   },
@@ -11220,7 +11220,7 @@ export const JAR_FANTOM_SEX_V_CRE8R_BOMB: JarDefinition = {
   startBlock: 32831565,
   depositToken: {
     addr: "0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
-    name: "SOLID vCRE8R/BOMB",
+    name: "SOLIDLY vCRE8R/BOMB",
     link: "https://solidly.exchange/liquidity/0x5b3b8F8D92472c6cdC0c6a7d0acD29E53cc00d28",
     components: ["cre8r", "bomb"],
     nativePath: {
