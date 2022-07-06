@@ -11564,7 +11564,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_G3CRV: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-CRV-G3CRV",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11592,7 +11593,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_MULTI: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-MULTI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11620,7 +11622,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_LQDR_WFTM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-LQDR-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11648,7 +11651,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_IB_WFTM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-IB-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11676,7 +11680,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_XTAROT_TAROT: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-XTAROT-TAROT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11704,7 +11709,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_SCREAM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-DEI-SCREAM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11732,7 +11738,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SYN: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SYN",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11760,7 +11767,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLID: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SOLID",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11788,7 +11796,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_YFI_WOOFY: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-YFI-WOOFY",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11816,7 +11825,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BOMB_PGUNK: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-BOMB-PGUNK",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11844,7 +11854,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SOLIDSEX_SOLID: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SOLIDSEX-SOLID",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11872,7 +11883,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_FXS_FRAX: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-FXS-FRAX",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11900,7 +11912,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_OXD_DEI: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-OXD-DEI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11928,7 +11941,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_TAROT: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-TAROT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11956,7 +11970,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_YFI: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-YFI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -11984,7 +11999,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_WFTM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SEX-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12012,7 +12028,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_DEI_DEUS: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-DEI-DEUS",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12040,7 +12057,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_WEVE: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-WEVE",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12068,7 +12086,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_USDC_SYN: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-SYN",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12096,7 +12115,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SOLIDSEX: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SOLIDSEX",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12124,7 +12144,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_MIM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-MIM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12153,7 +12174,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_USDC_DEI: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-USDC-DEI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12182,7 +12204,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_OXD2: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-OXD2",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12210,7 +12233,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_SINSPIRIT: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-SINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12238,7 +12262,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_RAINSPIRIT: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-RAINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12266,7 +12291,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_BINSPIRIT: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-BINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12294,7 +12320,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_STABLE_SPIRIT_LINSPIRIT: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SPIRIT-LINSPIRIT",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12322,7 +12349,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_GEIST: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-GEIST",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12350,7 +12378,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_HND_WFTM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-HND",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12378,7 +12407,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SOLID_OXSOLID: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SOLID-OXSOLID",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12406,7 +12436,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_RDL: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-RDL",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12434,7 +12465,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_SEX_G3CRV: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-SEX-G3CRV",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12462,7 +12494,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_CRV_WFTM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-CRV-WFTM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12490,7 +12523,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BIFI_MAI: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-BIFI-MAI",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12518,7 +12552,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_WFTM_SCREAM: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-WFTM-SCREAM",
     harvestStyle: HarvestStyle.PASSIVE,
@@ -12546,7 +12581,8 @@ export const JAR_FANTOM_OXD_SOLIDLY_VOLATILE_BEETS_FBEETS: JarDefinition = {
   rewardTokens: ["oxd", "solid"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Fantom,
-  protocol: AssetProtocol.OXD,
+  protocol: AssetProtocol.SOLID,
+  stakingProtocol: AssetProtocol.OXD,
   details: {
     apiKey: "OXDSOLIDLYLP-BEETS-FBEETS",
     harvestStyle: HarvestStyle.PASSIVE,
