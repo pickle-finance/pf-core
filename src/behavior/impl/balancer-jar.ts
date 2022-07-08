@@ -17,8 +17,10 @@ import {
 import { BalancerClaimsManager } from "../../protocols/BalancerUtil/BalancerClaimsManager";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { Prices } from "../../protocols/BalancerUtil/types";
-import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
+import { ICustomHarvester, PfCoreGasFlags, ReturnWithError } from "../JarBehaviorResolver";
 import { Contract } from "ethers-multiprovider";
+import { toError1 } from "../../model/PickleModel";
+import { ErrorSeverity, PickleProduct, PlatformError } from "../../core/platform/PlatformInterfaces";
 
 export class BalancerJar extends AbstractJarBehavior {
   poolData: PoolData | undefined;
@@ -129,44 +131,62 @@ export class BalancerJar extends AbstractJarBehavior {
     signer: ethers.Signer,
   ): ICustomHarvester | undefined {
     return {
-      async estimateGasToRun(): Promise<BigNumber | undefined> {
+      async estimateGasToRun(): Promise<ReturnWithError<BigNumber>> {
         const strategy = new ethers.Contract(
           jar.details.strategyAddr as string,
           strategyAbi,
           signer,
         );
-        return strategy.estimateGas.harvest();
+        try {
+          const bn: BigNumber = await strategy.estimateGas.harvest();
+          return { retval:  bn};
+        } catch ( error ) {
+          const pe: PlatformError = toError1(PickleProduct.TSUKEPFCORE, 302000, jar.chain, jar.details.apiKey,
+            'BalancerJar/estimateGasToRun', 'Error estimating Gas', '' + error, ErrorSeverity.ERROR_5 );
+          return {
+            error: pe
+          }
+
+        }
       },
-      async run(flags: PfCoreGasFlags): Promise<TransactionResponse> {
-        console.log("[" + jar.details.apiKey + "] - Harvesting a balancer jar");
-        const prices: Prices = {
-          bal: model.priceOfSync("bal", jar.chain),
-          pickle: model.priceOfSync("pickle", jar.chain),
-        };
-        const strategyAddr = jar.details.strategyAddr;
-        console.log("[" + jar.details.apiKey + "] - Fetching claim data");
-        const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
-        await manager.fetchData(model.getDataStore());
-        console.log(
-          "[" + jar.details.apiKey + "] - About to claim distributions",
-        );
-        const claimTransaction: ContractTransaction =
-          await manager.claimDistributions();
-        console.log(
-          "[" + jar.details.apiKey + "] - Waiting for claim to verify",
-        );
-        await claimTransaction.wait(3);
-        const strategy = new ethers.Contract(
-          jar.details.strategyAddr as string,
-          strategyAbi,
-          signer,
-        );
-        console.log("[" + jar.details.apiKey + "] - Calling harvest");
-        const ret = strategy.harvest(flags);
-        console.log(
-          "[" + jar.details.apiKey + "] - harvest called, returning result",
-        );
-        return ret;
+      async run(flags: PfCoreGasFlags): Promise<ReturnWithError<TransactionResponse>> {
+        try {
+          console.log("[" + jar.details.apiKey + "] - Harvesting a balancer jar");
+          const prices: Prices = {
+            bal: model.priceOfSync("bal", jar.chain),
+            pickle: model.priceOfSync("pickle", jar.chain),
+          };
+          const strategyAddr = jar.details.strategyAddr;
+          console.log("[" + jar.details.apiKey + "] - Fetching claim data");
+          const manager = new BalancerClaimsManager(strategyAddr, signer, prices);
+          await manager.fetchData(model.getDataStore());
+          console.log(
+            "[" + jar.details.apiKey + "] - About to claim distributions",
+          );
+          const claimTransaction: ContractTransaction =
+            await manager.claimDistributions();
+          console.log(
+            "[" + jar.details.apiKey + "] - Waiting for claim to verify",
+          );
+          await claimTransaction.wait(3);
+          const strategy = new ethers.Contract(
+            jar.details.strategyAddr as string,
+            strategyAbi,
+            signer,
+          );
+          console.log("[" + jar.details.apiKey + "] - Calling harvest");
+          const ret = strategy.harvest(flags);
+          console.log(
+            "[" + jar.details.apiKey + "] - harvest called, returning result",
+          );
+          return ret;
+        } catch( error ) {
+          const pe: PlatformError = toError1(PickleProduct.TSUKEPFCORE, 302100, jar.chain, jar.details.apiKey,
+            'BalancerJar/run', 'Error Harvesting', '' + error, ErrorSeverity.ERROR_5 );
+          return {
+            error: pe
+          }
+        }
       },
     };
   }

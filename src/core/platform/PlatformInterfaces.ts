@@ -13,6 +13,7 @@ export enum PickleProduct {
     API = 200,
     API_JOB = 300,
     TSUKE = 400,
+    TSUKEPFCORE = 500,
 }
 
 export interface LocalError {
@@ -44,6 +45,7 @@ export interface ErrorLogger {
 301101 - getHarvestableUSD
 301102 - getProjectedAprStats
 301105 - getProtocolApy
+302000 - Errors for custom harvesting
 305000 - utility function for jar behavior
 
 */

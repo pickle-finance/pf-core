@@ -9,6 +9,7 @@ import {
   PickleAsset,
 } from "../model/PickleModelJson";
 import { PickleModel } from "..";
+import { PlatformError } from "../core/platform/PlatformInterfaces";
 
 export const ONE_YEAR_SECONDS = 360 * 24 * 60 * 60;
 
@@ -64,7 +65,12 @@ export interface PfCoreGasFlags {
   maxPriorityFeePerGas?: BigNumber;
 }
 
+export interface ReturnWithError<T> {
+  error?: PlatformError;
+  retval?: T | undefined;
+};
+
 export interface ICustomHarvester {
-  estimateGasToRun(): Promise<BigNumber | undefined>;
-  run(flags: PfCoreGasFlags): Promise<TransactionResponse | undefined>;
+  estimateGasToRun(): Promise<ReturnWithError<BigNumber>>;
+  run(flags: PfCoreGasFlags): Promise<ReturnWithError<TransactionResponse>>;
 }

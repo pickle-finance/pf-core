@@ -1721,10 +1721,30 @@ export const toError = (errorCode: number,
   } catch( error ) {
     // Not found
   }
-  return toError2(errorCode, chainGot ? chainGot.id : -1, asset, failedCall, message, causeMessage, severity);
+  return toError2(PickleProduct.PFCORE, errorCode, chainGot ? chainGot.id : -1, asset, failedCall, message, causeMessage, severity);
+}
+export const toError1 = (
+  product: PickleProduct,
+  errorCode: number,
+  chain: ChainNetwork | undefined,
+  asset: string,
+  failedCall: string,
+  message: string,
+  causeMessage: string,
+  severity: ErrorSeverity
+): PlatformError => {
+  let chainGot: IChain | undefined = undefined;
+  try {
+    chainGot = chain ? Chains.get(chain) : undefined;
+  } catch( error ) {
+    // Not found
+  }
+  return toError2(product, errorCode, chainGot ? chainGot.id : -1, asset, failedCall, message, causeMessage, severity);
 }
 
-export const toError2 = (errorCode: number,
+export const toError2 = (
+  product: PickleProduct,
+  errorCode: number,
   chain: number,
   asset: string,
   failedCall: string,
@@ -1733,7 +1753,7 @@ export const toError2 = (errorCode: number,
   severity: ErrorSeverity
 ): PlatformError => {
   return {
-    product: PickleProduct.PFCORE,
+    product: product,
     timestamp: Date.now(),
     errorCode,
     chain,

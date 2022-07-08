@@ -2,8 +2,9 @@ import { BigNumber, ethers } from "ethers";
 import { TransactionResponse } from "@ethersproject/providers";
 import { JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import { PickleModel } from "../../model/PickleModel";
-import { ICustomHarvester, PfCoreGasFlags } from "../JarBehaviorResolver";
+import { PickleModel, toError1 } from "../../model/PickleModel";
+import { ICustomHarvester, PfCoreGasFlags, ReturnWithError } from "../JarBehaviorResolver";
+import { PickleProduct, PlatformError, ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 
 export abstract class AuroraMultistepHarvestJar extends AbstractJarBehavior {
   protected harvestSteps: number;
@@ -40,18 +41,28 @@ export abstract class AuroraMultistepHarvestJar extends AbstractJarBehavior {
     const harvestStepsInternal = this.harvestSteps;
     const treasuryStepInternal = this.treasuryStep;
     return {
-      async estimateGasToRun(): Promise<BigNumber | undefined> {
+      async estimateGasToRun(): Promise<ReturnWithError<BigNumber>> {
         const strategy = new ethers.Contract(
           jar.details.strategyAddr as string,
           MULTISTEP_HARVEST_ABI,
           signer,
         );
-        const ret: BigNumber = await strategy.estimateGas.harvestOne();
-        return ret ? ret.mul(harvestStepsInternal.toFixed()) : undefined;
+        try {
+          const ret: BigNumber = await strategy.estimateGas.harvestOne();
+          if( ret ) {
+            return { retval: ret.mul(harvestStepsInternal.toFixed())};
+          }
+        } catch( error ) {
+          const pe: PlatformError = toError1(PickleProduct.TSUKEPFCORE, 302000, jar.chain, jar.details.apiKey,
+            'customAuroraHarvestRunner/estimateGasToRun', 'Error estimating Gas', '' + error, ErrorSeverity.ERROR_5 );
+          return {
+            error: pe
+          }
+        }
       },
       async run(
         flags: PfCoreGasFlags,
-      ): Promise<TransactionResponse | undefined> {
+      ): Promise<ReturnWithError<TransactionResponse>> {
         console.log("[" + jar.details.apiKey + "] - Harvesting an Aurora jar");
         const strategy = new ethers.Contract(
           jar.details.strategyAddr as string,
@@ -60,8 +71,9 @@ export abstract class AuroraMultistepHarvestJar extends AbstractJarBehavior {
         );
 
         const responses: TransactionResponse[] = [];
+        let i = 0;
         try {
-          for (let i = 0; i < harvestStepsInternal; i++) {
+          for (i; i < harvestStepsInternal; i++) {
             const funcName = multistepHarvestNames[i];
             console.log("[" + jar.details.apiKey + "] - Calling " + funcName);
             const result: TransactionResponse = await strategy[funcName](flags);
@@ -69,13 +81,24 @@ export abstract class AuroraMultistepHarvestJar extends AbstractJarBehavior {
             responses.push(result);
           }
         } catch (error) {
-          console.log(
-            "Error harvesting jar " + jar.details.apiKey + " - " + error,
-          );
+          const pe: PlatformError = toError1(PickleProduct.TSUKEPFCORE, 302100, jar.chain, jar.details.apiKey,
+            'customAuroraHarvestRunner/run', 'Error Harvesting, step ' + i, '' + error, ErrorSeverity.ERROR_5 );
+          return {
+            error: pe
+          }
         }
         const indexToReturn = treasuryStepInternal - 1;
-        if (indexToReturn < responses.length) return responses[indexToReturn];
-        return responses.length > 0 ? responses[0] : undefined;
+        if (indexToReturn < responses.length) {
+          return {
+            retval: responses[indexToReturn]
+          };
+        }
+        const pe: PlatformError = toError1(PickleProduct.TSUKEPFCORE, 302101, jar.chain, jar.details.apiKey,
+          'customAuroraHarvestRunner/run', 'Error Harvesting, step ' + indexToReturn + ' not found', '', ErrorSeverity.ERROR_5 );
+        return {
+          error: pe
+        }
+
       },
     };
   }
