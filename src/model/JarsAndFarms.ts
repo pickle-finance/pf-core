@@ -8760,7 +8760,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_BTC: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["eth", "btc"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -8789,7 +8789,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_DAI: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["eth", "dai"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -8818,7 +8818,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_OP: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["eth", "op"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -8847,7 +8847,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_USDC: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["eth", "usdc"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -8876,7 +8876,7 @@ export const JAR_OPTIMISM_UNIV3_SUSD_DAI: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["susd", "dai"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -8905,7 +8905,7 @@ export const JAR_OPTIMISM_UNIV3_SUSD_USDC: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["susd", "usdc"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -8934,7 +8934,7 @@ export const JAR_OPTIMISM_UNIV3_USDC_DAI: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["usdc", "dai"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -10220,35 +10220,6 @@ export const JAR_FANTOM_V_SEX_FTM: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_V_SEX_FTM);
 
-// export const JAR_FANTOM_SEX_S_USDC_FRAX: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 5b",
-//   contract: "0x217714bAcF2312D3A5A74b434bb6Ce8f8b19859C",
-//   startBlock:,
-// depositToken: {
-//     addr: "0x154eA0E896695824C87985a52230674C2BE7731b",
-//     name: "SOLIDLY sUSDC/FRAX",
-//     link: "https://solidly.exchange/liquidity/0x154eA0E896695824C87985a52230674C2BE7731b",
-//     components: ["usdc", "frax"],
-//   },
-//   enablement: AssetEnablement.DEV,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.SOLID,
-//   stakingProtocol: AssetProtocol.SEX,
-//   rewardTokens: ["solid", "sex"],
-//   details: {
-//     apiKey: "SEX-SOLID-sUSDC-FRAX",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pSEX-SOLID sUSDC-FRAX",
-//     farmDepositTokenName: "pSEX-SOLID sUSDC-FRAX",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_FRAX);
-
 export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 5c",
@@ -10790,35 +10761,6 @@ export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_BIFI_MAI);
-
-// export const JAR_FANTOM_SEX_V_FTM_SCREAM: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 5t",
-//   contract: "0x11098Bb2BEF7619F9Cf741d0a24D699db0f79198",
-//   startBlock:,
-// depositToken: {
-//     addr: "0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-//     name: "SOLIDLY vFTM/SCREAM",
-//     link: "https://solidly.exchange/liquidity/0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-//     components: ["ftm", "scream"],
-//   },
-//   enablement: AssetEnablement.DEV,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.SOLID,
-//   stakingProtocol: AssetProtocol.SEX,
-//   rewardTokens: ["solid", "sex"],
-//   details: {
-//     apiKey: "SEX-SOLID-vFTM-SCREAM",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pSEX-SOLID vFTM-SCREAM",
-//     farmDepositTokenName: "pSEX-SOLID vFTM-SCREAM",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SCREAM);
 
 export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
   type: AssetType.JAR,
