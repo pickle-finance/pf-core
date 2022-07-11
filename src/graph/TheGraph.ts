@@ -40,7 +40,7 @@ const SUBGRAPH_BEAMSWAP =
   "https://api.thegraph.com/subgraphs/name/beamswap/beamswap-dex";
 const SUBGRAPH_SOLARFLARE = "https://analytics.solarflare.io/api/subgraph";
 const SUBGRAPH_URL_BEETHOVENX =
-  "https://api.thegraph.com/subgraphs/name/beethovenxfi/fantom-blocks";
+  "https://api.thegraph.com/subgraphs/name/beethovenxfi/beethovenx";
 const SUBGRAPH_URL_SPOOKYSWAP =
   "https://api.thegraph.com/subgraphs/name/eerieeight/spookyswap";
 const SUBGRAPH_URL_SPIRITSWAP =

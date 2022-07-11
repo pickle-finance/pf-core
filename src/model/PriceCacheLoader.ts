@@ -1,4 +1,5 @@
 import { ChainNetwork } from "..";
+import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 import { setCoingeckoPricesOnTokens } from "../price/CoinGeckoPriceResolver";
 import { setAllCoinMarketCapPricesOnTokens } from "../price/CoinMarketCapPriceResolver";
 import {
@@ -6,7 +7,7 @@ import {
   ExternalTokenFetchStyle,
 } from "../price/ExternalTokenModel";
 import { calculateSwapTokenPrices } from "../price/SwapPriceResolver";
-import { PickleModel } from "./PickleModel";
+import { PickleModel, toError } from "./PickleModel";
 
 export const isCgFetchType = (token: ExternalToken): boolean => {
   return (
@@ -25,10 +26,26 @@ export const isCgFetchTypeContract = (token: ExternalToken): boolean => {
 export const setAllPricesOnTokens = async (
   chains: ChainNetwork[],
   model: PickleModel,
-): Promise<void[]> => {
-  let promises = [];
-  promises = promises.concat(chains.map((x) => setCoingeckoPricesOnTokens(x)));
-  promises.push(setAllCoinMarketCapPricesOnTokens(chains));
-  promises.push(calculateSwapTokenPrices(chains, model));
-  return await Promise.all(promises);
+): Promise<void> => {
+  const cgPricePromise: Promise<void>[] = chains.map((x) => setCoingeckoPricesOnTokens(x));
+  const cmcPricePromise = setAllCoinMarketCapPricesOnTokens(chains);
+  const swapPricePromise = calculateSwapTokenPrices(chains, model);
+
+  try {
+    await Promise.all(cgPricePromise);
+  } catch( error ) {
+    model.logPlatformError(toError(100135, undefined, "", "setAllPricesOnTokens/cgPricePromise",  `Unexpected Error`, ""+error, ErrorSeverity.SEVERE));
+  }
+
+  try {
+    await cmcPricePromise;
+  } catch( error ) {
+    model.logPlatformError(toError(100136, undefined, "", "setAllPricesOnTokens/cmcPricePromise",  `Unexpected Error`, ""+error, ErrorSeverity.SEVERE));
+  }
+
+  try {
+    await swapPricePromise;
+  } catch( error ) {
+    model.logPlatformError(toError(100137, undefined, "", "setAllPricesOnTokens/swapPricePromise",  `Unexpected Error`, ""+error, ErrorSeverity.SEVERE));
+  }
 };
