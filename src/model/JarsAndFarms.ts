@@ -8747,6 +8747,210 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_STAR_USDC);
 
+export const JAR_OPTIMISM_UNIV3_ETH_BTC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3a",
+  contract: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
+  startBlock: 13923147, startTimestamp: 1657070498,
+  depositToken: {
+    addr: "0x73B14a78a0D396C521f954532d43fd5fFe385216",
+    name: "UniV3 ETH/BTC",
+    link: "https://app.uniswap.org/#/add/ETH/0x68f180fcCe6836688e9084f035309E29Bf0A2095/3000?chain=optimism",
+    components: ["eth", "btc"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["eth", "btc"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-ETH-BTC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 ETH/BTC",
+    farmDepositTokenName: "pUniV3 ETH/BTC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_ETH_BTC);
+
+export const JAR_OPTIMISM_UNIV3_ETH_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3b",
+  contract: "0xbE27C2415497f8ae5E6103044f460991E32636F8",
+  startBlock: 14048703, startTimestamp: 1657240485,
+  depositToken: {
+    addr: "0x03aF20bDAaFfB4cC0A521796a223f7D85e2aAc31",
+    name: "UniV3 ETH/DAI",
+    link: "https://app.uniswap.org/#/add/ETH/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1/3000?chain=optimism",
+    components: ["eth", "dai"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["eth", "dai"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-ETH-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 ETH/DAI",
+    farmDepositTokenName: "pUniV3 ETH/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_ETH_DAI);
+
+export const JAR_OPTIMISM_UNIV3_ETH_OP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3c",
+  contract: "0x24f8b36b7349053A33E3767bc44B8FF20813AE5e",
+  startBlock: 14049776, startTimestamp: 1657241592,
+  depositToken: {
+    addr: "0x68F5C0A2DE713a54991E01858Fd27a3832401849",
+    name: "UniV3 ETH/OP",
+    link: "https://app.uniswap.org/#/add/ETH/0x4200000000000000000000000000000000000042/3000?chain=optimism",
+    components: ["eth", "op"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["eth", "op"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-ETH-OP",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 ETH/OP",
+    farmDepositTokenName: "pUniV3 ETH/OP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_ETH_OP);
+
+export const JAR_OPTIMISM_UNIV3_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3d",
+  contract: "0xBBF8233867c1982D66EA920d726d24391B713550",
+  startBlock: 14050443, startTimestamp: 1657242418,
+  depositToken: {
+    addr: "0x85149247691df622eaF1a8Bd0CaFd40BC45154a9",
+    name: "UniV3 ETH/USDC",
+    link: "https://app.uniswap.org/#/add/ETH/0x7F5c764cBc14f9669B88837ca1490cCa17c31607/500?chain=optimism",
+    components: ["eth", "usdc"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["eth", "usdc"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-ETH-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 ETH/USDC",
+    farmDepositTokenName: "pUniV3 ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_ETH_USDC);
+
+export const JAR_OPTIMISM_UNIV3_SUSD_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3e",
+  contract: "0x37Cc6Ce6eda683AB97433f4Bf26bAbD63889df23",
+  startBlock: 14051467, startTimestamp: 1657243437,
+  depositToken: {
+    addr: "0xAdb35413eC50E0Afe41039eaC8B930d313E94FA4",
+    name: "UniV3 SUSD/DAI",
+    link: "https://app.uniswap.org/#/add/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1/500?chain=optimism",
+    components: ["susd", "dai"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["susd", "dai"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-SUSD-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 SUSD/DAI",
+    farmDepositTokenName: "pUniV3 SUSD/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_SUSD_DAI);
+
+export const JAR_OPTIMISM_UNIV3_SUSD_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3f",
+  contract: "0x637Bbfa0Ba3dE1341c469B15986D4AaE2c8d3cE5",
+  startBlock: 14054031, startTimestamp: 1657244290,
+  depositToken: {
+    addr: "0x8EdA97883a1Bc02Cf68C6B9fb996e06ED8fDb3e5",
+    name: "UniV3 SUSD/USDC",
+    link: "https://app.uniswap.org/#/add/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9/0x7F5c764cBc14f9669B88837ca1490cCa17c31607/500?chain=optimism",
+    components: ["susd", "usdc"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["susd", "usdc"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-SUSD-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 SUSD/USDC",
+    farmDepositTokenName: "pUniV3 SUSD/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_SUSD_USDC);
+
+export const JAR_OPTIMISM_UNIV3_USDC_DAI: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar U3g",
+  contract: "0xae2A28B97FFF55ca62881cBB30De0A3D9949F234",
+  startBlock: 14055281, startTimestamp: 1657244993,
+  depositToken: {
+    addr: "0x100bdC1431A9b09C61c0EFC5776814285f8fB248",
+    name: "UniV3 USDC/DAI",
+    link: "https://app.uniswap.org/#/add/0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1/0x7F5c764cBc14f9669B88837ca1490cCa17c31607/500?chain=optimism",
+    components: ["usdc", "dai"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["usdc", "dai"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
+    apiKey: "OPTIMISM-UNIV3-USDC-DAI",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pUniV3 USDC/DAI",
+    farmDepositTokenName: "pUniV3 USDC/DAI",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_USDC_DAI);
+
+
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   type: AssetType.JAR,
@@ -10016,35 +10220,6 @@ export const JAR_FANTOM_V_SEX_FTM: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_V_SEX_FTM);
 
-// export const JAR_FANTOM_SEX_S_USDC_FRAX: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 5b",
-//   contract: "0x217714bAcF2312D3A5A74b434bb6Ce8f8b19859C",
-//   startBlock:,
-// depositToken: {
-//     addr: "0x154eA0E896695824C87985a52230674C2BE7731b",
-//     name: "SOLIDLY sUSDC/FRAX",
-//     link: "https://solidly.exchange/liquidity/0x154eA0E896695824C87985a52230674C2BE7731b",
-//     components: ["usdc", "frax"],
-//   },
-//   enablement: AssetEnablement.DEV,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.SOLID,
-//   stakingProtocol: AssetProtocol.SEX,
-//   rewardTokens: ["solid", "sex"],
-//   details: {
-//     apiKey: "SEX-SOLID-sUSDC-FRAX",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pSEX-SOLID sUSDC-FRAX",
-//     farmDepositTokenName: "pSEX-SOLID sUSDC-FRAX",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_SEX_S_USDC_FRAX);
-
 export const JAR_FANTOM_SEX_S_BTC_RENBTC: JarDefinition = {
   type: AssetType.JAR,
   id: "fanJar 5c",
@@ -10586,35 +10761,6 @@ export const JAR_FANTOM_SEX_V_BIFI_MAI: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_BIFI_MAI);
-
-// export const JAR_FANTOM_SEX_V_FTM_SCREAM: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "fanJar 5t",
-//   contract: "0x11098Bb2BEF7619F9Cf741d0a24D699db0f79198",
-//   startBlock:,
-// depositToken: {
-//     addr: "0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-//     name: "SOLIDLY vFTM/SCREAM",
-//     link: "https://solidly.exchange/liquidity/0x4A81E80f7d77B4D1440A7Fef12bD47e0344F215B",
-//     components: ["ftm", "scream"],
-//   },
-//   enablement: AssetEnablement.DEV,
-//   chain: ChainNetwork.Fantom,
-//   protocol: AssetProtocol.SOLID,
-//   stakingProtocol: AssetProtocol.SEX,
-//   rewardTokens: ["solid", "sex"],
-//   details: {
-//     apiKey: "SEX-SOLID-vFTM-SCREAM",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//     controller: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-//   },
-//   farm: {
-//     farmAddress: NULL_ADDRESS,
-//     farmNickname: "pSEX-SOLID vFTM-SCREAM",
-//     farmDepositTokenName: "pSEX-SOLID vFTM-SCREAM",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_FANTOM_SEX_V_FTM_SCREAM);
 
 export const JAR_FANTOM_SEX_V_CRV_G3CRV: JarDefinition = {
   type: AssetType.JAR,

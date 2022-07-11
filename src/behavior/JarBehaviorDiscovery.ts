@@ -423,6 +423,13 @@ import {
   JAR_GNOSIS_SWAPR_COW_GNO,
   JAR_MOVR_SOLAR_STKSM_XCKSM,
   JAR_OPTIMISM_ZIP_ETH_OP,
+  JAR_OPTIMISM_UNIV3_ETH_BTC,
+  JAR_OPTIMISM_UNIV3_ETH_DAI,
+  JAR_OPTIMISM_UNIV3_ETH_OP,
+  JAR_OPTIMISM_UNIV3_ETH_USDC,
+  JAR_OPTIMISM_UNIV3_SUSD_DAI,
+  JAR_OPTIMISM_UNIV3_SUSD_USDC,
+  JAR_OPTIMISM_UNIV3_USDC_DAI,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -1017,6 +1024,13 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_OP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_BTC.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_DAI.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_OP.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_USDC.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_SUSD_DAI.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_SUSD_USDC.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_USDC_DAI.id, new Univ3Base());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
