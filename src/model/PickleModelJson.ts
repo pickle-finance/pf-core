@@ -327,7 +327,7 @@ export interface PickleAsset {
   id: string;
   contract: string;
   startBlock: number;
-  startTimestamp?: number;
+  startTimestamp: number;
   depositToken: DepositToken;
   enablement: AssetEnablement;
   chain: ChainNetwork;

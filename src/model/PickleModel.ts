@@ -542,8 +542,7 @@ export class PickleModel implements ErrorLogger {
       this.loadJarTotalSupplyData(),
       this.loadDepositTokenTotalSupplyData(),
       this.loadJarBalanceData(),
-      this.ensureComponentTokensLoaded(),
-      this.getJarTimestamp(),
+      this.ensureComponentTokensLoaded()
     ]);
 
     const asOne = async (): Promise<any> => {
@@ -748,22 +747,6 @@ export class PickleModel implements ErrorLogger {
       this.logPlatformError(toError(100499, undefined, '', "ensureComponentTokensLoaded/1", 'Multiple Chains Affected: Promise.all', "" + err, ErrorSeverity.SEVERE));
     } finally {
       DEBUG_OUT("End ensureComponentTokensLoaded: " + (Date.now() - start));
-    }
-  }
-
-  async getJarTimestamp(): Promise<any> {
-    DEBUG_OUT("Begin getJarTimestamp");
-    const start = Date.now();
-    const promises = this.configuredChains.map((x) =>
-      this.addJarTimestamp(this.semiActiveJars(x), x),
-    );
-    try {
-      const r = await Promise.all(promises);
-      return r;
-    } catch( err ) {
-      // This is going to fail all the fucking time so I'm just ignoring it for now. 
-    } finally {
-      DEBUG_OUT("End getJarTimestamp: " + (Date.now() - start));
     }
   }
 
