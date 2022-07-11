@@ -8751,7 +8751,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_BTC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3a",
   contract: "0xc335740c951F45200b38C5Ca84F0A9663b51AEC6",
-  startBlock: 13923147,
+  startBlock: 13923147, startTimestamp: 1657070498,
   depositToken: {
     addr: "0x73B14a78a0D396C521f954532d43fd5fFe385216",
     name: "UniV3 ETH/BTC",
@@ -8780,7 +8780,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_DAI: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3b",
   contract: "0xbE27C2415497f8ae5E6103044f460991E32636F8",
-  startBlock: 14048703,
+  startBlock: 14048703, startTimestamp: 1657240485,
   depositToken: {
     addr: "0x03aF20bDAaFfB4cC0A521796a223f7D85e2aAc31",
     name: "UniV3 ETH/DAI",
@@ -8809,7 +8809,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_OP: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3c",
   contract: "0x24f8b36b7349053A33E3767bc44B8FF20813AE5e",
-  startBlock: 14049776,
+  startBlock: 14049776, startTimestamp: 1657241592,
   depositToken: {
     addr: "0x68F5C0A2DE713a54991E01858Fd27a3832401849",
     name: "UniV3 ETH/OP",
@@ -8838,7 +8838,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3d",
   contract: "0xBBF8233867c1982D66EA920d726d24391B713550",
-  startBlock: 14050443,
+  startBlock: 14050443, startTimestamp: 1657242418,
   depositToken: {
     addr: "0x85149247691df622eaF1a8Bd0CaFd40BC45154a9",
     name: "UniV3 ETH/USDC",
@@ -8867,7 +8867,7 @@ export const JAR_OPTIMISM_UNIV3_SUSD_DAI: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3e",
   contract: "0x37Cc6Ce6eda683AB97433f4Bf26bAbD63889df23",
-  startBlock: 14051467,
+  startBlock: 14051467, startTimestamp: 1657243437,
   depositToken: {
     addr: "0xAdb35413eC50E0Afe41039eaC8B930d313E94FA4",
     name: "UniV3 SUSD/DAI",
@@ -8896,7 +8896,7 @@ export const JAR_OPTIMISM_UNIV3_SUSD_USDC: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3f",
   contract: "0x637Bbfa0Ba3dE1341c469B15986D4AaE2c8d3cE5",
-  startBlock: 14054031,
+  startBlock: 14054031, startTimestamp: 1657244290,
   depositToken: {
     addr: "0x8EdA97883a1Bc02Cf68C6B9fb996e06ED8fDb3e5",
     name: "UniV3 SUSD/USDC",
@@ -8925,7 +8925,7 @@ export const JAR_OPTIMISM_UNIV3_USDC_DAI: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3g",
   contract: "0xae2A28B97FFF55ca62881cBB30De0A3D9949F234",
-  startBlock: 14055281,
+  startBlock: 14055281, startTimestamp: 1657244993,
   depositToken: {
     addr: "0x100bdC1431A9b09C61c0EFC5776814285f8fB248",
     name: "UniV3 USDC/DAI",
