@@ -97,7 +97,7 @@ export async function preloadRawGaugeData(
           model,
         );
       } catch (error) {
-        model.logPlatformError(toError(200100, chain, '', "preloadRawGaugeData", 
+        model.logPlatformError(toError(200101, chain, '', "preloadRawGaugeData", 
         `Error calling loadGaugeDataForMinichef`, '', ErrorSeverity.ERROR_5));
       }
     }

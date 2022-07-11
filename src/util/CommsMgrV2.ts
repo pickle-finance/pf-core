@@ -155,7 +155,7 @@ export class CommsMgrV2 {
   //   await Promise.all(addProms);
   // }
 
-  async init(chains: ChainNetwork[] = undefined) {
+  async init(chains: ChainNetwork[] = undefined): Promise<void[]> {
     const rawChains: RawChain[] = !chains
       ? RAW_CHAIN_BUNDLED_DEF
       : RAW_CHAIN_BUNDLED_DEF.filter((rawChain) =>
@@ -176,7 +176,7 @@ export class CommsMgrV2 {
         promsCollector.push(this.addProvider(chain, provider, url[1]));
       });
     }
-    await Promise.all(promsCollector);
+    return Promise.all(promsCollector);
   }
 
   async addProvider(

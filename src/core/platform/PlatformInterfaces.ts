@@ -7,6 +7,9 @@ export enum ErrorSeverity {
     ERROR_3 = 5,
     ERROR_4 = 6,
     ERROR_5 = 7,
+    SEVERE = 8,
+    CRITICAL = 9,
+    OHFUCK = 10,
 }
 export enum PickleProduct {
     PFCORE = 100,

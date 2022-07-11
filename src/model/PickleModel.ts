@@ -474,24 +474,34 @@ export class PickleModel implements ErrorLogger {
    */
   async checkConfiguredChainsConnections(): Promise<void> {
     const liveChains: ChainNetwork[] = [];
-    await Promise.all(
-      this.configuredChains.map(async (chain) => {
-        const provider = Chains.get(chain).getPreferredWeb3Provider();
-        try {
-          await provider.getNetwork();
-          liveChains.push(chain);
-        } catch (error) {
-          this.logPlatformError(toError(100100, chain, "", "setConfiguredChains",  `[${chain}] RPC is dead`, ""+error, ErrorSeverity.ERROR_5));
-        }
-      }),
-    );
+    const promises = this.configuredChains.map(async (chain) => {
+      const provider = Chains.get(chain).getPreferredWeb3Provider();
+      try {
+        await provider.getNetwork();
+        liveChains.push(chain);
+      } catch (error) {
+        this.logPlatformError(toError(100100, chain, "", "setConfiguredChains",  `[${chain}] RPC is dead`, ""+error, ErrorSeverity.ERROR_5));
+      }
+    });
+    try {
+      await Promise.all(promises);
+    } catch( err ) {
+      this.logPlatformError(toError(100101, undefined, "", "setConfiguredChains",  `Unexpected Error`, ""+err, ErrorSeverity.CRITICAL));
+    }
     this.setConfiguredChains(liveChains);
   }
 
+  async initCommsMgr(): Promise<void> {
+    try {
+      await this.commsMgr2.init(this.configuredChains);
+    } catch( err ) {
+      this.logPlatformError(toError(100110, undefined, "", "initCommsMgr",  `Unexpected Error`, ""+err, ErrorSeverity.CRITICAL));
+    }
+  }
   async generateFullApi(): Promise<PickleModelJson> {
     await this.checkConfiguredChainsConnections();
-    await this.commsMgr2.init(this.configuredChains);
-    await this.loadJarAndFarmData();
+    await this.initCommsMgr();
+    await this.loadJarAndFarmDataWrapper();
     this.dillDetails = await getDillDetails(
       getWeeklyDistribution(this.getJars()),
       this.priceOfSync("pickle", ChainNetwork.Ethereum),
@@ -510,6 +520,14 @@ export class PickleModel implements ErrorLogger {
     await this.loadJarAndFarmData();
     await this.commsMgr2.stop();
     return this.toJson();
+  }
+
+  async loadJarAndFarmDataWrapper(): Promise<void> {
+    try {
+      await this.loadJarAndFarmData();
+    } catch( err ) {
+      this.logPlatformError(toError(100120, undefined, "", "loadJarAndFarmDataWrapper",  `Unexpected Error`, ""+err, ErrorSeverity.CRITICAL));
+    }
   }
 
   async loadJarAndFarmData(): Promise<void> {
@@ -631,9 +649,13 @@ export class PickleModel implements ErrorLogger {
   async ensurePriceCacheLoaded(): Promise<any> {
     DEBUG_OUT("Begin ensurePriceCacheLoaded");
     const start = Date.now();
-    await setAllPricesOnTokens(this.configuredChains, this);
+    try {
+      await setAllPricesOnTokens(this.configuredChains, this);
+    } catch (error) {
+      this.logPlatformError(toError(100130, undefined, "", "setAllPricesOnTokens",  `Unexpected Error`, ""+error, ErrorSeverity.CRITICAL));
+      console.log("Error loading prices: " + error);
+    }
     DEBUG_OUT("End ensurePriceCacheLoaded: " + (Date.now() - start));
-    //console.log(JSON.stringify(ExternalTokenModelSingleton.getTokens(ChainNetwork.Ethereum), null, 2));
   }
 
   async loadStrategyData(): Promise<any> {
@@ -686,48 +708,63 @@ export class PickleModel implements ErrorLogger {
   async loadRatiosData(): Promise<any> {
     DEBUG_OUT("Begin loadRatiosData");
     const start = Date.now();
-    await Promise.all(
-      this.configuredChains.map((x) =>
-        this.addJarRatios(this.semiActiveJars(x), x),
-      ),
+    const promises = this.configuredChains.map((x) =>
+      this.addJarRatios(this.semiActiveJars(x), x),
     );
+    try {
+      await Promise.all(promises);
+    } catch( err ) {
+      this.logPlatformError(toError(100610, undefined, "", "loadRatiosData",  'Multiple Chains Affected: Promise.all', "" + err, ErrorSeverity.SEVERE));
+    }
+
     DEBUG_OUT("End loadRatiosData: " + (Date.now() - start));
   }
 
   async loadJarTotalSupplyData(): Promise<any> {
     DEBUG_OUT("Begin loadJarTotalSupplyData");
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) =>
-        this.addJarTotalSupply(this.semiActiveJars(x), x),
-      ),
-    );
-    DEBUG_OUT("End loadJarTotalSupplyData: " + (Date.now() - start));
-    return r;
+    const prom = this.configuredChains.map((x) => this.addJarTotalSupply(this.semiActiveJars(x), x));
+
+    try {
+      const r = await Promise.all(prom);
+      return r;
+    } catch( err ) {
+      this.logPlatformError(toError(101499, undefined, '', "loadJarTotalSupplyData/1", 'Multiple Chains Affected: Promise.all', "" + err, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End loadJarTotalSupplyData: " + (Date.now() - start));
+    }
   }
 
   async ensureComponentTokensLoaded(): Promise<any> {
     DEBUG_OUT("Begin ensureComponentTokensLoaded");
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) =>
-        this.ensureComponentTokensLoadedForChain(x),
-      ),
+    const promises = this.configuredChains.map((x) =>
+      this.ensureComponentTokensLoadedForChain(x),
     );
-    DEBUG_OUT("End ensureComponentTokensLoaded: " + (Date.now() - start));
-    return r;
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( err ) {
+      this.logPlatformError(toError(100499, undefined, '', "ensureComponentTokensLoaded/1", 'Multiple Chains Affected: Promise.all', "" + err, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End ensureComponentTokensLoaded: " + (Date.now() - start));
+    }
   }
 
   async getJarTimestamp(): Promise<any> {
     DEBUG_OUT("Begin getJarTimestamp");
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) =>
-        this.addJarTimestamp(this.semiActiveJars(x), x),
-      ),
+    const promises = this.configuredChains.map((x) =>
+      this.addJarTimestamp(this.semiActiveJars(x), x),
     );
-    DEBUG_OUT("End getJarTimestamp: " + (Date.now() - start));
-    return r;
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( err ) {
+      // This is going to fail all the fucking time so I'm just ignoring it for now. 
+    } finally {
+      DEBUG_OUT("End getJarTimestamp: " + (Date.now() - start));
+    }
   }
 
   async ensureComponentTokensLoadedForChain(
@@ -787,25 +824,31 @@ export class PickleModel implements ErrorLogger {
   async loadDepositTokenTotalSupplyData(): Promise<any> {
     DEBUG_OUT("Begin loadDepositTokenTotalSupplyData");
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) =>
-        this.addDepositTokenTotalSupply(this.semiActiveJars(x), x),
-      ),
-    );
-    DEBUG_OUT("End loadDepositTokenTotalSupplyData: " + (Date.now() - start));
-    return r;
+    const promises = this.configuredChains.map((x) => this.addDepositTokenTotalSupply(this.semiActiveJars(x), x));
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( err ) {
+      this.logPlatformError(toError(101599, undefined, '', "loadDepositTokenTotalSupplyData/1",  'Multiple Chains Affected: Promise.all', ""+err, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End loadDepositTokenTotalSupplyData: " + (Date.now() - start));
+    }
   }
 
   async loadJarBalanceData(): Promise<any> {
     DEBUG_OUT("Begin loadJarBalanceData");
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) =>
-        this.addDepositTokenBalance(this.semiActiveJars(x), x),
-      ),
+    const promises = this.configuredChains.map((x) =>
+      this.addDepositTokenBalance(this.semiActiveJars(x), x),
     );
-    DEBUG_OUT("End loadJarBalanceData: " + (Date.now() - start));
-    return r;
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( err ) {
+      this.logPlatformError(toError(100799, undefined, '', "loadJarBalanceData/1",  'Multiple Chains Affected: Promise.all', ""+err, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End loadJarBalanceData: " + (Date.now() - start));
+    }
   }
 
   // Could this be moved to the asset behaviors instead??
@@ -972,6 +1015,7 @@ export class PickleModel implements ErrorLogger {
         ),
       );
     } catch (error) {
+      this.logPlatformError(toError(101400, chain, '', "addJarTotalSupply/1", 'Multiple Assets Affected: Promise.all', "" + error, ErrorSeverity.ERROR_5));
       console.log("Failed on addJarTotalSupply");
     }
     for (let i = 0; supply !== undefined && i < jars.length; i++) {
@@ -1096,9 +1140,15 @@ export class PickleModel implements ErrorLogger {
         ),
       );
     }
-    const r = await Promise.all(promises);
-    DEBUG_OUT("End ensureHarvestDataLoaded: " + (Date.now() - start));
-    return r;
+
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( error ) {
+      this.logPlatformError(toError(101600, undefined, "", "ensureHarvestDataLoaded/wrapper",  'Multiple Chains Affected: Promise.all', "" + error, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End ensureHarvestDataLoaded: " + (Date.now() - start));
+    }
   }
 
   async loadHarvestData(
@@ -1111,11 +1161,22 @@ export class PickleModel implements ErrorLogger {
     const jarV1: JarDefinition[] = jars.filter(
       (x) => x.protocol !== AssetProtocol.UNISWAP_V3,
     );
-    await Promise.all([
-      this.loadHarvestDataJarAbi(jarV1, chain),
+
+    const p1 = this.loadHarvestDataJarAbi(jarV1, chain);
       // TODO this shouldn't just be univ3 jars. Any custom harvesters
-      this.loadHarvestDataCustom(univ3Jars, chain),
-    ]);
+    const p2 = this.loadHarvestDataCustom(univ3Jars, chain);
+
+    try {
+      await p1;
+    } catch( error ) {
+      this.logPlatformError(toError(100899, chain, "", "loadHarvestData/jars",  'Multiple Chains Affected: Promise.all', "" + error, ErrorSeverity.SEVERE));
+    }
+
+    try {
+      await p2;
+    } catch( error ) {
+      this.logPlatformError(toError(100999, chain, "", "loadHarvestData/custom",  'Multiple Chains Affected: Promise.all', "" + error, ErrorSeverity.SEVERE));
+    }
   }
   async loadHarvestDataCustom(
     harvestableJars: JarDefinition[],
@@ -1142,6 +1203,7 @@ export class PickleModel implements ErrorLogger {
     try {
       results = await Promise.all(harvestArr);
     } catch (e) {
+      this.logPlatformError(toError(100910, chain, "", "loadHarvestDataJarAbi/balanceOfProm",  'Multiple Assets Affected: Promise.all', "" + e, ErrorSeverity.SEVERE));
       console.log("Error loading harvest data for jar");
     }
 
@@ -1207,7 +1269,7 @@ export class PickleModel implements ErrorLogger {
         ),
       );
     } catch (error) {
-      this.logPlatformError(toError(100910, chain, "", "loadHarvestDataJarAbi/availableProm",  'Multiple Assets Affected: Promise.all', "" + error, ErrorSeverity.ERROR_5));
+      this.logPlatformError(toError(100812, chain, "", "loadHarvestDataJarAbi/availableProm",  'Multiple Assets Affected: Promise.all', "" + error, ErrorSeverity.ERROR_5));
     }
 
     let [balanceOf, available, strategyWant] = [
@@ -1222,7 +1284,7 @@ export class PickleModel implements ErrorLogger {
         strategyWantProm,
       ]);
     } catch (error) {
-      this.logPlatformError(toError(100911, chain, "", "loadHarvestDataJarAbi/balances",  'Multiple Assets Affected: Promise.all', "" + error, ErrorSeverity.ERROR_5));
+      this.logPlatformError(toError(100813, chain, "", "loadHarvestDataJarAbi/balances",  'Multiple Assets Affected: Promise.all', "" + error, ErrorSeverity.ERROR_5));
     }
 
     const harvestArr: Promise<JarHarvestStats>[] = [];
@@ -1235,7 +1297,7 @@ export class PickleModel implements ErrorLogger {
         available.length <= i ||
         strategyWant.length <= i
       ) {
-        this.logPlatformError(toError(100912, chain, harvestableJars[i].details.apiKey, "loadHarvestDataJarAbi/prereqs",  'Error loading harvest data', "", ErrorSeverity.ERROR_4));
+        this.logPlatformError(toError(100814, chain, harvestableJars[i].details.apiKey, "loadHarvestDataJarAbi/prereqs",  'Error loading harvest data', "", ErrorSeverity.ERROR_4));
         continue;
       }
       try {
@@ -1251,7 +1313,7 @@ export class PickleModel implements ErrorLogger {
           ),
         );
       } catch (e) {
-        this.logPlatformError(toError(100913, chain, harvestableJars[i].details.apiKey, "loadHarvestDataJarAbi/getAssetHarvestData",  'Error loading harvest data', ""+e, ErrorSeverity.ERROR_3));
+        this.logPlatformError(toError(100815, chain, harvestableJars[i].details.apiKey, "loadHarvestDataJarAbi/getAssetHarvestData",  'Error loading harvest data', ""+e, ErrorSeverity.ERROR_3));
       }
     }
     const results: PromiseSettledResult<JarHarvestStats>[] =
@@ -1270,7 +1332,7 @@ export class PickleModel implements ErrorLogger {
           result.earnableUSD = toThreeDec(value.earnableUSD);
           result.harvestableUSD = toThreeDec(value.harvestableUSD);
         } else {
-          this.logPlatformError(toError(100914, chain, harvestableJars[j].details.apiKey, "loadHarvestDataJarAbi/settled",  'Error loading harvest data', "" + oneSettledResult.reason, ErrorSeverity.ERROR_3));
+          this.logPlatformError(toError(100816, chain, harvestableJars[j].details.apiKey, "loadHarvestDataJarAbi/settled",  'Error loading harvest data', "" + oneSettledResult.reason, ErrorSeverity.ERROR_3));
         }
 
         harvestableJars[j].details.harvestStats = result;
@@ -1354,7 +1416,7 @@ export class PickleModel implements ErrorLogger {
           ),
         );
       } catch (error) {
-        this.logPlatformError(toError(101098, chain, '', "ensureFarmsBalanceLoadedForProtocol/1",  '', ""+error, ErrorSeverity.ERROR_4));
+        this.logPlatformError(toError(101050, chain, '', "ensureFarmsBalanceLoadedForProtocol/1",  '', ""+error, ErrorSeverity.ERROR_4));
       }
     }
 
@@ -1374,23 +1436,29 @@ export class PickleModel implements ErrorLogger {
           ),
         );
       } catch (error) {
-        this.logPlatformError(toError(101099, chain, '', "ensureFarmsBalanceLoadedForProtocol/2",  '', ""+error, ErrorSeverity.ERROR_4));
+        this.logPlatformError(toError(101051, chain, '', "ensureFarmsBalanceLoadedForProtocol/2",  '', ""+error, ErrorSeverity.ERROR_4));
       }
     }
 
-    const [chainFarmResults, protocolJarsWithFarmResults] = await Promise.all([
-      chainFarmResultsPromise,
-      protocolJarsWithFarmResultsPromise,
-    ]);
+    try {
+      const chainFarmResults = await chainFarmResultsPromise;
+      this.ensureStandaloneFarmsBalanceLoaded(
+        chainFarms,
+        chainFarmResults ? chainFarmResults : [],
+      );
+    } catch( err ) {
+      this.logPlatformError(toError(101075, chain, '', "ensureFarmsBalanceLoadedForProtocol/3",  '', ""+err, ErrorSeverity.ERROR_4));
+    }
 
-    this.ensureStandaloneFarmsBalanceLoaded(
-      chainFarms,
-      chainFarmResults ? chainFarmResults : [],
-    );
-    this.ensureNestedFarmsBalanceLoaded(
-      protocolJarsWithFarms,
-      protocolJarsWithFarmResults ? protocolJarsWithFarmResults : [],
-    );
+    try {
+      const protocolJarsWithFarmResults = await protocolJarsWithFarmResultsPromise;
+      this.ensureNestedFarmsBalanceLoaded(
+        protocolJarsWithFarms,
+        protocolJarsWithFarmResults ? protocolJarsWithFarmResults : [],
+      );
+    } catch( err ) {
+      this.logPlatformError(toError(101076, chain, '', "ensureFarmsBalanceLoadedForProtocol/4",  '', ""+err, ErrorSeverity.ERROR_4));
+    }
   }
 
   /*
@@ -1400,13 +1468,17 @@ export class PickleModel implements ErrorLogger {
     DEBUG_OUT("Begin setGaugeAprDataOnAsset");
     const map: RawGaugeChainMap = this.gaugeMap || {};
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) => {
-        return setGaugeAprData(this, x, map[x]);
-      }),
-    );
-    DEBUG_OUT("End setGaugeAprDataOnAsset: " + (Date.now() - start));
-    return r;
+    const promises = this.configuredChains.map((x) => {
+      return setGaugeAprData(this, x, map[x]);
+    });
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( error ) {
+      this.logPlatformError(toError(101500, undefined, '', "setGaugeAprDataOnAsset/4",  'Unexpected Error', ""+error, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End setGaugeAprDataOnAsset: " + (Date.now() - start));
+    }
   }
 
   /*
@@ -1439,7 +1511,12 @@ export class PickleModel implements ErrorLogger {
         return oneChainGaugeData;
       },
     );
-    await Promise.all(promises);
+    try {
+      await Promise.all(promises);
+    } catch( error ) {
+      this.logPlatformError(toError(200199, undefined, '', "preloadRawGaugeDataJob", 
+      `Unexpected Error, multiple chains affected`, ''+error, ErrorSeverity.SEVERE));
+    }
     DEBUG_OUT("End preloadRawGaugeDataJob: " + (Date.now() - start));
     this.gaugeMap = retval;
     return retval;
@@ -1448,13 +1525,17 @@ export class PickleModel implements ErrorLogger {
   async ensureFarmsBalanceLoaded(): Promise<any> {
     DEBUG_OUT("Begin ensureFarmsBalanceLoaded");
     const start = Date.now();
-    const r = await Promise.all(
-      this.configuredChains.map((x) =>
-        this.ensureFarmsBalanceLoadedForChain(x),
-      ),
-    );
-    DEBUG_OUT("End ensureFarmsBalanceLoaded: " + (Date.now() - start));
-    return r;
+    const promises = this.configuredChains.map((x) =>
+      this.ensureFarmsBalanceLoadedForChain(x),
+    )
+    try {
+      const r = await Promise.all(promises);
+      return r;
+    } catch( err ) {
+      this.logPlatformError(toError(101099, undefined, '', "ensureFarmsBalanceLoaded/1",  '', ""+err, ErrorSeverity.SEVERE));
+    } finally {
+      DEBUG_OUT("End ensureFarmsBalanceLoaded: " + (Date.now() - start));
+    }
   }
 
   async ensureExternalAssetBalanceLoaded(): Promise<void> {
@@ -1495,7 +1576,11 @@ export class PickleModel implements ErrorLogger {
         promises.push(callAndSet());
       }
     }
-    await Promise.all(promises);
+    try {
+      await Promise.all(promises);
+    } catch( error ) {
+      this.logPlatformError(toError(101105, undefined, '', "ensureExternalAssetBalanceLoaded/promiseall",  'Unexpected Error', ""+error, ErrorSeverity.ERROR_5));
+    }
     DEBUG_OUT("End ensureExternalAssetBalanceLoaded: " + (Date.now() - start));
   }
 
