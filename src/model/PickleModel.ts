@@ -210,6 +210,7 @@ export class PickleModel implements ErrorLogger {
   private configuredChains: ChainNetwork[];
   private minimalMode = false;
   commsMgr2: CommsMgrV2 = new CommsMgrV2();
+  private previousPfcore: PickleModelJson | undefined = undefined;
 
   constructor(
     allAssets: PickleAsset[],
@@ -219,6 +220,15 @@ export class PickleModel implements ErrorLogger {
     this.allAssets = JSON.parse(JSON.stringify(allAssets));
     this.initializeChains(chains);
     this.resourceCache = new Map<string, any>();
+  }
+
+  /**
+   * Set a previous pfcore implementation to use as sensible defaults if
+   * critical parts of the run fail
+   * @param previous 
+   */
+  setPreviousPFCore(previous: PickleModelJson): void {
+    this.previousPfcore = previous;
   }
 
   setErrorLogger(logger: ErrorLogger): void {
@@ -654,6 +664,36 @@ export class PickleModel implements ErrorLogger {
       this.logPlatformError(toError(100130, undefined, "", "setAllPricesOnTokens",  `Unexpected Error`, ""+error, ErrorSeverity.CRITICAL));
       console.log("Error loading prices: " + error);
     }
+
+    // Show errors for missing token prices
+    const allTokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens();
+    if( !this.previousPfcore || !this.previousPfcore.tokens) {
+      for( let i = 0; i < allTokens.length; i++ ) {
+        const t = allTokens[i];
+        if( t.price === undefined || t.price === null || isNaN(t.price)) {
+          const msg = "Current price AND previous price for token not found: " + JSON.stringify(t);
+          this.logPlatformError(toError(100131, undefined, "", "setAllPricesOnTokens/2",  `Previous Price Not Found`, msg, ErrorSeverity.CRITICAL));
+        }
+      }
+    } else if( this.previousPfcore && this.previousPfcore.tokens ) {
+      const prevTokenPrice = (t: ExternalToken): number | undefined => {
+        const prevToken = this.previousPfcore.tokens.find((x) => x.chain === t.chain && x.contractAddr === t.contractAddr && x.decimals === t.decimals );
+        return prevToken && prevToken.price !== undefined && prevToken.price !== null ? prevToken.price : undefined;
+      };
+      for( let i = 0; i < allTokens.length; i++ ) {
+        const t = allTokens[i];
+        if( t.price === undefined || t.price === null || isNaN(t.price)) {
+          const nPrice = prevTokenPrice(t);
+          if( nPrice !== undefined )
+            t.price = nPrice;
+          else {          
+            const msg = "Current price AND previous price for token not found: " + JSON.stringify(t);
+            this.logPlatformError(toError(100131, undefined, "", "setAllPricesOnTokens/2",  `Previous Price Not Found`, msg, ErrorSeverity.CRITICAL));
+          }
+        }
+      }
+    }
+
     DEBUG_OUT("End ensurePriceCacheLoaded: " + (Date.now() - start));
   }
 

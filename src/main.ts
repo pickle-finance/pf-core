@@ -1,3 +1,4 @@
+import fetch from "cross-fetch";
 import { ChainNetwork } from ".";
 import { ethers, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
@@ -22,6 +23,18 @@ async function generateFullApi() {
       errArr.push(err);
     }
   };
+
+  let previousCore = undefined;
+  try {
+    previousCore = await fetch(
+    "https://api.pickle.finance/prod/protocol/pfcore",
+  ).then((response) => response.json());
+  } catch( error ) {
+      console.log("Previous version load failed");
+  }
+  if( previousCore ) {
+    model.setPreviousPFCore(previousCore);
+  }
   model.setErrorLogger(errLogger);
   // const store = new LocalPersistedDataStore();
   // store.load();
@@ -29,7 +42,8 @@ async function generateFullApi() {
   const result = await model.generateFullApi();
   const resultString = JSON.stringify(result, null, 2);
   const errString = JSON.stringify(errArr, null, 2);
-  process.stdout.write(resultString);
+  const finalString = resultString + "\n\n" + errString;
+  process.stdout.write(finalString);
   process.exit(0);
 }
 
