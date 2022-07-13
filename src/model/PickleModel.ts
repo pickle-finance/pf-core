@@ -27,6 +27,7 @@ import { ChainNetwork, Chains, RAW_CHAIN_BUNDLED_DEF } from "../chain/Chains";
 import {ErrorLogger, ErrorSeverity, LocalError, PickleProduct, PlatformError} from "../core/platform/PlatformInterfaces";
 import {
   ExternalToken,
+  ExternalTokenFetchStyle,
   ExternalTokenModelSingleton,
 } from "../price/ExternalTokenModel";
 import { getDillDetails, getWeeklyDistribution } from "../dill/DillUtility";
@@ -682,7 +683,8 @@ export class PickleModel implements ErrorLogger {
       };
       for( let i = 0; i < allTokens.length; i++ ) {
         const t = allTokens[i];
-        if( t.price === undefined || t.price === null || isNaN(t.price)) {
+        const isIgnored = t.fetchType === ExternalTokenFetchStyle.NONE;
+        if( !isIgnored && (t.price === undefined || t.price === null || isNaN(t.price))) {
           const nPrice = prevTokenPrice(t);
           if( nPrice !== undefined )
             t.price = nPrice;

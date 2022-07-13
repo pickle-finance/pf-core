@@ -431,7 +431,7 @@ export class ExternalTokenModel {
       "frax-share",
       "0xFEEf77d3f69374f66429C91d732A244f074bdf74".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.BOTH,
+      ExternalTokenFetchStyle.NONE,
     );
     this.addToken(
       ChainNetwork.Ethereum,
@@ -1450,7 +1450,7 @@ export class ExternalTokenModel {
       ChainNetwork.Aurora,
       "wannax",
       null,
-      "wanna",
+      "wannaswap",
       "0x5205c30bf2E37494F8cF77D2c19C6BA4d2778B9B".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
@@ -1690,7 +1690,7 @@ export class ExternalTokenModel {
       ChainNetwork.Aurora,
       "usdo",
       null,
-      "usdo",
+      "usd-open-dollar",
       "0x293074789b247cab05357b08052468B5d7A23c5a".toLowerCase(),
       8,
       ExternalTokenFetchStyle.ID,
