@@ -9,6 +9,7 @@ import {
   ExternalAssetDefinition,
   HarvestStyle,
   HistoricalYield,
+  IExternalToken,
   JarDefinition,
   PickleAsset,
   PickleModelJson,
@@ -667,31 +668,30 @@ export class PickleModel implements ErrorLogger {
     }
 
     // Show errors for missing token prices
+    const missingTokenPrice = (t: ExternalToken): boolean => t.fetchType !== ExternalTokenFetchStyle.NONE && (t.price === undefined || t.price === null || isNaN(t.price));
+    const prevTokenPrice = (t: ExternalToken): number | undefined => {
+      const prevToken: IExternalToken | undefined = this.previousPfcore && this.previousPfcore.tokens ? 
+          this.previousPfcore.tokens.find((x) => x.chain === t.chain && x.contractAddr === t.contractAddr && x.decimals === t.decimals ) 
+          : undefined;
+      return prevToken && prevToken.price !== undefined && prevToken.price !== null ? prevToken.price : undefined;
+    };
+
     const allTokens: ExternalToken[] = ExternalTokenModelSingleton.getAllTokens();
-    if( !this.previousPfcore || !this.previousPfcore.tokens) {
-      for( let i = 0; i < allTokens.length; i++ ) {
-        const t = allTokens[i];
-        if( t.price === undefined || t.price === null || isNaN(t.price)) {
-          const msg = "Current price AND previous price for token not found: " + JSON.stringify(t);
-          this.logPlatformError(toError(100131, undefined, "", "setAllPricesOnTokens/2",  `Previous Price Not Found`, msg, ErrorSeverity.CRITICAL));
-        }
-      }
-    } else if( this.previousPfcore && this.previousPfcore.tokens ) {
-      const prevTokenPrice = (t: ExternalToken): number | undefined => {
-        const prevToken = this.previousPfcore.tokens.find((x) => x.chain === t.chain && x.contractAddr === t.contractAddr && x.decimals === t.decimals );
-        return prevToken && prevToken.price !== undefined && prevToken.price !== null ? prevToken.price : undefined;
-      };
-      for( let i = 0; i < allTokens.length; i++ ) {
-        const t = allTokens[i];
-        const isIgnored = t.fetchType === ExternalTokenFetchStyle.NONE;
-        if( !isIgnored && (t.price === undefined || t.price === null || isNaN(t.price))) {
+    const checkPrevious = this.previousPfcore && this.previousPfcore.tokens;
+    for( let i = 0; i < allTokens.length; i++ ) {
+      const t = allTokens[i];
+      if( missingTokenPrice(t)) {
+        if( checkPrevious) {
           const nPrice = prevTokenPrice(t);
-          if( nPrice !== undefined )
+          if( nPrice !== undefined ) {
             t.price = nPrice;
-          else {          
+          } else {
             const msg = "Current price AND previous price for token not found: " + JSON.stringify(t);
             this.logPlatformError(toError(100131, undefined, "", "setAllPricesOnTokens/2",  `Previous Price Not Found`, msg, ErrorSeverity.CRITICAL));
-          }
+          }       
+        } else {
+          const msg = "Current price for token not found: " + JSON.stringify(t);
+          this.logPlatformError(toError(100131, undefined, "", "setAllPricesOnTokens/2",  `Current Price Not Found`, msg, ErrorSeverity.CRITICAL));
         }
       }
     }
