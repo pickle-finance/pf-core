@@ -8892,34 +8892,34 @@ export const JAR_OPTIMISM_UNIV3_SUSD_DAI: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_SUSD_DAI);
 
-export const JAR_OPTIMISM_UNIV3_SUSD_USDC: JarDefinition = {
+export const JAR_OPTIMISM_UNIV3_USDC_SUSD: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar U3f",
   contract: "0x637Bbfa0Ba3dE1341c469B15986D4AaE2c8d3cE5",
   startBlock: 14054031, startTimestamp: 1657244290,
   depositToken: {
     addr: "0x8EdA97883a1Bc02Cf68C6B9fb996e06ED8fDb3e5",
-    name: "UniV3 SUSD/USDC",
+    name: "UniV3 USDC/SUSD",
     link: "https://app.uniswap.org/#/add/0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9/0x7F5c764cBc14f9669B88837ca1490cCa17c31607/500?chain=optimism",
-    components: ["susd", "usdc"],
+    components: ["usdc", "susd"],
     style: { erc20: false },
   },
-  rewardTokens: ["susd", "usdc"],
+  rewardTokens: ["usdc", "susd"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
     controller: "0xa936511d24F9488Db343AfDdccBf78AD28bd3F42",
-    apiKey: "OPTIMISM-UNIV3-SUSD-USDC",
+    apiKey: "OPTIMISM-UNIV3-USDC-SUSD",
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
     farmAddress: NULL_ADDRESS,
-    farmNickname: "pUniV3 SUSD/USDC",
-    farmDepositTokenName: "pUniV3 SUSD/USDC",
+    farmNickname: "pUniV3 USDC/SUSD",
+    farmDepositTokenName: "pUniV3 USDC/SUSD",
   },
 };
-JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_SUSD_USDC);
+JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_USDC_SUSD);
 
 export const JAR_OPTIMISM_UNIV3_USDC_DAI: JarDefinition = {
   type: AssetType.JAR,

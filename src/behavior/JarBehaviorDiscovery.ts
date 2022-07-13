@@ -428,7 +428,7 @@ import {
   JAR_OPTIMISM_UNIV3_ETH_OP,
   JAR_OPTIMISM_UNIV3_ETH_USDC,
   JAR_OPTIMISM_UNIV3_SUSD_DAI,
-  JAR_OPTIMISM_UNIV3_SUSD_USDC,
+  JAR_OPTIMISM_UNIV3_USDC_SUSD,
   JAR_OPTIMISM_UNIV3_USDC_DAI,
 } from "../model/JarsAndFarms";
 import {
@@ -1029,7 +1029,7 @@ jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_DAI.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_OP.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_USDC.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_SUSD_DAI.id, new Univ3Base());
-jarToBehavior.set(JAR_OPTIMISM_UNIV3_SUSD_USDC.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_USDC_SUSD.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_USDC_DAI.id, new Univ3Base());
 
 // Fantom
