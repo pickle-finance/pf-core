@@ -9034,14 +9034,14 @@ export const JAR_OPTIMISM_VELO_USDC_FRAX_S: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_FRAX_S);
 
-export const JAR_OPTIMISM_VELO_AGEUR_V: JarDefinition = {
+export const JAR_OPTIMISM_VELO_USDC_AGEUR_V: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 3d",
   contract: "0x4c29bcC6B037430aC1E230077711D8F8B0bdF8cA",
   startBlock: 17121736, startTimestamp: 1659374780,
   depositToken: {
     addr: "0x7866C6072B09539fC0FDE82963846b80203d7beb",
-    name: "VELO VELO/USDC",
+    name: "VELO USDC/AGEUR",
     link: "https://app.velodrome.finance/liquidity/manage?address=0x7866C6072B09539fC0FDE82963846b80203d7beb",
     components: ["usdc", "ageur"],
   },
@@ -9060,7 +9060,7 @@ export const JAR_OPTIMISM_VELO_AGEUR_V: JarDefinition = {
     farmDepositTokenName: "pVELO USDC/AGEUR",
   },
 };
-JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_AGEUR_V);
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_AGEUR_V);
 
 export const JAR_OPTIMISM_VELO_OP_V: JarDefinition = {
   type: AssetType.JAR,
