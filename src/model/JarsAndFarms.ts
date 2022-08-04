@@ -9013,7 +9013,7 @@ export const JAR_OPTIMISM_VELO_USDC_FRAX_S: JarDefinition = {
   startBlock: 17121841, startTimestamp: 1659374825,
   depositToken: {
     addr: "0xAdF902b11e4ad36B227B84d856B229258b0b0465",
-    name: "VELO VELO/USDC",
+    name: "VELO USDC/FRAX",
     link: "https://app.velodrome.finance/liquidity/manage?address=0xAdF902b11e4ad36B227B84d856B229258b0b0465",
     components: ["usdc", "frax"],
   },
