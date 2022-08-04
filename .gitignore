@@ -32,3 +32,5 @@ lib/
 persistent_data_store_no_commit.json
 
 build-output.json
+
+.vim

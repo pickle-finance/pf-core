@@ -8950,6 +8950,257 @@ export const JAR_OPTIMISM_UNIV3_USDC_DAI: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_UNIV3_USDC_DAI);
 
+export const JAR_OPTIMISM_VELO_USDC_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3a",
+  contract: "0xb091a25d00e9782CED5A18420ba3fE4a88ADC1Fd",
+  startBlock: 17171149, startTimestamp: 1659404822,
+  depositToken: {
+    addr: "0xe8537b6FF1039CB9eD0B71713f697DDbaDBb717d",
+    name: "VELO VELO/USDC",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xe8537b6ff1039cb9ed0b71713f697ddbadbb717d",
+    components: ["velo", "usdc"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO VELO/USDC",
+    farmDepositTokenName: "pVELO VELO/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_V);
+
+export const JAR_OPTIMISM_VELO_USDC_LYRA_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3b",
+  contract: "0x5558396c859D3f2AC9E180bAC31f55Ce8b7e54C1",
+  startBlock: 17121938, startTimestamp: 1659374870,
+  depositToken: {
+    addr: "0xDEE1856D7B75Abf4C1bDf986da4e1C6c7864d640",
+    name: "VELO USDC/LYRA",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xDEE1856D7B75Abf4C1bDf986da4e1C6c7864d640",
+    components: ["usdc", "lyra"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-LYRA",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO USDC/LYRA",
+    farmDepositTokenName: "pVELO USDC/LYRA",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_LYRA_V);
+
+export const JAR_OPTIMISM_VELO_USDC_FRAX_S: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3c",
+  contract: "0x64Ed97052B6a6d42d746a84087Cb26311Ad4F624",
+  startBlock: 17121841, startTimestamp: 1659374825,
+  depositToken: {
+    addr: "0xAdF902b11e4ad36B227B84d856B229258b0b0465",
+    name: "VELO VELO/USDC",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xAdF902b11e4ad36B227B84d856B229258b0b0465",
+    components: ["usdc", "frax"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-FRAX",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO USDC/FRAX",
+    farmDepositTokenName: "pVELO USDC/FRAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_FRAX_S);
+
+export const JAR_OPTIMISM_VELO_AGEUR_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3d",
+  contract: "0x4c29bcC6B037430aC1E230077711D8F8B0bdF8cA",
+  startBlock: 17121736, startTimestamp: 1659374780,
+  depositToken: {
+    addr: "0x7866C6072B09539fC0FDE82963846b80203d7beb",
+    name: "VELO VELO/USDC",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x7866C6072B09539fC0FDE82963846b80203d7beb",
+    components: ["usdc", "ageur"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-AGEUR",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO USDC/AGEUR",
+    farmDepositTokenName: "pVELO USDC/AGEUR",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_AGEUR_V);
+
+export const JAR_OPTIMISM_VELO_OP_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3e",
+  contract: "0x359d3043973150f0295243C83Cd6c6CCE6c1440A",
+  startBlock: 17121646, startTimestamp: 1659374735,
+  depositToken: {
+    addr: "0xFFD74EF185989BFF8752c818A53a47FC45388F08",
+    name: "VELO VELO/OP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xFFD74EF185989BFF8752c818A53a47FC45388F08",
+    components: ["velo", "op"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-OP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO VELO/OP",
+    farmDepositTokenName: "pVELO VELO/OP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_OP_V);
+
+export const JAR_OPTIMISM_VELO_OP_USDC_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3f",
+  contract: "0x317d6ea8A81b3dbe21e0d295498707746a792e4d",
+  startBlock: 17121569, startTimestamp: 1659374688,
+  depositToken: {
+    addr: "0x47029bc8f5CBe3b464004E87eF9c9419a48018cd",
+    name: "VELO OP/USDC",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x47029bc8f5CBe3b464004E87eF9c9419a48018cd",
+    components: ["op", "usdc"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-OP-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO OP/USDC",
+    farmDepositTokenName: "pVELO OP/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_OP_USDC_V);
+
+export const JAR_OPTIMISM_VELO_ETH_USDC_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3g",
+  contract: "0x30AD09d5bA07dC9eDD793F71B9d4cF0C91eE9194",
+  startBlock: 17121489, startTimestamp: 1659374639,
+  depositToken: {
+    addr: "0x79c912FEF520be002c2B6e57EC4324e260f38E50",
+    name: "VELO ETH/USDC",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x79c912FEF520be002c2B6e57EC4324e260f38E50",
+    components: ["eth", "usdc"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-ETH-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO ETH/USDC",
+    farmDepositTokenName: "pVELO ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_USDC_V);
+
+export const JAR_OPTIMISM_VELO_ETH_OP_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3h",
+  contract: "0x62b007AAb4075EaC2608F04f6AC9943193A4a7d9",
+  startBlock: 17120795, startTimestamp: 1659374386,
+  depositToken: {
+    addr: "0xcdd41009E74bD1AE4F7B2EeCF892e4bC718b9302",
+    name: "VELO ETH/OP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=",
+    components: ["eth", "op"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-ETH-OP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO ETH/OP",
+    farmDepositTokenName: "pVELO ETH/OP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_OP_V);
+
+export const JAR_OPTIMISM_VELO_ETH_AELIN_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3i",
+  contract: "0x1aC33f8EEE3Bd06481Abf286CDbd7BbfDE5681f2",
+  startBlock: 17112123, startTimestamp: 1659369994,
+  depositToken: {
+    addr: "0x3EEc44e94ee86ce79f34Bb26dc3CdbbEe18d6d17",
+    name: "VELO ETH/AELIN",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x3EEc44e94ee86ce79f34Bb26dc3CdbbEe18d6d17",
+    components: ["eth", "aelin"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DISABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-ETH-AELIN",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO ETH/AELIN",
+    farmDepositTokenName: "pVELO ETH/AELIN",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_AELIN_V);
 
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {

@@ -2093,6 +2093,61 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "lyra",
+      null,
+      "lyra-finance",
+      "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "velo",
+      null,
+      "velodrome-finance",
+      "0x3c8B650257cFb5f272f799F5e2b4e65093a11a05".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "frax",
+      null,
+      "frax",
+      "0x2E3D870790dC77A83DD1d18184Acc7439A53f475".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "velo",
+      null,
+      "velodrome-finance",
+      "0x3c8B650257cFb5f272f799F5e2b4e65093a11a05".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "ageur",
+      null,
+      "ageur",
+      "0x9485aca5bbBE1667AD97c7fE7C4531a624C8b1ED".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "aelin",
+      null,
+      "aelin",
+      "0x61BAADcF22d2565B0F471b291C475db5555e0b76".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+
 
     // Fantom
     this.addToken(

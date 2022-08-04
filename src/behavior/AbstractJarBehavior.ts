@@ -198,6 +198,70 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     return runningTotal;
   }
 
+  async getHarvestableUSDDefaultImplementationV2(
+    jar: JarDefinition,
+    model: PickleModel,
+    rewardTokens: string[],
+    strategyAbi: any,
+  ): Promise<number> {
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const rewardTokensAddresses = rewardTokens.map(token=>model.address(token,jar.chain))
+    const rewardContracts: MultiContract[] = rewardTokensAddresses.map(
+      (x) =>
+        new MultiContract(model.address(x, jar.chain), erc20Abi, multiProvider),
+    );
+    let strategyContract;
+    try {
+      strategyContract = new MultiContract(
+        jar.details.strategyAddr,
+        strategyAbi,
+      );
+    } catch (error) {
+      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2", '', ''+error, ErrorSeverity.ERROR_3));
+    }
+    
+    const promises: Promise<any>[] = [];
+    for (let i = 0; i < rewardTokensAddresses.length; i++) {
+      promises.push(
+        multiProvider
+          .all([rewardContracts[i].balanceOf(jar.details.strategyAddr)])
+          .then((x) => x[0])
+          .catch(() => BigNumber.from("0")),
+      );
+    }
+    promises.push(
+      multiProvider
+        .all([strategyContract.getHarvestable()])
+        .then((x) => x[0])
+        .catch(() => {
+          return[rewardTokensAddresses, 
+            new Array(rewardTokensAddresses.length).fill(BigNumber.from("0"))
+          ]
+        }),
+    );
+
+    const results: any[] = await Promise.all(promises);
+    const walletBalances = results.slice(0, results.length - 1);
+    const tmpStrategyHarvestables = results[results.length - 1];
+    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables
+      ? [].concat(tmpStrategyHarvestables[1])
+      : [];
+    const rewardTokenPrices = rewardTokensAddresses.map((x) =>
+      model.priceOfSync(x, jar.chain),
+    );
+
+    let runningTotal = 0;
+    for (let i = 0; i < rewardTokensAddresses.length; i++) {
+      runningTotal += oneRewardSubtotal(
+        strategyHarvestables[i],
+        walletBalances[i],
+        rewardTokenPrices[i],
+        model.tokenDecimals(rewardTokensAddresses[i], jar.chain),
+      );
+    }
+    return runningTotal;
+  }
+
   async getHarvestableUSDMasterchefImplementation(
     jar: JarDefinition,
     model: PickleModel,
