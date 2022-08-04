@@ -250,10 +250,15 @@ export class UserModel {
                 erc20Abi,
                 this.multiproviderFor(x),
               );
-              r = await this.multiproviderFor(x)
-                .all([contract.balanceOf(this.walletId)])
-                .then((x) => x[0])
+              r = await contract.callStatic
+                .balanceOf(this.walletId)
                 .catch(() => BigNumber.from("0"));
+
+              // TODO: Using a multicall here causes the issue #226. No idea why. A callStatic solves this though
+              // r = await this.multiproviderFor(x)
+              //   .all([contract.balanceOf(this.walletId)])
+              //   .then((x) => x[0])
+              //   .catch(() => BigNumber.from("0"));
             }
             this.workingData.pickles[x.toString()] = r.toString();
             ret[x.toString()] = r.toString();
