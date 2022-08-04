@@ -246,5 +246,9 @@
   "token.all.op.desc": "The governance token for Optimism chain. Meant to be utilized by Optimism DAO (Optimism Collective) to vote on network upgrades and projects' incentives",
   "token.all.ply.desc": "The governance and reward token for the the lending protocol Aurigami. Mining the token involves an interesting “Progressive Locking” mechanism to ensure gradual increase of the circulating supply over time.",
   "token.all.xcksm.desc": "XC-20 implementation if Kusama (KSM) on Moonriver. XC-20 standard allows KSM to be interacted with on Moonriver like a normal ERC20 token, while also being transferable to other Kusama parachains.",
-  "token.all.stksm.desc": "Lido's liquid staked Kusama (KSM) token. When a user stakes KSM on lido, they receive stKSM tokens."
+  "token.all.stksm.desc": "Lido's liquid staked Kusama (KSM) token. When a user stakes KSM on lido, they receive stKSM tokens.",
+  "token.all.lyra.desc": "The governance token for Lyra protocol. It is also used for backstopping the protocol through its security module. Distributed as incentives for traders and liquidity providers.",
+  "token.all.velo.desc": "The governance token for Velodrome protocol. It is rewarded as incentives for the protocol's liquidity providers and uses ve(3,3) model for its revenue sharing and governance.",
+  "token.all.ageur.desc": "Angle Protocol's stablecoin, pegged to the euro.",
+  "token.all.aelin.desc": "The governance token for Aelin Fundraising Protocol. Holders of the token can elect representative to take protocol-level decisions on their belhalf. Staking the tokens allows users to get a share of the inflation rate."
 }

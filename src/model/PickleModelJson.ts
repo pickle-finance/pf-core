@@ -53,6 +53,7 @@ export enum AssetProtocol {
   HUMMUS = "Hummus",
   FRAX = "Frax",
   SWAPR = "Swapr",
+  VELODROME = "Velodrome",
   // ADD_PROTOCOL
 }
 
@@ -246,6 +247,14 @@ export const XYK_SWAP_PROTOCOLS: XYKSwapProtocol[] = [
     zappable: false,
     pickleZapAddress: "",
     router: "",
+  },
+  {
+    // Note: zaps might be slightly different than uniswapv2
+    protocol: AssetProtocol.VELODROME,
+    chain: ChainNetwork.Optimism,
+    zappable: false,
+    pickleZapAddress: "",
+    router: "0xa132DAB612dB5cB9fC9Ac426A0Cc215A3423F9c9",
   },
   // ADD_PROTOCOL
 ];

@@ -430,6 +430,15 @@ import {
   JAR_OPTIMISM_UNIV3_SUSD_DAI,
   JAR_OPTIMISM_UNIV3_USDC_SUSD,
   JAR_OPTIMISM_UNIV3_USDC_DAI,
+  JAR_OPTIMISM_VELO_USDC_V,
+  JAR_OPTIMISM_VELO_ETH_AELIN_V,
+  JAR_OPTIMISM_VELO_ETH_OP_V,
+  JAR_OPTIMISM_VELO_USDC_LYRA_V,
+  JAR_OPTIMISM_VELO_USDC_FRAX_S,
+  JAR_OPTIMISM_VELO_AGEUR_V,
+  JAR_OPTIMISM_VELO_OP_V,
+  JAR_OPTIMISM_VELO_OP_USDC_V,
+  JAR_OPTIMISM_VELO_ETH_USDC_V,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -700,6 +709,7 @@ import { GnosisSushiJar } from "./impl/gnosis-sushi-jar";
 import { SolarStksmXcksm } from "./impl/movr-solar-stksm-xcksm";
 import { ZipswapJar } from "./impl/optimism-zipswap-jar";
 import { GnosisSwaprJar } from "./impl/gnosis-swapr-jar";
+import { VeloJar } from "./impl/velo";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1031,6 +1041,15 @@ jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_USDC.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_SUSD_DAI.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_USDC_SUSD.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_USDC_DAI.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_LYRA_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_FRAX_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_AGEUR_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_OP_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_OP_USDC_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_USDC_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_OP_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_AELIN_V.id, new VeloJar());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
