@@ -15,6 +15,7 @@ import {
   DocumentationModelResult,
 } from "./docModel/DocsInterfaces";
 import * as PlatformInterfaces from "./core/platform/PlatformInterfaces";
+import { HealthCheckRunner } from "./client/health/HealthCheckRunner";
 export {
   ChainNetwork,
   Chains,
@@ -30,4 +31,5 @@ export {
   DocumentationModelResult,
   PFCore,
   PlatformInterfaces,
+  HealthCheckRunner,
 };

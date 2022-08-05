@@ -17,6 +17,7 @@ export enum PickleProduct {
     API_JOB = 300,
     TSUKE = 400,
     TSUKEPFCORE = 500,
+    PFCORE_HEALTH_CHECK = 600,
 }
 
 export interface LocalError {
