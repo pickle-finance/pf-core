@@ -8962,7 +8962,7 @@ export const JAR_OPTIMISM_VELO_USDC_V: JarDefinition = {
     components: ["velo", "usdc"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -8990,7 +8990,7 @@ export const JAR_OPTIMISM_VELO_USDC_LYRA_V: JarDefinition = {
     components: ["usdc", "lyra"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9018,7 +9018,7 @@ export const JAR_OPTIMISM_VELO_USDC_FRAX_S: JarDefinition = {
     components: ["usdc", "frax"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9046,7 +9046,7 @@ export const JAR_OPTIMISM_VELO_USDC_AGEUR_V: JarDefinition = {
     components: ["usdc", "ageur"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9074,7 +9074,7 @@ export const JAR_OPTIMISM_VELO_OP_V: JarDefinition = {
     components: ["velo", "op"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9102,7 +9102,7 @@ export const JAR_OPTIMISM_VELO_OP_USDC_V: JarDefinition = {
     components: ["op", "usdc"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9130,7 +9130,7 @@ export const JAR_OPTIMISM_VELO_ETH_USDC_V: JarDefinition = {
     components: ["eth", "usdc"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9158,7 +9158,7 @@ export const JAR_OPTIMISM_VELO_ETH_OP_V: JarDefinition = {
     components: ["eth", "op"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
@@ -9186,7 +9186,7 @@ export const JAR_OPTIMISM_VELO_ETH_AELIN_V: JarDefinition = {
     components: ["eth", "aelin"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DISABLED,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
