@@ -9202,6 +9202,33 @@ export const JAR_OPTIMISM_VELO_ETH_AELIN_V: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_AELIN_V);
 
+export const JAR_OPTIMISM_VELO_OP_L2DAO_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3j",
+  contract: "0xcDd0816C4E39ca9aBfCb739a9fC3CA267F5AB502",
+  startBlock: 17112123, startTimestamp: 1659369994,
+  depositToken: {
+    addr: "0xfc77e39De40E54F820E313039207DC850E4C9E60",
+    name: "VELO OP/L2DAO",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x3EEc44e94ee86ce79f34Bb26dc3CdbbEe18d6d17",
+    components: ["op", "l2dao"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-OP-L2DAO",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO OP/L2DAO",
+    farmDepositTokenName: "pVELO OP/L2DAO",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_OP_L2DAO_V);
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   type: AssetType.JAR,

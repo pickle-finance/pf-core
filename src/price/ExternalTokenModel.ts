@@ -2147,7 +2147,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
-
+    this.addToken(
+      ChainNetwork.Optimism,
+      "l2dao",
+      null,
+      "layer2dao",
+      "0xd52f94DF742a6F4B4C8b033369fE13A41782Bf44".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(
