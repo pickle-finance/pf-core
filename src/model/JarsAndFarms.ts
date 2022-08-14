@@ -9206,11 +9206,11 @@ export const JAR_OPTIMISM_VELO_OP_L2DAO_V: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 3j",
   contract: "0xcDd0816C4E39ca9aBfCb739a9fC3CA267F5AB502",
-  startBlock: 17112123, startTimestamp: 1659369994,
+  startBlock: 18481330, startTimestamp: 1660064770,
   depositToken: {
     addr: "0xfc77e39De40E54F820E313039207DC850E4C9E60",
     name: "VELO OP/L2DAO",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x3EEc44e94ee86ce79f34Bb26dc3CdbbEe18d6d17",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xfc77e39De40E54F820E313039207DC850E4C9E60",
     components: ["op", "l2dao"],
   },
   rewardTokens: ["velo"],
@@ -9229,6 +9229,36 @@ export const JAR_OPTIMISM_VELO_OP_L2DAO_V: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_OP_L2DAO_V);
+
+export const JAR_OPTIMISM_VELO_USDC_ALUSD_S: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3k",
+  contract: "0xAA50bCf5a83609E17DFB4cBe6Ef1893Ba25907f0",
+  startBlock: 19082033, startTimestamp: 1660491769,
+  depositToken: {
+    addr: "0xe75a3f4Bf99882aD9f8aeBAB2115873315425D00",
+    name: "VELO USDC/ALUSD",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xe75a3f4Bf99882aD9f8aeBAB2115873315425D00",
+    components: ["usdc", "alusd"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-ALUSD",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pVELO USDC/ALUSD",
+    farmDepositTokenName: "pVELO USDC/ALUSD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_ALUSD_S);
+
+
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   type: AssetType.JAR,

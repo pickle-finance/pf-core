@@ -2156,6 +2156,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "alusd",
+      null,
+      "alchemix-usd",
+      "0xCB8FA9a76b8e203D8C3797bF438d8FB81Ea3326A".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(
