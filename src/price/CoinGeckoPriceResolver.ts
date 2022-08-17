@@ -79,9 +79,12 @@ export const fetchCoinGeckoPricesBySearchId = async (
   return returnMap;
 };
 
-export async function fetchHistoricalPriceSeries(options: {
-  from: Date;
-}): Promise<[number, number][]> {
+export async function fetchHistoricalPriceSeries(
+  coin: string,
+  options: {
+    from: Date;
+  },
+): Promise<[number, number][]> {
   const coinGecko = new CoinGecko();
 
   const toDate = new Date();
@@ -93,14 +96,11 @@ export async function fetchHistoricalPriceSeries(options: {
     getDayDiff(options.from, toDate) > 90
       ? options.from
       : new Date(toDate.getTime() - 91 * 24 * 60 * 60 * 1000);
-  const response: any = await coinGecko.coins.fetchMarketChartRange(
-    "pickle-finance",
-    {
-      vs_currency: "usd",
-      from: Math.round(fromDate.getTime() / 1000),
-      to: Math.round(toDate.getTime() / 1000),
-    },
-  );
+  const response: any = await coinGecko.coins.fetchMarketChartRange(coin, {
+    vs_currency: "usd",
+    from: Math.round(fromDate.getTime() / 1000),
+    to: Math.round(toDate.getTime() / 1000),
+  });
   return response.data.prices;
 }
 

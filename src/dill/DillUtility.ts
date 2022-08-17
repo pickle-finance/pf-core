@@ -78,10 +78,15 @@ export async function getDillDetails(
   DEBUG_OUT("Begin getDillDetails");
   const start = Date.now();
 
-  const picklePriceSeriesPromise = fetchHistoricalPriceSeries({
+  const picklePriceSeriesPromise = fetchHistoricalPriceSeries(
+    "pickle-finance",
+    {
+      from: new Date(firstMeaningfulDistributionTimestamp * 1000),
+    },
+  );
+  const ethPriceSeriesPromise = fetchHistoricalPriceSeries("ethereum", {
     from: new Date(firstMeaningfulDistributionTimestamp * 1000),
   });
-
   const multiProvider = model.multiproviderFor(chain);
   try {
     const dillContract = new Contract(DILL_CONTRACT, dillAbi);
@@ -198,19 +203,25 @@ export async function getDillDetails(
     let lastTotalDillAmount = 0;
     let totalEthAmount = 0;
     const picklePriceSeries = await picklePriceSeriesPromise;
+    const ethPriceSeries = await ethPriceSeriesPromise;
 
     const mapResult: DillWeek[] = payoutTimes.map((time, index): DillWeek => {
       // Fees get distributed at the beginning of the following period.
       const distributionTime = new Date((time.toNumber() + week) * 1000);
       const isProjected = distributionTime > new Date();
 
-      const historicalEntry = picklePriceSeries.find((value) =>
+      const historicalPickleEntry = picklePriceSeries.find((value) =>
         moment(value[0]).isSame(distributionTime, "day"),
       );
-      const picklePriceUsd = historicalEntry
-        ? historicalEntry[1]
+      const historicalEthEntry = ethPriceSeries.find((value) =>
+        moment(value[0]).isSame(distributionTime, "day"),
+      );
+      const picklePriceUsd = historicalPickleEntry
+        ? historicalPickleEntry[1]
         : currentPicklePrice;
-
+      const ethPriceUsd = historicalEthEntry
+        ? historicalEthEntry[1]
+        : currentEthPrice;
       let totalDillAmount: number = dillAmounts[index];
       let weeklyEthAmount = 0;
       let weeklyPickleAmount = isProjected ? 0 : payouts[index];
@@ -252,6 +263,7 @@ export async function getDillDetails(
         totalDillAmount,
         pickleDillRatio,
         picklePriceUsd,
+        ethPriceUsd,
         buybackUsd,
         isProjected,
         distributionTime,

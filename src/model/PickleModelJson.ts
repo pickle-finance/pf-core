@@ -463,6 +463,7 @@ export interface DillWeek {
   totalDillAmount: number;
   pickleDillRatio: number;
   picklePriceUsd: number;
+  ethPriceUsd: number;
   buybackUsd: number;
   isProjected: boolean;
   distributionTime: Date;
