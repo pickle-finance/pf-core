@@ -79,7 +79,9 @@ export const fetchCoinGeckoPricesBySearchId = async (
   return returnMap;
 };
 
-export async function fetchHistoricalPriceSeries(options: { from: Date }) {
+export async function fetchHistoricalPriceSeries(options: {
+  from: Date;
+}): Promise<[number, number][]> {
   const coinGecko = new CoinGecko();
 
   const toDate = new Date();
@@ -99,7 +101,6 @@ export async function fetchHistoricalPriceSeries(options: { from: Date }) {
       to: Math.round(toDate.getTime() / 1000),
     },
   );
-
   return response.data.prices;
 }
 

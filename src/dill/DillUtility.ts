@@ -69,7 +69,9 @@ export function getWeeklyDistribution(jars: JarDefinition[]): number {
 
 export async function getDillDetails(
   thisWeekProjectedDistribution: number,
-  picklePrice: number,
+  currentPicklePrice: number,
+  currentEthPrice: number,
+  ppb: BigNumber,
   model: PickleModel,
   chain: ChainNetwork,
 ): Promise<DillDetails> {
@@ -117,8 +119,8 @@ export async function getDillDetails(
     const batch1Promise = multiProvider.all([
       dillContract.supply(),
       dillContract.totalSupply(),
-      feeDistContract.time_cursor(),
-      feeDistContractV2.time_cursor(),
+      // feeDistContract.time_cursor(),
+      // feeDistContractV2.time_cursor(),
       pickleContract.totalSupply(),
     ]);
 
@@ -153,8 +155,8 @@ export async function getDillDetails(
     const [
       picklesLocked,
       dillSupply,
-      endTime,
-      endTimeV2,
+      // endTime,
+      // endTimeV2,
       pickleSupply,
     ]: BigNumber[] = await batch1Promise;
 
@@ -165,7 +167,17 @@ export async function getDillDetails(
       ethers.utils.formatEther(picklesLocked),
     );
     const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
-
+    const weeklyPickleEmittedWei = ppb
+      .mul(60)
+      .mul(60)
+      .mul(24)
+      .mul(7)
+      .div(Chains.get(ChainNetwork.Ethereum).secondsPerBlock);
+    const weeklyPickleEmittedNum: number =
+      weeklyPickleEmittedWei.div(1e9).div(1e6).toNumber() / 1e3;
+    const dillEmissionsPct = picklesLockedFloat / pickleSupplyFloat;
+    const pickleEmittedToDillHolders =
+      dillEmissionsPct * weeklyPickleEmittedNum;
     const payouts: number[] = payoutsBN.map((x: BigNumber) =>
       parseFloat(ethers.utils.formatEther(x)),
     );
@@ -192,27 +204,25 @@ export async function getDillDetails(
       const distributionTime = new Date((time.toNumber() + week) * 1000);
       const isProjected = distributionTime > new Date();
 
-      let weeklyPickleAmount = isProjected
-        ? thisWeekProjectedDistribution / picklePrice
-        : payouts[index];
-
       const historicalEntry = picklePriceSeries.find((value) =>
         moment(value[0]).isSame(distributionTime, "day"),
       );
-      const picklePriceUsd = historicalEntry ? historicalEntry[1] : picklePrice;
+      const picklePriceUsd = historicalEntry
+        ? historicalEntry[1]
+        : currentPicklePrice;
 
       let totalDillAmount: number = dillAmounts[index];
       let weeklyEthAmount = 0;
+      let weeklyPickleAmount = isProjected ? 0 : payouts[index];
 
       if (payoutV2idx >= 0 && index >= payoutV2idx) {
         // After the release date of V2, add params of both V1 and V2
         weeklyPickleAmount += isProjected
-          ? 0 // Subject to change
+          ? pickleEmittedToDillHolders // Subject to change
           : payoutsV2[index - payoutV2idx];
         weeklyEthAmount = isProjected
-          ? 0 // Subject to change
+          ? thisWeekProjectedDistribution / currentEthPrice
           : payoutsEthV2[index - payoutV2idx];
-
         totalDillAmount = 0;
         let i = index - payoutV2idx;
         while (!totalDillAmount) {
@@ -228,9 +238,10 @@ export async function getDillDetails(
       totalEthAmount += weeklyEthAmount;
       lastTotalDillAmount = totalDillAmount;
 
-      const buybackUsd =
-        Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
-        100;
+      const buybackUsd = isProjected
+        ? 0
+        : Math.floor(100 * pickleDillRatio * totalDillAmount * picklePriceUsd) /
+          100;
 
       return {
         weeklyPickleAmount,
