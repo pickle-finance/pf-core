@@ -91,7 +91,7 @@ export async function calculateVvsFarmsAPY(
 
   const rewardsPerYear =
     rewardsPerBlock *
-    ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
+    ((360 * 24 * 60 * 60) / (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
 

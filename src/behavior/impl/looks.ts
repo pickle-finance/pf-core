@@ -108,7 +108,7 @@ export class pLooks extends AbstractJarBehavior {
       (+formatEther(rewardPerBlock) *
         ONE_YEAR_SECONDS *
         model.priceOfSync("looks", jar.chain)) /
-      Chains.get(jar.chain).secondsPerBlock;
+        (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
     const valueStaked = await this.getTotalValueStaked(jar, model);
 
     return (lookRewardsPerYear * 100) / valueStaked;

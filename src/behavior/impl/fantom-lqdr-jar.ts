@@ -133,7 +133,7 @@ export class LqdrJar extends AbstractJarBehavior {
         lqdrStrategyContract.balanceOfPool(),
       ]);
     const blocksPerYear =
-      ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
+      ONE_YEAR_IN_SECONDS / (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
     const lqdrPerYear =
       (parseFloat(formatEther(lqdrPerBlockBN)) *
         blocksPerYear *

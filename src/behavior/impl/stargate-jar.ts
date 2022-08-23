@@ -120,7 +120,7 @@ export class StargateJar extends AbstractJarBehavior {
       (parseFloat(formatEther(stgPerSecBn)) *
         poolInfo.allocPoint.toNumber() *
         ONE_YEAR_IN_SECONDS) /
-      (totalAllocPointBN.toNumber() * Chains.get(jar.chain).secondsPerBlock);
+      (totalAllocPointBN.toNumber() * (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
     const totalSupply = parseFloat(formatUnits(totalSupplyBN, decimals));
 
     const stgRewardedPerYear =

@@ -151,7 +151,7 @@ export class TectonicJar extends AbstractJarBehavior {
       model,
       pricePerToken,
     });
-    const secondsPerBlock = Chains.get(jar.chain).secondsPerBlock;
+    const secondsPerBlock = await Chains.getAccurateSecondsPerBlock(jar.chain, model);
 
     const supplyRate =
       (parseFloat(formatEther(newSupplyRate)) / secondsPerBlock) *

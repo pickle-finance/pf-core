@@ -54,7 +54,7 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const blocksPerYear =
-      ONE_YEAR_SECONDS / Chains.get(jar.chain).secondsPerBlock;
+      ONE_YEAR_SECONDS / (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
     const dodoValueRewardedPerYear =
       model.priceOfSync("dodo", jar.chain) * DODO_PER_BLOCK * blocksPerYear;
 

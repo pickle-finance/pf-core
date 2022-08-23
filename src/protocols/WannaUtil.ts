@@ -108,7 +108,7 @@ export async function calculateWannaFarmsAPY(
         ) *
           ONE_YEAR_IN_SECONDS *
           model.priceOfSync(rewardId, jar.chain)) /
-        Chains.get(jar.chain).secondsPerBlock;
+          (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
       const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
       extraRewardAPY =
@@ -123,7 +123,7 @@ export async function calculateWannaFarmsAPY(
 
   const rewardsPerYear =
     rewardsPerBlock *
-    (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
+    (ONE_YEAR_IN_SECONDS / (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const wannaRewardedPerYear =

@@ -2,6 +2,12 @@ import { AbstractChain } from "./AbstractChain";
 import { IChain } from "./IChain";
 import { ethers, Signer } from "ethers";
 import { setMulticallAddress } from "ethers-multiprovider";
+import { PickleModel /* toError */ } from "../model/PickleModel";
+import {
+  ErrorSeverity,
+  PickleProduct,
+  PlatformError,
+} from "../core/platform/PlatformInterfaces";
 
 export interface RawChain {
   chainId: number;
@@ -200,6 +206,11 @@ export class Chains {
   public static overrideSingleton(raw: RawChain[]): void {
     Chains.singleton = new Chains(raw);
   }
+  private static secondsPerBlock: Map<ChainNetwork, number> = new Map<
+    ChainNetwork,
+    number
+  >();
+  private static SPBQ = false; // secondsPerBlock queue flag
 
   chainMap: Map<ChainNetwork, AbstractChain> = new Map<
     ChainNetwork,
@@ -276,4 +287,94 @@ export class Chains {
     }
     return chain.getProviderOrSigner();
   }
+
+  /**
+   * @description Fetches the current network average blocktime value. Should be used inplace of `Chains.get(network).secondsPerBlock`
+   */
+  static async getAccurateSecondsPerBlock(
+    network: ChainNetwork,
+    model: PickleModel,
+  ): Promise<number> {
+    if (this.secondsPerBlock.has(network))
+      return this.secondsPerBlock.get(network);
+
+    while (this.SPBQ) {
+      await new Promise((r) =>
+        setTimeout(r, Math.floor(Math.random() * 1000) + 3000),
+      );
+    }
+    if (this.secondsPerBlock.has(network))
+      return this.secondsPerBlock.get(network);
+
+    this.SPBQ = true;
+    let secondsPerBlock = this.get(network).secondsPerBlock;
+    try {
+      const blocksRange = 10000;
+      const multiProvider = model.multiproviderFor(network);
+      const currentBlock = await multiProvider.getBlock("latest");
+      const prevBlock = await multiProvider.getBlock(
+        currentBlock.number - blocksRange,
+      );
+      secondsPerBlock =
+        (currentBlock.timestamp - prevBlock.timestamp) / blocksRange;
+      this.secondsPerBlock.set(network, secondsPerBlock);
+    } catch (error) {
+      // prettier-ignore
+      model.logPlatformError(toError(100105, network, "secondsPerBlock", "Chains/getAccurateSecondsPerBlock",``, ''+error, ErrorSeverity.ERROR_4));
+    } finally {
+      this.SPBQ = false;
+    }
+    return secondsPerBlock;
+  }
 }
+
+// This was copied from PickleModel. Importing it results in compilation error
+const toError = (
+  errorCode: number,
+  chain: ChainNetwork | undefined,
+  asset: string,
+  failedCall: string,
+  message: string,
+  causeMessage: string,
+  severity: ErrorSeverity,
+): PlatformError => {
+  let chainGot: IChain | undefined = undefined;
+  try {
+    chainGot = chain ? Chains.get(chain) : undefined;
+  } catch (error) {
+    // Not found
+  }
+  return toError2(
+    PickleProduct.PFCORE,
+    errorCode,
+    chainGot ? chainGot.id : -1,
+    asset,
+    failedCall,
+    message,
+    causeMessage,
+    severity,
+  );
+};
+
+const toError2 = (
+  product: PickleProduct,
+  errorCode: number,
+  chain: number,
+  asset: string,
+  failedCall: string,
+  message: string,
+  causeMessage: string,
+  severity: ErrorSeverity,
+): PlatformError => {
+  return {
+    product: product,
+    timestamp: Date.now(),
+    errorCode,
+    chain,
+    asset: asset || "",
+    failedCall: failedCall || "",
+    message: message || failedCall || "",
+    causeMessage: causeMessage || "",
+    severity,
+  };
+};

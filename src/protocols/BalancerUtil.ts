@@ -95,7 +95,7 @@ export const getBalancerPoolDayAPY = async (
   const blocktime =
     jar.chain === ChainNetwork.Arbitrum
       ? 3 // in Chains.ts the value is wrongly set to 13
-      : Chains.get(jar.chain).secondsPerBlock;
+      : await Chains.getAccurateSecondsPerBlock(jar.chain, model);
   const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
@@ -121,7 +121,7 @@ export const getBalancerPerformance = async (
   const blocktime =
     asset.chain === ChainNetwork.Arbitrum
       ? 3 // in Chains.ts the value is wrongly set to 13
-      : Chains.get(asset.chain).secondsPerBlock;
+      : await Chains.getAccurateSecondsPerBlock(asset.chain, model);
   const blockNum = await model.multiproviderFor(asset.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
