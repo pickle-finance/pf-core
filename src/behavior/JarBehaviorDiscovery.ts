@@ -441,6 +441,7 @@ import {
   JAR_OPTIMISM_VELO_USDC_AGEUR_V,
   JAR_OPTIMISM_VELO_OP_L2DAO_V,
   JAR_OPTIMISM_VELO_USDC_ALUSD_S,
+  JAR_OPTIMISM_BEETX_ETH_IB,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -712,6 +713,7 @@ import { SolarStksmXcksm } from "./impl/movr-solar-stksm-xcksm";
 import { ZipswapJar } from "./impl/optimism-zipswap-jar";
 import { GnosisSwaprJar } from "./impl/gnosis-swapr-jar";
 import { VeloJar } from "./impl/velo";
+import { OPBeetXJar } from "./impl/optimism-beetx-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1054,6 +1056,8 @@ jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_OP_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_AELIN_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_OP_L2DAO_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_ALUSD_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_IB.id, new OPBeetXJar());
+
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());

@@ -9258,6 +9258,33 @@ export const JAR_OPTIMISM_VELO_USDC_ALUSD_S: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_ALUSD_S);
 
+export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 4a",
+  contract: "0x4ffe019c104a7F8F6f58014d05cE5d4cB22968b8",
+  startBlock: 20053914, startTimestamp: 1661092006,
+  depositToken: {
+    addr: "0xeFb0D9F51EFd52d7589A9083A6d0CA4de416c249",
+    name: "BEETX ETH/IB",
+    link: "https://op.beets.fi/pool/0xefb0d9f51efd52d7589a9083a6d0ca4de416c24900020000000000000000002c",
+    components: ["eth", "ib"],
+  },
+  rewardTokens: ["ib"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "OP-BEETX-ETH-IB",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX ETH/IB",
+    farmDepositTokenName: "pBEETX ETH/IB",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_BEETX_ETH_IB);
 
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {

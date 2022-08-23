@@ -41,8 +41,10 @@ const SUBGRAPH_URL_LOOKS =
 const SUBGRAPH_BEAMSWAP =
   "https://api.thegraph.com/subgraphs/name/beamswap/beamswap-dex";
 const SUBGRAPH_SOLARFLARE = "https://analytics.solarflare.io/api/subgraph";
-const SUBGRAPH_URL_BEETHOVENX =
+const SUBGRAPH_URL_BEETHOVENX_FANTOM =
   "https://api.thegraph.com/subgraphs/name/beethovenxfi/beethovenx";
+const SUBGRAPH_URL_BEETHOVENX_OPTIMISM =
+  "https://api.thegraph.com/subgraphs/name/beethovenxfi/beethovenx-optimism";
 const SUBGRAPH_URL_SPOOKYSWAP =
   "https://api.thegraph.com/subgraphs/name/eerieeight/spookyswap";
 const SUBGRAPH_URL_SPIRITSWAP =
@@ -126,8 +128,15 @@ export function graphUrlFromDetails(
       }
       break;
     }
-    case AssetProtocol.BEETHOVENX:
-      return SUBGRAPH_URL_BEETHOVENX;
+    case AssetProtocol.BEETHOVENX: {
+      switch (chain) {
+        case ChainNetwork.Fantom:
+          return SUBGRAPH_URL_BEETHOVENX_FANTOM;
+        case ChainNetwork.Optimism:
+          return SUBGRAPH_URL_BEETHOVENX_OPTIMISM;
+      }
+      break;
+    }
     case AssetProtocol.SPOOKYSWAP:
       return SUBGRAPH_URL_SPOOKYSWAP;
     case AssetProtocol.SPIRITSWAP:
