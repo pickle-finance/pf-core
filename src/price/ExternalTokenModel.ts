@@ -2165,6 +2165,33 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "bal",
+      null,
+      "balancer",
+      "0xFE8B128bA8C78aabC59d4c64cEE7fF28e9379921".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "beets",
+      null,
+      "beethoven-x",
+      "0x97513e975a7fA9072c72C92d8000B0dB90b163c5".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "ib",
+      null,
+      "iron-bank",
+      "0x00a35FD824c717879BF370E70AC6868b95870Dfb".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(
