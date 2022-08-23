@@ -1,4 +1,4 @@
-import { ChainNetwork, IChain } from "..";
+import { ChainNetwork } from "..";
 import { Chains } from "../chain/Chains";
 import {
   ADDRESSES,
@@ -28,12 +28,13 @@ export function minichefAddressForChain(
   return c ? c.minichef : undefined;
 }
 
-export function secondsPerBlock(network: ChainNetwork): number | undefined {
-  const chain: IChain = Chains.get(network);
-  if (chain) {
-    return chain.secondsPerBlock;
+export async function secondsPerBlock(network: ChainNetwork, model: PickleModel): Promise<number | undefined> {
+  try {
+    const secondsPerBlock = await Chains.getAccurateSecondsPerBlock(network,model);
+    return secondsPerBlock;
+  } catch (error) {
+    return undefined;
   }
-  return undefined;
 }
 
 export async function setGaugeAprData(
@@ -47,7 +48,7 @@ export async function setGaugeAprData(
   if (chain === ChainNetwork.Ethereum) {
     if (rawGaugeData && rawGaugeData.length > 0) {
       for (let i = 0; i < rawGaugeData.length; i++) {
-        setAssetGaugeAprEth(rawGaugeData[i], model);
+        await setAssetGaugeAprEth(rawGaugeData[i], model);
       }
     }
   } else {
@@ -56,7 +57,7 @@ export async function setGaugeAprData(
         setAssetGaugeAprMinichef(
           rawGaugeData[i],
           model,
-          secondsPerBlock(chain),
+          await secondsPerBlock(chain,model),
         );
       }
     }
@@ -172,10 +173,11 @@ function createAprRange(
   return component;
 }
 
-export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
+export async function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
   // Check if it's a normal jar
   const picklePrice = model.priceOfSync("pickle", ChainNetwork.Ethereum);
   const jar: JarDefinition = findJarForGauge(gauge, model);
+  const ethBlocktime = await secondsPerBlock(ChainNetwork.Ethereum,model);
   if (jar !== undefined) {
     let rrpy = gauge.rewardRatePerYear;
     if (!Number.isFinite(rrpy)) {
@@ -199,8 +201,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     jar.farm.details.poolId = gauge.poolId;
     jar.farm.details.picklePerBlock =
-      (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) *
-      secondsPerBlock(ChainNetwork.Ethereum);
+      (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * ethBlocktime;
     if (jar.farm.details.allocShare === 0) {
       jar.farm.details.farmApyComponents = [];
     }
@@ -233,8 +234,7 @@ export function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleModel) {
     saFarm.details.poolId = gauge.poolId;
     saFarm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     saFarm.details.picklePerBlock =
-      (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) *
-      secondsPerBlock(ChainNetwork.Ethereum);
+      (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * ethBlocktime;
 
     return;
   }
@@ -369,6 +369,7 @@ export async function loadGaugeDataEth(
     );
 */
   // extract response and convert to something we can use
+  const ethBlocktime = await secondsPerBlock(ChainNetwork.Ethereum,model);
   const gauges: IRawGaugeData[] = tokens.map((token, idx) => {
     const rrpy = +derivedSupplies[idx].toString()
       ? (+gaugeRewardRates[idx].toString() / +derivedSupplies[idx].toString()) *
@@ -385,8 +386,7 @@ export async function loadGaugeDataEth(
       poolPicklesPerYear:
         (alloc *
           parseFloat(ethers.utils.formatEther(ppb)) *
-          ONE_YEAR_IN_SECONDS) /
-        secondsPerBlock(ChainNetwork.Ethereum),
+          ONE_YEAR_IN_SECONDS) / ethBlocktime,
     };
     return ret;
   });

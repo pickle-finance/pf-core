@@ -83,12 +83,11 @@ export async function calculateCurveApyArbitrum(
     gaugeContract.integrate_inv_supply(currentWeekEpoch),
   ]);
 
+  // This assumes no reward boost
   const yearlyCrvRate = gaugeRate
     .mul(ONE_YEAR_IN_SECONDS)
     .div(workingSupply)
     .mul(40)
-    .div(100)
-    .mul(100) // no idea why this makes it work
     .toNumber();
 
   const crvPrice = model.priceOfSync("crv", jar.chain);

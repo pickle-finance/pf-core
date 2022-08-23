@@ -2,7 +2,7 @@ import { BigNumber, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import beethovenxChefAbi from "../Contracts/ABIs/beethovenx-chef.json";
-import { Chains, PickleModel } from "..";
+import { ChainNetwork, Chains, PickleModel } from "..";
 import { readQueryFromGraphDetails } from "../graph/TheGraph";
 import {
   AssetAprComponent,
@@ -101,8 +101,8 @@ export const queryTheGraph = async (
   } catch (error) {
     console.log(error);
     console.log(res);
-    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/3", 
-    `Error loading Beethoven apy from graph`, ''+error, ErrorSeverity.ERROR_4));
+    //prettier-ignore
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/3", `Error loading Beethoven apy from graph`, ''+error, ErrorSeverity.ERROR_4));
     return undefined;
   }
 };
@@ -111,7 +111,7 @@ export const getBeethovenPoolDayAPY = async (
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<number> => {
-  const blocktime = Chains.get(jar.chain).secondsPerBlock;
+  const blocktime = await Chains.getAccurateSecondsPerBlock(jar.chain, model);
   const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
@@ -119,8 +119,8 @@ export const getBeethovenPoolDayAPY = async (
   const b2 = blockNum - blocksInDay;
   const yesterdayPoolDayData: GraphResponse | undefined = await queryTheGraph(model, jar, b2);
   if (currentPoolDayDate === undefined || yesterdayPoolDayData === undefined) {
-    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getBeethovenPoolDayAPY", 
-    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
+    //prettier-ignore
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getBeethovenPoolDayAPY", `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return 0;
   }
 
@@ -133,7 +133,7 @@ export const getBalancerPerformance = async (
   jar: JarDefinition,
   model: PickleModel,
 ): Promise<HistoricalYield> => {
-  const blocktime = Chains.get(jar.chain).secondsPerBlock;
+  const blocktime = await Chains.getAccurateSecondsPerBlock(jar.chain, model);
   const blockNum = await model.multiproviderFor(jar.chain).getBlockNumber();
   const secondsInDay = 60 * 60 * 24;
   const blocksInDay = Math.round(secondsInDay / blocktime);
@@ -146,15 +146,15 @@ export const getBalancerPerformance = async (
       queryTheGraph(model, jar, blockNum - blocksInDay * 30),
     ]);
   if( !currentPoolDate) {
-    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph", 
-    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
+    //prettier-ignore
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph", `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return { d1: 0, d3: 0, d7: 0, d30: 0 };
   }
 
-  const d1SwapFee = currentPoolDate.totalSwapFee - d1PoolData.totalSwapFee;
-  const d3SwapFee = currentPoolDate.totalSwapFee - d3PoolData.totalSwapFee;
-  const d7SwapFee = currentPoolDate.totalSwapFee - d7PoolData.totalSwapFee;
-  const d30SwapFee = currentPoolDate.totalSwapFee - d30PoolData.totalSwapFee;
+  const d1SwapFee = currentPoolDate.totalSwapFee - (d1PoolData?.totalSwapFee??0);
+  const d3SwapFee = currentPoolDate.totalSwapFee - (d3PoolData?.totalSwapFee??0);
+  const d7SwapFee = currentPoolDate.totalSwapFee - (d7PoolData?.totalSwapFee??0);
+  const d30SwapFee = currentPoolDate.totalSwapFee - (d30PoolData?.totalSwapFee??0);
   const d1 = (d1SwapFee / currentPoolDate.totalLiquidity) * 365 * 100;
   const d3 = (d3SwapFee / currentPoolDate.totalLiquidity / 3) * 365 * 100;
   const d7 = (d7SwapFee / currentPoolDate.totalLiquidity / 7) * 365 * 100;
@@ -189,45 +189,47 @@ export const getPoolData = async (
     const { totalLiquidity } = graphResp;
     totalSupplyUSD = totalLiquidity;
   } else {
-    try {
-      // Less efficient. Fallback in case the graph doesn't work
-      const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
-      const balVaultContract = new Contract(
-        VAULT_ADDRESS,
-        balVaultABI,
-        multiProvider,
-      );
-      const poolTokensResp = await balVaultContract.callStatic.getPoolTokens(
-        vaultPoolId,
-      );
-
-      const { tokens, balances } = poolTokensResp;
-      const filtered = tokens.map((tokenAddr: string, i: number) => {
-        return [
-          tokenAddr,
-          parseFloat(
-            ethers.utils.formatUnits(
-              balances[i],
-              model.tokenDecimals(tokenAddr, jar.chain),
+    if (jar.chain === ChainNetwork.Fantom) {
+      try {
+        // Less efficient. Fallback in case the graph doesn't work
+        const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
+        const balVaultContract = new Contract(
+          VAULT_ADDRESS,
+          balVaultABI,
+          multiProvider,
+        );
+        const poolTokensResp = await balVaultContract.callStatic.getPoolTokens(
+          vaultPoolId,
+        );
+  
+        const { tokens, balances } = poolTokensResp;
+        const filtered = tokens.map((tokenAddr: string, i: number) => {
+          return [
+            tokenAddr,
+            parseFloat(
+              ethers.utils.formatUnits(
+                balances[i],
+                model.tokenDecimals(tokenAddr, jar.chain),
+              ),
             ),
-          ),
-        ];
-      });
-      const poolTotalBalanceUSD = filtered.reduce(
-        (total: number, [tokenAddr, tokenAmount]: [string, number]) => {
-          const tokenAddress = tokenAddr.toLowerCase();
-          const tokenPrice = model.priceOfSync(tokenAddress, jar.chain);
-          const tokenValueUSD = tokenAmount * tokenPrice;
-          return total + tokenValueUSD;
-        },
-        0,
-      );
-      if (!poolTotalBalanceUSD)
-        throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
-      totalSupplyUSD = poolTotalBalanceUSD;
-    } catch (error) {
-      model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getPoolData", 
-      ``, ''+error, ErrorSeverity.ERROR_4));
+          ];
+        });
+        const poolTotalBalanceUSD = filtered.reduce(
+          (total: number, [tokenAddr, tokenAmount]: [string, number]) => {
+            const tokenAddress = tokenAddr.toLowerCase();
+            const tokenPrice = model.priceOfSync(tokenAddress, jar.chain);
+            const tokenValueUSD = tokenAmount * tokenPrice;
+            return total + tokenValueUSD;
+          },
+          0,
+        );
+        if (!poolTotalBalanceUSD)
+          throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
+        totalSupplyUSD = poolTotalBalanceUSD;
+      } catch (error) {
+        //prettier-ignore
+        model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getPoolData", ``, ''+error, ErrorSeverity.ERROR_4));
+      }
     }
   }
 
@@ -256,7 +258,7 @@ export const calculateBalPoolAPRs = async (
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
   const blocksPerYear =
-    ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock;
+    ONE_YEAR_IN_SECONDS / (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
   const rewardsPerYear = rewardsPerBlock * blocksPerYear;
 
   const valueRewardedPerYear =

@@ -222,7 +222,7 @@ export async function calculateTriFarmsAPY(
         ) *
           ONE_YEAR_IN_SECONDS *
           model.priceOfSync(rewardId, jar.chain)) /
-        Chains.get(jar.chain).secondsPerBlock;
+          (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
 
       const totalSupply = parseFloat(formatEther(totalSupplyBN));
 
@@ -236,7 +236,7 @@ export async function calculateTriFarmsAPY(
     totalAllocPointBN.toNumber();
   const rewardsPerYear =
     rewardsPerBlock *
-    (ONE_YEAR_IN_SECONDS / Chains.get(jar.chain).secondsPerBlock);
+    (ONE_YEAR_IN_SECONDS / (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
 
   const totalSupply = parseFloat(formatEther(totalSupplyBN));
   const triRewardedPerYear =

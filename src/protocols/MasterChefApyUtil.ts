@@ -54,8 +54,7 @@ export async function calculateMasterChefRewardsAPR(
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
-  // TODO move average block time to the chain??
-  const avgBlockTime = Chains.get(jar.chain).secondsPerBlock;
+  const avgBlockTime = await Chains.getAccurateSecondsPerBlock(jar.chain, model);
   const rewardsPerYear = rewardsPerBlock * (ONE_YEAR_IN_SECONDS / avgBlockTime);
   const rewardTokenPrice = model.priceOfSync(rewardTokenAddress, jar.chain);
   let rewardTokenName =

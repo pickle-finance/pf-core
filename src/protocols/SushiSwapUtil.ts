@@ -184,7 +184,7 @@ export async function calculateSushiRewardApr(
 
     const sushiRewardsPerYear =
       sushiRewardsPerBlock *
-      (ONE_YEAR_SECONDS / Chains.get(chain).secondsPerBlock);
+      (ONE_YEAR_SECONDS / (await Chains.getAccurateSecondsPerBlock(chain, model)));
     const valueRewardedPerYear =
       model.priceOfSync("sushi", chain) * sushiRewardsPerYear;
 
@@ -227,7 +227,7 @@ export async function calculateMCv2SushiRewards(
 
   const sushiRewardsPerYear =
     sushiRewardsPerBlock *
-    (ONE_YEAR_SECONDS / Chains.get(chain).secondsPerBlock);
+    (ONE_YEAR_SECONDS / (await Chains.getAccurateSecondsPerBlock(chain, model)));
   const valueRewardedPerYear =
     model.priceOfSync("sushi", chain) * sushiRewardsPerYear;
   const pricePerToken = model.priceOfSync(lpTokenAddress, chain);
@@ -264,12 +264,10 @@ export async function calculateMCv2TokenRewards(
     const [tokenPerBlockBN] = await multiProvider.all([
       rewarder.tokenPerBlock(),
     ]);
-    const secPerBl = Chains.get(chain).secondsPerBlock;
+    const secPerBl = await Chains.getAccurateSecondsPerBlock(chain, model);
     rewardsPerYear =
       (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) /
-      Chains.get(chain).secondsPerBlock;
-    const rewardsPerYear2 =
-      (parseFloat(formatEther(tokenPerBlockBN)) * ONE_YEAR_SECONDS) / 13;
+      secPerBl;
   } else if (rewardToken === "cvx") {
     const [tokenPerSecondBN] = await multiProvider.all([rewarder.rewardRate()]);
     rewardsPerYear =

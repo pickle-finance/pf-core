@@ -150,14 +150,14 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       (x) =>
         new MultiContract(model.address(x, jar.chain), erc20Abi, multiProvider),
     );
-    let strategyContract;
+    let strategyContract: MultiContract;
     try {
       strategyContract = new MultiContract(
         jar.details.strategyAddr,
         strategyAbi,
       );
     } catch (error) {
-      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDComManImplementation", '', ''+error, ErrorSeverity.ERROR_3));
+      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDComManImplementation", '', '' + error, ErrorSeverity.ERROR_3));
     }
 
     const promises: Promise<any>[] = [];
@@ -198,6 +198,9 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     return runningTotal;
   }
 
+  /**
+  * @param rewardTokens - can be token names or addresses
+  */
   async getHarvestableUSDDefaultImplementationV2(
     jar: JarDefinition,
     model: PickleModel,
@@ -205,21 +208,21 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     strategyAbi: any,
   ): Promise<number> {
     const multiProvider = model.multiproviderFor(jar.chain);
-    const rewardTokensAddresses = rewardTokens.map(token=>model.address(token,jar.chain))
+    const rewardTokensAddresses = rewardTokens.map(token => model.address(token, jar.chain))
     const rewardContracts: MultiContract[] = rewardTokensAddresses.map(
       (x) =>
         new MultiContract(model.address(x, jar.chain), erc20Abi, multiProvider),
     );
-    let strategyContract;
+    let strategyContract: MultiContract;
     try {
       strategyContract = new MultiContract(
         jar.details.strategyAddr,
         strategyAbi,
       );
     } catch (error) {
-      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2", '', ''+error, ErrorSeverity.ERROR_3));
+      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2", '', '' + error, ErrorSeverity.ERROR_3));
     }
-    
+
     const promises: Promise<any>[] = [];
     for (let i = 0; i < rewardTokensAddresses.length; i++) {
       promises.push(
@@ -234,7 +237,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         .all([strategyContract.getHarvestable()])
         .then((x) => x[0])
         .catch(() => {
-          return[rewardTokensAddresses, 
+          return [rewardTokensAddresses,
             new Array(rewardTokensAddresses.length).fill(BigNumber.from("0"))
           ]
         }),

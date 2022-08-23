@@ -172,12 +172,14 @@ export async function getDillDetails(
       ethers.utils.formatEther(picklesLocked),
     );
     const dillSupplyFloat = parseFloat(ethers.utils.formatEther(dillSupply));
+    const ethBlocktime = await Chains.getAccurateSecondsPerBlock(ChainNetwork.Ethereum, model);
+    const ethBlocktimeRounded = Math.round(ethBlocktime);
     const weeklyPickleEmittedWei = ppb
       .mul(60)
       .mul(60)
       .mul(24)
       .mul(7)
-      .div(Chains.get(ChainNetwork.Ethereum).secondsPerBlock);
+      .div(ethBlocktimeRounded);
     const weeklyPickleEmittedNum: number =
       weeklyPickleEmittedWei.div(1e9).div(1e6).toNumber() / 1e3;
     const dillEmissionsPct = picklesLockedFloat / pickleSupplyFloat;

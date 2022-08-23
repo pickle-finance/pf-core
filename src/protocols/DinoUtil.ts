@@ -17,7 +17,7 @@ export const dinoPoolIds: PoolId = {
 export async function calculateFossilFarmsAPY(
   jar: JarDefinition,
   model: PickleModel,
-) {
+):Promise<number> {
   const multiProvider = model.multiproviderFor(jar.chain);
   const multicallFossilFarms = new Contract(FOSSIL_FARMS, fossilFarmsAbi);
   const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
@@ -40,7 +40,7 @@ export async function calculateFossilFarmsAPY(
 
   const rewardsPerYear =
     rewardsPerBlock *
-    ((360 * 24 * 60 * 60) / Chains.get(jar.chain).secondsPerBlock);
+    ((360 * 24 * 60 * 60) / (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
   const dinoRewardedPerYear =
     model.priceOfSync("dino", jar.chain) * rewardsPerYear;
   const totalValueStaked = totalSupply * pricePerToken;

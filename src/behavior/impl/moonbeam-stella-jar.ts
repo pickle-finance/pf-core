@@ -76,7 +76,7 @@ export abstract class MoonbeamStellaJar extends AbstractJarBehavior {
       (parseFloat(formatEther(stellaPerBlockBn)) *
         poolInfo.allocPoint.toNumber() *
         ONE_YEAR_IN_SECONDS) /
-      (totalAllocPointBN.toNumber() * Chains.get(jar.chain).secondsPerBlock);
+      (totalAllocPointBN.toNumber() * (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
 
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
     const stellaRewardedPerYear =
