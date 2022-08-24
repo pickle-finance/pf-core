@@ -2340,18 +2340,24 @@ export class PickleModel implements ErrorLogger {
     }
 
     DEBUG_OUT("End loadPlatformData: " + (Date.now() - start));
-    return {
-      pickleTotalSupply: this.dillDetails.totalPickle,
-      pickleCirculatingSupply:
-        this.dillDetails.totalPickle - this.dillDetails.pickleLocked,
-      pickleMarketCap:
-        this.dillDetails.totalPickle *
-        this.priceOfSync("pickle", ChainNetwork.Ethereum),
-      picklePerBlock: this.ppb ? this.ppb.toString() : "0",
-      platformTVL: tvl,
-      platformBlendedRate: tvl === 0 ? 0 : blendedRateSum / tvl,
-      harvestPending: harvestPending,
-    };
+    if( this.dillDetails ) {
+      return {
+        pickleTotalSupply: this.dillDetails.totalPickle,
+        pickleCirculatingSupply:
+          this.dillDetails.totalPickle - this.dillDetails.pickleLocked,
+        pickleMarketCap:
+          this.dillDetails.totalPickle *
+          this.priceOfSync("pickle", ChainNetwork.Ethereum),
+        picklePerBlock: this.ppb ? this.ppb.toString() : "0",
+        platformTVL: tvl,
+        platformBlendedRate: tvl === 0 ? 0 : blendedRateSum / tvl,
+        harvestPending: harvestPending,
+      };
+    }
+    // dill details didn't load. Let's pull from previous
+    if( this.previousPfcore ) {
+      return this.previousPfcore.platform;
+    }
   }
 
   logLocalError(err: LocalError): void {
