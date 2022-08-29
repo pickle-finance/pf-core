@@ -9,7 +9,8 @@ import {
   ONE_YEAR_IN_SECONDS,
 } from "../AbstractJarBehavior";
 import { ChainNetwork, Chains } from "../../chain/Chains";
-import { formatEther, formatUnits } from "ethers/lib/utils";
+import { formatUnits } from "ethers/lib/utils";
+import { BigNumber } from "ethers";
 
 const pool_abi = ["function convertRate() view returns(uint256)"];
 
@@ -107,24 +108,36 @@ export class StargateJar extends AbstractJarBehavior {
 
     const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
-    const [stgPerSecBn, totalAllocPointBN, poolInfo, totalSupplyBN, decimals] =
-      await multiProvider.all([
-        starchefMC.stargatePerBlock(),
-        starchefMC.totalAllocPoint(),
-        starchefMC.poolInfo(starAddresses.poolId[jar.depositToken.addr]),
-        lpToken.balanceOf(starAddresses.farm),
-        lpToken.decimals(),
-      ]);
+    const [
+      stgPerBlockBn,
+      totalAllocPointBN,
+      poolInfo,
+      totalSupplyBN,
+      decimals,
+    ] = await multiProvider.all([
+      starchefMC.stargatePerBlock(),
+      starchefMC.totalAllocPoint(),
+      starchefMC.poolInfo(starAddresses.poolId[jar.depositToken.addr]),
+      lpToken.balanceOf(starAddresses.farm),
+      lpToken.decimals(),
+    ]);
+    const chain =
+      jar.chain === ChainNetwork.Arbitrum ? ChainNetwork.Ethereum : jar.chain;
+    const blocktime = await Chains.getAccurateSecondsPerBlock(chain, model);
+    const blocksPerYear = Math.round(ONE_YEAR_IN_SECONDS / blocktime);
+    const stgDecimals = model.tokenDecimals("stg", jar.chain);
 
-    const rewardsPerYear =
-      (parseFloat(formatEther(stgPerSecBn)) *
-        poolInfo.allocPoint.toNumber() *
-        ONE_YEAR_IN_SECONDS) /
-      (totalAllocPointBN.toNumber() * (await Chains.getAccurateSecondsPerBlock(jar.chain, model)));
+    const rewardsRate: BigNumber = stgPerBlockBn
+      .mul(poolInfo.allocPoint)
+      .div(totalAllocPointBN);
+    const rewardsPerYearBN: BigNumber = rewardsRate.mul(
+      BigNumber.from(blocksPerYear),
+    );
     const totalSupply = parseFloat(formatUnits(totalSupplyBN, decimals));
 
     const stgRewardedPerYear =
-      model.priceOfSync("stg", jar.chain) * rewardsPerYear;
+      model.priceOfSync("stg", jar.chain) *
+      parseFloat(formatUnits(rewardsPerYearBN, stgDecimals));
     const totalValueStaked = totalSupply * pricePerToken;
     const stgApy = stgRewardedPerYear / totalValueStaked;
 
