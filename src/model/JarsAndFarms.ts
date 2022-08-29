@@ -591,7 +591,7 @@ export const JAR_UNIV2_MIR_UST: JarDefinition = {
     components: ["mir", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -645,7 +645,7 @@ export const JAR_UNIV2_MAAPL_UST: JarDefinition = {
     components: ["maapl", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -672,7 +672,7 @@ export const JAR_UNIV2_MQQQ_UST: JarDefinition = {
     components: ["mqqq", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -699,7 +699,7 @@ export const JAR_UNIV2_MSLV_UST: JarDefinition = {
     components: ["mslv", "ust"],
   },
   rewardTokens: ["mir"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.UNISWAP,
   details: {
@@ -6440,7 +6440,7 @@ export const JAR_AURORA_ROSE_USTPOOL_LP: JarDefinition = {
     components: ["rose3pool", "ust"],
   },
   rewardTokens: ["rose"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.ROSE,
   details: {
