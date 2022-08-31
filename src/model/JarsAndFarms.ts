@@ -8761,7 +8761,7 @@ export const JAR_OPTIMISM_STAR_ETH: JarDefinition = {
     decimals: 18,
   },
   rewardTokens: ["op"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.STARGATE,
   stakingProtocol: AssetProtocol.STARGATE,
