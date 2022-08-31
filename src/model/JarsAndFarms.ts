@@ -8752,7 +8752,7 @@ export const JAR_OPTIMISM_STAR_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 2b",
   contract: "0xeb48138A30c80aF6050a2ae53230936C69973aEA",
-  startBlock: 4810772, startTimestamp: 1648150183,
+  startBlock: 21066191, startTimestamp: 1661806366,
   depositToken: {
     addr: "0xd22363e3762cA7339569F3d33EADe20127D5F98C",
     name: "STARGATE ETH",
@@ -9317,6 +9317,35 @@ export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_BEETX_ETH_IB);
+
+export const JAR_OPTIMISM_BEETX_ETH_RETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 4b",
+  contract: "0x2Dd866132bC31C5bD40b7ae381C67dbf7A74E56B",
+  startBlock: 21366353, startTimestamp: 1661964364,
+  depositToken: {
+    addr: "0x4Fd63966879300caFafBB35D157dC5229278Ed23",
+    name: "BEETX ETH/RETH",
+    link: "https://op.beets.fi/pool/0x4fd63966879300cafafbb35d157dc5229278ed2300020000000000000000002b",
+    components: ["eth", "reth"],
+  },
+  rewardTokens: ["bal"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "OP-BEETX-ETH-RETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pBEETX ETH/RETH",
+    farmDepositTokenName: "pBEETX ETH/RETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_BEETX_ETH_RETH);
+
 
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {

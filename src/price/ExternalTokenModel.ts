@@ -2192,6 +2192,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "reth",
+      null,
+      "rocket-pool-eth",
+      "0x9Bcef72be871e61ED4fBbc7630889beE758eb81D".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(
