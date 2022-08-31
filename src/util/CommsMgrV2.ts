@@ -8,10 +8,10 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
     ["https://eth-mainnet.public.blastapi.io"],
     ["https://cloudflare-eth.com"],
     ["https://rpc.ankr.com/eth"],
-    ["https://nodes.mewapi.io/rpc/eth"],
     ["https://eth-rpc.gateway.pokt.network"],
     ["https://rpc.flashbots.net"],
     ["https://api.mycryptoapi.com/eth"],
+    // ["https://nodes.mewapi.io/rpc/eth"],
     // ["https://main-light.eth.linkpool.io", { callsDelay: 1 }],  // Very flaky
     // ["https://main-rpc.linkpool.io", { callsDelay: 1, batchSize: 30 }], // Very flaky
     // ["https://ethereumnodelight.app.runonflux.io", { callsDelay: 0.75 }], // unreliable
@@ -41,13 +41,13 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
   gnosis: [
     ["https://gnosis-mainnet.public.blastapi.io"],
     ["https://rpc.ankr.com/gnosis"],
-    ["https://xdai.poanetwork.dev"],
-    ["https://dai.poa.network"],
-    ["https://rpc.xdaichain.com"],
     ["https://rpc-df.xdaichain.com"],
     ["https://gnosischain-rpc.gateway.pokt.network"],
     ["https://xdai-archive.blockscout.com"],
     ["https://xdai-rpc.gateway.pokt.network"],
+    // ["https://rpc.xdaichain.com"],
+    // ["https://xdai.poanetwork.dev"],
+    // ["https://dai.poa.network"],
     // ["https://rpc.gnosischain.com"], // doesn't support Access-Control-Allow-Origin, causing calls to it to be blocked on UI by CORS policy
     // ["wss://xdai.poanetwork.dev/wss"],  // offline
     // ["wss://rpc.gnosischain.com/wss"],  // offline
