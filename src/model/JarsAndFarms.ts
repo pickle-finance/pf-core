@@ -8725,7 +8725,7 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   depositToken: {
     addr: "0xDecC0c09c3B5f6e92EF4184125D5648a66E35298",
     name: "STARGATE USDC",
-    link: "https://stargate.finance/pool/USDC-Optimism",
+    link: "https://stargate.finance/pool/USDC-Optimism/add",
     components: ["usdc"],
     decimals: 6,
   },
@@ -8735,6 +8735,7 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   protocol: AssetProtocol.STARGATE,
   stakingProtocol: AssetProtocol.STARGATE,
   details: {
+    controller: "0xA1D43D97Fc5F1026597c67805aA02aAe558E0FeF",
     apiKey: "STG-OPTIMISM-USDC",
     harvestStyle: HarvestStyle.PASSIVE,
     decimals: 6,
@@ -8746,6 +8747,37 @@ export const JAR_OPTIMISM_STAR_USDC: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_STAR_USDC);
+
+export const JAR_OPTIMISM_STAR_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 2b",
+  contract: "0xeb48138A30c80aF6050a2ae53230936C69973aEA",
+  startBlock: 4810772, startTimestamp: 1648150183,
+  depositToken: {
+    addr: "0xd22363e3762cA7339569F3d33EADe20127D5F98C",
+    name: "STARGATE ETH",
+    link: "https://stargate.finance/pool/ETH-OPTIMISM/add",
+    components: ["eth"],
+    decimals: 18,
+  },
+  rewardTokens: ["op"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.STARGATE,
+  stakingProtocol: AssetProtocol.STARGATE,
+  details: {
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+    apiKey: "STG-OPTIMISM-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 18,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pSTG ETH",
+    farmDepositTokenName: "pSTG ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_STAR_ETH);
 
 export const JAR_OPTIMISM_UNIV3_ETH_BTC: JarDefinition = {
   type: AssetType.JAR,
