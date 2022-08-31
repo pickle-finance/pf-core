@@ -1,7 +1,6 @@
 import { PickleModel, toError } from "../../model/PickleModel";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
-import strategyV2Abi from "../../Contracts/ABIs/strategy-v2.json";
 import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 import { Chains } from "../../chain/Chains";
 import fetch from "cross-fetch";
@@ -22,12 +21,7 @@ export class VeloJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ):Promise<number> {
-    return this.getHarvestableUSDDefaultImplementationV2(
-      jar,
-      model,
-      ["velo"],
-      strategyV2Abi,
-    );
+    return this.getHarvestableUSDDefaultImplementationV2(jar,model);
   }
 
 
