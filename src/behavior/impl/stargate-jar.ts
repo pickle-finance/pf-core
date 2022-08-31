@@ -11,6 +11,7 @@ import {
 import { ChainNetwork, Chains } from "../../chain/Chains";
 import { formatUnits } from "ethers/lib/utils";
 import { BigNumber } from "ethers";
+import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 
 const pool_abi = ["function convertRate() view returns(uint256)"];
 
@@ -88,6 +89,13 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
+    if (
+      jar.chain === ChainNetwork.Optimism &&
+      // TODO remove this condition once STG-OPTIMISM-USDC is migrated to the new strategy
+      jar.details.strategyAddr.toLowerCase() !=
+        "0xC7b58Fa7Bb3aC9Cf68163D0E6e0d533F441cb921".toLowerCase()
+    )
+      return this.getHarvestableUSDDefaultImplementationV2(jar, model);
     return this.getHarvestableUSDDefaultImplementation(
       jar,
       model,
@@ -100,6 +108,13 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
+    if (
+      jar.chain === ChainNetwork.Optimism &&
+      // TODO remove this condition once STG-OPTIMISM-USDC is migrated to the new strategy
+      jar.details.strategyAddr.toLowerCase() !=
+        "0xC7b58Fa7Bb3aC9Cf68163D0E6e0d533F441cb921".toLowerCase()
+    )
+      return this.getOptimismRewardApr(jar, model);
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
     const starAddresses = starMapping[jar.chain];
@@ -145,6 +160,73 @@ export class StargateJar extends AbstractJarBehavior {
       this.createAprComponent(
         "stg",
         stgApy * 100,
+        true,
+        1 - Chains.get(jar.chain).defaultPerformanceFee,
+      ),
+    ]);
+  }
+
+  async getOptimismRewardApr(
+    jar: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetProjectedApr> {
+    const strategyAbi = [
+      "function stakingContract() view returns(address)",
+      "function poolId() view returns(uint256)",
+    ];
+    const chefAbi = [
+      "function eToken() view returns(address)",
+      "function eTokenPerSecond() view returns(uint256)",
+      "function totalAllocPoint() view returns(uint256)",
+      "function poolInfo(uint256) view returns(address lpToken,uint256 allocPoint,uint256 lastRewardTime,uint256 accEmissionPerShare)",
+    ];
+
+    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategy = new Contract(jar.details.strategyAddr, strategyAbi);
+    const [chefAddr, poolIdBN] = await multiProvider.all([
+      strategy.stakingContract(),
+      strategy.poolId(),
+    ]);
+    const starchefMC = new Contract(chefAddr, chefAbi);
+
+    const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
+
+    const [
+      eTokenAddr,
+      eTokenPerSecondBN,
+      totalAllocPointBN,
+      poolInfo,
+      totalSupplyBN,
+      decimals,
+    ] = await multiProvider.all([
+      starchefMC.eToken(),
+      starchefMC.eTokenPerSecond(),
+      starchefMC.totalAllocPoint(),
+      starchefMC.poolInfo(poolIdBN.toNumber()),
+      lpToken.balanceOf(chefAddr),
+      lpToken.decimals(),
+    ]);
+
+    const eToken = ExternalTokenModelSingleton.getToken(eTokenAddr, jar.chain);
+
+    const rewardsPerYearBN: BigNumber = eTokenPerSecondBN
+      .mul(ONE_YEAR_IN_SECONDS)
+      .mul(poolInfo.allocPoint)
+      .div(totalAllocPointBN);
+    const totalSupply = parseFloat(formatUnits(totalSupplyBN, decimals));
+
+    const eTokenRewardedPerYear =
+      (eToken.price ?? 0) *
+      parseFloat(formatUnits(rewardsPerYearBN, eToken.decimals));
+    const totalValueStaked = totalSupply * pricePerToken;
+    const eTokenApy = eTokenRewardedPerYear / totalValueStaked;
+
+    return this.aprComponentsToProjectedApr([
+      this.createAprComponent(
+        eToken.id,
+        eTokenApy * 100,
         true,
         1 - Chains.get(jar.chain).defaultPerformanceFee,
       ),
