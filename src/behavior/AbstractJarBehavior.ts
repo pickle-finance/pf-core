@@ -157,7 +157,8 @@ export abstract class AbstractJarBehavior implements JarBehavior {
         strategyAbi,
       );
     } catch (error) {
-      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDComManImplementation", '', '' + error, ErrorSeverity.ERROR_3));
+      // prettier-ignore
+      model.logPlatformError(toError(301000,jar.chain,jar.details.apiKey,"getHarvestableUSDComManImplementation","","" + error,ErrorSeverity.ERROR_3));
     }
 
     const promises: Promise<any>[] = [];
@@ -199,70 +200,78 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   }
 
   /**
-  * @param rewardTokens - can be token names or addresses
-  */
+   * @description for jars with strategy-v2
+   */
   async getHarvestableUSDDefaultImplementationV2(
     jar: JarDefinition,
     model: PickleModel,
-    rewardTokens: string[],
-    strategyAbi: any,
   ): Promise<number> {
+    // prettier-ignore
+    const strategyV2Abi =["function getHarvestable() view returns(address[], uint256[])"]
     const multiProvider = model.multiproviderFor(jar.chain);
-    const rewardTokensAddresses = rewardTokens.map(token => model.address(token, jar.chain))
-    const rewardContracts: MultiContract[] = rewardTokensAddresses.map(
-      (x) =>
-        new MultiContract(model.address(x, jar.chain), erc20Abi, multiProvider),
-    );
     let strategyContract: MultiContract;
     try {
       strategyContract = new MultiContract(
         jar.details.strategyAddr,
-        strategyAbi,
+        strategyV2Abi,
       );
     } catch (error) {
+      // prettier-ignore
       model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2", '', '' + error, ErrorSeverity.ERROR_3));
     }
 
-    const promises: Promise<any>[] = [];
-    for (let i = 0; i < rewardTokensAddresses.length; i++) {
-      promises.push(
-        multiProvider
-          .all([rewardContracts[i].balanceOf(jar.details.strategyAddr)])
-          .then((x) => x[0])
-          .catch(() => BigNumber.from("0")),
-      );
-    }
-    promises.push(
-      multiProvider
-        .all([strategyContract.getHarvestable()])
-        .then((x) => x[0])
-        .catch(() => {
-          return [rewardTokensAddresses,
-            new Array(rewardTokensAddresses.length).fill(BigNumber.from("0"))
-          ]
-        }),
+    let rewardTokensAddresses: string[] = jar.rewardTokens.map((token) =>
+      model.address(token, jar.chain),
     );
 
-    const results: any[] = await Promise.all(promises);
-    const walletBalances = results.slice(0, results.length - 1);
-    const tmpStrategyHarvestables = results[results.length - 1];
-    const strategyHarvestables: BigNumber[] = tmpStrategyHarvestables
-      ? [].concat(tmpStrategyHarvestables[1])
+    const stratHarvestables: [string[], BigNumber[]] = await multiProvider
+      .all([strategyContract.getHarvestable()])
+      .then((x) => x[0])
+      .catch(() => {
+        return [
+          rewardTokensAddresses,
+          new Array(rewardTokensAddresses.length).fill(BigNumber.from("0")),
+        ];
+      });
+
+    rewardTokensAddresses = stratHarvestables[0].map((token) =>
+      model.address(token, jar.chain),
+    );
+
+    const promises: Promise<BigNumber>[] = rewardTokensAddresses.map(
+      (token) => {
+        const tokenContract: MultiContract = new MultiContract(
+          model.address(token, jar.chain),
+          erc20Abi,
+          multiProvider,
+        );
+        return multiProvider
+          .all([tokenContract.balanceOf(jar.details.strategyAddr)])
+          .then((x) => x[0])
+          .catch(() => BigNumber.from("0"));
+      },
+    );
+
+    const walletBalances = await Promise.all(promises);
+    const strategyHarvestables: BigNumber[] = stratHarvestables
+      ? [].concat(stratHarvestables[1])
       : [];
     const rewardTokenPrices = rewardTokensAddresses.map((x) =>
       model.priceOfSync(x, jar.chain),
     );
 
-    let runningTotal = 0;
-    for (let i = 0; i < rewardTokensAddresses.length; i++) {
-      runningTotal += oneRewardSubtotal(
-        strategyHarvestables[i],
-        walletBalances[i],
-        rewardTokenPrices[i],
-        model.tokenDecimals(rewardTokensAddresses[i], jar.chain),
-      );
-    }
-    return runningTotal;
+    const total = rewardTokensAddresses.reduce(
+      (cum, _, idx) =>
+        cum +
+        oneRewardSubtotal(
+          strategyHarvestables[idx],
+          walletBalances[idx],
+          rewardTokenPrices[idx],
+          model.tokenDecimals(rewardTokensAddresses[idx], jar.chain),
+        ),
+      0,
+    );
+    return total;
   }
 
   async getHarvestableUSDMasterchefImplementation(
