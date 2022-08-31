@@ -251,5 +251,6 @@
   "token.all.velo.desc": "The governance token for Velodrome protocol. It is rewarded as incentives for the protocol's liquidity providers and uses ve(3,3) model for its revenue sharing and governance.",
   "token.all.ageur.desc": "Angle Protocol's stablecoin, pegged to the euro.",
   "token.all.aelin.desc": "The governance token for Aelin Fundraising Protocol. Holders of the token can elect representative to take protocol-level decisions on their belhalf. Staking the tokens allows users to get a share of the inflation rate.",
-  "token.all.l2dao.desc": "The governance token for Layer2DAO, a project focused on supporting and investing in Ethereum's Layer-2 solutions. Token holders are able to propose and vote on the project's current and future directions."
+  "token.all.l2dao.desc": "The governance token for Layer2DAO, a project focused on supporting and investing in Ethereum's Layer-2 solutions. Token holders are able to propose and vote on the project's current and future directions.",
+  "token.all.reth.desc": "rETH is a liquid staking token provided by Rocket Pool protocol. The token bears staking rewards accumulated on Ethereum's proof-of-stake layer."
 }
