@@ -9330,7 +9330,7 @@ export const JAR_OPTIMISM_BEETX_ETH_RETH: JarDefinition = {
     components: ["eth", "reth"],
   },
   rewardTokens: ["bal"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
