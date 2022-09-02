@@ -444,6 +444,11 @@ import {
   JAR_OPTIMISM_BEETX_ETH_IB,
   JAR_OPTIMISM_STAR_ETH,
   JAR_OPTIMISM_BEETX_ETH_RETH,
+  JAR_OPTIMISM_VELO_USDC_MAI_S,
+  JAR_OPTIMISM_VELO_USDC_SUSD_S,
+  JAR_OPTIMISM_VELO_USDC_SNX_V,
+  JAR_OPTIMISM_VELO_ETH_SETH_S,
+  JAR_OPTIMISM_VELO_ETH_ALETH_S,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -1059,6 +1064,11 @@ jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_OP_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_AELIN_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_OP_L2DAO_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_ALUSD_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_MAI_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_SUSD_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_SNX_V.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_SETH_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_ALETH_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_IB.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_RETH.id, new OPBeetXJar());
 

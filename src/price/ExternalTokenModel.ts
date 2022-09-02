@@ -2195,12 +2195,50 @@ export class ExternalTokenModel {
     this.addToken(
       ChainNetwork.Optimism,
       "reth",
-      null,
+      "rETH",
       "rocket-pool-eth",
       "0x9Bcef72be871e61ED4fBbc7630889beE758eb81D".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "mai",
+      null,
+      "mimatic",
+      "0xdFA46478F9e5EA86d57387849598dbFB2e964b02".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "seth",
+      "sETH",
+      "seth",
+      "0xE405de8F52ba7559f9df3C368500B6E6ae6Cee49".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "snx",
+      null,
+      "havven",
+      "0x8700dAec35aF8Ff88c16BdF0418774CB3D7599B4".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "aleth",
+      "alETH",
+      "",
+      "0x3E29D3A9316dAB217754d13b28646B76607c5f04".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ["0xd52B3eAc7eF128B879dB10FFbD94E29Fe65A34d8"],   // VELO ETH-alETH vLP
+    );
+
 
     // Fantom
     this.addToken(
