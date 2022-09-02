@@ -449,6 +449,7 @@ import {
   JAR_OPTIMISM_VELO_USDC_SNX_V,
   JAR_OPTIMISM_VELO_ETH_SETH_S,
   JAR_OPTIMISM_VELO_ETH_ALETH_S,
+  JAR_OPTIMISM_STAR_USDC_1,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -1045,6 +1046,7 @@ jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_OP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
+jarToBehavior.set(JAR_OPTIMISM_STAR_USDC_1.id, new StargateJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_ETH.id, new StargateJar());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_BTC.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_DAI.id, new Univ3Base());

@@ -89,12 +89,7 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    if (
-      jar.chain === ChainNetwork.Optimism &&
-      // TODO remove this condition once STG-OPTIMISM-USDC is migrated to the new strategy
-      jar.details.strategyAddr.toLowerCase() !=
-        "0xC7b58Fa7Bb3aC9Cf68163D0E6e0d533F441cb921".toLowerCase()
-    )
+    if (jar.chain === ChainNetwork.Optimism)
       return this.getHarvestableUSDDefaultImplementationV2(jar, model);
     return this.getHarvestableUSDDefaultImplementation(
       jar,
@@ -108,12 +103,7 @@ export class StargateJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    if (
-      jar.chain === ChainNetwork.Optimism &&
-      // TODO remove this condition once STG-OPTIMISM-USDC is migrated to the new strategy
-      jar.details.strategyAddr.toLowerCase() !=
-        "0xC7b58Fa7Bb3aC9Cf68163D0E6e0d533F441cb921".toLowerCase()
-    )
+    if (jar.chain === ChainNetwork.Optimism)
       return this.getOptimismRewardApr(jar, model);
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
@@ -181,8 +171,6 @@ export class StargateJar extends AbstractJarBehavior {
       "function poolInfo(uint256) view returns(address lpToken,uint256 allocPoint,uint256 lastRewardTime,uint256 accEmissionPerShare)",
     ];
 
-    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
-
     const multiProvider = model.multiproviderFor(jar.chain);
     const strategy = new Contract(jar.details.strategyAddr, strategyAbi);
     const [chefAddr, poolIdBN] = await multiProvider.all([
@@ -220,6 +208,9 @@ export class StargateJar extends AbstractJarBehavior {
     const eTokenRewardedPerYear =
       (eToken.price ?? 0) *
       parseFloat(formatUnits(rewardsPerYearBN, eToken.decimals));
+    const pricePerToken =
+      model.priceOfSync(jar.depositToken.addr, jar.chain) ??
+      jar.depositToken.price;
     const totalValueStaked = totalSupply * pricePerToken;
     const eTokenApy = eTokenRewardedPerYear / totalValueStaked;
 
