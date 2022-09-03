@@ -1,6 +1,7 @@
 import { BigNumber, ethers } from "ethers";
 import { Contract } from "ethers-multiprovider";
 import { JarHarvestStats, PickleModel } from "../..";
+import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   getUniV3,
@@ -25,27 +26,50 @@ export class Univ3Base extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const { position, proportion } = await getUniV3(definition, model);
+    const { position, proportion, pool } = await getUniV3(definition, model);
 
     const jarAmount0 = +position.amount0.toExact();
     const jarAmount1 = +position.amount1.toExact();
+
+    const isToken0Native = ExternalTokenModelSingleton.getToken(
+      pool.token0.address,
+      definition.chain,
+    ).isNativeToken;
+    const isToken1Native = ExternalTokenModelSingleton.getToken(
+      pool.token1.address,
+      definition.chain,
+    ).isNativeToken;
+
+    const token0Price = model.priceOfSync(
+      definition.depositToken.components[0],
+      definition.chain,
+    );
+
+    const token1Price = model.priceOfSync(
+      definition.depositToken.components[1],
+      definition.chain,
+    );
 
     definition.depositToken.componentTokens[0] = jarAmount0;
     definition.depositToken.componentTokens[1] = jarAmount1;
     definition.depositToken.totalSupply = definition.details.tokenBalance;
     definition.depositToken.proportion = proportion.toString();
 
-    const pJarUSD =
-      model.priceOfSync(
-        definition.depositToken.components[0],
-        definition.chain,
-      ) *
-        jarAmount0 +
-      model.priceOfSync(
-        definition.depositToken.components[1],
-        definition.chain,
-      ) *
-        jarAmount1;
+    // Assumes that one of token0 or token1 is native, if not, flag it (stablecoin pair)
+    definition.depositToken.range = {
+      lowerUsd: isToken0Native
+        ? position.token0PriceLower.toFixed()
+        : position.token0PriceLower.invert().toFixed(),
+      upperUsd: isToken0Native
+        ? position.token0PriceUpper.toFixed()
+        : position.token0PriceUpper.invert().toFixed(),
+      isStable: !(isToken0Native || isToken1Native),
+      isNotUsdPegged:
+        (token0Price < 0.98 || token0Price > 1.02) &&
+        (token1Price < 0.98 || token1Price > 1.02),
+    };
+
+    const pJarUSD = token0Price * jarAmount0 + token1Price * jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
     return perDepositToken;
   }

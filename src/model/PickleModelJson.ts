@@ -318,6 +318,12 @@ export interface DepositToken {
   components?: string[];
   componentTokens?: number[];
   proportion?: string;
+  range?: {
+    lowerUsd: string;
+    upperUsd: string;
+    isStable: boolean;
+    isNotUsdPegged: boolean;
+  };
   style?: DepositTokenStyle;
   price?: number;
   nativePath?: {
