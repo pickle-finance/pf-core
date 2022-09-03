@@ -54,8 +54,65 @@ export async function calculateMasterChefRewardsAPR(
       poolInfo.allocPoint.toNumber()) /
     totalAllocPointBN.toNumber();
 
-  const avgBlockTime = await Chains.getAccurateSecondsPerBlock(jar.chain, model);
+  const avgBlockTime = await Chains.getAccurateSecondsPerBlock(
+    jar.chain,
+    model,
+  );
   const rewardsPerYear = rewardsPerBlock * (ONE_YEAR_IN_SECONDS / avgBlockTime);
+  const rewardTokenPrice = model.priceOfSync(rewardTokenAddress, jar.chain);
+  let rewardTokenName =
+    ExternalTokenModelSingleton.findTokenFromContract(rewardTokenAddress)?.id;
+  if (rewardTokenName === undefined) rewardTokenName = "Reward-Token";
+  const valueRewardedPerYear = rewardTokenPrice * rewardsPerYear;
+
+  const { pricePerToken } = await pptPromise;
+  const totalValueStaked = totalSupply * pricePerToken;
+  const rewardAPR = (100 * valueRewardedPerYear) / totalValueStaked;
+  return { name: rewardTokenName, apr: rewardAPR, compoundable: true };
+}
+
+export async function calculateMasterChefRewardsAPRPerSecond(
+  jar: JarDefinition,
+  model: PickleModel,
+): Promise<AssetAprComponent> {
+  const controllerAddr = model.controllerForJar(jar);
+  if (!controllerAddr) {
+    return undefined;
+  }
+
+  const pptPromise = getLivePairDataFromContracts(jar, model, 18);
+  const multiProvider = model.multiproviderFor(jar.chain);
+  const controller = new Contract(controllerAddr, controllerAbi);
+  const [strategyAddr] = await multiProvider.all([
+    controller.strategies(jar.depositToken.addr),
+  ]);
+
+  const strategyContract = new Contract(strategyAddr, strategyAbi);
+  const [masterchefAddress, poolId, rewardTokenAddress] =
+    await multiProvider.all([
+      strategyContract.masterChef(),
+      strategyContract.poolId(),
+      strategyContract.rewardToken(),
+    ]);
+
+  const multicallMasterchef = new Contract(masterchefAddress, MasterchefAbi);
+
+  const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
+
+  const [sushiPerSecBN, totalAllocPointBN, poolInfo, totalSupplyBN] =
+    await multiProvider.all([
+      multicallMasterchef.rewardPerSecond(),
+      multicallMasterchef.totalAllocPoint(),
+      multicallMasterchef.poolInfo(poolId),
+      lpToken.balanceOf(masterchefAddress),
+    ]);
+
+  const totalSupply = parseFloat(formatEther(totalSupplyBN));
+  const rewardsPerSec =
+    (parseFloat(formatEther(sushiPerSecBN)) * poolInfo.allocPoint.toNumber()) /
+    totalAllocPointBN.toNumber();
+
+  const rewardsPerYear = rewardsPerSec * ONE_YEAR_IN_SECONDS;
   const rewardTokenPrice = model.priceOfSync(rewardTokenAddress, jar.chain);
   let rewardTokenName =
     ExternalTokenModelSingleton.findTokenFromContract(rewardTokenAddress)?.id;

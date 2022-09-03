@@ -7,7 +7,7 @@ import {
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { QuickswapPairManager } from "../../protocols/QuickswapUtil";
-import { calculateMasterChefRewardsAPR } from "../../protocols/MasterChefApyUtil";
+import { calculateMasterChefRewardsAPRPerSecond } from "../../protocols/MasterChefApyUtil";
 
 export class MimaticUSDC extends AbstractJarBehavior {
   protected strategyAbi: any;
@@ -34,7 +34,7 @@ export class MimaticUSDC extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const chefComponent: AssetAprComponent =
-      await calculateMasterChefRewardsAPR(definition, model);
+      await calculateMasterChefRewardsAPRPerSecond(definition, model);
     const lpApr: number = await new QuickswapPairManager().calculateLpApr(
       model,
       definition.depositToken.addr,
