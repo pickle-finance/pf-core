@@ -21,18 +21,18 @@ async function generateFullApi() {
   const errLogger: ErrorLogger = {
     async logPlatformError(err: PlatformError): Promise<void> {
       errArr.push(err);
-    }
+    },
   };
 
   let previousCore = undefined;
   try {
     previousCore = await fetch(
-    "https://api.pickle.finance/prod/protocol/pfcore",
-  ).then((response) => response.json());
-  } catch( error ) {
-      console.log("Previous version load failed");
+      "https://api.pickle.finance/prod/protocol/pfcore",
+    ).then((response) => response.json());
+  } catch (error) {
+    console.log("Previous version load failed");
   }
-  if( previousCore ) {
+  if (previousCore) {
     model.setPreviousPFCore(previousCore);
   }
   model.setErrorLogger(errLogger);
