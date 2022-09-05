@@ -18,6 +18,7 @@ export interface JarHarvestStats {
   earnableUSD: number;
   harvestableUSD: number;
   multiplier?: number;
+  harvestBlocked?: boolean;
 }
 
 export interface ActiveJarHarvestStats extends JarHarvestStats {

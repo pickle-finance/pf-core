@@ -115,6 +115,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       definition,
       model,
     );
+    const blocked = await this.getIsHarvestBlocked(definition, model, harvestableUSD);
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
@@ -128,12 +129,25 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       parseFloat(ethers.utils.formatUnits(available, depositTokenDecimals)) *
       depositTokenPrice;
 
-    return {
+    const ret: JarHarvestStats = {
       balanceUSD: balanceUSD,
       earnableUSD: availUSD,
       harvestableUSD: harvestableUSD,
     };
+    if( blocked ) {
+      ret.harvestBlocked = true;
+    }
+    return ret;
   }
+
+  async getIsHarvestBlocked(
+    _jar: JarDefinition,
+    _model: PickleModel,
+    _harvestableUsd: number
+  ): Promise<boolean> {
+    return false;
+  };
+
   abstract getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
@@ -407,7 +421,7 @@ export function getCompoundingAPY(apr: number): number {
   return 100 * (Math.pow(1 + apr / 365, 365) - 1);
 }
 
-export function isDisabledOrWithdrawOnly(asset: PickleAsset) {
+export function isDisabledOrWithdrawOnly(asset: PickleAsset): boolean {
   const arr = [
     AssetEnablement.PERMANENTLY_DISABLED,
     AssetEnablement.DISABLED,

@@ -1732,7 +1732,7 @@ export class PickleModel implements ErrorLogger {
     for (let j = 0; j < harvestableJars.length; j++) {
       if (results && results.length > j && results[j]) {
         const oneSettledResult = results[j];
-        const result = {
+        const result: JarHarvestStats = {
           balanceUSD: 0,
           earnableUSD: 0,
           harvestableUSD: 0,
@@ -1742,6 +1742,7 @@ export class PickleModel implements ErrorLogger {
           result.balanceUSD = toThreeDec(value.balanceUSD);
           result.earnableUSD = toThreeDec(value.earnableUSD);
           result.harvestableUSD = toThreeDec(value.harvestableUSD);
+          if( value.harvestBlocked ) result.harvestBlocked = value.harvestBlocked;
         } else {
           this.logPlatformError(
             toError(
