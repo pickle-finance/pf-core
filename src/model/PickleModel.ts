@@ -198,10 +198,13 @@ export const ADDRESSES = new Map([
   // ADD_CHAIN
 ]);
 
-export const GLOBAL_DEBUG_FLAG = false;
+export let GLOBAL_DEBUG_FLAG = false;
 export const DEBUG_OUT = (str: string): void => {
   if (GLOBAL_DEBUG_FLAG) console.log("[" + Date.now() + "] " + str);
 };
+export const setDebugMode = (val: boolean): void => {
+  GLOBAL_DEBUG_FLAG = val;
+}
 
 export class PickleModel implements ErrorLogger {
   private allErrors: PlatformError[] = [];
@@ -826,7 +829,6 @@ export class PickleModel implements ErrorLogger {
         }
       }
     }
-
     DEBUG_OUT("End ensurePriceCacheLoaded: " + (Date.now() - start));
   }
 
