@@ -20,6 +20,7 @@ import {
   StandaloneFarmDefinition,
 } from "../model/PickleModelJson";
 import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
+import { ExternalToken, ExternalTokenModelSingleton } from "../price/ExternalTokenModel";
 
 export function minichefAddressForChain(
   network: ChainNetwork,
@@ -28,9 +29,16 @@ export function minichefAddressForChain(
   return c ? c.minichef : undefined;
 }
 
+export function rewarderAddressForChain(
+  network: ChainNetwork,
+): string | undefined {
+  const c = ADDRESSES.get(network);
+  return c ? c.rewarder : undefined;
+}
+
 export async function secondsPerBlock(network: ChainNetwork, model: PickleModel): Promise<number | undefined> {
   try {
-    const secondsPerBlock = await Chains.getAccurateSecondsPerBlock(network,model);
+    const secondsPerBlock = await Chains.getAccurateSecondsPerBlock(network, model);
     return secondsPerBlock;
   } catch (error) {
     return undefined;
@@ -57,7 +65,7 @@ export async function setGaugeAprData(
         setAssetGaugeAprMinichef(
           rawGaugeData[i],
           model,
-          await secondsPerBlock(chain,model),
+          await secondsPerBlock(chain, model),
         );
       }
     }
@@ -83,31 +91,30 @@ export async function preloadRawGaugeData(
     try {
       rawGaugeData = await loadGaugeDataEth(tokens, model);
     } catch (error) {
-      model.logPlatformError(toError(200100, ChainNetwork.Ethereum, '', "preloadRawGaugeData", 
-      `Error calling loadGaugeDataEth`, '', ErrorSeverity.ERROR_5));
+      // prettier-ignore
+      model.logPlatformError(toError(200100, ChainNetwork.Ethereum, '', "preloadRawGaugeData", `Error calling loadGaugeDataEth`, '', ErrorSeverity.ERROR_5));
     }
   } else {
     // All other chains use minichef currently
     const minichefAddr: string = minichefAddressForChain(chain);
     if (minichefAddr !== undefined && minichefAddr !== NULL_ADDRESS) {
+      const rewarderAddr: string | undefined = rewarderAddressForChain(chain);
       try {
         rawGaugeData = await loadGaugeDataForMinichef(
           minichefAddr,
+          rewarderAddr,
           chain,
           tokens,
           model,
         );
       } catch (error) {
-        model.logPlatformError(toError(200101, chain, '', "preloadRawGaugeData", 
-        `Error calling loadGaugeDataForMinichef`, '', ErrorSeverity.ERROR_5));
+        // prettier-ignore
+        model.logPlatformError(toError(200101, chain, '', "preloadRawGaugeData", `Error calling loadGaugeDataForMinichef`, '', ErrorSeverity.ERROR_5));
       }
     }
   }
   DEBUG_OUT(
-    "End preloadRawGaugeData chain " +
-      chain +
-      ";  " +
-      (Date.now() - chainStart),
+    "End preloadRawGaugeData chain " + chain + ";  " + (Date.now() - chainStart),
   );
   return rawGaugeData;
 }
@@ -177,7 +184,7 @@ export async function setAssetGaugeAprEth(gauge: IRawGaugeData, model: PickleMod
   // Check if it's a normal jar
   const picklePrice = model.priceOfSync("pickle", ChainNetwork.Ethereum);
   const jar: JarDefinition = findJarForGauge(gauge, model);
-  const ethBlocktime = await secondsPerBlock(ChainNetwork.Ethereum,model);
+  const ethBlocktime = await secondsPerBlock(ChainNetwork.Ethereum, model);
   if (jar !== undefined) {
     let rrpy = gauge.rewardRatePerYear;
     if (!Number.isFinite(rrpy)) {
@@ -244,7 +251,7 @@ export function setAssetGaugeAprMinichef(
   gauge: IRawGaugeData,
   model: PickleModel,
   secPerBlock: number,
-) {
+):void {
   const picklePrice = model.priceOfSync("pickle", ChainNetwork.Ethereum);
   // Check if it's a normal jar
   const jar: JarDefinition = findJarForGauge(gauge, model);
@@ -271,10 +278,33 @@ export function setAssetGaugeAprMinichef(
     jar.farm.details.picklePerDay = gauge.poolPicklesPerYear / 360;
     jar.farm.details.picklePerBlock =
       (gauge.poolPicklesPerYear / ONE_YEAR_IN_SECONDS) * secPerBlock;
+
+    // Add extra rewards component if available
+    if (gauge.extraReward) {
+      let errpy = gauge.rewardRatePerYear;
+      const rewardPrice = gauge.extraReward.rewardToken.price ?? 0;
+      if (!Number.isFinite(errpy)) {
+        // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
+        errpy = ((errpy || 0) * rewardPrice) / (500 / jar.depositToken.price);
+      }
+      // If there's no money in the farm, use a default value
+      const denominator = jar.farm.details.valueBalance || 500;
+      const extraRewardApr = (100 * errpy * rewardPrice) / denominator;
+      const ec: AssetAprComponent = {
+        name: gauge.extraReward.rewardToken.id,
+        apr: extraRewardApr,
+        compoundable: false,
+      }
+
+      if (ec && ec.apr && jar.farm.details.farmApyComponents) {
+        jar.farm.details.farmApyComponents.push(ec);
+      }
+    }
+
     return;
   }
 
-  // Chek standalone farms
+  // Check standalone farms
   // This is likely wrong but we don't have standalone farms on other chains?
   const saFarm: StandaloneFarmDefinition = findStandaloneFarmForGauge(
     gauge,
@@ -369,11 +399,11 @@ export async function loadGaugeDataEth(
     );
 */
   // extract response and convert to something we can use
-  const ethBlocktime = await secondsPerBlock(ChainNetwork.Ethereum,model);
+  const ethBlocktime = await secondsPerBlock(ChainNetwork.Ethereum, model);
   const gauges: IRawGaugeData[] = tokens.map((token, idx) => {
     const rrpy = +derivedSupplies[idx].toString()
       ? (+gaugeRewardRates[idx].toString() / +derivedSupplies[idx].toString()) *
-        ONE_YEAR_IN_SECONDS
+      ONE_YEAR_IN_SECONDS
       : Number.POSITIVE_INFINITY;
 
     const alloc = +gaugeWeights[idx].toString() / +totalWeight.toString() || 0;
@@ -396,6 +426,7 @@ export async function loadGaugeDataEth(
 
 export async function loadGaugeDataForMinichef(
   minichefAddr: string,
+  rewarderAddr: string | undefined,
   chain: ChainNetwork,
   tokens: string[] | undefined,
   model: PickleModel,
@@ -426,9 +457,29 @@ export async function loadGaugeDataForMinichef(
   const poolInfo: any[] = await multiProvider.all(
     poolIds.map((id) => miniChefMulticall.poolInfo(id)),
   );
+
   const totalAllocPoints = poolInfo.reduce((acc, curr) => {
     return acc + curr.allocPoint.toNumber();
   }, 0);
+
+  // Fetch extra rewards stuff
+  let extraRewardPoolInfo: any, rewarderTotalAllocPoints: number, rewardToken: ExternalToken, rewardsPerSecond: number;
+  if (rewarderAddr) {
+    // prettier-ignore
+    const rewarderAbi = ["function poolInfo(uint256) view returns(uint128 accPicklePerShare,uint64 lastRewardTime,uint64 allocPoint)", "function pendingTokens(uint256 pid, address user, uint256) view returns (address[] rewardTokens, uint256[] rewardAmounts)",
+      "function rewardPerSecond() view returns (uint256)"];
+    const rewarderMulticall = new Contract(rewarderAddr, rewarderAbi);
+    const extraRewardPoolInfoSettled = await multiProvider.allSettled(
+      poolIds.map((id) => rewarderMulticall.poolInfo(id)),
+    );
+    extraRewardPoolInfo = extraRewardPoolInfoSettled.map(x => x.status === "fulfilled" ? x.value : { allocPoint: ethers.BigNumber.from(0) });
+    rewarderTotalAllocPoints = extraRewardPoolInfo.reduce((acc: number, curr: any) => {
+      return acc + curr.allocPoint.toNumber();
+    }, 0);
+    const [[rewardTokenAddresses,], rewardsPerSecBN] = await multiProvider.all([rewarderMulticall.pendingTokens(0, ethers.constants.AddressZero, 0), rewarderMulticall.rewardPerSecond()]);
+    rewardToken = ExternalTokenModelSingleton.getToken(rewardTokenAddresses[0], chain);
+    rewardsPerSecond = parseFloat(ethers.utils.formatUnits(rewardsPerSecBN, (rewardToken?.decimals ?? 18)));
+  }
 
   const ret: IRawGaugeData[] = [];
   for (let i = 0; i < poolInfo.length; i++) {
@@ -436,14 +487,32 @@ export async function loadGaugeDataForMinichef(
       poolInfo[i].allocPoint.toNumber() / totalAllocPoints;
     const poolPicklesPerYear =
       poolShareOfPickles * ONE_YEAR_IN_SECONDS * picklePerSecond;
-    ret.push({
+    const gaugeData: IRawGaugeData = {
       allocPoint: poolShareOfPickles,
       token: lpTokens[i],
       gaugeAddress: minichefAddr,
       poolPicklesPerYear: poolPicklesPerYear,
       rewardRatePerYear: poolPicklesPerYear,
       poolId: poolIds[i],
-    });
+    }
+
+    if (rewarderTotalAllocPoints > 0 && extraRewardPoolInfo[i].allocPoint.toNumber() > 0) {
+      const poolShareOfRewards =
+        extraRewardPoolInfo[i].allocPoint.toNumber() / rewarderTotalAllocPoints;
+      const poolRewardsPerYear =
+        poolShareOfRewards * ONE_YEAR_IN_SECONDS * rewardsPerSecond;
+      const extraReward: IExtraReward = {
+        allocPoint: poolShareOfRewards,
+        pToken: lpTokens[i],
+        rewardToken,
+        poolId: poolIds[i],
+        rewarderAddress: rewarderAddr,
+        rewardRatePerYear: poolRewardsPerYear
+      };
+      gaugeData.extraReward = extraReward;
+    }
+
+    ret.push(gaugeData);
   }
 
   // Filter out duplicates, keep the active ones
@@ -471,6 +540,16 @@ export interface IRawGaugeData {
   poolPicklesPerYear: number;
   rewardRate?: number;
   poolId?: number;
+  extraReward?: IExtraReward;
   //derivedSupply: number,
   //totalSupply: number
+}
+
+interface IExtraReward {
+  allocPoint: number;
+  pToken: string;
+  rewardToken: ExternalToken;
+  rewarderAddress: string;
+  rewardRatePerYear: number;
+  poolId: number;
 }

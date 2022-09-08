@@ -2238,6 +2238,15 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.SWAP_PAIRS,
       ["0xd52B3eAc7eF128B879dB10FFbD94E29Fe65A34d8"], // VELO ETH-alETH vLP
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "pickle",
+      "Pickle",
+      "pickle-finance",
+      "0x0c5b4c92c948691EEBf185C17eeB9c230DC019E9".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(

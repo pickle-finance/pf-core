@@ -167,10 +167,11 @@ export const ADDRESSES = new Map([
   [
     ChainNetwork.Optimism,
     {
-      pickle: NULL_ADDRESS,
-      masterChef: NULL_ADDRESS,
+      pickle: "0x0c5b4c92c948691EEBf185C17eeB9c230DC019E9",
+      masterChef: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
       controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
-      minichef: NULL_ADDRESS,
+      minichef: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+      rewarder: "0xE039f8102319aF854fe11489a19d6b5d2799ADa7",
       treasury: "0x7A79e2e867d36a91Bb47e0929787305c95E793C5",
     },
   ],

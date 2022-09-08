@@ -8892,7 +8892,7 @@ export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pZLP ETH/USDC",
     farmDepositTokenName: "pZLP ETH/USDC",
   },
@@ -8920,7 +8920,7 @@ export const JAR_OPTIMISM_ZIP_ETH_DAI: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pZLP ETH/DAI",
     farmDepositTokenName: "pZLP ETH/DAI",
   },
@@ -8948,7 +8948,7 @@ export const JAR_OPTIMISM_ZIP_ETH_WBTC: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pZLP ETH/WBTC",
     farmDepositTokenName: "pZLP ETH/WBTC",
   },
@@ -8976,7 +8976,7 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pZLP ETH/ZIP",
     farmDepositTokenName: "pZLP ETH/ZIP",
   },
@@ -9005,7 +9005,7 @@ export const JAR_OPTIMISM_ZIP_ETH_OP: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pZLP ETH/OP",
     farmDepositTokenName: "pZLP ETH/OP",
   },
@@ -9069,7 +9069,7 @@ export const JAR_OPTIMISM_STAR_ETH: JarDefinition = {
     decimals: 18,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pSTG ETH",
     farmDepositTokenName: "pSTG ETH",
   },
@@ -9101,7 +9101,7 @@ export const JAR_OPTIMISM_STAR_USDC_1: JarDefinition = {
     decimals: 6,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pSTG USDC",
     farmDepositTokenName: "pSTG USDC",
   },
@@ -9131,7 +9131,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_WBTC: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 ETH/BTC",
     farmDepositTokenName: "pUniV3 ETH/WBTC",
   },
@@ -9161,7 +9161,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_DAI: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 ETH/DAI",
     farmDepositTokenName: "pUniV3 ETH/DAI",
   },
@@ -9191,7 +9191,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_OP: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 ETH/OP",
     farmDepositTokenName: "pUniV3 ETH/OP",
   },
@@ -9221,7 +9221,7 @@ export const JAR_OPTIMISM_UNIV3_ETH_USDC: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 ETH/USDC",
     farmDepositTokenName: "pUniV3 ETH/USDC",
   },
@@ -9251,7 +9251,7 @@ export const JAR_OPTIMISM_UNIV3_SUSD_DAI: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 SUSD/DAI",
     farmDepositTokenName: "pUniV3 SUSD/DAI",
   },
@@ -9281,7 +9281,7 @@ export const JAR_OPTIMISM_UNIV3_USDC_SUSD: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 USDC/SUSD",
     farmDepositTokenName: "pUniV3 USDC/SUSD",
   },
@@ -9311,7 +9311,7 @@ export const JAR_OPTIMISM_UNIV3_USDC_DAI: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pUniV3 USDC/DAI",
     farmDepositTokenName: "pUniV3 USDC/DAI",
   },
@@ -9340,7 +9340,7 @@ export const JAR_OPTIMISM_VELO_USDC_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO VELO/USDC",
     farmDepositTokenName: "pVELO VELO/USDC",
   },
@@ -9369,7 +9369,7 @@ export const JAR_OPTIMISM_VELO_USDC_LYRA_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/LYRA",
     farmDepositTokenName: "pVELO USDC/LYRA",
   },
@@ -9398,7 +9398,7 @@ export const JAR_OPTIMISM_VELO_USDC_FRAX_S: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/FRAX",
     farmDepositTokenName: "pVELO USDC/FRAX",
   },
@@ -9427,7 +9427,7 @@ export const JAR_OPTIMISM_VELO_USDC_AGEUR_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/AGEUR",
     farmDepositTokenName: "pVELO USDC/AGEUR",
   },
@@ -9456,7 +9456,7 @@ export const JAR_OPTIMISM_VELO_OP_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO VELO/OP",
     farmDepositTokenName: "pVELO VELO/OP",
   },
@@ -9485,7 +9485,7 @@ export const JAR_OPTIMISM_VELO_OP_USDC_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO OP/USDC",
     farmDepositTokenName: "pVELO OP/USDC",
   },
@@ -9514,7 +9514,7 @@ export const JAR_OPTIMISM_VELO_ETH_USDC_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO ETH/USDC",
     farmDepositTokenName: "pVELO ETH/USDC",
   },
@@ -9543,7 +9543,7 @@ export const JAR_OPTIMISM_VELO_ETH_OP_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO ETH/OP",
     farmDepositTokenName: "pVELO ETH/OP",
   },
@@ -9572,7 +9572,7 @@ export const JAR_OPTIMISM_VELO_ETH_AELIN_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO ETH/AELIN",
     farmDepositTokenName: "pVELO ETH/AELIN",
   },
@@ -9601,7 +9601,7 @@ export const JAR_OPTIMISM_VELO_OP_L2DAO_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO OP/L2DAO",
     farmDepositTokenName: "pVELO OP/L2DAO",
   },
@@ -9630,7 +9630,7 @@ export const JAR_OPTIMISM_VELO_USDC_ALUSD_S: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/ALUSD",
     farmDepositTokenName: "pVELO USDC/ALUSD",
   },
@@ -9659,7 +9659,7 @@ export const JAR_OPTIMISM_VELO_USDC_MAI_S: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/MAI",
     farmDepositTokenName: "pVELO USDC/MAI",
   },
@@ -9688,7 +9688,7 @@ export const JAR_OPTIMISM_VELO_USDC_SUSD_S: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/SUSD",
     farmDepositTokenName: "pVELO USDC/SUSD",
   },
@@ -9717,7 +9717,7 @@ export const JAR_OPTIMISM_VELO_USDC_SNX_V: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO USDC/SNX",
     farmDepositTokenName: "pVELO USDC/SNX",
   },
@@ -9746,7 +9746,7 @@ export const JAR_OPTIMISM_VELO_ETH_SETH_S: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO ETH/SETH",
     farmDepositTokenName: "pVELO ETH/SETH",
   },
@@ -9775,7 +9775,7 @@ export const JAR_OPTIMISM_VELO_ETH_ALETH_S: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pVELO ETH/ALETH",
     farmDepositTokenName: "pVELO ETH/ALETH",
   },
@@ -9804,7 +9804,7 @@ export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pBEETX ETH/IB",
     farmDepositTokenName: "pBEETX ETH/IB",
   },
@@ -9833,7 +9833,7 @@ export const JAR_OPTIMISM_BEETX_ETH_RETH: JarDefinition = {
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
   farm: {
-    farmAddress: NULL_ADDRESS,
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
     farmNickname: "pBEETX ETH/RETH",
     farmDepositTokenName: "pBEETX ETH/RETH",
   },
