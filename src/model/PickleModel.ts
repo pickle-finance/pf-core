@@ -205,7 +205,7 @@ export const DEBUG_OUT = (str: string): void => {
 };
 export const setDebugMode = (val: boolean): void => {
   GLOBAL_DEBUG_FLAG = val;
-}
+};
 
 export class PickleModel implements ErrorLogger {
   private allErrors: PlatformError[] = [];
@@ -744,7 +744,7 @@ export class PickleModel implements ErrorLogger {
         );
       }
     }
-    this.ppb = ppb.mul(3);
+    this.ppb = ppb;
   }
 
   async ensurePriceCacheLoaded(): Promise<any> {
@@ -1745,7 +1745,8 @@ export class PickleModel implements ErrorLogger {
           result.balanceUSD = toThreeDec(value.balanceUSD);
           result.earnableUSD = toThreeDec(value.earnableUSD);
           result.harvestableUSD = toThreeDec(value.harvestableUSD);
-          if( value.harvestBlocked ) result.harvestBlocked = value.harvestBlocked;
+          if (value.harvestBlocked)
+            result.harvestBlocked = value.harvestBlocked;
         } else {
           this.logPlatformError(
             toError(
@@ -2344,7 +2345,7 @@ export class PickleModel implements ErrorLogger {
     }
 
     DEBUG_OUT("End loadPlatformData: " + (Date.now() - start));
-    if( this.dillDetails ) {
+    if (this.dillDetails) {
       try {
         return {
           pickleTotalSupply: this.dillDetails.totalPickle,
@@ -2364,7 +2365,7 @@ export class PickleModel implements ErrorLogger {
       }
     }
     // dill details didn't load. Let's pull from previous
-    if( this.previousPfcore ) {
+    if (this.previousPfcore) {
       return this.previousPfcore.platform;
     }
   }
