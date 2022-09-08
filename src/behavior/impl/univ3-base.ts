@@ -86,11 +86,14 @@ export class Univ3Base extends AbstractJarBehavior {
         ).contractAddr;
 
     const denomAddr =
-      pool.token0.address === numeratorAddr
+      ethers.utils.getAddress(pool.token0.address) ===
+      ethers.utils.getAddress(numeratorAddr)
         ? pool.token1.address
         : pool.token0.address;
 
-    const numeratorIsToken0 = numeratorAddr === pool.token0.address;
+    const numeratorIsToken0 =
+      ethers.utils.getAddress(numeratorAddr) ===
+      ethers.utils.getAddress(pool.token0.address);
     let lowerUsd = numeratorIsToken0
       ? position.token0PriceLower.invert().toFixed()
       : position.token0PriceLower.toFixed();
