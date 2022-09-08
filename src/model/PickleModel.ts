@@ -740,7 +740,7 @@ export class PickleModel implements ErrorLogger {
         );
       }
     }
-    this.ppb = ppb.mul(3);
+    this.ppb = ppb;
   }
 
   async ensurePriceCacheLoaded(): Promise<any> {
