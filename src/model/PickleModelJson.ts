@@ -323,6 +323,8 @@ export interface DepositToken {
     upperUsd: string;
     isStable: boolean;
     isNotUsdPegged: boolean;
+    numeratorToken: string;
+    denomToken: string;
   };
   style?: DepositTokenStyle;
   price?: number;

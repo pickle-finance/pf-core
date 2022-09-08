@@ -2050,7 +2050,7 @@ export class ExternalTokenModel {
     );
     this.addToken(
       ChainNetwork.Optimism,
-      "btc",
+      "wbtc",
       null,
       "bitcoin",
       "0x68f180fcCe6836688e9084f035309E29Bf0A2095".toLowerCase(),
@@ -2236,9 +2236,8 @@ export class ExternalTokenModel {
       "0x3E29D3A9316dAB217754d13b28646B76607c5f04".toLowerCase(),
       18,
       ExternalTokenFetchStyle.SWAP_PAIRS,
-      ["0xd52B3eAc7eF128B879dB10FFbD94E29Fe65A34d8"],   // VELO ETH-alETH vLP
+      ["0xd52B3eAc7eF128B879dB10FFbD94E29Fe65A34d8"], // VELO ETH-alETH vLP
     );
-
 
     // Fantom
     this.addToken(

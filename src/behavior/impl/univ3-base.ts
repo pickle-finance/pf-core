@@ -27,46 +27,94 @@ export class Univ3Base extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<number> {
     const { position, proportion, pool } = await getUniV3(definition, model);
+    const token0Addr = pool.token0.address;
+    const token1Addr = pool.token1.address;
 
     const jarAmount0 = +position.amount0.toExact();
     const jarAmount1 = +position.amount1.toExact();
-
-    const isToken0Native = ExternalTokenModelSingleton.getToken(
-      pool.token0.address,
-      definition.chain,
-    ).isNativeToken;
-    const isToken1Native = ExternalTokenModelSingleton.getToken(
-      pool.token1.address,
-      definition.chain,
-    ).isNativeToken;
-
-    const token0Price = model.priceOfSync(
-      definition.depositToken.components[0],
-      definition.chain,
-    );
-
-    const token1Price = model.priceOfSync(
-      definition.depositToken.components[1],
-      definition.chain,
-    );
 
     definition.depositToken.componentTokens[0] = jarAmount0;
     definition.depositToken.componentTokens[1] = jarAmount1;
     definition.depositToken.totalSupply = definition.details.tokenBalance;
     definition.depositToken.proportion = proportion.toString();
 
-    // Assumes that one of token0 or token1 is native, if not, flag it (stablecoin pair)
+    const isToken0Native = ExternalTokenModelSingleton.getToken(
+      token0Addr,
+      definition.chain,
+    ).isNativeToken;
+
+    const isToken1Native = ExternalTokenModelSingleton.getToken(
+      token1Addr,
+      definition.chain,
+    ).isNativeToken;
+
+    const token0Price = model.priceOfSync(
+      pool.token0.address,
+      definition.chain,
+    );
+
+    const token1Price = model.priceOfSync(
+      pool.token1.address,
+      definition.chain,
+    );
+
+    const isToken0Stable = token0Price > 0.98 && token0Price < 1.02;
+    const isToken1Stable = token1Price > 0.98 && token1Price < 1.02;
+
+    // Hierarchy of tokens to use as the numerator token, stables highest
+    // Subsidiary token as denominator (e.g. 0.08 BTC/ETH)
+    const tokenHierarchy = ["wbtc", "eth", "weth"];
+
+    // Determine the numerator token based on hierarchy
+    const numeratorAddr = isToken0Stable
+      ? token0Addr
+      : isToken1Stable
+      ? token1Addr
+      : ExternalTokenModelSingleton.getToken(
+          tokenHierarchy.find(
+            (token) =>
+              ExternalTokenModelSingleton.getToken(
+                pool.token0.address,
+                definition.chain,
+              ).id === token ||
+              ExternalTokenModelSingleton.getToken(
+                pool.token1.address,
+                definition.chain,
+              ).id === token,
+          ),
+          definition.chain,
+        ).contractAddr;
+
+    const denomAddr =
+      pool.token0.address === numeratorAddr
+        ? pool.token1.address
+        : pool.token0.address;
+
+    const numeratorIsToken0 = numeratorAddr === pool.token0.address;
+    let lowerUsd = numeratorIsToken0
+      ? position.token0PriceLower.invert().toFixed()
+      : position.token0PriceLower.toFixed();
+
+    let upperUsd = numeratorIsToken0
+      ? position.token0PriceUpper.invert().toFixed()
+      : position.token0PriceUpper.toFixed();
+
+    // Ensure variables are properly assigned
+    if (lowerUsd > upperUsd) [lowerUsd, upperUsd] = [upperUsd, lowerUsd];
+
     definition.depositToken.range = {
-      lowerUsd: isToken0Native
-        ? position.token0PriceLower.toFixed()
-        : position.token0PriceLower.invert().toFixed(),
-      upperUsd: isToken0Native
-        ? position.token0PriceUpper.toFixed()
-        : position.token0PriceUpper.invert().toFixed(),
-      isStable: !(isToken0Native || isToken1Native),
-      isNotUsdPegged:
-        (token0Price < 0.98 || token0Price > 1.02) &&
-        (token1Price < 0.98 || token1Price > 1.02),
+      lowerUsd,
+      upperUsd,
+      isStable: isToken0Stable && isToken1Stable,
+      isNotUsdPegged: !isToken0Stable && !isToken1Stable,
+      numeratorToken: ExternalTokenModelSingleton.getToken(
+        numeratorAddr,
+        definition.chain,
+      ).id,
+      denomToken: ExternalTokenModelSingleton.getToken(
+        denomAddr,
+        definition.chain,
+      ).id,
     };
 
     const pJarUSD = token0Price * jarAmount0 + token1Price * jarAmount1;

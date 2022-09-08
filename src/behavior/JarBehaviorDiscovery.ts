@@ -219,7 +219,7 @@ import {
   JAR_METIS_HELLSHARE_METIS,
   JAR_OPTIMISM_ZIP_ETH_USDC,
   JAR_OPTIMISM_ZIP_ETH_DAI,
-  JAR_OPTIMISM_ZIP_ETH_BTC,
+  JAR_OPTIMISM_ZIP_ETH_WBTC,
   JAR_OPTIMISM_ZIP_ETH_ZIP,
   JAR_ARBITRUM_BAL_PICKLE_ETH,
   JAR_ARBITRUM_BAL_ETH,
@@ -423,7 +423,7 @@ import {
   JAR_GNOSIS_SWAPR_COW_GNO,
   JAR_MOVR_SOLAR_STKSM_XCKSM,
   JAR_OPTIMISM_ZIP_ETH_OP,
-  JAR_OPTIMISM_UNIV3_ETH_BTC,
+  JAR_OPTIMISM_UNIV3_ETH_WBTC,
   JAR_OPTIMISM_UNIV3_ETH_DAI,
   JAR_OPTIMISM_UNIV3_ETH_OP,
   JAR_OPTIMISM_UNIV3_ETH_USDC,
@@ -1042,13 +1042,13 @@ jarToBehavior.set(JAR_FLARE_GLMR_WBTC.id, new MoonbeamFlareJar());
 // Optimism
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_USDC.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_DAI.id, new ZipswapJar());
-jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_BTC.id, new ZipswapJar());
+jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_WBTC.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_ZIP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_ZIP_ETH_OP.id, new ZipswapJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_USDC_1.id, new StargateJar());
 jarToBehavior.set(JAR_OPTIMISM_STAR_ETH.id, new StargateJar());
-jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_BTC.id, new Univ3Base());
+jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_WBTC.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_DAI.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_OP.id, new Univ3Base());
 jarToBehavior.set(JAR_OPTIMISM_UNIV3_ETH_USDC.id, new Univ3Base());
@@ -1073,7 +1073,6 @@ jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_SETH_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_ALETH_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_IB.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_RETH.id, new OPBeetXJar());
-
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
