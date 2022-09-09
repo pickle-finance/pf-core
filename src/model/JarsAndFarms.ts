@@ -9356,7 +9356,7 @@ export const JAR_OPTIMISM_VELO_USDC_LYRA_V: JarDefinition = {
   depositToken: {
     addr: "0xDEE1856D7B75Abf4C1bDf986da4e1C6c7864d640",
     name: "VELO USDC/LYRA",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xDEE1856D7B75Abf4C1bDf986da4e1C6c7864d640",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xdee1856d7b75abf4c1bdf986da4e1c6c7864d640",
     components: ["usdc", "lyra"],
   },
   rewardTokens: ["velo"],
@@ -9385,7 +9385,7 @@ export const JAR_OPTIMISM_VELO_USDC_FRAX_S: JarDefinition = {
   depositToken: {
     addr: "0xAdF902b11e4ad36B227B84d856B229258b0b0465",
     name: "VELO USDC/FRAX",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xAdF902b11e4ad36B227B84d856B229258b0b0465",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xadf902b11e4ad36b227b84d856b229258b0b0465",
     components: ["usdc", "frax"],
   },
   rewardTokens: ["velo"],
@@ -9414,7 +9414,7 @@ export const JAR_OPTIMISM_VELO_USDC_AGEUR_V: JarDefinition = {
   depositToken: {
     addr: "0x7866C6072B09539fC0FDE82963846b80203d7beb",
     name: "VELO USDC/AGEUR",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x7866C6072B09539fC0FDE82963846b80203d7beb",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x7866c6072b09539fc0fde82963846b80203d7beb",
     components: ["usdc", "ageur"],
   },
   rewardTokens: ["velo"],
@@ -9443,7 +9443,7 @@ export const JAR_OPTIMISM_VELO_OP_V: JarDefinition = {
   depositToken: {
     addr: "0xFFD74EF185989BFF8752c818A53a47FC45388F08",
     name: "VELO VELO/OP",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xFFD74EF185989BFF8752c818A53a47FC45388F08",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xffd74ef185989bff8752c818a53a47fc45388f08",
     components: ["velo", "op"],
   },
   rewardTokens: ["velo"],
@@ -9472,7 +9472,7 @@ export const JAR_OPTIMISM_VELO_OP_USDC_V: JarDefinition = {
   depositToken: {
     addr: "0x47029bc8f5CBe3b464004E87eF9c9419a48018cd",
     name: "VELO OP/USDC",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x47029bc8f5CBe3b464004E87eF9c9419a48018cd",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x47029bc8f5cbe3b464004e87ef9c9419a48018cd",
     components: ["op", "usdc"],
   },
   rewardTokens: ["velo"],
@@ -9501,7 +9501,7 @@ export const JAR_OPTIMISM_VELO_ETH_USDC_V: JarDefinition = {
   depositToken: {
     addr: "0x79c912FEF520be002c2B6e57EC4324e260f38E50",
     name: "VELO ETH/USDC",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x79c912FEF520be002c2B6e57EC4324e260f38E50",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x79c912fef520be002c2b6e57ec4324e260f38e50",
     components: ["eth", "usdc"],
   },
   rewardTokens: ["velo"],
@@ -9530,7 +9530,7 @@ export const JAR_OPTIMISM_VELO_ETH_OP_V: JarDefinition = {
   depositToken: {
     addr: "0xcdd41009E74bD1AE4F7B2EeCF892e4bC718b9302",
     name: "VELO ETH/OP",
-    link: "https://app.velodrome.finance/liquidity/manage?address=",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xcdd41009e74bd1ae4f7b2eecf892e4bc718b9302",
     components: ["eth", "op"],
   },
   rewardTokens: ["velo"],
@@ -9559,7 +9559,7 @@ export const JAR_OPTIMISM_VELO_ETH_AELIN_V: JarDefinition = {
   depositToken: {
     addr: "0x3EEc44e94ee86ce79f34Bb26dc3CdbbEe18d6d17",
     name: "VELO ETH/AELIN",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x3EEc44e94ee86ce79f34Bb26dc3CdbbEe18d6d17",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x3eec44e94ee86ce79f34bb26dc3cdbbee18d6d17",
     components: ["eth", "aelin"],
   },
   rewardTokens: ["velo"],
@@ -9588,7 +9588,7 @@ export const JAR_OPTIMISM_VELO_OP_L2DAO_V: JarDefinition = {
   depositToken: {
     addr: "0xfc77e39De40E54F820E313039207DC850E4C9E60",
     name: "VELO OP/L2DAO",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xfc77e39De40E54F820E313039207DC850E4C9E60",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xfc77e39de40e54f820e313039207dc850e4c9e60",
     components: ["op", "l2dao"],
   },
   rewardTokens: ["velo"],
@@ -9617,7 +9617,7 @@ export const JAR_OPTIMISM_VELO_USDC_ALUSD_S: JarDefinition = {
   depositToken: {
     addr: "0xe75a3f4Bf99882aD9f8aeBAB2115873315425D00",
     name: "VELO USDC/ALUSD",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xe75a3f4Bf99882aD9f8aeBAB2115873315425D00",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xe75a3f4bf99882ad9f8aebab2115873315425d00",
     components: ["usdc", "alusd"],
   },
   rewardTokens: ["velo"],
@@ -9646,7 +9646,7 @@ export const JAR_OPTIMISM_VELO_USDC_MAI_S: JarDefinition = {
   depositToken: {
     addr: "0xd62C9D8a3D4fd98b27CaaEfE3571782a3aF0a737",
     name: "VELO USDC/MAI",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xd62C9D8a3D4fd98b27CaaEfE3571782a3aF0a737",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xd62c9d8a3d4fd98b27caaefe3571782a3af0a737",
     components: ["usdc", "mai"],
   },
   rewardTokens: ["velo"],
@@ -9675,7 +9675,7 @@ export const JAR_OPTIMISM_VELO_USDC_SUSD_S: JarDefinition = {
   depositToken: {
     addr: "0xd16232ad60188B68076a235c65d692090caba155",
     name: "VELO USDC/SUSD",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xd16232ad60188B68076a235c65d692090caba155",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xd16232ad60188b68076a235c65d692090caba155",
     components: ["usdc", "susd"],
   },
   rewardTokens: ["velo"],
@@ -9704,7 +9704,7 @@ export const JAR_OPTIMISM_VELO_USDC_SNX_V: JarDefinition = {
   depositToken: {
     addr: "0x9056EB7Ca982a5Dd65A584189994e6a27318067D",
     name: "VELO USDC/SNX",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x9056EB7Ca982a5Dd65A584189994e6a27318067D",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x9056eb7ca982a5dd65a584189994e6a27318067d",
     components: ["usdc", "snx"],
   },
   rewardTokens: ["velo"],
@@ -9733,7 +9733,7 @@ export const JAR_OPTIMISM_VELO_ETH_SETH_S: JarDefinition = {
   depositToken: {
     addr: "0xFd7FddFc0A729eCF45fB6B12fA3B71A575E1966F",
     name: "VELO ETH/SETH",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0xFd7FddFc0A729eCF45fB6B12fA3B71A575E1966F",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xfd7fddfc0a729ecf45fb6b12fa3b71a575e1966f",
     components: ["eth", "seth"],
   },
   rewardTokens: ["velo"],
@@ -9762,7 +9762,7 @@ export const JAR_OPTIMISM_VELO_ETH_ALETH_S: JarDefinition = {
   depositToken: {
     addr: "0x6fD5BEe1Ddb4dbBB0b7368B080Ab99b8BA765902",
     name: "VELO ETH/ALETH",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x6fD5BEe1Ddb4dbBB0b7368B080Ab99b8BA765902",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x6fd5bee1ddb4dbbb0b7368b080ab99b8ba765902",
     components: ["eth", "aleth"],
   },
   rewardTokens: ["velo"],
