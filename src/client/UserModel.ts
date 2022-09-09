@@ -8,6 +8,7 @@ import gaugeAbi from "../Contracts/ABIs/gauge.json";
 import gaugeProxyAbi from "../Contracts/ABIs/gauge-proxy.json";
 import minichefAbi from "../Contracts/ABIs/minichef.json";
 import brineryAbi from "../Contracts/ABIs/brinery.json";
+import rewarderAbi from "../Contracts/ABIs/pickle-rewarder.json";
 import {
   AssetEnablement,
   AssetProtocol,
@@ -65,6 +66,7 @@ export interface UserTokenData {
   pStakedBalance: string;
   farmAllowance: string;
   picklePending: string;
+  extraReward?: { pending: string; name: string };
 }
 export interface UserData {
   tokens: UserTokens;
@@ -567,6 +569,7 @@ export class UserModel {
       pTokenBalances,
       stakedInFarm,
       picklePending,
+      extraRewardPending,
       jarAllowance,
       farmAllowance,
     ] = await Promise.allSettled([
@@ -575,7 +578,8 @@ export class UserModel {
       userAllowanceOfChainTokensPromise,
       pTokenBalancesPromise,
       stakedAndPendingPromise.then((x) => x.staked),
-      stakedAndPendingPromise.then((x) => x.pending),
+      stakedAndPendingPromise.then((x) => x.picklePending),
+      stakedAndPendingPromise.then((x) => x.extraRewardPending),
       jarAllowancePromise,
       farmAllowancePromise,
     ]).then((x) =>
@@ -687,6 +691,14 @@ export class UserModel {
         jarAllowance: jarAllowance[j]?.toString() || "0",
         farmAllowance: farmAllowance[j]?.toString() || "0",
       };
+      if (extraRewardPending) {
+        const name = ExternalTokenModelSingleton.getToken(
+          extraRewardPending[j][0],
+          chain,
+        )?.id;
+        const pending = extraRewardPending[j][1].toString();
+        if (name) toAdd.extraReward = { pending, name };
+      }
       const hasComponentTokenBalances: boolean =
         Object.keys(toAdd.componentTokenBalances).find(
           (x) =>
@@ -815,7 +827,7 @@ export class UserModel {
       );
       return {
         staked: await stakedInFarmPromise,
-        pending: await picklePendingPromise,
+        picklePending: await picklePendingPromise,
       };
     } else {
       const poolLengthBN: BigNumber = skip
@@ -844,10 +856,50 @@ export class UserModel {
         poolIds,
         lpLower,
       );
+      const extraPendingPromise = this.getExtraRewardPendingMinichef(
+        chain,
+        chainAssets,
+        poolIds,
+        lpLower,
+      );
       return {
         staked: await stakedInFarmPromise,
-        pending: await picklePendingPromise,
+        picklePending: await picklePendingPromise,
+        extraRewardPending: await extraPendingPromise,
       };
+    }
+  }
+
+  async getExtraRewardPendingMinichef(
+    chain: ChainNetwork,
+    chainAssets: PickleModelJson.JarDefinition[],
+    poolIds: number[],
+    lpLower: string[],
+  ): Promise<Array<[string, BigNumber]> | undefined> {
+    const multiProvider = this.multiproviderFor(chain);
+    const rewarder = ADDRESSES.get(chain).rewarder;
+    if (rewarder) {
+      const rewarderMulticall: Contract = new Contract(rewarder, rewarderAbi);
+      const extraRewardPending: any[] = await multiProvider.all(
+        poolIds.map((id) => {
+          return rewarderMulticall.pendingTokens(id, this.walletId, 0);
+        }),
+      );
+      const ret: [string, BigNumber][] = [];
+      for (let i = 0; i < chainAssets.length; i++) {
+        const ind: number = lpLower.indexOf(
+          chainAssets[i].contract.toLowerCase(),
+        );
+        if (ind === -1) {
+          ret.push([ethers.constants.AddressZero, BigNumber.from(0)]);
+        } else {
+          ret.push([
+            extraRewardPending[ind].rewardTokens[0],
+            extraRewardPending[ind].rewardAmounts[0],
+          ]);
+        }
+      }
+      return ret;
     }
   }
 
@@ -857,7 +909,7 @@ export class UserModel {
   ): Promise<StakedAndPendingRet> {
     return {
       staked: await this.getStakedInFarmEth(chain, chainAssets),
-      pending: await this.getPicklePendingEth(chain, chainAssets),
+      picklePending: await this.getPicklePendingEth(chain, chainAssets),
     };
   }
   async getStakedInFarmEth(
@@ -1278,5 +1330,6 @@ export class UserModel {
 }
 interface StakedAndPendingRet {
   staked: BigNumber[];
-  pending: BigNumber[];
+  picklePending: BigNumber[];
+  extraRewardPending?: [string, BigNumber][];
 }
