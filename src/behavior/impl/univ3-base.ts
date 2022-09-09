@@ -5,7 +5,6 @@ import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import {
   getUniV3,
-  queryUniswapTicks,
   queryVolume24H,
 } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
@@ -13,7 +12,6 @@ import {
   calculateFee,
   getLiquidityForAmounts,
   getSqrtPriceX96,
-  getTickFromPrice,
   getTokenAmountsFromDepositAmounts,
 } from "../../protocols/Univ3/LiquidityMath";
 import { univ3StrategyABI } from "../../Contracts/ABIs/univ3Strategy.abi";
@@ -244,15 +242,15 @@ export class Univ3Base extends AbstractJarBehavior {
       amount1,
       Number(tokenA.decimals.toFixed() || 18),
     );
-    const currentTick = getTickFromPrice(
-      token1Price,
-      tokenA.decimals.toFixed() || "18",
-      tokenB.decimals.toFixed() || "18",
-    );
-    const ticks = await queryUniswapTicks(
-      definition.depositToken.addr.toLowerCase(),
-      definition.chain,
-    );
+    // const currentTick = getTickFromPrice(
+    //   token1Price,
+    //   tokenA.decimals.toFixed() || "18",
+    //   tokenB.decimals.toFixed() || "18",
+    // );
+    // const ticks = await queryUniswapTicks(
+    //   definition.depositToken.addr.toLowerCase(),
+    //   definition.chain,
+    // );
     const liquidityFromPool = pool.liquidity.toString();
 
     const volume24H = await queryVolume24H(
