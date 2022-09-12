@@ -281,7 +281,7 @@ export function setAssetGaugeAprMinichef(
 
     // Add extra rewards component if available
     if (gauge.extraReward) {
-      let errpy = gauge.rewardRatePerYear;
+      let errpy = gauge.extraReward.rewardRatePerYear;
       const rewardPrice = gauge.extraReward.rewardToken.price ?? 0;
       if (!Number.isFinite(errpy)) {
         // rrpy is infinite. Likely zero in the farm. Default to a $500 pool
