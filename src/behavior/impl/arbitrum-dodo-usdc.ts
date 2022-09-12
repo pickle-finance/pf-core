@@ -40,7 +40,7 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const rewards = "0x38Dbb42C4972116c88E27edFacD2451cf1b14255"; // DODO-USDC
-    const DODO_PER_BLOCK = 0.51321;
+    const DODO_PER_BLOCK = 0;
 
     const multiProvider = model.multiproviderFor(jar.chain);
     const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
@@ -63,7 +63,7 @@ export class ArbitrumDodoUsdc extends AbstractJarBehavior {
     const dodoApy = dodoValueRewardedPerYear / totalValueStaked;
 
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("dodo", dodoApy * 100, true),
+      // this.createAprComponent("dodo", dodoApy * 100, true),
     ]);
   }
 }
