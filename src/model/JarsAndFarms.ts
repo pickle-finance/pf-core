@@ -8127,7 +8127,7 @@ export const JAR_METIS_HUMMUS_USDT: JarDefinition = {
     decimals: 6,
   },
   rewardTokens: ["hum"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.HUMMUS,
   details: {
@@ -8158,7 +8158,7 @@ export const JAR_METIS_HUMMUS_USDC: JarDefinition = {
     decimals: 6,
   },
   rewardTokens: ["hum"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.HUMMUS,
   details: {
@@ -8188,7 +8188,7 @@ export const JAR_METIS_HUMMUS_DAI: JarDefinition = {
     components: ["dai"],
   },
   rewardTokens: ["hum"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Metis,
   protocol: AssetProtocol.HUMMUS,
   details: {
