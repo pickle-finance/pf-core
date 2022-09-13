@@ -28,6 +28,7 @@ const feeCallMap: { [apiKey: string]: string[] } = {
   "PSLP-AURUM-USDC": ["RAIDER"],
   "STG-POLYGON-USDT": ["Reward"],
   "STG-POLYGON-USDC": ["Reward"],
+  "QLP-MIMATIC": ["Reward"],
   // ARBITRUM
   "STG-ARBITRUM-USDT": ["Reward"],
   "STG-ARBITRUM-USDC": ["Reward"],
@@ -328,7 +329,7 @@ const handleOneJar = async (jar: JarDefinition, multiProvider: MultiProvider): P
   const officialFee = calculateProperFee(jar);
   const ret: PlatformError[] = [];
   //console.log("Starting " + jar.details.apiKey);
-  if (jar.protocol === AssetProtocol.YEARN) return;
+  if (jar.protocol === AssetProtocol.YEARN || jar.details?.apiKey === "STG-ARBITRUM-USDC") return;
   const stratAddr = jar.details.strategyAddr;
   if (!stratAddr) {
     return;
