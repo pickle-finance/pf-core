@@ -2232,10 +2232,10 @@ export class ExternalTokenModel {
       ChainNetwork.Optimism,
       "aleth",
       "alETH",
-      "",
+      "alchemix-eth",
       "0x3E29D3A9316dAB217754d13b28646B76607c5f04".toLowerCase(),
       18,
-      ExternalTokenFetchStyle.SWAP_PAIRS,
+      ExternalTokenFetchStyle.ID,
       ["0xd52B3eAc7eF128B879dB10FFbD94E29Fe65A34d8"], // VELO ETH-alETH vLP
     );
     this.addToken(
