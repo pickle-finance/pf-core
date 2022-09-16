@@ -741,11 +741,16 @@ export class UserModel {
               : BigNumber.from(0);
         }
       }
+      const zapContract = XYK_SWAP_PROTOCOLS.find(
+        (x) => x.protocol === jar.protocol && x.chain === jar.chain,
+      )?.pickleZapAddress;
+
       const tokenAllowObj: SingleRequiredComponentAllowance | undefined =
         userTokenAllowances.find(
           (x) =>
             foundToken &&
-            x.assetContract === jar.contract &&
+            (x.assetContract === jar.contract ||
+              x.assetContract === zapContract) &&
             foundToken.contractAddr.toLowerCase() ===
               x.componentContract.toLowerCase(),
         );
@@ -770,6 +775,13 @@ export class UserModel {
     const uni3Assets = chainAssets.filter(
       (x) => x.protocol === AssetProtocol.UNISWAP_V3,
     );
+
+    const xykProtocols = XYK_SWAP_PROTOCOLS.map((x) => x.protocol);
+
+    const xykAssetsWithZap = chainAssets.filter((x) =>
+      xykProtocols.includes(x.protocol),
+    );
+
     for (let i = 0; i < uni3Assets.length; i++) {
       const assetContract = uni3Assets[i].contract;
       const components = uni3Assets[i].depositToken.components || [];
@@ -778,6 +790,27 @@ export class UserModel {
         if (token) {
           requiredComponentAllowances.push({
             assetContract: assetContract,
+            componentContract: token.contractAddr,
+            allowance: "0",
+          });
+        }
+      }
+    }
+
+    for (let i = 0; i < xykAssetsWithZap.length; i++) {
+      const zapContract = XYK_SWAP_PROTOCOLS.find(
+        (x) =>
+          x.protocol === xykAssetsWithZap[i].protocol &&
+          x.chain === xykAssetsWithZap[i].chain,
+      )?.pickleZapAddress;
+
+      if (!zapContract) continue;
+      const components = xykAssetsWithZap[i].depositToken.components || [];
+      for (let j = 0; j < components.length; j++) {
+        const token = allChainTokens.find((x) => x.id === components[j]);
+        if (token) {
+          requiredComponentAllowances.push({
+            assetContract: zapContract,
             componentContract: token.contractAddr,
             allowance: "0",
           });
