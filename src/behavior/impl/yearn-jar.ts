@@ -15,6 +15,8 @@ import {
 } from "../../model/JarsAndFarms";
 import { getStableswapPrice } from "../../price/DepositTokenPriceUtility";
 import { Contract } from "ethers-multiprovider";
+import { BigNumber } from "@ethersproject/bignumber";
+import { ethers } from "ethers";
 
 export class YearnJar extends AbstractJarBehavior {
   constructor() {
@@ -60,7 +62,16 @@ export class YearnJar extends AbstractJarBehavior {
       return model.priceOfSync(depTokenAddr, definition.chain);
     }
     if (depTokenAddr === JAR_CRV_IB.depositToken.addr) {
-      return 1;
+      const abi = ["function minter() view returns (address)"];
+      const minterAbi = ["function get_virtual_price() view returns (uint256)"];
+      const multiprovider = model.multiproviderFor(definition.chain);
+      const wantContract = new Contract(definition.depositToken.addr, abi);
+      const [minterAddr]: string[] = await multiprovider.all([wantContract.minter()]);
+      const minterContract = new Contract(minterAddr, minterAbi);
+      const [priceBN]: BigNumber[] = await multiprovider.all([minterContract.get_virtual_price()]);
+      const price = parseFloat(ethers.utils.formatEther(priceBN));
+
+      return price ?? 1.05;
     }
 
     if (
