@@ -5666,7 +5666,7 @@ export const JAR_AURORA_TRISOLARIS_SOLACE_NEAR_LP: JarDefinition = {
     components: ["solace", "near"],
   },
   rewardTokens: ["solace"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Aurora,
   protocol: AssetProtocol.TRISOLARIS,
   details: {
