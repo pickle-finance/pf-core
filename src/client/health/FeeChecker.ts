@@ -329,7 +329,12 @@ const handleOneJar = async (jar: JarDefinition, multiProvider: MultiProvider): P
   const officialFee = calculateProperFee(jar);
   const ret: PlatformError[] = [];
   //console.log("Starting " + jar.details.apiKey);
-  if (jar.protocol === AssetProtocol.YEARN || jar.details?.apiKey === "STG-ARBITRUM-USDC") return;
+  if (
+    jar.protocol === AssetProtocol.YEARN ||
+    jar.details?.apiKey === "STG-ARBITRUM-USDC" ||
+    jar.details?.apiKey === "STG-ARBITRUM-USDT"
+  )
+    return;
   const stratAddr = jar.details.strategyAddr;
   if (!stratAddr) {
     return;
