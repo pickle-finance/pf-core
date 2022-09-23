@@ -9749,6 +9749,35 @@ export const JAR_OPTIMISM_VELO_ETH_ALETH_S: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_ALETH_S);
 
+export const JAR_OPTIMISM_VELO_USDC_TUSD_S: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3q",
+  contract: "0x27811A7D034e5eaB0f25e5CEF390418AAe51A0D2",
+  startBlock: 24504795,
+  startTimestamp: 1663838901,
+  depositToken: {
+    addr: "0xA4549B89A39f76d9D28415474aeD7d06Ec9935fe",
+    name: "VELO USDC/TUSD",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xa4549b89a39f76d9d28415474aed7d06ec9935fe",
+    components: ["usdc", "tusd"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-TUSD",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pVELO USDC/TUSD",
+    farmDepositTokenName: "pVELO USDC/TUSD",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_TUSD_S);
+
 export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 4a",

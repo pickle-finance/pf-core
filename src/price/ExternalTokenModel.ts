@@ -2247,6 +2247,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "tusd",
+      "TrueUSD",
+      "true-usd",
+      "0xcB59a0A753fDB7491d5F3D794316F1adE197B21E".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(
