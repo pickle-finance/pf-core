@@ -586,6 +586,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "uwu",
+      null,
+      "uwu-lend",
+      "0x55c08ca52497e2f1534b59e2917bf524d4765257".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(

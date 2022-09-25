@@ -19,82 +19,74 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
-interface MasterchefInterface extends ethers.utils.Interface {
+interface WannaV2FarmsInterface extends ethers.utils.Interface {
   functions: {
-    "BONUS_MULTIPLIER()": FunctionFragment;
-    "add(uint256,address,bool)": FunctionFragment;
-    "bonusEndBlock()": FunctionFragment;
-    "deposit(uint256,uint256)": FunctionFragment;
-    "dev(address)": FunctionFragment;
-    "devFundDivRate()": FunctionFragment;
-    "devaddr()": FunctionFragment;
+    "MASTER_PID()": FunctionFragment;
+    "WANNA()": FunctionFragment;
+    "WANNA_FARM()": FunctionFragment;
+    "addPool(uint256,address,address)": FunctionFragment;
+    "deposit(uint256,uint256,address)": FunctionFragment;
+    "dev()": FunctionFragment;
     "emergencyWithdraw(uint256)": FunctionFragment;
-    "getMultiplier(uint256,uint256)": FunctionFragment;
-    "massUpdatePools()": FunctionFragment;
+    "harvestFromWannaFarm()": FunctionFragment;
+    "init(address)": FunctionFragment;
+    "lpToken(uint256)": FunctionFragment;
     "owner()": FunctionFragment;
-    "pendingPickle(uint256,address)": FunctionFragment;
-    "pickle()": FunctionFragment;
-    "picklePerBlock()": FunctionFragment;
+    "pendingBonus(uint256,address)": FunctionFragment;
+    "pendingWanna(uint256,address)": FunctionFragment;
     "poolInfo(uint256)": FunctionFragment;
     "poolLength()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "set(uint256,uint256,bool)": FunctionFragment;
-    "setBonusEndBlock(uint256)": FunctionFragment;
-    "setDevFundDivRate(uint256)": FunctionFragment;
-    "setPicklePerBlock(uint256)": FunctionFragment;
-    "startBlock()": FunctionFragment;
+    "rewarder(uint256)": FunctionFragment;
+    "setPool(uint256,uint256,address,bool)": FunctionFragment;
     "totalAllocPoint()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "updateAllPools(uint256[])": FunctionFragment;
     "updatePool(uint256)": FunctionFragment;
     "userInfo(uint256,address)": FunctionFragment;
+    "wannaPerBlock()": FunctionFragment;
     "withdraw(uint256,uint256)": FunctionFragment;
-    "rewardPerBlock()": FunctionFragment;
-    "rewardPerSecond()": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "BONUS_MULTIPLIER",
+    functionFragment: "MASTER_PID",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "WANNA", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "WANNA_FARM",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "add",
-    values: [BigNumberish, string, boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "bonusEndBlock",
-    values?: undefined
+    functionFragment: "addPool",
+    values: [BigNumberish, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "deposit",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish, string]
   ): string;
-  encodeFunctionData(functionFragment: "dev", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "devFundDivRate",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "devaddr", values?: undefined): string;
+  encodeFunctionData(functionFragment: "dev", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "emergencyWithdraw",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "getMultiplier",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "massUpdatePools",
+    functionFragment: "harvestFromWannaFarm",
     values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "init", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "lpToken",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "pendingPickle",
+    functionFragment: "pendingBonus",
     values: [BigNumberish, string]
   ): string;
-  encodeFunctionData(functionFragment: "pickle", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "picklePerBlock",
-    values?: undefined
+    functionFragment: "pendingWanna",
+    values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
     functionFragment: "poolInfo",
@@ -109,24 +101,12 @@ interface MasterchefInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "set",
-    values: [BigNumberish, BigNumberish, boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setBonusEndBlock",
+    functionFragment: "rewarder",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setDevFundDivRate",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setPicklePerBlock",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "startBlock",
-    values?: undefined
+    functionFragment: "setPool",
+    values: [BigNumberish, BigNumberish, string, boolean]
   ): string;
   encodeFunctionData(
     functionFragment: "totalAllocPoint",
@@ -137,6 +117,10 @@ interface MasterchefInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "updateAllPools",
+    values: [BigNumberish[]]
+  ): string;
+  encodeFunctionData(
     functionFragment: "updatePool",
     values: [BigNumberish]
   ): string;
@@ -145,54 +129,37 @@ interface MasterchefInterface extends ethers.utils.Interface {
     values: [BigNumberish, string]
   ): string;
   encodeFunctionData(
+    functionFragment: "wannaPerBlock",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "withdraw",
     values: [BigNumberish, BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "rewardPerBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "rewardPerSecond",
-    values?: undefined
-  ): string;
 
-  decodeFunctionResult(
-    functionFragment: "BONUS_MULTIPLIER",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "add", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "bonusEndBlock",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "MASTER_PID", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "WANNA", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "WANNA_FARM", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "addPool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "dev", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "devFundDivRate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "devaddr", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "emergencyWithdraw",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getMultiplier",
+    functionFragment: "harvestFromWannaFarm",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "massUpdatePools",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "init", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lpToken", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "pendingPickle",
+    functionFragment: "pendingBonus",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "pickle", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "picklePerBlock",
+    functionFragment: "pendingWanna",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "poolInfo", data: BytesLike): Result;
@@ -201,20 +168,8 @@ interface MasterchefInterface extends ethers.utils.Interface {
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "set", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setBonusEndBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setDevFundDivRate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPicklePerBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "startBlock", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "rewarder", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setPool", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalAllocPoint",
     data: BytesLike
@@ -223,34 +178,42 @@ interface MasterchefInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateAllPools",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "updatePool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "userInfo", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "wannaPerBlock",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardPerBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardPerSecond",
-    data: BytesLike
-  ): Result;
 
   events: {
-    "Deposit(address,uint256,uint256)": EventFragment;
+    "AddPool(uint256,uint256,address,address)": EventFragment;
+    "Deposit(address,uint256,uint256,address)": EventFragment;
     "EmergencyWithdraw(address,uint256,uint256)": EventFragment;
+    "Harvest(address,uint256,uint256)": EventFragment;
+    "Init()": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
-    "Recovered(address,uint256)": EventFragment;
+    "SetPool(uint256,uint256,address,bool)": EventFragment;
+    "UpdatePool(uint256,uint256,uint256,uint256)": EventFragment;
     "Withdraw(address,uint256,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "AddPool"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Deposit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "EmergencyWithdraw"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Harvest"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "Init"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Recovered"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetPool"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatePool"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
 }
 
-export class Masterchef extends Contract {
+export class WannaV2Farms extends Contract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -291,60 +254,52 @@ export class Masterchef extends Contract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: MasterchefInterface;
+  interface: WannaV2FarmsInterface;
 
   functions: {
-    BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<[BigNumber]>;
+    MASTER_PID(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "MASTER_PID()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    add(
+    WANNA(overrides?: CallOverrides): Promise<[string]>;
+
+    "WANNA()"(overrides?: CallOverrides): Promise<[string]>;
+
+    WANNA_FARM(overrides?: CallOverrides): Promise<[string]>;
+
+    "WANNA_FARM()"(overrides?: CallOverrides): Promise<[string]>;
+
+    addPool(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "add(uint256,address,bool)"(
+    "addPool(uint256,address,address)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    bonusEndBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "deposit(uint256,uint256)"(
+    "deposit(uint256,uint256,address)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    dev(
-      _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    dev(overrides?: CallOverrides): Promise<[string]>;
 
-    "dev(address)"(
-      _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    devFundDivRate(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "devFundDivRate()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    devaddr(overrides?: CallOverrides): Promise<[string]>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<[string]>;
+    "dev()"(overrides?: CallOverrides): Promise<[string]>;
 
     emergencyWithdraw(
       _pid: BigNumberish,
@@ -356,59 +311,68 @@ export class Masterchef extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    "getMultiplier(uint256,uint256)"(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
-    massUpdatePools(
+    harvestFromWannaFarm(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "massUpdatePools()"(
+    "harvestFromWannaFarm()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    init(
+      _dummyToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "init(address)"(
+      _dummyToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    lpToken(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    "lpToken(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     "owner()"(overrides?: CallOverrides): Promise<[string]>;
 
-    pendingPickle(
+    pendingBonus(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber] & { pending: BigNumber }>;
 
-    "pendingPickle(uint256,address)"(
+    "pendingBonus(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber] & { pending: BigNumber }>;
 
-    pickle(overrides?: CallOverrides): Promise<[string]>;
+    pendingWanna(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { pending: BigNumber }>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<[string]>;
-
-    picklePerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "picklePerBlock()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "pendingWanna(uint256,address)"(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { pending: BigNumber }>;
 
     poolInfo(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [string, BigNumber, BigNumber, BigNumber] & {
-        lpToken: string;
-        allocPoint: BigNumber;
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        accWannaPerShare: BigNumber;
         lastRewardBlock: BigNumber;
-        accPicklePerShare: BigNumber;
+        allocPoint: BigNumber;
+        totalLp: BigNumber;
       }
     >;
 
@@ -416,17 +380,21 @@ export class Masterchef extends Contract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [string, BigNumber, BigNumber, BigNumber] & {
-        lpToken: string;
-        allocPoint: BigNumber;
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        accWannaPerShare: BigNumber;
         lastRewardBlock: BigNumber;
-        accPicklePerShare: BigNumber;
+        allocPoint: BigNumber;
+        totalLp: BigNumber;
       }
     >;
 
-    poolLength(overrides?: CallOverrides): Promise<[BigNumber]>;
+    poolLength(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { pools: BigNumber }>;
 
-    "poolLength()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+    "poolLength()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { pools: BigNumber }>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -436,53 +404,28 @@ export class Masterchef extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    set(
+    rewarder(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    "rewarder(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "set(uint256,uint256,bool)"(
+    "setPool(uint256,uint256,address,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    setBonusEndBlock(
-      _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setBonusEndBlock(uint256)"(
-      _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setDevFundDivRate(
-      _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setDevFundDivRate(uint256)"(
-      _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    setPicklePerBlock(
-      _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setPicklePerBlock(uint256)"(
-      _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    startBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "startBlock()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     totalAllocPoint(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -495,6 +438,16 @@ export class Masterchef extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    updateAllPools(
+      _pids: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "updateAllPools(uint256[])"(
+      _pids: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -524,6 +477,14 @@ export class Masterchef extends Contract {
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
 
+    wannaPerBlock(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amount: BigNumber }>;
+
+    "wannaPerBlock()"(
+      overrides?: CallOverrides
+    ): Promise<[BigNumber] & { amount: BigNumber }>;
+
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
@@ -535,67 +496,51 @@ export class Masterchef extends Contract {
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    rewardPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "rewardPerBlock()"(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    rewardPerSecond(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "rewardPerSecond()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
-  BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
+  MASTER_PID(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "MASTER_PID()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  add(
+  WANNA(overrides?: CallOverrides): Promise<string>;
+
+  "WANNA()"(overrides?: CallOverrides): Promise<string>;
+
+  WANNA_FARM(overrides?: CallOverrides): Promise<string>;
+
+  "WANNA_FARM()"(overrides?: CallOverrides): Promise<string>;
+
+  addPool(
     _allocPoint: BigNumberish,
     _lpToken: string,
-    _withUpdate: boolean,
+    _rewarder: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "add(uint256,address,bool)"(
+  "addPool(uint256,address,address)"(
     _allocPoint: BigNumberish,
     _lpToken: string,
-    _withUpdate: boolean,
+    _rewarder: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "bonusEndBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   deposit(
     _pid: BigNumberish,
     _amount: BigNumberish,
+    _ref: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "deposit(uint256,uint256)"(
+  "deposit(uint256,uint256,address)"(
     _pid: BigNumberish,
     _amount: BigNumberish,
+    _ref: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  dev(
-    _devaddr: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  dev(overrides?: CallOverrides): Promise<string>;
 
-  "dev(address)"(
-    _devaddr: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  devFundDivRate(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "devFundDivRate()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  devaddr(overrides?: CallOverrides): Promise<string>;
-
-  "devaddr()"(overrides?: CallOverrides): Promise<string>;
+  "dev()"(overrides?: CallOverrides): Promise<string>;
 
   emergencyWithdraw(
     _pid: BigNumberish,
@@ -607,59 +552,68 @@ export class Masterchef extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  getMultiplier(
-    _from: BigNumberish,
-    _to: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  "getMultiplier(uint256,uint256)"(
-    _from: BigNumberish,
-    _to: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
-  massUpdatePools(
+  harvestFromWannaFarm(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "massUpdatePools()"(
+  "harvestFromWannaFarm()"(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  init(
+    _dummyToken: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "init(address)"(
+    _dummyToken: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  lpToken(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  "lpToken(uint256)"(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   "owner()"(overrides?: CallOverrides): Promise<string>;
 
-  pendingPickle(
+  pendingBonus(
     _pid: BigNumberish,
     _user: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  "pendingPickle(uint256,address)"(
+  "pendingBonus(uint256,address)"(
     _pid: BigNumberish,
     _user: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  pickle(overrides?: CallOverrides): Promise<string>;
+  pendingWanna(
+    _pid: BigNumberish,
+    _user: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
-  "pickle()"(overrides?: CallOverrides): Promise<string>;
-
-  picklePerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "picklePerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+  "pendingWanna(uint256,address)"(
+    _pid: BigNumberish,
+    _user: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   poolInfo(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [string, BigNumber, BigNumber, BigNumber] & {
-      lpToken: string;
-      allocPoint: BigNumber;
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      accWannaPerShare: BigNumber;
       lastRewardBlock: BigNumber;
-      accPicklePerShare: BigNumber;
+      allocPoint: BigNumber;
+      totalLp: BigNumber;
     }
   >;
 
@@ -667,11 +621,11 @@ export class Masterchef extends Contract {
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [string, BigNumber, BigNumber, BigNumber] & {
-      lpToken: string;
-      allocPoint: BigNumber;
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      accWannaPerShare: BigNumber;
       lastRewardBlock: BigNumber;
-      accPicklePerShare: BigNumber;
+      allocPoint: BigNumber;
+      totalLp: BigNumber;
     }
   >;
 
@@ -687,53 +641,28 @@ export class Masterchef extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  set(
+  rewarder(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  "rewarder(uint256)"(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  setPool(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
-    _withUpdate: boolean,
+    _rewarder: string,
+    _overwrite: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "set(uint256,uint256,bool)"(
+  "setPool(uint256,uint256,address,bool)"(
     _pid: BigNumberish,
     _allocPoint: BigNumberish,
-    _withUpdate: boolean,
+    _rewarder: string,
+    _overwrite: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  setBonusEndBlock(
-    _bonusEndBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setBonusEndBlock(uint256)"(
-    _bonusEndBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setDevFundDivRate(
-    _devFundDivRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setDevFundDivRate(uint256)"(
-    _devFundDivRate: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  setPicklePerBlock(
-    _picklePerBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setPicklePerBlock(uint256)"(
-    _picklePerBlock: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  startBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "startBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   totalAllocPoint(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -746,6 +675,16 @@ export class Masterchef extends Contract {
 
   "transferOwnership(address)"(
     newOwner: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  updateAllPools(
+    _pids: BigNumberish[],
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "updateAllPools(uint256[])"(
+    _pids: BigNumberish[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -775,6 +714,10 @@ export class Masterchef extends Contract {
     [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
   >;
 
+  wannaPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "wannaPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
   withdraw(
     _pid: BigNumberish,
     _amount: BigNumberish,
@@ -787,60 +730,50 @@ export class Masterchef extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "rewardPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-  rewardPerSecond(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "rewardPerSecond()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   callStatic: {
-    BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
+    MASTER_PID(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "MASTER_PID()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    add(
+    WANNA(overrides?: CallOverrides): Promise<string>;
+
+    "WANNA()"(overrides?: CallOverrides): Promise<string>;
+
+    WANNA_FARM(overrides?: CallOverrides): Promise<string>;
+
+    "WANNA_FARM()"(overrides?: CallOverrides): Promise<string>;
+
+    addPool(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "add(uint256,address,bool)"(
+    "addPool(uint256,address,address)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "deposit(uint256,uint256)"(
+    "deposit(uint256,uint256,address)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    dev(_devaddr: string, overrides?: CallOverrides): Promise<void>;
+    dev(overrides?: CallOverrides): Promise<string>;
 
-    "dev(address)"(_devaddr: string, overrides?: CallOverrides): Promise<void>;
-
-    devFundDivRate(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "devFundDivRate()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    devaddr(overrides?: CallOverrides): Promise<string>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<string>;
+    "dev()"(overrides?: CallOverrides): Promise<string>;
 
     emergencyWithdraw(
       _pid: BigNumberish,
@@ -852,55 +785,61 @@ export class Masterchef extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
+    harvestFromWannaFarm(overrides?: CallOverrides): Promise<void>;
+
+    "harvestFromWannaFarm()"(overrides?: CallOverrides): Promise<void>;
+
+    init(_dummyToken: string, overrides?: CallOverrides): Promise<void>;
+
+    "init(address)"(
+      _dummyToken: string,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<void>;
 
-    "getMultiplier(uint256,uint256)"(
-      _from: BigNumberish,
-      _to: BigNumberish,
+    lpToken(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    "lpToken(uint256)"(
+      arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    massUpdatePools(overrides?: CallOverrides): Promise<void>;
-
-    "massUpdatePools()"(overrides?: CallOverrides): Promise<void>;
+    ): Promise<string>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
     "owner()"(overrides?: CallOverrides): Promise<string>;
 
-    pendingPickle(
+    pendingBonus(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "pendingPickle(uint256,address)"(
+    "pendingBonus(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    pickle(overrides?: CallOverrides): Promise<string>;
+    pendingWanna(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<string>;
-
-    picklePerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "picklePerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "pendingWanna(uint256,address)"(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     poolInfo(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [string, BigNumber, BigNumber, BigNumber] & {
-        lpToken: string;
-        allocPoint: BigNumber;
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        accWannaPerShare: BigNumber;
         lastRewardBlock: BigNumber;
-        accPicklePerShare: BigNumber;
+        allocPoint: BigNumber;
+        totalLp: BigNumber;
       }
     >;
 
@@ -908,11 +847,11 @@ export class Masterchef extends Contract {
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [string, BigNumber, BigNumber, BigNumber] & {
-        lpToken: string;
-        allocPoint: BigNumber;
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        accWannaPerShare: BigNumber;
         lastRewardBlock: BigNumber;
-        accPicklePerShare: BigNumber;
+        allocPoint: BigNumber;
+        totalLp: BigNumber;
       }
     >;
 
@@ -924,53 +863,28 @@ export class Masterchef extends Contract {
 
     "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
 
-    set(
+    rewarder(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+    "rewarder(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "set(uint256,uint256,bool)"(
+    "setPool(uint256,uint256,address,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    setBonusEndBlock(
-      _bonusEndBlock: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setBonusEndBlock(uint256)"(
-      _bonusEndBlock: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setDevFundDivRate(
-      _devFundDivRate: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setDevFundDivRate(uint256)"(
-      _devFundDivRate: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    setPicklePerBlock(
-      _picklePerBlock: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setPicklePerBlock(uint256)"(
-      _picklePerBlock: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    startBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "startBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalAllocPoint(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -986,12 +900,39 @@ export class Masterchef extends Contract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    updatePool(_pid: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    updateAllPools(
+      _pids: BigNumberish[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "updateAllPools(uint256[])"(
+      _pids: BigNumberish[],
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updatePool(
+      _pid: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        accWannaPerShare: BigNumber;
+        lastRewardBlock: BigNumber;
+        allocPoint: BigNumber;
+        totalLp: BigNumber;
+      }
+    >;
 
     "updatePool(uint256)"(
       _pid: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        accWannaPerShare: BigNumber;
+        lastRewardBlock: BigNumber;
+        allocPoint: BigNumber;
+        totalLp: BigNumber;
+      }
+    >;
 
     userInfo(
       arg0: BigNumberish,
@@ -1009,6 +950,10 @@ export class Masterchef extends Contract {
       [BigNumber, BigNumber] & { amount: BigNumber; rewardDebt: BigNumber }
     >;
 
+    wannaPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "wannaPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
@@ -1020,24 +965,32 @@ export class Masterchef extends Contract {
       _amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardPerSecond(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardPerSecond()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
+    AddPool(
+      pid: BigNumberish | null,
+      allocPoint: null,
+      lpToken: string | null,
+      rewarder: string | null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, string, string],
+      {
+        pid: BigNumber;
+        allocPoint: BigNumber;
+        lpToken: string;
+        rewarder: string;
+      }
+    >;
+
     Deposit(
       user: string | null,
       pid: BigNumberish | null,
-      amount: null
+      amount: null,
+      ref: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { user: string; pid: BigNumber; amount: BigNumber }
+      [string, BigNumber, BigNumber, string],
+      { user: string; pid: BigNumber; amount: BigNumber; ref: string }
     >;
 
     EmergencyWithdraw(
@@ -1049,6 +1002,17 @@ export class Masterchef extends Contract {
       { user: string; pid: BigNumber; amount: BigNumber }
     >;
 
+    Harvest(
+      user: string | null,
+      pid: BigNumberish | null,
+      amount: null
+    ): TypedEventFilter<
+      [string, BigNumber, BigNumber],
+      { user: string; pid: BigNumber; amount: BigNumber }
+    >;
+
+    Init(): TypedEventFilter<[], {}>;
+
     OwnershipTransferred(
       previousOwner: string | null,
       newOwner: string | null
@@ -1057,12 +1021,34 @@ export class Masterchef extends Contract {
       { previousOwner: string; newOwner: string }
     >;
 
-    Recovered(
-      token: null,
-      amount: null
+    SetPool(
+      pid: BigNumberish | null,
+      allocPoint: null,
+      rewarder: string | null,
+      overwrite: null
     ): TypedEventFilter<
-      [string, BigNumber],
-      { token: string; amount: BigNumber }
+      [BigNumber, BigNumber, string, boolean],
+      {
+        pid: BigNumber;
+        allocPoint: BigNumber;
+        rewarder: string;
+        overwrite: boolean;
+      }
+    >;
+
+    UpdatePool(
+      pid: BigNumberish | null,
+      lastRewardBlock: null,
+      lpSupply: null,
+      accWannaPerShare: null
+    ): TypedEventFilter<
+      [BigNumber, BigNumber, BigNumber, BigNumber],
+      {
+        pid: BigNumber;
+        lastRewardBlock: BigNumber;
+        lpSupply: BigNumber;
+        accWannaPerShare: BigNumber;
+      }
     >;
 
     Withdraw(
@@ -1076,57 +1062,49 @@ export class Masterchef extends Contract {
   };
 
   estimateGas: {
-    BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
+    MASTER_PID(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "BONUS_MULTIPLIER()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "MASTER_PID()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    add(
+    WANNA(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "WANNA()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    WANNA_FARM(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "WANNA_FARM()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    addPool(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "add(uint256,address,bool)"(
+    "addPool(uint256,address,address)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "deposit(uint256,uint256)"(
+    "deposit(uint256,uint256,address)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    dev(
-      _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    dev(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "dev(address)"(
-      _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    devFundDivRate(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "devFundDivRate()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    devaddr(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "dev()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     emergencyWithdraw(
       _pid: BigNumberish,
@@ -1138,49 +1116,58 @@ export class Masterchef extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "getMultiplier(uint256,uint256)"(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    massUpdatePools(
+    harvestFromWannaFarm(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "massUpdatePools()"(
+    "harvestFromWannaFarm()"(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    init(
+      _dummyToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "init(address)"(
+      _dummyToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    lpToken(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    "lpToken(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     "owner()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    pendingPickle(
+    pendingBonus(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    "pendingPickle(uint256,address)"(
+    "pendingBonus(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    pickle(overrides?: CallOverrides): Promise<BigNumber>;
+    pendingWanna(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    picklePerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "picklePerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+    "pendingWanna(uint256,address)"(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     poolInfo(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1201,53 +1188,28 @@ export class Masterchef extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    set(
+    rewarder(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    "rewarder(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "set(uint256,uint256,bool)"(
+    "setPool(uint256,uint256,address,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    setBonusEndBlock(
-      _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setBonusEndBlock(uint256)"(
-      _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setDevFundDivRate(
-      _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setDevFundDivRate(uint256)"(
-      _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    setPicklePerBlock(
-      _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setPicklePerBlock(uint256)"(
-      _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    startBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "startBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalAllocPoint(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1260,6 +1222,16 @@ export class Masterchef extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    updateAllPools(
+      _pids: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "updateAllPools(uint256[])"(
+      _pids: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -1285,6 +1257,10 @@ export class Masterchef extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    wannaPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "wannaPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
@@ -1296,72 +1272,52 @@ export class Masterchef extends Contract {
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardPerBlock()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    rewardPerSecond(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "rewardPerSecond()"(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    BONUS_MULTIPLIER(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    MASTER_PID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "BONUS_MULTIPLIER()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    "MASTER_PID()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    add(
+    WANNA(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "WANNA()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    WANNA_FARM(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "WANNA_FARM()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    addPool(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "add(uint256,address,bool)"(
+    "addPool(uint256,address,address)"(
       _allocPoint: BigNumberish,
       _lpToken: string,
-      _withUpdate: boolean,
+      _rewarder: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    bonusEndBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "bonusEndBlock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "deposit(uint256,uint256)"(
+    "deposit(uint256,uint256,address)"(
       _pid: BigNumberish,
       _amount: BigNumberish,
+      _ref: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    dev(
-      _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    dev(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "dev(address)"(
-      _devaddr: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    devFundDivRate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "devFundDivRate()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    devaddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "devaddr()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    "dev()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     emergencyWithdraw(
       _pid: BigNumberish,
@@ -1373,49 +1329,59 @@ export class Masterchef extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    getMultiplier(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "getMultiplier(uint256,uint256)"(
-      _from: BigNumberish,
-      _to: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    massUpdatePools(
+    harvestFromWannaFarm(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "massUpdatePools()"(
+    "harvestFromWannaFarm()"(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    init(
+      _dummyToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "init(address)"(
+      _dummyToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    lpToken(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "lpToken(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "owner()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    pendingPickle(
+    pendingBonus(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    "pendingPickle(uint256,address)"(
+    "pendingBonus(uint256,address)"(
       _pid: BigNumberish,
       _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    pickle(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    pendingWanna(
+      _pid: BigNumberish,
+      _user: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    "pickle()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    picklePerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "picklePerBlock()"(
+    "pendingWanna(uint256,address)"(
+      _pid: BigNumberish,
+      _user: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1441,53 +1407,31 @@ export class Masterchef extends Contract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    set(
+    rewarder(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "rewarder(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    setPool(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "set(uint256,uint256,bool)"(
+    "setPool(uint256,uint256,address,bool)"(
       _pid: BigNumberish,
       _allocPoint: BigNumberish,
-      _withUpdate: boolean,
+      _rewarder: string,
+      _overwrite: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
-
-    setBonusEndBlock(
-      _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setBonusEndBlock(uint256)"(
-      _bonusEndBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setDevFundDivRate(
-      _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setDevFundDivRate(uint256)"(
-      _devFundDivRate: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    setPicklePerBlock(
-      _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setPicklePerBlock(uint256)"(
-      _picklePerBlock: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    startBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "startBlock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalAllocPoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1502,6 +1446,16 @@ export class Masterchef extends Contract {
 
     "transferOwnership(address)"(
       newOwner: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateAllPools(
+      _pids: BigNumberish[],
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "updateAllPools(uint256[])"(
+      _pids: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1527,6 +1481,10 @@ export class Masterchef extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    wannaPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "wannaPerBlock()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     withdraw(
       _pid: BigNumberish,
       _amount: BigNumberish,
@@ -1537,18 +1495,6 @@ export class Masterchef extends Contract {
       _pid: BigNumberish,
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    rewardPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "rewardPerBlock()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    rewardPerSecond(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "rewardPerSecond()"(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
