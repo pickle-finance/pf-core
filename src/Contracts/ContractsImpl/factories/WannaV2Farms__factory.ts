@@ -5,14 +5,14 @@
 import { Contract, Signer } from "ethers";
 import { Provider } from "@ethersproject/providers";
 
-import type { Masterchef } from "../Masterchef";
+import type { WannaV2Farms } from "../WannaV2Farms";
 
-export class Masterchef__factory {
+export class WannaV2Farms__factory {
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): Masterchef {
-    return new Contract(address, _abi, signerOrProvider) as Masterchef;
+  ): WannaV2Farms {
+    return new Contract(address, _abi, signerOrProvider) as WannaV2Farms;
   }
 }
 
@@ -20,33 +20,59 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "contract PickleToken",
-        name: "_pickle",
+        internalType: "contract IWannaFarm",
+        name: "_WANNA_FARM",
         type: "address",
+      },
+      {
+        internalType: "contract IERC20",
+        name: "_wanna",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_MASTER_PID",
+        type: "uint256",
       },
       {
         internalType: "address",
-        name: "_devaddr",
+        name: "_dev",
         type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "_picklePerBlock",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_startBlock",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_bonusEndBlock",
-        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "allocPoint",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "contract IERC20",
+        name: "lpToken",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "contract IRewarder",
+        name: "rewarder",
+        type: "address",
+      },
+    ],
+    name: "AddPool",
+    type: "event",
   },
   {
     anonymous: false,
@@ -68,6 +94,12 @@ const _abi = [
         internalType: "uint256",
         name: "amount",
         type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "ref",
+        type: "address",
       },
     ],
     name: "Deposit",
@@ -104,6 +136,37 @@ const _abi = [
       {
         indexed: true,
         internalType: "address",
+        name: "user",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "Harvest",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [],
+    name: "Init",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
         name: "previousOwner",
         type: "address",
       },
@@ -121,19 +184,62 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "address",
-        name: "token",
-        type: "address",
+        indexed: true,
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
       },
       {
         indexed: false,
         internalType: "uint256",
-        name: "amount",
+        name: "allocPoint",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "contract IRewarder",
+        name: "rewarder",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "overwrite",
+        type: "bool",
+      },
+    ],
+    name: "SetPool",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "pid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "lastRewardBlock",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "lpSupply",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "accWannaPerShare",
         type: "uint256",
       },
     ],
-    name: "Recovered",
+    name: "UpdatePool",
     type: "event",
   },
   {
@@ -163,12 +269,38 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "BONUS_MULTIPLIER",
+    name: "MASTER_PID",
     outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "WANNA",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "WANNA_FARM",
+    outputs: [
+      {
+        internalType: "contract IWannaFarm",
+        name: "",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -187,27 +319,14 @@ const _abi = [
         type: "address",
       },
       {
-        internalType: "bool",
-        name: "_withUpdate",
-        type: "bool",
+        internalType: "contract IRewarder",
+        name: "_rewarder",
+        type: "address",
       },
     ],
-    name: "add",
+    name: "addPool",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "bonusEndBlock",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -222,6 +341,11 @@ const _abi = [
         name: "_amount",
         type: "uint256",
       },
+      {
+        internalType: "address",
+        name: "_ref",
+        type: "address",
+      },
     ],
     name: "deposit",
     outputs: [],
@@ -229,34 +353,8 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_devaddr",
-        type: "address",
-      },
-    ],
+    inputs: [],
     name: "dev",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "devFundDivRate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "devaddr",
     outputs: [
       {
         internalType: "address",
@@ -281,34 +379,42 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "harvestFromWannaFarm",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_from",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_to",
-        type: "uint256",
+        internalType: "contract IERC20",
+        name: "_dummyToken",
+        type: "address",
       },
     ],
-    name: "getMultiplier",
-    outputs: [
+    name: "init",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
       },
     ],
+    name: "lpToken",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "massUpdatePools",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -337,11 +443,11 @@ const _abi = [
         type: "address",
       },
     ],
-    name: "pendingPickle",
+    name: "pendingBonus",
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "pending",
         type: "uint256",
       },
     ],
@@ -349,25 +455,23 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "pickle",
-    outputs: [
+    inputs: [
       {
-        internalType: "contract PickleToken",
-        name: "",
+        internalType: "uint256",
+        name: "_pid",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "_user",
         type: "address",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "picklePerBlock",
+    name: "pendingWanna",
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "pending",
         type: "uint256",
       },
     ],
@@ -385,13 +489,8 @@ const _abi = [
     name: "poolInfo",
     outputs: [
       {
-        internalType: "contract IERC20",
-        name: "lpToken",
-        type: "address",
-      },
-      {
         internalType: "uint256",
-        name: "allocPoint",
+        name: "accWannaPerShare",
         type: "uint256",
       },
       {
@@ -401,7 +500,12 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "accPicklePerShare",
+        name: "allocPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "totalLp",
         type: "uint256",
       },
     ],
@@ -414,7 +518,7 @@ const _abi = [
     outputs: [
       {
         internalType: "uint256",
-        name: "",
+        name: "pools",
         type: "uint256",
       },
     ],
@@ -432,6 +536,25 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "rewarder",
+    outputs: [
+      {
+        internalType: "contract IRewarder",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_pid",
         type: "uint256",
       },
@@ -441,66 +564,19 @@ const _abi = [
         type: "uint256",
       },
       {
+        internalType: "contract IRewarder",
+        name: "_rewarder",
+        type: "address",
+      },
+      {
         internalType: "bool",
-        name: "_withUpdate",
+        name: "_overwrite",
         type: "bool",
       },
     ],
-    name: "set",
+    name: "setPool",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_bonusEndBlock",
-        type: "uint256",
-      },
-    ],
-    name: "setBonusEndBlock",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_devFundDivRate",
-        type: "uint256",
-      },
-    ],
-    name: "setDevFundDivRate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_picklePerBlock",
-        type: "uint256",
-      },
-    ],
-    name: "setPicklePerBlock",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "startBlock",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -532,13 +608,54 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256[]",
+        name: "_pids",
+        type: "uint256[]",
+      },
+    ],
+    name: "updateAllPools",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "_pid",
         type: "uint256",
       },
     ],
     name: "updatePool",
-    outputs: [],
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "accWannaPerShare",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "lastRewardBlock",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "allocPoint",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "totalLp",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct WannaFarmV2.PoolInfo",
+        name: "pool",
+        type: "tuple",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -572,6 +689,19 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "wannaPerBlock",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "uint256",
@@ -587,32 +717,6 @@ const _abi = [
     name: "withdraw",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rewardPerBlock",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rewardPerSecond",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
 ];

@@ -1904,6 +1904,68 @@ export const JAR_STAR_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_STAR_USDT);
 
+export const JAR_UWU_FRAX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar u1",
+  contract: "0x6a141468Aa1185e7616B8B35F4AE94A70d77a568",
+  startBlock: 15605930,
+  startTimestamp: 1664043273,
+  depositToken: {
+    addr: "0x853d955aCEf822Db058eb8505911ED77F175b99e",
+    name: "UwU FRAX",
+    link: "https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f",
+    components: ["frax"],
+    decimals: 18,
+  },
+  rewardTokens: ["weth"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UWU,
+  stakingProtocol: AssetProtocol.UWU,
+  details: {
+    apiKey: "UWU-FRAX",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 18,
+  },
+  farm: {
+    farmAddress: "0xCE3600D6d5C97b369ba37647A41E14A03aeF33f8",
+    farmNickname: "pUWU FRAX",
+    farmDepositTokenName: "pUWU FRAX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UWU_FRAX);
+
+export const JAR_UWU_WETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar u2",
+  contract: "0xcd7F5f35E023fE9b2bDBa4A5dc6d5F23fD91814f",
+  startBlock: 15605930,
+  startTimestamp: 1664043273,
+  depositToken: {
+    addr: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    name: "UwU WETH",
+    link: "https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    components: ["weth"],
+    decimals: 18,
+  },
+  rewardTokens: ["weth"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.UWU,
+  stakingProtocol: AssetProtocol.UWU,
+  details: {
+    apiKey: "UWU-WETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 18,
+  },
+  farm: {
+    farmAddress: "0x84a812d6F65eC7BAd642AE3Dc39Abc3F7c1a3d8d",
+    farmNickname: "pUWU WETH",
+    farmDepositTokenName: "pUWU WETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_UWU_WETH);
+
 export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
   type: AssetType.JAR,
   id: "pJar 2a",
