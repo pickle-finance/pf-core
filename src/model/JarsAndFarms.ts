@@ -1913,7 +1913,7 @@ export const JAR_UWU_FRAX: JarDefinition = {
   depositToken: {
     addr: "0x853d955aCEf822Db058eb8505911ED77F175b99e",
     name: "UwU FRAX",
-    link: "https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f",
+    link: "https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=0x853d955acef822db058eb8505911ed77f175b99e",
     components: ["frax"],
     decimals: 18,
   },
