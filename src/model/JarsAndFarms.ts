@@ -9824,7 +9824,7 @@ export const JAR_OPTIMISM_VELO_USDC_TUSD_S: JarDefinition = {
     components: ["usdc", "tusd"],
   },
   rewardTokens: ["velo"],
-  enablement: AssetEnablement.DEV,
+  enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
