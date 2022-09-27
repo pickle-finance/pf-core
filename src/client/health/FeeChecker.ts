@@ -29,6 +29,7 @@ const feeCallMap: { [apiKey: string]: string[] } = {
   "STG-POLYGON-USDT": ["Reward"],
   "STG-POLYGON-USDC": ["Reward"],
   "QLP-MIMATIC": ["Reward"],
+  "QLP-QIMATIC": ["Reward"],
   // ARBITRUM
   "STG-ARBITRUM-USDT": ["Reward"],
   "STG-ARBITRUM-USDC": ["Reward"],
