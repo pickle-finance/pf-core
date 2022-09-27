@@ -6,7 +6,7 @@ import {
 } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
-import { calculateMasterChefRewardsAPR } from "../../protocols/MasterChefApyUtil";
+import { calculateMasterChefRewardsAPRPerSecond } from "../../protocols/MasterChefApyUtil";
 import { QuickswapPairManager } from "../../protocols/QuickswapUtil";
 
 export class MaticQi extends AbstractJarBehavior {
@@ -33,7 +33,10 @@ export class MaticQi extends AbstractJarBehavior {
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    const chefPromise = calculateMasterChefRewardsAPR(definition, model);
+    const chefPromise = calculateMasterChefRewardsAPRPerSecond(
+      definition,
+      model,
+    );
     const lpPromise = new QuickswapPairManager().calculateLpApr(
       model,
       definition.depositToken.addr,
