@@ -75,12 +75,12 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
   polygon: [
     ["https://rpc-mainnet.matic.quiknode.pro"],
     ["https://rpc.ankr.com/polygon"],
-    ["https://polygon-mainnet.public.blastapi.io"],
     ["https://polygon-rpc.com"],
     ["https://rpc-mainnet.maticvigil.com"],
     ["https://matic-mainnet-archive-rpc.bwarelabs.com"],
     ["https://matic-mainnet-full-rpc.bwarelabs.com"],
     ["https://matic-mainnet.chainstacklabs.com"],
+    // ["https://polygon-mainnet.public.blastapi.io"],
     // ["https://poly-rpc.gateway.pokt.network"],  // offline - too long
   ],
 };
