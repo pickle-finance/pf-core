@@ -2,7 +2,7 @@ import { BigNumber, ethers } from "ethers";
 import balVaultABI from "../Contracts/ABIs/balancer_vault.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import beethovenxChefAbi from "../Contracts/ABIs/beethovenx-chef.json";
-import { ChainNetwork, Chains, PickleModel } from "..";
+import { Chains, PickleModel } from "..";
 import { readQueryFromGraphDetails } from "../graph/TheGraph";
 import {
   AssetAprComponent,
@@ -15,26 +15,7 @@ import { ONE_YEAR_IN_SECONDS } from "../behavior/AbstractJarBehavior";
 import { toError } from "../model/PickleModel";
 import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
 
-const VAULT_ADDRESS = "0x20dd72Ed959b6147912C2e529F0a0C651c33c9ce";
 export const MC_ADDRESS = "0x8166994d9ebBe5829EC86Bd81258149B87faCfd3";
-
-// make sure keys are lower-cased! (TODO: replace with the checksummed version)
-const vaultPoolIds: { [poolTokenAddress: string]: string } = {
-  "0xd47d2791d3b46f9452709fa41855a045304d6f9d":
-    "0xd47d2791d3b46f9452709fa41855a045304d6f9d000100000000000000000004", // ftm-btc-eth
-  "0x5e02ab5699549675a6d3beeb92a62782712d0509":
-    "0x5e02ab5699549675a6d3beeb92a62782712d0509000200000000000000000138", // lqdr-ftm
-  "0x2c580c6f08044d6dfaca8976a66c8fadddbd9901":
-    "0x2c580c6f08044d6dfaca8976a66c8fadddbd9901000000000000000000000038", // usdc-dai-mai
-  "0xf3a602d30dcb723a74a0198313a7551feaca7dac":
-    "0xf3a602d30dcb723a74a0198313a7551feaca7dac00010000000000000000005f", // usdc-ftm-btc-eth
-  "0x9af1f0e9ac9c844a4a4439d446c1437807183075":
-    "0x9af1f0e9ac9c844a4a4439d446c14378071830750001000000000000000000da", // ftm-matic-sol-avax-luna-bnb
-  "0xcdf68a4d525ba2e90fe959c74330430a5a6b8226":
-    "0xcdf68a4d525ba2e90fe959c74330430a5a6b8226000200000000000000000008", // ftm-usdc
-  "0xfcef8a994209d6916eb2c86cdd2afd60aa6f54b1":
-    "0xcde5a11a4acb4ee4c805352cec57e236bdbc3837000200000000000000000019", // beets-ftm
-};
 
 // make sure keys are lower-cased! (TODO: replace with the checksummed version)
 export const masterChefIds: { [tokenAddress: string]: number } = {
@@ -77,8 +58,8 @@ export const queryTheGraph = async (
     jar.chain,
   );
   if (!res || !res.data || !res.data.pools || res.data.pools.length === 0) {
-    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/1", 
-    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
+    //prettier-ignore
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/1", `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return undefined;
   }
   const poolData = res?.data?.pools[0];
@@ -88,8 +69,8 @@ export const queryTheGraph = async (
     poolData.totalLiquidity === undefined ||
     poolData.totalSwapFee === undefined
   ) {
-    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/2", 
-    `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
+    //prettier-ignore
+    model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/queryTheGraph/2", `Error loading Beethoven apy from graph`, '', ErrorSeverity.ERROR_4));
     return undefined;
   }
   try {
@@ -189,47 +170,49 @@ export const getPoolData = async (
     const { totalLiquidity } = graphResp;
     totalSupplyUSD = totalLiquidity;
   } else {
-    if (jar.chain === ChainNetwork.Fantom) {
-      try {
-        // Less efficient. Fallback in case the graph doesn't work
-        const vaultPoolId = vaultPoolIds[jar.depositToken.addr.toLowerCase()];
-        const balVaultContract = new Contract(
-          VAULT_ADDRESS,
-          balVaultABI,
-          multiProvider,
-        );
-        const poolTokensResp = await balVaultContract.callStatic.getPoolTokens(
-          vaultPoolId,
-        );
-  
-        const { tokens, balances } = poolTokensResp;
-        const filtered = tokens.map((tokenAddr: string, i: number) => {
-          return [
-            tokenAddr,
-            parseFloat(
-              ethers.utils.formatUnits(
-                balances[i],
-                model.tokenDecimals(tokenAddr, jar.chain),
-              ),
+    try {
+      // Less efficient. Fallback in case the graph doesn't work
+      const poolAbi = ["function getPoolId() view returns(bytes32)","function getVault() view returns(address)"];
+      const poolContract = new Contract(jar.depositToken.addr,poolAbi);
+      const [vaultAddr, poolId] = await multiProvider.all([
+        poolContract.getVault(), poolContract.getPoolId()
+      ]);
+      const balVaultContract = new Contract(
+        vaultAddr,
+        balVaultABI,
+        multiProvider,
+      );
+      const poolTokensResp = await balVaultContract.callStatic.getPoolTokens(
+        poolId
+      );
+
+      const { tokens, balances } = poolTokensResp;
+      const filtered = tokens.map((tokenAddr: string, i: number) => {
+        return [
+          tokenAddr,
+          parseFloat(
+            ethers.utils.formatUnits(
+              balances[i],
+              model.tokenDecimals(tokenAddr, jar.chain),
             ),
-          ];
-        });
-        const poolTotalBalanceUSD = filtered.reduce(
-          (total: number, [tokenAddr, tokenAmount]: [string, number]) => {
-            const tokenAddress = tokenAddr.toLowerCase();
-            const tokenPrice = model.priceOfSync(tokenAddress, jar.chain);
-            const tokenValueUSD = tokenAmount * tokenPrice;
-            return total + tokenValueUSD;
-          },
-          0,
-        );
-        if (!poolTotalBalanceUSD)
-          throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
-        totalSupplyUSD = poolTotalBalanceUSD;
-      } catch (error) {
-        //prettier-ignore
-        model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getPoolData", ``, ''+error, ErrorSeverity.ERROR_4));
-      }
+          ),
+        ];
+      });
+      const poolTotalBalanceUSD = filtered.reduce(
+        (total: number, [tokenAddr, tokenAmount]: [string, number]) => {
+          const tokenAddress = tokenAddr.toLowerCase();
+          const tokenPrice = model.priceOfSync(tokenAddress, jar.chain);
+          const tokenValueUSD = tokenAmount * tokenPrice;
+          return total + tokenValueUSD;
+        },
+        0,
+      );
+      if (!poolTotalBalanceUSD)
+        throw `Error: poolTotalBalanceUSD = ${poolTotalBalanceUSD}`;
+      totalSupplyUSD = poolTotalBalanceUSD;
+    } catch (error) {
+      //prettier-ignore
+      model.logPlatformError(toError(305000, jar.chain, jar.details.apiKey, "BeethovenXUtil/getPoolData", ``, ''+error, ErrorSeverity.ERROR_4));
     }
   }
 

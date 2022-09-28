@@ -41,7 +41,7 @@ export class OPBeetXJar extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    if (!this.jarData) await getPoolData(jar, model);
+    if (!this.jarData) await this.getJarData(jar, model);
     const poolAprComponents: AssetAprComponent[] = [];
 
     const lp: AssetAprComponent = {

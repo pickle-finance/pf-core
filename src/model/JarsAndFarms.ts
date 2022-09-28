@@ -9853,7 +9853,7 @@ export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
     components: ["eth", "ib"],
   },
   rewardTokens: ["ib"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
@@ -9897,6 +9897,35 @@ export const JAR_OPTIMISM_BEETX_ETH_RETH: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_BEETX_ETH_RETH);
+
+export const JAR_OPTIMISM_BEETX_IB_RETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 4c",
+  contract: "0x3360A6614a06A40153c63d807FE38d36908D45C2",
+  startBlock: 26049770,
+  startTimestamp: 1664382254,
+  depositToken: {
+    addr: "0x785F08fB77ec934c01736E30546f87B4daccBe50",
+    name: "BEETX IB/RETH",
+    link: "https://op.beets.fi/pool/0x785f08fb77ec934c01736e30546f87b4daccbe50000200000000000000000041",
+    components: ["ib", "reth"],
+  },
+  rewardTokens: ["ib"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.BEETHOVENX,
+  details: {
+    apiKey: "OP-BEETX-IB-RETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pBEETX IB/RETH",
+    farmDepositTokenName: "pBEETX IB/RETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_BEETX_IB_RETH);
 
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {

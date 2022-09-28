@@ -452,6 +452,7 @@ import {
   JAR_OPTIMISM_VELO_USDC_TUSD_S,
   JAR_UWU_FRAX,
   JAR_UWU_WETH,
+  JAR_OPTIMISM_BEETX_IB_RETH,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -1078,6 +1079,7 @@ jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_ALETH_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_TUSD_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_IB.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_RETH.id, new OPBeetXJar());
+jarToBehavior.set(JAR_OPTIMISM_BEETX_IB_RETH.id, new OPBeetXJar());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());
