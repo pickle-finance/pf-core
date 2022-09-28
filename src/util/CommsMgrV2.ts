@@ -67,8 +67,10 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
   ],
   okex: [["https://exchainrpc.okex.org"]],
   optimism: [
-    ["https://optimism-mainnet.public.blastapi.io"],
+    ["https://1rpc.io/op"],
     ["https://mainnet.optimism.io"],
+    ["https://rpc.ankr.com/optimism"],
+    // ["https://optimism-mainnet.public.blastapi.io"],
   ],
   polygon: [
     ["https://rpc-mainnet.matic.quiknode.pro"],
