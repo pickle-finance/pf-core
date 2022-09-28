@@ -23,7 +23,15 @@ import { Contract } from "ethers-multiprovider";
 const stabilityPoolAddr = "0x66017D22b0f8556afDd19FC67041899Eb65a21bb";
 const pBAMM = "0x54bC9113f1f55cdBDf221daf798dc73614f6D972";
 const pLQTY = "0x65B2532474f717D5A8ba38078B78106D56118bbb";
-
+const stabilityPoolAbi = [
+  {
+    inputs: [{ internalType: "address", name: "_depositor", type: "address" }],
+    name: "getCompoundedLUSDDeposit",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+];
 export class PBammAsset implements ExternalAssetBehavior {
   getCustomHarvester(
     _definition: ExternalAssetDefinition,
@@ -89,27 +97,43 @@ export class PBammAsset implements ExternalAssetBehavior {
     _balance: BigNumber,
     _available: BigNumber,
   ): Promise<JarHarvestStats> {
+    const multiProvider = model.multiproviderFor(definition.chain);
+    const stabilityPoolContract = new Contract(
+      stabilityPoolAddr,
+      stabilityPoolAbi,
+    );
+
+    const pBammContract = new Contract(pBAMM, erc20Abi);
+
+    const lusdPrice = model.priceOfSync(
+      definition.depositToken.addr,
+      definition.chain,
+    );
+
+    const ethPrice = model.priceOfSync("weth", definition.chain);
+
+    const [lusdInStabilityPool, totalSupply] = await multiProvider.all([
+      stabilityPoolContract.getCompoundedLUSDDeposit(pBAMM),
+      pBammContract.totalSupply(),
+    ]);
+
+    const ethBalance = await multiProvider.getBalance(pBAMM);
+
+    const pricePerToken =
+      (+formatEther(lusdInStabilityPool) * lusdPrice +
+        +formatEther(ethBalance) * ethPrice) /
+      +formatEther(totalSupply);
     const bal = await getPBammBalance(definition, model);
     return {
       balanceUSD: bal,
       earnableUSD: 0,
       harvestableUSD: 0,
+      multiplier: pricePerToken,
     };
   }
 }
 
 export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
-  const stabilityPoolAbi = [
-    {
-      inputs: [
-        { internalType: "address", name: "_depositor", type: "address" },
-      ],
-      name: "getCompoundedLUSDDeposit",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-  ];
   const multiProvider = model.multiproviderFor(asset.chain);
   const stabilityPoolContract = new Contract(
     stabilityPoolAddr,
@@ -127,7 +151,8 @@ export async function getPBammBalance(asset: PickleAsset, model: PickleModel) {
     pLqtyContract.balanceOf(pBAMM),
   ]);
   const lqtyPrice = model.priceOfSync("lqty", asset.chain);
-  const ratio = (model.findAsset(JAR_LQTY.id) as JarDefinition).details.ratio;
+  const lqtyJar = model.findAsset(JAR_LQTY.id) as JarDefinition;
+  const ratio = lqtyJar?.details.ratio;
   const lqtyValue =
     parseFloat(ethers.utils.formatEther(pLqtyTokens)) * lqtyPrice * ratio;
 
