@@ -58,6 +58,7 @@ export class Univ3Base extends AbstractJarBehavior {
       definition.chain,
     );
 
+    // I find this very questionable; there's gotta be a better way to determine stablecoins - bwar
     const isToken0Stable = token0Price > 0.98 && token0Price < 1.02;
     const isToken1Stable = token1Price > 0.98 && token1Price < 1.02;
 
@@ -122,7 +123,7 @@ export class Univ3Base extends AbstractJarBehavior {
 
     const pJarUSD = token0Price * jarAmount0 + token1Price * jarAmount1;
     const perDepositToken = pJarUSD / definition.details.tokenBalance;
-    return perDepositToken;
+    return perDepositToken || 0;
   }
 
   async getHarvestableUSD(
@@ -154,7 +155,7 @@ export class Univ3Base extends AbstractJarBehavior {
       model.logPlatformError(toError(301104,definition.chain,definition.details.apiKey,"getAssetHarvestDataUniv3Base","Univ3 callStatic.getHarvestable has failed! Are we being rugged?","" + err, ErrorSeverity.CRITICAL));
       return {
         balanceUSD:
-          definition.details.tokenBalance * definition.depositToken.price,
+          (definition.details.tokenBalance || 0) * (definition.depositToken.price || 0),
         earnableUSD: 0, // This jar is always earned on user deposit
         harvestableUSD: 0,
       };  
