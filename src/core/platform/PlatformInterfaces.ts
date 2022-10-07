@@ -48,6 +48,7 @@ export interface ErrorLogger {
 301000 - getHarvestableUSDComManImplementation
 301101 - getHarvestableUSD
 301102 - getProjectedAprStats
+301104 - getAssetHarvestData
 301105 - getProtocolApy
 302000 - Errors for custom harvesting
 305000 - utility function for jar behavior
