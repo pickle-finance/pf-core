@@ -4,8 +4,12 @@ import { ChainNetwork, PickleModelJson } from "../../src";
 import { UserModel } from "../../src/client/UserModel";
 import fetch from "cross-fetch";
 
+const enabled = false;
 describe("Testing user model", () => {
   test("Ensure user model actually returns", async () => {
+    if( !enabled ) {
+      return;
+    }
     const core = await fetch(
       "https://api.pickle.finance/prod/protocol/pfcore",
     ).then((response) => response.json());
