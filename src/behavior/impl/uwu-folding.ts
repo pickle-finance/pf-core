@@ -7,13 +7,10 @@ import {
 
 import UwuStrategyAbi from "../../Contracts/ABIs/uwu-strategy.json";
 import AavePoolAbi from "../../Contracts/ABIs/aave-pool.json";
-import UwuChefAbi from "../../Contracts/ABIs/uwu-chef.json";
-import erc20Abi from "../../Contracts/ABIs/erc20.json";
 
 import { PickleModel } from "../../model/PickleModel";
 import { Contract } from "ethers-multiprovider";
-import { ChainNetwork, Chains } from "../../chain/Chains";
-import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
+import { Chains } from "../../chain/Chains";
 import fetch from "cross-fetch";
 
 const UWU_LENDING_POOL = "0x2409aF0251DCB89EE3Dee572629291f9B087c668";
