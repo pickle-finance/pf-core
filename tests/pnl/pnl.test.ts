@@ -298,7 +298,7 @@ const assertLot = (lot: Lot, status: string, wei: string, weiRemain: string, wei
 
 describe("Testing Single Deposit", () => {
   test("basic", async () => {
-    const summarized: PnlTransactionWrapper[] = generatePnL(SIMPLE_DEPOSIT_ONLY_NO_RATIO_CHANGE.test);
+    const summarized: PnlTransactionWrapper[] = generatePnL("0xfeedc450742ac0d9bb38341d9939449e3270f76f", SIMPLE_DEPOSIT_ONLY_NO_RATIO_CHANGE.test);
     expect(summarized.length).toBe(1);
     expect(summarized[0].pnlRollingDataWithLots.lots.length).toBe(1);
     expect(summarized[0].pnlRollingDataWithLots.lots[0].status).toBe('open');
@@ -312,7 +312,7 @@ describe("Testing Single Deposit", () => {
 describe("Testing Single Generated Deposit", () => {
   test("basic", async () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER], [tx]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
     expect(summarized.length).toBe(1);
     expect(summarized[0].lots.length).toBe(1);
@@ -325,7 +325,7 @@ describe("Testing Two Deposits Same Price", () => {
   test("basic", async () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarDeposit(2, 2, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER], [tx, tx2]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(2);
@@ -347,7 +347,7 @@ describe("Testing Two Deposits Different Price", () => {
   test("basic", async () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarDeposit(2, 2, 18, 7, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER], [tx, tx2]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
     expect(summarized.length).toBe(2);
     expect(summarized[0].lots.length).toBe(1);
@@ -372,7 +372,7 @@ describe("Testing One Deposit One Withdraw-All Same Price", () => {
   test("basic", async () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarWithdraw(2, 2, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER], [tx, tx2]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(2);
@@ -391,7 +391,7 @@ describe("Testing One Deposit One Withdraw Half Same Price", () => {
   test("basic", async () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarWithdraw(2, 1, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER], [tx, tx2]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
     expect(summarized.length).toBe(2);
     expect(summarized[0].lots.length).toBe(1);
@@ -408,7 +408,7 @@ describe("Testing One Deposit Two Withdraws Same Price", () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarWithdraw(2, 1, 18, 5, 1);
     const tx3 = generateJarWithdraw(2, 1, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2, tx3]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx, tx2, tx3]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(3);
@@ -434,7 +434,7 @@ describe("Testing Two Deposits One Withdraw-All Same Price", () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarDeposit(2, 2, 18, 5, 1);
     const tx3 = generateJarWithdraw(3, 4, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2, tx3]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx, tx2, tx3]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(3);
@@ -464,7 +464,7 @@ describe("Testing Two Deposits Two Withdraws Same Price Unmatched Lots", () => {
     const tx2 = generateJarDeposit(2, 2, 18, 5, 1);
     const tx3 = generateJarWithdraw(3, 3, 18, 5, 1);
     const tx4 = generateJarWithdraw(4, 1, 18, 5, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2, tx3, tx4]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx, tx2, tx3, tx4]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(4);
@@ -501,7 +501,7 @@ describe("Testing Two Deposits Different Prices Two Withdraws", () => {
     const tx2 = generateJarDeposit(2, 2, 18, 7, 1);
     const tx3 = generateJarWithdraw(3, 3, 18, 7, 1);
     const tx4 = generateJarWithdraw(4, 1, 18, 7, 1);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2, tx3, tx4]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx, tx2, tx3, tx4]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(4);
@@ -539,7 +539,7 @@ describe("Testing One Deposit One Withdraw-All Same Price Different Ratio", () =
   test("basic", async () => {
     const tx = generateJarDeposit(1, 2, 18, 5, 1);
     const tx2 = generateJarWithdraw(2, 3, 18, 5, 1.5);
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx, tx2]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(2);
@@ -563,7 +563,7 @@ describe("Testing One Deposit And Stake All With Exit Same Price Same Ratio", ()
     const tx3 = generateUnstakeTx(3, 2, 18, 5, 1, 3, 18, 10);
     const tx4 = generateJarWithdraw(4, 2, 18, 5, 1);
     
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx, tx2, tx3, tx4]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx, tx2, tx3, tx4]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(4);
@@ -596,7 +596,7 @@ describe("Testing Two Deposit One Stake Three Unstake One Withdraw Same Price Sa
     const tx3b = generateUnstakeTx(6, 1, 18, 5, 1, 3, 18, 10);
     const tx4 = generateJarWithdraw(7, 4, 18, 5, 1);
     
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx1, tx1a, tx2, tx3, tx3a, tx3b, tx4]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx1, tx1a, tx2, tx3, tx3a, tx3b, tx4]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(7);
@@ -658,7 +658,7 @@ describe("Testing Two Deposit One Withdraw Different Prices Different Ratios", (
     const tx4 = generateJarWithdraw(7, 4, 18, 7, 1.25); 
     const tx4a = generateJarWithdraw(7, 1.69, 18, 7, 1.3); // 1.3 ptokens left @ 1.3 = 1.69 wants left
     
-    const summarized2: PnlTransactionWrapper[] = generatePnL([tx1, tx1a, tx4, tx4a]);
+    const summarized2: PnlTransactionWrapper[] = generatePnL(ADDRESS_ARRAY[ADDRESS_KEYS.USER],[tx1, tx1a, tx4, tx4a]);
     const summarized: PnlRollingDataWithLots[] = summarized2.map((x) => x.pnlRollingDataWithLots);
 
     expect(summarized.length).toBe(4);

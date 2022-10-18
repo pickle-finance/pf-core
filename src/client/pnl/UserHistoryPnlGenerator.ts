@@ -1,7 +1,48 @@
 import { BigNumber } from "ethers";
 import { Lot, PnlRollingDataWithLots, PnlTxn, PnlTransactionWrapper, UserTx, StakingRewards, UserTransfer } from "./UserHistoryInterfaces";
 
-export const getPnlTxn = (txn: UserTx): PnlTxn => {
+const getRollingData = (wallet: string, userTx: UserTx, wrappers: PnlTransactionWrapper[]): PnlRollingDataWithLots | undefined => {
+  if (userTx.transaction_type === "DEPOSIT") {
+    return getDepositPnlEntry(userTx, wrappers);
+  }
+  if (userTx.transaction_type === "WITHDRAW") {
+    return getWithdrawPnlEntry(userTx, wrappers, false);
+  }
+  if (userTx.transaction_type === "ZAPIN") {
+    const r = getDepositPnlEntry(userTx, wrappers);
+    r.lots = applyStakeToRollingTotals(userTx, r.lots);
+    return r;
+  }
+  if (userTx.transaction_type === "ZAPOUT") {
+    const r = getWithdrawPnlEntry(userTx, wrappers, true);
+    return r;
+  }
+  if (userTx.transaction_type === "STAKE") {
+    // lock tokens from earliest lots
+    return getStakePnlEntry(userTx, wrappers);
+  }
+  if (userTx.transaction_type === "UNSTAKE") {
+    // unlock tokens from earliest lots
+    return getUnstakePnlEntry(userTx, wrappers);
+  }
+  if (userTx.transaction_type === "TRANSFER") {
+    // unlock tokens from earliest lots
+    return getTransferPnlEntry(wallet, userTx, wrappers);
+  }
+  if( userTx.transaction_type === 'STAKE_REWARD') {
+    const previousRolling = getPreviousRollingDataOrStub(wrappers);
+    const lots = previousRolling.lots.map((x) => {return {...x}});
+    const rewards = userTx.transfers.filter((x) => userTx.transaction_type === 'STAKE_REWARD').map((x) => x.value);
+    const runningVal = rewards.reduce((accumulator, current) => {
+      return accumulator + current;
+    }, 0);
+    return createRollingDataFromLots(runningVal, lots, 18, previousRolling.rollingRewards);
+  }
+  return undefined;
+};
+
+
+export const getInternalPnlTxn = (txn: UserTx): PnlTxn => {
   if (txn.transaction_type === "ZAPIN") {
     return getZapInPnlTx(txn);
   }
@@ -20,38 +61,11 @@ export const getPnlTxn = (txn: UserTx): PnlTxn => {
   return undefined;
 };
 
-const getRollingData = (userTx: UserTx, wrappers: PnlTransactionWrapper[]): PnlRollingDataWithLots | undefined => {
-  if (userTx.transaction_type === "DEPOSIT") {
-    return getDepositPnlEntry(userTx, wrappers);
-  }
-  if (userTx.transaction_type === "WITHDRAW") {
-    return getWithdrawPnlEntry(userTx, wrappers, false);
-  }
-  if (userTx.transaction_type === "ZAPIN") {
-    const r = getDepositPnlEntry(userTx, wrappers);
-    r.lots = applyStakeToRollingTotals(userTx, r.lots);
-    return r;
-  }
-  if (userTx.transaction_type === "ZAPOUT") {
-    const r = getWithdrawPnlEntry(userTx, wrappers, true);
-    return r;
-  }
-  // TODO add stake and unstake locking of tokens
-  if (userTx.transaction_type === "STAKE") {
-    // lock tokens from earliest lots
-    return getStakePnlEntry(userTx, wrappers);
-  }
-  if (userTx.transaction_type === "UNSTAKE") {
-    // unlock tokens from earliest lots
-    return getUnstakePnlEntry(userTx, wrappers);
-  }
-  return undefined;
-};
 
-export const generatePnL = (userJarHistory: UserTx[]): PnlTransactionWrapper[] => {
+export const generatePnL = (userWallet: string, userJarHistory: UserTx[]): PnlTransactionWrapper[] => {
   const ret: PnlTransactionWrapper[] = [];
   for (let i = 0; i < userJarHistory.length; i++ ) {
-    const rollingData: PnlRollingDataWithLots = getRollingData(userJarHistory[i], ret);
+    const rollingData: PnlRollingDataWithLots = getRollingData(userWallet, userJarHistory[i], ret);
     const currentRewards: StakingRewards = getRewardsFromUserTx(userJarHistory[i]);
     const rewardProps = Object.getOwnPropertyNames(currentRewards);
     for( let j = 0; j < rewardProps.length; j++ ) {
@@ -222,7 +236,8 @@ const getPreviousRollingDataOrStub = (pnlWithTotals: PnlTransactionWrapper[]): P
     return {
       rollingWeiCount: BigNumber.from(0),
       rollingCostBasis: 0,
-      totalCost: 0,
+      costOfOpenPositions: 0,
+      txValue: 0,
       lots: [],
       rollingRewards: {},
     };
@@ -241,14 +256,8 @@ const getDepositPnlEntry = (
   utxn: UserTx,
   pnlWithTotals: PnlTransactionWrapper[]
 ): PnlRollingDataWithLots => {
-  const txn: PnlTxn | undefined = getPnlTxn(utxn);
+  const txn: PnlTxn | undefined = getInternalPnlTxn(utxn);
   const previousRolling = getPreviousRollingDataOrStub(pnlWithTotals);
-  const rollingTokenCountBN = previousRolling.rollingWeiCount.add(txn.ptokenWei);
-  const rollingTokenCountNum = weiToTokens(rollingTokenCountBN, txn.decimals);
-  
-  const totalCost = previousRolling.totalCost + txn.valueUSD;
-  const rollingCostBasis = totalCost / rollingTokenCountNum;
-
   const lots = previousRolling.lots.map((x) => {return {...x}});
   lots.push({
     wei: txn?.ptokenWei,
@@ -263,13 +272,7 @@ const getDepositPnlEntry = (
     status: "open",
     timestamp: txn.timestamp,
   });
-  return {
-    rollingWeiCount: rollingTokenCountBN,
-    rollingCostBasis: rollingCostBasis,
-    totalCost: totalCost,
-    lots: lots,
-    rollingRewards: JSON.parse(JSON.stringify(previousRolling.rollingRewards)),
-  };
+  return createRollingDataFromLots(txn.valueUSD, lots, txn.decimals, previousRolling.rollingRewards);
 };
 
 const getWithdrawPnlEntry = (
@@ -277,39 +280,22 @@ const getWithdrawPnlEntry = (
   pnlWithTotals: PnlTransactionWrapper[],
   checkUnstake: boolean,
 ): PnlRollingDataWithLots => {
-  const txn: PnlTxn | undefined = getPnlTxn(utxn);
+  const txn: PnlTxn | undefined = getInternalPnlTxn(utxn);
+  const decimals = txn.decimals;
   const previousRolling = getPreviousRollingDataOrStub(pnlWithTotals);
-  const previousWeiOpen = previousRolling.rollingWeiCount;
-  const newRollingWeiCount = previousWeiOpen.sub(txn.ptokenWei);
-  const newRollingTokenCount = weiToTokens(newRollingWeiCount, txn.decimals);
   // deep clone the lots
   let previousLots: Lot[] = previousRolling.lots.map((x) => { return {...x}});
   if( checkUnstake ) {
     previousLots = applyUnstakeToRollingTotals(utxn, previousLots);
   }
-  const weiLeftToClose = txn.ptokenWei;
   const valueBeingClosed = txn.valueUSD;
-  const newLots = applyWithdrawToLots(txn, previousLots, weiLeftToClose, valueBeingClosed);
-
-  let costBasisTempTotal = 0;
-  for (let x = newLots.length - 1; x >= 0; x--) {
-    const lotTokens = weiToTokens(newLots[x].weiRemaining, txn.decimals);
-    costBasisTempTotal += (lotTokens * newLots[x].costBasisUSD);
-  }
-  const rollingCostBasis = newRollingTokenCount === 0 ? 0 : costBasisTempTotal / newRollingTokenCount;
-
-  const totalCost = multiplyBigNumberByFloat(newRollingWeiCount, rollingCostBasis, txn.decimals);
-  return {
-    rollingWeiCount: newRollingWeiCount,
-    rollingCostBasis: rollingCostBasis,
-    totalCost: totalCost,
-    lots: newLots,
-    rollingRewards: JSON.parse(JSON.stringify(previousRolling.rollingRewards)),
-  };
+  const newLots = applyWithdrawToLots(txn.ptokenWei, txn.wantWei, previousLots, valueBeingClosed);
+  return createRollingDataFromLots(txn.valueUSD, newLots, decimals, previousRolling.rollingRewards);
 };
 
-const applyWithdrawToLots = (txn: PnlTxn, previousLots: Lot[], weiLeftToClose: BigNumber, valueBeingClosed: number) => {
+const applyWithdrawToLots = (ptokenWei: BigNumber, wantWei: BigNumber, previousLots: Lot[], valueBeingClosed: number) => {
   // TODO replace with for loop? easier for debugging
+  let weiLeftToClose = ptokenWei;
   const tmpPrecision = 100000000;
   const newLots = previousLots.map((oneLot) => {
     if (weiLeftToClose === BigNumber.from(0) || oneLot.status === "closed") {
@@ -317,8 +303,8 @@ const applyWithdrawToLots = (txn: PnlTxn, previousLots: Lot[], weiLeftToClose: B
     }
     if (oneLot.weiRemaining.sub(weiLeftToClose).gt(BigNumber.from(0))) {
       // this lot has 300 left to close but we are only closing 100 of it
-      const dollarsClosing = Math.round((weiLeftToClose.mul(tmpPrecision).div(txn.ptokenWei).toNumber()) * valueBeingClosed) / tmpPrecision;
-      const wantWeiClosing = weiLeftToClose.mul(txn.wantWei).mul(oneEn(30)).div(txn.ptokenWei).div(oneEn(30));
+      const dollarsClosing = Math.round((weiLeftToClose.mul(tmpPrecision).div(ptokenWei).toNumber()) * valueBeingClosed) / tmpPrecision;
+      const wantWeiClosing = weiLeftToClose.mul(wantWei).mul(oneEn(30)).div(ptokenWei).div(oneEn(30));
       const ret: Lot = { ...oneLot, weiRemaining: oneLot.weiRemaining.sub(weiLeftToClose) } as Lot;
       ret.saleProceedsUSD += Math.round(dollarsClosing*1000)/1000;
       ret.saleProceedsWant = ret.saleProceedsWant.add(wantWeiClosing);
@@ -326,8 +312,8 @@ const applyWithdrawToLots = (txn: PnlTxn, previousLots: Lot[], weiLeftToClose: B
       return ret;
     } else {
       // this lot has 300 left to close and we are closing all or more, so use all of this lot
-      const dollarsClosing = Math.round((oneLot.weiRemaining.mul(tmpPrecision).div(txn.ptokenWei).toNumber()) * valueBeingClosed) / tmpPrecision;
-      const wantWeiClosing = oneLot.weiRemaining.mul(txn.wantWei).mul(oneEn(30)).div(txn.ptokenWei).div(oneEn(30)); //.div(oneEn(txn.wantDecimals));
+      const dollarsClosing = Math.round((oneLot.weiRemaining.mul(tmpPrecision).div(ptokenWei).toNumber()) * valueBeingClosed) / tmpPrecision;
+      const wantWeiClosing = oneLot.weiRemaining.mul(wantWei).mul(oneEn(30)).div(ptokenWei).div(oneEn(30)); //.div(oneEn(txn.wantDecimals));
       weiLeftToClose = weiLeftToClose.sub(oneLot.weiRemaining);
       const ret: Lot = { ...oneLot, weiRemaining: BigNumber.from(0), status: "closed" } as Lot;
       ret.saleProceedsUSD += Math.round(dollarsClosing*1000)/1000;
@@ -339,6 +325,72 @@ const applyWithdrawToLots = (txn: PnlTxn, previousLots: Lot[], weiLeftToClose: B
 }
 
 
+const getTransferPnlEntry = (
+  userWallet: string,
+  txn: UserTx,
+  pnlWithTotals: PnlTransactionWrapper[]
+): PnlRollingDataWithLots => {
+  const transfers: UserTransfer[] = txn.transfers.filter((x) => x.transfer_type === 'PTRANSFER');
+  const previousRolling = getPreviousRollingDataOrStub(pnlWithTotals);
+  let rollingTokenCountBN = previousRolling.rollingWeiCount;
+  let lots = previousRolling.lots.map((x) => {return {...x}});
+  let decimals = 18;
+  let runningVal = 0;
+  for (let i = 0; i < transfers.length; i++ ) {
+    if( transfers[i].toAddress.toLowerCase() === userWallet.toLowerCase()) {
+      // this is a deposit. We received free ptokens
+      runningVal += transfers[i].value;
+      decimals = transfers[i].decimals;
+      rollingTokenCountBN = rollingTokenCountBN.add(transfers[i].amount);
+      lots.push({
+        wei: BigNumber.from(transfers[i].amount),
+        weiRemaining: BigNumber.from(transfers[i].amount),
+        weiLocked: BigNumber.from(0),
+        costBasisUSD: 0,
+        saleProceedsUSD: 0,
+        totalCostUsd: 0,
+        totalCostWant: BigNumber.from(0),
+        costBasisWant: 0,
+        saleProceedsWant: BigNumber.from(0), // TODO
+        status: "open",
+        timestamp: txn.timestamp,
+      });
+    } else if (transfers[i].fromAddress.toLowerCase() === userWallet.toLowerCase()) {
+      // This is a withdraw
+      runningVal += transfers[i].value;
+      decimals = transfers[i].decimals;
+      lots = applyWithdrawToLots(BigNumber.from(transfers[i].amount), BigNumber.from(0), lots, transfers[i].value);
+    }
+  }
+  return createRollingDataFromLots(runningVal, lots, decimals, previousRolling.rollingRewards);
+};
+
+const createRollingDataFromLots = (txVal: number, lots: Lot[], decimals: number, prevStake: StakingRewards): PnlRollingDataWithLots => {
+  const tmpPrecision = 1e8;
+  let runningCostUSD = 0;
+  let rollingTokenCountBN = BigNumber.from(0);
+  for (let i = 0; i < lots.length; i++ ) {
+    if( lots[i].status === 'open') {
+      // We only care about open
+      const fraction = lots[i].weiRemaining.mul(tmpPrecision).div(lots[i].wei).toNumber() / tmpPrecision;
+      const fractionOfCost = fraction * lots[i].totalCostUsd;
+      runningCostUSD += fractionOfCost;
+      rollingTokenCountBN = rollingTokenCountBN.add(lots[i].weiRemaining);
+    }
+  }
+  const rollingTokenCountNum = weiToTokens(rollingTokenCountBN, decimals);
+  const rollingCostBasis = rollingTokenCountNum === 0 ? 0 : runningCostUSD / rollingTokenCountNum;
+  
+  return {
+    rollingWeiCount: rollingTokenCountBN,
+    rollingCostBasis: rollingCostBasis,
+    costOfOpenPositions: runningCostUSD,
+    txValue: txVal,
+    lots: lots,
+    rollingRewards: JSON.parse(JSON.stringify(prevStake)),
+  };
+}
+
 const getStakePnlEntry = (
   txn: UserTx,
   pnlWithTotals: PnlTransactionWrapper[]
@@ -346,13 +398,10 @@ const getStakePnlEntry = (
   const previousRolling = getPreviousRollingDataOrStub(pnlWithTotals);
   let lots = previousRolling.lots.map((x) => {return {...x}});
   lots = applyStakeToRollingTotals(txn, lots);
-  return {
-    rollingWeiCount: previousRolling.rollingWeiCount,
-    rollingCostBasis: previousRolling.rollingCostBasis,
-    totalCost: previousRolling.totalCost,
-    lots: lots,
-    rollingRewards: JSON.parse(JSON.stringify(previousRolling.rollingRewards)),
-  };
+  const unstakeTransfer = txn.transfers.find((x) => x.transfer_type === 'STAKE');
+  const val = unstakeTransfer ? unstakeTransfer.value : 0;
+  const decimals = unstakeTransfer ? unstakeTransfer.decimals : 18;
+  return createRollingDataFromLots(val, lots, decimals, previousRolling.rollingRewards);
 };
 
 const applyStakeToRollingTotals = (txn: UserTx, lots: Lot[]): Lot[] => {
@@ -386,13 +435,10 @@ const getUnstakePnlEntry = (
   const previousRolling = getPreviousRollingDataOrStub(pnlWithTotals);
   let lots = previousRolling.lots.map((x) => {return {...x}});
   lots = applyUnstakeToRollingTotals(txn, lots);
-  return {
-    rollingWeiCount: previousRolling.rollingWeiCount,
-    rollingCostBasis: previousRolling.rollingCostBasis,
-    totalCost: previousRolling.totalCost,
-    lots: lots,
-    rollingRewards: JSON.parse(JSON.stringify(previousRolling.rollingRewards)),
-  };
+  const unstakeTransfer = txn.transfers.find((x) => x.transfer_type === 'UNSTAKE');
+  const val = unstakeTransfer ? unstakeTransfer.value : 0;
+  const decimals = unstakeTransfer ? unstakeTransfer.decimals : 18;
+  return createRollingDataFromLots(val, lots, decimals, previousRolling.rollingRewards);
 };
 
 

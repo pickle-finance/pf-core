@@ -55,7 +55,8 @@ export interface PnlTxn {
   export interface PnlRollingDataWithLots {
     rollingWeiCount: BigNumber;
     rollingCostBasis: number;
-    totalCost: number;
+    costOfOpenPositions: number;
+    txValue: number;
     lots: Lot[];
     rollingRewards: StakingRewards,
   }
