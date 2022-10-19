@@ -16,7 +16,7 @@ import {
 } from "./docModel/DocsInterfaces";
 import * as PlatformInterfaces from "./core/platform/PlatformInterfaces";
 import { HealthCheckRunner } from "./client/health/HealthCheckRunner";
-import { generatePnL } from "./client/pnl/UserHistoryPnlGenerator";
+import { UserJarHistoryPnlGenerator } from "./client/pnl/UserHistoryPnlGenerator";
 export {
   ChainNetwork,
   Chains,
@@ -33,5 +33,5 @@ export {
   PFCore,
   PlatformInterfaces,
   HealthCheckRunner,
-  generatePnL,
+  UserJarHistoryPnlGenerator,
 };
