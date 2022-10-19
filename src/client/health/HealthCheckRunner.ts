@@ -4,6 +4,7 @@ import { ErrorSeverity, PlatformError } from "../../core/platform/PlatformInterf
 import { toError } from "../../model/PickleModel";
 import { CommsMgrV2 } from "../../util/CommsMgrV2";
 import { runFeeChecker } from "./FeeChecker";
+import { runPermChecker } from "./PermChecker";
 
 const oneHour = 1000 * 60 * 60;
 const sixHour = oneHour * 6;
@@ -54,6 +55,7 @@ export class HealthCheckRunner {
         if( timeframe >= oneDay ) {
             // TODO protect?
             ret.push(...(await runFeeChecker(this.commsMgr2)));
+            ret.push(...(await runPermChecker(this.commsMgr2)));
         }
         if( timeframe >= sixHour) {
             // TODO
@@ -61,6 +63,7 @@ export class HealthCheckRunner {
         if( timeframe >= oneHour) {
             // TODO
         }
+        await this.commsMgr2.stop()
         return ret;
     }
 }

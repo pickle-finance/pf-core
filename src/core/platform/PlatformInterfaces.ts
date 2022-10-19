@@ -45,6 +45,8 @@ export interface ErrorLogger {
 200201 - getStableswapPriceAddress
 200202 - getLivePairDataFromContracts
 
+29910 - Fee Checker
+299920 - Perms Checker
 301000 - getHarvestableUSDComManImplementation
 301101 - getHarvestableUSD
 301102 - getProjectedAprStats
