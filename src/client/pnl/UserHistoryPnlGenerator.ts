@@ -32,7 +32,7 @@ const getRollingData = (wallet: string, userTx: UserTx, wrappers: PnlTransaction
   if( userTx.transaction_type === 'STAKE_REWARD') {
     const previousRolling = getPreviousRollingDataOrStub(wrappers);
     const lots = previousRolling.lots.map((x) => {return {...x}});
-    const rewards = userTx.transfers.filter((x) => userTx.transaction_type === 'STAKE_REWARD').map((x) => x.value);
+    const rewards = userTx.transfers.filter((x) => x.transfer_type === 'STAKE_REWARD').map((x) => x.value);
     const runningVal = rewards.reduce((accumulator, current) => {
       return accumulator + current;
     }, 0);
