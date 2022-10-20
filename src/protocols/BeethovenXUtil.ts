@@ -165,8 +165,9 @@ export const getPoolData = async (
   ); // balancer LP tokens always have 18 decimals
 
   let totalSupplyUSD = 0.0001;
-  if (graphResp) {
+  if (graphResp && graphResp.totalLiquidity > 0) {
     // Better way to get totalLiquidityUSD value. Depends on the graph to work.
+    // It can have sync issues sometimes and return 0 total liquidity
     const { totalLiquidity } = graphResp;
     totalSupplyUSD = totalLiquidity;
   } else {
