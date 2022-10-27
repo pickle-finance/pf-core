@@ -3247,6 +3247,66 @@ export const JAR_ARBITRUM_STAR_USDT: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_STAR_USDT);
 
+export const JAR_ARBITRUM_UNIV3_ETH_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar Ua",
+  contract: "0x1212ddd66c8eb227183fce794c4c13d1c5a87b88",
+  startBlock: 31464437,
+  startTimestamp: 1666335821,
+  depositToken: {
+    addr: "0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443",
+    name: "UniV3 ETH/USDC",
+    link: "https://app.uniswap.org/#/add/ETH/0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8/500",
+    components: ["weth", "usdc"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["weth", "usdc"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xf968f18512a9bddd9c3a166dd253b24c27a455dd",
+    apiKey: "ARBITRUM-UNIV3-ETH-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pUniV3 ETH/USDC",
+    farmDepositTokenName: "pUniV3 ETH/USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_ETH_USDC);
+
+export const JAR_ARBITRUM_UNIV3_GMX_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar Ub",
+  contract: "0xe5BD4954Bd6749a8E939043eEDCe4C62b41CC6D0",
+  startBlock: 32387987,
+  startTimestamp: 1666679895,
+  depositToken: {
+    addr: "0x1aEEdD3727A6431b8F070C0aFaA81Cc74f273882",
+    name: "UniV3 GMX/ETH",
+    link: "https://app.uniswap.org/#/add/ETH/0xfc5A1A6EB076a2C7aD06eD22C90d7E710E35ad0a/3000",
+    components: ["weth", "gmx"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["weth", "gmx"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xf968f18512a9bddd9c3a166dd253b24c27a455dd",
+    apiKey: "ARBITRUM-UNIV3-ETH-GMX",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pUniV3 ETH/GMX",
+    farmDepositTokenName: "pUniV3 ETH/GMX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_GMX_ETH);
+
 // OKEx Chain
 
 export const JAR_OKEX_OKT_CHE: JarDefinition = {

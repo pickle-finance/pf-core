@@ -923,6 +923,15 @@ export class ExternalTokenModel {
       "stg",
       null,
       "stargate-finance",
+      "0xfc5a1a6eb076a2c7ad06ed22c90d7e710e35ad0a".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Arbitrum,
+      "gmx",
+      null,
+      "gmx",
       "0x6694340fc020c5E6B96567843da2df01b2CE1eb6".toLowerCase(),
       18,
       ExternalTokenFetchStyle.ID,

@@ -19,12 +19,15 @@ const SUBGRAPH_URL_UNISWAP_V3_MAINNET =
   "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3";
 const SUBGRAPH_URL_UNISWAP_V3_OPTIMISM =
   "https://api.thegraph.com/subgraphs/name/ianlapham/optimism-post-regenesis";
+const SUBGRAPH_URL_UNISWAP_V3_ARBITRUM =
+  "https://api.thegraph.com/subgraphs/name/ianlapham/arbitrum-dev";
+
 const SUBGRAPH_URL_SUSHISWAP =
   "https://api.thegraph.com/subgraphs/name/croco-finance/sushiswap";
 const SUBGRAPH_URL_SUSHISWAP_POLYGON =
   "https://api.thegraph.com/subgraphs/name/sushiswap/matic-exchange";
 const SUBGRAPH_URL_SUSHISWAP_ARBITRUM =
-  "https://api.thegraph.com/subgraphs/name/sushiswap/arbitrum-exchange";
+  "https://api.thegraph.com/subgraphs/name/ianlapham/arbitrum-dev";
 const SUBGRAPH_URL_COMETH =
   "https://api.thegraph.com/subgraphs/name/cometh-game/comethswap";
 const SUBGRAPH_URL_QUICKSWAP =
@@ -89,6 +92,8 @@ export function graphUrlFromDetails(
           return SUBGRAPH_URL_UNISWAP_V3_MAINNET;
         case ChainNetwork.Optimism:
           return SUBGRAPH_URL_UNISWAP_V3_OPTIMISM;
+        case ChainNetwork.Arbitrum:
+          return SUBGRAPH_URL_UNISWAP_V3_ARBITRUM;
       }
       break;
     }

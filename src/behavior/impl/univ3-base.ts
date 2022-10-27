@@ -3,10 +3,7 @@ import { Contract } from "ethers-multiprovider";
 import { JarHarvestStats, PickleModel } from "../..";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import {
-  getUniV3,
-  queryVolume24H,
-} from "../../protocols/Univ3/UniV3";
+import { getUniV3, queryVolume24H } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import {
   calculateFee,
@@ -146,19 +143,30 @@ export class Univ3Base extends AbstractJarBehavior {
       multiProvider,
     );
 
-    let [bal0, bal1] = [0,0];
+    let [bal0, bal1] = [0, 0];
     try {
       [bal0, bal1] = await strategy.callStatic.getHarvestable({
         from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
       }); // This is Tsuke
-    } catch( err ) {
-      model.logPlatformError(toError(301104,definition.chain,definition.details.apiKey,"getAssetHarvestDataUniv3Base","Univ3 callStatic.getHarvestable has failed! Are we being rugged?","" + err, ErrorSeverity.CRITICAL));
+    } catch (err) {
+      model.logPlatformError(
+        toError(
+          301104,
+          definition.chain,
+          definition.details.apiKey,
+          "getAssetHarvestDataUniv3Base",
+          "Univ3 callStatic.getHarvestable has failed! Are we being rugged?",
+          "" + err,
+          ErrorSeverity.CRITICAL,
+        ),
+      );
       return {
         balanceUSD:
-          (definition.details.tokenBalance || 0) * (definition.depositToken.price || 0),
+          (definition.details.tokenBalance || 0) *
+          (definition.depositToken.price || 0),
         earnableUSD: 0, // This jar is always earned on user deposit
         harvestableUSD: 0,
-      };  
+      };
     }
     const decimals0: number = model.tokenDecimals(
       definition.depositToken.components[0],

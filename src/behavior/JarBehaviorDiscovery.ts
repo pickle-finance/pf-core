@@ -453,6 +453,8 @@ import {
   JAR_UWU_FRAX,
   JAR_UWU_WETH,
   JAR_OPTIMISM_BEETX_IB_RETH,
+  JAR_ARBITRUM_UNIV3_ETH_USDC,
+  JAR_ARBITRUM_UNIV3_GMX_ETH,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -852,6 +854,8 @@ jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_VSTA_ETH.id, new BalancerVstaEth());
 jarToBehavior.set(JAR_ARBITRUM_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_ARBITRUM_STAR_USDT.id, new StargateJar());
+jarToBehavior.set(JAR_ARBITRUM_UNIV3_ETH_USDC.id, new Univ3Base());
+jarToBehavior.set(JAR_ARBITRUM_UNIV3_GMX_ETH.id, new Univ3Base());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());
