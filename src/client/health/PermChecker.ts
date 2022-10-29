@@ -56,6 +56,7 @@ const GOOD_ADDRESSES: { [address: string]: string } = {
   "0x90ee5481a78a23a24a4290eec42e8ad0fd3b4ac3": "controller_polygon",
   "0xcf05d96b4c6c5a87b73f5f274dce1085bc7fdcc4": "controller_okex",
   "0x55d5bcef2bfd4921b8790525ff87919c2e26bd03": "controller_arbitrum",
+  "0xf968f18512a9bddd9c3a166dd253b24c27a455dd": "controller_arbitrum",
   "0xc3f393fb40f8cc499c1fe7fa5781495dc6fac9e9": "controller_moonriver",
   "0xf34514260f18bdb3ed1142b69a6055f51089ac7d": "controller_moonriver",
   "0xfa3ad976c0bdeadde81482f5fa8191ae1e7d84c0": "controller_cronos",
