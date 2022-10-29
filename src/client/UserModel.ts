@@ -736,7 +736,7 @@ export class UserModel {
       for (let j = 0; !tokenBal && j < chainTokens.length; j++) {
         if (chainTokens[j].id === components[i]) {
           tokenBal =
-            j < userTokenBalances.length - 1
+            j <= userTokenBalances.length - 1
               ? userTokenBalances[j]
               : BigNumber.from(0);
         }
