@@ -102,11 +102,13 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
     ]);
 
     const rewarderContract = new Contract(rewarderAddress, swaprRewarderAbi);
-    const [rewardTokens, duration, totalSupplyBN] = await multiProvider.all([
-      rewarderContract.getRewardTokens(),
-      rewarderContract.secondsDuration(),
-      rewarderContract.totalStakedTokensAmount(),
-    ]);
+    const [rewardTokens, duration, totalSupplyBN, endingTimestamp] =
+      await multiProvider.all([
+        rewarderContract.getRewardTokens(),
+        rewarderContract.secondsDuration(),
+        rewarderContract.totalStakedTokensAmount(),
+        rewarderContract.endingTimestamp(),
+      ]);
 
     const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
     const totalSupply = parseFloat(formatEther(totalSupplyBN));
@@ -131,22 +133,26 @@ export class GnosisSwaprJar extends AbstractJarBehavior {
           rewardTokenAddress,
           jar.chain,
         ).id;
-        const amountBN = rewardData[i][1];
-        const amount = parseFloat(formatEther(amountBN));
-        const rewardPerSecond = amount / duration;
-        const rewardPerYear = rewardPerSecond * ONE_YEAR_IN_SECONDS;
-        const valueRewardedPerYear =
-          model.priceOfSync(rewardTokenName, jar.chain) * rewardPerYear;
-        const rewardAPY = (valueRewardedPerYear / totalValueStaked) * 100;
+        if (endingTimestamp < Date.now() / 1000) {
+          aprComponents.push(createAprComponentImpl(rewardTokenName, 0, true));
+        } else {
+          const amountBN = rewardData[i][1];
+          const amount = parseFloat(formatEther(amountBN));
+          const rewardPerSecond = amount / duration;
+          const rewardPerYear = rewardPerSecond * ONE_YEAR_IN_SECONDS;
+          const valueRewardedPerYear =
+            model.priceOfSync(rewardTokenName, jar.chain) * rewardPerYear;
+          const rewardAPY = (valueRewardedPerYear / totalValueStaked) * 100;
 
-        aprComponents.push(
-          createAprComponentImpl(
-            rewardTokenName,
-            rewardAPY,
-            true,
-            1 - Chains.get(jar.chain).defaultPerformanceFee,
-          ),
-        );
+          aprComponents.push(
+            createAprComponentImpl(
+              rewardTokenName,
+              rewardAPY,
+              true,
+              1 - Chains.get(jar.chain).defaultPerformanceFee,
+            ),
+          );
+        }
       }
     }
 
