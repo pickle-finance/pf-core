@@ -2,7 +2,11 @@ import { BigNumber, ethers } from "ethers";
 import { Contract } from "ethers-multiprovider";
 import { JarHarvestStats, PickleModel } from "../..";
 import { ExternalTokenModelSingleton } from "../../price/ExternalTokenModel";
-import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import {
+  AssetEnablement,
+  AssetProjectedApr,
+  JarDefinition,
+} from "../../model/PickleModelJson";
 import { getUniV3, queryVolume24H } from "../../protocols/Univ3/UniV3";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import {
@@ -149,17 +153,14 @@ export class Univ3Base extends AbstractJarBehavior {
         from: "0x0f571d2625b503bb7c1d2b5655b483a2fa696fef",
       }); // This is Tsuke
     } catch (err) {
-      model.logPlatformError(
-        toError(
-          301104,
-          definition.chain,
-          definition.details.apiKey,
-          "getAssetHarvestDataUniv3Base",
-          "Univ3 callStatic.getHarvestable has failed! Are we being rugged?",
-          "" + err,
-          ErrorSeverity.CRITICAL,
-        ),
-      );
+      // Either strategy is empty, out of range or tsuke is not whitelisted.
+      if (definition.enablement !== AssetEnablement.ENABLED) {
+        //prettier-ignore
+        model.logPlatformError(toError(301104,definition.chain,definition.details.apiKey,"getAssetHarvestDataUniv3Base","Non-Enabled UniV3 jar is out of range.","" + err,ErrorSeverity.WARN));
+      } else {
+        //prettier-ignore
+        model.logPlatformError(toError(301104,definition.chain,definition.details.apiKey,"getAssetHarvestDataUniv3Base","Univ3 callStatic.getHarvestable has failed! Are we being rugged?","" + err,ErrorSeverity.CRITICAL));
+      }
       return {
         balanceUSD:
           (definition.details.tokenBalance || 0) *
