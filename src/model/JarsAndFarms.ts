@@ -14180,7 +14180,7 @@ export const JAR_GNOSIS_SWAPR_GNO_XDAI: JarDefinition = {
     components: ["gno", "xdai"],
   },
   rewardTokens: ["swapr", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
@@ -14209,7 +14209,7 @@ export const JAR_GNOSIS_SWAPR_BTC_WETH: JarDefinition = {
     components: ["wbtc", "weth"],
   },
   rewardTokens: ["swapr", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
@@ -14238,7 +14238,7 @@ export const JAR_GNOSIS_SWAPR_COW_WETH: JarDefinition = {
     components: ["cow", "weth"],
   },
   rewardTokens: ["swapr", "gno", "cow"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
@@ -14267,7 +14267,7 @@ export const JAR_GNOSIS_SWAPR_GNO_WETH: JarDefinition = {
     components: ["gno", "weth"],
   },
   rewardTokens: ["swapr", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
@@ -14296,7 +14296,7 @@ export const JAR_GNOSIS_SWAPR_DXD_GNO: JarDefinition = {
     components: ["gno", "dxd"],
   },
   rewardTokens: ["swapr", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
@@ -14325,7 +14325,7 @@ export const JAR_GNOSIS_SWAPR_XDAI_WETH: JarDefinition = {
     components: ["weth", "xdai"],
   },
   rewardTokens: ["swapr", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
@@ -14354,7 +14354,7 @@ export const JAR_GNOSIS_SWAPR_COW_GNO: JarDefinition = {
     components: ["cow", "gno"],
   },
   rewardTokens: ["swapr", "gno", "cow"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SWAPR,
   details: {
