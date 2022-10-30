@@ -13919,7 +13919,7 @@ export const JAR_GNOSIS_SUSHI_XDAI_GNO: JarDefinition = {
     components: ["xdai", "gno"],
   },
   rewardTokens: ["gno", "sushi"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -13948,7 +13948,7 @@ export const JAR_GNOSIS_SUSHI_LINK_XDAI: JarDefinition = {
     components: ["xdai", "link"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -13977,7 +13977,7 @@ export const JAR_GNOSIS_SUSHI_SUSHI_GNO: JarDefinition = {
     components: ["sushi", "gno"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -14006,7 +14006,7 @@ export const JAR_GNOSIS_SUSHI_USDC_XDAI: JarDefinition = {
     components: ["usdc", "xdai"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -14035,7 +14035,7 @@ export const JAR_GNOSIS_SUSHI_USDC_USDT: JarDefinition = {
     components: ["usdc", "usdt"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -14064,7 +14064,7 @@ export const JAR_GNOSIS_SUSHI_XDAI_USDT: JarDefinition = {
     components: ["xdai", "usdt"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -14093,7 +14093,7 @@ export const JAR_GNOSIS_SUSHI_WETH_GNO: JarDefinition = {
     components: ["weth", "gno"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -14122,7 +14122,7 @@ export const JAR_GNOSIS_SUSHI_WETH_BTC: JarDefinition = {
     components: ["weth", "wbtc"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
@@ -14151,7 +14151,7 @@ export const JAR_GNOSIS_SUSHI_WETH_XDAI: JarDefinition = {
     components: ["weth", "xdai"],
   },
   rewardTokens: ["sushi", "gno"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Gnosis,
   protocol: AssetProtocol.SUSHISWAP,
   details: {
