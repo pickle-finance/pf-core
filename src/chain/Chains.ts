@@ -8,6 +8,7 @@ import {
   PickleProduct,
   PlatformError,
 } from "../core/platform/PlatformInterfaces";
+import { FuncsQueue } from "../util/PromiseTimeout";
 
 export interface RawChain {
   chainId: number;
@@ -210,7 +211,7 @@ export class Chains {
     ChainNetwork,
     number
   >();
-  private static SPBQ = false; // secondsPerBlock queue flag
+  private static SPBStore = new FuncsQueue(); // secondsPerBlock queue flag
 
   chainMap: Map<ChainNetwork, AbstractChain> = new Map<
     ChainNetwork,
@@ -295,36 +296,24 @@ export class Chains {
     network: ChainNetwork,
     model: PickleModel,
   ): Promise<number> {
-    if (this.secondsPerBlock.has(network))
-      return this.secondsPerBlock.get(network);
+    return await this.SPBStore.queue(async () => {
+      let secondsPerBlock = this.get(network).secondsPerBlock;
+      try {
+        const blocksRange = 10000;
+        const multiProvider = model.multiproviderFor(network);
+        const currentBlock = await multiProvider.getBlock("latest");
+        const prevBlock = await multiProvider.getBlock(
+          currentBlock.number - blocksRange,
+        );
+        secondsPerBlock =
+          (currentBlock.timestamp - prevBlock.timestamp) / blocksRange;
+      } catch (error) {
+        // prettier-ignore
+        model.logPlatformError(toError(100105, network, "secondsPerBlock", "Chains/getAccurateSecondsPerBlock",``, ''+error, ErrorSeverity.ERROR_4));
+      }
 
-    while (this.SPBQ) {
-      await new Promise((r) =>
-        setTimeout(r, Math.floor(Math.random() * 1000) + 3000),
-      );
-    }
-    if (this.secondsPerBlock.has(network))
-      return this.secondsPerBlock.get(network);
-
-    this.SPBQ = true;
-    let secondsPerBlock = this.get(network).secondsPerBlock;
-    try {
-      const blocksRange = 10000;
-      const multiProvider = model.multiproviderFor(network);
-      const currentBlock = await multiProvider.getBlock("latest");
-      const prevBlock = await multiProvider.getBlock(
-        currentBlock.number - blocksRange,
-      );
-      secondsPerBlock =
-        (currentBlock.timestamp - prevBlock.timestamp) / blocksRange;
-      this.secondsPerBlock.set(network, secondsPerBlock);
-    } catch (error) {
-      // prettier-ignore
-      model.logPlatformError(toError(100105, network, "secondsPerBlock", "Chains/getAccurateSecondsPerBlock",``, ''+error, ErrorSeverity.ERROR_4));
-    } finally {
-      this.SPBQ = false;
-    }
-    return secondsPerBlock;
+      return secondsPerBlock;
+    }, network);
   }
 }
 

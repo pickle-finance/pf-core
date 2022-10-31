@@ -64,7 +64,7 @@ export function getWeeklyDistribution(jars: JarDefinition[]): number {
       runningRevenue += jarUSD;
     }
   }
-  return runningRevenue * 0.45;
+  return runningRevenue;
 }
 
 export async function getDillDetails(
