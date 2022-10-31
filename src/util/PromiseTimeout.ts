@@ -1,3 +1,5 @@
+import EventEmitter from "events";
+
 type CallbackFunction = (...args: any[]) => any;
 
 export const fulfillWithTimeLimit = async (
@@ -52,3 +54,32 @@ export const timeout = (prom, time, exception) => {
     new Promise((_r, rej) => (timer = setTimeout(rej, time, exception))),
   ]).finally(() => clearTimeout(timer));
 };
+
+/**
+ * @notice Utility class to queue callback functions with unique queue IDs. When multiple functions are assigned the same ID, only one is allowed to execute at a time.
+ */
+ export class FuncsQueue {
+  #emitter = new EventEmitter();
+  #eventsQ: { [event: string]: boolean } = {};
+  #results: { [event: string]: any } = {};
+
+  constructor() {
+    this.#emitter.setMaxListeners(50);
+  }
+
+  async queue<T>(fn: () => Promise<T>, queueId = "-"): Promise<T> {
+    if (this.#results[queueId]) {
+      return this.#results[queueId];
+    } else if (this.#eventsQ[queueId]) {
+      await new Promise((r, _) => this.#emitter.once(queueId, r));
+    } else {
+      this.#eventsQ[queueId] = true;
+      const result = await fn();
+      this.#results[queueId] = result;
+      this.#emitter.emit(queueId);
+      this.#eventsQ[queueId] = false;
+    }
+
+    return this.#results[queueId];
+  }
+}
