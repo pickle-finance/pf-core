@@ -2999,7 +2999,7 @@ export const JAR_ARBITRUM_DODO_HND_ETH: JarDefinition = {
     components: ["hnd", "weth"],
   },
   rewardTokens: ["dodo"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.DODOSWAP,
   details: {

@@ -1,5 +1,5 @@
 import { Contract } from "ethers-multiprovider";
-import { Chains, PickleModel } from "../..";
+import { ChainNetwork, Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import mcdodoAbi from "../../Contracts/ABIs/mcdodo-rewards.json";
@@ -49,20 +49,40 @@ export class ArbitrumHndEth extends AbstractJarBehavior {
       lpToken.balanceOf(rewardsAddr),
     ]);
 
-    const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
-    const totalSupply = +formatEther(totalSupplyBN);
-    const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
+    let currentBlock: number;
+    if (
+      jar.chain === ChainNetwork.Arbitrum ||
+      jar.chain === ChainNetwork.Optimism
+    ) {
+      currentBlock = await model
+        .multiproviderFor(ChainNetwork.Ethereum)
+        .getBlockNumber();
+    } else {
+      currentBlock = await multiProvider.getBlockNumber();
+    }
+    const rewardEndBlock = dodoInfo.endBlock.toNumber();
 
-    const blocksPerYear =
-      ONE_YEAR_SECONDS / (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
-    const dodoValueRewardedPerYear =
-      model.priceOfSync("dodo", jar.chain) * DODO_PER_BLOCK * blocksPerYear;
+    if (rewardEndBlock > currentBlock) {
+      const DODO_PER_BLOCK = +formatEther(dodoInfo.rewardPerBlock);
+      const totalSupply = +formatEther(totalSupplyBN);
+      const pricePerToken = model.priceOfSync(jar.depositToken.addr, jar.chain);
 
-    const totalValueStaked = totalSupply * pricePerToken;
-    const dodoAPY = dodoValueRewardedPerYear / totalValueStaked;
+      const blocksPerYear =
+        ONE_YEAR_SECONDS /
+        (await Chains.getAccurateSecondsPerBlock(jar.chain, model));
+      const dodoValueRewardedPerYear =
+        model.priceOfSync("dodo", jar.chain) * DODO_PER_BLOCK * blocksPerYear;
 
-    return this.aprComponentsToProjectedApr([
-      this.createAprComponent("dodo", dodoAPY * 100, true),
-    ]);
+      const totalValueStaked = totalSupply * pricePerToken;
+      const dodoAPY = dodoValueRewardedPerYear / totalValueStaked;
+
+      return this.aprComponentsToProjectedApr([
+        this.createAprComponent("dodo", dodoAPY * 100, true),
+      ]);
+    } else {
+      return this.aprComponentsToProjectedApr([
+        this.createAprComponent("dodo", 0, true),
+      ]);
+    }
   }
 }
