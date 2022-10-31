@@ -9987,6 +9987,102 @@ export const JAR_OPTIMISM_BEETX_IB_RETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_BEETX_IB_RETH);
 
+export const JAR_OPTIMISM_HOP_ETH: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 5a",
+  contract: "0x668d30c30ffb182964516f549528e06633b48295",
+  startBlock: 32219942,
+  startTimestamp: 1666948531,
+  depositToken: {
+    addr: "0x5C2048094bAaDe483D0b1DA85c3Da6200A88a849",
+    name: "HOP ETH LP",
+    link: "https://app.hop.exchange/#/pool/deposit?token=ETH&sourceNetwork=optimism",
+    components: ["eth"],
+    decimals: 18,
+  },
+  rewardTokens: ["hop"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.HOP,
+  stakingProtocol: AssetProtocol.HOP,
+  details: {
+    controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
+    apiKey: "HOP-OPTIMISM-ETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 18,
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pHOP ETH",
+    farmDepositTokenName: "pHOP ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_HOP_ETH);
+
+export const JAR_OPTIMISM_HOP_USDC: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 5b",
+  contract: "0xdc954e7399e9ADA2661cdddb8D4C19c19E070A8E",
+  startBlock: 32220688,
+  startTimestamp: 1666948711,
+  depositToken: {
+    addr: "0x2e17b8193566345a2Dd467183526dEdc42d2d5A8",
+    name: "HOP USDC LP",
+    link: "https://app.hop.exchange/#/pool/deposit?token=USDC&sourceNetwork=optimism",
+    components: ["usdc"],
+    decimals: 18,
+  },
+  rewardTokens: ["hop"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.HOP,
+  stakingProtocol: AssetProtocol.HOP,
+  details: {
+    controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
+    apiKey: "HOP-OPTIMISM-USDC",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 18,
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pHOP USDC",
+    farmDepositTokenName: "pHOP USDC",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_HOP_USDC);
+
+export const JAR_OPTIMISM_HOP_SNX: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 5c",
+  contract: "0x31668821DE523DC46DE6c6653A76FB3582B68E8C",
+  startBlock: 32221478,
+  startTimestamp: 1666948906,
+  depositToken: {
+    addr: "0xe63337211DdE2569C348D9B3A0acb5637CFa8aB3",
+    name: "HOP SNX LP",
+    link: "https://app.hop.exchange/#/pool/deposit?token=SNX&sourceNetwork=optimism",
+    components: ["snx"],
+    decimals: 18,
+  },
+  rewardTokens: ["hop"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.HOP,
+  stakingProtocol: AssetProtocol.HOP,
+  details: {
+    controller: "0xa1d43d97fc5f1026597c67805aa02aae558e0fef",
+    apiKey: "HOP-OPTIMISM-SNX",
+    harvestStyle: HarvestStyle.PASSIVE,
+    decimals: 18,
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pHOP SNX",
+    farmDepositTokenName: "pHOP SNX",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_HOP_SNX);
+
 // Fantom
 export const JAR_FANTOM_BOO_FTM_BOO: JarDefinition = {
   type: AssetType.JAR,

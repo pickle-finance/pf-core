@@ -55,6 +55,7 @@ export enum AssetProtocol {
   SWAPR = "Swapr",
   VELODROME = "Velodrome",
   UWU = "UwU",
+  HOP = "Hop",
   // ADD_PROTOCOL
 }
 

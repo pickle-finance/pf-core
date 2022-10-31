@@ -455,6 +455,9 @@ import {
   JAR_OPTIMISM_BEETX_IB_RETH,
   JAR_ARBITRUM_UNIV3_ETH_USDC,
   JAR_ARBITRUM_UNIV3_GMX_ETH,
+  JAR_OPTIMISM_HOP_ETH,
+  JAR_OPTIMISM_HOP_USDC,
+  JAR_OPTIMISM_HOP_SNX,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -727,6 +730,7 @@ import { GnosisSwaprJar } from "./impl/gnosis-swapr-jar";
 import { VeloJar } from "./impl/velo";
 import { OPBeetXJar } from "./impl/optimism-beetx-jar";
 import { UwuJar } from "./impl/uwu-folding";
+import { HopJar } from "./impl/hop-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1084,6 +1088,9 @@ jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_TUSD_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_IB.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_RETH.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_IB_RETH.id, new OPBeetXJar());
+jarToBehavior.set(JAR_OPTIMISM_HOP_ETH.id, new HopJar());
+jarToBehavior.set(JAR_OPTIMISM_HOP_USDC.id, new HopJar());
+jarToBehavior.set(JAR_OPTIMISM_HOP_SNX.id, new HopJar());
 
 // Fantom
 jarToBehavior.set(JAR_FANTOM_BOO_FTM_BOO.id, new BooJar());

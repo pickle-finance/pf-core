@@ -5,7 +5,6 @@ import { ErrorSeverity } from "../../core/platform/PlatformInterfaces";
 import { Chains } from "../../chain/Chains";
 import fetch from "cross-fetch";
 
-
 const VELODROME_API = "https://api.velodrome.finance/api/v1/pairs";
 
 export class VeloJar extends AbstractJarBehavior {
@@ -20,10 +19,9 @@ export class VeloJar extends AbstractJarBehavior {
   async getHarvestableUSD(
     jar: JarDefinition,
     model: PickleModel,
-  ):Promise<number> {
-    return this.getHarvestableUSDDefaultImplementationV2(jar,model);
+  ): Promise<number> {
+    return this.getHarvestableUSDDefaultImplementationV2(jar, model);
   }
-
 
   async getProjectedAprStats(
     jar: JarDefinition,
@@ -37,12 +35,19 @@ export class VeloJar extends AbstractJarBehavior {
     await this.getApiLpDetails(jar, model);
     if (VeloJar.apiLpDetails) {
       const pool = VeloJar.apiLpDetails.find(
-        (x) =>
-          x.address.toLowerCase() === jar.depositToken.addr.toLowerCase(),
+        (x) => x.address.toLowerCase() === jar.depositToken.addr.toLowerCase(),
       );
-      if(pool){
+      if (pool) {
         const veloApr: number = pool.apr;
-        veloApr && components.push(this.createAprComponent("velo", veloApr, true, 1-Chains.get(jar.chain).defaultPerformanceFee))
+        veloApr &&
+          components.push(
+            this.createAprComponent(
+              "velo",
+              veloApr,
+              true,
+              1 - Chains.get(jar.chain).defaultPerformanceFee,
+            ),
+          );
       }
     }
 
@@ -56,9 +61,18 @@ export class VeloJar extends AbstractJarBehavior {
         const data = await resp.json();
         VeloJar.apiLpDetails = data.data;
       } catch (error) {
-        model.logPlatformError(toError(301102, jar.chain, jar.details.apiKey, "getApiLpDetails", 'error fetching velodrome API', ''+error, ErrorSeverity.ERROR_3));
+        model.logPlatformError(
+          toError(
+            301102,
+            jar.chain,
+            jar.details.apiKey,
+            "getApiLpDetails",
+            "error fetching velodrome API",
+            "" + error,
+            ErrorSeverity.ERROR_3,
+          ),
+        );
       }
     }
   }
-
 }

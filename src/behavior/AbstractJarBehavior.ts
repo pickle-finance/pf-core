@@ -115,7 +115,11 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       definition,
       model,
     );
-    const blocked = await this.getIsHarvestBlocked(definition, model, harvestableUSD);
+    const blocked = await this.getIsHarvestBlocked(
+      definition,
+      model,
+      harvestableUSD,
+    );
     const depositTokenDecimals = definition.depositToken.decimals
       ? definition.depositToken.decimals
       : 18;
@@ -134,7 +138,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       earnableUSD: availUSD,
       harvestableUSD: harvestableUSD,
     };
-    if( blocked ) {
+    if (blocked) {
       ret.harvestBlocked = true;
     }
     return ret;
@@ -143,10 +147,10 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   async getIsHarvestBlocked(
     _jar: JarDefinition,
     _model: PickleModel,
-    _harvestableUsd: number
+    _harvestableUsd: number,
   ): Promise<boolean> {
     return false;
-  };
+  }
 
   abstract getHarvestableUSD(
     jar: JarDefinition,

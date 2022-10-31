@@ -2274,6 +2274,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "hop",
+      "hop",
+      "hop-protocol",
+      "0xc5102fe9359fd9a28f877a67e36b0f050d81a3cc".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(
