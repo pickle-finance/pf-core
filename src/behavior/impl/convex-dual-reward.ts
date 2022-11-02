@@ -1,4 +1,8 @@
-import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import {
+  AssetAprComponent,
+  AssetProjectedApr,
+  JarDefinition,
+} from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
@@ -11,13 +15,21 @@ export class ConvexDualReward extends AbstractJarBehavior {
     this.strategyAbi = twoRewardAbi;
   }
 
+  async getLpApr(
+    _definition: JarDefinition,
+    _model: PickleModel,
+  ): Promise<AssetAprComponent> {
+    return this.createAprComponent("lp", 0, false);
+  }
+
   async getProjectedAprStats(
     definition: JarDefinition,
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
-    return this.aprComponentsToProjectedApr(
-      await getProjectedConvexAprStats(definition, model),
-    );
+    return this.aprComponentsToProjectedApr([
+      await this.getLpApr(definition, model),
+      ...(await getProjectedConvexAprStats(definition, model)),
+    ]);
   }
 
   async getHarvestableUSD(

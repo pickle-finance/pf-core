@@ -25,7 +25,7 @@ const curveMetadataForChains: Map<ChainNetwork | string, CurveChainMetadata> =
   new Map();
 curveMetadataForChains.set(ChainNetwork.Ethereum, {
   cacheKey: "curveJar.apr.rawstats.eth.key",
-  url: "https://stats.curve.fi/raw-stats/apys.json",
+  url: "https://api.curve.fi/api/getApys",
 });
 curveMetadataForChains.set(`${ChainNetwork.Ethereum}factory`, {
   cacheKey: "curveJar.apr.rawstats.ethfactory.key",
@@ -42,22 +42,7 @@ curveMetadataForChains.set(ChainNetwork.Arbitrum, {
 // ADD_CHAIN_PROTOCOL
 
 export interface RawStatAPYs {
-  compound: number;
-  usdt: number;
-  y: number;
-  busd: number;
-  susd: number;
-  pax: number;
-  ren2: number;
-  rens: number;
-  hbtc: number;
-  ["3pool"]: number;
-  gusd: number;
-  husd: number;
-  usdn: number;
-  usdk: number;
-  steth: number;
-  aave: number;
+  [key: string]: number;
 }
 
 export interface RawStatArbAPYs {
@@ -99,11 +84,12 @@ export async function getCurveRawStats(
 
 export async function loadCurveRawStats(url: string): Promise<RawStatAPYs> {
   const res = await fetch(url).then((x) => x.json());
-  const stats = res.apy.day;
+  const stats = res.data;
+  const ret = {};
   for (const k of Object.keys(stats)) {
-    stats[k] = stats[k] * 100;
+    ret[k] = +stats[k].baseApy;
   }
-  return stats;
+  return ret;
 }
 
 export abstract class CurveJar extends AbstractJarBehavior {

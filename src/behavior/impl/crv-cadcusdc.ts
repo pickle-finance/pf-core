@@ -1,15 +1,33 @@
-import { JarDefinition } from "../../model/PickleModelJson";
+import { AssetAprComponent, JarDefinition } from "../../model/PickleModelJson";
 import { PickleModel } from "../../model/PickleModel";
 import { ConvexDualReward } from "./convex-dual-reward";
 import { BigNumber } from "ethers";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther } from "ethers/lib/utils";
 import { Contract } from "ethers-multiprovider";
+import { getCurveRawStats } from "./curve-jar";
 
-const pool = "0xe07bde9eb53deffa979dae36882014b758111a78";
+const pool = "0xE07BDe9Eb53DEFfa979daE36882014B758111a78";
 export class CurveCadcUsdc extends ConvexDualReward {
   constructor() {
     super();
+  }
+
+  async getLpApr(
+    definition: JarDefinition,
+    model: PickleModel,
+  ): Promise<AssetAprComponent> {
+    const curveRawStats: any = await getCurveRawStats(
+      model,
+      definition.chain,
+      true,
+    );
+
+    return this.createAprComponent(
+      "lp",
+      curveRawStats ? curveRawStats[pool] : 0,
+      false,
+    );
   }
 
   async getDepositTokenPrice(
