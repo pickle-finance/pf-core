@@ -124,24 +124,6 @@ export function getCvxMint(
   return 0;
 }
 
-export async function getConvexCurveApi(): Promise<any> {
-  let fetchPromise = undefined;
-  try {
-    fetchPromise = fetch("https://www.convexfinance.com/api/curve-apys", {
-      method: "GET",
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-      },
-    })
-      .then((x) => x.json())
-      .catch(() => {
-        return undefined;
-      });
-  } catch (error) {
-    // do nothing
-  }
-  return fetchPromise;
-}
 export async function getConvexRewarderPromise(
   cvxPool: SinglePoolInfo,
   model: PickleModel,
@@ -208,16 +190,12 @@ export async function getProjectedConvexAprStats(
   model: PickleModel,
 ): Promise<AssetAprComponent[]> {
   const cvxPool = convexPools[definition.depositToken.addr];
-  const convexApiPromise = getConvexCurveApi();
 
   const cvxTotalSupplyPromise = getCvxTotalSupply(model);
   const rewarder = await getConvexRewarderPromise(cvxPool, model, definition);
 
   const crvPrice = model.priceOfSync("crv", definition.chain);
   const cvxPrice = model.priceOfSync("cvx", definition.chain);
-
-  const fetchResult = await convexApiPromise;
-  if (!fetchResult) return [];
 
   const crvRewardsMC = new Contract(rewarder, CrvRewardsABI);
 
