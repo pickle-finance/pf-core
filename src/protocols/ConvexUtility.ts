@@ -14,7 +14,6 @@ import cvxBoosterAbi from "../Contracts/ABIs/cvx-booster.json";
 import erc20Abi from "../Contracts/ABIs/erc20.json";
 import { PoolInfo, SinglePoolInfo } from "./ProtocolUtil";
 import { createAprComponentImpl } from "../behavior/AbstractJarBehavior";
-import { JAR_CVXCRV } from "../model/JarsAndFarms";
 
 const CVX_BOOSTER = "0xF403C135812408BFbE8713b5A23a04b3D48AAE31";
 
@@ -212,48 +211,41 @@ export async function getProjectedConvexAprStats(
   const convexApiPromise = getConvexCurveApi();
 
   const cvxTotalSupplyPromise = getCvxTotalSupply(model);
-  const rewarderPromise = getConvexRewarderPromise(cvxPool, model, definition);
+  const rewarder = await getConvexRewarderPromise(cvxPool, model, definition);
 
   const crvPrice = model.priceOfSync("crv", definition.chain);
   const cvxPrice = model.priceOfSync("cvx", definition.chain);
 
   const fetchResult = await convexApiPromise;
   if (!fetchResult) return [];
-  const curveAPY = fetchResult?.apys;
 
+  const crvRewardsMC = new Contract(rewarder, CrvRewardsABI);
+
+  const multiProvider = model.multiproviderFor(definition.chain);
+  let extraRewardsAddress2Promise: Promise<string> | undefined = undefined;
+  if (cvxPool.extraReward) {
+    extraRewardsAddress2Promise = multiProvider
+      .all([crvRewardsMC.extraRewards(1)])
+      .then((x) => x[0]);
+  }
+  const [depositLocked, duration, mcRewardRate, periodFinish]: BigNumber[] =
+    await multiProvider.all([
+      crvRewardsMC.totalSupply(),
+      crvRewardsMC.duration(),
+      crvRewardsMC.rewardRate(),
+      crvRewardsMC.periodFinish(),
+    ]);
+
+  const depositTokenPrice = definition.depositToken.price;
+  const poolValue =
+    parseFloat(formatEther(depositLocked)) *
+    (model.priceOfSync(cvxPool.tokenPriceLookup, definition.chain) ||
+      depositTokenPrice);
+
+  const rewardRateUSD = (crvPrice * mcRewardRate.div(1e10).toNumber()) / 1e8;
+  const crvApr = rewardRateUSD * (ONE_YEAR_SECONDS / poolValue) * 100;
   // Component 1
-  if (curveAPY) {
-    const lpApr = parseFloat(curveAPY[cvxPool.tokenName]?.baseApy);
-    let crvApr = parseFloat(curveAPY[cvxPool.tokenName]?.crvApy);
-
-    const multiProvider = model.multiproviderFor(definition.chain);
-    const crvRewardsMC = new Contract(await rewarderPromise, CrvRewardsABI);
-    let extraRewardsAddress2Promise: Promise<string> | undefined = undefined;
-    if (cvxPool.extraReward) {
-      extraRewardsAddress2Promise = multiProvider
-        .all([crvRewardsMC.extraRewards(1)])
-        .then((x) => x[0]);
-    }
-    const [depositLocked, duration, mcRewardRate]: BigNumber[] =
-      await multiProvider.all([
-        crvRewardsMC.totalSupply(),
-        crvRewardsMC.duration(),
-        crvRewardsMC.rewardRate(),
-      ]);
-
-    const depositTokenPrice = definition.depositToken.price;
-    const poolValue =
-      parseFloat(formatEther(depositLocked)) *
-      (model.priceOfSync(cvxPool.tokenPriceLookup, definition.chain) ||
-        depositTokenPrice);
-
-    const isCvxCrvStaker =
-      JAR_CVXCRV.details.apiKey === definition.details.apiKey;
-    if (isCvxCrvStaker) {
-      const rewardRateUSD =
-        (crvPrice * mcRewardRate.div(1e10).toNumber()) / 1e8;
-      crvApr = rewardRateUSD * (ONE_YEAR_SECONDS / poolValue) * 100;
-    }
+  if (crvApr && +periodFinish.toString() > Date.now() / 1000) {
     const crvRewardPerDuration =
       (crvApr * poolValue) / (duration.toNumber() * crvPrice);
 
@@ -313,9 +305,7 @@ export async function getProjectedConvexAprStats(
     }
 
     const components: AssetAprComponent[] = [];
-    if (!isCvxCrvStaker) {
-      components.push(createAprComponentImpl("lp", lpApr, false));
-    }
+
     components.push(createAprComponentImpl("crv", crvApr, true));
     if (!isExtraCvx) {
       components.push(createAprComponentImpl("cvx", cvxApr * 100, true));
@@ -336,5 +326,5 @@ export async function getProjectedConvexAprStats(
     }
     return components;
   }
-  return undefined;
+  return [];
 }
