@@ -8973,7 +8973,7 @@ export const JAR_OPTIMISM_ZIP_ETH_USDC: JarDefinition = {
     components: ["eth", "usdc"],
   },
   rewardTokens: ["zip"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
   details: {
@@ -9001,7 +9001,7 @@ export const JAR_OPTIMISM_ZIP_ETH_DAI: JarDefinition = {
     components: ["eth", "dai"],
   },
   rewardTokens: ["zip"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
   details: {
@@ -9029,7 +9029,7 @@ export const JAR_OPTIMISM_ZIP_ETH_WBTC: JarDefinition = {
     components: ["eth", "wbtc"],
   },
   rewardTokens: ["zip"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
   details: {
@@ -9057,7 +9057,7 @@ export const JAR_OPTIMISM_ZIP_ETH_ZIP: JarDefinition = {
     components: ["eth", "zip"],
   },
   rewardTokens: ["zip"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
   details: {
@@ -9085,7 +9085,7 @@ export const JAR_OPTIMISM_ZIP_ETH_OP: JarDefinition = {
     components: ["eth", "op"],
   },
   rewardTokens: ["zip"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.ZIPSWAP,
   details: {
