@@ -39,6 +39,10 @@ curveMetadataForChains.set(ChainNetwork.Arbitrum, {
   cacheKey: "curveJar.apr.rawstats.arbitrum.key",
   url: "https://stats.curve.fi/raw-stats-arbitrum/apys.json",
 });
+curveMetadataForChains.set(ChainNetwork.Kava, {
+  cacheKey: "curveJar.apr.rawstats.kava.key",
+  url: "https://api.curve.fi/api/getFactoryAPYs-kava",
+});
 // ADD_CHAIN_PROTOCOL
 
 export interface RawStatAPYs {

@@ -458,6 +458,7 @@ import {
   JAR_OPTIMISM_HOP_ETH,
   JAR_OPTIMISM_HOP_USDC,
   JAR_OPTIMISM_HOP_SNX,
+  JAR_KAVA_CURVE_3CRV,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -731,6 +732,7 @@ import { VeloJar } from "./impl/velo";
 import { OPBeetXJar } from "./impl/optimism-beetx-jar";
 import { UwuJar } from "./impl/uwu-folding";
 import { HopJar } from "./impl/hop-jar";
+import { CurveKava3pool } from "./impl/curve-kava-3pool";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -1356,6 +1358,8 @@ jarToBehavior.set(JAR_GNOSIS_SWAPR_BTC_WETH.id, new GnosisSwaprJar());
 jarToBehavior.set(JAR_GNOSIS_SWAPR_DXD_GNO.id, new GnosisSwaprJar());
 jarToBehavior.set(JAR_GNOSIS_SWAPR_XDAI_WETH.id, new GnosisSwaprJar());
 jarToBehavior.set(JAR_GNOSIS_SWAPR_COW_GNO.id, new GnosisSwaprJar());
+
+jarToBehavior.set(JAR_KAVA_CURVE_3CRV.id, new CurveKava3pool());
 
 jarToBehavior.set(ASSET_PBAMM.id, new PBammAsset());
 jarToBehavior.set(EXTERNAL_SUSHI_PICKLE_ETH.id, new MainnetSushiPickleEth());
