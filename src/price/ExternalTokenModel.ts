@@ -3040,7 +3040,7 @@ export class ExternalTokenModel {
       ChainNetwork.Kava,
       "usdc",
       null,
-      "usdc",
+      "usd-coin",
       "0xfA9343C3897324496A05fC75abeD6bAC29f8A40f".toLowerCase(),
       6,
       ExternalTokenFetchStyle.ID,
