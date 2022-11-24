@@ -14466,6 +14466,34 @@ export const JAR_GNOSIS_SWAPR_COW_GNO: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_GNOSIS_SWAPR_COW_GNO);
 
+export const JAR_KAVA_CURVE_3CRV: JarDefinition = {
+  type: AssetType.JAR,
+  id: "kavaJar 1a",
+  contract: "0xFa3Ad976c0bdeAdDe81482F5Fa8191aE1e7d84C0",
+  startBlock: 22267495,
+  startTimestamp: 1653174185,
+  depositToken: {
+    addr: "0x7A0e3b70b1dB0D6CA63Cac240895b2D21444A7b9",
+    name: "Curve 3pool",
+    link: "https://kava.curve.fi/factory/0",
+    components: ["usdc", "dai", "usdt"],
+  },
+  rewardTokens: ["kava"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Kava,
+  protocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: "KAVA-3CRV",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,
+    farmNickname: "pCurve 3pool",
+    farmDepositTokenName: "pCurve 3pool",
+  },
+};
+JAR_DEFINITIONS.push(JAR_KAVA_CURVE_3CRV);
+
 // ADD_ASSET  add jars above this line,  standalone farms or external somewhere below
 
 // External Assets

@@ -37,6 +37,7 @@ export enum ChainNetwork {
   Optimism = "optimism",
   Fantom = "fantom",
   Gnosis = "gnosis",
+  Kava = "kava",
   // ADD_CHAIN
   //Binance
 }
@@ -194,6 +195,19 @@ export const RAW_CHAIN_BUNDLED_DEF: RawChain[] = [
     multicallAddress: "0x88b373B83166E72FD55648Ce114712633f1782E2",
     defaultPerformanceFee: 0.042,
     wrappedNativeAddress: "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
+  },
+  {
+    chainId: 2222,
+    network: ChainNetwork.Kava,
+    networkVisible: "Kava",
+    secondsPerBlock: 6.4,
+    gasToken: "kava",
+    gasTokenSymbol: "KAVA",
+    explorer: "https://explorer.kava.io/",
+    rpcs: ["https://evm.kava.io"],
+    multicallAddress: "0x7c3e2545ad7009d6f053CAa0153137F60685dD32",
+    defaultPerformanceFee: 0.1,
+    wrappedNativeAddress: "0xc86c7C0eFbd6A49B35E8714C5f59D99De09A225b",
   },
   // ADD_CHAIN
 ];

@@ -3026,6 +3026,44 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
+    // Kava
+    this.addToken(
+      ChainNetwork.Kava,
+      "kava",
+      null,
+      "kava",
+      "0xc86c7C0eFbd6A49B35E8714C5f59D99De09A225b".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Kava,
+      "usdc",
+      null,
+      "usd-coin",
+      "0xfA9343C3897324496A05fC75abeD6bAC29f8A40f".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Kava,
+      "dai",
+      null,
+      "dai",
+      "0x765277eebeca2e31912c9946eae1021199b39c61".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Kava,
+      "usdt",
+      null,
+      "tether",
+      "0xb44a9b6905af7c801311e8f4e76932ee959c663c".toLowerCase(),
+      6,
+      ExternalTokenFetchStyle.ID,
+    );
+
     // Make the reverse map to fascilitate contract lookups
     const tokenMaps: Map<string, ExternalToken>[] = this.allChainMaps();
     const allTokenList: ExternalToken[] = [];

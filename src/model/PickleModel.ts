@@ -195,6 +195,16 @@ export const ADDRESSES = new Map([
       treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
     },
   ],
+  [
+    ChainNetwork.Kava,
+    {
+      pickle: NULL_ADDRESS,
+      masterChef: NULL_ADDRESS,
+      controller: "0xBe6300C2fFC26F8C6Cdd3a468867CaF8bb01CFCe",
+      minichef: NULL_ADDRESS,
+      treasury: "0xaCfE4511CE883C14c4eA40563F176C3C09b4c47C",
+    },
+  ],
 
   // ADD_CHAIN
 ]);

@@ -83,6 +83,7 @@ const RPCs: { [P in ChainNetwork]?: [string, ProviderConfig?][] } = {
     // ["https://polygon-mainnet.public.blastapi.io"],
     // ["https://poly-rpc.gateway.pokt.network"],  // offline - too long
   ],
+  kava: [["https://evm2.kava.io"], ["https://evm.kava.io"]],
 };
 interface ProviderConfig {
   multicallAddress?: string;
@@ -110,6 +111,7 @@ const CONFIGS: CommsMgrConfig = {
   okex: defaultConfig,
   optimism: defaultConfig,
   polygon: defaultConfig,
+  kava: defaultConfig,
 };
 
 export class CommsMgrV2 {
