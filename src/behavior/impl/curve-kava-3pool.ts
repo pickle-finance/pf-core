@@ -1,4 +1,5 @@
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
+import fetch from "cross-fetch";
 import { PickleModel } from "../../model/PickleModel";
 import { Contract } from "ethers-multiprovider";
 import { CurveJar } from "./curve-jar";
