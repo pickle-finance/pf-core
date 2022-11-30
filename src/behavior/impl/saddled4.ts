@@ -8,8 +8,19 @@ import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
+import { utils } from "ethers";
 
-export const COMMUNAL_FARM = "0x0639076265e9f88542C91DCdEda65127974A5CA5";
+const strategyABI = [
+  "function getHarvestable() external returns (uint256)",
+  "function gauge() external view returns (address)",
+];
+
+const gaugeAbi = [
+  "function working_supply() view returns(uint256)",
+  "function inflation_rate() view returns(uint256)",
+  "function integrate_inv_supply(uint256) view returns(uint256)",
+];
+
 export class SaddleD4 extends AbstractJarBehavior {
   protected strategyAbi: any;
 
@@ -41,57 +52,38 @@ export class SaddleD4 extends AbstractJarBehavior {
     model: PickleModel,
   ): Promise<AssetProjectedApr> {
     const swapFlashLoanAddress = "0xC69DDcd4DFeF25D8a793241834d4cc4b3668EAD6";
+    const gaugeAddress = "0x702c1b8Ec3A77009D5898e18DA8F8959B6dF2093";
     const multiProvider = model.multiproviderFor(jar.chain);
-    const multicallCommunalFarm = new Contract(COMMUNAL_FARM, communalFarmAbi);
-
-    const [fxsRateBN, tribeRateBN, alcxRateBN, lqtyRateBN, totalValueLockedBN] =
-      await multiProvider.all([
-        multicallCommunalFarm.rewardRates(0),
-        multicallCommunalFarm.rewardRates(1),
-        multicallCommunalFarm.rewardRates(2),
-        multicallCommunalFarm.rewardRates(3),
-        multicallCommunalFarm.totalLiquidityLocked(),
-      ]);
-
-    const fxsValPerYear =
-      model.priceOfSync("fxs", jar.chain) *
-      parseFloat(formatEther(fxsRateBN)) *
-      ONE_YEAR_SECONDS;
-    const tribeValPerYear =
-      model.priceOfSync("tribe", jar.chain) *
-      parseFloat(formatEther(tribeRateBN)) *
-      ONE_YEAR_SECONDS;
-    const alcxValPerYear =
-      model.priceOfSync("alcx", jar.chain) *
-      parseFloat(formatEther(alcxRateBN)) *
-      ONE_YEAR_SECONDS;
-    const lqtyValPerYear =
-      model.priceOfSync("lqty", jar.chain) *
-      parseFloat(formatEther(lqtyRateBN)) *
-      ONE_YEAR_SECONDS;
-
+    const gaugeContract = new Contract(gaugeAddress, gaugeAbi);
     const multicallSwapFlashLoan = new Contract(
       swapFlashLoanAddress,
       swapFlashLoanAbi,
     );
 
-    const [virtualPrice] = await multiProvider.all([
+    const [workingSupply, virtualPrice, gaugeRate] = await multiProvider.all([
+      gaugeContract.working_supply(),
       multicallSwapFlashLoan.getVirtualPrice(),
+      gaugeContract.inflation_rate(),
     ]);
+
     const priceOfSaddle = parseFloat(formatEther(virtualPrice));
     const totalValueStaked =
-      parseFloat(formatEther(totalValueLockedBN)) * priceOfSaddle;
+      parseFloat(formatEther(workingSupply)) * priceOfSaddle;
 
-    const fxsApr = (fxsValPerYear / totalValueStaked) * 100;
-    const tribeApr = (tribeValPerYear / totalValueStaked) * 100;
-    const alcxApr = (alcxValPerYear / totalValueStaked) * 100;
-    const lqtyApr = (lqtyValPerYear / totalValueStaked) * 100;
+    const yearlySdlReward = gaugeRate
+      .mul(ONE_YEAR_SECONDS)
+      .div(workingSupply)
+      .mul(1600)
+      .mul((model.priceOfSync("sdl", jar.chain) * 1e6).toFixed())
+      .div((1e6).toString())
+      .toNumber();
 
     return this.aprComponentsToProjectedApr([
-      this.createAprComponent("FXS", fxsApr, true),
-      this.createAprComponent("TRIBE", tribeApr, true),
-      this.createAprComponent("ALCX", alcxApr, true),
-      this.createAprComponent("LQTY", lqtyApr, true),
+      this.createAprComponent(
+        "sdl",
+        (yearlySdlReward * 100) / totalValueStaked,
+        true,
+      ),
     ]);
   }
 
@@ -99,11 +91,16 @@ export class SaddleD4 extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
-      jar,
-      model,
-      ["fxs", "tribe", "alcx", "lqty"],
-      this.strategyAbi,
+    const multiProvider = model.multiproviderFor(jar.chain);
+    const strategy = new Contract(
+      jar.details.strategyAddr,
+      strategyABI,
+      multiProvider,
     );
+
+    const harvestable = await strategy.callStatic.getHarvestable();
+    const saddlePrice = model.priceOfSync("sdl", jar.chain);
+    const harvestableUSD = +utils.formatEther(harvestable) * saddlePrice;
+    return harvestableUSD;
   }
 }

@@ -595,6 +595,15 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "sdl",
+      null,
+      "saddle-finance",
+      "0xf1dc500fde233a4055e25e5bbf516372bc4f6871".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Polygon
     this.addToken(
