@@ -70,6 +70,7 @@ const GOOD_ADDRESSES: { [address: string]: string } = {
   "0xc335740c951f45200b38c5ca84f0a9663b51aec6": "controller_fantom",
   "0xb1698a97b497c998b2b2291bb5c48d1d6075836a": "controller_fantom",
   "0xe5e231de20c68aabb8d669f87971ae57e2abf680": "controller_gnosis",
+  "0x12e6749c4320d6f9f583646374f2763cb87c0bb0": "chef_proxy_optimism",
 };
 const BAD_ADDRESSES: { [address: string]: string } = {
   "0x4204fdd868ffe0e62f57e6a626f8c9530f7d5ad1": "ape",
@@ -318,7 +319,8 @@ const isValidPerm = (chain: string, role: string, address: string) => {
       chain === "metis" ||
       chain === "cronos" ||
       chain === "okex" ||
-      chain === "aurora") &&
+      chain === "aurora" ||
+      chain === "kava") &&
     role != "controller"
   ) {
     if (goodRole === "larry") {
