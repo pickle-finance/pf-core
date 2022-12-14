@@ -5043,7 +5043,7 @@ export const JAR_CRO_TECTONIC_WETH: JarDefinition = {
     components: ["weth"],
   },
   rewardTokens: ["tonic"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.TECTONIC,
   details: {
@@ -5072,7 +5072,7 @@ export const JAR_CRO_TECTONIC_CRO: JarDefinition = {
     components: ["cro"],
   },
   rewardTokens: ["tonic"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.WITHDRAW_ONLY,
   chain: ChainNetwork.Cronos,
   protocol: AssetProtocol.TECTONIC,
   details: {
