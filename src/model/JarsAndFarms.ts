@@ -2018,7 +2018,7 @@ export const JAR_CURVE_GEARETHLP: JarDefinition = {
     harvestStyle: HarvestStyle.PASSIVE,
   },
   farm: {
-    farmAddress: "0x774706558b1D7bee11F5b009978889E5EDa251aa",
+    farmAddress: "0xf1766329212f04358292a9327364c8909481fE75",
     farmNickname: "pCurve GEAR/ETH",
     farmDepositTokenName: "pCurve GEAR/ETH",
   },
