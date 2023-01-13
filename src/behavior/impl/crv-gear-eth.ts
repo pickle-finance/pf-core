@@ -1,3 +1,4 @@
+import fetch from "cross-fetch";
 import { Chains, PickleModel } from "../..";
 import { JarDefinition, AssetProjectedApr } from "../../model/PickleModelJson";
 import { Contract } from "ethers-multiprovider";
