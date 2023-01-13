@@ -616,7 +616,7 @@ export class PickleModel implements ErrorLogger {
       this.loadDepositTokenTotalSupplyData(),
       this.loadJarTotalSupplyData(),
       this.ensurePriceCacheLoaded(),
-    ])
+    ]);
     await Promise.all([
       this.loadStrategyData(),
       this.ensureComponentTokensLoaded(),

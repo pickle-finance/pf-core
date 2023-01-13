@@ -14,6 +14,7 @@ const swap_abi = [
 ];
 const gaugeAbi = [
   "function working_supply() view returns(uint256)",
+  "function inflation_rate() view returns(uint256)",
   "function inflation_rate(uint256) view returns(uint256)",
   "function integrate_inv_supply(uint256) view returns(uint256)",
 ];
@@ -68,7 +69,8 @@ export async function calculateCurveApyArbitrum(
   swapAddress: string,
   _gauge: string,
   _tokensNo: number,
-) {
+  _rewardTokenId = "crv",
+): Promise<number> {
   // Get CRV emission rate
   const multiProvider = model.multiproviderFor(jar.chain);
   const swapContract = new Contract(swapAddress, swap_abi);
@@ -76,11 +78,12 @@ export async function calculateCurveApyArbitrum(
 
   const secondsInOneWeek = 60 * 60 * 24 * 7;
   const currentWeekEpoch = Math.floor(Date.now() / 1000 / secondsInOneWeek);
+
   const [workingSupply, gaugeRate]: BigNumber[] = await multiProvider.all([
     gaugeContract.working_supply(),
-    gaugeContract.inflation_rate(currentWeekEpoch),
-    swapContract.get_virtual_price(),
-    gaugeContract.integrate_inv_supply(currentWeekEpoch),
+    _rewardTokenId == "crv"
+      ? gaugeContract.inflation_rate(currentWeekEpoch)
+      : gaugeContract.inflation_rate(),
   ]);
 
   // This assumes no reward boost
@@ -90,8 +93,9 @@ export async function calculateCurveApyArbitrum(
     .mul(40)
     .toNumber();
 
-  const crvPrice = model.priceOfSync("crv", jar.chain);
+  const crvPrice = model.priceOfSync(_rewardTokenId, jar.chain);
   const crvValuePerYear = yearlyCrvRate * crvPrice * 100;
+  console.log({ crvPrice, crvValuePerYear, gaugeRate, yearlyCrvRate });
 
   // Get total pool USD value
   const coinsProm: Promise<string[]> = multiProvider.all(
@@ -123,6 +127,8 @@ export async function calculateCurveApyArbitrum(
     );
     totalStakedUsd += balance * prices[i];
   });
+
+  console.log(totalStakedUsd, crvValuePerYear);
 
   const crvAPY = (crvValuePerYear / totalStakedUsd) * 100;
   return crvAPY;

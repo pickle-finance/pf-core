@@ -1995,6 +1995,36 @@ export const JAR_UNIV2_FRAX_TEMPLE: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_UNIV2_FRAX_TEMPLE);
 
+export const JAR_CURVE_GEARETHLP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "pJar 0l",
+  contract: "0x4a691833441730475b6a1c91Bde51BcE9644Bd6f",
+  startBlock: 16393180,
+  startTimestamp: 1673559217,
+  depositToken: {
+    addr: "0x5Be6C45e2d074fAa20700C49aDA3E88a1cc0025d",
+    name: "Curve GEAR/ETH",
+    link: "https://curve.fi/#/ethereum/pools/factory-crypto-192/deposit",
+    components: ["gear", "weth"],
+    decimals: 18,
+  },
+  rewardTokens: ["gear", "crv"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Ethereum,
+  protocol: AssetProtocol.CURVE,
+  stakingProtocol: AssetProtocol.CURVE,
+  details: {
+    apiKey: "CURVEGEARETH",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x774706558b1D7bee11F5b009978889E5EDa251aa",
+    farmNickname: "pCurve GEAR/ETH",
+    farmDepositTokenName: "pCurve GEAR/ETH",
+  },
+};
+JAR_DEFINITIONS.push(JAR_CURVE_GEARETHLP);
+
 // Polygon
 
 export const JAR_COMETH_USDC_WETH: JarDefinition = {

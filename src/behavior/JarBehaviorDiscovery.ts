@@ -459,6 +459,7 @@ import {
   JAR_OPTIMISM_HOP_USDC,
   JAR_OPTIMISM_HOP_SNX,
   JAR_KAVA_CURVE_3CRV,
+  JAR_CURVE_GEARETHLP,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -733,6 +734,7 @@ import { OPBeetXJar } from "./impl/optimism-beetx-jar";
 import { UwuJar } from "./impl/uwu-folding";
 import { HopJar } from "./impl/hop-jar";
 import { CurveKava3pool } from "./impl/curve-kava-3pool";
+import { CurveGearEth } from "./impl/crv-gear-eth";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -814,6 +816,7 @@ jarToBehavior.set(JAR_CURVE_CADCUSDC.id, new CurveCadcUsdc());
 jarToBehavior.set(JAR_CURVE_STG_USDC_LP.id, new CurveStgUsdc());
 jarToBehavior.set(JAR_UWU_FRAX.id, new UwuJar());
 jarToBehavior.set(JAR_UWU_WETH.id, new UwuJar());
+jarToBehavior.set(JAR_CURVE_GEARETHLP.id, new CurveGearEth());
 
 // Polygon
 jarToBehavior.set(JAR_AAVEDAI.id, new DaiJar());

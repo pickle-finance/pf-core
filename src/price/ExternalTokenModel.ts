@@ -605,6 +605,16 @@ export class ExternalTokenModel {
       ExternalTokenFetchStyle.ID,
     );
 
+    this.addToken(
+      ChainNetwork.Ethereum,
+      "gear",
+      null,
+      "gearbox",
+      "0xba3335588d9403515223f109edc4eb7269a9ab5d".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+
     // Polygon
     this.addToken(
       ChainNetwork.Polygon,
