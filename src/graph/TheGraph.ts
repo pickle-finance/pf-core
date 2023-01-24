@@ -14,7 +14,6 @@ const SUBGRAPH_URL_PICKLE_ARBITRUM =
 const SUBGRAPH_URL_UNISWAP =
   "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2";
 const SUBGRAPH_URL_UNISWAP_V3_POLYGON =
-  // "https://api.thegraph.com/subgraphs/name/kalinbas/uniswap-v3-polygon";
   "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-polygon";
 const SUBGRAPH_URL_UNISWAP_V3_MAINNET =
   "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3";
