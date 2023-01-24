@@ -11,6 +11,7 @@ import { PickleModel } from "../../model/PickleModel";
 import { PoolId } from "../../protocols/ProtocolUtil";
 import { formatEther } from "ethers/lib/utils";
 import { Chains } from "../../chain/Chains";
+import { BigNumber } from "ethers";
 
 const ZIP_FARMS = "0x1e2F8e5f94f366eF5Dc041233c0738b1c1C2Cb0c";
 
@@ -65,16 +66,22 @@ export class ZipswapJar extends AbstractJarBehavior {
     const multicallZipFarms = new Contract(ZIP_FARMS, zipFarms);
     const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
-    const [zipPerSecondBN, totalAllocPointBN, poolInfo, totalSupplyBN, rewardsEndTimeBN] =
-      await multiProvider.all([
-        multicallZipFarms.zipPerSecond(),
-        multicallZipFarms.totalAllocPoint(),
-        multicallZipFarms.poolInfo(poolId),
-        lpToken.balanceOf(ZIP_FARMS),
-        multicallZipFarms.zipRewardsSpentTime(),
-      ]);
+    const [
+      zipPerSecondBN,
+      totalAllocPointBN,
+      poolInfo,
+      totalSupplyBN,
+      rewardsEndTimeBN,
+    ] = (await multiProvider.all([
+      multicallZipFarms.zipPerSecond(),
+      multicallZipFarms.totalAllocPoint(),
+      multicallZipFarms.poolInfo(poolId),
+      lpToken.balanceOf(ZIP_FARMS),
+      multicallZipFarms.zipRewardsSpentTime(),
+    ])) as [BigNumber, BigNumber, any, BigNumber, BigNumber];
 
-    if (Date.now() / 1000 > rewardsEndTimeBN.toNumber()) return 0;
+    const nowTimestampBN = BigNumber.from((Date.now() / 1000).toFixed());
+    if (nowTimestampBN.gt(rewardsEndTimeBN)) return 0;
 
     const rewardsPerYear =
       (parseFloat(formatEther(zipPerSecondBN)) *
