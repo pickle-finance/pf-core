@@ -77,9 +77,6 @@ export class UserJarHistoryPnlGenerator {
     if (txn.transaction_type === "DEPOSIT") {
       return this.getDepositPnlTx(txn);
     }
-    if (txn.transaction_type === "ZAPIN") {
-      return this.getZapInPnlTx(txn);
-    }
     if (txn.transaction_type === "ZAPOUT") {
       return this.getZapOutPnlTx(txn);
     }
@@ -125,11 +122,21 @@ export class UserJarHistoryPnlGenerator {
     let wantWeiCount = BigNumber.from(0);
     let tokenDecimals = 18;
     let wantDecimals = 18;
+
+    const filterUnique = (value: any, index: number, self: any[]): boolean => self.indexOf(value) === index;
+    const wantTransferTokens = txn.transfers.filter((x) => x.transfer_type === 'WANT_DEPOSIT').map((x) => x.tokenAddress.toLowerCase());
+    const unique = wantTransferTokens.filter(filterUnique);
+    let trackWantBasis = true;
+    if( unique.length > 1 ) {
+      trackWantBasis = false;
+    }
     txn.transfers.forEach((transfer) => {
       if (transfer.transfer_type === "WANT_DEPOSIT") {
-        usdValue = +transfer.value.toFixed(2);
-        wantWeiCount = BigNumber.from(transfer.amount);
-        wantDecimals = transfer.decimals;
+        usdValue += +transfer.value.toFixed(2);
+        if( trackWantBasis ) {
+          wantWeiCount = BigNumber.from(transfer.amount);
+          wantDecimals = transfer.decimals;
+        }
       }
       // this is wrong
       // if (transfer.transfer_type === 'FROM_CALLER') {
@@ -141,7 +148,7 @@ export class UserJarHistoryPnlGenerator {
         txCostBasis = parseFloat(transfer.price);
       }
     });
-    const wantCostBasis = wantWeiCount.mul(1e9).div(ptokenWeiCount).toNumber() / 1e9;
+    const wantCostBasis = trackWantBasis ? wantWeiCount.mul(1e9).div(ptokenWeiCount).toNumber() / 1e9 : 0;
     const ret: PnlTxn = {
       action: "DEPOSIT",
       valueUSD: usdValue,
@@ -185,7 +192,7 @@ export class UserJarHistoryPnlGenerator {
         tokenDecimals = transfer.decimals;
       }
       if (transfer.transfer_type === "WANT_WITHDRAW") {
-        wantValueUSD = +transfer.value.toFixed(3);
+        wantValueUSD += +transfer.value.toFixed(3);
         wantWeiCount = BigNumber.from(transfer.amount);
         wantDecimals = transfer.decimals;
       }
