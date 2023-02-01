@@ -1,7 +1,8 @@
-import { ChainNetwork, PickleModelJson } from ".";
+import { ChainNetwork, PickleModelJson, UserJarHistoryPnlGenerator } from ".";
 import fetch from "cross-fetch";
 import { IUserModelCallback, UserData, UserModel } from "./client/UserModel";
 import { ethers, Signer } from "ethers";
+import { UserTx, PnlTransactionWrapper } from "./client/pnl/UserHistoryInterfaces";
 
 async function generateUserData(walletId: string) {
   const core = await fetch(
@@ -33,6 +34,26 @@ async function generateUserData(walletId: string) {
     console.log(error);
   }
 }
+
+
+async function generateUserJarHistoryData(walletId: string) {
+  const core = await fetch(
+    "https://api.pickle.finance/prod/protocol/pfcore",
+  ).then((response) => response.json());
+
+  const userStuff = await fetch(
+    "https://api.pickle.finance/prod/protocol/userhistory/" + walletId,
+  ).then((response) => response.json());
+
+  const item: UserTx[] = userStuff['QLP-MIMATIC'];
+  const gen: UserJarHistoryPnlGenerator = new UserJarHistoryPnlGenerator(walletId, item);
+  const ret: PnlTransactionWrapper[] = gen.generatePnL();
+  console.log(JSON.stringify(ret, null, 2));
+}
+
+//generateUserJarHistoryData('0xf696350F37cb8a1cc9C56EC5C8CfF00a5e01FD40');
+
+
 
 if (process.argv.length !== 3) {
   console.log("Please pass a wallet");

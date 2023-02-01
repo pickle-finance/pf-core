@@ -57,14 +57,20 @@ export class UserJarHistoryPnlGenerator {
       // unlock tokens from earliest lots
       return this.getTransferPnlEntry(this.userWallet, userTx, wrappers);
     }
+    if (userTx.transaction_type === "AIRDROP") {
+      // unlock tokens from earliest lots
+      return this.getTransferPnlEntry(this.userWallet, userTx, wrappers);
+    }
     if( userTx.transaction_type === 'STAKE_REWARD') {
       const previousRolling = this.getPreviousRollingDataOrStub(wrappers);
-      const lots = previousRolling.lots.map((x) => {return {...x}});
+      const prevLots = (previousRolling ? previousRolling.lots : []);
+      const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
+      let lots = prevLots.map((x) => {return {...x}});
       const rewards = userTx.transfers.filter((x) => x.transfer_type === 'STAKE_REWARD').map((x) => x.value);
       const runningVal = rewards.reduce((accumulator, current) => {
         return accumulator + current;
       }, 0);
-      return this.createRollingDataFromLots(runningVal, lots, 18, previousRolling.rollingRewards);
+      return this.createRollingDataFromLots(runningVal, lots, 18, prevRewards);
     }
     return undefined;
   };
@@ -242,7 +248,9 @@ export class UserJarHistoryPnlGenerator {
   ): PnlRollingDataWithLots {
     const txn: PnlTxn | undefined = this.getInternalPnlTxn(utxn);
     const previousRolling = this.getPreviousRollingDataOrStub(pnlWithTotals);
-    const lots = previousRolling.lots.map((x) => {return {...x}});
+    const prevLots = (previousRolling ? previousRolling.lots : []);
+    const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
+    let lots = prevLots.map((x) => {return {...x}});
     lots.push({
       wei: txn?.ptokenWei,
       weiRemaining: txn?.ptokenWei,
@@ -256,7 +264,7 @@ export class UserJarHistoryPnlGenerator {
       status: "open",
       timestamp: txn.timestamp,
     });
-    return this.createRollingDataFromLots(txn.valueUSD, lots, txn.decimals, previousRolling.rollingRewards);
+    return this.createRollingDataFromLots(txn.valueUSD, lots, txn.decimals, prevRewards);
   };
 
   private getWithdrawPnlEntry(
@@ -268,13 +276,15 @@ export class UserJarHistoryPnlGenerator {
     const decimals = txn.decimals;
     const previousRolling = this.getPreviousRollingDataOrStub(pnlWithTotals);
     // deep clone the lots
-    let previousLots: Lot[] = previousRolling.lots.map((x) => { return {...x}});
+    const prevLots = (previousRolling ? previousRolling.lots : []);
+    const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
+    let previousLots: Lot[] = prevLots.map((x) => {return {...x}});
     if( checkUnstake ) {
       previousLots = this.applyUnstakeToRollingTotals(utxn, previousLots);
     }
     const valueBeingClosed = txn.valueUSD;
     const newLots = this.applyWithdrawToLots(txn.ptokenWei, txn.wantWei, previousLots, valueBeingClosed);
-    return this.createRollingDataFromLots(txn.valueUSD, newLots, decimals, previousRolling.rollingRewards);
+    return this.createRollingDataFromLots(txn.valueUSD, newLots, decimals, prevRewards);
   };
 
   private applyWithdrawToLots(ptokenWei: BigNumber, wantWei: BigNumber, previousLots: Lot[], valueBeingClosed: number) {
@@ -316,8 +326,10 @@ export class UserJarHistoryPnlGenerator {
   ): PnlRollingDataWithLots {
     const transfers: UserTransfer[] = txn.transfers.filter((x) => x.transfer_type === 'PTRANSFER');
     const previousRolling = this.getPreviousRollingDataOrStub(pnlWithTotals);
-    let rollingTokenCountBN = previousRolling.rollingWeiCount;
-    let lots = previousRolling.lots.map((x) => {return {...x}});
+    let rollingTokenCountBN = previousRolling ? previousRolling.rollingWeiCount : BigNumber.from(0);
+    const prevLots = (previousRolling ? previousRolling.lots : []);
+    const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
+    let lots = prevLots.map((x) => {return {...x}});
     let decimals = 18;
     let runningVal = 0;
     for (let i = 0; i < transfers.length; i++ ) {
@@ -346,7 +358,7 @@ export class UserJarHistoryPnlGenerator {
         lots = this.applyWithdrawToLots(BigNumber.from(transfers[i].amount), BigNumber.from(0), lots, transfers[i].value);
       }
     }
-    return this.createRollingDataFromLots(runningVal, lots, decimals, previousRolling.rollingRewards);
+    return this.createRollingDataFromLots(runningVal, lots, decimals, prevRewards);
   };
 
   private createRollingDataFromLots(txVal: number, lots: Lot[], decimals: number, prevStake: StakingRewards): PnlRollingDataWithLots {
@@ -380,12 +392,14 @@ export class UserJarHistoryPnlGenerator {
     pnlWithTotals: PnlTransactionWrapper[]
   ): PnlRollingDataWithLots {
     const previousRolling = this.getPreviousRollingDataOrStub(pnlWithTotals);
-    let lots = previousRolling.lots.map((x) => {return {...x}});
+    const prevLots = (previousRolling ? previousRolling.lots : []);
+    const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
+    let lots = prevLots.map((x) => {return {...x}});
     lots = this.applyStakeToRollingTotals(txn, lots);
     const unstakeTransfer = txn.transfers.find((x) => x.transfer_type === 'STAKE');
     const val = unstakeTransfer ? unstakeTransfer.value : 0;
     const decimals = unstakeTransfer ? unstakeTransfer.decimals : 18;
-    return this.createRollingDataFromLots(val, lots, decimals, previousRolling.rollingRewards);
+    return this.createRollingDataFromLots(val, lots, decimals, prevRewards);
   };
 
   private applyStakeToRollingTotals(txn: UserTx, lots: Lot[]): Lot[] {
@@ -417,12 +431,14 @@ export class UserJarHistoryPnlGenerator {
     pnlWithTotals: PnlTransactionWrapper[]
   ): PnlRollingDataWithLots {
     const previousRolling = this.getPreviousRollingDataOrStub(pnlWithTotals);
-    let lots = previousRolling.lots.map((x) => {return {...x}});
+    const prevLots = (previousRolling ? previousRolling.lots : []);
+    const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
+    let lots = prevLots.map((x) => {return {...x}});
     lots = this.applyUnstakeToRollingTotals(txn, lots);
     const unstakeTransfer = txn.transfers.find((x) => x.transfer_type === 'UNSTAKE');
     const val = unstakeTransfer ? unstakeTransfer.value : 0;
     const decimals = unstakeTransfer ? unstakeTransfer.decimals : 18;
-    return this.createRollingDataFromLots(val, lots, decimals, previousRolling.rollingRewards);
+    return this.createRollingDataFromLots(val, lots, decimals, prevRewards);
   };
 
 
