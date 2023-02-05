@@ -1,15 +1,23 @@
 import { BigNumber } from "ethers";
-import { Lot, PnlRollingDataWithLots, PnlTxn, PnlTransactionWrapper, UserTx, StakingRewards, UserTransfer } from "./UserHistoryInterfaces";
+import { HistoryAssetType, Lot, PnlRollingDataWithLots, PnlTxn, PnlTransactionWrapper, UserTx, StakingRewards, UserTransfer } from "./UserHistoryInterfaces";
 export class UserJarHistoryPnlGenerator {
   private userWallet: string;
   private userJarHistory: UserTx[];
-  public constructor(userWallet: string, userJarHistory: UserTx[]) {
+  private assetType: HistoryAssetType;
+  public constructor(userWallet: string, userJarHistory: UserTx[], assetType: HistoryAssetType) {
     this.userWallet = userWallet;
     this.userJarHistory = userJarHistory;
-    // TODO
+    this.assetType = assetType;
   }
 
   generatePnL(): PnlTransactionWrapper[] {
+    if( this.assetType === HistoryAssetType.JAR) {
+      return this.generatePnlJar();
+    }
+    return [];
+  }
+
+  generatePnlJar(): PnlTransactionWrapper[] {
     const ret: PnlTransactionWrapper[] = [];
     for (let i = 0; i < this.userJarHistory.length; i++ ) {
       const rollingData: PnlRollingDataWithLots = this.getRollingData(this.userJarHistory[i], ret);

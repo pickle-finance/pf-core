@@ -1,30 +1,44 @@
 import { BigNumber } from "ethers";
 
-export interface UserJarHistory {
-    [apiKey: string]: UserTx[];
-  }
+export enum HistoryAssetType {
+  JAR = "jar",
+  STANDALONE_FARM = "standaloneFarm",
+  BRINERY = "brinery",
+  PLATFORM = "platform",
+}
+
+export interface UserHistory {
+  jars: UserAssetTypeHistory;
+  standaloneFarms: UserAssetTypeHistory;
+  brineries: UserAssetTypeHistory;
+  platform: UserAssetTypeHistory;
+}
+
+export interface UserAssetTypeHistory {
+  [apiKey: string]: UserTx[];
+}
+
+export interface UserTx {
+  hash: string;
+  transaction_type: string;
+  chain_id: number;
+  timestamp: number;
+  blocknumber: number;
+  indexInBlock: number;
+  transfers: UserTransfer[];
+}
   
-  export interface UserTx {
-    hash: string;
-    transaction_type: string;
-    chain_id: number;
-    timestamp: number;
-    blocknumber: number;
-    indexInBlock: number;
-    transfers: UserTransfer[];
-  }
-  
-  export interface UserTransfer {
-    amount: string;
-    transfer_type: string;
-    log_index: number;
-    fromAddress: string;
-    toAddress: string;
-    tokenAddress: string;
-    price: string;
-    value: number;
-    decimals: number;
-  }
+export interface UserTransfer {
+  amount: string;
+  transfer_type: string;
+  log_index: number;
+  fromAddress: string;
+  toAddress: string;
+  tokenAddress: string;
+  price: string;
+  value: number;
+  decimals: number;
+}
 
 export interface PnlTransactionWrapper {
   userTransaction: UserTx,

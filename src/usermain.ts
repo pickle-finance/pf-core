@@ -2,7 +2,7 @@ import { ChainNetwork, PickleModelJson, UserJarHistoryPnlGenerator } from ".";
 import fetch from "cross-fetch";
 import { IUserModelCallback, UserData, UserModel } from "./client/UserModel";
 import { ethers, Signer } from "ethers";
-import { UserTx, PnlTransactionWrapper } from "./client/pnl/UserHistoryInterfaces";
+import { UserTx, PnlTransactionWrapper, HistoryAssetType } from "./client/pnl/UserHistoryInterfaces";
 
 async function generateUserData(walletId: string) {
   const core = await fetch(
@@ -46,7 +46,7 @@ async function generateUserJarHistoryData(walletId: string) {
   ).then((response) => response.json());
 
   const item: UserTx[] = userStuff['QLP-MIMATIC'];
-  const gen: UserJarHistoryPnlGenerator = new UserJarHistoryPnlGenerator(walletId, item);
+  const gen: UserJarHistoryPnlGenerator = new UserJarHistoryPnlGenerator(walletId, item, HistoryAssetType.JAR);
   const ret: PnlTransactionWrapper[] = gen.generatePnL();
   console.log(JSON.stringify(ret, null, 2));
 }
