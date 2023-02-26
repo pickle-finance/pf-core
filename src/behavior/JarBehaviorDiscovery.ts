@@ -453,13 +453,14 @@ import {
   JAR_UWU_FRAX,
   JAR_UWU_WETH,
   JAR_OPTIMISM_BEETX_IB_RETH,
-  JAR_ARBITRUM_UNIV3_ETH_USDC,
+  JAR_ARBITRUM_UNIV3_ETH_USDC_OLD,
   JAR_ARBITRUM_UNIV3_GMX_ETH,
   JAR_OPTIMISM_HOP_ETH,
   JAR_OPTIMISM_HOP_USDC,
   JAR_OPTIMISM_HOP_SNX,
   JAR_KAVA_CURVE_3CRV,
   JAR_CURVE_GEARETHLP,
+  JAR_OPTIMISM_VELO_ETH_RETH_V,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -863,7 +864,7 @@ jarToBehavior.set(JAR_ARBITRUM_BAL_ETH.id, new BalancerJar());
 jarToBehavior.set(JAR_ARBITRUM_BAL_VSTA_ETH.id, new BalancerVstaEth());
 jarToBehavior.set(JAR_ARBITRUM_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_ARBITRUM_STAR_USDT.id, new StargateJar());
-jarToBehavior.set(JAR_ARBITRUM_UNIV3_ETH_USDC.id, new Univ3Base());
+jarToBehavior.set(JAR_ARBITRUM_UNIV3_ETH_USDC_OLD.id, new Univ3Base());
 jarToBehavior.set(JAR_ARBITRUM_UNIV3_GMX_ETH.id, new Univ3Base());
 
 // OKEx
@@ -1090,6 +1091,7 @@ jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_SNX_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_SETH_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_ALETH_S.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_VELO_USDC_TUSD_S.id, new VeloJar());
+jarToBehavior.set(JAR_OPTIMISM_VELO_ETH_RETH_V.id, new VeloJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_IB.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_ETH_RETH.id, new OPBeetXJar());
 jarToBehavior.set(JAR_OPTIMISM_BEETX_IB_RETH.id, new OPBeetXJar());
