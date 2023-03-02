@@ -2302,6 +2302,24 @@ export class ExternalTokenModel {
       18,
       ExternalTokenFetchStyle.ID,
     );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "dola",
+      "Dola",
+      "dola-usd",
+      "0x8aE125E8653821E851F12A49F7765db9a9ce7384".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
+    this.addToken(
+      ChainNetwork.Optimism,
+      "steth",
+      "stETH",
+      "staked-ether",
+      "0x1F32b1c2345538c0c6f582fCB022739c4A194Ebb".toLowerCase(),
+      18,
+      ExternalTokenFetchStyle.ID,
+    );
 
     // Fantom
     this.addToken(

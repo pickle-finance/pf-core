@@ -9931,35 +9931,6 @@ export const JAR_OPTIMISM_VELO_ETH_ALETH_S: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_ALETH_S);
 
-export const JAR_OPTIMISM_VELO_ETH_RETH_V: JarDefinition = {
-  type: AssetType.JAR,
-  id: "opJar 3q",
-  contract: "0xeda1F6C87DccAF65bB5027e29B86F1Db303906db",
-  startBlock: 77087873,
-  startTimestamp: 1677356165,
-  depositToken: {
-    addr: "0x985612ff2C9409174FedcFf23d4F4761AF124F88",
-    name: "VELO ETH/RETH VLP",
-    link: "https://app.velodrome.finance/liquidity/manage?address=0x985612ff2c9409174fedcff23d4f4761af124f88",
-    components: ["eth", "reth"],
-  },
-  rewardTokens: ["velo"],
-  enablement: AssetEnablement.ENABLED,
-  chain: ChainNetwork.Optimism,
-  protocol: AssetProtocol.VELODROME,
-  details: {
-    apiKey: "VELO-ETH-RETH-VLP",
-    harvestStyle: HarvestStyle.PASSIVE,
-    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
-  },
-  farm: {
-    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
-    farmNickname: "pVELO ETH/RETH VLP",
-    farmDepositTokenName: "pVELO ETH/RETH VLP",
-  },
-};
-JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_RETH_V);
-
 export const JAR_OPTIMISM_VELO_USDC_TUSD_S: JarDefinition = {
   type: AssetType.JAR,
   id: "opJar 3q",
@@ -9988,6 +9959,152 @@ export const JAR_OPTIMISM_VELO_USDC_TUSD_S: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_TUSD_S);
+
+export const JAR_OPTIMISM_VELO_ETH_RETH_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3r",
+  contract: "0xeda1F6C87DccAF65bB5027e29B86F1Db303906db",
+  startBlock: 77087873,
+  startTimestamp: 1677356165,
+  depositToken: {
+    addr: "0x985612ff2C9409174FedcFf23d4F4761AF124F88",
+    name: "VELO ETH/RETH VLP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x985612ff2c9409174fedcff23d4f4761af124f88",
+    components: ["eth", "reth"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-ETH-RETH-VLP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pVELO ETH/RETH VLP",
+    farmDepositTokenName: "pVELO ETH/RETH VLP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_ETH_RETH_V);
+
+export const JAR_OPTIMISM_VELO_USDC_DOLA_S: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3s",
+  contract: "0x78227524C7c13b78D04B8EDABA192a16ef5Eb029",
+  startBlock: 77638194,
+  startTimestamp: 1677532674,
+  depositToken: {
+    addr: "0x6C5019D345Ec05004A7E7B0623A91a0D9B8D590d",
+    name: "VELO USDC/DOLA SLP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x6c5019d345ec05004a7e7b0623a91a0d9b8d590d",
+    components: ["usdc", "dola"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-DOLA-SLP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pVELO USDC/DOLA SLP",
+    farmDepositTokenName: "pVELO USDC/DOLA SLP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_DOLA_S);
+
+export const JAR_OPTIMISM_VELO_USDC_DAI_S: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3t",
+  contract: "0xc2d0035298aB7411F033cCf20599a703CaD013bC",
+  startBlock: 77638268,
+  startTimestamp: 1677532734,
+  depositToken: {
+    addr: "0x4F7ebc19844259386DBdDB7b2eB759eeFc6F8353",
+    name: "VELO USDC/DAI SLP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0x4f7ebc19844259386dbddb7b2eb759eefc6f8353",
+    components: ["usdc", "dai"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-USDC-DAI-SLP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pVELO USDC/DAI SLP",
+    farmDepositTokenName: "pVELO USDC/DAI SLP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_USDC_DAI_S);
+
+export const JAR_OPTIMISM_VELO_STETH_SETH_S: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3u",
+  contract: "0x2292077247e15f28dDdEc94c9BA9B4875990B8A8",
+  startBlock: 77638367,
+  startTimestamp: 1677532779,
+  depositToken: {
+    addr: "0xB343dae0E7fe28c16EC5dCa64cB0C1ac5F4690AC",
+    name: "VELO STETH/SETH SLP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xb343dae0e7fe28c16ec5dca64cb0c1ac5f4690ac",
+    components: ["steth", "seth"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-STETH-SETH-SLP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pVELO STETH/SETH SLP",
+    farmDepositTokenName: "pVELO STETH/SETH SLP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_STETH_SETH_S);
+
+export const JAR_OPTIMISM_VELO_STETH_ETH_V: JarDefinition = {
+  type: AssetType.JAR,
+  id: "opJar 3v",
+  contract: "0xd0A77bD4daF7d65E9c4967dd35fd2DD3a333E621",
+  startBlock: 77638447,
+  startTimestamp: 1677532824,
+  depositToken: {
+    addr: "0xc6C1E8399C1c33a3f1959f2f77349D74a373345c",
+    name: "VELO USDC/DOLA SLP",
+    link: "https://app.velodrome.finance/liquidity/manage?address=0xc6c1e8399c1c33a3f1959f2f77349d74a373345c",
+    components: ["steth", "eth"],
+  },
+  rewardTokens: ["velo"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Optimism,
+  protocol: AssetProtocol.VELODROME,
+  details: {
+    apiKey: "VELO-STETH-ETH-SLP",
+    harvestStyle: HarvestStyle.PASSIVE,
+    controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
+  },
+  farm: {
+    farmAddress: "0x849C283375A156A6632E8eE928308Fcb61306b7B",
+    farmNickname: "pVELO STETH/ETH VLP",
+    farmDepositTokenName: "pVELO STETH/ETH VLP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_STETH_ETH_V);
+
 
 export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
   type: AssetType.JAR,
