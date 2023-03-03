@@ -10119,7 +10119,7 @@ export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
     components: ["eth", "ib"],
   },
   rewardTokens: ["ib"],
-  enablement: AssetEnablement.WITHDRAW_ONLY,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.BEETHOVENX,
   details: {
