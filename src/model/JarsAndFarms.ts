@@ -10084,7 +10084,7 @@ export const JAR_OPTIMISM_VELO_STETH_ETH_V: JarDefinition = {
   startTimestamp: 1677532824,
   depositToken: {
     addr: "0xc6C1E8399C1c33a3f1959f2f77349D74a373345c",
-    name: "VELO USDC/DOLA SLP",
+    name: "VELO STETH/ETH SLP",
     link: "https://app.velodrome.finance/liquidity/manage?address=0xc6c1e8399c1c33a3f1959f2f77349d74a373345c",
     components: ["steth", "eth"],
   },
