@@ -10084,7 +10084,7 @@ export const JAR_OPTIMISM_VELO_STETH_ETH_V: JarDefinition = {
   startTimestamp: 1677532824,
   depositToken: {
     addr: "0xc6C1E8399C1c33a3f1959f2f77349D74a373345c",
-    name: "VELO STETH/ETH SLP",
+    name: "VELO STETH/ETH VLP",
     link: "https://app.velodrome.finance/liquidity/manage?address=0xc6c1e8399c1c33a3f1959f2f77349d74a373345c",
     components: ["steth", "eth"],
   },
@@ -10093,7 +10093,7 @@ export const JAR_OPTIMISM_VELO_STETH_ETH_V: JarDefinition = {
   chain: ChainNetwork.Optimism,
   protocol: AssetProtocol.VELODROME,
   details: {
-    apiKey: "VELO-STETH-ETH-SLP",
+    apiKey: "VELO-STETH-ETH-SLP",   // This should've been "VELO-STETH-ETH-VLP", but since it is already registered in the DB, we'll go with it as is
     harvestStyle: HarvestStyle.PASSIVE,
     controller: "0xeEDeF926D3d7C9628c8620B5a018c102F413cDB7",
   },
@@ -10104,7 +10104,6 @@ export const JAR_OPTIMISM_VELO_STETH_ETH_V: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_OPTIMISM_VELO_STETH_ETH_V);
-
 
 export const JAR_OPTIMISM_BEETX_ETH_IB: JarDefinition = {
   type: AssetType.JAR,
