@@ -416,11 +416,11 @@ export class PickleModel implements ErrorLogger {
           (x) =>
             x.depositToken &&
             x.depositToken.addr &&
-            x.depositToken.addr.toLowerCase() === token.toLowerCase(),
+            x.depositToken.addr.toLowerCase() === token.toLowerCase() &&
+            x.depositToken.price !== undefined,
         );
         if (depositTokenMatch) {
-          const p = depositTokenMatch.depositToken?.price;
-          return p !== undefined ? p : undefined;
+          return depositTokenMatch.depositToken.price;
         }
       }
     }

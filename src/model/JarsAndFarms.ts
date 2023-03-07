@@ -3337,35 +3337,35 @@ export const JAR_ARBITRUM_UNIV3_GMX_ETH: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_GMX_ETH);
 
-// export const JAR_ARBITRUM_UNIV3_ETH_USDC: JarDefinition = {
-//   type: AssetType.JAR,
-//   id: "arbJar U3a",
-//   contract: "0xbE27C2415497f8ae5E6103044f460991E32636F8",
-//   startBlock: ,
-//   startTimestamp: ,
-//   depositToken: {
-//     addr: "0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443",
-//     name: "UniV3 ETH/USDC",
-//     link: "https://app.uniswap.org/#/add/ETH/0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8/500",
-//     components: ["weth", "usdc"],
-//     style: { erc20: false },
-//   },
-//   rewardTokens: ["weth", "usdc"],
-//   enablement: AssetEnablement.ENABLED,
-//   chain: ChainNetwork.Arbitrum,
-//   protocol: AssetProtocol.UNISWAP_V3,
-//   details: {
-//     controller: "0xf968f18512a9bddd9c3a166dd253b24c27a455dd",
-//     apiKey: "UNIV3-ARBITRUM-ETH-USDC",
-//     harvestStyle: HarvestStyle.PASSIVE,
-//   },
-//   farm: {
-//     farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
-//     farmNickname: "pUniV3 ETH/USDC",
-//     farmDepositTokenName: "pUniV3 ETH/USDC",
-//   },
-// };
-// JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_ETH_USDC);
+export const JAR_ARBITRUM_UNIV3_ETH_USDC_500: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar U3a",
+  contract: "0xbE27C2415497f8ae5E6103044f460991E32636F8",
+  startBlock: 64589553,
+  startTimestamp: 1677369939,
+  depositToken: {
+    addr: "0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443",
+    name: "UniV3 ETH/USDC 0.05%",
+    link: "https://app.uniswap.org/#/swap",
+    components: ["weth", "usdc"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["weth", "usdc"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xf968f18512a9bddd9c3a166dd253b24c27a455dd",
+    apiKey: "UNIV3-ARBITRUM-ETH-USDC-500",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pUniV3 ETH/USDC 0.05%",
+    farmDepositTokenName: "pUniV3 ETH/USDC 0.05%",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_ETH_USDC_500);
 
 // OKEx Chain
 

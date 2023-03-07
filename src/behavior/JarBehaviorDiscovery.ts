@@ -465,6 +465,7 @@ import {
   JAR_OPTIMISM_VELO_USDC_DAI_S,
   JAR_OPTIMISM_VELO_STETH_SETH_S,
   JAR_OPTIMISM_VELO_STETH_ETH_V,
+  JAR_ARBITRUM_UNIV3_ETH_USDC_500,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -870,6 +871,7 @@ jarToBehavior.set(JAR_ARBITRUM_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_ARBITRUM_STAR_USDT.id, new StargateJar());
 jarToBehavior.set(JAR_ARBITRUM_UNIV3_ETH_USDC_OLD.id, new Univ3Base());
 jarToBehavior.set(JAR_ARBITRUM_UNIV3_GMX_ETH.id, new Univ3Base());
+jarToBehavior.set(JAR_ARBITRUM_UNIV3_ETH_USDC_500.id, new Univ3Base());
 
 // OKEx
 jarToBehavior.set(JAR_OKEX_OKT_CHE.id, new CherryCheOkt());
