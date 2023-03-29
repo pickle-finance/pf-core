@@ -381,6 +381,9 @@ export class PickleModel implements ErrorLogger {
   tokenDecimals(id: string, chain: ChainNetwork): number {
     return ExternalTokenModelSingleton.getToken(id, chain)?.decimals;
   }
+  tokenDetails(id: string, chain: ChainNetwork): ExternalToken {
+    return ExternalTokenModelSingleton.getToken(id,chain);
+  }
   /**
    * @param token The token to look-up the price for. Can be an address, ID, or cgID.
    * @param chain The chain on which the token is.

@@ -466,6 +466,7 @@ import {
   JAR_OPTIMISM_VELO_STETH_SETH_S,
   JAR_OPTIMISM_VELO_STETH_ETH_V,
   JAR_ARBITRUM_UNIV3_ETH_USDC_500,
+  JAR_POLY_SUSHI_MATIC_USDC_SCPLP,
 } from "../model/JarsAndFarms";
 import {
   AssetProjectedApr,
@@ -741,6 +742,7 @@ import { UwuJar } from "./impl/uwu-folding";
 import { HopJar } from "./impl/hop-jar";
 import { CurveKava3pool } from "./impl/curve-kava-3pool";
 import { CurveGearEth } from "./impl/crv-gear-eth";
+import { SushiBentoJar } from "./impl/sushi-bento-jar";
 
 export class noOpJarBehavior extends AbstractJarBehavior {
   async getHarvestableUSD(
@@ -853,6 +855,7 @@ jarToBehavior.set(JAR_POLY_SUSHI_AURUM_MATIC.id, new AurumMatic());
 jarToBehavior.set(JAR_POLY_SUSHI_AURUM_USDC.id, new AurumUsdc());
 jarToBehavior.set(JAR_POLY_STAR_USDC.id, new StargateJar());
 jarToBehavior.set(JAR_POLY_STAR_USDT.id, new StargateJar());
+jarToBehavior.set(JAR_POLY_SUSHI_MATIC_USDC_SCPLP.id, new SushiBentoJar());
 
 // Arbitrum
 jarToBehavior.set(JAR_ARBITRUM_SLP_MIM_ETH.id, new ArbitrumMimEth());
