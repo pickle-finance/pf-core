@@ -2671,14 +2671,6 @@ export const JAR_POLY_SUSHI_MATIC_USDC_SCPLP: JarDefinition = {
     name: "Sushi MATIC/USDC SCPLP",
     link: "https://www.sushi.com/earn/137:0x846fea3d94976ef9862040d9fba9c391aa75a44b/add",
     components: ["matic", "usdc"],
-    // nativePath: {
-    //   //(quickSwap)uniswapv2router02 --> WMATIC, USDC
-    //   target: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
-    //   path: [
-    //     "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-    //     "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-    //   ],
-    // },
   },
   rewardTokens: ["sushi", "matic"],
   enablement: AssetEnablement.DEV,

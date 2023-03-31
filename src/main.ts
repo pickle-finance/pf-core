@@ -16,7 +16,6 @@ async function generateFullApi() {
     new ethers.providers.JsonRpcProvider("https://polygon-rpc.com/"),
   );
 
-  // const model: PickleModel = new PickleModel(ALL_ASSETS.filter(x=>x.chain===ChainNetwork.Polygon), map);
   const model: PickleModel = new PickleModel(ALL_ASSETS, map);
   const errArr: PlatformError[] = [];
   const errLogger: ErrorLogger = {
