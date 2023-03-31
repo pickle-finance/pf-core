@@ -2660,6 +2660,34 @@ export const JAR_POLY_SUSHI_AURUM_USDC: JarDefinition = {
 };
 JAR_DEFINITIONS.push(JAR_POLY_SUSHI_AURUM_USDC);
 
+export const JAR_POLY_SUSHI_MATIC_USDC_SCPLP: JarDefinition = {
+  type: AssetType.JAR,
+  id: "polyJar 4h",
+  contract: "0xfFc026655b71147784f1CCd9D410c5Bc11d41cEF",
+  startBlock: 40894864,
+  startTimestamp: 1680081709,
+  depositToken: {
+    addr: "0x846Fea3D94976ef9862040d9FbA9C391Aa75A44B",
+    name: "Sushi MATIC/USDC SCPLP",
+    link: "https://www.sushi.com/earn/137:0x846fea3d94976ef9862040d9fba9c391aa75a44b/add",
+    components: ["matic", "usdc"],
+  },
+  rewardTokens: ["sushi", "matic"],
+  enablement: AssetEnablement.DEV,
+  chain: ChainNetwork.Polygon,
+  protocol: AssetProtocol.SUSHISWAP,
+  details: {
+    apiKey: "POLY-SUSHI-MATIC-USDC-SCPLP",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: NULL_ADDRESS,//"0x20b2a3fc7b13ca0ccf7af81a68a14cb3116e8749",
+    farmNickname: "pSushi MATIC/USDC SCPLP",
+    farmDepositTokenName: "pSushi MATIC/USDC SCPLP",
+  },
+};
+JAR_DEFINITIONS.push(JAR_POLY_SUSHI_MATIC_USDC_SCPLP);
+
 export const JAR_POLY_UNIV3_USDC_ETH: JarDefinition = {
   type: AssetType.JAR,
   id: "polyJar U3a",
