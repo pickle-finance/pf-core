@@ -1,6 +1,6 @@
 import { ChainNetwork } from "..";
 import { ErrorSeverity } from "../core/platform/PlatformInterfaces";
-import { setCoingeckoPricesOnTokens } from "../price/CoinGeckoPriceResolver";
+import { CoinGeckoPriceResolverSingleton } from "../price/CoinGeckoPriceResolver";
 import { setAllCoinMarketCapPricesOnTokens } from "../price/CoinMarketCapPriceResolver";
 import {
   ExternalToken,
@@ -27,7 +27,7 @@ export const setAllPricesOnTokens = async (
   chains: ChainNetwork[],
   model: PickleModel,
 ): Promise<void> => {
-  const cgPricePromise: Promise<void>[] = chains.map((x) => setCoingeckoPricesOnTokens(x));
+  const cgPricePromise: Promise<void>[] = chains.map((x) => CoinGeckoPriceResolverSingleton.setCoingeckoPricesOnTokens(x));
   const cmcPricePromise = setAllCoinMarketCapPricesOnTokens(chains);
   const swapPricePromise = calculateSwapTokenPrices(chains, model);
 

@@ -67,6 +67,9 @@ export const timeout = (prom, time, exception) => {
     this.#emitter.setMaxListeners(50);
   }
 
+/**
+ * @notice Assumes callbacks with the same ID returns the same result. The consecutive queued callbacks will return the same result as the first fulfilled one in the queue.
+ */
   async queue<T>(fn: () => Promise<T>, queueId = "-"): Promise<T> {
     if (this.#results[queueId]) {
       return this.#results[queueId];
@@ -81,5 +84,23 @@ export const timeout = (prom, time, exception) => {
     }
 
     return this.#results[queueId];
+  }
+
+  /**
+ * @notice Assumes callbacks with the same ID returns different results. All queued callbacks will be executed fully one at a time.
+ */
+  async queueDifferentResultsOneAtATime<T>(fn: () => Promise<T>, queueId = "-"): Promise<T> {
+    let result:Awaited<T>;
+    if (this.#eventsQ[queueId]) {
+      await new Promise((r, _) => this.#emitter.once(queueId, r));
+      result = await this.queueDifferentResultsOneAtATime(fn, queueId);
+    } else {
+      this.#eventsQ[queueId] = true;
+      result = await fn();
+      this.#eventsQ[queueId] = false;
+      this.#emitter.emit(queueId);
+    }
+
+    return result;
   }
 }

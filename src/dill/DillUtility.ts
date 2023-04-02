@@ -10,7 +10,7 @@ import dillAbi from "../Contracts/ABIs/dill.json";
 import feeDistributorAbiV2 from "../Contracts/ABIs/fee-distributor-v2.json";
 import feeDistributorAbi from "../Contracts/ABIs/fee-distributor.json";
 import Erc20Abi from "../Contracts/ABIs/erc20.json";
-import { fetchHistoricalPriceSeries } from "../price/CoinGeckoPriceResolver";
+import { CoinGeckoPriceResolverSingleton } from "../price/CoinGeckoPriceResolver";
 import moment from "moment";
 import { ChainNetwork, Chains, PickleModel } from "..";
 import { DEBUG_OUT } from "../model/PickleModel";
@@ -78,13 +78,13 @@ export async function getDillDetails(
   DEBUG_OUT("Begin getDillDetails");
   const start = Date.now();
 
-  const picklePriceSeriesPromise = fetchHistoricalPriceSeries(
+  const picklePriceSeriesPromise = CoinGeckoPriceResolverSingleton.fetchHistoricalPriceSeries(
     "pickle-finance",
     {
       from: new Date(firstMeaningfulDistributionTimestamp * 1000),
     },
   );
-  const ethPriceSeriesPromise = fetchHistoricalPriceSeries("ethereum", {
+  const ethPriceSeriesPromise = CoinGeckoPriceResolverSingleton.fetchHistoricalPriceSeries("ethereum", {
     from: new Date(firstMeaningfulDistributionTimestamp * 1000),
   });
   const multiProvider = model.multiproviderFor(chain);
