@@ -29,11 +29,11 @@ export const fetchCoingeckoPricesByContractNtimes = async (
 };
 
 export class CoinGeckoPriceResolver {
-  apiKey: string;
-  proUrl = "https://pro-api.coingecko.com/api/v3/";
-  publicUrl = "https://api.coingecko.com/api/v3/";
+  #apiKey: string;
+  #proUrl = "https://pro-api.coingecko.com/api/v3/";
+  #publicUrl = "https://api.coingecko.com/api/v3/";
 
-  assetPlatforms = new Map<ChainNetwork, string>([
+  #assetPlatforms = new Map<ChainNetwork, string>([
     [ChainNetwork.Ethereum, "ethereum"],
     [ChainNetwork.Polygon, "polygon-pos"],
     [ChainNetwork.Arbitrum, "arbitrum-one"],
@@ -49,19 +49,19 @@ export class CoinGeckoPriceResolver {
     [ChainNetwork.Kava, "kava"],
   ]);
 
-  pricesCache: { id: { [id: string]: number }; address: { [assetPlatform: string]: { [address: string]: number } } } = {
+  #pricesCache: { id: { [id: string]: number }; address: { [assetPlatform: string]: { [address: string]: number } } } = {
     id: {},
     address: {},
   };
 
-  queuer = new FuncsQueue();
+  #queuer = new FuncsQueue();
 
   constructor(proApiKey: string = undefined) {
     const key = proApiKey ?? process.env.COINGECKO_API_KEY;
-    if (key) this.apiKey = "x_cg_pro_api_key=" + key;
+    if (key) this.#apiKey = "x_cg_pro_api_key=" + key;
 
     // Initialize prices cache
-    this.assetPlatforms.forEach((x) => (this.pricesCache.address[x] = {}));
+    this.#assetPlatforms.forEach((x) => (this.#pricesCache.address[x] = {}));
   }
 
   async fetchHistoricalPriceSeries(
@@ -81,7 +81,7 @@ export class CoinGeckoPriceResolver {
     const fromUNIX = Math.round(fromDate.getTime() / 1000);
     const toUNIX = Math.round(toDate.getTime() / 1000);
 
-    const api = this.appendFullUrl(`coins/${coinId}/market_chart/range?vs_currency=usd&from=${fromUNIX}&to=${toUNIX}`);
+    const api = this.#appendFullUrl(`coins/${coinId}/market_chart/range?vs_currency=usd&from=${fromUNIX}&to=${toUNIX}`);
     try {
       const resp = await fetch(api);
       const json = await resp.json();
@@ -95,20 +95,20 @@ export class CoinGeckoPriceResolver {
 
   async fetchPricesById(geckoNames: string[]): Promise<Map<string, number>> {
     // Calls get executed one at a time to prevent redundant calls (prioritize prices cache)
-    return await this.queuer.queueDifferentResultsOneAtATime(async () => {
-      return await this.fetchPricesByIdWrapper(geckoNames);
+    return await this.#queuer.queueDifferentResultsOneAtATime(async () => {
+      return await this.#fetchPricesByIdWrapper(geckoNames);
     }, "id");
   }
 
-  async fetchPricesByIdWrapper(geckoNames: string[]): Promise<Map<string, number>> {
+  async #fetchPricesByIdWrapper(geckoNames: string[]): Promise<Map<string, number>> {
     const returnMap: Map<string, number> = new Map<string, number>();
 
     const missing: string[] = [];
 
     // From cache
     geckoNames.forEach((id) => {
-      if (this.pricesCache.id[id]) {
-        returnMap.set(id, this.pricesCache.id[id]);
+      if (this.#pricesCache.id[id]) {
+        returnMap.set(id, this.#pricesCache.id[id]);
       } else {
         missing.push(id);
       }
@@ -117,13 +117,13 @@ export class CoinGeckoPriceResolver {
     // Fetch missing
     if (missing.length) {
       const ids = missing.join("%2C");
-      const api = this.appendFullUrl(`simple/price?ids=${ids}&vs_currencies=usd`);
+      const api = this.#appendFullUrl(`simple/price?ids=${ids}&vs_currencies=usd`);
       try {
         const contractPrice = await fetch(api);
         const resp = await contractPrice.json();
         Object.keys(resp).map((id) => {
           returnMap.set(id, resp[id].usd);
-          this.pricesCache.id[id] = resp[id].usd;
+          this.#pricesCache.id[id] = resp[id].usd;
         });
       } catch (err) {
         console.log("error");
@@ -139,12 +139,12 @@ export class CoinGeckoPriceResolver {
     contractIds: string[],
     chain: ChainNetwork = ChainNetwork.Ethereum,
   ): Promise<Map<string, number>> {
-    return await this.queuer.queueDifferentResultsOneAtATime(async () => {
-      return await this.fetchPricesByContractWrapper(contractIds, chain);
+    return await this.#queuer.queueDifferentResultsOneAtATime(async () => {
+      return await this.#fetchPricesByContractWrapper(contractIds, chain);
     }, chain);
   }
 
-  async fetchPricesByContractWrapper(
+  async #fetchPricesByContractWrapper(
     contractIds: string[],
     chain: ChainNetwork = ChainNetwork.Ethereum,
   ): Promise<Map<string, number>> {
@@ -152,15 +152,15 @@ export class CoinGeckoPriceResolver {
 
     const missing: string[] = [];
 
-    const assetPlatform = this.assetPlatforms.get(chain);
+    const assetPlatform = this.#assetPlatforms.get(chain);
     if (!assetPlatform) {
       throw new Error(`No registered assetPlatform ID is registered for ${chain} chain!`);
     }
 
     // From cache
     contractIds.forEach((id) => {
-      if (this.pricesCache.address[assetPlatform][id]) {
-        returnMap.set(id, this.pricesCache.address[assetPlatform][id]);
+      if (this.#pricesCache.address[assetPlatform][id]) {
+        returnMap.set(id, this.#pricesCache.address[assetPlatform][id]);
       } else {
         missing.push(id);
       }
@@ -169,13 +169,13 @@ export class CoinGeckoPriceResolver {
     // Fetch missing
     if (missing.length) {
       const ids = missing.join("%2C");
-      const api = this.appendFullUrl(`simple/token_price/${assetPlatform}?contract_addresses=${ids}&vs_currencies=usd`);
+      const api = this.#appendFullUrl(`simple/token_price/${assetPlatform}?contract_addresses=${ids}&vs_currencies=usd`);
       try {
         const resp = await fetch(api);
         const json = await resp.json();
         Object.keys(json).forEach((addr) => {
           returnMap.set(addr, json[addr].usd);
-          this.pricesCache.address[assetPlatform][addr] = json[addr].usd;
+          this.#pricesCache.address[assetPlatform][addr] = json[addr].usd;
         });
       } catch (err) {
         console.log("error");
@@ -218,9 +218,9 @@ export class CoinGeckoPriceResolver {
     // console.log(JSON.stringify(missingIds, null, 2));
   }
 
-  appendFullUrl(body: string): string {
-    if (this.apiKey) return `${this.proUrl}${body}&${this.apiKey}`;
-    return `${this.publicUrl}${body}`;
+  #appendFullUrl(body: string): string {
+    if (this.#apiKey) return `${this.#proUrl}${body}&${this.#apiKey}`;
+    return `${this.#publicUrl}${body}`;
   }
 }
 
