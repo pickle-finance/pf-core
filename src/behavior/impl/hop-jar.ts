@@ -54,7 +54,7 @@ export class HopJar extends AbstractJarBehavior {
   ): Promise<AssetProjectedApr> {
     await this.getApiLpDetails(jar, model);
 
-    if (!!HopJar.apiLpDetails) {
+    if (HopJar.apiLpDetails) {
       const depositTokenAllChains =
         HopJar.apiLpDetails[jar.depositToken.components[0].toUpperCase()];
 

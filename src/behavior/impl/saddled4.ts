@@ -1,4 +1,3 @@
-import communalFarmAbi from "../../Contracts/ABIs/communal_farm.json";
 import swapFlashLoanAbi from "../../Contracts/ABIs/swapflashloan.json";
 import { saddleStrategyAbi } from "../../Contracts/ABIs/saddle-strategy.abi";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";

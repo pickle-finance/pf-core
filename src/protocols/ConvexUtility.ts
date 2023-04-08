@@ -5,7 +5,6 @@ import { PickleModel } from "..";
 import { ONE_YEAR_SECONDS } from "../behavior/JarBehaviorResolver";
 import { ChainNetwork } from "../chain/Chains";
 import { AssetAprComponent, JarDefinition } from "../model/PickleModelJson";
-import fetch from "cross-fetch";
 import CrvRewardsABI from "../Contracts/ABIs/crv-rewards.json";
 import ExtraRewardsABI from "../Contracts/ABIs/extra-rewards.json";
 import fxsPoolABI from "../Contracts/ABIs/fxs-pool.json";

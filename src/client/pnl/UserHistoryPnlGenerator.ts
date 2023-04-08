@@ -73,7 +73,7 @@ export class UserJarHistoryPnlGenerator {
       const previousRolling = this.getPreviousRollingDataOrStub(wrappers);
       const prevLots = (previousRolling ? previousRolling.lots : []);
       const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
-      let lots = prevLots.map((x) => {return {...x}});
+      const lots = prevLots.map((x) => {return {...x}});
       const rewards = userTx.transfers.filter((x) => x.transfer_type === 'STAKE_REWARD').map((x) => x.value);
       const runningVal = rewards.reduce((accumulator, current) => {
         return accumulator + current;
@@ -258,7 +258,7 @@ export class UserJarHistoryPnlGenerator {
     const previousRolling = this.getPreviousRollingDataOrStub(pnlWithTotals);
     const prevLots = (previousRolling ? previousRolling.lots : []);
     const prevRewards = previousRolling ? previousRolling.rollingRewards : {};
-    let lots = prevLots.map((x) => {return {...x}});
+    const lots = prevLots.map((x) => {return {...x}});
     lots.push({
       wei: txn?.ptokenWei,
       weiRemaining: txn?.ptokenWei,
