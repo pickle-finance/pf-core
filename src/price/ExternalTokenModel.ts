@@ -63,12 +63,14 @@ export class ExternalToken implements IExternalToken {
 }
 
 export class ExternalTokenModel {
-  chainTokens: Map<ChainNetwork, Map<string, ExternalToken>> = new Map();
+  chainTokensById: Map<ChainNetwork, Map<string, ExternalToken>> = new Map();
+  chainTokensByAddress: Map<ChainNetwork, Map<string, ExternalToken>> = new Map();
   contractToToken: Map<string, ExternalToken> = new Map();
   constructor() {
     for (const item in ChainNetwork) {
       if (isNaN(Number(item))) {
-        this.chainTokens.set(ChainNetwork[item], new Map());
+        this.chainTokensById.set(ChainNetwork[item], new Map());
+        this.chainTokensByAddress.set(ChainNetwork[item], new Map());
       }
     }
     this.addToken(
@@ -3123,26 +3125,23 @@ export class ExternalTokenModel {
     swapPairs: string[] = [],
     isNative = false,
   ): void {
-    this.chainTokens
-      .get(chain)
-      .set(
-        id,
-        new ExternalToken(
-          chain,
-          id,
-          name,
-          cgid,
-          addr,
-          dec,
-          style,
-          swapPairs,
-          isNative,
-        ),
-      );
+    const externalToken = new ExternalToken(
+      chain,
+      id,
+      name,
+      cgid,
+      addr,
+      dec,
+      style,
+      swapPairs,
+      isNative,
+    );
+    this.chainTokensById.get(chain).set(id, externalToken);
+    this.chainTokensByAddress.get(chain).set(addr, externalToken);
   }
 
   mapForChain(chain: ChainNetwork): Map<string, ExternalToken> {
-    return this.chainTokens.get(chain);
+    return this.chainTokensById.get(chain);
   }
 
   allChainMaps(): Map<string, ExternalToken>[] {
@@ -3188,17 +3187,19 @@ export class ExternalTokenModel {
     return ret.length === 0 ? undefined : ret;
   }
 
-  // Bad function, should not use, this map has collisions
-  findTokenFromContract(id: string): ExternalToken | undefined {
-    return this.contractToToken.get(id.toLowerCase());
+  findTokenByContract(address: string, chain:ChainNetwork): ExternalToken | undefined {
+    return this.chainTokensByAddress.get(chain)?.get(address.toLowerCase());
   }
 
+  /**
+   * @param id can be a token ID (e.g, usdc) or an address
+   */
   getToken(id: string, chain: ChainNetwork): ExternalToken {
     let ret: ExternalToken = this.mapForChain(chain)?.get(id);
     if (ret === undefined) {
       // Search by contract
       if (ethers.utils.isAddress(id)) {
-        ret = this.findTokenFromContract(id);
+        ret = this.findTokenByContract(id, chain);
       }
     }
     return ret ? ret : null;

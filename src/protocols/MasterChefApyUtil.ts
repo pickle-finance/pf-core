@@ -61,7 +61,7 @@ export async function calculateMasterChefRewardsAPR(
   const rewardsPerYear = rewardsPerBlock * (ONE_YEAR_IN_SECONDS / avgBlockTime);
   const rewardTokenPrice = model.priceOfSync(rewardTokenAddress, jar.chain);
   let rewardTokenName =
-    ExternalTokenModelSingleton.findTokenFromContract(rewardTokenAddress)?.id;
+    ExternalTokenModelSingleton.findTokenByContract(rewardTokenAddress, jar.chain)?.id;
   if (rewardTokenName === undefined) rewardTokenName = "Reward-Token";
   const valueRewardedPerYear = rewardTokenPrice * rewardsPerYear;
 
@@ -115,7 +115,7 @@ export async function calculateMasterChefRewardsAPRPerSecond(
   const rewardsPerYear = rewardsPerSec * ONE_YEAR_IN_SECONDS;
   const rewardTokenPrice = model.priceOfSync(rewardTokenAddress, jar.chain);
   let rewardTokenName =
-    ExternalTokenModelSingleton.findTokenFromContract(rewardTokenAddress)?.id;
+    ExternalTokenModelSingleton.findTokenByContract(rewardTokenAddress, jar.chain)?.id;
   if (rewardTokenName === undefined) rewardTokenName = "Reward-Token";
   const valueRewardedPerYear = rewardTokenPrice * rewardsPerYear;
 
