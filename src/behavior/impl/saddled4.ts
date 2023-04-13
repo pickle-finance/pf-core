@@ -90,16 +90,6 @@ export class SaddleD4 extends AbstractJarBehavior {
     jar: JarDefinition,
     model: PickleModel,
   ): Promise<number> {
-    const multiProvider = model.multiproviderFor(jar.chain);
-    const strategy = new Contract(
-      jar.details.strategyAddr,
-      strategyABI,
-      multiProvider,
-    );
-
-    const harvestable = await strategy.callStatic.getHarvestable();
-    const saddlePrice = model.priceOfSync("sdl", jar.chain);
-    const harvestableUSD = +utils.formatEther(harvestable) * saddlePrice;
-    return harvestableUSD;
+    return this.getHarvestableUSDDefaultImplementationV2(jar, model, true);
   }
 }

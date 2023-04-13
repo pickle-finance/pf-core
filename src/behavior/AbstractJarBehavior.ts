@@ -223,6 +223,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
   async getHarvestableUSDDefaultImplementationV2(
     jar: JarDefinition,
     model: PickleModel,
+    callStatic = false,
   ): Promise<number> {
     // prettier-ignore
     const strategyV2Abi =["function getHarvestable() view returns(address[], uint256[])"]
@@ -232,25 +233,29 @@ export abstract class AbstractJarBehavior implements JarBehavior {
       strategyContract = new MultiContract(
         jar.details.strategyAddr,
         strategyV2Abi,
+        multiProvider
       );
     } catch (error) {
       // prettier-ignore
-      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2", '', '' + error, ErrorSeverity.ERROR_3));
+      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2/strategyContract", 'failed creating strategyContract', '' + error, ErrorSeverity.ERROR_3));
     }
 
     let rewardTokensAddresses: string[] = jar.rewardTokens.map((token) =>
       model.address(token, jar.chain),
     );
 
-    const stratHarvestables: [string[], BigNumber[]] = await multiProvider
-      .all([strategyContract.getHarvestable()])
-      .then((x) => x[0])
-      .catch(() => {
-        return [
-          rewardTokensAddresses,
-          new Array(rewardTokensAddresses.length).fill(BigNumber.from("0")),
-        ];
-      });
+    let stratHarvestables = [rewardTokensAddresses, new Array(rewardTokensAddresses.length).fill(BigNumber.from("0"))];
+    try {
+      if (callStatic) {
+        stratHarvestables = await strategyContract.callStatic.getHarvestableStatic()
+      } else {
+        const ret = await multiProvider.all([strategyContract.getHarvestable()]);
+        stratHarvestables = ret[0];
+      }
+    } catch (error) {
+      // prettier-ignore
+      model.logPlatformError(toError(301000, jar.chain, jar.details.apiKey, "getHarvestableUSDDefaultImplementationV2/getHarvestable", 'failed calling getHarvestable on strategy', '' + error, ErrorSeverity.ERROR_3));
+    }
 
     rewardTokensAddresses = stratHarvestables[0].map((token) =>
       model.address(token, jar.chain),
