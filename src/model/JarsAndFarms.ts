@@ -840,7 +840,7 @@ export const JAR_SADDLE_D4: JarDefinition = {
     link: "https://saddle.exchange/#/pools/d4/deposit",
     components: ["alusd", "fei", "frax", "lusd"],
   },
-  rewardTokens: ["fxs", "lqty", "alcx", "tribe"],
+  rewardTokens: ["sdl"],
   enablement: AssetEnablement.ENABLED,
   chain: ChainNetwork.Ethereum,
   protocol: AssetProtocol.SADDLE,

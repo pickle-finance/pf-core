@@ -226,7 +226,7 @@ export abstract class AbstractJarBehavior implements JarBehavior {
     callStatic = false,
   ): Promise<number> {
     // prettier-ignore
-    const strategyV2Abi =["function getHarvestable() view returns(address[], uint256[])"]
+    const strategyV2Abi =["function getHarvestable() view returns(address[], uint256[])","function getHarvestableStatic() returns(address[], uint256[])"]
     const multiProvider = model.multiproviderFor(jar.chain);
     let strategyContract: MultiContract;
     try {
