@@ -3349,7 +3349,7 @@ export const JAR_ARBITRUM_UNIV3_GMX_ETH: JarDefinition = {
     style: { erc20: false },
   },
   rewardTokens: ["weth", "gmx"],
-  enablement: AssetEnablement.ENABLED,
+  enablement: AssetEnablement.PERMANENTLY_DISABLED,
   chain: ChainNetwork.Arbitrum,
   protocol: AssetProtocol.UNISWAP_V3,
   details: {
@@ -3394,6 +3394,37 @@ export const JAR_ARBITRUM_UNIV3_ETH_USDC_500: JarDefinition = {
   },
 };
 JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_ETH_USDC_500);
+
+export const JAR_ARBITRUM_UNIV3_GMX_ETH_3000: JarDefinition = {
+  type: AssetType.JAR,
+  id: "arbJar U3b",
+  contract: "0x5b4178C74984a8904899C9868e443f38d54f5Af2",
+  startBlock: 80289078,
+  startTimestamp: 1681456976,
+  depositToken: {
+    addr: "0x1aEEdD3727A6431b8F070C0aFaA81Cc74f273882",
+    name: "UniV3 GMX/ETH 0.3%",
+    link: "https://app.uniswap.org/#/swap",
+    components: ["gmx", "weth"],
+    style: { erc20: false },
+  },
+  rewardTokens: ["gmx", "weth"],
+  enablement: AssetEnablement.ENABLED,
+  chain: ChainNetwork.Arbitrum,
+  protocol: AssetProtocol.UNISWAP_V3,
+  details: {
+    controller: "0xf968f18512a9bddd9c3a166dd253b24c27a455dd",
+    apiKey: "UNIV3-ARBITRUM-GMX-ETH-3000",
+    harvestStyle: HarvestStyle.PASSIVE,
+  },
+  farm: {
+    farmAddress: "0x7ecc7163469f37b777d7b8f45a667314030ace24",
+    farmNickname: "pUniV3 GMX/ETH 0.3%",
+    farmDepositTokenName: "pUniV3 GMX/ETH 0.3%",
+  },
+};
+JAR_DEFINITIONS.push(JAR_ARBITRUM_UNIV3_GMX_ETH_3000);
+
 
 // OKEx Chain
 
