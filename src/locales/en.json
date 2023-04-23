@@ -261,5 +261,6 @@
   "token.all.gmx.desc": "GMX is a decentralized spot and perpetual exchange that supports low swap fees and zero price impact trades.",
   "token.all.gear.desc": "Gearbox Protocol (GEAR) allows anyone to take DeFi-native leverage and then use it across various (DeFi & more) protocols",
   "token.all.sdl.desc": "Saddle is a decentralized automated market maker on the Ethereum blockchain, optimized for pegged value crypto assets such as stablecoins and wrapped BTC",
-  "token.all.kava.desc": "Kava is a decentralized blockchain that combines the speed and interoperability of Cosmos with the developer power of Ethereum."
+  "token.all.kava.desc": "Kava is a decentralized blockchain that combines the speed and interoperability of Cosmos with the developer power of Ethereum.",
+  "token.all.dola.desc": "DOLA is a USD-pegged synthetic stablecoin. It is debt-backed and is managed by Inverse Finance through their DOLA Fed governance mechanism. It is available on multiple chains including Ethereum, Arbitrum and Optimism."
 }
