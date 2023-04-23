@@ -1,16 +1,13 @@
 import { ethers } from "ethers";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
-import {
-  AbstractJarBehavior,
-  ONE_YEAR_IN_SECONDS,
-} from "../AbstractJarBehavior";
+import { AbstractJarBehavior, ONE_YEAR_IN_SECONDS } from "../AbstractJarBehavior";
 import { ChainNetwork } from "../../chain/Chains";
 import { PickleModel } from "../../model/PickleModel";
-import { getCurveRawStats } from "./curve-jar";
 import { Contract } from "ethers-multiprovider";
 import erc20Abi from "../../Contracts/ABIs/erc20.json";
 import { formatEther, formatUnits } from "ethers/lib/utils";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
+import { getCurvePoolData } from "../../protocols/CurveUtil";
 
 const swap_abi = ["function balances(uint256) view returns(uint256)"];
 const crv_streamer_abi = [
@@ -109,57 +106,32 @@ export class PThreeCrv extends AbstractJarBehavior {
     super();
   }
 
-  async getDepositTokenPrice(
-    asset: JarDefinition,
-    model: PickleModel,
-  ): Promise<number> {
-    return getStableswapPriceAddress(
-      "0x445fe580ef8d70ff569ab36e80c647af338db351",
-      asset,
-      model,
-    );
+  async getDepositTokenPrice(asset: JarDefinition, model: PickleModel): Promise<number> {
+    return getStableswapPriceAddress("0x445fe580ef8d70ff569ab36e80c647af338db351", asset, model);
   }
 
-  async getHarvestableUSD(
-    jar: JarDefinition,
-    model: PickleModel,
-  ): Promise<number> {
+  async getHarvestableUSD(jar: JarDefinition, model: PickleModel): Promise<number> {
     const multiProvider = model.multiproviderFor(jar.chain);
-    const gauge = new Contract(
-      "0x19793B454D3AfC7b454F206Ffe95aDE26cA6912c",
-      curveThirdPartyGaugeAbi,
-    );
+    const gauge = new Contract("0x19793B454D3AfC7b454F206Ffe95aDE26cA6912c", curveThirdPartyGaugeAbi, multiProvider);
     const [matic, crv] = await multiProvider.all([
-      gauge.claimable_reward_write(
-        jar.details.strategyAddr,
-        model.address("matic", ChainNetwork.Polygon),
-      ),
+      gauge.claimable_reward_write(jar.details.strategyAddr, model.address("matic", ChainNetwork.Polygon)),
 
-      gauge.claimable_reward_write(
-        jar.details.strategyAddr,
-        model.address("crv", ChainNetwork.Polygon),
-      ),
+      gauge.claimable_reward_write(jar.details.strategyAddr, model.address("crv", ChainNetwork.Polygon)),
     ]);
+
     const maticPrice = model.priceOfSync("matic", jar.chain);
     const crvPrice = model.priceOfSync("crv", jar.chain);
 
-    const harvestable = matic
-      .mul(maticPrice.toFixed())
-      .add(crv.mul(crvPrice.toFixed()));
+    const harvestable = matic.mul(maticPrice.toFixed()).add(crv.mul(crvPrice.toFixed()));
     return parseFloat(ethers.utils.formatEther(harvestable));
   }
 
-  async getProjectedAprStats(
-    jar: JarDefinition,
-    model: PickleModel,
-  ): Promise<AssetProjectedApr> {
+  async getProjectedAprStats(jar: JarDefinition, model: PickleModel): Promise<AssetProjectedApr> {
     const multiProvider = model.multiproviderFor(jar.chain);
     const lpToken = new Contract(jar.depositToken.addr, erc20Abi);
 
     // Balance staked in gauge
-    const [lpBalance] = await multiProvider.all([
-      lpToken.balanceOf(aaveContracts.gauge_address),
-    ]);
+    const [lpBalance] = await multiProvider.all([lpToken.balanceOf(aaveContracts.gauge_address)]);
 
     const yearlyRewards = await this.getRewardsAprs(jar, model);
     const rewardsAprComponents = yearlyRewards.map((reward) => {
@@ -173,16 +145,19 @@ export class PThreeCrv extends AbstractJarBehavior {
       if (x.id === "matic") isMaticRewardsRetrieved = true;
     });
 
-    const curveRawStats: any = await getCurveRawStats(model, jar.chain);
+    try {
+      let lpApy = 0;
+      const poolData = await getCurvePoolData(jar, model);
+      if (poolData) {
+        lpApy = poolData.lpApr ?? 0;
+      }
 
-    return this.aprComponentsToProjectedApr([
-      this.createAprComponent(
-        "lp",
-        curveRawStats ? curveRawStats.aave : 0,
-        false,
-      ),
-      ...rewardsAprComponents,
-    ]);
+      rewardsAprComponents.push(this.createAprComponent("lp", lpApy, false));
+    } catch {
+      //ignore
+    }
+
+    return this.aprComponentsToProjectedApr(rewardsAprComponents);
   }
 
   async getRewardsAprs(jar: JarDefinition, model: PickleModel) {
@@ -195,10 +170,9 @@ export class PThreeCrv extends AbstractJarBehavior {
           const price = model.priceOfSync(reward.token, jar.chain);
           if (reward.id === "crv") {
             const rewardStreamer = new Contract(reward.stream, reward.abi);
-            const [{ period_finish: periodFinishBN, rate: rateBN }] =
-              await multiProvider.all([
-                rewardStreamer.reward_data(reward.token),
-              ]);
+            const [{ period_finish: periodFinishBN, rate: rateBN }] = await multiProvider.all([
+              rewardStreamer.reward_data(reward.token),
+            ]);
             rewardRate = +formatUnits(rateBN, reward.decimals);
             periodFinish = +formatUnits(periodFinishBN, 0);
           } else {

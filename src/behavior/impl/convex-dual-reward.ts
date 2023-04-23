@@ -1,67 +1,30 @@
-import {
-  AssetAprComponent,
-  AssetProjectedApr,
-  JarDefinition,
-} from "../../model/PickleModelJson";
+import { AssetAprComponent, AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { getProjectedConvexAprStats } from "../../protocols/ConvexUtility";
+import { getCurvePoolData } from "../../protocols/CurveUtil";
+
+const strategyAbi = ["function getHarvestable() view returns(uint256,uint256)"];
 
 export class ConvexDualReward extends AbstractJarBehavior {
-  protected strategyAbi: any;
+  async getLpApr(definition: JarDefinition, model: PickleModel): Promise<AssetAprComponent> {
+    let lpApy = 0;
+    const poolData = await getCurvePoolData(definition, model);
+    if (poolData) {
+      lpApy = poolData.lpApr ?? 0;
+    }
 
-  constructor() {
-    super();
-    this.strategyAbi = twoRewardAbi;
+    return this.createAprComponent("lp", lpApy, false);
   }
 
-  async getLpApr(
-    _definition: JarDefinition,
-    _model: PickleModel,
-  ): Promise<AssetAprComponent> {
-    return this.createAprComponent("lp", 0, false);
-  }
-
-  async getProjectedAprStats(
-    definition: JarDefinition,
-    model: PickleModel,
-  ): Promise<AssetProjectedApr> {
+  async getProjectedAprStats(definition: JarDefinition, model: PickleModel): Promise<AssetProjectedApr> {
     return this.aprComponentsToProjectedApr([
       await this.getLpApr(definition, model),
       ...(await getProjectedConvexAprStats(definition, model)),
     ]);
   }
 
-  async getHarvestableUSD(
-    jar: JarDefinition,
-    model: PickleModel,
-  ): Promise<number> {
-    return this.getHarvestableUSDDefaultImplementation(
-      jar,
-      model,
-      ["crv", "cvx"],
-      this.strategyAbi,
-    );
+  async getHarvestableUSD(jar: JarDefinition, model: PickleModel): Promise<number> {
+    return this.getHarvestableUSDDefaultImplementation(jar, model, ["crv", "cvx"], strategyAbi);
   }
 }
-
-const twoRewardAbi: any = [
-  {
-    inputs: [],
-    name: "getHarvestable",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-];
