@@ -1,5 +1,4 @@
 import swapFlashLoanAbi from "../../Contracts/ABIs/swapflashloan.json";
-import { saddleStrategyAbi } from "../../Contracts/ABIs/saddle-strategy.abi";
 import { AbstractJarBehavior } from "../AbstractJarBehavior";
 import { PickleModel } from "../../model/PickleModel";
 import { AssetProjectedApr, JarDefinition } from "../../model/PickleModelJson";
@@ -7,12 +6,7 @@ import { Contract } from "ethers-multiprovider";
 import { formatEther } from "ethers/lib/utils";
 import { ONE_YEAR_SECONDS } from "../JarBehaviorResolver";
 import { getStableswapPriceAddress } from "../../price/DepositTokenPriceUtility";
-import { utils } from "ethers";
 
-const strategyABI = [
-  "function getHarvestable() external returns (uint256)",
-  "function gauge() external view returns (address)",
-];
 
 const gaugeAbi = [
   "function working_supply() view returns(uint256)",
@@ -21,13 +15,7 @@ const gaugeAbi = [
 ];
 
 export class SaddleD4 extends AbstractJarBehavior {
-  protected strategyAbi: any;
-
-  constructor() {
-    super();
-    this.strategyAbi = saddleStrategyAbi;
-  }
-
+  
   async getDepositTokenPrice(
     asset: JarDefinition,
     model: PickleModel,
